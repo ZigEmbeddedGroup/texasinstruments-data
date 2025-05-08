@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="DM6441" partnum="TMS320DM6441" HW_revision="1" XML_version="2" desc="TMS320DM6441" description="DaVinci DM644x - ARM9 and C64x+ Fixed-point DSP&#xA;LIMITED SUPPORT NOTICE:&#xA; This device has limited TI support and may be removed in a future release.">
+	<!-- Filter to list device under in project wizard -->
+	<property Type="stringfield" Value="DaVinci DM644x" id="FilterString" />
+	<instance XML_version="1.2" desc="IcePick_C_0" href="../routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+	<router HW_revision="1.0" XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+		<subpath id="ARM">
+			<property Type="numericfield" Value="0x10" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="0" id="Force Configuration"/>
+			<instance XML_version="1.2" desc="ARM9_0" href="../cpus/arm9.xml" id="ARM9_0" xml="arm9.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" description="ARM9 CPU" id="ARM9_0" isa="ARM9">
+				<!-- Project Wizard Settings -->
+				<property Type="stringfield" Value="-D=dm6441 --silicon_version=5e --code_state=32" id="CompilerBuildOptions" />
+                <property Type="stringfield" Value="true" id="IsElfDefault" />
+                <property Type="stringfield" Value="little" id="Endianness" />
+                <property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+                <property Type="stringfield" Value="DM6441.cmd" id="LinkerCmd" />
+				<!-- END Project Wizard Settings -->
+				<instance href="../Modules/cslr_edmacc_001.xml" id="EDMACC" xml="cslr_edmacc_001.xml" xmlpath="../Modules/" description="3PCC" baseaddr="0x1c00000" endaddr="0x1c0ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edmatc0_001.xml" id="EDMATC0" xml="cslr_edmatc0_001.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x1c10000" endaddr="0x1c103ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edmatc1_001.xml" id="EDMATC1" xml="cslr_edmatc1_001.xml" xmlpath="../Modules/" description="3PTC1" baseaddr="0x1c10400" endaddr="0x1c107ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_uart_001.xml" id="UART" xml="cslr_uart_001.xml" xmlpath="../Modules/" description="UART" baseaddr="0x1c20000" endaddr="0x1c203ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_i2c_001.xml" id="I2C" xml="cslr_i2c_001.xml" xmlpath="../Modules/" description="I2C" baseaddr="0x1c21000" endaddr="0x1c213ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr_001.xml" id="TMR" xml="cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER0/1, 2/3, WDT" baseaddr="0x1c21400" endaddr="0x1c217ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwm_001.xml" id="PWM" xml="cslr_pwm_001.xml" xmlpath="../Modules/" description="PWM" baseaddr="0x1c22000" endaddr="0x1c223ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sys_001.xml" id="SYS" xml="cslr_sys_001.xml" xmlpath="../Modules/" description="System Module" baseaddr="0x1c40000" endaddr="0x1c407ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc_001.xml" id="PLLC" xml="cslr_pllc_001.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x1c40800" endaddr="0x1c40bff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_psc_001.xml" id="PSC" xml="cslr_psc_001.xml" xmlpath="../Modules/" description="Power/Sleep Controller" baseaddr="0x1c41000" endaddr="0x1c413ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_intc_001.xml" id="ARMINTC" xml="cslr_intc_001.xml" xmlpath="../Modules/" description="ARM Interrupt Controller" baseaddr="0x1c48000" endaddr="0x1c483ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_usb_001.xml" id="USB" xml="cslr_usb_001.xml" xmlpath="../Modules/" description="USB OTG 2.0 Regs/RAM" baseaddr="0x1c64000" endaddr="0x1c65fff" size="0x2000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ata_001.xml" id="ATA" xml="cslr_ata_001.xml" xmlpath="../Modules/" description="CFC/ATA" baseaddr="0x1c66000" endaddr="0x1c667ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_spi_001.xml" id="SPI" xml="cslr_spi_001.xml" xmlpath="../Modules/" description="SPI" baseaddr="0x1c66800" endaddr="0x1c66fff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_gpio_002.xml" id="GPIO" xml="cslr_gpio_002.xml" xmlpath="../Modules/" description="GPIO" baseaddr="0x1c67000" endaddr="0x1c677ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_resz_001.xml" id="RESZ" xml="cslr_resz_001.xml" xmlpath="../Modules/" description="Resizer" baseaddr="0x1c70c00" endaddr="0x1c70fff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_venc_001.xml" id="VENC" xml="cslr_venc_001.xml" xmlpath="../Modules/" description="Video Encoder" baseaddr="0x1c72400" endaddr="0x1c725ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_osd_001.xml" id="OSD" xml="cslr_osd_001.xml" xmlpath="../Modules/" description="On Screen Display" baseaddr="0x1c72600" endaddr="0x1c726ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vpbe_001.xml" id="VPBE" xml="cslr_vpbe_001.xml" xmlpath="../Modules/" description="VPBE" baseaddr="0x1c727f8" endaddr="0x1c727ff" size="0x8" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vpss_001.xml" id="VPSS" xml="cslr_vpss_001.xml" xmlpath="../Modules/" description="VPSS SBL" baseaddr="0x1c73400" endaddr="0x1c73fff" size="0xc00" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_emif_001.xml" id="EMIF" xml="cslr_emif_001.xml" xmlpath="../Modules/" description="ASYNC EMIF Control" baseaddr="0x1e00000" endaddr="0x1e00fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vlynq_001.xml" id="VLYNQ" xml="cslr_vlynq_001.xml" xmlpath="../Modules/" description="VLYNQ Control Regs" baseaddr="0x1e01000" endaddr="0x1e01fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp_001.xml" id="MCBSP" xml="cslr_mcbsp_001.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x1e02000" endaddr="0x1e03fff" size="0x2000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp_001.xml" id="MCBSP" xml="cslr_mcbsp_001.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x1e02000" endaddr="0x1e03fff" size="0x2000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mmcsd_001.xml" id="MMCSD" xml="cslr_mmcsd_001.xml" xmlpath="../Modules/" description="Muiltmedia/SD" baseaddr="0x1e10000" endaddr="0x1e1ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ms_001.xml" id="MS" xml="cslr_ms_001.xml" xmlpath="../Modules/" description="Memory Stick" baseaddr="0x1e20000" endaddr="0x1e3ffff" size="0x20000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ddr_001.xml" id="DDR" xml="cslr_ddr_001.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" baseaddr="0x20000000" endaddr="0x20007fff" size="0x8000" accessnumbytes="4" permissions="p" />
+			</cpu>
+		</subpath>
+		<subpath id="ETB">
+			<property Type="numericfield" Value="0x11" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="0" id="Force Configuration"/>
+			<instance XML_version="1.2" desc="ETB11_0" href="../cpus/etb11.xml" id="ETB11_0" xml="etb11.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" description="ETB11" id="ETB11_0" isa="ETB11"/>
+		</subpath>
+		<subpath id="DSP">
+			<property Type="numericfield" Value="0x12" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="0" id="Force Configuration"/>
+			<instance XML_version="1.2" desc="C64XP_0" href="../cpus/c64xp.xml" id="C64XP_0" xml="c64xp.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" description="C64X+ CPU" id="C64XP_0" isa="TMS320C64XP">
+				<!--  Project Wizard Settings  -->
+                <property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="-D=dm6441 --silicon_version=64+" id="CompilerBuildOptions" />
+				<property Type="stringfield" Value="--define=DSP_CORE=1 --stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+                <property Type="stringfield" Value="DM6441.cmd" id="LinkerCmd" />
+				<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+				<!--  END Project Wizard Settings -->
+				<instance href="../Modules/cslr_edmacc_001.xml" id="EDMACC" xml="cslr_edmacc_001.xml" xmlpath="../Modules/" description="3PCC" baseaddr="0x1c00000" endaddr="0x1c0ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edmatc0_001.xml" id="EDMATC0" xml="cslr_edmatc0_001.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x1c10000" endaddr="0x1c103ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edmatc1_001.xml" id="EDMATC1" xml="cslr_edmatc1_001.xml" xmlpath="../Modules/" description="3PTC1" baseaddr="0x1c10400" endaddr="0x1c107ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_uart_001.xml" id="UART" xml="cslr_uart_001.xml" xmlpath="../Modules/" description="UART" baseaddr="0x1c20400" endaddr="0x1c207ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr_001.xml" id="TMR" xml="cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER0/1, 2/3, WDT" baseaddr="0x1c21800" endaddr="0x1c21bff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwm_001.xml" id="PWM" xml="cslr_pwm_001.xml" xmlpath="../Modules/" description="PWM" baseaddr="0x1c22400" endaddr="0x1c227ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sys_001.xml" id="SYS" xml="cslr_sys_001.xml" xmlpath="../Modules/" description="System Module" baseaddr="0x1c40000" endaddr="0x1c407ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc_001.xml" id="PLLC" xml="cslr_pllc_001.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x1c40c00" endaddr="0x1c40fff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_psc_001.xml" id="PSC" xml="cslr_psc_001.xml" xmlpath="../Modules/" description="Power/Sleep Controller" baseaddr="0x1c41000" endaddr="0x1c413ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_resz_001.xml" id="RESZ" xml="cslr_resz_001.xml" xmlpath="../Modules/" description="Resizer" baseaddr="0x1c70c00" endaddr="0x1c70fff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_venc_001.xml" id="VENC" xml="cslr_venc_001.xml" xmlpath="../Modules/" description="Video Encoder" baseaddr="0x1c72400" endaddr="0x1c725ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_osd_001.xml" id="OSD" xml="cslr_osd_001.xml" xmlpath="../Modules/" description="On Screen Display" baseaddr="0x1c72600" endaddr="0x1c726ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vpbe_001.xml" id="VPBE" xml="cslr_vpbe_001.xml" xmlpath="../Modules/" description="VPBE" baseaddr="0x1c727f8" endaddr="0x1c727ff" size="0x8" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vpss_001.xml" id="VPSS" xml="cslr_vpss_001.xml" xmlpath="../Modules/" description="VPSS SBL" baseaddr="0x1c73400" endaddr="0x1c73fff" size="0xc00" accessnumbytes="4" permissions="p" />
+			</cpu>
+		</subpath>
+	</router>
+</device>

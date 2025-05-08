@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<board 	id="DM8127CSK" XML_version="1" desc="DM8127CSK" description="Mistral DM8127 Camera Starter Kit">
+    <instance XML_version="1.2" desc="DM8127_0" href="devices/dm8127.xml" id="DM8127_0" xml="dm8127.xml" xmlpath="devices"/>
+    <device HW_revision="1" XML_version="1.2" description="DaVinci DM81xx - Cortex A8 and C64x+ Fixed-point DSP" id="DM8127_0" partnum="TMS320DM8127" simulation="no">
+        <router HW_revision="1.0" XML_version="1.2" description="ICEPick_D Router" id="IcePick_D_0" isa="ICEPICK_D">
+            <subpath id="subpath_10">
+                <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_1" isa="CS_DAP">
+                    <subpath id="subpath_2">
+                        <property Type="numericfield" Value="0x1a" desc="Port Number_0" id="Port Number"/>
+                    </subpath>
+                </router>
+            </subpath>
+            <subpath id="subpath_12">
+                <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+                    <subpath id="ModenaSS">
+                        <cpu HW_revision="1.0" XML_version="1.2" description="Cortex_A8 CPU" id="CortexA8" isa="Cortex_A8">
+                            <property Type="filepathfield" Value="..\..\emulation\boards\dm812x_csk\gel\DM8127.gel" id="GEL File"/>
+                        </cpu>
+                    </subpath>
+                </router>
+            </subpath>
+        </router>
+    </device>
+</board>

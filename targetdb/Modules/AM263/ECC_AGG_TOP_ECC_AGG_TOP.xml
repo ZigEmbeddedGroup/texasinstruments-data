@@ -1,0 +1,266 @@
+<module HW_revision="n/a" XML_version="1.0" acronym="" description="" name="ECC_AGG_TOP_ECC_AGG_TOP">
+	<register acronym="ECC_AGG_TOP_REV" description="" id="ECC_AGG_TOP_REV" offset="0x0" width="32">
+		<bitfield begin="31" description="Scheme" end="30" id="SCHEME" range="31 - 30"
+			resetval="0x1" rwaccess="RO" width="2"></bitfield>
+		<bitfield begin="29" description="bu" end="28" id="BU" range="29 - 28" resetval="0x2"
+			rwaccess="RO" width="2"></bitfield>
+		<bitfield begin="27" description="Module ID" end="16" id="MODULE_ID" range="27 - 16"
+			resetval="0x1696" rwaccess="RO" width="12"></bitfield>
+		<bitfield begin="15" description="RTL version" end="11" id="REVRTL" range="15 - 11"
+			resetval="0x29" rwaccess="RO" width="5"></bitfield>
+		<bitfield begin="10" description="Major version" end="8" id="REVMAJ" range="10 - 8"
+			resetval="0x2" rwaccess="RO" width="3"></bitfield>
+		<bitfield begin="7" description="Custom version" end="6" id="CUSTOM" range="7 - 6"
+			resetval="0x0" rwaccess="RO" width="2"></bitfield>
+		<bitfield begin="5" description="Minor version" end="0" id="REVMIN" range="5 - 0"
+			resetval="0x0" rwaccess="RO" width="6"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_VECTOR" description="" id="ECC_AGG_TOP_VECTOR" offset="0x8"
+		width="32">
+		<bitfield begin="24"
+			description="Status to indicate if read on serial VBUS is complete, write of any value will clear this bit."
+			end="24" id="RD_SVBUS_DONE" range="24" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="23" description="Read address" end="16" id="RD_SVBUS_ADDRESS"
+			range="23 - 16" resetval="0x0" rwaccess="RW" width="8"></bitfield>
+		<bitfield begin="15" description="Write 1 to trigger a read on the serial VBUS" end="15"
+			id="RD_SVBUS" range="15" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="10"
+			description="Value written to select the corresponding ECC RAM for control or status"
+			end="0" id="ECC_VECTOR" range="10 - 0" resetval="0x0" rwaccess="RW" width="11"
+		></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_STAT" description="" id="ECC_AGG_TOP_STAT" offset="0xC"
+		width="16">
+		<bitfield begin="10"
+			description="Indicates the number of RAMS serviced by the ECC aggregator" end="0"
+			id="NUM_RAMS" range="10 - 0" resetval="0x9" rwaccess="RO" width="11"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_CTRL" description="" id="ECC_AGG_TOP_CTRL" offset="0x14"
+		width="16">
+		<bitfield begin="8" description="check for svbus timeout errors" end="8"
+			id="CHECK_SVBUS_TIMEOUT" range="8" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="7" description="check for parity errors" end="7" id="CHECK_PARITY"
+			range="7" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="6" description="Force Error only once" end="6" id="ERROR_ONCE" range="6"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Force Error on any RAM read" end="5" id="FORCE_N_ROW"
+			range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Force Double Bit Error" end="4" id="FORCE_DED" range="4"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Force Single Bit Error" end="3" id="FORCE_SEC" range="3"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Enable rmw" end="2" id="ENABLE_RMW" range="2"
+			resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Enable ECC check" end="1" id="ECC_CHECK" range="1"
+			resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Enable ECC" end="0" id="ECC_ENABLE" range="0"
+			resetval="0x1" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_ERR_CTRL1" description="" id="ECC_AGG_TOP_ERR_CTRL1"
+		offset="0x18" width="32">
+		<bitfield begin="31"
+			description="Row address where single or double-bit error needs to be applied. This is ignored if force_n_row is set"
+			end="0" id="ECC_ROW" range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_ERR_CTRL2" description="" id="ECC_AGG_TOP_ERR_CTRL2"
+		offset="0x1C" width="32">
+		<bitfield begin="31"
+			description="Data bit that needs to be flipped if double bit error needs to be forced"
+			end="16" id="ECC_BIT2" range="31 - 16" resetval="0x0" rwaccess="RW" width="16"></bitfield>
+		<bitfield begin="15" description="Data bit that needs to be flipped when force_sec is set"
+			end="0" id="ECC_BIT1" range="15 - 0" resetval="0x0" rwaccess="RW" width="16"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_ERR_STAT1" description="" id="ECC_AGG_TOP_ERR_STAT1"
+		offset="0x20" width="32">
+		<bitfield begin="31" description="Data bit that corresponds to the single-bit error"
+			end="16" id="ECC_BIT1" range="31 - 16" resetval="0x0" rwaccess="RO" width="16"></bitfield>
+		<bitfield begin="15"
+			description="Clear control reg error Error Status, you must also re write the contorl ergister itself to clear this"
+			end="15" id="CLR_CTRL_REG_ERR" range="15" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="14" description="Clear parity Error Status" end="13" id="CLR_PARITY_ERR"
+			range="14 - 13" resetval="0x0" rwaccess="RW
+	  			 DECR" width="2"></bitfield>
+		<bitfield begin="12" description="Clear other Error Status" end="12" id="CLR_ECC_OTHER"
+			range="12" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="11" description="Clear Double Bit Error Status" end="10" id="CLR_ECC_DED"
+			range="11 - 10" resetval="0x0" rwaccess="RW
+	  			 DECR" width="2"></bitfield>
+		<bitfield begin="9" description="Clear Single Bit Error Status" end="8" id="CLR_ECC_SEC"
+			range="9 - 8" resetval="0x0" rwaccess="RW
+	  			 DECR" width="2"></bitfield>
+		<bitfield begin="7" description="control register error pending, Level interrupt" end="7"
+			id="CTR_REG_ERR" range="7" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="6" description="Level parity error Error Status" end="5" id="PARITY_ERR"
+			range="6 - 5" resetval="0x0" rwaccess="RW" width="2"></bitfield>
+		<bitfield begin="4"
+			description="successive single-bit errors have occurred while a writeback is still pending, Level interrupt"
+			end="4" id="ECC_OTHER" range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Level Double Bit Error Status" end="2" id="ECC_DED"
+			range="3 - 2" resetval="0x0" rwaccess="RW
+	  			 INCR" width="2"></bitfield>
+		<bitfield begin="1" description="Level Single Bit Error Status" end="0" id="ECC_SEC"
+			range="1 - 0" resetval="0x0" rwaccess="RW
+	  			 INCR" width="2"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_ERR_STAT2" description="" id="ECC_AGG_TOP_ERR_STAT2"
+		offset="0x24" width="32">
+		<bitfield begin="31"
+			description="Row address where the single or double-bit error has occurred" end="0"
+			id="ECC_ROW" range="31 - 0" resetval="0x0" rwaccess="RO" width="32"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_ERR_STAT3" description="" id="ECC_AGG_TOP_ERR_STAT3"
+		offset="0x28" width="16">
+		<bitfield begin="9" description="Clear svbus timeout Error Status" end="9"
+			id="CLR_SVBUS_TIMEOUT_ERR" range="9" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Level svbus timeout error Error Status" end="1"
+			id="SVBUS_TIMEOUT_ERR" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="delayed write back pending  Status" end="0" id="WB_PEND"
+			range="0" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_SEC_EOI_REG" description="" id="ECC_AGG_TOP_SEC_EOI_REG"
+		offset="0x3C" width="32">
+		<bitfield begin="0" description="EOI Register" end="0" id="EOI_WR" range="0" resetval="0x0"
+			rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_SEC_STATUS_REG0" description="" id="ECC_AGG_TOP_SEC_STATUS_REG0"
+		offset="0x40" width="8">
+		<bitfield begin="6" description="Interrupt Pending Status for tptc_a1_pend" end="6"
+			id="TPTC_A1_PEND" range="6" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Interrupt Pending Status for tptc_a0_pend" end="5"
+			id="TPTC_A0_PEND" range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Interrupt Pending Status for mss_mbox_pend" end="4"
+			id="MSS_MBOX_PEND" range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Interrupt Pending Status for mss_l2slv3_pend" end="3"
+			id="MSS_L2SLV3_PEND" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Interrupt Pending Status for mss_l2slv2_pend" end="2"
+			id="MSS_L2SLV2_PEND" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Interrupt Pending Status for mss_l2slv1_pend" end="1"
+			id="MSS_L2SLV1_PEND" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Interrupt Pending Status for mss_l2slv0_pend" end="0"
+			id="MSS_L2SLV0_PEND" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_SEC_ENABLE_SET_REG0" description=""
+		id="ECC_AGG_TOP_SEC_ENABLE_SET_REG0" offset="0x80" width="8">
+		<bitfield begin="6" description="Interrupt Enable Set Register for tptc_a1_pend" end="6"
+			id="TPTC_A1_ENABLE_SET" range="6" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Interrupt Enable Set Register for tptc_a0_pend" end="5"
+			id="TPTC_A0_ENABLE_SET" range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Interrupt Enable Set Register for mss_mbox_pend" end="4"
+			id="MSS_MBOX_ENABLE_SET" range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Interrupt Enable Set Register for mss_l2slv3_pend" end="3"
+			id="MSS_L2SLV3_ENABLE_SET" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Interrupt Enable Set Register for mss_l2slv2_pend" end="2"
+			id="MSS_L2SLV2_ENABLE_SET" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Interrupt Enable Set Register for mss_l2slv1_pend" end="1"
+			id="MSS_L2SLV1_ENABLE_SET" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Interrupt Enable Set Register for mss_l2slv0_pend" end="0"
+			id="MSS_L2SLV0_ENABLE_SET" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_SEC_ENABLE_CLR_REG0" description=""
+		id="ECC_AGG_TOP_SEC_ENABLE_CLR_REG0" offset="0xC0" width="8">
+		<bitfield begin="6" description="Interrupt Enable Clear Register for tptc_a1_pend" end="6"
+			id="TPTC_A1_ENABLE_CLR" range="6" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Interrupt Enable Clear Register for tptc_a0_pend" end="5"
+			id="TPTC_A0_ENABLE_CLR" range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Interrupt Enable Clear Register for mss_mbox_pend" end="4"
+			id="MSS_MBOX_ENABLE_CLR" range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Interrupt Enable Clear Register for mss_l2slv3_pend"
+			end="3" id="MSS_L2SLV3_ENABLE_CLR" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Interrupt Enable Clear Register for mss_l2slv2_pend"
+			end="2" id="MSS_L2SLV2_ENABLE_CLR" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Interrupt Enable Clear Register for mss_l2slv1_pend"
+			end="1" id="MSS_L2SLV1_ENABLE_CLR" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Interrupt Enable Clear Register for mss_l2slv0_pend"
+			end="0" id="MSS_L2SLV0_ENABLE_CLR" range="0" resetval="0x0" rwaccess="RW" width="1"
+		></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_DED_EOI_REG" description="" id="ECC_AGG_TOP_DED_EOI_REG"
+		offset="0x13C" width="32">
+		<bitfield begin="0" description="EOI Register" end="0" id="EOI_WR" range="0" resetval="0x0"
+			rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_DED_STATUS_REG0" description="" id="ECC_AGG_TOP_DED_STATUS_REG0"
+		offset="0x140" width="8">
+		<bitfield begin="6" description="Interrupt Pending Status for tptc_a1_pend" end="6"
+			id="TPTC_A1_PEND" range="6" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Interrupt Pending Status for tptc_a0_pend" end="5"
+			id="TPTC_A0_PEND" range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Interrupt Pending Status for mss_mbox_pend" end="4"
+			id="MSS_MBOX_PEND" range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Interrupt Pending Status for mss_l2slv3_pend" end="3"
+			id="MSS_L2SLV3_PEND" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Interrupt Pending Status for mss_l2slv2_pend" end="2"
+			id="MSS_L2SLV2_PEND" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Interrupt Pending Status for mss_l2slv1_pend" end="1"
+			id="MSS_L2SLV1_PEND" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Interrupt Pending Status for mss_l2slv0_pend" end="0"
+			id="MSS_L2SLV0_PEND" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_DED_ENABLE_SET_REG0" description=""
+		id="ECC_AGG_TOP_DED_ENABLE_SET_REG0" offset="0x180" width="8">
+		<bitfield begin="6" description="Interrupt Enable Set Register for tptc_a1_pend" end="6"
+			id="TPTC_A1_ENABLE_SET" range="6" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Interrupt Enable Set Register for tptc_a0_pend" end="5"
+			id="TPTC_A0_ENABLE_SET" range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Interrupt Enable Set Register for mss_mbox_pend" end="4"
+			id="MSS_MBOX_ENABLE_SET" range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Interrupt Enable Set Register for mss_l2slv3_pend" end="3"
+			id="MSS_L2SLV3_ENABLE_SET" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Interrupt Enable Set Register for mss_l2slv2_pend" end="2"
+			id="MSS_L2SLV2_ENABLE_SET" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Interrupt Enable Set Register for mss_l2slv1_pend" end="1"
+			id="MSS_L2SLV1_ENABLE_SET" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Interrupt Enable Set Register for mss_l2slv0_pend" end="0"
+			id="MSS_L2SLV0_ENABLE_SET" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_DED_ENABLE_CLR_REG0" description=""
+		id="ECC_AGG_TOP_DED_ENABLE_CLR_REG0" offset="0x1C0" width="8">
+		<bitfield begin="6" description="Interrupt Enable Clear Register for tptc_a1_pend" end="6"
+			id="TPTC_A1_ENABLE_CLR" range="6" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Interrupt Enable Clear Register for tptc_a0_pend" end="5"
+			id="TPTC_A0_ENABLE_CLR" range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Interrupt Enable Clear Register for mss_mbox_pend" end="4"
+			id="MSS_MBOX_ENABLE_CLR" range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Interrupt Enable Clear Register for mss_l2slv3_pend"
+			end="3" id="MSS_L2SLV3_ENABLE_CLR" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Interrupt Enable Clear Register for mss_l2slv2_pend"
+			end="2" id="MSS_L2SLV2_ENABLE_CLR" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Interrupt Enable Clear Register for mss_l2slv1_pend"
+			end="1" id="MSS_L2SLV1_ENABLE_CLR" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Interrupt Enable Clear Register for mss_l2slv0_pend"
+			end="0" id="MSS_L2SLV0_ENABLE_CLR" range="0" resetval="0x0" rwaccess="RW" width="1"
+		></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_AGGR_ENABLE_SET" description="" id="ECC_AGG_TOP_AGGR_ENABLE_SET"
+		offset="0x200" width="8">
+		<bitfield begin="1" description="interrupt enable set for svbus timeout errors" end="1"
+			id="TIMEOUT" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="interrupt enable set for parity errors" end="0" id="PARITY"
+			range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_AGGR_ENABLE_CLR" description="" id="ECC_AGG_TOP_AGGR_ENABLE_CLR"
+		offset="0x204" width="8">
+		<bitfield begin="1" description="interrupt enable clear for svbus timeout errors" end="1"
+			id="TIMEOUT" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="interrupt enable clear for parity errors" end="0"
+			id="PARITY" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_AGGR_STATUS_SET" description="" id="ECC_AGG_TOP_AGGR_STATUS_SET"
+		offset="0x208" width="8">
+		<bitfield begin="3" description="interrupt status set for svbus timeout errors" end="2"
+			id="TIMEOUT" range="3 - 2" resetval="0x0" rwaccess="RW
+	  			 INCR" width="2"></bitfield>
+		<bitfield begin="1" description="interrupt status set for parity errors" end="0" id="PARITY"
+			range="1 - 0" resetval="0x0" rwaccess="RW
+	  			 INCR" width="2"></bitfield>
+	</register>
+	<register acronym="ECC_AGG_TOP_AGGR_STATUS_CLR" description="" id="ECC_AGG_TOP_AGGR_STATUS_CLR"
+		offset="0x20C" width="8">
+		<bitfield begin="3" description="interrupt status clear for svbus timeout errors" end="2"
+			id="TIMEOUT" range="3 - 2" resetval="0x0" rwaccess="RW
+	  			 DECR" width="2"></bitfield>
+		<bitfield begin="1" description="interrupt status clear for parity errors" end="0"
+			id="PARITY" range="1 - 0" resetval="0x0" rwaccess="RW
+	  			 DECR" width="2"></bitfield>
+	</register>
+</module>

@@ -1,0 +1,1020 @@
+<module HW_revision="n/a" XML_version="1.0" acronym="" description="" name="TOP_RCM_TOP_RCM">
+	<register acronym="TOP_RCM_PID" description="" id="TOP_RCM_PID" offset="0x0" width="32">
+		<bitfield begin="31" description="Not Defined" end="16" id="PID_MSB16" range="31 - 16"
+			resetval="0x24960" rwaccess="RO" width="16"></bitfield>
+		<bitfield begin="15" description="Not Defined" end="11" id="PID_MISC" range="15 - 11"
+			resetval="0x0" rwaccess="RO" width="5"></bitfield>
+		<bitfield begin="10" description="Not Defined" end="8" id="PID_MAJOR" range="10 - 8"
+			resetval="0x2" rwaccess="RO" width="3"></bitfield>
+		<bitfield begin="7" description="Not Defined" end="6" id="PID_CUSTOM" range="7 - 6"
+			resetval="0x0" rwaccess="RO" width="2"></bitfield>
+		<bitfield begin="5" description="Not Defined" end="0" id="PID_MINOR" range="5 - 0"
+			resetval="0x20" rwaccess="RO" width="6"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_WARM_RESET_CONFIG" description="" id="TOP_RCM_WARM_RESET_CONFIG"
+		offset="0x4" width="32">
+		<bitfield begin="30"
+			description="Data should be loaded as multibit.  Write 3'b000 to disable corresponding Watchdog control on Warm reset Write 3'b111 enable corresponding Watchdog to control Warm reset"
+			end="28" id="WDOG3_RST_EN" range="30 - 28" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="26"
+			description="Data should be loaded as multibit.  Write 3'b000 to disable corresponding Watchdog control on Warm reset Write 3'b111 enable corresponding Watchdog to control Warm reset"
+			end="24" id="WDOG2_RST_EN" range="26 - 24" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="22"
+			description="Data should be loaded as multibit.  Write 3'b000 to disable corresponding Watchdog control on Warm reset Write 3'b111 enable corresponding Watchdog to control Warm reset"
+			end="20" id="WDOG1_RST_EN" range="22 - 20" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="18"
+			description="Data should be loaded as multibit.  Write 3'b000 to disable corresponding Watchdog control on Warm reset Write 3'b111 enable corresponding Watchdog to control Warm reset"
+			end="16" id="WDOG0_RST_EN" range="18 - 16" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="14"
+			description="Data should be loaded as multibit.  Write 3'b000 to disable temperature sensor 1 on Warm reset Write 3'b111 to enable temperature sensor 1l on Warm reset"
+			end="12" id="TSENSE1_RST_EN" range="14 - 12" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="10"
+			description="Data should be loaded as multibit.  Write 3'b000 to disable temperature sensor 0 control on Warm reset Write 3'b111 to enable temperature sensor 0 control on Warm reset"
+			end="8" id="TSENSE0_RST_EN" range="10 - 8" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="6"
+			description="Data should be loaded as multibit.  Write 3'b000 to disable debugger control on Warm reset Write 3'b111 enable debugger to control Warm reset"
+			end="4" id="DEBUGSS_RST_EN" range="6 - 4" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="2"
+			description="Bypass the Warm reset from Pad InputData should be loaded as multibit.  Write 3'b000 : Pad Warm Reset pin has control over  warm resetWrite 3'b111 : Pad warm reset pin has no control on warm reset"
+			end="0" id="PAD_BYPASS" range="2 - 0" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_WARM_RESET_REQ" description="" id="TOP_RCM_WARM_RESET_REQ"
+		offset="0x8" width="8">
+		<bitfield begin="2"
+			description="Data should be loaded as multibit.  Write 3'b000 to assert warm reset from SWWrite 3'b111 to deassert warm reset from SW if this is the only source of warm reset"
+			end="0" id="SW_RST" range="2 - 0" resetval="0x7" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_WARM_RST_CAUSE" description="" id="TOP_RCM_WARM_RST_CAUSE"
+		offset="0xC" width="16">
+		<bitfield begin="11"
+			description="System Reset Cause register12'b0000_0100_0001 - POR reset12'b0000_0100_0010 - Warm reset due to MSS_WDT012'b0000_0100_0100 - Warm reset due to MSS_WDT112'b0000_0100_1000 - Warm reset due to MSS_WDT212'b0000_0101_0000 - Warm reset due to MSS_WDT312'b0000_0110_0000 - Warm reset due to TOP_RMC:WARM_RESET_REQ12'b0000_0100_0000 - External Pad reset12'b0000_1100_0000 - Warm reset due to HSM_WDT12'b0001_0100_0000 - Warm Reset due to Deugger reset12'b0010_0100_0000 - Warm Reset due to Temp Sense0 Reset12'b0100_0100_0000 - Warm Reset due to Temp Sense1 Reset"
+			end="0" id="CAUSE" range="11 - 0" resetval="0x65" rwaccess="RO" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_WARM_RST_CAUSE_CLR" description="" id="TOP_RCM_WARM_RST_CAUSE_CLR"
+		offset="0x10" width="8">
+		<bitfield begin="2"
+			description="Write pulse bit field: Data should be loaded as multibit. System Reset Cause register Clear"
+			end="0" id="CLEAR" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_RCOSC32K_CTRL" description="" id="TOP_RCM_RCOSC32K_CTRL"
+		offset="0x14" width="8">
+		<bitfield begin="2" description="Stop 32KHz RCOSC. Write 3'b111 to stop clock" end="0"
+			id="STOPOSC" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_LIMP_MODE_EN" description="" id="TOP_RCM_LIMP_MODE_EN" offset="0x18"
+		width="16">
+		<bitfield begin="10"
+			description="Enable for core pll phase lock loss to generate Limp mode3'b000: will not generate Limp mode (multibit 000)3'b111 :  will generate Limp mode (multibit 111)"
+			end="8" id="COREPLL_LOSS_EN" range="10 - 8" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="6"
+			description="Enable for crystal_clock_loss to generate Limp mode3'b000: will not generate Limp mode (multibit 000)3'b111 :  will generate Limp mode (multibit 111)"
+			end="4" id="XTALCLK_LOSS_EN" range="6 - 4" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="2"
+			description="Enable DCC0 Error to generate Limp mode 3'b000: DCC0 Error will not generate Limp mode (multibit 000)3'b111 : DCC0 Error will generate Limp mode (multibit 111)"
+			end="0" id="DCC0_ERROR_EN" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_REF_CLK_SRC_SEL" description="" id="TOP_RCM_PLL_REF_CLK_SRC_SEL"
+		offset="0x1C" width="8">
+		<bitfield begin="6"
+			description="Mux selct for PERI PLL REF clockWrite 3'b111 :  to select external reference clock as PLL reference clockWrite 3'b000 :  to select on-die clock as PLL reference clock"
+			end="4" id="PLL_PERI_REF_CLK_SRC_SEL" range="6 - 4" resetval="0x0" rwaccess="RW"
+			width="3"></bitfield>
+		<bitfield begin="2"
+			description="Mux selct for CORE PLL REF clockWrite 3'b111 :  to select external reference clock as PLL reference clockWrite 3'b000 :  to select on-die clock as PLL reference clock"
+			end="0" id="PLL_CORE_REF_CLK_SRC_SEL" range="2 - 0" resetval="0x0" rwaccess="RW"
+			width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PAD_XTAL_CTRL" description="" id="TOP_RCM_PAD_XTAL_CTRL"
+		offset="0x20" width="8">
+		<bitfield begin="3"
+			description="When gz is low, the padxo output is enabled, padxi to padxo is a single stage inverter, and the oscillator can oscillate with an external crystal plus capacitors/resistor.  When gz is high, padxo is in high impedance mode, padxi and Y are driven low, and the oscillator is disabled.  With gz high, the internal bias resistor between padxi and padxo is disconnected regardless of the state of resselect."
+			end="3" id="XTAL_XI_OE_N" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2"
+			description="When resselect is low, an internal 1Meg Ohm resistor is connected between padxi and padxo for oscillator bias.      When resselect is asserted (high), the internal resistor is disconnected.      For oscillation with a crystal while resselect is high, an external resistor must be connected between padxi and padxo to provide bias."
+			end="2" id="XTAL_XO_RESSELECT" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1"
+			description="XTAL pad control bit frequency selection pin SW2 Based on table belowsw2 sw1 Freq of operation0 0 5     20 MHz0 1 15     35 MHz1 0 30     40 MHz1 1 40     55 MHz"
+			end="1" id="XTAL_XO_SW2" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0"
+			description="XTAL pad control bit frequency selection pin SW1 Based on table belowsw2 sw1 Freq of operation0 0 5     20 MHz0 1 15     35 MHz1 0 30     40 MHz1 1 40     55 MHz"
+			end="0" id="XTAL_XO_SW1" range="0" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_SOP_MODE_VALUE" description="" id="TOP_RCM_SOP_MODE_VALUE"
+		offset="0x24" width="32">
+		<bitfield begin="31"
+			description="See below table SOP_MODE values and its corresponding mappingSOP_PAD3    SOP_PAD2    SOP_PAD1    SOP_PAD0    bootmode       0                       0                      0                        0              QSPI Functional mode(4S)       0                       0                      0                        1              UART Functional mode         0                       0                      1                        0              QSPI Functional mode(1S)                      values from 3 to 7 is reserved for future use        1                       0                      0                        0              THB(test) mode       1                       0                      0                        1              ATPG mode       1                       0                      1                        0              FLED mode (Debug SoP mode)                     values from B to F is reserved for future use reset value of MMR is 0 but it will latch on to the SOP mode values after reset is released. when CPU reads the MMR it will show the latched SOP mode value only"
+			end="0" id="VAL" range="31 - 0" resetval="0x0" rwaccess="RO" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLK_LOSS_STATUS" description="" id="TOP_RCM_CLK_LOSS_STATUS"
+		offset="0x28" width="16">
+		<bitfield begin="8"
+			description="Clock status of RC clock at boot. Reset value will reflect the actual status1 --> clock present at boot0 --> clock not present at boot"
+			end="8" id="RC_GOOD_BOOT" range="8" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4"
+			description="Coarse detection clock loss status for RC clock. Reset value will reflect the actual status1 --> clock lost0 --> clock good"
+			end="4" id="RC_CLOCK_LOSS" range="4" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="0"
+			description="Coarse detection clock loss status for Crystal clock. Reset value will reflect the actual status1 --> clock lost0 --> clock good"
+			end="0" id="CRYSTAL_CLOCK_LOSS" range="0" resetval="0x0" rwaccess="RO" width="1"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_WARM_RSTTIME1" description="" id="TOP_RCM_WARM_RSTTIME1"
+		offset="0x30" width="16">
+		<bitfield begin="11"
+			description="programing Output delay Data should be loaded as multibit.  For example: if value of 0x5 should be selected then 0x555 should be configured to the register."
+			end="0" id="DELAY" range="11 - 0" resetval="0x2184" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_WARM_RSTTIME2" description="" id="TOP_RCM_WARM_RSTTIME2"
+		offset="0x34" width="16">
+		<bitfield begin="11"
+			description="programing input Rise delay Data should be loaded as multibit.  For example: if value of 0x5 should be selected then 0x555 should be configured to the register."
+			end="0" id="DELAY" range="11 - 0" resetval="0x2184" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_WARM_RSTTIME3" description="" id="TOP_RCM_WARM_RSTTIME3"
+		offset="0x38" width="16">
+		<bitfield begin="11"
+			description="programing Input Fall delay Data should be loaded as multibit.  For example: if value of 0x5 should be selected then 0x555 should be configured to the register."
+			end="0" id="DELAY" range="11 - 0" resetval="0x273" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_PWRCTRL" description="" id="TOP_RCM_PLL_CORE_PWRCTRL"
+		offset="0x400" width="8">
+		<bitfield begin="5"
+			description="ON/OFF control of the weak power switch digital. For functionalmode it should be 1"
+			end="5" id="PONIN" range="5" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4"
+			description="ON/OFF control of the strong power switch digital. For functional mode it should be 1"
+			end="4" id="PGOODIN" range="4" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3"
+			description="Save/Restore control for Retention mode. For functional mode itshould be 0"
+			end="3" id="RET" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Save/Restore control for Isolation of output pins For functional modeit should be 0"
+			end="2" id="ISORET" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1"
+			description="Save/Restore control for Isolation of the Scanout pins. For functionalmode it should be 0"
+			end="1" id="ISOSCAN" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0"
+			description="Used to switch OFF the logic on VDDA. For functional mode itshould be 0"
+			end="0" id="OFFMODE" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_CLKCTRL" description="" id="TOP_RCM_PLL_CORE_CLKCTRL"
+		offset="0x404" width="32">
+		<bitfield begin="31"
+			description="FailSafe enable to trigger re-calibration in case CycleSlip occurs between REFCLK and FBCLK."
+			end="31" id="CYCLESLIPEN" range="31" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="30"
+			description="Controls Clock Spreading. SSC is not supported. Should be set to 0x0 to disable clock spreading."
+			end="30" id="ENSSC" range="30" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="29"
+			description="Synchronously enables/disables CLKDCOLDO0x0 : synchronously disables CLKDCOLDO0x1 : synchronously enables CLKDCOLDO"
+			end="29" id="CLKDCOLDOEN" range="29" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="23"
+			description="Sets PLL to Idle mode0x0 : When SYSRESET = 0 and TINITZ = 1 IDLE = 0 PLL will go toActive and Locked0x1 : When SYSRESET = 0 and TINITZ = 1 IDLE = 1 PLL will go toIdle Bypass low powe"
+			end="23" id="IDLE" range="23" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="22"
+			description="BYPASSACKZ is a special purpose input to the module. In generalthis input is expected to be tied to static low. For the output clocks ofthe module that do not have an internal bypass mux viz.CLKDCOLDO and CLKOUTLDO, a bypass mux could beimplemented external to the module."
+			end="22" id="BYPASSACKZ" range="22" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="21"
+			description="Standby retention control0x0 : prepares ADPLLLJ for relock when out of retention byremoving the gating on all internal clocks.0x1 : prepares ADPLLLJ for retention by gating all the internalclocks."
+			end="21" id="STBYRET" range="21" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="20"
+			description="CLKOUT enable or disable0x0 : synchronously disables CLKOUT0x1 : synchronously enables CLKOUT"
+			end="20" id="CLKOUTEN" range="20" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="19"
+			description="Synchronously enables/disables CLKOUTLDO 0x0 : synchronously disables CLKOUTLDO 0x1 : synchronously enables CLKOUTLDO"
+			end="19" id="CLKOUTLDOEN" range="19" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="18"
+			description="Select CLKOUT source in bypass0x0: When ADPLLLJ in bypass mode, CLKOUT = CLKINP/(N2+1)0x1: When ADPLLLJ in bypass mode, CLKOUT = CLKINPULOW."
+			end="18" id="ULOWCLKEN" range="18" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="17" description="0 Asynchronous power down for CLKDCOLDO o/p." end="17"
+			id="CLKDCOLDOPWDNZ" range="17" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="16"
+			description="M2 divider power down mode0x0: Asynchronous power down for M2 divider0x1 : M2 divider is functional"
+			end="16" id="M2PWDNZ" range="16" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="14" description="When in Lossclk/Stbyret 0x0 : Limp mode 0x1 : Stopmode"
+			end="14" id="STOPMODE" range="14" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="12"
+			description="DCO Clock (DCOCLK = CLKINP * [M/(N+1)]) frequency rangeselector.0x0: Reserved0x2: HS2 : DCOCLK range is from 500 MHz to 1000 MHz0x3: Reserved0x4: HS1: DCOCLK range is from 1000 MHz to 2000 MHz0x5: Reserved"
+			end="10" id="SELFREQDCO" range="12 - 10" resetval="0x4" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="8"
+			description="Decides when FREQLOCK asserted0x0: FREQLOCK asserted when DC frequency error less than 1%0x1: FREQLOCK asserted when DC frequency error less than 2%"
+			end="8" id="RELAXED_LOCK" range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="SSC Type" end="1" id="SSCTYPE" range="1" resetval="0x0"
+			rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="PLL core soft reset" end="0" id="TINTZ" range="0"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_TENABLE" description="" id="TOP_RCM_PLL_CORE_TENABLE"
+		offset="0x408" width="32">
+		<bitfield begin="0" description="M, N. SD and SELFREQDCO latch (active rise edge)" end="0"
+			id="TENABLE" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_TENABLEDIV" description="" id="TOP_RCM_PLL_CORE_TENABLEDIV"
+		offset="0x40C" width="32">
+		<bitfield begin="0" description="M2 and N2 latch (active rise edge)" end="0" id="TENABLEDIV"
+			range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_M2NDIV" description="" id="TOP_RCM_PLL_CORE_M2NDIV"
+		offset="0x410" width="24">
+		<bitfield begin="22" description="Post-divider is REGM2" end="16" id="M2" range="22 - 16"
+			resetval="0x0" rwaccess="RW" width="7"></bitfield>
+		<bitfield begin="7" description="Pre-divider is REGN+1" end="0" id="N" range="7 - 0"
+			resetval="0x19" rwaccess="RW" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_MN2DIV" description="" id="TOP_RCM_PLL_CORE_MN2DIV"
+		offset="0x414" width="24">
+		<bitfield begin="19" description="Bypass divider is REGN2+1" end="16" id="N2"
+			range="19 - 16" resetval="0x0" rwaccess="RW" width="4"></bitfield>
+		<bitfield begin="11" description="Feedback Multiplier is REGM" end="0" id="M" range="11 - 0"
+			resetval="0x1600" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_FRACDIV" description="" id="TOP_RCM_PLL_CORE_FRACDIV"
+		offset="0x418" width="32">
+		<bitfield begin="31"
+			description="Sigma-Delta DividerShould be set by s/w to provide optimum jitter performance.DPLL_SD_DIV = CEILING ([DPLL_MULT/(DPLL_DIV+1)] * CLKINP/ 250), where CLKINP is the input clock of the DPLL in MHz"
+			end="24" id="REGSD" range="31 - 24" resetval="0x8" rwaccess="RW" width="8"></bitfield>
+		<bitfield begin="17" description="Fractional part of the M divider." end="0"
+			id="FRACTIONALM" range="17 - 0" resetval="0x0" rwaccess="RW" width="18"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_BWCTRL" description="" id="TOP_RCM_PLL_CORE_BWCTRL"
+		offset="0x41C" width="8">
+		<bitfield begin="2" description="Change Loop Bandwidth" end="1" id="BWCONTROL" range="2 - 1"
+			resetval="0x0" rwaccess="RW" width="2"></bitfield>
+		<bitfield begin="0"
+			description="Direction of Loop Bandwidth0x0 : decrease BW0x1 : increase BW" end="0"
+			id="BW_INCR_DECRZ" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_FRACCTRL" description="" id="TOP_RCM_PLL_CORE_FRACCTRL"
+		offset="0x420" width="32">
+		<bitfield begin="31"
+			description="Controls frequency spread0x0 : enables both side frequency spread about the programmed frequency.0x1 : enables low frequency spread only"
+			end="31" id="DOWNSPREAD" range="31" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="30"
+			description="Exponent of the REFCLK divider to define the modulation frequency."
+			end="28" id="MODFREQDIVIDEREXPONENT" range="30 - 28" resetval="0x0" rwaccess="RW"
+			width="3"></bitfield>
+		<bitfield begin="27"
+			description="Mantissa of the REFCLK divider to define the modulation frequency" end="21"
+			id="MODFREQDIVIDERMANTISSA" range="27 - 21" resetval="0x0" rwaccess="RW" width="7"></bitfield>
+		<bitfield begin="20" description="Integer part of Frequency Spread control" end="18"
+			id="DELTAMSTEPINTEGER" range="20 - 18" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="17" description="The fraction part of Frequency Spread control" end="0"
+			id="DELTAMSTEPFRACTION" range="17 - 0" resetval="0x0" rwaccess="RW" width="18"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_STATUS" description="" id="TOP_RCM_PLL_CORE_STATUS"
+		offset="0x424" width="32">
+		<bitfield begin="31"
+			description="Status of the weak power-switch0x0 : indicates the/OFF status of the weak power-switch in digital toSOC.0x1 : ndicates the ON status of the weak power-switch in digital toSOC."
+			end="31" id="PONOUT" range="31" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="30"
+			description="Status of the strong power-switch0x0 : indicates the/OFF status of the strong power-switch in digital toSOC.0x1 : ndicates the ON status of the strong power-switch in digital toSOC."
+			end="30" id="PGOODOUT" range="30" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="29"
+			description="1 indicates ADPLLLJ internal LDO is power down. VDDLDOOUT willbe un-defined in this condition"
+			end="29" id="LDOPWDN" range="29" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="28"
+			description="Recalibration status flag. 1 ADPLLLJ requires recalibration" end="28"
+			id="RECAL_BSTATUS3" range="28" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="27"
+			description="Recalibration status flag. 1 ADPLLLJ requires recalibration" end="27"
+			id="RECAL_OPPIN" range="27" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="12"
+			description="Indicates the enable/disable condition of CLKOUTLDOEN0x0 = CLKOUTLDO gating completed0x1 = CLKOUTLDO enabling completed"
+			end="12" id="CLKOUTLDOENACK" range="12" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="11"
+			description="Indicates the enable/disable condition of CLKDCOLDOEN0x0 = CLKDCOLDO gating completed0x1 = CLKDCOLOD enabling completed"
+			end="11" id="CLKDCOLDOACK" range="11" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="10" description="Status on PHASELOCK output pin" end="10" id="PHASELOCK"
+			range="10" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="9" description="Status on FREQLOCK output pin" end="9" id="FREQLOCK"
+			range="9" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="8" description="Status of BYPASSACK output pin" end="8" id="BYPASSACK"
+			range="8" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="7"
+			description="Standby and retention status0x0: indicates to SOC that all internal clocks in ADPLLLJ are activeand it is starting the relock process.0x1: indicates to SOC that all internal clocks in ADPLLLJ are gatedand it is ready for retention."
+			end="7" id="STBYRETACK" range="7" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="6" description="Reference input loss" end="6" id="LOSSREF" range="6"
+			resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Indicates the enable/disable condition of CLKOUTEN0x0 = CLKOUT gating completed0x1 = CLKOUT enabling completed"
+			end="5" id="CLKOUTENACK" range="5" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4" description="ADPLL internal loop lock status" end="4" id="LOCK2"
+			range="4" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="3"
+			description="Acknowledge for change to M2 divider. Toggles from 1-0 or 0-1(depending on current value) once CLKOUT frequency change hascompleted."
+			end="3" id="M2CHANGEACK" range="3" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Spread Spectrum status0x0 : Spread-spectrum Clocking is disabled on output clocks0x1 : Spread-spectrum Clocking is enabled on output clocks"
+			end="2" id="SSCACK" range="2" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="1"
+			description="1 indicates jitter. After PHASELOCK is asserted high, theHIGHJITTER flag is asserted high if phase error between REFCLKand FBCLK greater than 24%."
+			end="1" id="HIGHJITTER" range="1" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="0" description="Bypass status signal. 1 CLKOUT in bypass" end="0"
+			id="BYPASS" range="0" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_HSDIVIDER" description="" id="TOP_RCM_PLL_CORE_HSDIVIDER"
+		offset="0x428" width="24">
+		<bitfield begin="17" description="LDO Power Down Ack" end="17" id="LDOPWDNACK" range="17"
+			resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="16" description="HSDIVIDER Bypass Ack" end="16" id="BYPASSACKZ" range="16"
+			resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="2" description="Tenable Div" end="2" id="TENABLEDIV" range="2"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="LDO Power Down" end="1" id="LDOPWDN" range="1"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="HSDIVIDER Bypass" end="0" id="BYPASS" range="0"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0" description=""
+		id="TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0" offset="0x42C" width="16">
+		<bitfield begin="12"
+			description="Power down for HSDIVIDER M4 divider and hence CLKOUT0 output0h (R/W) = CLKOUT0 divider active1h (R/W) = CLKOUT0 divider is powered down"
+			end="12" id="PWDN" range="12" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="9"
+			description="HSDIVIDER CLKOUT0 status0h (R) = The clock output is gated1h (R) = The clock output is enabled"
+			end="9" id="STATUS" range="9" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="8"
+			description="Control gating of HSDIVIDER CLKOUT00h (R/W) = Automatically gate this clock when there is nodependency for it1h (R/W) = Force this clock to stay enabled even if there is norequest"
+			end="8" id="GATE_CTRL" range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Toggle on this status bit after changing HSDIVIDER_CLKOUT0_DIVindicates that the change in divider value has taken effect"
+			end="5" id="DIVCHACK" range="5" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4"
+			description="DPLL post-divider factor, M4, for internal clock generation.Divide values from 1 to 31.0h (R/W) = Reserved"
+			end="0" id="DIV" range="4 - 0" resetval="0x4" rwaccess="RW" width="5"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1" description=""
+		id="TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1" offset="0x430" width="16">
+		<bitfield begin="12"
+			description="Power down for HSDIVIDER M5 divider and hence CLKOUT1 output0h (R/W) = CLKOUT1 divider active1h (R/W) = CLKOUT1 divider is powered down"
+			end="12" id="PWDN" range="12" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="9"
+			description="HSDIVIDER CLKOUT1 status0h (R) = The clock output is gated1h (R) = The clock output is enabled"
+			end="9" id="STATUS" range="9" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="8"
+			description="Control gating of HSDIVIDER CLKOUT10h (R/W) = Automatically gate this clock when there is nodependency for it1h (R/W) = Force this clock to stay enabled even if there is norequest"
+			end="8" id="GATE_CTRL" range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Toggle on this status bit after changing HSDIVIDER_CLKOUT1_DIVindicates that the change in divider value has taken effect"
+			end="5" id="DIVCHACK" range="5" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4"
+			description="DPLL post-divider factor, M5, for internal clock generation.Divide values from 1 to 31.0h (R/W) = Reserved"
+			end="0" id="DIV" range="4 - 0" resetval="0x3" rwaccess="RW" width="5"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2" description=""
+		id="TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2" offset="0x434" width="16">
+		<bitfield begin="12"
+			description="Power down for HSDIVIDER M6 divider and hence CLKOUT2 output0h (R/W) = CLKOUT2 divider active1h (R/W) = CLKOUT2 divider is powered down"
+			end="12" id="PWDN" range="12" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="9"
+			description="HSDIVIDER CLKOUT2 status0h (R) = The clock output is gated1h (R) = The clock output is enabled"
+			end="9" id="STATUS" range="9" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="8"
+			description="Control gating of HSDIVIDER CLKOUT20h (R/W) = Automatically gate this clock when there is nodependency for it1h (R/W) = Force this clock to stay enabled even if there is norequest"
+			end="8" id="GATE_CTRL" range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Toggle on this status bit after changing HSDIVIDER_CLKOUT2_DIVindicates that the change in divider value has taken effect"
+			end="5" id="DIVCHACK" range="5" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4"
+			description="DPLL post-divider factor, M6, for internal clock generation.Divide values from 1 to 31.0h (R/W) = Reserved"
+			end="0" id="DIV" range="4 - 0" resetval="0x4" rwaccess="RW" width="5"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_RSTCTRL" description="" id="TOP_RCM_PLL_CORE_RSTCTRL"
+		offset="0x43C" width="8">
+		<bitfield begin="2"
+			description="SW Reset override for the PLLWrite 3'b111 : Override is enabled and Reset is asserted"
+			end="0" id="ASSERT" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_CORE_HSDIVIDER_RSTCTRL" description=""
+		id="TOP_RCM_PLL_CORE_HSDIVIDER_RSTCTRL" offset="0x440" width="8">
+		<bitfield begin="2"
+			description="SW Reset override for the HSDIVIDERWrite 3'b111 : Override is enabled and Reset is asserted"
+			end="0" id="ASSERT" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_R5SS_CLK_SRC_SEL" description="" id="TOP_RCM_R5SS_CLK_SRC_SEL"
+		offset="0x500" width="16">
+		<bitfield begin="11"
+			description="Select line for selecting source clock for MSS Coretex R5 and System bus Clock.Data should be loaded as multibit.  For example: if Clock source 0x5 should be selected then 0x555 should be configured to the register.Refer to AM602 clock spec for source clock reference"
+			end="0" id="CLKSRCSEL" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_R5SS_CLK_STATUS" description="" id="TOP_RCM_R5SS_CLK_STATUS"
+		offset="0x504" width="8">
+		<bitfield begin="7"
+			description="Status shows the source clock slected for Root clock for CortexR5 and Sysclk"
+			end="0" id="CLKINUSE" range="7 - 0" resetval="0x1" rwaccess="RO" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_R5SS0_CLK_DIV_SEL" description="" id="TOP_RCM_R5SS0_CLK_DIV_SEL"
+		offset="0x510" width="8">
+		<bitfield begin="2"
+			description="writing 3'b000 Sets R5 clock = R5SS Root clockWriting 3'b111 Sets R5 Clock = SYSCLK"
+			end="0" id="CLKDIVSEL" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_R5SS1_CLK_DIV_SEL" description="" id="TOP_RCM_R5SS1_CLK_DIV_SEL"
+		offset="0x514" width="8">
+		<bitfield begin="2"
+			description="writing 3'b000 Sets R5 clock = R5SS Root clockWriting 3'b111 Sets R5 Clock = SYSCLK"
+			end="0" id="CLKDIVSEL" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_R5SS0_CLK_GATE" description="" id="TOP_RCM_R5SS0_CLK_GATE"
+		offset="0x518" width="8">
+		<bitfield begin="2"
+			description="Only for debug- Functionality not guaranteed Clock gating config for  MSS Coretex R5.Data should be loaded as multibit.  Write 3'b000 : Clock is ungated (multibit 000)Write 3'b111 : Clock is gated (multibit 111)"
+			end="0" id="GATED" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_R5SS1_CLK_GATE" description="" id="TOP_RCM_R5SS1_CLK_GATE"
+		offset="0x51C" width="8">
+		<bitfield begin="2"
+			description="Only for debug- Functionality not guaranteed Clock gating config for  MSS Coretex R5.Data should be loaded as multibit.  Write 3'b000 : Clock is ungated (multibit 000)Write 3'b111 : Clock is gated (multibit 111)"
+			end="0" id="GATED" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_SYS_CLK_DIV_VAL" description="" id="TOP_RCM_SYS_CLK_DIV_VAL"
+		offset="0x520" width="16">
+		<bitfield begin="11"
+			description="Divider value for System Clock selected clock.Data should be loaded as multibit.  For example: if divider value of 0x5 should be selected then 0x555 should be configured to the register."
+			end="0" id="CLKDIV" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_SYS_CLK_GATE" description="" id="TOP_RCM_SYS_CLK_GATE" offset="0x524"
+		width="8">
+		<bitfield begin="2"
+			description="Only for debug- Functionality not guaranteed Clock gating config for  System ClockData should be loaded as multibit.  Write 3'b000 : Clock is ungated (multibit 000)Write 3'b111 : Clock is gated (multibit 111)"
+			end="0" id="GATED" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_SYS_CLK_STATUS" description="" id="TOP_RCM_SYS_CLK_STATUS"
+		offset="0x528" width="16">
+		<bitfield begin="15"
+			description="Status shows the current divider value choosen for Sys Clock" end="8"
+			id="CURRDIVIDER" range="15 - 8" resetval="0x0" rwaccess="RO" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_PWRCTRL" description="" id="TOP_RCM_PLL_PER_PWRCTRL"
+		offset="0x800" width="8">
+		<bitfield begin="5"
+			description="ON/OFF control of the weak power switch digital. For functionalmode it should be 1"
+			end="5" id="PONIN" range="5" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4"
+			description="ON/OFF control of the strong power switch digital. For functional mode it should be 1"
+			end="4" id="PGOODIN" range="4" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3"
+			description="Save/Restore control for Retention mode. For functional mode itshould be 0"
+			end="3" id="RET" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Save/Restore control for Isolation of output pins For functional modeit should be 0"
+			end="2" id="ISORET" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1"
+			description="Save/Restore control for Isolation of the Scanout pins. For functionalmode it should be 0"
+			end="1" id="ISOSCAN" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0"
+			description="Used to switch OFF the logic on VDDA. For functional mode itshould be 0"
+			end="0" id="OFFMODE" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_CLKCTRL" description="" id="TOP_RCM_PLL_PER_CLKCTRL"
+		offset="0x804" width="32">
+		<bitfield begin="31"
+			description="FailSafe enable to trigger re-calibration in case CycleSlip occurs between REFCLK and FBCLK."
+			end="31" id="CYCLESLIPEN" range="31" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="30"
+			description="Controls Clock Spreading. SSC is not supported. Should be set to 0x0 to disable clock spreading."
+			end="30" id="ENSSC" range="30" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="29"
+			description="Synchronously enables/disables CLKDCOLDO0x0 : synchronously disables CLKDCOLDO0x1 : synchronously enables CLKDCOLDO"
+			end="29" id="CLKDCOLDOEN" range="29" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="23"
+			description="Sets PLL to Idle mode0x0 : When SYSRESET = 0 and TINITZ = 1 IDLE = 0 PLL will go toActive and Locked0x1 : When SYSRESET = 0 and TINITZ = 1 IDLE = 1 PLL will go toIdle Bypass low powe"
+			end="23" id="IDLE" range="23" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="22"
+			description="BYPASSACKZ is a special purpose input to the module. In generalthis input is expected to be tied to static low. For the output clocks ofthe module that do not have an internal bypass mux viz.CLKDCOLDO and CLKOUTLDO, a bypass mux could beimplemented external to the module."
+			end="22" id="BYPASSACKZ" range="22" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="21"
+			description="Standby retention control0x0 : prepares ADPLLLJ for relock when out of retention byremoving the gating on all internal clocks.0x1 : prepares ADPLLLJ for retention by gating all the internalclocks."
+			end="21" id="STBYRET" range="21" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="20"
+			description="CLKOUT enable or disable0x0 : synchronously disables CLKOUT0x1 : synchronously enables CLKOUT"
+			end="20" id="CLKOUTEN" range="20" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="19"
+			description="Synchronously enables/disables CLKOUTLDO 0x0 : synchronously disables CLKOUTLDO 0x1 : synchronously enables CLKOUTLDO"
+			end="19" id="CLKOUTLDOEN" range="19" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="18"
+			description="Select CLKOUT source in bypass0x0: When ADPLLLJ in bypass mode, CLKOUT = CLKINP/(N2+1)0x1: When ADPLLLJ in bypass mode, CLKOUT = CLKINPULOW."
+			end="18" id="ULOWCLKEN" range="18" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="17" description="0 Asynchronous power down for CLKDCOLDO o/p." end="17"
+			id="CLKDCOLDOPWDNZ" range="17" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="16"
+			description="M2 divider power down mode0x0: Asynchronous power down for M2 divider0x1 : M2 divider is functional"
+			end="16" id="M2PWDNZ" range="16" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="14" description="When in Lossclk/Stbyret 0x0 : Limp mode 0x1 : Stopmode"
+			end="14" id="STOPMODE" range="14" resetval="0x1" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="12"
+			description="DCO Clock (DCOCLK = CLKINP * [M/(N+1)]) frequency rangeselector.0x0: Reserved0x2: HS2 : DCOCLK range is from 500 MHz to 1000 MHz0x3: Reserved0x4: HS1: DCOCLK range is from 1000 MHz to 2000 MHz0x5: Reserved"
+			end="10" id="SELFREQDCO" range="12 - 10" resetval="0x4" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="8"
+			description="Decides when FREQLOCK asserted0x0: FREQLOCK asserted when DC frequency error less than 1%0x1: FREQLOCK asserted when DC frequency error less than 2%"
+			end="8" id="RELAXED_LOCK" range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="SSC Type" end="1" id="SSCTYPE" range="1" resetval="0x0"
+			rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="PLL core soft reset" end="0" id="TINTZ" range="0"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_TENABLE" description="" id="TOP_RCM_PLL_PER_TENABLE"
+		offset="0x808" width="32">
+		<bitfield begin="0" description="M, N. SD and SELFREQDCO latch (active rise edge)" end="0"
+			id="TENABLE" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_TENABLEDIV" description="" id="TOP_RCM_PLL_PER_TENABLEDIV"
+		offset="0x80C" width="32">
+		<bitfield begin="0" description="M2 and N2 latch (active rise edge)" end="0" id="TENABLEDIV"
+			range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_M2NDIV" description="" id="TOP_RCM_PLL_PER_M2NDIV"
+		offset="0x810" width="24">
+		<bitfield begin="22" description="Post-divider is REGM2" end="16" id="M2" range="22 - 16"
+			resetval="0x0" rwaccess="RW" width="7"></bitfield>
+		<bitfield begin="7" description="Pre-divider is REGN+1" end="0" id="N" range="7 - 0"
+			resetval="0x19" rwaccess="RW" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_MN2DIV" description="" id="TOP_RCM_PLL_PER_MN2DIV"
+		offset="0x814" width="24">
+		<bitfield begin="19" description="Bypass divider is REGN2+1" end="16" id="N2"
+			range="19 - 16" resetval="0x0" rwaccess="RW" width="4"></bitfield>
+		<bitfield begin="11" description="Feedback Multiplier is REGM" end="0" id="M" range="11 - 0"
+			resetval="0x1536" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_FRACDIV" description="" id="TOP_RCM_PLL_PER_FRACDIV"
+		offset="0x818" width="32">
+		<bitfield begin="31"
+			description="Sigma-Delta DividerShould be set by s/w to provide optimum jitter performance.DPLL_SD_DIV = CEILING ([DPLL_MULT/(DPLL_DIV+1)] * CLKINP/ 250), where CLKINP is the input clock of the DPLL in MHz"
+			end="24" id="REGSD" range="31 - 24" resetval="0x8" rwaccess="RW" width="8"></bitfield>
+		<bitfield begin="17" description="Fractional part of the M divider." end="0"
+			id="FRACTIONALM" range="17 - 0" resetval="0x0" rwaccess="RW" width="18"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_BWCTRL" description="" id="TOP_RCM_PLL_PER_BWCTRL"
+		offset="0x81C" width="8">
+		<bitfield begin="2" description="Change Loop Bandwidth" end="1" id="BWCONTROL" range="2 - 1"
+			resetval="0x0" rwaccess="RW" width="2"></bitfield>
+		<bitfield begin="0"
+			description="Direction of Loop Bandwidth0x0 : decrease BW0x1 : increase BW" end="0"
+			id="BW_INCR_DECRZ" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_FRACCTRL" description="" id="TOP_RCM_PLL_PER_FRACCTRL"
+		offset="0x820" width="32">
+		<bitfield begin="31"
+			description="Controls frequency spread0x0 : enables both side frequency spread about the programmed frequency.0x1 : enables low frequency spread only"
+			end="31" id="DOWNSPREAD" range="31" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="30"
+			description="Exponent of the REFCLK divider to define the modulation frequency."
+			end="28" id="MODFREQDIVIDEREXPONENT" range="30 - 28" resetval="0x0" rwaccess="RW"
+			width="3"></bitfield>
+		<bitfield begin="27"
+			description="Mantissa of the REFCLK divider to define the modulation frequency" end="21"
+			id="MODFREQDIVIDERMANTISSA" range="27 - 21" resetval="0x0" rwaccess="RW" width="7"></bitfield>
+		<bitfield begin="20" description="Integer part of Frequency Spread control" end="18"
+			id="DELTAMSTEPINTEGER" range="20 - 18" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+		<bitfield begin="17" description="The fraction part of Frequency Spread control" end="0"
+			id="DELTAMSTEPFRACTION" range="17 - 0" resetval="0x0" rwaccess="RW" width="18"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_STATUS" description="" id="TOP_RCM_PLL_PER_STATUS"
+		offset="0x824" width="32">
+		<bitfield begin="31"
+			description="Status of the weak power-switch0x0 : indicates the/OFF status of the weak power-switch in digital toSOC.0x1 : ndicates the ON status of the weak power-switch in digital toSOC."
+			end="31" id="PONOUT" range="31" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="30"
+			description="Status of the strong power-switch0x0 : indicates the/OFF status of the strong power-switch in digital toSOC.0x1 : ndicates the ON status of the strong power-switch in digital toSOC."
+			end="30" id="PGOODOUT" range="30" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="29"
+			description="1 indicates ADPLLLJ internal LDO is power down. VDDLDOOUT willbe un-defined in this condition"
+			end="29" id="LDOPWDN" range="29" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="28"
+			description="Recalibration status flag. 1 ADPLLLJ requires recalibration" end="28"
+			id="RECAL_BSTATUS3" range="28" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="27"
+			description="Recalibration status flag. 1 ADPLLLJ requires recalibration" end="27"
+			id="RECAL_OPPIN" range="27" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="12"
+			description="Indicates the enable/disable condition of CLKOUTLDOEN0x0 = CLKOUTLDO gating completed0x1 = CLKOUTLDO enabling completed"
+			end="12" id="CLKOUTLDOENACK" range="12" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="11"
+			description="Indicates the enable/disable condition of CLKDCOLDOEN0x0 = CLKDCOLDO gating completed0x1 = CLKDCOLDO enabling completed"
+			end="11" id="CLKDCOLDOACK" range="11" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="10" description="Status on PHASELOCK output pin" end="10" id="PHASELOCK"
+			range="10" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="9" description="Status on FREQLOCK output pin" end="9" id="FREQLOCK"
+			range="9" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="8" description="Status of BYPASSACK output pin" end="8" id="BYPASSACK"
+			range="8" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="7"
+			description="Standby and retention status0x0: indicates to SOC that all internal clocks in ADPLLLJ are activeand it is starting the relock process.0x1: indicates to SOC that all internal clocks in ADPLLLJ are gatedand it is ready for retention."
+			end="7" id="STBYRETACK" range="7" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="6" description="Reference input loss" end="6" id="LOSSREF" range="6"
+			resetval="0x1" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Indicates the enable/disable condition of CLKOUTEN0x0 = CLKOUT gating completed0x1 = CLKOUT enabling completed"
+			end="5" id="CLKOUTENACK" range="5" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4" description="ADPLL internal loop lock status" end="4" id="LOCK2"
+			range="4" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="3"
+			description="Acknowledge for change to M2 divider. Toggles from 1-0 or 0-1(depending on current value) once CLKOUT frequency change hascompleted."
+			end="3" id="M2CHANGEACK" range="3" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Spread Spectrum status0x0 : Spread-spectrum Clocking is disabled on output clocks0x1 : Spread-spectrum Clocking is enabled on output clocks"
+			end="2" id="SSCACK" range="2" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="1"
+			description="1 indicates jitter. After PHASELOCK is asserted high, theHIGHJITTER flag is asserted high if phase error between REFCLKand FBCLK greater than 24%."
+			end="1" id="HIGHJITTER" range="1" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="0" description="Bypass status signal. 1 CLKOUT in bypass" end="0"
+			id="BYPASS" range="0" resetval="0x1" rwaccess="RO" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_HSDIVIDER" description="" id="TOP_RCM_PLL_PER_HSDIVIDER"
+		offset="0x828" width="24">
+		<bitfield begin="17" description="LDO Power Down Ack" end="17" id="LDOPWDNACK" range="17"
+			resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="16" description="HSDIVIDER Bypass Ack" end="16" id="BYPASSACKZ" range="16"
+			resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="2" description="Tenable Div" end="2" id="TENABLEDIV" range="2"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="LDO Power Down" end="1" id="LDOPWDN" range="1"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="HSDIVIDER Bypass" end="0" id="BYPASS" range="0"
+			resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0" description=""
+		id="TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0" offset="0x82C" width="16">
+		<bitfield begin="12"
+			description="Power down for HSDIVIDER M4 divider and hence CLKOUT0 output0h (R/W) = CLKOUT0 divider active1h (R/W) = CLKOUT0 divider is powered down"
+			end="12" id="PWDN" range="12" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="9"
+			description="HSDIVIDER CLKOUT0 status0h (R) = The clock output is gated1h (R) = The clock output is enabled"
+			end="9" id="STATUS" range="9" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="8"
+			description="Control gating of HSDIVIDER CLKOUT00h (R/W) = Automatically gate this clock when there is nodependency for it1h (R/W) = Force this clock to stay enabled even if there is norequest"
+			end="8" id="GATE_CTRL" range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Toggle on this status bit after changing HSDIVIDER_CLKOUT0_DIVindicates that the change in divider value has taken effect"
+			end="5" id="DIVCHACK" range="5" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4"
+			description="DPLL post-divider factor, M4, for internal clock generation.Divide values from 1 to 31.0h (R/W) = Reserved"
+			end="0" id="DIV" range="4 - 0" resetval="0x11" rwaccess="RW" width="5"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT1" description=""
+		id="TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT1" offset="0x830" width="16">
+		<bitfield begin="12"
+			description="Power down for HSDIVIDER M5 divider and hence CLKOUT1 output0h (R/W) = CLKOUT1 divider active1h (R/W) = CLKOUT1 divider is powered down"
+			end="12" id="PWDN" range="12" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="9"
+			description="HSDIVIDER CLKOUT1 status0h (R) = The clock output is gated1h (R) = The clock output is enabled"
+			end="9" id="STATUS" range="9" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="8"
+			description="Control gating of HSDIVIDER CLKOUT10h (R/W) = Automatically gate this clock when there is nodependency for it1h (R/W) = Force this clock to stay enabled even if there is norequest"
+			end="8" id="GATE_CTRL" range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Toggle on this status bit after changing HSDIVIDER_CLKOUT1_DIVindicates that the change in divider value has taken effect"
+			end="5" id="DIVCHACK" range="5" resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="4"
+			description="DPLL post-divider factor, M5, for internal clock generation.Divide values from 1 to 31.0h (R/W) = Reserved"
+			end="0" id="DIV" range="4 - 0" resetval="0x9" rwaccess="RW" width="5"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_RSTCTRL" description="" id="TOP_RCM_PLL_PER_RSTCTRL"
+		offset="0x83C" width="8">
+		<bitfield begin="2"
+			description="SW Reset override for the PLLWrite 3'b111 : Override is enabled and Reset is asserted"
+			end="0" id="ASSERT" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_PLL_PER_HSDIVIDER_RSTCTRL" description=""
+		id="TOP_RCM_PLL_PER_HSDIVIDER_RSTCTRL" offset="0x840" width="8">
+		<bitfield begin="2"
+			description="SW Reset override for the HSDIVIDERWrite 3'b111 : Override is enabled and Reset is asserted"
+			end="0" id="ASSERT" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT0_CLK_SRC_SEL" description="" id="TOP_RCM_CLKOUT0_CLK_SRC_SEL"
+		offset="0xC00" width="16">
+		<bitfield begin="11"
+			description="Select line for selecting source clock for MSS CLKOUT .Data should be loaded as multibit.  For example: if Clock source 0x5 should be selected then 0x555 should be configured to the register.Refer to AM602 clock spec for source clock reference"
+			end="0" id="CLKSRCSEL" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT1_CLK_SRC_SEL" description="" id="TOP_RCM_CLKOUT1_CLK_SRC_SEL"
+		offset="0xC04" width="16">
+		<bitfield begin="11"
+			description="Select line for selecting source clock for MSS CLKOUT .Data should be loaded as multibit.  For example: if Clock source 0x5 should be selected then 0x555 should be configured to the register.Refer to AM602 clock spec for source clock reference"
+			end="0" id="CLKSRCSEL" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT0_DIV_VAL" description="" id="TOP_RCM_CLKOUT0_DIV_VAL"
+		offset="0xC08" width="16">
+		<bitfield begin="11"
+			description="Divider value for CLKOUT selected clock.Data should be loaded as multibit.  For example: if divider value of 0x5 should be selected then 0x555 should be configured to the register."
+			end="0" id="CLKDIV" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT1_DIV_VAL" description="" id="TOP_RCM_CLKOUT1_DIV_VAL"
+		offset="0xC0C" width="16">
+		<bitfield begin="11"
+			description="Divider value for CLKOUT selected clock.Data should be loaded as multibit.  For example: if divider value of 0x5 should be selected then 0x555 should be configured to the register."
+			end="0" id="CLKDIV" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT0_CLK_GATE" description="" id="TOP_RCM_CLKOUT0_CLK_GATE"
+		offset="0xC10" width="8">
+		<bitfield begin="2"
+			description="Only for debug- Functionality not guaranteed Clock gating config for  MSS CLKOUTData should be loaded as multibit.  Write 3'b000 : Clock is ungated (multibit 000)Write 3'b111 : Clock is gated (multibit 111)"
+			end="0" id="GATED" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT1_CLK_GATE" description="" id="TOP_RCM_CLKOUT1_CLK_GATE"
+		offset="0xC14" width="8">
+		<bitfield begin="2"
+			description="Only for debug- Functionality not guaranteed Clock gating config for  MSS CLKOUTData should be loaded as multibit.  Write 3'b000 : Clock is ungated (multibit 000)Write 3'b111 : Clock is gated (multibit 111)"
+			end="0" id="GATED" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT0_CLK_STATUS" description="" id="TOP_RCM_CLKOUT0_CLK_STATUS"
+		offset="0xC18" width="16">
+		<bitfield begin="15"
+			description="Status shows the current divider value choosen for CLKOUT Clock" end="8"
+			id="CURRDIVIDER" range="15 - 8" resetval="0x0" rwaccess="RO" width="8"></bitfield>
+		<bitfield begin="7" description="Status shows the source clock slected for CLKOUT Clock"
+			end="0" id="CLKINUSE" range="7 - 0" resetval="0x1" rwaccess="RO" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_CLKOUT1_CLK_STATUS" description="" id="TOP_RCM_CLKOUT1_CLK_STATUS"
+		offset="0xC1C" width="16">
+		<bitfield begin="15"
+			description="Status shows the current divider value choosen for CLKOUT Clock" end="8"
+			id="CURRDIVIDER" range="15 - 8" resetval="0x0" rwaccess="RO" width="8"></bitfield>
+		<bitfield begin="7" description="Status shows the source clock slected for CLKOUT Clock"
+			end="0" id="CLKINUSE" range="7 - 0" resetval="0x1" rwaccess="RO" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_TRCCLKOUT_CLK_SRC_SEL" description=""
+		id="TOP_RCM_TRCCLKOUT_CLK_SRC_SEL" offset="0xC20" width="16">
+		<bitfield begin="11"
+			description="Select line for selecting source clock for TRC ClkoutData should be loaded as multibit.  For example: if Clock source 0x5 should be selected then 0x555 should be configured to the register.Refer to AM602 clock spec for source clock reference"
+			end="0" id="CLKSRCSEL" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_TRCCLKOUT_DIV_VAL" description="" id="TOP_RCM_TRCCLKOUT_DIV_VAL"
+		offset="0xC24" width="16">
+		<bitfield begin="11"
+			description="Divider value for TRC Clkout selected clock.Data should be loaded as multibit.  For example: if divider value of 0x5 should be selected then 0x555 should be configured to the register."
+			end="0" id="CLKDIV" range="11 - 0" resetval="0x0" rwaccess="RW" width="12"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_TRCCLKOUT_CLK_GATE" description="" id="TOP_RCM_TRCCLKOUT_CLK_GATE"
+		offset="0xC28" width="8">
+		<bitfield begin="2"
+			description="Clock gatring config for TRC ClkoutData should be loaded as multibit.  Write 3'b000 : Clock is ungated (multibit 000)Write 3'b111 : Clock is gated (multibit 111)"
+			end="0" id="GATED" range="2 - 0" resetval="0x0" rwaccess="RW" width="3"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_TRCCLKOUT_CLK_STATUS" description=""
+		id="TOP_RCM_TRCCLKOUT_CLK_STATUS" offset="0xC2C" width="16">
+		<bitfield begin="15"
+			description="Status shows the current divider value choosen for PMIC Clkout Clock"
+			end="8" id="CURRDIVIDER" range="15 - 8" resetval="0x0" rwaccess="RO" width="8"></bitfield>
+		<bitfield begin="7"
+			description="Status shows the source clock slected for PMIC Clkout Clock" end="0"
+			id="CLKINUSE" range="7 - 0" resetval="0x1" rwaccess="RO" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_DFT_DMLED_EXEC" description="" id="TOP_RCM_DFT_DMLED_EXEC"
+		offset="0xD00" width="32">
+		<bitfield begin="31"
+			description="SW mapping for DMLED ExecutionBit 0 : HSM CM4 Execution Bit 1 : HWA CM4 Execution Bit 2 : MSS CR5undefined Execution"
+			end="0" id="VAL" range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_DFT_DMLED_STATUS" description="" id="TOP_RCM_DFT_DMLED_STATUS"
+		offset="0xD04" width="32">
+		<bitfield begin="31"
+			description="SW mapping for DMLED StatusBit 0 : HSM CM4 Status Bit 1 : HWA CM4 Status Bit 2 : MSS CR5undefined Status"
+			end="0" id="VAL" range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_REG0" description="" id="TOP_RCM_HW_REG0" offset="0xE00"
+		width="32">
+		<bitfield begin="31" description="HW Reserved regiser. Reserved for HW RnD" end="0"
+			id="HWREG" range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_REG1" description="" id="TOP_RCM_HW_REG1" offset="0xE04"
+		width="32">
+		<bitfield begin="31" description="HW Reserved regiser. Reserved for HW RnD" end="0"
+			id="HWREG" range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_REG2" description="" id="TOP_RCM_HW_REG2" offset="0xE08"
+		width="32">
+		<bitfield begin="31" description="HW Reserved regiser. Reserved for HW RnD" end="0"
+			id="HWREG" range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_REG3" description="" id="TOP_RCM_HW_REG3" offset="0xE0C"
+		width="32">
+		<bitfield begin="31" description="HW Reserved regiser. Reserved for HW RnD" end="0"
+			id="HWREG" range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RW0" description="" id="TOP_RCM_HW_SPARE_RW0" offset="0xFD0"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RW0"
+			range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RW1" description="" id="TOP_RCM_HW_SPARE_RW1" offset="0xFD4"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RW1"
+			range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RW2" description="" id="TOP_RCM_HW_SPARE_RW2" offset="0xFD8"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RW2"
+			range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RW3" description="" id="TOP_RCM_HW_SPARE_RW3" offset="0xFDC"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RW3"
+			range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RO0" description="" id="TOP_RCM_HW_SPARE_RO0" offset="0xFE0"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RO0"
+			range="31 - 0" resetval="0x0" rwaccess="RO" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RO1" description="" id="TOP_RCM_HW_SPARE_RO1" offset="0xFE4"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RO1"
+			range="31 - 0" resetval="0x0" rwaccess="RO" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RO2" description="" id="TOP_RCM_HW_SPARE_RO2" offset="0xFE8"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RO2"
+			range="31 - 0" resetval="0x0" rwaccess="RO" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_RO3" description="" id="TOP_RCM_HW_SPARE_RO3" offset="0xFEC"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_RO3"
+			range="31 - 0" resetval="0x0" rwaccess="RO" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_WPH" description="" id="TOP_RCM_HW_SPARE_WPH" offset="0xFF0"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_WPH"
+			range="31 - 0" resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_HW_SPARE_REC" description="" id="TOP_RCM_HW_SPARE_REC" offset="0xFF4"
+		width="32">
+		<bitfield begin="31" description="Reserved for HW R&#38;D" end="31" id="HW_SPARE_REC31"
+			range="31" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="30" description="Reserved for HW R&#38;D" end="30" id="HW_SPARE_REC30"
+			range="30" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="29" description="Reserved for HW R&#38;D" end="29" id="HW_SPARE_REC29"
+			range="29" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="28" description="Reserved for HW R&#38;D" end="28" id="HW_SPARE_REC28"
+			range="28" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="27" description="Reserved for HW R&#38;D" end="27" id="HW_SPARE_REC27"
+			range="27" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="26" description="Reserved for HW R&#38;D" end="26" id="HW_SPARE_REC26"
+			range="26" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="25" description="Reserved for HW R&#38;D" end="25" id="HW_SPARE_REC25"
+			range="25" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="24" description="Reserved for HW R&#38;D" end="24" id="HW_SPARE_REC24"
+			range="24" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="23" description="Reserved for HW R&#38;D" end="23" id="HW_SPARE_REC23"
+			range="23" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="22" description="Reserved for HW R&#38;D" end="22" id="HW_SPARE_REC22"
+			range="22" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="21" description="Reserved for HW R&#38;D" end="21" id="HW_SPARE_REC21"
+			range="21" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="20" description="Reserved for HW R&#38;D" end="20" id="HW_SPARE_REC20"
+			range="20" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="19" description="Reserved for HW R&#38;D" end="19" id="HW_SPARE_REC19"
+			range="19" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="18" description="Reserved for HW R&#38;D" end="18" id="HW_SPARE_REC18"
+			range="18" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="17" description="Reserved for HW R&#38;D" end="17" id="HW_SPARE_REC17"
+			range="17" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="16" description="Reserved for HW R&#38;D" end="16" id="HW_SPARE_REC16"
+			range="16" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="15" description="Reserved for HW R&#38;D" end="15" id="HW_SPARE_REC15"
+			range="15" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="14" description="Reserved for HW R&#38;D" end="14" id="HW_SPARE_REC14"
+			range="14" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="13" description="Reserved for HW R&#38;D" end="13" id="HW_SPARE_REC13"
+			range="13" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="12" description="Reserved for HW R&#38;D" end="12" id="HW_SPARE_REC12"
+			range="12" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="11" description="Reserved for HW R&#38;D" end="11" id="HW_SPARE_REC11"
+			range="11" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="10" description="Reserved for HW R&#38;D" end="10" id="HW_SPARE_REC10"
+			range="10" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="9" description="Reserved for HW R&#38;D" end="9" id="HW_SPARE_REC9"
+			range="9" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="8" description="Reserved for HW R&#38;D" end="8" id="HW_SPARE_REC8"
+			range="8" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="7" description="Reserved for HW R&#38;D" end="7" id="HW_SPARE_REC7"
+			range="7" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="6" description="Reserved for HW R&#38;D" end="6" id="HW_SPARE_REC6"
+			range="6" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="5" description="Reserved for HW R&#38;D" end="5" id="HW_SPARE_REC5"
+			range="5" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="4" description="Reserved for HW R&#38;D" end="4" id="HW_SPARE_REC4"
+			range="4" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="3" description="Reserved for HW R&#38;D" end="3" id="HW_SPARE_REC3"
+			range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2" description="Reserved for HW R&#38;D" end="2" id="HW_SPARE_REC2"
+			range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1" description="Reserved for HW R&#38;D" end="1" id="HW_SPARE_REC1"
+			range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0" description="Reserved for HW R&#38;D" end="0" id="HW_SPARE_REC0"
+			range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_LOCK0_KICK0" description="" id="TOP_RCM_LOCK0_KICK0" offset="0x1008"
+		width="32">
+		<bitfield begin="31" description="- KICK0 component" end="0" id="LOCK0_KICK0" range="31 - 0"
+			resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_LOCK0_KICK1" description="" id="TOP_RCM_LOCK0_KICK1" offset="0x100C"
+		width="32">
+		<bitfield begin="31" description="- KICK1 component" end="0" id="LOCK0_KICK1" range="31 - 0"
+			resetval="0x0" rwaccess="RW" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_INTR_RAW_STATUS" description="" id="TOP_RCM_INTR_RAW_STATUS"
+		offset="0x1010" width="8">
+		<bitfield begin="3"
+			description="Proxy0 access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect."
+			end="3" id="PROXY_ERR" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Kick access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect."
+			end="2" id="KICK_ERR" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1"
+			description="Addressing violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect."
+			end="1" id="ADDR_ERR" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0"
+			description="Protection violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect."
+			end="0" id="PROT_ERR" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_INTR_ENABLED_STATUS_CLEAR" description=""
+		id="TOP_RCM_INTR_ENABLED_STATUS_CLEAR" offset="0x1014" width="8">
+		<bitfield begin="3"
+			description="Proxy0 access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect."
+			end="3" id="ENABLED_PROXY_ERR" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Kick access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect."
+			end="2" id="ENABLED_KICK_ERR" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1"
+			description="Addressing violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect."
+			end="1" id="ENABLED_ADDR_ERR" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0"
+			description="Protection violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect."
+			end="0" id="ENABLED_PROT_ERR" range="0" resetval="0x0" rwaccess="RW" width="1"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_INTR_ENABLE" description="" id="TOP_RCM_INTR_ENABLE" offset="0x1018"
+		width="8">
+		<bitfield begin="3"
+			description="Proxy0 access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect."
+			end="3" id="PROXY_ERR_EN" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Kick access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect."
+			end="2" id="KICK_ERR_EN" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1"
+			description="Addressing violation error enable. Write a 1 to set the enable. Writing a 0 has no effect."
+			end="1" id="ADDR_ERR_EN" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0"
+			description="Protection violation error enable. Write a 1 to set the enable. Writing a 0 has no effect."
+			end="0" id="PROT_ERR_EN" range="0" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_INTR_ENABLE_CLEAR" description="" id="TOP_RCM_INTR_ENABLE_CLEAR"
+		offset="0x101C" width="8">
+		<bitfield begin="3"
+			description="Proxy0 access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect."
+			end="3" id="PROXY_ERR_EN_CLR" range="3" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="2"
+			description="Kick access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect."
+			end="2" id="KICK_ERR_EN_CLR" range="2" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="1"
+			description="Addressing violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect."
+			end="1" id="ADDR_ERR_EN_CLR" range="1" resetval="0x0" rwaccess="RW" width="1"></bitfield>
+		<bitfield begin="0"
+			description="Protection violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect."
+			end="0" id="PROT_ERR_EN_CLR" range="0" resetval="0x0" rwaccess="RW" width="1"
+		></bitfield>
+	</register>
+	<register acronym="TOP_RCM_EOI" description="" id="TOP_RCM_EOI" offset="0x1020" width="8">
+		<bitfield begin="7"
+			description="EOI vector value. Write this with interrupt distribution value in the chip."
+			end="0" id="EOI_VECTOR" range="7 - 0" resetval="0x0" rwaccess="RW" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_FAULT_ADDRESS" description="" id="TOP_RCM_FAULT_ADDRESS"
+		offset="0x1024" width="32">
+		<bitfield begin="31" description="Fault Address." end="0" id="FAULT_ADDR" range="31 - 0"
+			resetval="0x0" rwaccess="RO" width="32"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_FAULT_TYPE_STATUS" description="" id="TOP_RCM_FAULT_TYPE_STATUS"
+		offset="0x1028" width="8">
+		<bitfield begin="6" description="Non-secure access." end="6" id="FAULT_NS" range="6"
+			resetval="0x0" rwaccess="RO" width="1"></bitfield>
+		<bitfield begin="5"
+			description="Fault Type  10_0000 = Supervisor read  fault  - priv = 1 dir = 1 dtype != 1   01_0000 = Supervisor write fault  - priv = 1 dir = 0  00_1000 = Supervisor execute fault - priv = 1 dir = 1 dtype = 1  00_0100 = User read  fault - priv = 0 dir = 1 dtype = 1  00_0010 = User write fault - priv = 0 dir = 0  00_0001 = User execute fault - priv = 0 dir = 1 dtype = 1  00_0000 = No fault"
+			end="0" id="FAULT_TYPE" range="5 - 0" resetval="0x0" rwaccess="RO" width="6"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_FAULT_ATTR_STATUS" description="" id="TOP_RCM_FAULT_ATTR_STATUS"
+		offset="0x102C" width="32">
+		<bitfield begin="31" description="XID." end="20" id="FAULT_XID" range="31 - 20"
+			resetval="0x0" rwaccess="RO" width="12"></bitfield>
+		<bitfield begin="19" description="Route ID." end="8" id="FAULT_ROUTEID" range="19 - 8"
+			resetval="0x0" rwaccess="RO" width="12"></bitfield>
+		<bitfield begin="7" description="Privilege ID." end="0" id="FAULT_PRIVID" range="7 - 0"
+			resetval="0x0" rwaccess="RO" width="8"></bitfield>
+	</register>
+	<register acronym="TOP_RCM_FAULT_CLEAR" description="" id="TOP_RCM_FAULT_CLEAR" offset="0x1030"
+		width="32">
+		<bitfield begin="0"
+			description="Fault clear. Writing a 1 clears the current fault. Writing a 0 has no effect."
+			end="0" id="FAULT_CLR" range="0" resetval="0x0" rwaccess="WO" width="1"></bitfield>
+	</register>
+</module>

@@ -1,0 +1,43 @@
+<module name="SMS0_WDTCTRL_1_HSM_CTRL_MMR" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="HSM_CTRL_MMR_PID" acronym="HSM_CTRL_MMR_PID" offset="0x0" width="32" description="">
+		<bitfield id="PID_MSB16" width="16" begin="31" end="16" resetval="0x24960" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="PID_MISC" width="5" begin="15" end="11" resetval="0x0" description="" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="PID_MAJOR" width="3" begin="10" end="8" resetval="0x2" description="" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="PID_CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="PID_MINOR" width="6" begin="5" end="0" resetval="0x19" description="" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="HSM_CTRL_MMR_LOCK0_KICK0" acronym="HSM_CTRL_MMR_LOCK0_KICK0" offset="0x20" width="32" description="">
+		<bitfield id="LOCK0_KICK0" width="32" begin="31" end="0" resetval="0x0" description=" - KICK0 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_LOCK0_KICK1" acronym="HSM_CTRL_MMR_LOCK0_KICK1" offset="0x24" width="32" description="">
+		<bitfield id="LOCK0_KICK1" width="32" begin="31" end="0" resetval="0x0" description=" - KICK1 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_WWRTI_CTRL" acronym="HSM_CTRL_MMR_WWRTI_CTRL" offset="0x40" width="32" description="">
+		<bitfield id="WWRTI_CLK_SEL" width="3" begin="10" end="8" resetval="0x0" description="" range="10 - 8" rwaccess="R/W"/> 
+		<bitfield id="WWRTI_WARM_RESET" width="4" begin="7" end="4" resetval="0x10" description="" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="WWRTI_COLD_RESET" width="4" begin="3" end="0" resetval="0x10" description="" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_WWRTI_CLOCK_CTRL" acronym="HSM_CTRL_MMR_WWRTI_CLOCK_CTRL" offset="0x50" width="32" description="">
+		<bitfield id="WWRTI_CLK_CTRL" width="4" begin="3" end="0" resetval="0x10" description="" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_SEC_WWDT_INTR_EXT_EN" acronym="HSM_CTRL_MMR_SEC_WWDT_INTR_EXT_EN" offset="0x704" width="32" description="">
+		<bitfield id="WDT_INTR_EXT_EN4" width="1" begin="4" end="4" resetval="0x0" description="" range="4" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN3" width="1" begin="3" end="3" resetval="0x0" description="" range="3" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN2" width="1" begin="2" end="2" resetval="0x0" description="" range="2" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN1" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_SEC_ECC_AGGR_INTR_EXT_EN" acronym="HSM_CTRL_MMR_SEC_ECC_AGGR_INTR_EXT_EN" offset="0x70C" width="32" description="">
+		<bitfield id="ECC_AGGR_INTR_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_SEC_FW_EXCPT_EXT_EN" acronym="HSM_CTRL_MMR_SEC_FW_EXCPT_EXT_EN" offset="0x71C" width="32" description="">
+		<bitfield id="FW_INT_EXT_EN0" width="1" begin="8" end="8" resetval="0x0" description="" range="8" rwaccess="R/W"/> 
+		<bitfield id="FW_EXP_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_SEC_RAT_INTR_EXT_EN" acronym="HSM_CTRL_MMR_SEC_RAT_INTR_EXT_EN" offset="0x724" width="32" description="">
+		<bitfield id="RAT_INTR_EXT_EN" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="HSM_CTRL_MMR_SEC_HSM_RESET" acronym="HSM_CTRL_MMR_SEC_HSM_RESET" offset="0x800" width="32" description="">
+		<bitfield id="RESET_MASK" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/>
+	</register>
+</module>

@@ -1,0 +1,152 @@
+<module name="DEBUGSS_WRAP0_DRM1" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="DRM_CFG_1_PERIPH_ID" acronym="DRM_CFG_1_PERIPH_ID" offset="0x0" width="32" description="This register is used to determine what the functionality of this peripheral is.">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Peripheral ID Scheme [0]" range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Reserved, returns 0" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="FUNCTION" width="12" begin="27" end="16" resetval="0x643" description="DRM Function ID [0x211]" range="27 - 16" rwaccess="R"/> 
+		<bitfield id="RTLREV" width="5" begin="15" end="11" resetval="0x12" description="RTL Revision [0]" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="MAJOR" width="3" begin="10" end="8" resetval="0x1" description="Major Peripheral Revision [0]" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custon Peripheral ID version [0]" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="MINOR" width="6" begin="5" end="0" resetval="0x0" description="Minor Peripheral Revision [0]" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="DRM_CFG_1_VERSION" acronym="DRM_CFG_1_VERSION" offset="0x4" width="32" description="This register is used to enable the Time Generator.  For application access, the DTG must be unlocked first.">
+		<bitfield id="MAJOR_VERSION" width="16" begin="31" end="16" resetval="0x0" description="Contains the major version value [1]" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="MINOR_VERSION" width="16" begin="15" end="0" resetval="0x0" description="Contains the minor version value [0]" range="15 - 0" rwaccess="R"/>
+	</register>
+	<register id="DRM_CFG_1_CAPABILITY" acronym="DRM_CFG_1_CAPABILITY" offset="0x8" width="32" description="This register can be read to determine the number of suspend signals and number of peripherals.">
+		<bitfield id="RESERVED" width="18" begin="31" end="14" resetval="0x0" description="Reserved, returns 0" range="31 - 14" rwaccess="R"/> 
+		<bitfield id="NUM_SUSPENDS" width="6" begin="13" end="8" resetval="0x0" description="Contains the number of Suspend signals supported, max of 32 There should be one signal per processor This value is set by a parameter at synthesis time" range="13 - 8" rwaccess="R"/> 
+		<bitfield id="NUM_PERIPHERALS" width="8" begin="7" end="0" resetval="0x0" description="Contains the number of peripherals supported, max of 128 This affects the number of SUSPEND_REG registers This is set by a parameter during synthesis" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="DRM_CFG_1_TRACE_CTRL" acronym="DRM_CFG_1_TRACE_CTRL" offset="0xC" width="32" description="This register is used to set the trace sampling mode to center(1) or edge(0).">
+		<bitfield id="RESERVED" width="31" begin="31" end="1" resetval="0x0" description="Reserved, returns 0" range="31 - 1" rwaccess="R"/> 
+		<bitfield id="CENTER_SAMPLING" width="1" begin="0" end="0" resetval="0x0" description="Sets trace to center sampled" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_VBUSM_CTRL" acronym="DRM_CFG_1_VBUSM_CTRL" offset="0x10" width="32" description="This register is used to set attributes on the VBUSM memory accesses and to read the Debug Operating Mode">
+		<bitfield id="DOM_INPUT" width="11" begin="31" end="21" resetval="0x0" description="This returns the DOM security input The upper 3 bits are the debug operating mode and the lower 8 bits are the priviledge ID for VBUSM transaction" range="31 - 21" rwaccess="R"/> 
+		<bitfield id="RESERVED" width="13" begin="20" end="8" resetval="0x0" description="Reserved bits, return 0" range="20 - 8" rwaccess="R"/> 
+		<bitfield id="VBUSM_PRIV" width="2" begin="7" end="6" resetval="0x0" description="These two bits show the currently state of the priv bits" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="VBUSM_SECURE" width="1" begin="5" end="5" resetval="0x0" description="This bit shows the currently active state of the VBUSM secure bit" range="5" rwaccess="R"/> 
+		<bitfield id="VBUSM_DEBUG" width="1" begin="4" end="4" resetval="0x0" description="This is the currently active state of the VBUSM emudbg bit" range="4" rwaccess="R"/> 
+		<bitfield id="CTL_PRIV" width="2" begin="3" end="2" resetval="0x0" description="These two bits determine the priviledge type for VBUSM accesses unless overridden by the DOM input [0 is user level privilege, 1 is supervisor level privilege, 2 is hypervisor level privilege and 3 is reserved]" range="3 - 2" rwaccess="R/W"/> 
+		<bitfield id="CTL_SECURE" width="1" begin="1" end="1" resetval="0x0" description="When set [and DOM permits it], the VBUSM accesses will have the secure bit set" range="1" rwaccess="R/W"/> 
+		<bitfield id="EMUDBG" width="1" begin="0" end="0" resetval="0x0" description="Sets the emudbg bit during access to make the debug or non-debug" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_DAP_TIMEOUT" acronym="DRM_CFG_1_DAP_TIMEOUT" offset="0x14" width="32" description="This register is used to set the maximum wait time for the DAP to complete a memory access.">
+		<bitfield id="DAP_TIMEOUT_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_CONFIG" acronym="DRM_CFG_1_CONFIG" offset="0x18" width="32" description="This register adds softreset capability to the suspend module.">
+		<bitfield id="RESERVED" width="31" begin="31" end="1" resetval="0x0" description="Reserved, returns 0" range="31 - 1" rwaccess="R"/> 
+		<bitfield id="SOFTRESET" width="1" begin="0" end="0" resetval="0x0" description="Software controlled reset of the DRM" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_EMUTRIGEN" acronym="DRM_CFG_1_EMUTRIGEN" offset="0x1C" width="32" description="This register is used to enable EMU triggers.">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Reserved, returns 0" range="31 - 2" rwaccess="R"/> 
+		<bitfield id="EMU1TRIGEN" width="1" begin="1" end="1" resetval="0x0" description="EMU 1 Trigger En" range="1" rwaccess="R/W"/> 
+		<bitfield id="EMU0TRIGEN" width="1" begin="0" end="0" resetval="0x0" description="EMU 0 Trigger En" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_BINVALLO" acronym="DRM_CFG_1_BINVALLO" offset="0x20" width="32" description="Reading this register returns the lower 32 bits of the binary debug time.">
+		<bitfield id="DTG_BINARY_TIME_LOW" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_BINVALHI" acronym="DRM_CFG_1_BINVALHI" offset="0x24" width="32" description="Reading this register returns the upper 16 bits of the binary debug time and causes the lower 32 bits to be latched.">
+		<bitfield id="RESERVED" width="16" begin="31" end="16" resetval="0x0" description="Reserved, returns 0" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="BINTIMEHI" width="15" begin="14" end="0" resetval="0x0" description="Upper 16 bits of the timer" range="14 - 0" rwaccess="R"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG0" acronym="DRM_CFG_1_SUSPEND_REG0" offset="0x200" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. There can be upto 128 of these registers (See NUM_PERIPHERALS in the DRM_CAPABILITY register)">
+		<bitfield id="RESERVED1" width="23" begin="31" end="9" resetval="0x0" description="Reserved, returns 0" range="31 - 9" rwaccess="R"/> 
+		<bitfield id="SELECT" width="5" begin="8" end="4" resetval="0x0" description="Selects which suspend control line [1-32] goes to the peripheral" range="8 - 4" rwaccess="R/W"/> 
+		<bitfield id="RESERVED0" width="3" begin="3" end="1" resetval="0x0" description="Reserved, returns 0" range="3 - 1" rwaccess="R"/> 
+		<bitfield id="SUSPEND_CTL" width="1" begin="0" end="0" resetval="0x0" description="When 1, the peripheral is sensitive to the suspend signal, when 0, it ignore it " range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG1" acronym="DRM_CFG_1_SUSPEND_REG1" offset="0x204" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_1" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG2" acronym="DRM_CFG_1_SUSPEND_REG2" offset="0x208" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_2" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG3" acronym="DRM_CFG_1_SUSPEND_REG3" offset="0x20C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_3" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG4" acronym="DRM_CFG_1_SUSPEND_REG4" offset="0x210" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_4" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG5" acronym="DRM_CFG_1_SUSPEND_REG5" offset="0x214" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_5" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG6" acronym="DRM_CFG_1_SUSPEND_REG6" offset="0x218" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_6" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG7" acronym="DRM_CFG_1_SUSPEND_REG7" offset="0x21C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_7" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG8" acronym="DRM_CFG_1_SUSPEND_REG8" offset="0x220" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_8" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG9" acronym="DRM_CFG_1_SUSPEND_REG9" offset="0x224" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_9" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG10" acronym="DRM_CFG_1_SUSPEND_REG10" offset="0x228" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_10" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG11" acronym="DRM_CFG_1_SUSPEND_REG11" offset="0x22C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_11" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG12" acronym="DRM_CFG_1_SUSPEND_REG12" offset="0x230" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_12" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG13" acronym="DRM_CFG_1_SUSPEND_REG13" offset="0x234" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_13" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG14" acronym="DRM_CFG_1_SUSPEND_REG14" offset="0x238" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_14" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG15" acronym="DRM_CFG_1_SUSPEND_REG15" offset="0x23C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_15" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG16" acronym="DRM_CFG_1_SUSPEND_REG16" offset="0x240" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_16" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG17" acronym="DRM_CFG_1_SUSPEND_REG17" offset="0x244" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_17" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG18" acronym="DRM_CFG_1_SUSPEND_REG18" offset="0x248" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_18" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG19" acronym="DRM_CFG_1_SUSPEND_REG19" offset="0x24C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_19" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG20" acronym="DRM_CFG_1_SUSPEND_REG20" offset="0x250" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_20" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG21" acronym="DRM_CFG_1_SUSPEND_REG21" offset="0x254" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_21" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG22" acronym="DRM_CFG_1_SUSPEND_REG22" offset="0x258" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_22" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG23" acronym="DRM_CFG_1_SUSPEND_REG23" offset="0x25C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_23" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG24" acronym="DRM_CFG_1_SUSPEND_REG24" offset="0x260" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_24" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG25" acronym="DRM_CFG_1_SUSPEND_REG25" offset="0x264" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_25" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG26" acronym="DRM_CFG_1_SUSPEND_REG26" offset="0x268" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_26" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG27" acronym="DRM_CFG_1_SUSPEND_REG27" offset="0x26C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_27" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG28" acronym="DRM_CFG_1_SUSPEND_REG28" offset="0x270" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_28" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG29" acronym="DRM_CFG_1_SUSPEND_REG29" offset="0x274" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_29" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG30" acronym="DRM_CFG_1_SUSPEND_REG30" offset="0x278" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_30" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DRM_CFG_1_SUSPEND_REG31" acronym="DRM_CFG_1_SUSPEND_REG31" offset="0x27C" width="32" description="The DRM Suspend Registers merge the emulation suspend signals sent by various processors, when it wishes to suspend the activity of connected peripherals during debugging. See Suspend Reg 0 for details">
+		<bitfield id="SUSPEND_REG_31" width="32" begin="31" end="0" resetval="0x0" description="See Suspend Reg 0 for field information" range="31 - 0" rwaccess="R/W"/>
+	</register>
+</module>

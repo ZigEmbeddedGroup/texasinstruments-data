@@ -1,0 +1,150 @@
+<module name="USB0_MMR_MMRVBP_USB2SS_CFG" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="MMR__MMRVBP__USB2SS_CFG_REVISION" acronym="MMR__MMRVBP__USB2SS_CFG_REVISION" offset="0x0" width="32" description="The Revision Register contains the major and minor revisions for the module.">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="PID register scheme" range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Business Unit: 10 = Processors" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="MODULE_ID" width="12" begin="27" end="16" resetval="0x2081" description="Module ID" range="27 - 16" rwaccess="R"/> 
+		<bitfield id="RTL" width="5" begin="15" end="11" resetval="0x9" description="RTL revision. Will vary depending on release." range="15 - 11" rwaccess="R"/> 
+		<bitfield id="MAJOR" width="3" begin="10" end="8" resetval="0x1" description="Major revision" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="MINOR" width="6" begin="5" end="0" resetval="0x0" description="Minor revision" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_OVERCURRENT_CONTROL" acronym="MMR__MMRVBP__USB2SS_CFG_OVERCURRENT_CONTROL" offset="0x4" width="32" description="This register contains bits for indicating overcurrent condition on VBUS to Controller">
+		<bitfield id="RSVD3" width="15" begin="31" end="17" resetval="0x0" description="Reserved bits" range="31 - 17" rwaccess="R"/> 
+		<bitfield id="OVERCURRENT_N" width="1" begin="16" end="16" resetval="0x1" description="Overcurrent indicator to the Controller" range="16" rwaccess="R/W"/> 
+		<bitfield id="RSVD2" width="7" begin="15" end="9" resetval="0x0" description="Reserved bits" range="15 - 9" rwaccess="R"/> 
+		<bitfield id="OVERCURRENT_SEL" width="1" begin="8" end="8" resetval="0x0" description="Overcurrent MMR select. Has to be written before setting pwrup_rst_n bit. 1 - overcurrent MMR bit is used, 0 - port_overcurrent_n input is used" range="8" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="8" begin="7" end="0" resetval="0x0" description="Reserved bits" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_PHY_CONFIG" acronym="MMR__MMRVBP__USB2SS_CFG_PHY_CONFIG" offset="0x8" width="32" description="Wrapper register containing static settings. All bits in this register directly drive the USB2 PHY inputs.  Please refer to USB2 PHY user guide for more information.">
+		<bitfield id="RESERVED" width="27" begin="31" end="5" resetval="0x0" description="Reserved bits" range="31 - 5" rwaccess="N/A"/> 
+		<bitfield id="RESERVED" width="2" begin="4" end="3" resetval="0x0" description="Reserved bits" range="4 - 3" rwaccess="N/A"/> 
+		<bitfield id="VBUS_SEL" width="2" begin="2" end="1" resetval="0x1" description="This register directly drives the vbus_sel[1:0] input to the PHY. VBUS select - 00: VBUS = 5.25V/3.3V, 01: VBUS/3 external divider is active, so VBUS could be upto 11V." range="2 - 1" rwaccess="R/W"/> 
+		<bitfield id="LANE_REVERSE" width="1" begin="0" end="0" resetval="0x0" description="This register directly drives the lane_reverse input to USB2 PHY. Lane reverse selection. When set, this bit indicates that D+ and D- lines have to be swapped." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_PHY_TEST" acronym="MMR__MMRVBP__USB2SS_CFG_PHY_TEST" offset="0xC" width="32" description="Register containing PLL bypass select, BIST control and status">
+		<bitfield id="RESERVED" width="14" begin="31" end="18" resetval="0x0" description="Reserved bits" range="31 - 18" rwaccess="N/A"/> 
+		<bitfield id="BIST_MODE" width="1" begin="17" end="17" resetval="0x0" description="Set for bist mode. This is used for overriding PHY ports for BIST." range="17" rwaccess="R/W"/> 
+		<bitfield id="BIST_ERROR_COUNT" width="8" begin="16" end="9" resetval="0x0" description="Number of bytes that have errors while running BIST. The count resets when bist_on is set." range="16 - 9" rwaccess="R"/> 
+		<bitfield id="BIST_ERROR" width="1" begin="8" end="8" resetval="0x0" description="If set, this bit indicates that BIST completed with error." range="8" rwaccess="R"/> 
+		<bitfield id="BIST_COMPLETE" width="1" begin="7" end="7" resetval="0x0" description="If set, this bit indicates that the BIST operation is completed." range="7" rwaccess="R"/> 
+		<bitfield id="BIST_ON" width="1" begin="6" end="6" resetval="0x0" description="Setting this bit starts the BIST operation." range="6" rwaccess="R/W"/> 
+		<bitfield id="BIST_MODE_EN" width="1" begin="5" end="5" resetval="0x0" description="BIST Mode Enable. 0 = BIST not enabled, 1 = BIST enabled" range="5" rwaccess="R/W"/> 
+		<bitfield id="BIST_MODE_SEL" width="4" begin="4" end="1" resetval="0x0" description="BIST Mode Selection. bist_mode_sel[3]: 0 = 8-bit interface, 1 = 16-bit interface; bist_mode_sel[2]: 0 = error injection disabled, 1 = error injection enabled; bist_mode_sel[1]: 0 = device mode, 1 = host mode; bist_mode_sel[0]: 0 = High Speed mode, 1 = Full Speed mode." range="4 - 1" rwaccess="R/W"/> 
+		<bitfield id="RESERVED" width="1" begin="0" end="0" resetval="0x0" description="Reserved bits" range="0" rwaccess="N/A"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_CORE_STAT" acronym="MMR__MMRVBP__USB2SS_CFG_CORE_STAT" offset="0x14" width="32" description="Register containing miscellaneous status bits from the core">
+		<bitfield id="RSVD1" width="17" begin="31" end="15" resetval="0x0" description="Reserved bits" range="31 - 15" rwaccess="R"/> 
+		<bitfield id="HUB_VBUS_CTRL" width="1" begin="14" end="14" resetval="0x0" description="Indicates whether core is asking for VBUS to be turned on in host mode." range="14" rwaccess="R"/> 
+		<bitfield id="OPERATIONAL_MODE" width="2" begin="13" end="12" resetval="0x2" description="Indicates current operational mode of Controller. This directly reflects the value programmed into GCTL.PRTCAPDIR Controller register. 2'b01 - Host, 2'b10 - Device." range="13 - 12" rwaccess="R"/> 
+		<bitfield id="HOST_CURRENT_BELT" width="12" begin="11" end="0" resetval="0x2024" description="Indicates minimum of all received device BELT values and the BELT value set by the Set Latency Tolerance Value command." range="11 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_HOST_VBUS_CTRL" acronym="MMR__MMRVBP__USB2SS_CFG_HOST_VBUS_CTRL" offset="0x18" width="32" description="Register containing software bit for overriding drive VBUS">
+		<bitfield id="DRV_VBUS_OVERRIDE" width="1" begin="1" end="1" resetval="0x0" description="Setting this bit enables drive VBUS override. Drive VBUS output reflects drv_vbus_override_val field value." range="1" rwaccess="R/W"/> 
+		<bitfield id="DRV_VBUS_OVERRIDE_VAL" width="1" begin="0" end="0" resetval="0x0" description="Drive VBUS output override value." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_MODE_CONTROL" acronym="MMR__MMRVBP__USB2SS_CFG_MODE_CONTROL" offset="0x1C" width="32" description="Register containing software bit for indicating DRD mode is determined">
+		<bitfield id="MODE_VALID" width="1" begin="0" end="0" resetval="0x0" description="For DRD applications, software sets this bit when the role is determined based on connect event and ID value from GPIO. Software clears this bit when a disconnect event happens and role is no longer valid. Software can also set this once during initialization for fixed role applications." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_WAKEUP_CONFIG" acronym="MMR__MMRVBP__USB2SS_CFG_WAKEUP_CONFIG" offset="0x30" width="32" description="Register containing low power mode wakeup enables">
+		<bitfield id="RSVD1" width="28" begin="31" end="4" resetval="0x0" description="Reserved bits" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="OVERCURRENT_WAKEUP_EN" width="1" begin="3" end="3" resetval="0x0" description="overcurrent event wakeup enable" range="3" rwaccess="R/W"/> 
+		<bitfield id="LINESTATE_WAKEUP_EN" width="1" begin="2" end="2" resetval="0x0" description="linestate event wakeup enable" range="2" rwaccess="R/W"/> 
+		<bitfield id="SESSVALID_WAKEUP_EN" width="1" begin="1" end="1" resetval="0x0" description="SESSVALID event wakeup enable" range="1" rwaccess="R/W"/> 
+		<bitfield id="VBUSVALID_WAKEUP_EN" width="1" begin="0" end="0" resetval="0x0" description="VBUSVALID event wakeup enable" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_WAKEUP_STAT" acronym="MMR__MMRVBP__USB2SS_CFG_WAKEUP_STAT" offset="0x34" width="32" description="Register containing low power mode status bits. The status bits are set when the corresponding wakeup event happens and the corresponding enable in WAKEUP_CONFIG MMR is set. In addition, these bits are only set if clockstop request from PSC is active in order to ensure that these are captured only during low power mode and not during regular operation. These bits can only be set by hardware and once set, they can only be cleared by software by setting wakeup_stat_clear field.">
+		<bitfield id="RSVD1" width="17" begin="31" end="15" resetval="0x0" description="Reserved bits" range="31 - 15" rwaccess="R"/> 
+		<bitfield id="OVERCURRENT_N_WAKEUP_CURRENT" width="1" begin="14" end="14" resetval="0x0" description="overcurrent_n current value during wakeup event" range="14" rwaccess="R"/> 
+		<bitfield id="OVERCURRENT_N_WAKEUP_PREV" width="1" begin="13" end="13" resetval="0x0" description="overcurrent_n previous value during wakeup event" range="13" rwaccess="R"/> 
+		<bitfield id="LINESTATE_WAKEUP_CURRENT" width="2" begin="12" end="11" resetval="0x0" description="Linestate current value during wakeup event" range="12 - 11" rwaccess="R"/> 
+		<bitfield id="LINESTATE_WAKEUP_PREV" width="2" begin="10" end="9" resetval="0x0" description="Linestate previous value during wakeup event" range="10 - 9" rwaccess="R"/> 
+		<bitfield id="SESSVALID_WAKEUP_CURRENT" width="1" begin="8" end="8" resetval="0x0" description="SESSVALID current value during wakeup event" range="8" rwaccess="R"/> 
+		<bitfield id="SESSVALID_WAKEUP_PREV" width="1" begin="7" end="7" resetval="0x0" description="SESSVALID previous value during wakeup event" range="7" rwaccess="R"/> 
+		<bitfield id="VBUSVALID_WAKEUP_CURRENT" width="1" begin="6" end="6" resetval="0x0" description="VBUSVALID current value during wakeup event" range="6" rwaccess="R"/> 
+		<bitfield id="VBUSVALID_WAKEUP_PREV" width="1" begin="5" end="5" resetval="0x0" description="VBUSVALID previous value during wakeup event" range="5" rwaccess="R"/> 
+		<bitfield id="OVERCURRENT_N_WAKEUP_STAT" width="1" begin="4" end="4" resetval="0x0" description="overcurrent_n event wakeup status. This is only looking for change on port_overcurrent_n input and does not include overcurrent MMR. This is because wakeup is required only for a port event and for any software write to happen, SOC should already have been awake. Also SOC may be tying off port_overcurrent_n, so this event may never trigger." range="4" rwaccess="R"/> 
+		<bitfield id="LINESTATE_WAKEUP_STAT" width="1" begin="3" end="3" resetval="0x0" description="linestate event wakeup status" range="3" rwaccess="R"/> 
+		<bitfield id="SESSVALID_WAKEUP_STAT" width="1" begin="2" end="2" resetval="0x0" description="SESSVALID event wakeup status" range="2" rwaccess="R"/> 
+		<bitfield id="VBUSVALID_WAKEUP_STAT" width="1" begin="1" end="1" resetval="0x0" description="VBUSVALID event wakeup status" range="1" rwaccess="R"/> 
+		<bitfield id="WAKEUP_STAT_CLEAR" width="1" begin="0" end="0" resetval="0x0" description="Clears all the *_wakeup_stat bits in this register" range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_OVERRIDE_CONFIG" acronym="MMR__MMRVBP__USB2SS_CFG_OVERRIDE_CONFIG" offset="0x38" width="32" description="Register containing various overrides">
+		<bitfield id="PHY_HVM_EN" width="1" begin="31" end="31" resetval="0x0" description="Enable PHY HVM overrides." range="31" rwaccess="R/W"/> 
+		<bitfield id="XCVRSEL_HVM_OVERRIDE_VAL" width="2" begin="16" end="15" resetval="0x0" description="Override value for PHY xcvr input. The value in this field is applied to PHY xcvrsel input if phy_hvm_en bit in this register is set." range="16 - 15" rwaccess="R/W"/> 
+		<bitfield id="TERMSEL_HVM_OVERRIDE_VAL" width="1" begin="14" end="14" resetval="0x0" description="Override value for PHY termsel input. The value in this field is applied to PHY termsel input if phy_hvm_en bit in this register is set." range="14" rwaccess="R/W"/> 
+		<bitfield id="OPMODE_HVM_OVERRIDE_VAL" width="2" begin="13" end="12" resetval="0x0" description="Override value for PHY opmode input. The value in this field is applied to PHY opmode input if phy_hvm_en bit in this register is set." range="13 - 12" rwaccess="R/W"/> 
+		<bitfield id="DMPULLDOWN_HVM_OVERRIDE_VAL" width="1" begin="11" end="11" resetval="0x0" description="Override value for PHY dmpulldown input. The value in this field is applied to PHY dmpulldown input if phy_hvm_en bit in this register is set." range="11" rwaccess="R/W"/> 
+		<bitfield id="DPPULLDOWN_HVM_OVERRIDE_VAL" width="1" begin="10" end="10" resetval="0x0" description="Override value for PHY dppulldown input. The value in this field is applied to PHY dppulldown input if phy_hvm_en bit in this register is set." range="10" rwaccess="R/W"/> 
+		<bitfield id="SUSPEND_OVERRIDE_VAL" width="1" begin="7" end="7" resetval="0x0" description="Suspend override value. 0 - suspendm is asserted and clockstop idle term indicates idle, 1 - suspendm is deasserted and clockstop idle term indicates non-idle." range="7" rwaccess="R/W"/> 
+		<bitfield id="SUSPEND_OVERRIDE_SEL" width="1" begin="6" end="6" resetval="0x0" description="Suspend override selector. This has to be set to override utmi_suspend_n from Controller that goes to clockstop idle. This does not affect suspend going to PHY. Only purpose of this is to ease clockstop interface DV." range="6" rwaccess="R/W"/> 
+		<bitfield id="TXBITSTUFFEN_OVERRIDE_VAL" width="1" begin="5" end="5" resetval="0x0" description="TXBITSTUFFENABLE override value" range="5" rwaccess="R/W"/> 
+		<bitfield id="TXBITSTUFFEN_OVERRIDE_SEL" width="1" begin="4" end="4" resetval="0x0" description="TXBITSTUFFENABLE override selector. This has to be set to override TXBITSTUFFENABLE to PHY." range="4" rwaccess="R/W"/> 
+		<bitfield id="SESSVALID_OVERRIDE_VAL" width="1" begin="3" end="3" resetval="0x0" description="SESSVALID override value. 1 - Session is valid, 0 - Session is not valid" range="3" rwaccess="R/W"/> 
+		<bitfield id="SESSVALID_OVERRIDE_SEL" width="1" begin="2" end="2" resetval="0x0" description="SESSVALID override selector. This has to be set to override sessvalid from PHY to Controller." range="2" rwaccess="R/W"/> 
+		<bitfield id="VBUSVALID_OVERRIDE_VAL" width="1" begin="1" end="1" resetval="0x0" description="VBUSVALID override value. 1 - VBUS is valid, 0 - VBUS is not valid" range="1" rwaccess="R/W"/> 
+		<bitfield id="VBUSVALID_OVERRIDE_SEL" width="1" begin="0" end="0" resetval="0x0" description="VBUSVALID override selector. This has to be set to override vbusvalid from PHY to Controller." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_STATUS_RAW" acronym="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_STATUS_RAW" offset="0x430" width="32" description="The IRQ_STATUS_RAW_MISC register allows the usbss interrupt sources to be manually set when writing a 1 to a specific bit.  Write 0: No action Write 1: Set event Read 0: No event pending Read 1: Event pending">
+		<bitfield id="RESERVED" width="9" begin="31" end="23" resetval="0x0" description="Reserved bits" range="31 - 23" rwaccess="N/A"/> 
+		<bitfield id="VBUSVALID_CHANGE" width="1" begin="22" end="22" resetval="0x0" description="Set when VBUSVALID changes state " range="22" rwaccess="R/W1TS"/> 
+		<bitfield id="RESERVED" width="1" begin="21" end="21" resetval="0x0" description="Reserved bits" range="21" rwaccess="N/A"/> 
+		<bitfield id="SESSVALID_CHANGE" width="1" begin="20" end="20" resetval="0x0" description="Set when SESSVALID changes state " range="20" rwaccess="R/W1TS"/> 
+		<bitfield id="RESERVED" width="20" begin="19" end="0" resetval="0x0" description="Reserved bits" range="19 - 0" rwaccess="N/A"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_STATUS" acronym="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_STATUS" offset="0x434" width="32" description="The IRQ_STATUS_MISC register allows the usbss interrupt sources to be manually cleared when writing a 1 to a specific bit.   Write 0: No action Write 1: Clear event Read 0: No event pending Read 1: Event pending">
+		<bitfield id="RESERVED" width="9" begin="31" end="23" resetval="0x0" description="Reserved bits" range="31 - 23" rwaccess="N/A"/> 
+		<bitfield id="VBUSVALID_CHANGE" width="1" begin="22" end="22" resetval="0x0" description="Set when VBUSVALID changes state  " range="22" rwaccess="R/W1TC"/> 
+		<bitfield id="RESERVED" width="1" begin="21" end="21" resetval="0x0" description="Reserved bits" range="21" rwaccess="N/A"/> 
+		<bitfield id="SESSVALID_CHANGE" width="1" begin="20" end="20" resetval="0x0" description="Set when SESSVALID changes state  " range="20" rwaccess="R/W1TC"/> 
+		<bitfield id="RESERVED" width="20" begin="19" end="0" resetval="0x0" description="Reserved bits" range="19 - 0" rwaccess="N/A"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_ENABLE_SET" acronym="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_ENABLE_SET" offset="0x438" width="32" description="The IRQ_ENABLE_SET_MISC register allows the usbss interrupt sources to be manually enabled when writing a 1 to a specific bit.  Write 0: No action Write 1: Enable event Read 0: Event is disabled Read 1: Event is enabled">
+		<bitfield id="RESERVED" width="9" begin="31" end="23" resetval="0x0" description="Reserved bits" range="31 - 23" rwaccess="N/A"/> 
+		<bitfield id="VBUSVALID_CHANGE" width="1" begin="22" end="22" resetval="0x0" description="Event enable" range="22" rwaccess="R/W1TS"/> 
+		<bitfield id="RESERVED" width="1" begin="21" end="21" resetval="0x0" description="Reserved bits" range="21" rwaccess="N/A"/> 
+		<bitfield id="SESSVALID_CHANGE" width="1" begin="20" end="20" resetval="0x0" description="Event enable" range="20" rwaccess="R/W1TS"/> 
+		<bitfield id="RESERVED" width="20" begin="19" end="0" resetval="0x0" description="Reserved bits" range="19 - 0" rwaccess="N/A"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_ENABLE_CLR" acronym="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_ENABLE_CLR" offset="0x43C" width="32" description="The IRQ_ENABLE_CLR_MISC register allows the usbss interrupt sources to be manually disabled when writing a 1 to a specific bit.  Write 0: No action Write 1: Disable event Read 0: Event is disabled Read 1: Event is enabled">
+		<bitfield id="RESERVED" width="9" begin="31" end="23" resetval="0x0" description="Reserved bits" range="31 - 23" rwaccess="N/A"/> 
+		<bitfield id="VBUSVALID_CHANGE" width="1" begin="22" end="22" resetval="0x0" description="Event enable" range="22" rwaccess="R/W1TC"/> 
+		<bitfield id="RESERVED" width="1" begin="21" end="21" resetval="0x0" description="Reserved bits" range="21" rwaccess="N/A"/> 
+		<bitfield id="SESSVALID_CHANGE" width="1" begin="20" end="20" resetval="0x0" description="Event enable" range="20" rwaccess="R/W1TC"/> 
+		<bitfield id="RESERVED" width="20" begin="19" end="0" resetval="0x0" description="Reserved bits" range="19 - 0" rwaccess="N/A"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_EOI" acronym="MMR__MMRVBP__USB2SS_CFG_IRQ_MISC_EOI" offset="0x440" width="32" description="EOI vector for re-triggering interrupts">
+		<bitfield id="EOI_VECTOR" width="1" begin="0" end="0" resetval="0x0" description="EOI vector for misc interrupt. Has to be written to 0 after ISR services misc interrupt." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_INTR_TEST" acronym="MMR__MMRVBP__USB2SS_CFG_INTR_TEST" offset="0x490" width="32" description="Register for overriding various Controller interrupts for easy activation during DV. NOTE: This is only for internal purposes and should NOT be used during functional operation.">
+		<bitfield id="HOST_SYSTEM_ERR_TEST" width="1" begin="8" end="8" resetval="0x0" description="Test for host system error interrupt. Set 1 to cause host_system_error_intr to trigger and clear this bit to clear the interrupt condition." range="8" rwaccess="R/W"/> 
+		<bitfield id="IRQ_TEST" width="8" begin="7" end="0" resetval="0x0" description="Test for irq interrupts from core. Each bit sets corresponding irq_intr bit. Set 1 to each bit based on whether that interrupt needs to trigger and clear the bit in ISR to clear interrupt condition." range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_VBUS_FILTER" acronym="MMR__MMRVBP__USB2SS_CFG_VBUS_FILTER" offset="0x614" width="32" description="The vbus comparator signals may be filtered by controlling these register values.">
+		<bitfield id="RESERVED" width="23" begin="31" end="9" resetval="0x0" description="Reserved bits" range="31 - 9" rwaccess="N/A"/> 
+		<bitfield id="SESSVALID_BYPASS" width="1" begin="8" end="8" resetval="0x1" description="0= use filter, 1= bypass filter" range="8" rwaccess="R/W"/> 
+		<bitfield id="SESSVALID_THRESH" width="2" begin="7" end="6" resetval="0x0" description="00= 1us,01= 100us,10= 5ms,11= 50ms. 4 utmi_clk latency for sessvalid" range="7 - 6" rwaccess="R/W"/> 
+		<bitfield id="RESERVED" width="3" begin="5" end="3" resetval="0x0" description="Reserved bits" range="5 - 3" rwaccess="N/A"/> 
+		<bitfield id="VBUSVALID_BYPASS" width="1" begin="2" end="2" resetval="0x1" description="0= use filter, 1= bypass filter for vbusvalid" range="2" rwaccess="R/W"/> 
+		<bitfield id="VBUSVALID_THRESH" width="2" begin="1" end="0" resetval="0x0" description="00= 1us,01= 100us,10= 5ms,11= 50ms. 4 utmi_clk latency for vbusvalid" range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_VBUS_STAT" acronym="MMR__MMRVBP__USB2SS_CFG_VBUS_STAT" offset="0x618" width="32" description=" Status bits of VBUS detected signals after filter.">
+		<bitfield id="RESERVED" width="29" begin="31" end="3" resetval="0x0" description="Reserved bits" range="31 - 3" rwaccess="N/A"/> 
+		<bitfield id="SESSVALID" width="1" begin="2" end="2" resetval="0x0" description="Filtered SESSVALID    " range="2" rwaccess="R"/> 
+		<bitfield id="RESERVED" width="1" begin="1" end="1" resetval="0x0" description="Reserved bits" range="1" rwaccess="N/A"/> 
+		<bitfield id="VBUSVALID" width="1" begin="0" end="0" resetval="0x0" description="Filtered VBUSVALID " range="0" rwaccess="R"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_DEBUG_CFG" acronym="MMR__MMRVBP__USB2SS_CFG_DEBUG_CFG" offset="0x708" width="32" description="Configuration of debug data for observation.    0x0 or 0x7 = debug outputs are tied low, 0x1 = debug outputs are UTMI interface signals, 0x2 = debug outputs are Controller debug[31:0] output 0x3 = debug outputs are Controller debug[63:32] output, 0x4 = debug outputs are clk_gate_ctrl and debug[66:64] Controller outputs, 0x5 = debug outputs are controller logic_analyzer_trace[31:0], 0x6 = debug outputs are controller logic_analyzer_trace[63:32]">
+		<bitfield id="SEL" width="3" begin="2" end="0" resetval="0x0" description="selection of observed local signals" range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_DEBUG_DATA" acronym="MMR__MMRVBP__USB2SS_CFG_DEBUG_DATA" offset="0x70C" width="32" description="Debug data">
+		<bitfield id="VAL" width="32" begin="31" end="0" resetval="0x0" description="tmp" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__MMRVBP__USB2SS_CFG_HOST_HUB_CTRL" acronym="MMR__MMRVBP__USB2SS_CFG_HOST_HUB_CTRL" offset="0x714" width="32" description="The HOST_HUB_CTRL Register is a collection of various input signals that control the xHC controllers Host or Hub interfaces. These signals are used regardless if a Host or Hub is implemented or not.">
+		<bitfield id="RSVD3" width="22" begin="31" end="10" resetval="0x0" description="Reserved bits" range="31 - 10" rwaccess="R"/> 
+		<bitfield id="BUS_FILTER_BYPASS" width="4" begin="9" end="6" resetval="0x0" description="Bus Filter Bypass bit [0]: bypass the filter for vbusvalid bit bit [2]: bypass the filter for sessvalid " range="9 - 6" rwaccess="R/W"/> 
+		<bitfield id="HUB_PORT_PERM_ATTACH" width="1" begin="5" end="5" resetval="0x0" description="Indicates if the device attached to a downstream port is permanently attached or not. Bit 6 is the USB2 port and bit 7 is the SS port. 0 - Not permanently attached 1 - Permanently attached" range="5" rwaccess="R/W"/> 
+		<bitfield id="RSVD2" width="3" begin="4" end="2" resetval="0x0" description="Reserved bits" range="4 - 2" rwaccess="R"/> 
+		<bitfield id="HOST_PORT_POWER_CONTROL_PRESENT" width="1" begin="1" end="1" resetval="0x1" description="This port defines the bit [3] of Capability Parameters (HCCPARAMS). Change the PPC value through the pin Port Power Control (PPC). This indicates whether the host controller implementation includes port power control. 0 - Indicates that the port does not have port power switches. 1 - Indicates that the port has port power switches." range="1" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="1" begin="0" end="0" resetval="0x0" description="Reserved bits" range="0" rwaccess="R"/>
+	</register>
+</module>

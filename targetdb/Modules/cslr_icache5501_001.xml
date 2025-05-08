@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="ICACHE" HW_revision="1.0" XML_version="1.0" description="Instruction Cache">
+	<register id="ICGC" acronym="ICGC" offset="0" width="16" description="Global Control Register">
+		<bitfield id="Reserved" width="3" begin="15" end="13" resetval="110" description="Always write 110b to these reserved bits." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="FLUSHLINE" width="1" begin="12" end="12" resetval="0" description="Flush the cache line specified by the flush line address registers (ICFARH and ICFARL)." range="" rwaccess="RW">
+		</bitfield>
+		<bitfield id="Reserved" width="12" begin="11" end="0" resetval="0" description="Always write E3Ch to these reserved bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="ICFARL" acronym="ICFARL" offset="1" width="16" description="I-Cache Flush Line Low Address Register">
+		<bitfield id="LAL" width="16" begin="15" end="0" resetval="0" description="Least-significant 16 bits of the program address associated with the line to be flushed." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="ICFARH" acronym="ICFARH" offset="2" width="16" description="I-Cache Flush Line High Address Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="LAH" width="8" begin="7" end="0" resetval="0" description="Most-significant 8 bits of the program address associated with the line to be flushed." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="ICWMC" acronym="ICWMC" offset="3" width="16" description="Way Miss Counter Register">
+		<bitfield id="MISSCNT" width="16" begin="15" end="0" resetval="0" description="A counter to count the number of mis-compares for the 2-way cache." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+</module>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="Timer, GP" HW_revision="1.0" XML_version="1.0" description="Timer, general-purpose">
+	<register id="TIM" acronym="TIM" offset="0" width="16" description="Main count register">
+		<bitfield id="TIM" width="16" begin="15" end="0" resetval="FFFFh" description="Main count register." range="" rwaccess="R">
+		</bitfield>
+	</register>
+	<register id="PRD" acronym="PRD" offset="1" width="16" description="Main period register">
+		<bitfield id="PRD" width="16" begin="15" end="0" resetval="FFFFh" description="Main period register." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="PRSC" acronym="PRSC" offset="3" width="16" description="Timer prescaler register">
+		<bitfield id="Reserved" width="6" begin="15" end="10" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="PSC" width="4" begin="9" end="6" resetval="0" description="Prescaler count register." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="Reserved" width="2" begin="5" end="4" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="TDDR" width="4" begin="3" end="0" resetval="0" description="Timer divide-down register (prescaler period register)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="TCR" acronym="TCR" offset="2" width="16" description="Timer control register">
+		<bitfield id="IDLEEN" width="1" begin="15" end="15" resetval="0" description="Idle enable bit for the timer." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The timer cannot be placed in an idle state."/>
+			<bitenum id="1" value="1" token="1" description="If the PERIPH domain is idle (PERIS = 1 in the idle status register), the timer is stopped in a low-power state."/>
+		</bitfield>
+		<bitfield id="INTEXT" width="1" begin="14" end="14" resetval="0" description="Internal-to-external clock change indicator." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="Timer not ready to use an external clock source."/>
+			<bitenum id="1" value="1" token="1" description="Timer ready to use an external clock source."/>
+		</bitfield>
+		<bitfield id="ERRTIM" width="1" begin="13" end="13" resetval="0" description="Timer-pin error flag." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="No error detected or ERRTIM has been read."/>
+			<bitenum id="1" value="1" token="1" description="Error detected in a write to the FUNC bits."/>
+		</bitfield>
+		<bitfield id="FUNC" width="2" begin="12" end="11" resetval="00" description="Function bits for the timer pin." range="" rwaccess="RW">
+			<bitenum id="00b" value="0" token="00b" description="Pin Function: None."/>
+			<bitenum id="01b" value="1" token="01b" description="Pin Function: Timer output."/>
+			<bitenum id="10b" value="2" token="10b" description="Pin Function: General-purpose output."/>
+			<bitenum id="11b" value="3" token="11b" description="Pin Function: External clock input."/>
+		</bitfield>
+		<bitfield id="TLB" width="1" begin="10" end="10" resetval="0" description="Timer load bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="When TLB = 0, TIM and PSC are not being loaded."/>
+			<bitenum id="1" value="1" token="1" description="Until TLB = 0, load TIM from PRD, and load PSC from TDDR."/>
+		</bitfield>
+		<bitfield id="SOFT" width="1" begin="9" end="9" resetval="0" description="0" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Hard stop."/>
+			<bitenum id="1" value="1" token="1" description="Soft stop."/>
+		</bitfield>
+		<bitfield id="FREE" width="1" begin="8" end="8" resetval="0" description="Free run bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The timer is affected as determined by the SOFT bit."/>
+			<bitenum id="1" value="1" token="1" description="Free run."/>
+		</bitfield>
+		<bitfield id="PWID" width="2" begin="7" end="6" resetval="00" description="Timer-output pulse width bit." range="" rwaccess="RW">
+			<bitenum id="00b" value="0" token="00b" description="1 CPU clock period"/>
+			<bitenum id="01b" value="1" token="01b" description="2 CPU clock periods"/>
+			<bitenum id="10b" value="2" token="10b" description="4 CPU clock periods"/>
+			<bitenum id="11b" value="3" token="11b" description="8 CPU clock periods"/>
+		</bitfield>
+		<bitfield id="ARB" width="1" begin="5" end="5" resetval="0" description="Auto-reload bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="ARB has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="Each time TIM reaches 0, reload TIM from PRD, and reload PSC from TDDR."/>
+		</bitfield>
+		<bitfield id="TSS" width="1" begin="4" end="4" resetval="1" description="Timer stop status bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Start the timer."/>
+			<bitenum id="1" value="1" token="1" description="Stop the timer. (Reset condition)"/>
+		</bitfield>
+		<bitfield id="CP" width="1" begin="3" end="3" resetval="0" description="Clock mode/pulse mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Pulse mode."/>
+			<bitenum id="1" value="1" token="1" description="Clock mode."/>
+		</bitfield>
+		<bitfield id="POLAR" width="1" begin="2" end="2" resetval="0" description="Timer-output polarity bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The signal on the timer pin starts low."/>
+			<bitenum id="1" value="1" token="1" description="The signal on the timer pin starts high."/>
+		</bitfield>
+		<bitfield id="DATOUT" width="1" begin="1" end="1" resetval="0" description="Data output bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Drive the signal on the timer pin low."/>
+			<bitenum id="1" value="1" token="1" description="Drive the signal on the timer pin high."/>
+		</bitfield>
+		<bitfield id="Reserved" width="1" begin="0" end="0" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+	</register>
+</module>

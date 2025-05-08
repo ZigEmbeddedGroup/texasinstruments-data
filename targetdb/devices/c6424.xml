@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device id="C6424" partnum="TMS320C6424" HW_revision="1" XML_version="2" desc="TMS320C6424" description="&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+		<instance XML_version="1.2" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+		<router HW_revision="1.0" XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+			<subpath id="subpath_0">
+				<property Type="numericfield" Value="0x10" id="Port Number"/>
+				<property Type="choicelist" Value="1" id="Initial Configuration"/>
+				<property Type="choicelist" Value="1" id="Custom Configuration"/>
+				<property Type="choicelist" Value="0" id="Force Configuration"/>
+				<instance XML_version="1.2" desc="C64XP_0" href="cpus/c64xp.xml" id="C64XP_0" xml="c64xp.xml" xmlpath="cpus"/>
+				<cpu HW_revision="1.0" XML_version="1.2" description="C64x+ CPU" id="C64XP_0" isa="TMS320C64XP">
+					<!-- Project Wizard Settings -->
+					<property Type="stringfield" Value="little" id="Endianness" />
+					<property Type="stringfield" Value="--silicon_version=64+ -D=c6424" id="CompilerBuildOptions" />
+					<property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+					<property Type="stringfield" Value="C6424.cmd" id="LinkerCmd" />
+					<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+					<!-- End project wizard settigns -->
+					<instance href="../Modules/C6424_cslr_intc.xml" id="DSPINTC" xml="C6424_cslr_intc.xml" xmlpath="../Modules/" description="DSP Interrupt Controller" baseaddr="0x1800000" endaddr="0x180ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_idma_001.xml" id="IDMA" xml="C6424_cslr_idma_001.xml" xmlpath="../Modules/" description="DSP Internal DMA Controller" baseaddr="0x1820000" endaddr="0x18201ff" size="0x200" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_cache.xml" id="CACHE" xml="C6424_cslr_cache.xml" xmlpath="../Modules/" description="DSP Cache Controller" baseaddr="0x1820200" endaddr="0x18202ff" size="0x100" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmacc.xml" id="EDMACC" xml="C6424_cslr_edmacc.xml" xmlpath="../Modules/" description="3PCC" baseaddr="0x1c00000" endaddr="0x1c0ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmacc.xml" id="EDMACCEDMA" xml="C6424_cslr_edmacc.xml" xmlpath="../Modules/" description="3PCC" requestor="EDMA" baseaddr="0x1c00000" endaddr="0x1c0ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmatc.xml" id="EDMATC0" xml="C6424_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" baseaddr="0x1c10000" endaddr="0x1c103ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmatc.xml" id="EDMATC0EDMA" xml="C6424_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" requestor="EDMA" baseaddr="0x1c10000" endaddr="0x1c103ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmatc.xml" id="EDMATC1" xml="C6424_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" baseaddr="0x1c10400" endaddr="0x1c107ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmatc.xml" id="EDMATC1EDMA" xml="C6424_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" requestor="EDMA" baseaddr="0x1c10400" endaddr="0x1c107ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmatc.xml" id="EDMATC2" xml="C6424_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" baseaddr="0x1c10800" endaddr="0x1c10bff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_edmatc.xml" id="EDMATC2EDMA" xml="C6424_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" requestor="EDMA" baseaddr="0x1c10800" endaddr="0x1c10bff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_pci_002.xml" id="PCI0" xml="C6424_cslr_pci_002.xml" xmlpath="../Modules/" description="PCI Control Registers" baseaddr="0x1c1a000" endaddr="0x1c1a7ff" size="0x800" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_uart.xml" id="UART0" xml="C6424_cslr_uart.xml" xmlpath="../Modules/" description="UART" baseaddr="0x1c20000" endaddr="0x1c203ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_uart.xml" id="UART1" xml="C6424_cslr_uart.xml" xmlpath="../Modules/" description="UART" baseaddr="0x1c20400" endaddr="0x1c207ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_i2c_001.xml" id="I2C" xml="C6424_cslr_i2c_001.xml" xmlpath="../Modules/" description="I2C" baseaddr="0x1c21000" endaddr="0x1c213ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_tmr_001.xml" id="TMR0" xml="C6424_cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER0" baseaddr="0x1c21400" endaddr="0x1c217ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_tmr_001.xml" id="TMR1" xml="C6424_cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER1" baseaddr="0x1c21800" endaddr="0x1c21bff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_tmr_001.xml" id="TMR2" xml="C6424_cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER2 - Watchdog" baseaddr="0x1c21c00" endaddr="0x1c21fff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_pwm_001.xml" id="PWM0" xml="C6424_cslr_pwm_001.xml" xmlpath="../Modules/" description="PWM" baseaddr="0x1c22000" endaddr="0x1c223ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_pwm_001.xml" id="PWM1" xml="C6424_cslr_pwm_001.xml" xmlpath="../Modules/" description="PWM" baseaddr="0x1c22400" endaddr="0x1c227ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_pwm_001.xml" id="PWM2" xml="C6424_cslr_pwm_001.xml" xmlpath="../Modules/" description="PWM" baseaddr="0x1c22800" endaddr="0x1c22bff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_sys_002.xml" id="SYS" xml="C6424_cslr_sys_002.xml" xmlpath="../Modules/" description="System Module" baseaddr="0x1c40000" endaddr="0x1c407ff" size="0x800" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_pll1_001.xml" id="PLL1" xml="C6424_cslr_pll1_001.xml" xmlpath="../Modules/" description="PLL Controller 1" baseaddr="0x1c40800" endaddr="0x1c40bff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_pll2_001.xml" id="PLL2" xml="C6424_cslr_pll2_001.xml" xmlpath="../Modules/" description="PLL Controller 2" baseaddr="0x1c40c00" endaddr="0x1c40fff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_gpio_003.xml" id="GPIO" xml="C6424_cslr_gpio_003.xml" xmlpath="../Modules/" description="GPIO" baseaddr="0x1c67000" endaddr="0x1c677ff" size="0x800" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_hpi.xml" id="UHPI" xml="C6424_cslr_hpi.xml" xmlpath="../Modules/" description="UHPI" baseaddr="0x1c67800" endaddr="0x1c67fff" size="0x800" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_emac_001.xml" id="EMAC" xml="C6424_cslr_emac_001.xml" xmlpath="../Modules/" description="EMAC Control Regs" baseaddr="0x1c80000" endaddr="0x1c80fff" size="0x1000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_ewrap_001.xml" id="EWRAP" xml="C6424_cslr_ewrap_001.xml" xmlpath="../Modules/" description="EWRAP Control Regs" baseaddr="0x1c81000" endaddr="0x1c81fff" size="0x1000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_mdio.xml" id="MDIO" xml="C6424_cslr_mdio.xml" xmlpath="../Modules/" description="MDIO Control Regs" baseaddr="0x1c84000" endaddr="0x1c847ff" size="0x800" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_mcbsp_001.xml" id="MCBSP0" xml="C6424_cslr_mcbsp_001.xml" xmlpath="../Modules/" description="McBSP0" baseaddr="0x1d00000" endaddr="0x1d007ff" size="0x800" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_mcbsp_001.xml" id="MCBSP1" xml="C6424_cslr_mcbsp_001.xml" xmlpath="../Modules/" description="McBSP1" baseaddr="0x1d00800" endaddr="0x1d00fff" size="0x800" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_mcasp_001_1.xml" id="McASP0" xml="C6424_cslr_mcasp_001_1.xml" xmlpath="../Modules/" description="McASP" baseaddr="0x1d01000" endaddr="0x1d013ff" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_emif.xml" id="EMIF" xml="C6424_cslr_emif.xml" xmlpath="../Modules/" description="ASYNC EMIF Control" baseaddr="0x1e00000" endaddr="0x1e00fff" size="0x1000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_vlynq_001.xml" id="VLYNQ" xml="C6424_cslr_vlynq_001.xml" xmlpath="../Modules/" description="VLYNQ Control Regs" baseaddr="0x1e01000" endaddr="0x1e01fff" size="0x1000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_ddr2.xml" id="DDR" xml="C6424_cslr_ddr2.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" baseaddr="0x20000000" endaddr="0x20007fff" size="0x8000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_ddr2.xml" id="DDREDMA" xml="C6424_cslr_ddr2.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" requestor="EDMA" baseaddr="0x20000000" endaddr="0x20007fff" size="0x8000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/C6424_cslr_ddr2.xml" id="DDRPCI" xml="C6424_cslr_ddr2.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" requestor="PCI" baseaddr="0x20000000" endaddr="0x20007fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				</cpu>
+			</subpath>
+		</router>
+</device>

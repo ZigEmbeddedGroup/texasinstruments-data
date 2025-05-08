@@ -1,0 +1,17 @@
+<module name="DEBUGSS_WRAP0_PVIEW0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="PVIEW_CFG_0_PVIEW_STATE0" acronym="PVIEW_CFG_0_PVIEW_STATE0" offset="0x0" width="32" description="This register provides the device specific power status.  A read of Power View State Register will lock the values for all other Power View State Registers.  A read from the last Power View State register will unlock them so they can update">
+		<bitfield id="POWER_VIEW_STATE_REG0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="PVIEW_CFG_0_PVIEW_CAPABILITY" acronym="PVIEW_CFG_0_PVIEW_CAPABILITY" offset="0xF0" width="32" description="The Capability Register provides information on the number of Power State registers implemented in the AP">
+		<bitfield id="RESERVED" width="26" begin="31" end="6" resetval="0x0" description="Reserved, returns 0" range="31 - 6" rwaccess="R"/> 
+		<bitfield id="NUMSTATREG" width="6" begin="5" end="0" resetval="0x0" description="The value read indicates the number of valid Power State Registers that are implemented in the system The maximum number is 60 and the minimum number is 1 The registers are always implemented at contiguous addresses so a value of 7 means that registers 0-6 are valid" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="PVIEW_CFG_0_ID_Register" acronym="PVIEW_CFG_0_ID_Register" offset="0xFC" width="32" description="Reading this register returns the ID information for this AP.">
+		<bitfield id="REVISION" width="4" begin="31" end="28" resetval="0x0" description="Device Revision [0]" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="JEP_CODE" width="11" begin="27" end="17" resetval="0x0" description="Device JEP Code [0x017]" range="27 - 17" rwaccess="R"/> 
+		<bitfield id="CLASS" width="1" begin="16" end="16" resetval="0x0" description="Device Class[0] [not a memory access port]" range="16" rwaccess="R"/> 
+		<bitfield id="SPARE" width="8" begin="15" end="8" resetval="0x0" description="Spare, returns 0" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="VARIANT" width="4" begin="7" end="4" resetval="0x0" description="Device Variant [0]" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="TYPE" width="4" begin="3" end="0" resetval="0x0" description="Device Type = 3" range="3 - 0" rwaccess="R"/>
+	</register>
+</module>

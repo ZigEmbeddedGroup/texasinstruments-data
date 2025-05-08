@@ -1,0 +1,212 @@
+<module name="DEBUGSS_WRAP0_CSCTI0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CSCTI_CFG_0_CTICONTROL" acronym="CSCTI_CFG_0_CTICONTROL" offset="0x0" width="32" description="CTI Control Register.">
+		<bitfield id="RESERVED" width="31" begin="31" end="1" resetval="0x0" description="Reserved, returns 0" range="31 - 1" rwaccess="R"/> 
+		<bitfield id="GLBEN" width="1" begin="0" end="0" resetval="0x0" description="Enables or disables the Embedded Cross Trigger, 1=enabled" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINTACK" acronym="CSCTI_CFG_0_CTIINTACK" offset="0x10" width="32" description="CTI Interrupt Acknowledge Register.">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="INTACK" width="8" begin="7" end="0" resetval="0x0" description="Acknowledges the corresponding CTITRIGOUT output Write 1 = CTITRIGOUT is acknowledged and is cleared when MAPTRIGOUT is LOW There is one bit of the register for each CTITRIGOUT output" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIAPPSET" acronym="CSCTI_CFG_0_CTIAPPSET" offset="0x14" width="32" description="CTI Application Trigger Set Register.">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="APPSET" width="4" begin="3" end="0" resetval="0x0" description="The CTI Application Trigger Set Register is read/write A write to this register causes a channel event to be raised, corresponding to the bit written to" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIAPPCLEAR" acronym="CSCTI_CFG_0_CTIAPPCLEAR" offset="0x18" width="32" description="CTI Application Trigger Clear Register.">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="APPCLR" width="4" begin="3" end="0" resetval="0x0" description="The CTI Application Trigger Clear Register is write-only A write to this register causes a channel event to be cleared, corresponding to the bit written to" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIAPPPULSE" acronym="CSCTI_CFG_0_CTIAPPPULSE" offset="0x1C" width="32" description="CTI Application Trigger Pulse Register.">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="APPPULSE" width="4" begin="3" end="0" resetval="0x0" description="The CTI Application Pulse Register is write-only A write to this register causes a channel event pulse, one CTICLK period, to be generated, corresponding to the bit written to This register clears itself immediately" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN0" acronym="CSCTI_CFG_0_CTIINEN0" offset="0x20" width="32" description="CTI Application Trigger to Channel Enable Register 0">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN1" acronym="CSCTI_CFG_0_CTIINEN1" offset="0x24" width="32" description="CTI Application Trigger to Channel Enable Register 1">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="3" begin="2" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN2" acronym="CSCTI_CFG_0_CTIINEN2" offset="0x28" width="32" description="CTI Application Trigger to Channel Enable Register 2">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN3" acronym="CSCTI_CFG_0_CTIINEN3" offset="0x2C" width="32" description="CTI Application Trigger to Channel Enable Register 3">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN4" acronym="CSCTI_CFG_0_CTIINEN4" offset="0x30" width="32" description="CTI Application Trigger to Channel Enable Register 4">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN5" acronym="CSCTI_CFG_0_CTIINEN5" offset="0x34" width="32" description="CTI Application Trigger to Channel Enable Register 5">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN6" acronym="CSCTI_CFG_0_CTIINEN6" offset="0x38" width="32" description="CTI Application Trigger to Channel Enable Register 6">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIINEN7" acronym="CSCTI_CFG_0_CTIINEN7" offset="0x3C" width="32" description="CTI Application Trigger to Channel Enable Register 7">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGINEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Trigger to Channel Enable Registers enable the signalling of an event on CTM channels when the core issues a trigger, CTITRIGIN, to the CTI There is one register for each of the eight CTITRIGIN inputs Within each register there is one bit for each of the four channels implemented These registers do not affect the application trigger operations" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN0" acronym="CSCTI_CFG_0_CTIOUTEN0" offset="0xA0" width="32" description="CTI Channel to Trigger Enable Register 0">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN1" acronym="CSCTI_CFG_0_CTIOUTEN1" offset="0xA4" width="32" description="CTI Channel to Trigger Enable Register 1">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN2" acronym="CSCTI_CFG_0_CTIOUTEN2" offset="0xA8" width="32" description="CTI Channel to Trigger Enable Register 2">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN3" acronym="CSCTI_CFG_0_CTIOUTEN3" offset="0xAC" width="32" description="CTI Channel to Trigger Enable Register 3">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN4" acronym="CSCTI_CFG_0_CTIOUTEN4" offset="0xB0" width="32" description="CTI Channel to Trigger Enable Register 4">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN5" acronym="CSCTI_CFG_0_CTIOUTEN5" offset="0xB4" width="32" description="CTI Channel to Trigger Enable Register 5">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN6" acronym="CSCTI_CFG_0_CTIOUTEN6" offset="0xB8" width="32" description="CTI Channel to Trigger Enable Register 6">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIOUTEN7" acronym="CSCTI_CFG_0_CTIOUTEN7" offset="0xBC" width="32" description="CTI Channel to Trigger Enable Register 7">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="TRIGOUTEN" width="4" begin="3" end="0" resetval="0x0" description="The CTI Channel to Trigger Enable Registers define which channels can generate a CTITRIGOUT output There is one register for each of the eight CTITRIGOUT outputs Within each register there is one bit for each of the four channels implemented These registers affect the mapping from application trigger to trigger outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTITRIGINSTATUS" acronym="CSCTI_CFG_0_CTITRIGINSTATUS" offset="0x130" width="32" description="CTI Trigger In Status Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="TRIGINSTATUS" width="8" begin="7" end="0" resetval="0x0" description="Shows the status of the CTITRIGIN inputs: 1=CTITRIGIN is active, 0=CTITRIGIN is inactive" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTITRIGOUTSTATUS" acronym="CSCTI_CFG_0_CTITRIGOUTSTATUS" offset="0x134" width="32" description="CTI Trigger Out Status Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="TRIGOUTSTATUS" width="8" begin="7" end="0" resetval="0x0" description="Shows the status of the CTITRIGOUT outputs: 1=CTITRIGOUT is active, 0=CTITRIGOUT is inactive" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTICHINSTATUS" acronym="CSCTI_CFG_0_CTICHINSTATUS" offset="0x138" width="32" description="CTI Channel In Status Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CHINSTATUS" width="4" begin="3" end="0" resetval="0x0" description="Shows the status of the CTICHIN inputs: 1=CTICHIN is active, 0=CTICHIN is inactive" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTICHOUTSTATUS" acronym="CSCTI_CFG_0_CTICHOUTSTATUS" offset="0x13C" width="32" description="CTI Channel Out Status Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CHOUTSTATUS" width="4" begin="3" end="0" resetval="0x0" description="Shows the status of the CTICHOUT outputs: 1=CTICHOUT is active, 0=CTICHOUT is inactive" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTIGATE" acronym="CSCTI_CFG_0_CTIGATE" offset="0x140" width="32" description="The Gate Enable Register prevents the channels from propagating through the CTM to other CTIs.">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CTIGATEEN" width="4" begin="3" end="0" resetval="0x0" description="Gate enable for the four channels [1 per bit]" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_ASICCTL" acronym="CSCTI_CFG_0_ASICCTL" offset="0x144" width="32" description="Allows external multiplexing of the trigger signals">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="ASICCTL" width="8" begin="7" end="0" resetval="0x0" description="Implementation-defined ASIC control, value written to the register is output on ASICCTL[7:0]" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITCHINACK" acronym="CSCTI_CFG_0_ITCHINACK" offset="0xEDC" width="32" description="Integration and Test register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CTCHINACK" width="4" begin="3" end="0" resetval="0x0" description="Sets the value of the CTCHINACK outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITTRIGINACK" acronym="CSCTI_CFG_0_ITTRIGINACK" offset="0xEE0" width="32" description="ITTRIGINACK Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="CTTRIGINACK" width="8" begin="7" end="0" resetval="0x0" description="Sets the value of the CTTRIGINACK outputs" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITCHOUT" acronym="CSCTI_CFG_0_ITCHOUT" offset="0xEE4" width="32" description="ITCHOUT Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CTCHOUT" width="4" begin="3" end="0" resetval="0x0" description="Sets the value of the CTCHOUT outputs" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITTRIGOUT" acronym="CSCTI_CFG_0_ITTRIGOUT" offset="0xEE8" width="32" description="ITTRIGOUT Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="CTTRIGOUT" width="8" begin="7" end="0" resetval="0x0" description="Sets the value of the CTTRIGOUT outputs" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITCHOUTACK" acronym="CSCTI_CFG_0_ITCHOUTACK" offset="0xEEC" width="32" description="ITCHOUTACK Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="CTCHOUTACK" width="8" begin="7" end="0" resetval="0x0" description="Sets the value of the CTCHOUTACK outputs" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITTRIGOUTACK" acronym="CSCTI_CFG_0_ITTRIGOUTACK" offset="0xEF0" width="32" description="ITTRIGOUTACK Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="CTTRIGOUTACK" width="8" begin="7" end="0" resetval="0x0" description="Reads the value of the CTTRIGOUTACK inputs" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITCHIN" acronym="CSCTI_CFG_0_ITCHIN" offset="0xEF4" width="32" description="ITCHIN Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CTCHIN" width="4" begin="3" end="0" resetval="0x0" description="Reads the value of the CTCHIN inputs" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITTRIGIN" acronym="CSCTI_CFG_0_ITTRIGIN" offset="0xEF8" width="32" description="ITTRIGIN Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="CTTRIGIN" width="8" begin="7" end="0" resetval="0x0" description="Reads the value of the CTTRIGIN inputs" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_ITCTRL" acronym="CSCTI_CFG_0_ITCTRL" offset="0xF00" width="32" description="ITCTRL Register">
+		<bitfield id="RESERVED" width="31" begin="31" end="1" resetval="0x0" description="Reserved, returns 0" range="31 - 1" rwaccess="R"/> 
+		<bitfield id="ITEN" width="1" begin="0" end="0" resetval="0x0" description="Integration Test control enable" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTSET" acronym="CSCTI_CFG_0_CTSET" offset="0xFA0" width="32" description="Claim Tag Set Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CLAIM_TAG_SET" width="4" begin="3" end="0" resetval="0x0" description="Claim Tag Set Register" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_CTCLR" acronym="CSCTI_CFG_0_CTCLR" offset="0xFA4" width="32" description="Claim Tag Clear Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CLAIM_TAG_CLEAR" width="4" begin="3" end="0" resetval="0x0" description="Claim Tag Clear Register" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_LAREG" acronym="CSCTI_CFG_0_LAREG" offset="0xFB0" width="32" description="Software must write 0xC5ACCE55 to this register in order for application to gain access to the other registers. If paddrdbg31 is high, this is ignored.">
+		<bitfield id="LOCKACCESSREG" width="32" begin="31" end="0" resetval="0x0" description="Software must write 0xC5ACCE55 to this register in order for application to gain access to the other registers If paddrdbg31 is high, this is ignored" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSCTI_CFG_0_LSREG" acronym="CSCTI_CFG_0_LSREG" offset="0xFB4" width="32" description="The CTI implements two memory maps controlled through PADDRDBG31. When PADDRDBG31 is HIGH, the Lock Status Register reads as 0x0 indicating that no lock exists. When PADDRDBG31 is LOW, the Lock Status Register reads as 0x3 from reset. This indicates a 32-bit lock access mechanism is present and is locked">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Reserved, returns 0" range="31 - 2" rwaccess="R"/> 
+		<bitfield id="LOCK_STATUS" width="2" begin="1" end="0" resetval="0x0" description="The CTI implements two memory maps controlled through PADDRDBG31 When PADDRDBG31 is HIGH, the Lock Status Register reads as 0x0 indicating that no lock exists When PADDRDBG31 is LOW, the Lock Status Register reads as 0x3 from reset This indicates a 32-bit lock access mechanism is present and is locked Application must write to the LAREG to gain access" range="1 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_AUTHST" acronym="CSCTI_CFG_0_AUTHST" offset="0xFB8" width="32" description="Reports the required security level. ">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="AUTHENTICATION_STATUS" width="4" begin="3" end="0" resetval="0x0" description="Reports the required security level bit 0 indicates Invasive Debug Controlled and bit 1 is the current value Bit 2 indicates non-invasive debug controlled and bit 3 is the current value Returns 0x5" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_DEVID" acronym="CSCTI_CFG_0_DEVID" offset="0xFC8" width="32" description="Device ID Register">
+		<bitfield id="RESERVED" width="12" begin="31" end="20" resetval="0x0" description="Reserved, returns 0" range="31 - 20" rwaccess="R"/> 
+		<bitfield id="NUM_ECT_CHANNELS" width="4" begin="19" end="16" resetval="0x0" description="Number of ECT Channels available" range="19 - 16" rwaccess="R"/> 
+		<bitfield id="NUM_ECT_TRIGGERS" width="8" begin="15" end="8" resetval="0x0" description="Number of ECT trigger available" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="RESERVED7_5" width="3" begin="7" end="5" resetval="0x0" description="Reserved, returns 0" range="7 - 5" rwaccess="R"/> 
+		<bitfield id="IMPLEMENTATION_DEFINED" width="5" begin="4" end="0" resetval="0x0" description="Indicates the number of multiplexing available on Trigger Inputs and Outputs using ASICCTL Defailt value of 0 indicates no multiplexing present" range="4 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_DEVTYPEID" acronym="CSCTI_CFG_0_DEVTYPEID" offset="0xFCC" width="32" description="Device Type Identifier Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserveed, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="DEV_TYPE_ID" width="8" begin="7" end="0" resetval="0x0" description="Device Type Identifier" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_PERID4" acronym="CSCTI_CFG_0_PERID4" offset="0xFD0" width="32" description="Peripheral ID4 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID4" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 4, returns 0x4" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_PERID0" acronym="CSCTI_CFG_0_PERID0" offset="0xFE0" width="32" description="Peripheral ID0 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID0" width="8" begin="7" end="0" resetval="0x0" description="Perpiheral ID 0, returns 0x06" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_PERID1" acronym="CSCTI_CFG_0_PERID1" offset="0xFE4" width="32" description="Peripheral ID1 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID1" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 1, returns 0xB9" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_PERID2" acronym="CSCTI_CFG_0_PERID2" offset="0xFE8" width="32" description="Peripheral ID2 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID2" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 2, returns 9x2B" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_PERID3" acronym="CSCTI_CFG_0_PERID3" offset="0xFEC" width="32" description="Peripheral ID3 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERPIH_ID3" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID3 register, returns 0x00" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_COMPID0" acronym="CSCTI_CFG_0_COMPID0" offset="0xFF0" width="32" description="Component ID0 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Read returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID0" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_COMPID1" acronym="CSCTI_CFG_0_COMPID1" offset="0xFF4" width="32" description="Component ID1 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Read returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID1" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_COMPID2" acronym="CSCTI_CFG_0_COMPID2" offset="0xFF8" width="32" description="Component ID2 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID2" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSCTI_CFG_0_COMPID3" acronym="CSCTI_CFG_0_COMPID3" offset="0xFFC" width="32" description="Component ID3 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="returns 0 when read" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID3" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+</module>

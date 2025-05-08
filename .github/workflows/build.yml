@@ -11,9 +11,9 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ccstudio
   MAJOR_VER: 12
-  MINOR_VER: 7
-  PATCH_VER: 0
-  BUILD_VER: "00007"
+  MINOR_VER: 8
+  PATCH_VER: 1
+  BUILD_VER: "00005"
   COMPONENTS: PF_MSP430,PF_MSP432,PF_MSPM0,PF_WCONN,PF_C28,PF_TM4C,PF_HERCULES,PF_SITARA,PF_SITARA_MCU,PF_OMAPL,PF_DAVINCI,PF_OMAP,PF_TDA_DRA,PF_C55,PF_C6000SC,PF_C66AK_KEYSTONE,PF_MMWAVE,PF_C64MC,PF_DIGITAL_POWER,PF_PGA
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
     steps:
     - name: Create env vars
       run: |
-        echo IMAGE=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.MAJOR_VER }}.${{ env.MINOR_VER }}.${{ env.PATCH_VER }}.${{ env.BUILD_VER }} >> $GITHUB_ENV
+        echo IMAGE=${{ env.REGISTRY }}/zigembeddedgroup/${{ env.IMAGE_NAME }}:${{ env.MAJOR_VER }}.${{ env.MINOR_VER }}.${{ env.PATCH_VER }}.${{ env.BUILD_VER }} >> $GITHUB_ENV
     - name: Checkout code
       uses: actions/checkout@v3
       with:

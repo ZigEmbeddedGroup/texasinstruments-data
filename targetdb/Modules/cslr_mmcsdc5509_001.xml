@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="MMCSD" HW_version="1.0" XML_version="1.0" description="MultiMediaCard / SD Card Controller">
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCFCLK" acronym="MMCFCLK" offset="0" width="16" description="Function Clock Control Register">
+		<bitfield id="Reserved" width="7" begin="15" end="9" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="IDLEEN" width="1" begin="8" end="8" resetval="0" description="IDLE enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The function clock cannot be stopped by an IDLE instruction."/>
+			<bitenum id="1" value="1" token="1" description="If an IDLE instruction makes the peripherals domain idle, the MMC controller is idle (the function clock is stopped)."/>
+		</bitfield>
+		
+		<bitfield id="FDIV" width="8" begin="7" end="0" resetval="07h" description="Use this field to set the divide-down value for the function clock." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCCTL" acronym="MMCCTL" offset="0" width="16" description="MMC Control Register">
+		<bitfield id="Reserved" width="4" begin="15" end="12" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="Reserved" width="3" begin="11" end="9" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="DMAEN" width="1" begin="8" end="8" resetval="0" description="DMA event enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Disable DMA events."/>
+			<bitenum id="1" value="1" token="1" description="Enable DMA events."/>
+		</bitfield>
+		
+		<bitfield id="DATEG" width="2" begin="7" end="6" resetval="0" description="DAT3 edge detection select" range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="00" description="DAT3 edge detection is disabled."/>
+			<bitenum id="01" value="1" token="01" description="DAT3 rising edge detection is enabled."/>
+			<bitenum id="10" value="2" token="10" description="DAT3 falling edge detection is enabled."/>
+			<bitenum id="11" value="3" token="11" description="DAT3 dual edge detection is enabled (both edges detected)."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="3" begin="5" end="3" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="WIDTH" width="1" begin="2" end="2" resetval="0" description="Data bus width select" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The data bus has 1 bit (DAT0 is used)."/>
+			<bitenum id="1" value="1" token="1" description="The data bus has 4 bits (DAT0−3 are used)."/>
+		</bitfield>
+		
+		<bitfield id="CMDRST" width="1" begin="1" end="1" resetval="0" description="CMD (command) logic reset" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The CMD logic of the MMC controller is enabled."/>
+			<bitenum id="1" value="1" token="1" description="The CMD logic of the MMC controller is in the reset state."/>
+		</bitfield>
+		
+		<bitfield id="DATRST" width="1" begin="0" end="0" resetval="0" description="DAT (data) logic reset" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The DAT logic of the MMC controller is enabled."/>
+			<bitenum id="1" value="1" token="1" description="The DAT logic of the MMC controller is in the reset state."/>
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCCLK" acronym="MMCCLK" offset="0" width="16" description="Clock Control Register">
+		<bitfield id="Reserved" width="7" begin="15" end="9" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="CLKEN" width="1" begin="8" end="8" resetval="0" description="CLK pin enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The CLK pin is disabled and fixed low."/>
+			<bitenum id="1" value="1" token="1" description="The CLK pin is enabled; it shows the memory clock signal."/>
+		</bitfield>
+		
+		<bitfield id="CDIV" width="8" begin="7" end="0" resetval="0Fh" description="Use this field to set the divide-down value for the memory clock." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCST0" acronym="MMCST0" offset="0" width="16" description="Status Register 0">
+		<bitfield id="Reserved" width="4" begin="15" end="12" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DATEG" width="1" begin="11" end="11" resetval="0" description="DAT3 edge detected" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A DAT3 edge has not been detected."/>
+			<bitenum id="1" value="1" token="1" description="A DAT3 edge has been detected."/>
+		</bitfield>
+		
+		<bitfield id="DRRDY" width="1" begin="10" end="10" resetval="0" description="Data receive ready" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="MMCDRR is not ready."/>
+			<bitenum id="1" value="1" token="1" description="MMCDRR is ready."/>
+		</bitfield>
+		
+		<bitfield id="DXRDY" width="1" begin="9" end="9" resetval="1" description="Data transmit ready" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="MMCDXR is not ready."/>
+			<bitenum id="1" value="1" token="1" description="MMCDXR is ready."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="1" begin="8" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="CRCRS" width="1" begin="7" end="7" resetval="0" description="Response CRC error" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A response CRC error has not been detected."/>
+			<bitenum id="1" value="1" token="1" description="A response CRC error has been detected."/>
+		</bitfield>
+		
+		<bitfield id="CRCRD" width="1" begin="6" end="6" resetval="0" description="Read-data CRC error" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A read-data CRC error has not been detected."/>
+			<bitenum id="1" value="1" token="1" description="A read-data CRC error has been detected."/>
+		</bitfield>
+		
+		<bitfield id="CRCWR" width="1" begin="5" end="5" resetval="0" description="Write-data CRC error" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A write-data CRC error has not been detected."/>
+			<bitenum id="1" value="1" token="1" description="A write-data CRC error has been detected."/>
+		</bitfield>
+		
+		<bitfield id="TOUTRS" width="1" begin="4" end="4" resetval="0" description="Response time-out event" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A response time-out event has not occurred."/>
+			<bitenum id="1" value="1" token="1" description="A time-out event has occurred while the MMC controller was waiting for a response to a command."/>
+		</bitfield>
+		
+		<bitfield id="TOUTRD" width="1" begin="3" end="3" resetval="0" description="Read-data time-out event" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A read-data time-out event has not occurred."/>
+			<bitenum id="1" value="1" token="1" description="A time-out event has occurred while the MMC controller was waiting for data."/>
+		</bitfield>
+		
+		<bitfield id="RSPDNE" width="1" begin="2" end="2" resetval="0" description="Command/response done" range="" rwaccess="R">
+			<!--If the command requires a response:-->
+			<bitenum id="0" value="0" token="0" description="The response has not been fully received with no CRC error."/>
+			<bitenum id="1" value="1" token="1" description="The response has been fully received with no CRC error."/>
+			<!--If no response required:-->
+<!-- bull - wtf?			<bitenum id="0" value="0" token="0" description="The command has not been sent."/> -->
+<!-- bull - wtf?			<bitenum id="1" value="1" token="1" description="The command has been sent."/> -->
+		</bitfield>
+		
+		<bitfield id="BSYDNE" width="1" begin="1" end="1" resetval="0" description="Busy done" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The memory card is busy."/>
+			<bitenum id="1" value="1" token="1" description="The memory card is no longer sending a busy signal."/>
+		</bitfield>
+		
+		<bitfield id="DATDNE" width="1" begin="0" end="0" resetval="0" description="Data transfer done" rwaccess="R">
+			<!--When reading from memory card:-->
+			<bitenum id="0" value="0" token="0" description="The data has not been fully received with no CRC error."/>
+			<bitenum id="1" value="1" token="1" description="The data has been fully received with no CRC error."/>
+			<!--When writing to memory card:-->
+			<bitenum id="0" value="0" token="0" description="The data has not been fully transmitted."/>
+			<bitenum id="1" value="1" token="1" description="The data has been fully transmitted."/>
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCST1" acronym="MMCST1" offset="0" width="16" description="Status Register 1">
+		<bitfield id="Reserved" width="11" begin="15" end="5" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DAT" width="1" begin="4" end="4" resetval="0" description="DAT3 level" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The signal level on the DAT3 pin is low."/>
+			<bitenum id="1" value="1" token="1" description="The signal level on the DAT3 pin is high."/>
+		</bitfield>
+		
+		<bitfield id="DXEMP" width="1" begin="3" end="3" resetval="0" description="Data transmit empty" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A data transmit empty condition has not been detected."/>
+			<bitenum id="1" value="1" token="1" description="A data transmit empty condition has been detected."/>
+		</bitfield>
+		
+		<bitfield id="DRFUL" width="1" begin="2" end="2" resetval="0" description="Data receive full" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A data receive full condition has not been detected."/>
+			<bitenum id="1" value="1" token="1" description="A data receive full condition has been detected."/>
+		</bitfield>
+		
+		<bitfield id="CLKSTP" width="1" begin="1" end="1" resetval="0" description="Clock stopped" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The CLK pin is active."/>
+			<bitenum id="1" value="1" token="1" description="The CLK pin is held low."/>
+		</bitfield>
+		
+		<bitfield id="BUSY" width="1" begin="0" end="0" resetval="0" description="Busy" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A busy signal has not been detected."/>
+			<bitenum id="1" value="1" token="1" description="A busy signal has been detected (the memory card is busy)."/>
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCIE" acronym="MMCIE" offset="0" width="16" description="Interrupt Enable Register">
+		<bitfield id="Reserved" width="4" begin="15" end="12" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DATEG" width="1" begin="11" end="11" resetval="0" description="DAT3 edge interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The DAT3 edge detect interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The DAT3 edge detect interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="DRRDY" width="1" begin="10" end="10" resetval="0" description="Data receive ready interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The data receive ready interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The data receive ready interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="DXRDY" width="1" begin="9" end="9" resetval="0" description="Data transmit ready interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The data transmit ready interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The data transmit ready interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="1" begin="8" end="8" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="CRCRS" width="1" begin="7" end="7" resetval="0" description="Response CRC error interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The response CRC error interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The response CRC error interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="CRCRD" width="1" begin="6" end="6" resetval="0" description="Read-data CRC error interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The read-data CRC error interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The read-data CRC error interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="CRCWR" width="1" begin="5" end="5" resetval="0" description="Write-data CRC error interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The write-data CRC error interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The write-data CRC error interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="TOUTRS" width="1" begin="4" end="4" resetval="0" description="Response time-out interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The response time-out interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The response time-out interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="TOUTRD" width="1" begin="3" end="3" resetval="0" description="Read-data time-out interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The read-data time-out interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The read-data time-out interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="RSPDNE" width="1" begin="2" end="2" resetval="0" description="Response/command done interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The response/command done interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The response/command done interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="BSYDNE" width="1" begin="1" end="1" resetval="0" description="Busy done interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The busy done interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The busy done interrupt is enabled."/>
+		</bitfield>
+		
+		<bitfield id="DATDNE" width="1" begin="0" end="0" resetval="0" description="Data transfer done interrupt enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The data transfer done interrupt is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The data transfer done interrupt is enabled."/>
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCTOR" acronym="MMCTOR" offset="0" width="16" description="Response Time-Out Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="TOR" width="8" begin="7" end="0" resetval="0" description="Time-out period for response" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="No time-out"/>
+<!-- bull			<bitenum id="1-FFh" value="1-FFh" token="1-FFh" description="1 CLK clock cycle to 255 CLK clock cycles"/> -->
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCTOD" acronym="MMCTOD" offset="0" width="16" description="Data Read Time-Out Register">
+		<bitfield id="TOD" width="16" begin="15" end="0" resetval="0" description="Time-out period for data read" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="No time-out"/>
+<!-- bull			<bitenum id="1-FFFFh" value="1-FFFFh" token="1-FFFFh" description="1 CLK clock cycles to 65535 CLK clock cycles"/> -->
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCBLEN" acronym="MMCBLEN" offset="0" width="16" description="Block Length Register">
+		<bitfield id="Reserved" width="4" begin="15" end="12" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="BLEN" width="12" begin="11" end="0" resetval="200h" description="Use this field to set the block length, which is the byte count of a data block." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCNBLK" acronym="MMCNBLK" offset="0" width="16" description="Number of Blocks Register">
+		<bitfield id="NBLK" width="16" begin="15" end="0" resetval="0" description="Use this field to set the total number of blocks to be transferred." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Infinite number of blocks."/>
+<!-- bull			<bitenum id="1-65525" value="1-65535" token="1-65535" description="n blocks."/> -->
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCNBLC" acronym="MMCNBLC" offset="0" width="16" description="Number of Blocks Counter Register">
+		<bitfield id="NBLC" width="16" begin="15" end="0" resetval="0" description="Read this field to determine the number of blocks left to be transferred." range="" rwaccess="R">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCDRR" acronym="MMCDRR" offset="0" width="16" description="Data Receive Register">
+		<bitfield id="DRR" width="16" begin="15" end="0" resetval="0" description="This field holds data received by the MMC controller." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCDXR" acronym="MMCDXR" offset="0" width="16" description="Data Transmit Register">
+		<bitfield id="DXR" width="16" begin="15" end="0" resetval="0" description="Data to be transmitted by the MMC controller must be written to this field." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCCMD" acronym="MMCCMD" offset="0" width="16" description="Command Register">
+		<bitfield id="DCLR" width="1" begin="15" end="15" resetval="0" description="Data receive/transmit clear." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not clear DRRDY and DXRDY."/>
+			<bitenum id="1" value="1" token="1" description="Clear DRRDY and DXRDY."/>
+		</bitfield>
+		
+		<bitfield id="INIT" width="1" begin="14" end="14" resetval="0" description="Initialization clock cycles" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not insert initialization clock cycles."/>
+			<bitenum id="1" value="1" token="1" description="Insert initialization clock cycles"/>
+		</bitfield>
+		
+		<bitfield id="DATA" width="1" begin="13" end="13" resetval="0" description="Data transfer indicator" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="There is to be no data transfer."/>
+			<bitenum id="1" value="1" token="1" description="There is a data transfer associated with the command."/>
+		</bitfield>
+		
+		<bitfield id="STREAM" width="1" begin="12" end="12" resetval="0" description="Stream enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="If DATA = 1, the data transfer is a block transfer."/>
+			<bitenum id="1" value="1" token="1" description="If DATA = 1, the data transfer is a stream transfer."/>
+		</bitfield>
+		
+		<bitfield id="WRITE" width="1" begin="11" end="11" resetval="0" description="Write enable" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="If DATA = 1, the data transfer is a read operation."/>
+			<bitenum id="1" value="1" token="1" description="If DATA = 1, the data transfer is a write operation."/>
+		</bitfield>
+		
+		<bitfield id="RSPFMT" width="2" begin="10" end="9" resetval="0" description="Response format (expected type of response to the command)" range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="00" description="No response"/>
+			<bitenum id="01" value="1" token="01" description="R1, R4, R5, or R6. 48 bits with CRC."/>
+			<bitenum id="10" value="2" token="10" description="R2. 136 bits with CRC."/>
+			<bitenum id="11" value="3" token="11" description="R3. 48 bits with no CRC."/>
+		</bitfield>
+		
+		<bitfield id="BSYEXP" width="1" begin="8" end="8" resetval="0" description="Busy expected." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="A busy signal is not expected."/>
+			<bitenum id="1" value="1" token="1" description="A busy signal is expected."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="2" begin="7" end="6" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="CMD" width="6" begin="5" end="0" resetval="0" description="Command index." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCARGH" acronym="MMCARGH" offset="0" width="16" description="Argument Register, High">
+		<bitfield id="ARGH" width="16" begin="15" end="0" resetval="0" description="High part (upper 16 bits) of argument" range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCARGL" acronym="MMCARGL" offset="0" width="16" description="Argument Register, Low">
+		<bitfield id="ARGL" width="16" begin="15" end="0" resetval="0" description="Low part (lower 16 bits) of argument" range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP0" acronym="MMCRSP0" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP1" acronym="MMCRSP1" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP2" acronym="MMCRSP2" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP3" acronym="MMCRSP3" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP4" acronym="MMCRSP4" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP5" acronym="MMCRSP5" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP6" acronym="MMCRSP6" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCRSP7" acronym="MMCRSP7" offset="0" width="16" description="Response Registers">
+		<bitfield id="RSP" width="16" begin="15" end="0" resetval="0" description="When the MMC controller receives a response, it is stored in some or all of the eight response registers (MMCRSP7−MMCRSP0)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCDRSP" acronym="MMCDRSP" offset="0" width="16" description="Data Response Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DRSP" width="8" begin="7" end="0" resetval="0" description="During a write operation the CRC status token is stored in this register." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="MMCCIDX" acronym="MMCCIDX" offset="0" width="16" description="Command Index Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved" range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="CIDX" width="8" begin="7" end="0" resetval="0" description="When a command index byte is received, the byte is stored in this field." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+</module>

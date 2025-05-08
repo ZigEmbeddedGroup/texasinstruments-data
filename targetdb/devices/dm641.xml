@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device id="DM641" partnum="TMS320DM641" HW_revision="1" XML_version="1" desc="TMS320DM641" description="TMS320DM641 - C64x Fixed-point DSP&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+	<!-- Filter for project wizard -->
+	<property Type="stringfield" Value="DaVinci DM64x" id="FilterString" />
+	<instance XML_version="1.2" desc="C64x" href="cpus/c64xx.xml" id="C64x" xml="c64xx.xml" xmlpath="cpus"/>
+	<cpu HW_revision="1.0" XML_version="1.2" description="C64xx CPU" id="C64x" isa="TMS320C64XX">
+		<!--  Project Wizard Settings  -->
+        <property Type="stringfield" Value="little" id="Endianness" />
+		<property Type="stringfield" Value="-D=dm641 --silicon_version=6400" id="CompilerBuildOptions" />
+        <property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+        <property Type="stringfield" Value="DM641.cmd" id="LinkerCmd" />
+		<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+		<!--  END Project Wizard Settings -->
+	</cpu>
+</device>

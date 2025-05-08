@@ -1,0 +1,33 @@
+<module name="DEBUGSS_WRAP0_CFGAP1" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CFGAP_CFG_1_JTAGID_REG" acronym="CFGAP_CFG_1_JTAGID_REG" offset="0x0" width="32" description="This register returns the JTAG ID tieoff of the device. The reset value depends on the tie off">
+		<bitfield id="JTAG_ID" width="32" begin="31" end="0" resetval="0x0" description="The JTAG ID of the device" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFGAP_CFG_1_USERID_REG" acronym="CFGAP_CFG_1_USERID_REG" offset="0x4" width="32" description="This register returns the Chip Spin ID tieoff value of the device. The reset value depends on the tieoff">
+		<bitfield id="USER_ID" width="32" begin="31" end="0" resetval="0x0" description="The USER ID of the device" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFGAP_CFG_1_VERSION_REG" acronym="CFGAP_CFG_1_VERSION_REG" offset="0x8" width="32" description="This register is used to read the RTL version information and to determine which modules are included in the rtl build. The reset value depends on the build options">
+		<bitfield id="MAJOR_REV" width="4" begin="31" end="28" resetval="0x0" description="RTL Major revision [5]" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="MINOR_REV" width="4" begin="27" end="24" resetval="0x0" description="RTL Minor revision [0]" range="27 - 24" rwaccess="R"/> 
+		<bitfield id="RESERVED" width="15" begin="23" end="9" resetval="0x0" description="Reserved, returns 0" range="23 - 9" rwaccess="R"/> 
+		<bitfield id="JTAG_AP" width="1" begin="8" end="8" resetval="0x0" description="a 1 indicates JTAG AP is supported" range="8" rwaccess="R"/> 
+		<bitfield id="POWERAP" width="1" begin="7" end="7" resetval="0x0" description="A 1 indicates that the Power AP is supported" range="7" rwaccess="R"/> 
+		<bitfield id="AXIAP" width="1" begin="6" end="6" resetval="0x0" description="A 1 indicates that the AXIAP exists and system memory accesses are supported" range="6" rwaccess="R"/> 
+		<bitfield id="APBAP" width="1" begin="5" end="5" resetval="0x0" description="A 1 indicates that the APBAP exisits and accesses to external debug logic are supported" range="5" rwaccess="R"/> 
+		<bitfield id="SECURITYAP" width="1" begin="4" end="4" resetval="0x0" description="A 1 indicates that the Security AP is supported" range="4" rwaccess="R"/> 
+		<bitfield id="SPARE" width="1" begin="3" end="3" resetval="0x0" description="This is a spare bit, returns 0" range="3" rwaccess="R"/> 
+		<bitfield id="ICEPICKM" width="1" begin="2" end="2" resetval="0x0" description="A 1 indicates that ICEPick M is present inthe design" range="2" rwaccess="R"/> 
+		<bitfield id="TRIGGERSUPPORT" width="1" begin="1" end="1" resetval="0x0" description="A 1 indicates that cross triggering is supported" range="1" rwaccess="R"/> 
+		<bitfield id="TRACESUPPORT" width="1" begin="0" end="0" resetval="0x0" description="A 1 indicates that hardware trace export is supported" range="0" rwaccess="R"/>
+	</register>
+	<register id="CFGAP_CFG_1_SYSTEMSTATUS" acronym="CFGAP_CFG_1_SYSTEMSTATUS" offset="0xC" width="32" description="Reading this register returns system status information.">
+		<bitfield id="RESERVED" width="32" begin="31" end="0" resetval="0x0" description="Reserved, returns 0" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFGAP_CFG_1_APID_Register" acronym="CFGAP_CFG_1_APID_Register" offset="0xFC" width="32" description="Reading this register returns the ID information for this AP.">
+		<bitfield id="REVISION" width="4" begin="31" end="28" resetval="0x0" description="Device Revision [0]" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="JEP_CODE" width="11" begin="27" end="17" resetval="0x263" description="Device JEP Code [0x017]" range="27 - 17" rwaccess="R"/> 
+		<bitfield id="CLASS" width="1" begin="16" end="16" resetval="0x0" description="Device Class[0] [not a memory access port]" range="16" rwaccess="R"/> 
+		<bitfield id="SPARE" width="8" begin="15" end="8" resetval="0x0" description="Spare, returns 0" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="VARIANT" width="4" begin="7" end="4" resetval="0x0" description="Device Variant [0]" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="TYPE" width="4" begin="3" end="0" resetval="0x1" description="Device Type: 0=JTAG, 1=AHB, 2=APB [1]" range="3 - 0" rwaccess="R"/>
+	</register>
+</module>

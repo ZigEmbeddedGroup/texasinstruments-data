@@ -1,0 +1,31 @@
+<module id="PGA_REGS" HW_revision="" description="PGA Registers">
+	<register id="PGACTL" width="16" page="1" offset="0x0" internal="0" description="PGA Control Register">
+		<bitfield id="PGAEN" description="PGA Enable" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="FILT_RES_SEL" description="Filter Resistor Select" begin="3" end="1" width="3" rwaccess="RW"/>
+		<bitfield id="GAIN" description="PGA gain setting" begin="7" end="5" width="3" rwaccess="RW"/>
+		<bitfield id="PGA_OUTENABLE" description="PGA Output Enable" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="PGA_OUTEN_INTGAIN" description="PGA Internal Gain Output Enable" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="CHOP_EXTCTRL" description="External Chop Signal Control " begin="15" end="15" width="1" rwaccess="RW"/>
+	</register>
+	<register id="MUXSEL" width="16" page="1" offset="0x1" internal="0" description="Mux Selection Register">
+		<bitfield id="PMUXSEL" description="Positive Input Mux Select" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="NMUXSEL" description="Negative Input Mux Select" begin="5" end="4" width="2" rwaccess="RW"/>
+		<bitfield id="MMUXSEL" description="M Mux Select" begin="9" end="8" width="2" rwaccess="RW"/>
+		<bitfield id="PGA_FBONPIN" description="Connect PGAOUT to PGA_INM" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="PGA_CHOP" description="Chopper Mode Control" begin="14" end="13" width="2" rwaccess="RW"/>
+	</register>
+	<register id="OFFSETTRIM" width="32" page="1" offset="0x2" internal="0" description="Offset Trim Register ">
+		<bitfield id="PGA_OFFSETTRIMN" description="OFFSET TRIM value for i/p NMOS pair" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="PGA_OFFSETTRIMP" description="OFFSET TRIM value for i/p PMOS pair" begin="23" end="16" width="8" rwaccess="RW"/>
+	</register>
+	<register id="PGATYPE" width="16" page="1" offset="0x5" internal="0" description="PGA Type Register">
+		<bitfield id="REV" description="PGA Revision Field" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="TYPE" description="PGA Type Field" begin="15" end="8" width="8" rwaccess="R"/>
+	</register>
+	<register id="PGALOCK" width="16" page="1" offset="0x6" internal="0" description="PGA Lock Register">
+		<bitfield id="PGACTL" description="Lock bit for PGACTL." begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MUXSEL" description="Lock bit for MUXSEL" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="OFFSETTRIM" description="Lock bit for OFFSET TRIM" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="PGATMCTL" description="Lock but for PGATMCTL" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+</module>

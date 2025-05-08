@@ -1,0 +1,116 @@
+<module name="SMS0_SECCTRL_0_SEC" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="TIFS_SEC_MMR_PID" acronym="TIFS_SEC_MMR_PID" offset="0x0" width="32" description="">
+		<bitfield id="PID_MSB16" width="16" begin="31" end="16" resetval="0x24960" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="PID_MISC" width="5" begin="15" end="11" resetval="0x0" description="" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="PID_MAJOR" width="3" begin="10" end="8" resetval="0x2" description="" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="PID_CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="PID_MINOR" width="6" begin="5" end="0" resetval="0x19" description="" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_LOCK0_KICK0" acronym="TIFS_SEC_MMR_LOCK0_KICK0" offset="0x20" width="32" description="">
+		<bitfield id="LOCK0_KICK0" width="32" begin="31" end="0" resetval="0x0" description=" - KICK0 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_LOCK0_KICK1" acronym="TIFS_SEC_MMR_LOCK0_KICK1" offset="0x24" width="32" description="">
+		<bitfield id="LOCK0_KICK1" width="32" begin="31" end="0" resetval="0x0" description=" - KICK1 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_ROM_START_ADDR" acronym="TIFS_SEC_MMR_SEC_ROM_START_ADDR" offset="0x100" width="32" description="">
+		<bitfield id="SEC_ROM_START_ADDR" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_ROM_END_ADDR" acronym="TIFS_SEC_MMR_SEC_ROM_END_ADDR" offset="0x104" width="32" description="">
+		<bitfield id="SEC_ROM_END_ADDR" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_ACTIVE" acronym="TIFS_SEC_MMR_SEC_ACTIVE" offset="0x200" width="32" description="">
+		<bitfield id="SECURITY_ACTIVE" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SOC_WARM_RESET" acronym="TIFS_SEC_MMR_SEC_SOC_WARM_RESET" offset="0x210" width="32" description="">
+		<bitfield id="WARM_RESET_CODE" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SOC_COLD_RESET" acronym="TIFS_SEC_MMR_SEC_SOC_COLD_RESET" offset="0x220" width="32" description="">
+		<bitfield id="COLD_RESET_CODE" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_DMTIMER_CTRL" acronym="TIFS_SEC_MMR_SEC_DMTIMER_CTRL" offset="0x300" width="32" description="">
+		<bitfield id="DMTIMER23_CASCADE" width="1" begin="16" end="16" resetval="0x0" description="" range="16" rwaccess="R/W"/> 
+		<bitfield id="DMTIMER3_CLK_SEL" width="3" begin="6" end="4" resetval="0x0" description="" range="6 - 4" rwaccess="R/W"/> 
+		<bitfield id="DMTIMER2_CLK_SEL" width="3" begin="2" end="0" resetval="0x0" description="" range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_EMU_WAIT_IN_RESET_REQ" acronym="TIFS_SEC_MMR_SEC_EMU_WAIT_IN_RESET_REQ" offset="0x400" width="32" description="">
+		<bitfield id="DBG_WAIT_N_RST" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SMS_TIFS_JUMP_MAGIC_NUM" acronym="TIFS_SEC_MMR_SEC_SMS_TIFS_JUMP_MAGIC_NUM" offset="0x420" width="32" description="">
+		<bitfield id="JUMP_MAGIC_NUM" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SMS_TIFS_JUMP_ADDRESS" acronym="TIFS_SEC_MMR_SEC_SMS_TIFS_JUMP_ADDRESS" offset="0x430" width="32" description="">
+		<bitfield id="JUMP_ADDRESS" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_FW_EXP_LOWER" acronym="TIFS_SEC_MMR_SEC_FW_EXP_LOWER" offset="0x500" width="32" description="">
+		<bitfield id="SEC_FW_EXP_LOW_VAL0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_FW_EXP_UPPER" acronym="TIFS_SEC_MMR_SEC_FW_EXP_UPPER" offset="0x504" width="32" description="">
+		<bitfield id="SEC_FW_EXT_UPPER_VAL0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_CTRL_OUT0_VAL" acronym="TIFS_SEC_MMR_SEC_CTRL_OUT0_VAL" offset="0x600" width="32" description="">
+		<bitfield id="SEC_CTRL_OUT_VAL0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_CTRL_OUT0" acronym="TIFS_SEC_MMR_SEC_CTRL_OUT0" offset="0x604" width="32" description="">
+		<bitfield id="SEC_CTRL_OUT0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_CTRL_OUT0_CLR" acronym="TIFS_SEC_MMR_SEC_CTRL_OUT0_CLR" offset="0x608" width="32" description="">
+		<bitfield id="SEC_CTRL_OUT0_CLR" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_STS_IN0" acronym="TIFS_SEC_MMR_SEC_STS_IN0" offset="0x60C" width="32" description="">
+		<bitfield id="SEC_STS_IN0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_DMTIMER_INTR_EXT_EN" acronym="TIFS_SEC_MMR_SEC_DMTIMER_INTR_EXT_EN" offset="0x700" width="32" description="">
+		<bitfield id="DMTIMER_INTR_EXT_EN3" width="1" begin="3" end="3" resetval="0x0" description="" range="3" rwaccess="R/W"/> 
+		<bitfield id="DMTIMER_INTR_EXT_EN2" width="1" begin="2" end="2" resetval="0x0" description="" range="2" rwaccess="R/W"/> 
+		<bitfield id="DMTIMER_INTR_EXT_EN1" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/> 
+		<bitfield id="DMTIMER_INTR_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_WWDT_INTR_EXT_EN" acronym="TIFS_SEC_MMR_SEC_WWDT_INTR_EXT_EN" offset="0x704" width="32" description="">
+		<bitfield id="WDT_INTR_EXT_EN4" width="1" begin="4" end="4" resetval="0x0" description="" range="4" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN3" width="1" begin="3" end="3" resetval="0x0" description="" range="3" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN2" width="1" begin="2" end="2" resetval="0x0" description="" range="2" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN1" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/> 
+		<bitfield id="WDT_INTR_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_DEBUG_INTR_EXT_EN" acronym="TIFS_SEC_MMR_SEC_DEBUG_INTR_EXT_EN" offset="0x708" width="32" description="">
+		<bitfield id="DBG_AUTH_INTR_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_ECC_AGGR_INTR_EXT_EN" acronym="TIFS_SEC_MMR_SEC_ECC_AGGR_INTR_EXT_EN" offset="0x70C" width="32" description="">
+		<bitfield id="ECC_AGGR_INTR_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_FW_EXCPT_EXT_EN" acronym="TIFS_SEC_MMR_SEC_FW_EXCPT_EXT_EN" offset="0x71C" width="32" description="">
+		<bitfield id="FW_INT_EXT_EN0" width="1" begin="8" end="8" resetval="0x0" description="" range="8" rwaccess="R/W"/> 
+		<bitfield id="FW_EXP_EXT_EN0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_AES_INTR_EXT_EN" acronym="TIFS_SEC_MMR_SEC_AES_INTR_EXT_EN" offset="0x720" width="32" description="">
+		<bitfield id="AES_P_EVT_EXT_EN" width="1" begin="9" end="9" resetval="0x0" description="" range="9" rwaccess="R/W"/> 
+		<bitfield id="AES_S_EVT_EXT_EN" width="1" begin="8" end="8" resetval="0x0" description="" range="8" rwaccess="R/W"/> 
+		<bitfield id="AES_P_INTR_EXT_EN" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/> 
+		<bitfield id="AES_S_INTR_EXT_EN" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_RAT_INTR_EXT_EN" acronym="TIFS_SEC_MMR_SEC_RAT_INTR_EXT_EN" offset="0x724" width="32" description="">
+		<bitfield id="RAT_INTR_EXT_EN" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_IA_INTR_EXT_EN" acronym="TIFS_SEC_MMR_SEC_IA_INTR_EXT_EN" offset="0x728" width="32" description="">
+		<bitfield id="IA_INTR_EXT_EN" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_HSM_RESET" acronym="TIFS_SEC_MMR_SEC_HSM_RESET" offset="0x800" width="32" description="">
+		<bitfield id="RESET_MASK" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/> 
+		<bitfield id="RESET_RELEASE" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_HSM_DEBUG" acronym="TIFS_SEC_MMR_SEC_HSM_DEBUG" offset="0x804" width="32" description="">
+		<bitfield id="DBGEN" width="4" begin="3" end="0" resetval="0x0" description="" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SPARE_REG0" acronym="TIFS_SEC_MMR_SEC_SPARE_REG0" offset="0x900" width="32" description="">
+		<bitfield id="SEC_SPARE0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SPARE_REG1" acronym="TIFS_SEC_MMR_SEC_SPARE_REG1" offset="0x904" width="32" description="">
+		<bitfield id="SEC_SPARE1" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SPARE_REG2" acronym="TIFS_SEC_MMR_SEC_SPARE_REG2" offset="0x908" width="32" description="">
+		<bitfield id="SEC_SPARE2" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SEC_MMR_SEC_SPARE_REG3" acronym="TIFS_SEC_MMR_SEC_SPARE_REG3" offset="0x90C" width="32" description="">
+		<bitfield id="SEC_SPARE3" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+</module>

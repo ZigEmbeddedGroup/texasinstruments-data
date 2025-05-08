@@ -1,0 +1,99 @@
+<module name="C7X256V0_CORE0_UMC" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="C7XV_UMC_CFG_EL2_CFG" acronym="C7XV_UMC_CFG_EL2_CFG" offset="0x8" width="32" description=" General Operation Configuration Register ">
+		<bitfield id="RSVD2" width="8" begin="31" end="24" resetval="0x0" description=" Reserved " range="31 - 24" rwaccess="R"/> 
+		<bitfield id="ASEL_OTHER" width="4" begin="23" end="20" resetval="0x0" description=" Value that will be driven on the UMC_SOC_CASEL bus for accesses originating from the C7X's PMC, MMU, and SE ports " range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="ASEL_DMC" width="4" begin="19" end="16" resetval="0x0" description=" Value that will be driven on the UMC_SOC_CASEL bus for accesses originating from the C7X's DMC port " range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="7" begin="15" end="9" resetval="0x0" description=" Reserved " range="15 - 9" rwaccess="R"/> 
+		<bitfield id="BANK_HASH" width="1" begin="8" end="8" resetval="0x1" description=" When set, the bank which will be accessed will be determined by the address hashing algorithm.  When clear, the bank which will be accessed will come from the address bits 7 through 5 " range="8" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="5" begin="7" end="3" resetval="0x0" description=" Reserved " range="7 - 3" rwaccess="R"/> 
+		<bitfield id="DEF_PRI" width="3" begin="2" end="0" resetval="0x4" description=" Priority value that is assigned for Patrons which do not have a cpriority signal on their command bus.  Mainly used by internal c7x Patrons " range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SNP_CFG" acronym="C7XV_UMC_CFG_EL2_SNP_CFG" offset="0xC" width="32" description=" Snoop Configuration Register ">
+		<bitfield id="SNP_FLTR_DIS" width="1" begin="31" end="31" resetval="0x0" description=" When set, the snoop filter will be disabled.  When clear, the snoop filter performs it's specified operations " range="31" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="12" begin="30" end="19" resetval="0x0" description=" Reserved " range="30 - 19" rwaccess="R"/> 
+		<bitfield id="MMU_EMIF_SNP" width="1" begin="18" end="18" resetval="0x1" description=" When set, MMU reads to EMIF space will generate a CleanInvalid snoop to DMC on MMU reads.  When clear, MMU reads will not generate a snoop to DMC " range="18" rwaccess="R/W"/> 
+		<bitfield id="PMC_EMIF_SNP" width="1" begin="17" end="17" resetval="0x1" description=" When set, PMC reads to EMIF space will generate a CleanInvalid snoop to DMC on PMC reads.  When clear, PMC reads will not generate a snoop to DMC " range="17" rwaccess="R/W"/> 
+		<bitfield id="SE_EMIF_SNP" width="1" begin="16" end="16" resetval="0x1" description=" When set, Streaming Engine reads to EMIF space will generate a CleanInvalid snoop to DMC on SE reads.  When clear, SE reads will not generate a snoop to DMC " range="16" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="13" begin="15" end="3" resetval="0x0" description=" Reserved " range="15 - 3" rwaccess="R"/> 
+		<bitfield id="EL2_SNP" width="1" begin="2" end="2" resetval="0x1" description=" When set, DRU writes to the internal SRAM will generate a MakeInvalid snoop to DMC.  When clear, DRU writes will not generate a snoop to DMC " range="2" rwaccess="R/W"/> 
+		<bitfield id="DRU_SNP" width="1" begin="1" end="1" resetval="0x1" description=" When set, DRU writes to the internal SRAM will generate a MakeInvalid snoop to DMC.  When clear, DRU writes will not generate a snoop to DMC " range="1" rwaccess="R/W"/> 
+		<bitfield id="SOC_SNP" width="1" begin="0" end="0" resetval="0x1" description=" When set, SoC writes to the internal SRAM will generate a MakeInvalid snoop to DMC.  When clear, SoC writes will not generate a snoop to DMC " range="0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SCRB_CFG" acronym="C7XV_UMC_CFG_EL2_SCRB_CFG" offset="0x10" width="32" description=" ECC Scrubber Configuration Register ">
+		<bitfield id="EN" width="1" begin="31" end="31" resetval="0x1" description=" When set, the scrubber is enabled.  When clear, the scrubber is disabled and does not function " range="31" rwaccess="R/W"/> 
+		<bitfield id="PDIS" width="1" begin="30" end="30" resetval="0x0" description=" When set, the 1024 cycle prescale counter is disabled, and the number of cycles between scrub bursts will be exactly the value in the KCYCLES field.  Setting this bit is expected to only be used by the hardware verification team to stress-test interaction between the scrubber and normal functional accesses " range="30" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="6" begin="29" end="24" resetval="0x0" description=" Reserved " range="29 - 24" rwaccess="R"/> 
+		<bitfield id="KCYCLES" width="24" begin="23" end="0" resetval="0x256" description=" Number of kilocycles between scrub bursts.  Specifically, there will be 1024 * KCYCLES  cycles between scrub bursts delay.  When set to zero, delay will be approximately 32 cycles between bursts " range="23 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBND_C7X" acronym="C7XV_UMC_CFG_EL2_SBND_C7X" offset="0x1000" width="32" description=" Starvation Bound for C7X ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBND" width="8" begin="7" end="0" resetval="0x32" description=" Number of cycles that the Patron request may lose arbitration before declaring that it has starved " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBND_SOC" acronym="C7XV_UMC_CFG_EL2_SBND_SOC" offset="0x1004" width="32" description=" Starvation Bound for SoC ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBND" width="8" begin="7" end="0" resetval="0x32" description=" Number of cycles that the Patron request may lose arbitration before declaring that it has starved " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBND_DRU" acronym="C7XV_UMC_CFG_EL2_SBND_DRU" offset="0x1008" width="32" description=" Starvation Bound for DRU ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBND" width="8" begin="7" end="0" resetval="0x32" description=" Number of cycles that the Patron request may lose arbitration before declaring that it has starved " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBND_IHOP" acronym="C7XV_UMC_CFG_EL2_SBND_IHOP" offset="0x100C" width="32" description=" Starvation Bound for internal IHOPs ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBND" width="8" begin="7" end="0" resetval="0x32" description=" Number of cycles that the Patron request may lose arbitration before declaring that it has starved " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBRST_C7X" acronym="C7XV_UMC_CFG_EL2_SBRST_C7X" offset="0x1800" width="32" description=" Starvation Burst Count for C7X ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBRST" width="8" begin="7" end="0" resetval="0x4" description=" Maximum number of bank-to-back commands which will be marked as starvation commands from the Patron when the starvation bound counter expires " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBRST_SOC" acronym="C7XV_UMC_CFG_EL2_SBRST_SOC" offset="0x1804" width="32" description=" Starvation Burst Count for SoC ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBRST" width="8" begin="7" end="0" resetval="0x4" description=" Maximum number of bank-to-back commands which will be marked as starvation commands from the Patron when the starvation bound counter expires " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBRST_DRU" acronym="C7XV_UMC_CFG_EL2_SBRST_DRU" offset="0x1808" width="32" description=" Starvation Burst Count for DRU ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBRST" width="8" begin="7" end="0" resetval="0x4" description=" Maximum number of bank-to-back commands which will be marked as starvation commands from the Patron when the starvation bound counter expires " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_SBRST_IHOP" acronym="C7XV_UMC_CFG_EL2_SBRST_IHOP" offset="0x180C" width="32" description=" Starvation Burst Count for internal IHOPs ">
+		<bitfield id="RSVD0" width="24" begin="31" end="8" resetval="0x0" description=" Reserved " range="31 - 8" rwaccess="R"/> 
+		<bitfield id="SBRST" width="8" begin="7" end="0" resetval="0x4" description=" Maximum number of bank-to-back commands which will be marked as starvation commands from the Patron when the starvation bound counter expires " range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_RAM_ECC_UNC" acronym="C7XV_UMC_CFG_EL2_RAM_ECC_UNC" offset="0x2000" width="32" description=" Uncorrectable Error Count ">
+		<bitfield id="RSVD0" width="16" begin="31" end="16" resetval="0x0" description=" Reserved " range="31 - 16" rwaccess="R"/> 
+		<bitfield id="COUNT" width="16" begin="15" end="0" resetval="0x0" description=" Records the total number of uncorrectable errors that have been detected " range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_RAM_ECC_COR" acronym="C7XV_UMC_CFG_EL2_RAM_ECC_COR" offset="0x2004" width="32" description=" Corrected Error Count ">
+		<bitfield id="COUNT" width="32" begin="31" end="0" resetval="0x0" description=" Records the total number of errors that have been corrected " range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_RAM_ECC_COR_WB" acronym="C7XV_UMC_CFG_EL2_RAM_ECC_COR_WB" offset="0x2008" width="32" description=" Corrected Error Count Written to SRAM ">
+		<bitfield id="RSVD0" width="16" begin="31" end="16" resetval="0x0" description=" Reserved " range="31 - 16" rwaccess="R"/> 
+		<bitfield id="COUNT" width="16" begin="15" end="0" resetval="0x0" description=" Records the total number of errors that were corrected and written back to SRAM by the scrubber " range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_RAM_ECC_INFO_MAIN" acronym="C7XV_UMC_CFG_EL2_RAM_ECC_INFO_MAIN" offset="0x2100" width="32" description=" Last ECC Error Information Register from the mem_main SRAM ">
+		<bitfield id="RSVD2" width="7" begin="31" end="25" resetval="0x0" description=" Reserved " range="31 - 25" rwaccess="R"/> 
+		<bitfield id="SUBBANK" width="1" begin="24" end="24" resetval="0x0" description=" Records the sub-bank which was read that produced the error " range="24" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="5" begin="23" end="19" resetval="0x0" description=" Reserved " range="23 - 19" rwaccess="R"/> 
+		<bitfield id="BANK" width="3" begin="18" end="16" resetval="0x0" description=" Records the bank which was read that produced the error " range="18 - 16" rwaccess="R/W"/> 
+		<bitfield id="SRC" width="2" begin="15" end="14" resetval="0x0" description=" Records whether the error was detected on a functional access or a scrub cycle " range="15 - 14" rwaccess="R/W"/> 
+		<bitfield id="ETYPE" width="2" begin="13" end="12" resetval="0x0" description=" Records the type of error that was detected " range="13 - 12" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="3" begin="11" end="9" resetval="0x0" description=" Reserved " range="11 - 9" rwaccess="R"/> 
+		<bitfield id="BITLOC" width="9" begin="8" end="0" resetval="0x0" description=" Upon detection of an ECC error, records the location of the bit which was found to be in error for the last 1-bit correctable error that was detected within the subbank. " range="8 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_RAM_ECC_INFO_AUX" acronym="C7XV_UMC_CFG_EL2_RAM_ECC_INFO_AUX" offset="0x2104" width="32" description=" Last ECC Error Information Register from the mem_aux SRAM ">
+		<bitfield id="RSVD2" width="7" begin="31" end="25" resetval="0x0" description=" Reserved " range="31 - 25" rwaccess="R"/> 
+		<bitfield id="SUBBANK" width="1" begin="24" end="24" resetval="0x0" description=" Records the sub-bank which was read that produced the error " range="24" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="5" begin="23" end="19" resetval="0x0" description=" Reserved " range="23 - 19" rwaccess="R"/> 
+		<bitfield id="BANK" width="3" begin="18" end="16" resetval="0x0" description=" Records the bank which was read that produced the error " range="18 - 16" rwaccess="R/W"/> 
+		<bitfield id="SRC" width="2" begin="15" end="14" resetval="0x0" description=" Records whether the error was detected on a functional access or a scrub cycle " range="15 - 14" rwaccess="R/W"/> 
+		<bitfield id="ETYPE" width="2" begin="13" end="12" resetval="0x0" description=" Records the type of error that was detected " range="13 - 12" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="3" begin="11" end="9" resetval="0x0" description=" Reserved " range="11 - 9" rwaccess="R"/> 
+		<bitfield id="BITLOC" width="9" begin="8" end="0" resetval="0x0" description=" Upon detection of an ECC error, records the location of the bit which was found to be in error for the last 1-bit correctable error that was detected within the subbank.  Note that each sub-bank has 128-bits of data and 23 bits of parity and ECC information, so this value can range from 0 to 150 " range="8 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_RAM_ECC_ADDR_MAIN" acronym="C7XV_UMC_CFG_EL2_RAM_ECC_ADDR_MAIN" offset="0x2200" width="32" description=" Last ECC Error SRAM Bank Address from the mem_main SRAM ">
+		<bitfield id="RSVD0" width="16" begin="31" end="16" resetval="0x0" description=" Reserved " range="31 - 16" rwaccess="R"/> 
+		<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description=" Upon detection of an ECC error, records the row address that was accessed on the SRAM with the error " range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_UMC_CFG_EL2_RAM_ECC_ADDR_AUX" acronym="C7XV_UMC_CFG_EL2_RAM_ECC_ADDR_AUX" offset="0x2204" width="32" description=" Last ECC Error SRAM Bank Address from the mem_aux SRAM ">
+		<bitfield id="RSVD0" width="16" begin="31" end="16" resetval="0x0" description=" Reserved " range="31 - 16" rwaccess="R"/> 
+		<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description=" Upon detection of an ECC error, records the row address that was accessed on the SRAM with the error " range="15 - 0" rwaccess="R/W"/>
+	</register>
+</module>

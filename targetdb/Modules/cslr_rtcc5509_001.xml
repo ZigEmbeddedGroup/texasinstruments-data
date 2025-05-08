@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="RTC" HW_revision="1.0" XML_version="1.0" description="Real-Time Clock">
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="RTCSEC" acronym="RTCSEC" offset="0" width="8" description="Seconds Register">
+		<bitfield id="SEC" width="8" begin="7" end="0" resetval="Value unchanged by reset" description="Seconds select bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="RTCSECA" acronym="RTCSECA" offset="0" width="8" description="Seconds Alarm Register">
+		<bitfield id="SAR" width="8" begin="7" end="0" resetval="Value unchanged by reset" description="Seconds alarm select bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="RTCMIN" acronym="RTCMIN" offset="0" width="8" description="Minutes Register">
+		<bitfield id="MIN" width="8" begin="7" end="0" resetval="Value unchanged by reset" description="Minutes select bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="RTCMINA" acronym="RTCMINA" offset="0" width="8" description="Minutes Alarm Register">
+		<bitfield id="MAR" width="8" begin="7" end="0" resetval="Value unchanged by reset" description="Minutes alarm select bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="RTCHOUR" acronym="RTCHOUR" offset="0" width="8" description="Hours Register">
+		<bitfield id="AMPM" width="1" begin="7" end="7" resetval="0" description="AM/PM select bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Time is set for AM."/>
+			<bitenum id="1" value="1" token="1" description="Time is set for PM."/>
+		</bitfield>
+		
+		<bitfield id="HR" width="7" begin="6" end="0" resetval="Value unchanged by reset" description="Hours select bits." range="" rwaccess="RW">
+			<!--For 12-hour mode (TM = 0 in RTCINTEN):-->
+<!-- bull			<bitenum id="1-12" value="1-12" token="1-12" description="This BCD value sets the hour of the current time in conjunction with the AMPM bit."/> -->
+			<!--For 24-hour mode (TM = 1 in RTCINTEN):-->
+<!-- bull			<bitenum id="0-23" value="0-23" token="0-23" description="This BCD value sets the hour of the current time."/> -->
+		</bitfield>
+	</register>
+<!-- bull - What should the below offset be? it was blank -->
+	<register id="RTCHOURA" acronym="RTCHOURA" offset="0" width="8" description="Hours Alarm Register">
+		<bitfield id="AMPM" width="1" begin="7" end="7" resetval="0" description="AM/PM select bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Alarm time is set for AM or is in 24-hour mode."/>
+			<bitenum id="1" value="1" token="1" description="Alarm time is set for PM."/>
+		</bitfield>
+		
+		<bitfield id="HAR" width="7" begin="6" end="0" resetval="Value unchanged by reset" description="Hours alarm select bits." range="" rwaccess="RW">
+			<!--For 12-hour mode (TM = 0 in RTCINTEN):-->
+<!-- bull			<bitenum id="1-12" value="1-12" token="1-12" description="This BCD value sets the hour of the alarm time in conjunction with the AMPM bit."/> -->
+			<!--For 24-hour mode (TM = 1 in RTCINTEN):-->
+<!-- bull			<bitenum id="0-23" value="0-23" token="0-23" description="This BCD value sets the hour of the alarm time."/> -->
+		</bitfield>
+	</register>
+</module>

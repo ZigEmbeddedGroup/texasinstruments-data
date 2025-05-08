@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="PLIC" HW_revision="1.0" XML_version="1.0" description="Power management / Idle configurations">
+	<register id="ICR" acronym="ICR" offset="0" width="16" description="Idle Configuration Register">
+		<bitfield id="Reserved" width="10" begin="15" end="6" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="EMIFI" width="1" begin="5" end="5" resetval="0" description="EMIF-domain idle configuration bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="EMIF will be active"/>
+			<bitenum id="1" value="1" token="1" description="EMIF will be idle"/>
+		</bitfield>
+		
+		<bitfield id="CLKGENI" width="1" begin="4" end="4" resetval="0" description="CLKGEN-domain idle configuration bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Clock generator will be active"/>
+			<bitenum id="1" value="1" token="1" description="Clock generator will be idle"/>
+		</bitfield>
+		
+		<bitfield id="PERI" width="1" begin="3" end="3" resetval="0" description="PERIPH-domain idle configuration bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="All peripherals in the domain will be active."/>
+			<bitenum id="1" value="1" token="1" description="For each peripheral in the domain: If the idle enable bit is 1, the peripheral will be in its idle mode. If the idle enable bit is 0, the peripheral will be active."/>
+		</bitfield>
+		
+		<bitfield id="CACHEI" width="1" begin="2" end="2" resetval="0" description="CACHE-domain idle configuration bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Cache will be active"/>
+			<bitenum id="1" value="1" token="1" description="Cache will be idle"/>
+		</bitfield>
+		
+		<bitfield id="DMAI" width="1" begin="1" end="1" resetval="0" description="DMA-domain idle configuration bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="DMA controller will be active"/>
+			<bitenum id="1" value="1" token="1" description="DMA controller will be idle"/>
+		</bitfield>
+		
+		<bitfield id="CPUI" width="1" begin="0" end="0" resetval="0" description="CPU-domain idle configuration bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="CPU will be active"/>
+			<bitenum id="1" value="1" token="1" description="CPU will be idle"/>
+		</bitfield>
+	</register>
+	
+	<register id="ISTR" acronym="ISTR" offset="1" width="16" description="Idle Status Register">
+		<bitfield id="Reserved" width="10" begin="15" end="6" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="EMIFIS" width="1" begin="5" end="5" resetval="0" description="EMIF-domain idle status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="EMIF is active"/>
+			<bitenum id="1" value="1" token="1" description="EMIF is idle"/>
+		</bitfield>
+		
+		<bitfield id="CLKGENIS" width="1" begin="4" end="4" resetval="0" description="CLKGEN-domain idle status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="Clock generator is active"/>
+			<bitenum id="1" value="1" token="1" description="Clock generator is idle"/>
+		</bitfield>
+		
+		<bitfield id="PERIS" width="1" begin="3" end="3" resetval="0" description="PERIPH-domain idle status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="All peripherals in the domain are active"/>
+			<bitenum id="1" value="1" token="1" description="For each peripheral in the domain: If the idle enable bit is 1, the peripheral is idle. If the idle enable bit is 0, the peripheral is active."/>
+		</bitfield>
+		
+		<bitfield id="CACHEIS" width="1" begin="2" end="2" resetval="0" description="CACHE-domain idle status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="Cache is active"/>
+			<bitenum id="1" value="1" token="1" description="Cache is idle"/>
+		</bitfield>
+		
+		<bitfield id="DMAIS" width="1" begin="1" end="1" resetval="0" description="DMA-domain idle status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="DMA controller is active"/>
+			<bitenum id="1" value="1" token="1" description="DMA controller is idle"/>
+		</bitfield>
+		
+		<bitfield id="CPUIS" width="1" begin="0" end="0" resetval="0" description="CPU-domain idle status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="CPU is active"/>
+			<bitenum id="1" value="1" token="1" description="CPU is idle"/>
+		</bitfield>
+	</register>
+</module>

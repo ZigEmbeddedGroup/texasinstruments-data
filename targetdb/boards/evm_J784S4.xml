@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!--
+	NOTE: To run the baremetal script J7AHP.gel on a:
+	- GP device: set DIP switches for NOBOOT mode.
+	- HS-FS device: set DIP swtich EMU_SW:OFF,ON for WIR mode.
+	- HS-SE device: set DIP swtich EMU_SW:OFF,ON for WIR mode, and send an unlock certificate using dbgauth before running. 
+-->
+<board 	id="EVM_J784S4" XML_version="1" desc="EVM_J784S4" description="J784S4_TDA4VH General Purpose Evaluation Module">
+    <instance XML_version="1.2" desc="J784S4_TDA4VH_0" href="devices/J784S4_TDA4VH.xml" id="J784S4_TDA4VH_0" xml="J784S4_TDA4VH.xml" xmlpath="devices"/>
+    <device HW_revision="1.0" XML_version="1.2" description="J784S4_TDA4VH - Cortex A72 Embedded Processor" id="J784S4_TDA4VH_0" partnum="J784S4_TDA4VH">
+        <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+            <subpath id="SMS_TIFSM">
+                <cpu HW_revision="1.0" XML_version="1.2" description="Cortex M4F CPU" id="CORTEX_M4F_0" isa="Cortex_M3">
+                    <property Type="filepathfield" Value="../../emulation/gel/J784S4_TDA4VH/J7AHP.gel" id="GEL File"/>
+                </cpu>
+            </subpath>
+        </router>
+    </device>
+</board>

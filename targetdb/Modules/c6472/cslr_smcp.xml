@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><module id="SMCP" HW_revision="" XML_version="1" description="Shared Memory Controller Profiler">
+     <register id="SL2BNKMSK" acronym="SL2BNKMSK" offset="0" width="32" description="SMC Bank Mask Register">
+<bitfield id="_RESV_1" width="28" begin="31" end="4" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="BANK3" width="1" begin="3" end="3" resetval="1" description="PAGE30 Prefetch Enable" range="" rwaccess="RW"/>
+<bitfield id="BANK2" width="1" begin="2" end="2" resetval="1" description="PAGE29 Prefetch Enable" range="" rwaccess="RW"/>
+<bitfield id="BANK1" width="1" begin="1" end="1" resetval="1" description="PAGE28 Prefetch Enable" range="" rwaccess="RW"/>
+<bitfield id="BANK0" width="1" begin="0" end="0" resetval="1" description="PAGE27 Prefetch Enable" range="" rwaccess="RW"/>
+</register>
+     <register id="SL2PWSCNT0" acronym="SL2PWSCNT0" offset="0x04" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PWSCNT1" acronym="SL2PWSCNT1" offset="0x08" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PWSCNT2" acronym="SL2PWSCNT2" offset="0x0C" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PWSCNT3" acronym="SL2PWSCNT3" offset="0x10" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PWSCNT4" acronym="SL2PWSCNT4" offset="0x14" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PWSCNT5" acronym="SL2PWSCNT5" offset="0x18" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PWSCNT6" acronym="SL2PWSCNT6" offset="0x1C" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PWSCNT7" acronym="SL2PWSCNT7" offset="0x20" width="32" description="SMC Wait State Counter">
+<bitfield id="WSCNT" width="32" begin="31" end="0" resetval="0" description="32 bit counters for n wait state read accesses" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PFCCNT" acronym="SL2PFCCNT" offset="0x24" width="32" description="SMC Prefetch Counter">
+<bitfield id="PFCCNT" width="32" begin="31" end="0" resetval="0" description="32 bit prefetch counter" range="" rwaccess="R"/>
+</register>
+     <register id="SL2PCMD" acronym="SL2PCMD" offset="0x28" width="32" description="SMC Memory Protection Fault Address Register">
+<bitfield id="_RESV_1" width="30" begin="31" end="2" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ENPROFILE" width="1" begin="1" end="1" resetval="0" description="Enable/Disable Profile" range="" rwaccess="RW"/>
+<bitfield id="CLEAR" width="1" begin="0" end="0" resetval="0" description="Clear all the counters" range="" rwaccess="RW"/>
+</register>
+     <register id="SL2PSTAT" acronym="SL2PSTAT" offset="0x2C" width="32" description="SMC Profiler Counter Saturation status">
+<bitfield id="_RESV_1" width="23" begin="31" end="9" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="PSAT" width="1" begin="8" end="8" resetval="0" description="SL2PFCCNT Counter Saturates" range="" rwaccess="R"/>
+<bitfield id="SAT7" width="1" begin="7" end="7" resetval="0" description="SL2PWSCNT7 counter saturates" range="" rwaccess="R"/>
+<bitfield id="SAT6" width="1" begin="6" end="6" resetval="0" description="SL2PWSCNT6 counter saturates" range="" rwaccess="R"/>
+<bitfield id="SAT5" width="1" begin="5" end="5" resetval="0" description="SL2PWSCNT5 counter saturates" range="" rwaccess="R"/>
+<bitfield id="SAT4" width="1" begin="4" end="4" resetval="0" description="SL2PWSCNT4 counter saturates" range="" rwaccess="R"/>
+<bitfield id="SAT3" width="1" begin="3" end="3" resetval="0" description="SL2PWSCNT3 counter saturates" range="" rwaccess="R"/>
+<bitfield id="SAT2" width="1" begin="2" end="2" resetval="0" description="SL2PWSCNT2 counter saturates" range="" rwaccess="R"/>
+<bitfield id="SAT1" width="1" begin="1" end="1" resetval="0" description="SL2PWSCNT1 counter saturates" range="" rwaccess="R"/>
+<bitfield id="SAT0" width="1" begin="0" end="0" resetval="0" description="SL2PWSCNT0 counter saturates" range="" rwaccess="R"/>
+</register>
+     <register id="SL2STATMASK" acronym="SL2STATMASK" offset="0x30" width="32" description="SMC Atomic access monitor Status">
+<bitfield id="_RESV_1" width="24" begin="31" end="8" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="MASK_WS7" width="1" begin="7" end="7" resetval="0" description="MASK_WS7 = 1, COMBINE WS7_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS7_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="MASK_WS3" width="1" begin="7" end="7" resetval="0" description="MASK_WS3 = 1, COMBINE WS3_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS3_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="MASK_WS6" width="1" begin="6" end="6" resetval="0" description="MASK_WS6 = 1, COMBINE WS6_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS6_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="MASK_WS2" width="1" begin="6" end="6" resetval="0" description="MASK_WS2 = 1, COMBINE WS2_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS2_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="MASK_WS5" width="1" begin="5" end="5" resetval="0" description="MASK_WS5 = 1, COMBINE WS5_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS5_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="MASK_WS1" width="1" begin="5" end="5" resetval="0" description="MASK_WS1 = 1, COMBINE WS1_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS1_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="MASK_WS4" width="1" begin="4" end="4" resetval="0" description="MASK_WS4 = 1, COMBINE WS4_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS4_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="MASK_WS0" width="1" begin="4" end="4" resetval="0" description="MASK_WS0 = 1, COMBINE WS0_EVENT to generate SMC Profile event to GEM, otherwise not to combine WS0_event to generate SMC profile event to GEM" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="4" begin="3" end="0" resetval="0" description="" range="" rwaccess="N"/>
+</register>
+</module>
