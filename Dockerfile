@@ -62,7 +62,7 @@ ARG BUILD_VER
 
 # Download and extract CCS installation package
 RUN wget -q https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-J1VdearkvK/${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux.zip
-RUN unzip CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.zip
+RUN unzip CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux.zip
 
 ARG COMPONENTS
 
