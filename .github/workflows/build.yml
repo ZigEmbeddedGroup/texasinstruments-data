@@ -23,7 +23,7 @@ jobs:
     steps:
     - name: Create env vars
       run: |
-        echo IMAGE=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.MAJOR_VER }}.${{ env.MINOR_VER }}.${{ env.PATCH_VER }}.${{ env.BUILD_VER }} >> $GITHUB_ENV
+        echo IMAGE=${{ env.REGISTRY }}/zigembeddedgroup/${{ env.IMAGE_NAME }}:${{ env.MAJOR_VER }}.${{ env.MINOR_VER }}.${{ env.PATCH_VER }}.${{ env.BUILD_VER }} >> $GITHUB_ENV
     - name: Checkout code
       uses: actions/checkout@v3
       with:
