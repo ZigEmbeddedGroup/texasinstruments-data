@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="TMS320C6747" partnum="TMS320C6747" HW_revision="1" XML_version="2" desc="TMS320C6747" description="C674x Floating point DSP">
+	<!-- Filter for Project Wizard --> 
+	<property Type="stringfield" Value="C674x Floating-point DSP" id="FilterString" />
+	<instance XML_version="1.2" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+	<router HW_revision="1.0" XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+		<subpath id="subpath_0">
+			<property Type="numericfield" Value="0x11" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="0" id="Force Configuration"/>
+			<instance XML_version="1.2" desc="C674X_0" href="../cpus/c674x.xml" id="C674X_0" xml="c674x.xml" xmlpath="cpus"/>
+			<cpu HW_revision="" XML_version="1.2" desc="C674X_0" description="" id="C674X_0" isa="TMS320C674X">
+        <!-- Project Wizard Settings -->
+            <property Type="stringfield" Value="little" id="Endianness" />
+            <property Type="stringfield" Value="true" id="IsElfDefault" />
+            <property Type="stringfield" Value="--silicon_version=6740 -D=c6747" id="CompilerBuildOptions" />
+            <property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+            <property Type="stringfield" Value="C6747.cmd" id="LinkerCmd" />
+        <!-- End project wizard settigns -->
+				<instance href="../Modules/c674x/rCSL_syscfg_001.xml" id="SYSCFG0" xml="rCSL_syscfg_001.xml" xmlpath="../Modules/c674x/" description="System Config module" baseaddr="0x1c14000" endaddr="0x1c14fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_dspintc_001.xml" id="INTC0" xml="rCSL_dspintc_001.xml" xmlpath="../Modules/c674x/" description="DSP Interrupt Controller" baseaddr="0x1800000" endaddr="0x180ffff" size="0x10000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_edmacc_001.xml" id="EDMACC0" xml="rCSL_edmacc_001.xml" xmlpath="../Modules/c674x/" description="3PCC" baseaddr="0x1c00000" endaddr="0x1c07fff" size="0x8000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_edmatc_001.xml" id="EDMATC0" xml="rCSL_edmatc_001.xml" xmlpath="../Modules/c674x/" description="3PCC" baseaddr="0x1c08000" endaddr="0x1c083ff" size="0x400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_edmatc_001.xml" id="EDMATC1" xml="rCSL_edmatc_001.xml" xmlpath="../Modules/c674x/" description="3PCC" baseaddr="0x1c08400" endaddr="0x1c087ff" size="0x400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_uart_001.xml" id="UART0" xml="rCSL_uart_001.xml" xmlpath="../Modules/c674x/" description="UART" baseaddr="0x1c42000" endaddr="0x1c42fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_uart_001.xml" id="UART1" xml="rCSL_uart_001.xml" xmlpath="../Modules/c674x/" description="UART" baseaddr="0x1d0c000" endaddr="0x1d0cfff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_uart_001.xml" id="UART2" xml="rCSL_uart_001.xml" xmlpath="../Modules/c674x/" description="UART" baseaddr="0x1d0d000" endaddr="0x1d0dfff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_i2c_001.xml" id="I2C0" xml="rCSL_i2c_001.xml" xmlpath="../Modules/c674x/" description="I2C" baseaddr="0x1c22000" endaddr="0x1c22fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_i2c_001.xml" id="I2C1" xml="rCSL_i2c_001.xml" xmlpath="../Modules/c674x/" description="I2C" baseaddr="0x1e28000" endaddr="0x1e28fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_tmr_001.xml" id="TMR0" xml="rCSL_tmr_001.xml" xmlpath="../Modules/c674x/" description="TIMER0/1" baseaddr="0x1c20000" endaddr="0x1c20fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_tmr_001.xml" id="TMR1" xml="rCSL_tmr_001.xml" xmlpath="../Modules/c674x/" description="TIMER0/1" baseaddr="0x1c21000" endaddr="0x1c21fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_hpi_001.xml" id="HPI0" xml="rCSL_hpi_001.xml" xmlpath="../Modules/c674x/" description="HPI Cfg" baseaddr="0x1e10000" endaddr="0x1e10fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_spi_001.xml" id="SPI0" xml="rCSL_spi_001.xml" xmlpath="../Modules/c674x/" description="SPI" baseaddr="0x1c41000" endaddr="0x1c41fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_spi_001.xml" id="SPI1" xml="rCSL_spi_001.xml" xmlpath="../Modules/c674x/" description="SPI" baseaddr="0x1e12000" endaddr="0x1e12fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_rtc_001.xml" id="RTC0" xml="rCSL_rtc_001.xml" xmlpath="../Modules/c674x/" description="RTC" baseaddr="0x1c23000" endaddr="0x1c23fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_pllc_001.xml" id="PLL0" xml="rCSL_pllc_001.xml" xmlpath="../Modules/c674x/" description="PLL Controller" baseaddr="0x1c11000" endaddr="0x1c11fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_gpio_001.xml" id="GPIO0" xml="rCSL_gpio_001.xml" xmlpath="../Modules/c674x/" description="GPIO" baseaddr="0x1e26000" endaddr="0x1e26fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_ecap_001.xml" id="ECAP0" xml="rCSL_ecap_001.xml" xmlpath="../Modules/c674x/" description="ECAP" baseaddr="0x1f06000" endaddr="0x1f06fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_ecap_001.xml" id="ECAP1" xml="rCSL_ecap_001.xml" xmlpath="../Modules/c674x/" description="ECAP" baseaddr="0x1f07000" endaddr="0x1f07fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_ecap_001.xml" id="ECAP2" xml="rCSL_ecap_001.xml" xmlpath="../Modules/c674x/" description="ECAP" baseaddr="0x1f08000" endaddr="0x1f08fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_ehrpwm_001.xml" id="EPWM0" xml="rCSL_ehrpwm_001.xml" xmlpath="../Modules/c674x/" description="EPWM" baseaddr="0x1f00000" endaddr="0x1f01fff" size="0x2000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_ehrpwm_001.xml" id="EPWM1" xml="rCSL_ehrpwm_001.xml" xmlpath="../Modules/c674x/" description="EPWM" baseaddr="0x1f02000" endaddr="0x1f03fff" size="0x2000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_ehrpwm_001.xml" id="EPWM2" xml="rCSL_ehrpwm_001.xml" xmlpath="../Modules/c674x/" description="EPWM" baseaddr="0x1f04000" endaddr="0x1f05fff" size="0x2000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_eqep_001.xml" id="EQEP0" xml="rCSL_eqep_001.xml" xmlpath="../Modules/c674x/" description="EQEP" baseaddr="0x1f09000" endaddr="0x1f09fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_eqep_001.xml" id="EQEP1" xml="rCSL_eqep_001.xml" xmlpath="../Modules/c674x/" description="EQEP" baseaddr="0x1f0a000" endaddr="0x1f0afff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_lcdc_001.xml" id="LCDC0" xml="rCSL_lcdc_001.xml" xmlpath="../Modules/c674x/" description="LCD Controller" baseaddr="0x1e13000" endaddr="0x1e13fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_mmcsd_001.xml" id="MMCSD0" xml="rCSL_mmcsd_001.xml" xmlpath="../Modules/c674x/" description="MMC/SD0" baseaddr="0x1c40000" endaddr="0x1c40fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_emifb_001.xml" id="EMIFb0" xml="rCSL_emifb_001.xml" xmlpath="../Modules/c674x/" description="EMIFb CTRL" baseaddr="0xb0000000" endaddr="0xb0007fff" size="0x8000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_emifa_001.xml" id="EMIFa0" xml="rCSL_emifa_001.xml" xmlpath="../Modules/c674x/" description="EMIFa CTRL" baseaddr="0x68000000" endaddr="0x68007fff" size="0x8000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_usb_otg_001.xml" id="USBOTG0" xml="rCSL_usb_otg_001.xml" xmlpath="../Modules/c674x/" description="USB FS/USBHS" baseaddr="0x1e00000" endaddr="0x1e0ffff" size="0x10000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_usb_ohci_001.xml" id="USBOHCI0" xml="rCSL_usb_ohci_001.xml" xmlpath="../Modules/c674x/" description="USB FS/USBHS" baseaddr="0x1e25000" endaddr="0x1e25fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_emac_001.xml" id="EMAC0" xml="rCSL_emac_001.xml" xmlpath="../Modules/c674x/" description="EMAC Control Regs" baseaddr="0x1e23000" endaddr="0x1e23fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_ectl_001.xml" id="ECTL0" xml="rCSL_ectl_001.xml" xmlpath="../Modules/c674x/" description="ECTL" baseaddr="0x1e22000" endaddr="0x1e22fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_mdio_001.xml" id="MDIO0" xml="rCSL_mdio_001.xml" xmlpath="../Modules/c674x/" description="MDIO Control Regs" baseaddr="0x1e24000" endaddr="0x1e24fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_sc_001.xml" id="SC0DSP" xml="rCSL_sc_001.xml" xmlpath="../Modules/c674x" description="Security Control  Regs" baseaddr="0x1c13000" endaddr="0x1c13fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_psc0_001.xml" id="PSC00" xml="rCSL_psc0_001.xml" xmlpath="../Modules/c674x/" description="PSC0 Control Regs" baseaddr="0x1c10000" endaddr="0x1c10fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_psc1_001.xml" id="PSC10" xml="rCSL_psc1_001.xml" xmlpath="../Modules/c674x/" description="PSC1 Control Regs" baseaddr="0x1e27000" endaddr="0x1e27fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_mcasp_001.xml" id="McASP0" xml="rCSL_mcasp_001.xml" xmlpath="../Modules/c674x/" description="McASP" baseaddr="0x1d00000" endaddr="0x1d00fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_mcasp_001.xml" id="McASP1" xml="rCSL_mcasp_001.xml" xmlpath="../Modules/c674x/" description="McASP" baseaddr="0x1d04000" endaddr="0x1d04fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_mcasp_001.xml" id="McASP2" xml="rCSL_mcasp_001.xml" xmlpath="../Modules/c674x/" description="McASP" baseaddr="0x1d08000" endaddr="0x1d08fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_afifo_001.xml" id="McASPFIFO0" xml="rCSL_afifo_001.xml" xmlpath="../Modules/c674x/" description="McASP FIFO" baseaddr="0x1d01000" endaddr="0x1d01fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_afifo_001.xml" id="McASPFIFO1" xml="rCSL_afifo_001.xml" xmlpath="../Modules/c674x/" description="McASP FIFO" baseaddr="0x1d05000" endaddr="0x1d05fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/c674x/rCSL_afifo_001.xml" id="McASPFIFO2" xml="rCSL_afifo_001.xml" xmlpath="../Modules/c674x/" description="McASP FIFO" baseaddr="0x1d09000" endaddr="0x1d09fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+			</cpu>
+		</subpath>
+	</router>
+</device>

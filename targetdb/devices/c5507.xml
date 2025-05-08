@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="C5507" partnum="TMS320C5507" HW_revision="1" XML_version="1" desc="TMS320C5507" description="TMS320VC5507 16-bit Fixed point ultra low power DSP&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+	<!-- Filter for project wizard -->
+	<property Type="stringfield" Value="C550x" id="FilterString" />
+	<instance XML_version="1.2" desc="C55xx" href="cpus/c55xx.xml" id="C55xx" xml="c55xx.xml" xmlpath="cpus"/>
+	<cpu HW_revision="1.0" XML_version="1.2" description="The C55xx CPU" id="C55xx" isa="TMS320C55XX">
+		<!-- <property Type="filepathfield" Value="" id="GEL File"/> -->
+		<!-- Project Wizard Settings -->
+        <!-- <property Type="stringfield" Value="little" id="Endianness" /> -->
+        <property Type="stringfield" Value="-D=c5507 --memory_model=large --ptrdiff_size=32 --silicon_version=5507" id="CompilerBuildOptions" />
+        <property Type="stringfield" Value="--stack_size=0x200 --sys_stacksize=0x200 --heap_size=0x400" id="LinkerBuildOptions" />
+        <property Type="stringfield" Value="VC5507.cmd" id="LinkerCmd" />
+		<!-- END Project Wizard Settings -->
+	</cpu>
+</device>

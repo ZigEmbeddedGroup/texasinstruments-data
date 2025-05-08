@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="UART" HW_revision="1.0" XML_version="1.0" description="Universal Asynchronous Receiver/Transmitter">
+	<register id="URRBR" acronym="URRBR" offset="0" width="16" description="Receiver Buffer Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DATA" width="8" begin="7" end="0" resetval="Value unchanged by reset" description="Received data." range="" rwaccess="R">
+		</bitfield>
+	</register>
+	
+	<register id="URTHR" acronym="URTHR" offset="0" width="16" description="Transmitter Holding Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DATA" width="8" begin="7" end="5" resetval="0" description="Transmit data." range="" rwaccess="W">
+		</bitfield>
+	</register>
+	
+	<register id="URDLL" acronym="URDLL" offset="0" width="16" description="Divisor Latch Registers">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DLL" width="8" begin="7" end="0" resetval="Value unchanged by reset" description="Use DLL to program the least significant bits of the baud rate divisor." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+
+<!-- bull - What's the offset? it said offset="0x01/0x09" -->
+	<register id="URDLM" acronym="URDLM" offset="1" width="16" description="Divisor Latch Registers">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DLM" width="8" begin="7" end="0" resetval="Value unchanged by reset" description="Use DLM to program the most significant bits of the baud rate divisor." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="URIER" acronym="URIER" offset="1" width="16" description="Interrupt Enable Register">
+		<bitfield id="Reserved" width="12" begin="15" end="4" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="Reserved" width="1" begin="3" end="3" resetval="0" description="Always write 0 to this bit." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="ELSI" width="1" begin="2" end="2" resetval="0" description="Enable bit for the receiver line status interrupt request" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+		
+		<bitfield id="ETBEI" width="1" begin="1" end="1" resetval="0" description="Enable bit for the THR-empty interrupt request" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+		
+		<bitfield id="ERBI" width="1" begin="0" end="0" resetval="0" description="Enable bit for the receiver data-ready interrupt request and the receiver time-out interrupt request" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+	</register>
+	
+	<register id="URIIR" acronym="URIIR" offset="2" width="16" description="Interrupt Identification Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="FIENR" width="2" begin="7" end="6" resetval="0" description="FIFO status bit" range="" rwaccess="R">
+			<bitenum id="00" value="0" token="00" description="The non-FIFO (TL16C450) mode is selected (FIEN = 0 in URFCR)."/>
+			<bitenum id="01" value="1" token="01" description="Reserved"/>
+			<bitenum id="10" value="2" token="10" description="Reserved"/>
+			<bitenum id="11" value="3" token="11" description="The FIFO mode is selected (FIEN = 1 in URFCR)."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="2" begin="5" end="4" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="IID" width="3" begin="3" end="1" resetval="0" description="Interrupt identification field." range="" rwaccess="R">
+			<bitenum id="000" value="0" token="000" description="No interrupt"/>
+			<bitenum id="001" value="1" token="001" description="Transmitter holding register empty interrupt (priority 3)"/>
+			<bitenum id="010" value="2" token="010" description="Receiver data-ready interrupt (priority 2)"/>
+			<bitenum id="011" value="3" token="011" description="Receiver line status interrupt (priority 1)"/>
+			<bitenum id="110" value="6" token="110" description="Receiver time-out interrupt (priority 2)"/>
+		</bitfield>
+		
+		<bitfield id="IP" width="1" begin="0" end="0" resetval="1" description="Interrupt pending bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="An interrupt is pending."/>
+			<bitenum id="1" value="1" token="1" description="No interrupt is pending."/>
+		</bitfield>
+	</register>
+	
+	<register id="URFCR" acronym="URFCR" offset="2" width="16" description="FIFO Control Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="RFITR" width="2" begin="7" end="6" resetval="0" description="Receiver FIFO trigger level bits." range="" rwaccess="W">
+			<bitenum id="00" value="0" token="00" description="1 byte"/>
+			<bitenum id="01" value="1" token="01" description="4 bytes"/>
+			<bitenum id="10" value="2" token="10" description="8 bytes"/>
+			<bitenum id="11" value="3" token="11" description="14 bytes"/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="2" begin="5" end="4" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DMAMOD" width="1" begin="3" end="3" resetval="0" description="DMA mode bit." range="" rwaccess="W">
+		</bitfield>
+		
+		<bitfield id="TFIRS" width="1" begin="2" end="2" resetval="0" description="Transmitter FIFO reset bit" range="" rwaccess="W">
+			<bitenum id="0" value="0" token="0" description="The bit has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="This bit, when set, clears the transmitter FIFO pointer."/>
+		</bitfield>
+		
+		<bitfield id="RFIRS" width="1" begin="1" end="1" resetval="0" description="Receive FIFO reset bit" range="" rwaccess="W">
+			<bitenum id="0" value="0" token="0" description="The bit has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="This bit, when set, clears the receiver FIFO pointer."/>
+		</bitfield>
+		
+		<bitfield id="FIEN" width="1" begin="0" end="0" resetval="0" description="FIFO enable bit" range="" rwaccess="W">
+			<bitenum id="0" value="0" token="0" description="Non-FIFO mode."/>
+			<bitenum id="1" value="1" token="1" description="FIFO mode."/>
+		</bitfield>
+	</register>
+	
+	<register id="URLCR" acronym="URLCR" offset="3" width="16" description="Line Control Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DLAB" width="1" begin="7" end="7" resetval="0" description="Divisor latch access bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="URRBR, URTHR, and URIER selected."/>
+			<bitenum id="1" value="1" token="1" description="URDLL and URDLM selected."/>
+		</bitfield>
+		
+		<bitfield id="BC" width="1" begin="6" end="6" resetval="0" description="Break control bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Break condition disabled"/>
+			<bitenum id="1" value="1" token="1" description="Break condition enabled"/>
+		</bitfield>
+		
+		<bitfield id="STPAR" width="1" begin="5" end="5" resetval="0" description="Stick parity bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Stick parity disabled"/>
+			<bitenum id="1" value="1" token="1" description="Stick parity enabled"/>
+		</bitfield>
+		
+		<bitfield id="EPS" width="1" begin="4" end="4" resetval="0" description="Even parity select bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Odd parity selected"/>
+			<bitenum id="1" value="1" token="1" description="Even parity selected"/>
+		</bitfield>
+		
+		<bitfield id="PEN" width="1" begin="3" end="3" resetval="0" description="Parity enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Parity disabled"/>
+			<bitenum id="1" value="1" token="1" description="Parity enabled"/>
+		</bitfield>
+		
+		<bitfield id="STB" width="1" begin="2" end="2" resetval="0" description="Stop-bit mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="One stop bit is generated in the data."/>
+			<bitenum id="1" value="1" token="1" description="The number of stop bits generated is dependent on the word length selected with bits 0 and 1 (WLS)."/>
+		</bitfield>
+		
+		<bitfield id="WLS" width="2" begin="1" end="0" resetval="0" description="Word length select bits." range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="00" description="5 bits"/>
+			<bitenum id="01" value="1" token="01" description="6 bits"/>
+			<bitenum id="10" value="2" token="10" description="7 bits"/>
+			<bitenum id="11" value="3" token="11" description="8 bits"/>
+		</bitfield>
+	</register>
+	
+	<register id="URMCR" acronym="URMCR" offset="4" width="16" description="Modem Control Register">
+		<bitfield id="Reserved" width="10" begin="15" end="6" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="Reserved" width="1" begin="5" end="5" resetval="0" description="Write 0 to this bit." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="LOOP" width="1" begin="4" end="4" resetval="0" description="Loopback enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Loopback disabled"/>
+			<bitenum id="1" value="1" token="1" description="Loopback enabled."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="4" begin="3" end="0" resetval="0" description="Write 0s to these bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="URLSR" acronym="URLSR" offset="5" width="16" description="Line Status Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="RFIER" width="1" begin="7" end="7" resetval="0" description="Receiver FIFO error indicator" range="" rwaccess="R">
+			<!--Non-FIFO mode:-->
+			<bitenum id="0" value="0" token="0" description="There has been no error, or RFIER was cleared because the CPU read the erroneous character from the receiver buffer register (URRBR)."/>
+			<bitenum id="1" value="1" token="1" description="There is a parity error, framing error, or break indicator in URRBR."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="There has been no error, or RFIER was cleared because the CPU read the erroneous character from the receiver FIFO and there are no more errors in the receiver FIFO."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="There is at least one parity error, framing error, or break indicator in the receiver FIFO."/> -->
+		</bitfield>
+		
+		<bitfield id="TEMT" width="1" begin="6" end="6" resetval="1" description="Transmitter empty indicator" range="" rwaccess="R">
+			<!--Non-FIFO mode:-->
+			<bitenum id="0" value="0" token="0" description="Either the transmitter holding register (URTHR) or the transmitter shift register (URTSR) contains a character."/>
+			<bitenum id="1" value="1" token="1" description="Both URTHR and URTSR are empty."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="Either the transmitter FIFO or the transmitter shift register (URTSR) contains a character."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="Both the transmitter FIFO and URTSR are empty."/> -->
+		</bitfield>
+		
+		<bitfield id="THRE" width="1" begin="5" end="5" resetval="1" description="Transmitter holding register empty indicator." range="" rwaccess="R">
+			<!--Non-FIFO mode:-->
+			<bitenum id="0" value="0" token="0" description="URTHR is not empty."/>
+			<bitenum id="1" value="1" token="1" description="URTHR is empty (ready to accept a new character)."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="The transmitter FIFO is not empty."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="The transmitter FIFO is empty."/> -->
+		</bitfield>
+		
+		<bitfield id="BI" width="1" begin="4" end="4" resetval="0" description="Break indicator." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="No break has been detected, or BI was cleared because the CPU read the erroneous character from the receiver buffer register (URRBR)."/>
+			<bitenum id="1" value="1" token="1" description="A break has been detected with the character in URRBR."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="No break has been detected, or BI was cleared because the CPU read the erroneous character from the receiver FIFO and the next character to be read from the FIFO has no break indicator."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="A break has been detected with the character at the top of the receiver FIFO."/> -->
+		</bitfield>
+		
+		<bitfield id="FE" width="1" begin="3" end="3" resetval="0" description="Framing error (FE) indicator." range="" rwaccess="R">
+			<!--Non-FIFO mode:-->
+			<bitenum id="0" value="0" token="0" description="No framing error has been detected, or FE was cleared because the CPU read the erroneous data from the receiver buffer register (URRBR)."/>
+			<bitenum id="1" value="1" token="1" description="A framing error has been detected with the character in URRBR."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="No framing error has been detected, or FE was cleared because the CPU read the erroneous data from the receiver FIFO and the next character to be read from the FIFO has no framing error."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="A framing error has been detected with the character at the top of the receiver FIFO."/> -->
+		</bitfield>
+		
+		<bitfield id="PE" width="1" begin="2" end="2" resetval="0" description="Parity error (PE) indicator." range="" rwaccess="R">
+			<!--Non-FIFO mode:-->
+			<bitenum id="0" value="0" token="0" description="No parity error has been detected, or PE was cleared because the CPU read the erroneous data from the receiver buffer register (URRBR)."/>
+			<bitenum id="1" value="1" token="1" description="A parity error has been detected with the character in URRBR."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="No parity error has been detected, or PE was cleared because the CPU read the erroneous data from the receiver FIFO and the next character to be read from the FIFO has no parity error."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="A parity error has been detected with the character at the top of the receiver FIFO."/> -->
+		</bitfield>
+		
+		<bitfield id="OE" width="1" begin="1" end="1" resetval="0" description="Overrun error (OE) indicator." range="" rwaccess="R">
+			<!--Non-FIFO mode:-->
+			<bitenum id="0" value="0" token="0" description="No overrun error has been detected, or OE was cleared because the CPU read the content of the line status register (URLSR)."/>
+			<bitenum id="1" value="1" token="1" description="An overrun error has been detected."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="No overrun error has been detected, or OE was cleared because the CPU read the content of the line status register (URLSR)."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="An overrun error has been detected."/> -->
+		</bitfield>
+		
+		<bitfield id="DR" width="1" begin="0" end="0" resetval="0" description="Data-ready (DR) indicator for the receiver." range="" rwaccess="R">
+			<!--Non-FIFO mode:-->
+			<bitenum id="0" value="0" token="0" description="Data is not ready, or DR was cleared because the character was read from the receiver buffer register (URRBR)."/>
+			<bitenum id="1" value="1" token="1" description="Data is ready."/>
+			<!--FIFO mode:-->
+<!-- bull			<bitenum id="0" value="0" token="0" description="Data is not ready, or DR was cleared because all of the characters in the receiver FIFO have been read."/> -->
+<!-- bull			<bitenum id="1" value="1" token="1" description="Data is ready."/> -->
+		</bitfield>
+	</register>
+	
+	<register id="URSCR" acronym="URSCR" offset="7" width="16" description="Scratch Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="SCR" width="8" begin="7" end="0" resetval="U" description="This field can be used as a temporary data storage location." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="URPECR" acronym="URPECR" offset="12" width="16" description="Power and Emulation Control Register">
+		<bitfield id="URST" width="1" begin="15" end="15" resetval="0" description="UART software reset bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The receiver and transmitter are disabled and in the reset state."/>
+			<bitenum id="1" value="1" token="1" description="The receiver and transmitter are enabled."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="14" begin="14" end="1" resetval="01" description="Reserved" range="" rwaccess="1">
+		</bitfield>
+		
+		<bitfield id="FREE" width="1" begin="0" end="0" resetval="0" description="This emulation mode bit determines the functionality of the UART in the case of an emulator-related operation such as a debugger breakpoint." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="If a character transfer is not in progress, the UART stops immediately."/>
+			<bitenum id="1" value="1" token="1" description="The UART does not stop in response to the emulator-related operation."/>
+		</bitfield>
+	</register>
+</module>

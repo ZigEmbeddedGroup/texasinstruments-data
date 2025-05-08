@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="DM647" partnum="TMS320DM647" HW_revision="1" XML_version="2" desc="TMS320DM647" description="DaVinci DM64x - C64x+ Fixed-point DSP&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+	<!-- Filter to list device under in project wizard -->
+	<property Type="stringfield" Value="DaVinci DM64x" id="FilterString" />
+	<instance XML_version="1.2" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+	<router XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+		<subpath id="dsp">
+			<property Type="numericfield" Value="0x10" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="0" id="Force Configuration"/>
+			<instance XML_version="1.2" desc="C64XP_0" href="cpus/c64xp.xml" id="C64XP_0" xml="c64xp.xml" xmlpath="cpus"/>
+			<cpu XML_version="1.2" description="C64X+ CPU" id="C64XP_0" isa="TMS320C64XP">
+				<!--  Project Wizard Settings  -->
+                <property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="-D=dm647 --silicon_version=64+" id="CompilerBuildOptions" />
+                <property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+                <property Type="stringfield" Value="DM647.cmd" id="LinkerCmd" />
+				<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+				<!--  END Project Wizard Settings -->
+				<instance href="../Modules/dm648_cslr_intc_001.xml" id="DSPINTC" xml="dm648_cslr_intc_001.xml" xmlpath="../Modules/" description="DSP Interrupt Controller" baseaddr="0x1800000" endaddr="0x180ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_idma_001.xml" id="IDMA" xml="dm648_cslr_idma_001.xml" xmlpath="../Modules/" description="DSP Internal DMA Controller" baseaddr="0x1820000" endaddr="0x18201ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_cache_001.xml" id="CACHE" xml="dm648_cslr_cache_001.xml" xmlpath="../Modules/" description="DSP Cache Controller" baseaddr="0x1820200" endaddr="0x18202ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_hpi_001.xml" id="HPI" xml="dm648_cslr_hpi_001.xml" xmlpath="../Modules/" description="UHPI" baseaddr="0x2000000" endaddr="0x200007f" size="0x80" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_mcasp_001.xml" id="McASP" xml="dm648_cslr_mcasp_001.xml" xmlpath="../Modules/" description="McASP" baseaddr="0x2040000" endaddr="0x2043fff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_tmr_001.xml" id="TMR0" xml="dm648_cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER0/1, 2/3" baseaddr="0x2044400" endaddr="0x20447ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_tmr_001.xml" id="TMR1" xml="dm648_cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER0/1, 2/3" baseaddr="0x2044800" endaddr="0x2044bff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_tmr_001.xml" id="TMR2" xml="dm648_cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER0/1, 2/3" baseaddr="0x2044c00" endaddr="0x2044fff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_tmr_001.xml" id="TMR3" xml="dm648_cslr_tmr_001.xml" xmlpath="../Modules/" description="TIMER0/1, 2/3" baseaddr="0x2045000" endaddr="0x20453ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_uart.xml" id="UART" xml="dm648_cslr_uart.xml" xmlpath="../Modules/" description="UART" baseaddr="0x2047000" endaddr="0x20473ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_vic_001.xml" id="VIC" xml="dm648_cslr_vic_001.xml" xmlpath="../Modules/" description="VCXO Interpolated Control Port" baseaddr="0x2047400" endaddr="0x20477ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_spi.xml" id="SPI" xml="dm648_cslr_spi.xml" xmlpath="../Modules/" description="SPI" baseaddr="0x2047800" endaddr="0x2047bff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_i2c_001.xml" id="I2C" xml="dm648_cslr_i2c_001.xml" xmlpath="../Modules/" description="I2C" baseaddr="0x2047c00" endaddr="0x2047fff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_gpio_001.xml" id="GPIO" xml="dm648_cslr_gpio_001.xml" xmlpath="../Modules/" description="GPIO" baseaddr="0x2048000" endaddr="0x20483ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_pci_002.xml" id="PCI" xml="dm648_cslr_pci_002.xml" xmlpath="../Modules/" description="PCI Control Registers" baseaddr="0x2048400" endaddr="0x20487ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_pll1_001.xml" id="PLL1" xml="dm648_cslr_pll1_001.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x20e0000" endaddr="0x20e01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_pll2_001.xml" id="PLL2" xml="dm648_cslr_pll2_001.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x2120000" endaddr="0x21201ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_edmacc.xml" id="EDMACC" xml="dm648_cslr_edmacc.xml" xmlpath="../Modules/" description="3PCC" baseaddr="0x2a00000" endaddr="0x2a07fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_edmatc.xml" id="EDMATC0" xml="dm648_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" baseaddr="0x2a20000" endaddr="0x2a27fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_edmatc.xml" id="EDMATC1" xml="dm648_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" baseaddr="0x2a28000" endaddr="0x2a2ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_edmatc.xml" id="EDMATC2" xml="dm648_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" baseaddr="0x2a30000" endaddr="0x2a37fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_edmatc.xml" id="EDMATC3" xml="dm648_cslr_edmatc.xml" xmlpath="../Modules/" description="3PTC" baseaddr="0x2a38000" endaddr="0x2a3ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_vport_001.xml" id="VP0" xml="dm648_cslr_vport_001.xml" xmlpath="../Modules/" description="Video Port " baseaddr="0x2c00000" endaddr="0x2c03fff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_vport_001.xml" id="VP1" xml="dm648_cslr_vport_001.xml" xmlpath="../Modules/" description="Video Port " baseaddr="0x2c04000" endaddr="0x2c07fff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_vport_001.xml" id="VP2" xml="dm648_cslr_vport_001.xml" xmlpath="../Modules/" description="Video Port " baseaddr="0x2c08000" endaddr="0x2c0bfff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_vport_001.xml" id="VP3" xml="dm648_cslr_vport_001.xml" xmlpath="../Modules/" description="Video Port " baseaddr="0x2c0c000" endaddr="0x2c0ffff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_vport_001.xml" id="VP4" xml="dm648_cslr_vport_001.xml" xmlpath="../Modules/" description="Video Port " baseaddr="0x2c10000" endaddr="0x2c13fff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_3gss.xml" id="ESSCNTRL" xml="dm648_cslr_3gss.xml" xmlpath="../Modules/" description="Ethernet Subsystem Control registers " baseaddr="0x2d02000" endaddr="0x2d02fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_cpsw.xml" id="3PSW" xml="dm648_cslr_cpsw.xml" xmlpath="../Modules/" description="Ethernet Subsystem 3 Port Switch Registers" baseaddr="0x2d03000" endaddr="0x2d03fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm64lc_cslr_mdio.xml" id="MDIO" xml="dm64lc_cslr_mdio.xml" xmlpath="../Modules/" description="MDIO Control Regs" baseaddr="0x2d04000" endaddr="0x2d047ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_cpsgmii.xml" id="SGMII0" xml="dm648_cslr_cpsgmii.xml" xmlpath="../Modules/" description="SGMII Registers" baseaddr="0x2d04800" endaddr="0x2d04bff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_vlynq_001.xml" id="VLYNQ" xml="dm648_cslr_vlynq_001.xml" xmlpath="../Modules/" description="VLYNQ Control Regs" baseaddr="0x38000000" endaddr="0x3bffffff" size="0x4000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_aemif.xml" id="EMIFA" xml="dm648_cslr_aemif.xml" xmlpath="../Modules/" description="ASYNC EMIF Control" baseaddr="0x70000000" endaddr="0x77ffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_ddr2_001.xml" id="DDR" xml="dm648_cslr_ddr2_001.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" baseaddr="0x78000000" endaddr="0x7fffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/dm648_cslr_psc_001.xml" id="PSC" xml="dm648_cslr_psc_001.xml" xmlpath="../Modules/" description="Power Sleep Controller" baseaddr="0x02046000" endaddr="0x02046fff" size="0x1000" accessnumbytes="4" permissions="p" />
+			</cpu>
+		</subpath>
+	</router>
+</device>

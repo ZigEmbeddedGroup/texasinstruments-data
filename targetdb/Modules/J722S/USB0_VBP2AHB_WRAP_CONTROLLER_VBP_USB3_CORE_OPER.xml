@@ -1,0 +1,70 @@
+<module name="USB0_VBP2AHB_WRAP_CONTROLLER_VBP_USB3_CORE_OPER" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_USBCMD" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_USBCMD" offset="0x0" width="32" description="USB Command Register
+
+For a description of this standard USB register field see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="CME" width="1" begin="13" end="13" resetval="0x0" description="CEM Enable  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="13" rwaccess="R/W"/> 
+		<bitfield id="EU3S" width="1" begin="11" end="11" resetval="0x0" description="EU3S  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="11" rwaccess="R/W"/> 
+		<bitfield id="EWE" width="1" begin="10" end="10" resetval="0x0" description="EWE  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="10" rwaccess="R/W"/> 
+		<bitfield id="CRS" width="1" begin="9" end="9" resetval="0x0" description="Controller Restore State  This command is similar to the USBCMD.CRS bit in host mode and initiates the restore process. When software sets this bit to '1', the controller immediately sets DSTS.RSS to '1'. When the controller has finished the restore process, it sets DSTS.RSS to '0'.  Note: When read, this field always returns '0'." range="9" rwaccess="R/W"/> 
+		<bitfield id="CSS" width="1" begin="8" end="8" resetval="0x0" description="Controller Save State  This command is similar to the USBCMD.CSS bit in host mode and initiates the save process. When software sets this bit to '1', the controller immediately sets DSTS.SSS to '1'.  When the controller has finished the save process, it sets DSTS.SSS to '0'.  Note: When read, this field always returns '0'." range="8" rwaccess="R/W"/> 
+		<bitfield id="LHCRST" width="1" begin="7" end="7" resetval="0x0" description="Light Host Controller Reset  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0.  The following bits reset the internal logic of the host controller. Under soft reset, some CSR accesses may fail [Timeout].  - HCRST  - LHCRST  Bit Bash register testing is not recommended." range="7" rwaccess="R/W"/> 
+		<bitfield id="HSEE" width="1" begin="3" end="3" resetval="0x0" description="HSEE  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="3" rwaccess="R/W"/> 
+		<bitfield id="INTE" width="1" begin="2" end="2" resetval="0x0" description="INTE  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="2" rwaccess="R/W"/> 
+		<bitfield id="HCRST" width="1" begin="1" end="1" resetval="0x0" description="HCRST  The following bits reset the internal logic of the host controller. Under soft reset, some CSR accesses may fail [Timeout].  - HCRST  - LHCRST  Bit Bash register testing is not recommended." range="1" rwaccess="R/W"/> 
+		<bitfield id="R_S" width="1" begin="0" end="0" resetval="0x0" description="R_S  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0.  Due to side-effects this reguster field is not recommended for Bit-Bash testing." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_USBSTS" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_USBSTS" offset="0x4" width="32" description="USB Status Register Bit Definitions
+
+For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="HCE" width="1" begin="12" end="12" resetval="0x0" description="Host Controller Error [HCE] - RO    Default = 0.   '0' = No internal xHC error conditions exist and '1' = Internal xHC error condition. This flag must be set to indicate that an internal error condition has been detected which requires software to reset and reinitialize the xHC. Refer to section 4.24.1 of the Databook for more information." range="12" rwaccess="R"/> 
+		<bitfield id="CNR" width="1" begin="11" end="11" resetval="0x1" description="Controller Not Ready [CNR] - RO   Default = '1'.   '0' = Ready and   '1' = Not Ready.   Software must not write to thes Doorbell or Operational register of the xHC, other than the USBSTS register, until CNR = '0'. This flag is set by the xHC after a Chip Hardware Reset and cleared when the xHC is ready to begin accepting register writes. This flag remains cleared ['0'] until the next Chip Hardware Reset.  " range="11" rwaccess="R"/> 
+		<bitfield id="SRE" width="1" begin="10" end="10" resetval="0x0" description="Save/Restore Error  This bit is currently not supported. " range="10" rwaccess="R/W1TC"/> 
+		<bitfield id="RSS" width="1" begin="9" end="9" resetval="0x0" description="Restore State Status   This bit is similar to the USBSTS.RSS in host mode.  When the controller has finished the restore process, it completes the command by setting DSTS.RSS to '0'." range="9" rwaccess="R"/> 
+		<bitfield id="SSS" width="1" begin="8" end="8" resetval="0x0" description="Save State Status  This bit is similar to the USBSTS.SSS in host mode.  When the controller has finished the save process, it completes the command by setting DSTS.SSS to '0'." range="8" rwaccess="R"/> 
+		<bitfield id="PCD" width="1" begin="4" end="4" resetval="0x0" description="Reset Value for PCD" range="4" rwaccess="R/W1TC"/> 
+		<bitfield id="EINT" width="1" begin="3" end="3" resetval="0x0" description="Reset Value for EINT" range="3" rwaccess="R/W1TC"/> 
+		<bitfield id="HSE" width="1" begin="2" end="2" resetval="0x0" description="HSE  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0.." range="2" rwaccess="R/W1TC"/> 
+		<bitfield id="HCH" width="1" begin="0" end="0" resetval="0x1" description="HCH  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="0" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_PAGESIZE" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_PAGESIZE" offset="0x8" width="32" description="Page Size Register Bit Definitions
+
+Use this register to enable or disable the reporting of specific USB Device Notification Transaction Packets being received.
+
+A Notification Enable (Nx, where x = 0 to 15) flag is defined for each of the 16 possible device notification types. If a flag is set for a specific notification type, a Device Notification Event is generated when the respective notification packet is received. After reset, all notifications are disabled. Refer to section 6.4.2.7 of the Databook for more information.
+
+This register is written as a Dword. Byte writes produce undefined results. ">
+		<bitfield id="PAGE_SIZE" width="16" begin="15" end="0" resetval="0x1" description="PAGE_SIZE" range="15 - 0" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_DNCTRL" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_DNCTRL" offset="0x14" width="32" description="Device Notification Register Bit Definitions
+
+For a description of this standard USB register field see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="N0_N15" width="16" begin="15" end="0" resetval="0x0" description="N0_N15  For a description of this standard USB register field see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_CRCR_LO" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_CRCR_LO" offset="0x18" width="32" description="CRCR_LO
+
+For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="CMD_RING_PNTR" width="26" begin="31" end="6" resetval="0x0" description="CMD_RING_PNTR  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 6" rwaccess="W"/> 
+		<bitfield id="CRR" width="1" begin="3" end="3" resetval="0x0" description="CRR  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="3" rwaccess="R"/> 
+		<bitfield id="CA" width="1" begin="2" end="2" resetval="0x0" description="CA  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="2" rwaccess="W"/> 
+		<bitfield id="CS" width="1" begin="1" end="1" resetval="0x0" description="CS  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="1" rwaccess="W"/> 
+		<bitfield id="RCS" width="1" begin="0" end="0" resetval="0x0" description="RCS  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="0" rwaccess="W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_CRCR_HI" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_CRCR_HI" offset="0x1C" width="32" description="CRCR_HI">
+		<bitfield id="CMD_RING_PNTR" width="32" begin="31" end="0" resetval="0x0" description="COMMAND_RING_POINTER   Reading this field always returns '0'.  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_DCBAAP_LO" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_DCBAAP_LO" offset="0x30" width="32" description="DCBAAP_LO">
+		<bitfield id="DEVICE_CONTEXT_BAAP" width="26" begin="31" end="6" resetval="0x0" description="DEVICE_CONTEXT_BAAP  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 6" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_DCBAAP_HI" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_DCBAAP_HI" offset="0x34" width="32" description="DCBAAP_HI
+
+For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="DEVICE_CONTEXT_BAAP" width="32" begin="31" end="0" resetval="0x0" description="DEVICE_CONTEXT_BAAP" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_CONFIG" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_OPER_CONFIG" offset="0x38" width="32" description="Configure Register Bit Definitions
+
+ This register is in the Aux Power well. It is only reset by platform hardware during a cold reset or in response to a Host Controller Reset (HCRST). The initial conditions of a port are described in section 4.19 of the Databook.">
+		<bitfield id="CIE" width="1" begin="9" end="9" resetval="0x0" description="Configuration Information Enable  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="9" rwaccess="R/W"/> 
+		<bitfield id="U3E" width="1" begin="8" end="8" resetval="0x0" description="U3 Entry Enable  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="8" rwaccess="R/W"/> 
+		<bitfield id="MAXSLOTSEN" width="8" begin="7" end="0" resetval="0x0" description="MAXSLOTSEN  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="7 - 0" rwaccess="R/W"/>
+	</register>
+</module>

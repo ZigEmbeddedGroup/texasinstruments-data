@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="ICACHE" HW_revision="1.0" XML_version="1.0" description="Instruction Cache">
+	<register id="ICGC" acronym="ICGC" offset="0x00" width="16" description="I-Cache Global Control Register">
+		<bitfield id="RMODE" width="16" begin="15" end="0" resetval="Value after reset is not defined" description="RAM-set mode bits" range="" rwaccess="RW">
+			<bitenum id="CBFFh" value="52223" token="CBFFh" description="No RAM sets"/>
+			<bitenum id="CE1Fh" value="52767" token="CE1Fh" description="1 RAM set. Only RAM set 1 is available."/>
+			<bitenum id="CFFFh" value="53247" token="CFFFh" description="2 RAM sets. RAM set 1 and RAM set 2 are available."/>
+		</bitfield>
+	</register>
+	<register id="ICWC" acronym="ICWC" offset="0x03" width="16" description="I-Cache Way Control Register">
+		<bitfield id="Reserved" width="11" begin="15" end="5" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="WINIT" width="5" begin="4" end="0" resetval="Value after reset is not defined" description="Way initialization bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="ICRC1" acronym="ICRC1" offset="0x05" width="16" description="I-Cache RAM Set Control Register 1">
+		<bitfield id="R1TVALID" width="1" begin="15" end="15" resetval="0" description="RAM set 1 tag-valid bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The fill is not started or is not complete."/>
+			<bitenum id="1" value="1" token="1" description="The fill is complete."/>
+		</bitfield>
+		<bitfield id="Reserved" width="13" begin="14" end="2" resetval="0003h" description="These read-only bits are not used." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="R1INIT" width="2" begin="1" end="0" resetval="Value after reset is not defined" description="" range="" rwaccess="RW">
+			<bitenum id="11b" value="3" token="11b" description="RAM set 1 initialization bits."/>
+		</bitfield>
+	</register>
+	<register id="ICRC2" acronym="ICRC2" offset="0x07" width="16" description="I-Cache RAM Set Control Register 2">
+		<bitfield id="R2TVALID" width="1" begin="15" end="15" resetval="0" description="RAM set 2 tag-valid bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The fill is not started or is not complete."/>
+			<bitenum id="1" value="1" token="1" description="The fill is complete."/>
+		</bitfield>
+		<bitfield id="Reserved" width="13" begin="14" end="2" resetval="0003h" description="These read-only bits are not used." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="R2INIT" width="2" begin="1" end="0" resetval="Value after reset is not defined" description="" range="" rwaccess="RW">
+			<bitenum id="11b" value="3" token="11b" description="RAM set 2 initialization bits."/>
+		</bitfield>
+	</register>
+	<register id="ICRTAG1" acronym="ICRTAG1" offset="0x06" width="16" description="I-Cache RAM Set 1 Tag Register">
+		<bitfield id="R1TAG" width="16" begin="15" end="0" resetval="0" description="RAM set 1 tag bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="ICRTAG2" acronym="ICRTAG2" offset="0x08" width="16" description="I-Cache RAM Set 2 Tag Register">
+		<bitfield id="R2TAG" width="16" begin="15" end="0" resetval="0" description="RAM set 2 tag bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="ICST" acronym="ICST" offset="0x04" width="16" description="I-Cache Status Register">
+		<bitfield id="Reserved" width="13" begin="15" end="3" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="IEN" width="1" begin="2" end="2" resetval="0" description="I-Cache-enabled bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The I-Cache is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The I-Cache is enabled."/>
+		</bitfield>
+		<bitfield id="Reserved" width="2" begin="1" end="0" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+	</register>
+</module>

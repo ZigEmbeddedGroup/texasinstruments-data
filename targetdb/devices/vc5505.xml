@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="VC5505" partnum="TMS320VC5505" HW_revision="1" XML_version="1" desc="TMS320VC5505" description="TMS320VC5505 16-bit Fixed point ultra low power DSP&#xA;END OF SUPPORT NOTICE:&#xA; This device is obsolete and will be removed in a future release.">
+	<!-- Filter for project wizard -->
+	<property Type="stringfield" Value="C550x" id="FilterString" />
+	<instance XML_version="1.2" desc="C55xx" href="../cpus/c55xx.xml" id="C55xx" xml="c55xx.xml" xmlpath="cpus"/>
+	<cpu HW_revision="1.0" XML_version="1.2" description="The C55xx CPU" id="C55xx" isa="TMS320C55XX">
+		<!-- <property Type="filepathfield" Value="../../../emulation/boards/usbstk5505/gel/usbstk5505_VC5505.gel" id="GEL File"/> -->
+		<!-- Project Wizard Settings -->
+        <!-- <property Type="stringfield" Value="little" id="Endianness" /> -->
+		<property Type="stringfield" Value="-D=vc5505 --memory_model=large --ptrdiff_size=16 --silicon_version=5505" id="CompilerBuildOptions" />
+        <property Type="stringfield" Value="--stack_size=0x200 --sys_stacksize=0x200 --heap_size=0x400" id="LinkerBuildOptions" />
+        <property Type="stringfield" Value="VC5505.cmd" id="LinkerCmd" />
+		<!-- END Project Wizard Settings -->
+		<instance href="../Modules/C5505/cslr_anactrl_001.xml" id="DSPANACTRL" xml="cslr_anactrl_001.xml" xmlpath="../Modules/C5505" description="Analog Control" baseaddr="0x7000" endaddr="0x700f" size="0x0010" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_cpu_001.xml" id="CPU" xml="cslr_cpu_001.xml" xmlpath="../Modules/C5505" description="CPU" baseaddr="0x0000" endaddr="0x007f" size="0x0080" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_dma_001.xml" id="DMA0" xml="cslr_dma_001.xml" xmlpath="../Modules/C5505" description="DMA0" baseaddr="0x0c00" endaddr="0x0c7f" size="0x0080" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_dma_001.xml" id="DMA1" xml="cslr_dma_001.xml" xmlpath="../Modules/C5505" description="DMA1" baseaddr="0x0d00" endaddr="0x0d7f" size="0x0080" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_dma_001.xml" id="DMA2" xml="cslr_dma_001.xml" xmlpath="../Modules/C5505" description="DMA2" baseaddr="0x0e00" endaddr="0x0d7f" size="0x0080" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_dma_001.xml" id="DMA3" xml="cslr_dma_001.xml" xmlpath="../Modules/C5505" description="DMA3" baseaddr="0x0f00" endaddr="0x0d7f" size="0x0080" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_emif_001.xml" id="EMIF" xml="cslr_emif_001.xml" xmlpath="../Modules/C5505" description="EMIF" baseaddr="0x1000" endaddr="0x10ff" size="0x0100" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_gpio_001.xml" id="GPIO" xml="cslr_gpio_001.xml" xmlpath="../Modules/C5505" description="GPIO" baseaddr="0x1c00" endaddr="0x1c1f" size="0x0020" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_i2c_001.xml" id="I2C" xml="cslr_i2c_001.xml" xmlpath="../Modules/C5505" description="I2C" baseaddr="0x1a00" endaddr="0x1a3f" size="0x0040" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_i2s_001.xml" id="I2S0" xml="cslr_i2s_001.xml" xmlpath="../Modules/C5505" description="I2S0" baseaddr="0x2800" endaddr="0x282f" size="0x0030" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_i2s_001.xml" id="I2S1" xml="cslr_i2s_001.xml" xmlpath="../Modules/C5505" description="I2S1" baseaddr="0x2900" endaddr="0x292f" size="0x0030" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_i2s_001.xml" id="I2S2" xml="cslr_i2s_001.xml" xmlpath="../Modules/C5505" description="I2S2" baseaddr="0x2a00" endaddr="0x2a2f" size="0x0030" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_i2s_001.xml" id="I2S3" xml="cslr_i2s_001.xml" xmlpath="../Modules/C5505" description="I2S3" baseaddr="0x2b00" endaddr="0x2b2f" size="0x0030" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_lcdc_001.xml" id="LCDC" xml="cslr_lcdc_001.xml" xmlpath="../Modules/C5505" description="LCDC" baseaddr="0x2e00" endaddr="0x2e5f" size="0x0060" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_mmcsd_001.xml" id="MMCSD0" xml="cslr_mmcsd_001.xml" xmlpath="../Modules/C5505" description="MMCSD0" baseaddr="0x3a00" endaddr="0x3a7f" size="0x0080" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_mmcsd_001.xml" id="MMCSD1" xml="cslr_mmcsd_001.xml" xmlpath="../Modules/C5505" description="MMCSD1" baseaddr="0x3b00" endaddr="0x3b7f" size="0x0080" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_rtc_001.xml" id="RTC" xml="cslr_rtc_001.xml" xmlpath="../Modules/C5505" description="RTC" baseaddr="0x1900" endaddr="0x192f" size="0x0030" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_spi_001.xml" id="SPI" xml="cslr_spi_001.xml" xmlpath="../Modules/C5505" description="SPI" baseaddr="0x3000" endaddr="0x300f" size="0x0010" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_sys_001.xml" id="SYS" xml="cslr_sys_001.xml" xmlpath="../Modules/C5505" description="SYS" baseaddr="0x1c00" endaddr="0x1c3f" size="0x0040" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_timer_001.xml" id="TIMER0" xml="cslr_timer_001.xml" xmlpath="../Modules/C5505" description="TIMER0" baseaddr="0x1810" endaddr="0x181f" size="0x0010" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_timer_001.xml" id="TIMER1" xml="cslr_timer_001.xml" xmlpath="../Modules/C5505" description="TIMER1" baseaddr="0x1850" endaddr="0x185f" size="0x0010" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_timer_001.xml" id="TIMER2" xml="cslr_timer_001.xml" xmlpath="../Modules/C5505" description="TIMER2" baseaddr="0x1890" endaddr="0x189f" size="0x0010" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_uart_001.xml" id="UART" xml="cslr_uart_001.xml" xmlpath="../Modules/C5505" description="UART" baseaddr="0x1b00" endaddr="0x1b1f" size="0x0020" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_usb_001.xml" id="USB" xml="cslr_usb_001.xml" xmlpath="../Modules/C5505" description="USB" baseaddr="0x8000" endaddr="0xefff" size="0x7000" accessnumbytes="2" permissions="p" />
+		<instance href="../Modules/C5505/cslr_wdt_001.xml" id="WDT" xml="cslr_wdt_001.xml" xmlpath="../Modules/C5505" description="WDT" baseaddr="0x1880" endaddr="0x188f" size="0x0010" accessnumbytes="2" permissions="p" />
+	</cpu>
+</device>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<board 	id="PandaBoard_ES" XML_version="1" desc="PandaBoard_ES" description="OMAP4460 ES1.1 Pandaboard ES">
+    <instance XML_version="1.2" desc="OMAP4460_0" href="devices/OMAP4460.xml" id="OMAP4460_0" xml="OMAP4460.xml" xmlpath="devices"/>
+    <device HW_revision="1.x" XML_version="1.2" description="OMAP4460 Public device registers" id="OMAP4460_0" partnum="OMAP4460">
+       <router HW_revision="2.x" XML_version="1.2" description="ICEPick_D Router" id="IcePick_D_0" isa="ICEPICK_D">
+            <property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_ICEPickD_Utility.gel" id="GEL File"/>
+            <subpath desc="Tesla" id="subpath_0">
+                <cpu HW_revision="1.0" XML_version="1.2" description="Tesla CPU" deviceSim="false" id="C646X_0" isa="TMS320C646X">
+                    <property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_c64_startup.gel" id="GEL File"/>
+			    </cpu>
+            </subpath>
+            <subpath desc="iCONT1" id="subpath_1">
+                <cpu HW_revision="1.0" XML_version="1.2" description="ARM9_ICONT1" deviceSim="false" id="ARM9_0" isa="ARM9">
+                    <property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_ivahd_iCont1_startup.gel" id="GEL File"/>
+			    </cpu>
+            </subpath>
+            <subpath desc="iCONT2" id="subpath_2">
+			    <cpu HW_revision="1.0" XML_version="1.2" description="ARM9_ICONT2" deviceSim="false" id="ARM9_1" isa="ARM9">
+					<property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_ivahd_iCont2_startup.gel" id="GEL File"/>
+				</cpu>
+            </subpath>
+			<subpath desc="Ducati1" id="subpath_3">
+				<router HW_revision="2.x" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_1" isa="CS_DAP">
+					<subpath desc="Cortex_M3_RTOS" id="cortexm3_1">
+						<cpu HW_revision="2.x" XML_version="1.2" desc="Cortex_M3_0" description="Cortex_M3 CPU" deviceSim="false" id="Cortex_M3_0" isa="Cortex_M3">
+							<property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_cortexM3_rtos_startup.gel" id="GEL File"/>
+						</cpu>
+					</subpath>
+				</router>
+			</subpath>
+			<subpath desc="Ducati2" id="subpath_4">
+				<router HW_revision="2.x" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_2" isa="CS_DAP">
+					<subpath desc="Cortex_M3_ISS" id="cortexm3_2">
+						<cpu HW_revision="2.x" XML_version="1.2" desc="Cortex_M3_1" description="Cortex_M3 CPU" deviceSim="false" id="Cortex_M3_1" isa="Cortex_M3">
+							<property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_cortexM3_simcop_startup.gel" id="GEL File"/>
+						</cpu>
+					</subpath>
+				</router>
+			</subpath>
+           <subpath id="subpath_5">
+               <router HW_revision="2.x" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+                    <property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_dap_startup.gel" id="GEL File"/>
+                   <subpath id="ChironSS">
+                       <router HW_revision="2.x" XML_version="1.2" description="CS_DAP_PC Router" id="CS_DAP_PC_0" isa="CS_DAP_PC">
+                           <subpath id="cortex_a9_1">
+                           <cpu HW_revision="2.x" XML_version="1.2" description="CortexA9 CPU" id="CortexA9_1" isa="CortexA9">
+                                   <property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_cortexa9_cpu1_startup.gel" id="GEL File"/>
+                               </cpu>
+                           </subpath>
+                           <subpath id="cortex_a9_0">
+                               <cpu HW_revision="2.x" XML_version="1.2" description="CortexA9 CPU" id="CortexA9_0" isa="CortexA9">
+                                   <property Type="filepathfield" Value="../../../emulation/gel/omap4460/omap4460_cortexa9_cpu0_startup.gel" id="GEL File"/>
+                               </cpu>
+                           </subpath>
+                       </router>
+                   </subpath>
+               </router>
+           </subpath>
+       </router>
+   </device>
+</board>

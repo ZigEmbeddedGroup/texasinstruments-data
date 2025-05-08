@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><module id="ETB" HW_revision="" XML_version="1" description="External Trace Buffer">
+     <register id="RDP" acronym="RDP" offset="0x00000004" width="32" description="RAM Depth Register">
+<bitfield id="RDP" width="32" begin="31" end="0" resetval="512" description="RAM Depth " range="" rwaccess="R"/>
+</register>
+     <register id="RRD" acronym="RRD" offset="0x00000010" width="32" description="RAM Read Data">
+<bitfield id="RRD" width="32" begin="31" end="0" resetval="0" description="RAM read Data" range="" rwaccess="R"/>
+</register>
+     <register id="RRP" acronym="RRP" offset="0x00000014" width="32" description="RAM Read Pointer register">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="RRP" width="9" begin="8" end="0" resetval="0" description="RAM pointer register" range="" rwaccess="RW"/>
+</register>
+     <register id="STS" acronym="STS" offset="0x0000000c" width="32" description="Status Register">
+<bitfield id="Reserved" width="28" begin="31" end="4" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FTEMPTY" width="1" begin="3" end="3" resetval="1" description="Formatterpipeline empty, All data stored to RAM" range="" rwaccess="R"/>
+<bitfield id="ACQCOMP" width="1" begin="2" end="2" resetval="0" description="Acquisition complete " range="" rwaccess="R"/>
+<bitfield id="TRIGGERED" width="1" begin="1" end="1" resetval="0" description="Trigger bit set when a trigger has been observed" range="" rwaccess="R"/>
+<bitfield id="FULL" width="1" begin="0" end="0" resetval="0" description="RAM Full (RAM write pointer has wrapped around)" range="" rwaccess="R"/>
+</register>
+     <register id="RWP" acronym="RWP" offset="0x00000018" width="32" description="RAM Write Pointer register">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="RWP" width="9" begin="8" end="0" resetval="0" description="RAM write pointer register" range="" rwaccess="RW"/>
+</register>
+     <register id="TRG" acronym="TRG" offset="0x0000001C" width="32" description="Trigger Counter Register">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="TRG" width="9" begin="8" end="0" resetval="0" description="Trigger counter register" range="" rwaccess="RW"/>
+</register>
+     <register id="CTL" acronym="CTL" offset="0x00000020" width="32" description="Control Register">
+<bitfield id="Reserved" width="31" begin="31" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="TRACEACPEN" width="1" begin="0" end="0" resetval="0" description="Trace Capture Enable/Disable" range="" rwaccess="RW">
+<bitenum id="DISABLE" value="0" token="DISABLE" description=""/>
+<bitenum id="ENABLE" value="1" token="ENABLE" description=""/>
+</bitfield>
+</register>
+     <register id="RWD" acronym="RWD" offset="0x00000024" width="32" description="RAM write Data Register">
+<bitfield id="RWD" width="32" begin="31" end="0" resetval="0" description="Data written to ETB trace RAM" range="" rwaccess="RW"/>
+</register>
+     <register id="FFSR" acronym="FFSR" offset="0x00000300" width="32" description="Formatter and flush status register">
+<bitfield id="Reserved" width="30" begin="31" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FTS" width="1" begin="1" end="1" resetval="1" description="Formatter stopped" range="" rwaccess="R"/>
+<bitfield id="FIP" width="1" begin="0" end="0" resetval="0" description="Flush in progress" range="" rwaccess="R"/>
+</register>
+     <register id="FFCR" acronym="FFCR" offset="0x00000304" width="32" description="Formatter and flush control register">
+<bitfield id="Reserved" width="18" begin="31" end="14" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="STOPTRIG" width="1" begin="13" end="13" resetval="0" description="Stop the formatter once a trigger event has been observed" range="" rwaccess="RW"/>
+<bitfield id="STOPFI" width="1" begin="12" end="12" resetval="0" description="Stop the formatter once a flush has completed" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="1" begin="11" end="11" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="TRIGFI" width="1" begin="10" end="10" resetval="0" description="Indicate a trigger on flush completion" range="" rwaccess="RW"/>
+<bitfield id="TRIGEVT" width="1" begin="9" end="9" resetval="0" description="Indicate a trigger on Trigger event" range="" rwaccess="RW"/>
+<bitfield id="TRIGIN" width="1" begin="8" end="8" resetval="0" description="Indicate a trigger on TRIGIN being asserted" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="1" begin="7" end="7" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FONMAN" width="1" begin="6" end="6" resetval="0" description="Manually generate a flush of the system" range="" rwaccess="RW"/>
+<bitfield id="FONTRIG" width="1" begin="5" end="5" resetval="0" description="Generate Flush using Trigger event" range="" rwaccess="RW"/>
+<bitfield id="FONFIIN" width="1" begin="4" end="4" resetval="0" description="Generate Flush using FLUSHIN interface" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="2" begin="3" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ENFCNT" width="1" begin="1" end="1" resetval="0" description="Continuous Formatting" range="" rwaccess="RW"/>
+<bitfield id="ENFTC" width="1" begin="0" end="0" resetval="0" description="Enable Formatting" range="" rwaccess="RW"/>
+</register>
+     <register id="ITMISCOP0" acronym="ITMISCOP0" offset="0x00000EE0" width="32" description="Integration register">
+<bitfield id="Reserved" width="30" begin="31" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FULL" width="1" begin="1" end="1" resetval="0" description="Set the value of FULL" range="" rwaccess="W"/>
+<bitfield id="ACQCOMP" width="1" begin="0" end="0" resetval="0" description="Set the value of ACQCOMP" range="" rwaccess="W"/>
+</register>
+     <register id="ITTRFLINACK" acronym="ITTRFLINACK" offset="0x00000EE4" width="32" description="Integration register">
+<bitfield id="Reserved" width="30" begin="31" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FLUSHINACK" width="1" begin="1" end="1" resetval="0" description="Set the value of FLUSHACK" range="" rwaccess="W"/>
+<bitfield id="TRIGINACK" width="1" begin="0" end="0" resetval="0" description="Set the value of TRIGACK" range="" rwaccess="W"/>
+</register>
+     <register id="ITTRFLIN" acronym="ITTRFLIN" offset="0x00000EE8" width="32" description="Integration register">
+<bitfield id="Reserved" width="30" begin="31" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FLUSHIN" width="1" begin="1" end="1" resetval="0" description="Read the value of FLUSHIN" range="" rwaccess="R"/>
+<bitfield id="TRIGIN" width="1" begin="0" end="0" resetval="0" description="Read the value of TRIGIN" range="" rwaccess="R"/>
+</register>
+     <register id="ITATBDATA0" acronym="ITATBDATA0" offset="0x00000EEC" width="32" description="Integration register">
+<bitfield id="Reserved" width="27" begin="31" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ATDATA31" width="1" begin="4" end="4" resetval="0" description="Read value of  ATDATA[31]" range="" rwaccess="R"/>
+<bitfield id="ATDATA23" width="1" begin="3" end="3" resetval="0" description="Read value of  ATDATA[23]" range="" rwaccess="R"/>
+<bitfield id="ATDATA15" width="1" begin="2" end="2" resetval="0" description="Read value of  ATDATA[15]" range="" rwaccess="R"/>
+<bitfield id="ATDATA7" width="1" begin="1" end="1" resetval="0" description="Read value of  ATDATA[7]" range="" rwaccess="R"/>
+<bitfield id="ATDATA0" width="1" begin="0" end="0" resetval="0" description="Read value of  ATDATA[0]" range="" rwaccess="R"/>
+</register>
+     <register id="ITATBCTR2" acronym="ITATBCTR2" offset="0x00000EF0" width="32" description="Integration register">
+<bitfield id="Reserved" width="30" begin="31" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="AFVALID" width="1" begin="1" end="1" resetval="0" description="Set the value of ATVALID" range="" rwaccess="W"/>
+<bitfield id="ATREADY" width="1" begin="0" end="0" resetval="0" description="Set the value of ATREADY" range="" rwaccess="W"/>
+</register>
+     <register id="ITATBCTR1" acronym="ITATBCTR1" offset="0x00000EF4" width="32" description="Integration register">
+<bitfield id="Reserved" width="25" begin="31" end="7" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ATID" width="7" begin="6" end="0" resetval="0" description="Read the value of ATID" range="" rwaccess="R"/>
+</register>
+     <register id="ITATBCTR0" acronym="ITATBCTR0" offset="0x00000EF8" width="32" description="Integration register">
+<bitfield id="Reserved" width="22" begin="31" end="10" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ATBYTES" width="2" begin="9" end="8" resetval="0" description="Read the value of  ATBYTES" range="" rwaccess="R"/>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="AFREADYS" width="1" begin="1" end="1" resetval="0" description="Read the value of  ATREADYS" range="" rwaccess="R"/>
+<bitfield id="ATVALIDS" width="1" begin="0" end="0" resetval="0" description="Read the value of  ATVALIDS" range="" rwaccess="R"/>
+</register>
+     <register id="LAR" acronym="LAR" offset="0x00000FB0" width="32" description="Authentication Status register">
+<bitfield id="LAR" width="32" begin="31" end="0" resetval="0" description="Reports security level" range="" rwaccess="W"/>
+</register>
+     <register id="LSR" acronym="LSR" offset="0x00000FB4" width="32" description="Authentication Status register">
+<bitfield id="Reserved" width="29" begin="31" end="3" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="BIT" width="1" begin="2" end="2" resetval="0" description="Lock register length" range="" rwaccess="">
+<bitenum id="32BIT" value="0" token="32BIT" description="Device implements a 32-bit lock register."/>
+<bitenum id="8BIT" value="1" token="8BIT" description="Device implements an 8-bit lock register."/>
+</bitfield>
+<bitfield id="STATUS" width="1" begin="1" end="1" resetval="0" description="Lock register" range="" rwaccess="">
+<bitenum id="LOCKED" value="0" token="LOCKED" description="Device write access is locked."/>
+<bitenum id="UNLOCKED" value="1" token="UNLOCKED" description="Device write access has been granted."/>
+</bitfield>
+<bitfield id="IMP" width="1" begin="0" end="0" resetval="0" description="Lock control mechanism" range="" rwaccess="R">
+<bitenum id="DISABLE" value="0" token="DISABLE" description="Lock mechanism is not implemented."/>
+<bitenum id="ENABLE" value="1" token="ENABLE" description="Lock mechanism is implemented."/>
+</bitfield>
+</register>
+     <register id="ASR" acronym="ASR" offset="0x00000FB8" width="32" description="Authentication Status register">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ASR" width="8" begin="7" end="0" resetval="0" description="Reports security level" range="" rwaccess="R"/>
+</register>
+     <register id="DID" acronym="DID" offset="0x00000FC8" width="32" description="Device ID">
+<bitfield id="ID" width="32" begin="31" end="0" resetval="0" description="Device ID" range=" " rwaccess="R"/>
+</register>
+     <register id="DTIR" acronym="DTIR" offset="0x00000FCC" width="32" description="Device Type Identification Register">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DTIR" width="8" begin="7" end="0" resetval="33" description="Indicates it is a trace sink" range="" rwaccess="R"/>
+</register>
+</module>

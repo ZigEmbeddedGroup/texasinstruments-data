@@ -1,0 +1,122 @@
+<module name="DEBUGSS_WRAP0_CTF1" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CTF_CFG_1_CSTFCTLREG" acronym="CTF_CFG_1_CSTFCTLREG" offset="0x0" width="32" description="It enables the target ports and defines the hold time of the target ports.">
+		<bitfield id="RESERVED" width="20" begin="31" end="12" resetval="0x0" description="Reserved, returns 0" range="31 - 12" rwaccess="R"/> 
+		<bitfield id="MINHOLDTIME" width="4" begin="11" end="8" resetval="0x0" description="Minimum Hold time Hold time refers to the number of transactions that are output on the funnel initiator port from the same target while that target port ATVALIDSx is HIGH The CSTF holds for the minimum hold time and one additional cycle The maximum value that can be entered is 0xE and this equates to 15 cycles 0xF is reserved" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SLVPORTEN" width="8" begin="7" end="0" resetval="0x0" description="Target Port Enables Setting these bits enables the corresponding input, or target port If a bit is not set then this has the effect of excluding that port from the priority selection scheme" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_PRIORCTLREG" acronym="CTF_CFG_1_PRIORCTLREG" offset="0x4" width="32" description="Defines the order in which inputs are selected. This register must only be altered when the trace sources are off and the system is drained.">
+		<bitfield id="RESERVED" width="8" begin="31" end="24" resetval="0x0" description="Reserved, returns 0" range="31 - 24" rwaccess="R"/> 
+		<bitfield id="PRIPORT7" width="3" begin="23" end="21" resetval="0x0" description="Priority value of the eighth target port Highest priority goes to the lowest value" range="23 - 21" rwaccess="R/W"/> 
+		<bitfield id="PRIPORT6" width="3" begin="20" end="18" resetval="0x0" description="Priority value of the seventh target port Highest priority goes to the lowest value" range="20 - 18" rwaccess="R/W"/> 
+		<bitfield id="PRIPORT5" width="3" begin="17" end="15" resetval="0x0" description="Priority value of the sixth target port Highest priority goes to the lowest value" range="17 - 15" rwaccess="R/W"/> 
+		<bitfield id="PRIPORT4" width="3" begin="14" end="12" resetval="0x0" description="Priority value of the fifth target port Highest priority goes to the lowest value" range="14 - 12" rwaccess="R/W"/> 
+		<bitfield id="PRIPORT3" width="3" begin="11" end="9" resetval="0x0" description="Priority value of the fourth target port Highest priority goes to the lowest value" range="11 - 9" rwaccess="R/W"/> 
+		<bitfield id="PRIPORT2" width="3" begin="8" end="6" resetval="0x0" description="Priority value of the third target port Highest priority goes to the lowest value" range="8 - 6" rwaccess="R/W"/> 
+		<bitfield id="PRIPORT1" width="3" begin="5" end="3" resetval="0x0" description="Priority value of the second target port Highest priority goes to the lowest value" range="5 - 3" rwaccess="R/W"/> 
+		<bitfield id="PRIPORT0" width="3" begin="2" end="0" resetval="0x0" description="Priority value of the first target port Highest priority goes to the lowest value" range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_ITATBDATA0" acronym="CTF_CFG_1_ITATBDATA0" offset="0xEEC" width="32" description="Integration Test Register.">
+		<bitfield id="RESERVED" width="27" begin="31" end="5" resetval="0x0" description="Reserved, returns 0" range="31 - 5" rwaccess="R"/> 
+		<bitfield id="ATDATA31" width="1" begin="4" end="4" resetval="0x0" description="A write outputs data on ATDATAM[31] A read returns the value of ATDATAS[31]" range="4" rwaccess="R/W"/> 
+		<bitfield id="ATDATA23" width="1" begin="3" end="3" resetval="0x0" description="A write outputs data on ATDATAM[23] A read returns the value of ATDATAS[23]" range="3" rwaccess="R/W"/> 
+		<bitfield id="ATDATA15" width="1" begin="2" end="2" resetval="0x0" description="A write outputs data on ATDATAM[15] A read returns the value of ATDATAS[15]" range="2" rwaccess="R/W"/> 
+		<bitfield id="ATDATA7" width="1" begin="1" end="1" resetval="0x0" description="A write outputs data on ATDATAM[7] A read returns the value of ATDATAS[7]" range="1" rwaccess="R/W"/> 
+		<bitfield id="ATDATA0" width="1" begin="0" end="0" resetval="0x0" description="A write outputs data on ATDATAM[0] A read returns the value of ATDATAS[0]" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_ITATBCTR2" acronym="CTF_CFG_1_ITATBCTR2" offset="0xEF0" width="32" description="Integration Test Control Register 2.">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="AFVALID" width="1" begin="1" end="1" resetval="0x0" description="Reading this bit returns the value of AFVALIDM Writing this bit sets the AFVALIDS[n] bit where n is enabled by the CSTFCTLREG" range="1" rwaccess="R/W"/> 
+		<bitfield id="ATREADY" width="1" begin="0" end="0" resetval="0x0" description="Reading this bit returns the value of ATREADYM Writing this bit sets the AFREADYS[n] bit where n is enabled by the CSTFCTLREG" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_ITATBCTR1" acronym="CTF_CFG_1_ITATBCTR1" offset="0xEF4" width="32" description="Integration Test Control Register 1.">
+		<bitfield id="RESERVED" width="25" begin="31" end="7" resetval="0x0" description="Reserved, returns 0" range="31 - 7" rwaccess="R"/> 
+		<bitfield id="ATID" width="6" begin="5" end="0" resetval="0x0" description="Writing this register sets the value of ATIDM Reading it returns the value of ATIDS" range="5 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_ITATBCTR0" acronym="CTF_CFG_1_ITATBCTR0" offset="0xEF8" width="32" description="Integration Test Control Register 0.">
+		<bitfield id="RESERVED1" width="22" begin="31" end="10" resetval="0x0" description="Reserved, returns 0" range="31 - 10" rwaccess="R"/> 
+		<bitfield id="ATBYTES" width="2" begin="9" end="8" resetval="0x0" description="Writing this field sets the value of ATBYTESM Reading it returns the value of ATBYTSS[n]" range="9 - 8" rwaccess="R/W"/> 
+		<bitfield id="RESERVED" width="6" begin="7" end="2" resetval="0x0" description="Reserved, returns 0" range="7 - 2" rwaccess="R"/> 
+		<bitfield id="AFREADY" width="1" begin="1" end="1" resetval="0x0" description="Writing this field sets the value of AFREADYM Reading it returns the value of AFREADYS[n]" range="1" rwaccess="R/W"/> 
+		<bitfield id="ATVALID" width="1" begin="0" end="0" resetval="0x0" description="Writing this field sets the value of ATVALIDM Reading it returns the value of ATVALIDS[n]" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_INTCTRL" acronym="CTF_CFG_1_INTCTRL" offset="0xF00" width="32" description="Integration Mode Register">
+		<bitfield id="RESERVED" width="31" begin="31" end="1" resetval="0x0" description="Reserved, returns 0" range="31 - 1" rwaccess="R"/> 
+		<bitfield id="INTEGMODEN" width="1" begin="0" end="0" resetval="0x0" description="Integration Mode Enable" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_CTSET" acronym="CTF_CFG_1_CTSET" offset="0xFA0" width="32" description="Claim Tag Set Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CLAIM_TAG_SET" width="4" begin="3" end="0" resetval="0x0" description="Claim Tag Set Register" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_CTCLR" acronym="CTF_CFG_1_CTCLR" offset="0xFA4" width="32" description="Claim Tag Clear Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CLAIM_TAG_CLEAR" width="4" begin="3" end="0" resetval="0x0" description="Claim Tag Clear Register" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_LAREG" acronym="CTF_CFG_1_LAREG" offset="0xFB0" width="32" description="Software must write 0xCSACCE55 to this register in order for application to gain access to the other registers. If paddrdbg31 is high, this is ignored.">
+		<bitfield id="LOCK_ACCESS_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CTF_CFG_1_LSREG" acronym="CTF_CFG_1_LSREG" offset="0xFB4" width="32" description="The CTI implements two memory maps controlled through PADDRDBG31. When PADDRDBG31 is HIGH, the Lock Status Register reads as 0x0 indicating that no lock exists. When PADDRDBG31 is LOW, the Lock Status Register reads as 0x3 from reset. This indicates a 32-bit lock access mechanism is present and is locked">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Reserved, returns 0" range="31 - 2" rwaccess="R"/> 
+		<bitfield id="LOCK_STATUS" width="2" begin="1" end="0" resetval="0x0" description="The CTI implements two memory maps controlled through PADDRDBG31 When PADDRDBG31 is HIGH, the Lock Status Register reads as 0x0 indicating that no lock exists When PADDRDBG31 is LOW, the Lock Status Register reads as 0x3 from reset This indicates a 32-bit lock access mechanism is present and is locked Application must write to the LAREG to gain access" range="1 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_AUTHST" acronym="CTF_CFG_1_AUTHST" offset="0xFB8" width="32" description="Reports the required security level. ">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="AUTHENTICATION_STATUS" width="4" begin="3" end="0" resetval="0x0" description="Reports the required security level bit 0 indicates Invasive Debug Controlled and bit 1 is the current value Bit 2 indicates non-invasive debug controlled and bit 3 is the current value Returns 0x5" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_DEVID" acronym="CTF_CFG_1_DEVID" offset="0xFC8" width="32" description="Device ID Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, return 0s" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PRIOTITY_SCHEME" width="4" begin="7" end="4" resetval="0x0" description="The CSTF implements a static priority scheme Value = 0x2" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="PORTCOUNT" width="4" begin="3" end="0" resetval="0x0" description="This is the value of the Verilog define PORTCOUNT and represents the number of input ports connected By default all 8 ports are connected 0x0 and 0x1 are illegal values" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_DEVTYPEID" acronym="CTF_CFG_1_DEVTYPEID" offset="0xFCC" width="32" description="Device Type Identifier Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserveed, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="DEV_TYPE_ID" width="8" begin="7" end="0" resetval="0x0" description="A value of 0x12 identifies this device as a trace link [0x2] and specifically as a funnel/router [0x1]" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID4" acronym="CTF_CFG_1_PERID4" offset="0xFD0" width="32" description="Peripheral ID4 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID4" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 4, returns 0x4" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID5" acronym="CTF_CFG_1_PERID5" offset="0xFD4" width="32" description="Peripheral ID5 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID5" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 5, returns 0x0" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID6" acronym="CTF_CFG_1_PERID6" offset="0xFD8" width="32" description="Peripheral ID6 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID6" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 6, returns 0x0" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID7" acronym="CTF_CFG_1_PERID7" offset="0xFDC" width="32" description="Peripheral ID7 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID7" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 7, returns 0x0" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID0" acronym="CTF_CFG_1_PERID0" offset="0xFE0" width="32" description="Peripheral ID0 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID0" width="8" begin="7" end="0" resetval="0x0" description="Perpiheral ID 0, returns 0x06" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID1" acronym="CTF_CFG_1_PERID1" offset="0xFE4" width="32" description="Peripheral ID1 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID1" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 1, returns 0xB9" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID2" acronym="CTF_CFG_1_PERID2" offset="0xFE8" width="32" description="Peripheral ID2 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID2" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 2, returns 9x2B" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_PERID3" acronym="CTF_CFG_1_PERID3" offset="0xFEC" width="32" description="Peripheral ID3 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERPIH_ID3" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID3 register, returns 0x00" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_COMPID0" acronym="CTF_CFG_1_COMPID0" offset="0xFF0" width="32" description="Component ID0 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Read returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID0" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_COMPID1" acronym="CTF_CFG_1_COMPID1" offset="0xFF4" width="32" description="Component ID1 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Read returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID1" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_COMPID2" acronym="CTF_CFG_1_COMPID2" offset="0xFF8" width="32" description="Component ID2 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID2" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CTF_CFG_1_COMPID3" acronym="CTF_CFG_1_COMPID3" offset="0xFFC" width="32" description="Component ID3 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="returns 0 when read" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID3" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+</module>

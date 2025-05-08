@@ -1,0 +1,16 @@
+<module name="DEBUGSS_WRAP0_SECAP0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="SECAP_CFG_0_TXDATA" acronym="SECAP_CFG_0_TXDATA" offset="0x0" width="32" description="Data value to send to security controller.  Apllication specific">
+		<bitfield id="TX_DATA_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="SECAP_CFG_0_TXCTRL" acronym="SECAP_CFG_0_TXCTRL" offset="0x4" width="32" description="Register to send control information to the Security Controller, Application specific">
+		<bitfield id="TX_CONTROL" width="31" begin="31" end="1" resetval="0x0" description="31 bits to send to security controller, Application specific" range="31 - 1" rwaccess="R/W"/> 
+		<bitfield id="TXDAV" width="1" begin="0" end="0" resetval="0x0" description="TX Data Available" range="0" rwaccess="R"/>
+	</register>
+	<register id="SECAP_CFG_0_RXDATA" acronym="SECAP_CFG_0_RXDATA" offset="0x8" width="32" description="Data value from the security controller.  Apllication specific">
+		<bitfield id="RX_DATA_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="SECAP_CFG_0_RXCTRL" acronym="SECAP_CFG_0_RXCTRL" offset="0xC" width="32" description="Register to receive control information from the Security Controller">
+		<bitfield id="RX_CONTROL" width="31" begin="31" end="1" resetval="0x0" description="31 bits from the security controller, Application specific" range="31 - 1" rwaccess="R"/> 
+		<bitfield id="RXDAV" width="1" begin="0" end="0" resetval="0x0" description="TX Data Available" range="0" rwaccess="R"/>
+	</register>
+</module>

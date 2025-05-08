@@ -1,0 +1,47 @@
+<module name="DEBUGSS_WRAP0_JTAGAP1" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="JTAGAP_CFG_1_CSW" acronym="JTAGAP_CFG_1_CSW" offset="0x0" width="32" description="This register provides control and status information">
+		<bitfield id="SERACTV" width="1" begin="31" end="31" resetval="0x0" description="JTAG Serializer active" range="31" rwaccess="R"/> 
+		<bitfield id="WFIFOCNT" width="3" begin="30" end="28" resetval="0x0" description="Outstanding Write FIFO Byte Count" range="30 - 28" rwaccess="R"/> 
+		<bitfield id="RSV27" width="1" begin="27" end="27" resetval="0x0" description="Reserved, returns 0" range="27" rwaccess="R"/> 
+		<bitfield id="RFIFOCNT" width="3" begin="26" end="24" resetval="0x0" description="Outstanding Read FIFO Byte Count" range="26 - 24" rwaccess="R"/> 
+		<bitfield id="RESERVED" width="20" begin="23" end="4" resetval="0x0" description="Reserved, returns 0" range="23 - 4" rwaccess="R"/> 
+		<bitfield id="PORT_CONNECTED_STATUS" width="1" begin="3" end="3" resetval="0x0" description="Reading this returns the Port connected status of the selected port" range="3" rwaccess="R"/> 
+		<bitfield id="SRST_STATUS" width="1" begin="2" end="2" resetval="0x0" description="Reading this returns the SRST status of the selected port If multiple ports are selected, it is the AND of all the SRSTCONNECTED inputs from the selected ports" range="2" rwaccess="R"/> 
+		<bitfield id="TRST_ASSERT" width="1" begin="1" end="1" resetval="0x0" description="Writing a 1 causes TRST to be asserted" range="1" rwaccess="R/W"/> 
+		<bitfield id="SRST_ASSERT" width="1" begin="0" end="0" resetval="0x0" description="Writing a 1 causes SRST to be asserted" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="JTAGAP_CFG_1_PSEL_REG" acronym="JTAGAP_CFG_1_PSEL_REG" offset="0x4" width="32" description="This 8-bit register is used to select the JTAG port.">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="read as 0" range="31 - 8" rwaccess="R/W"/> 
+		<bitfield id="PORT_SELECT_REGISTER" width="8" begin="7" end="0" resetval="0x0" description="" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="JTAGAP_CFG_1_PSTA_REG" acronym="JTAGAP_CFG_1_PSTA_REG" offset="0x8" width="32" description="A bit value of 1 indicates that a selected and enabled port has gone inactive.  These bits are sticky.  Writing a 1 to them clears them.">
+		<bitfield id="PORT_STATUS_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="JTAGAP_CFG_1_BYTEFIFO1" acronym="JTAGAP_CFG_1_BYTEFIFO1" offset="0x10" width="32" description="Reading this location reads a byte from the FIFO.  Writing it loads a byte into the FIFO. 
+Reset value is UNDEFINED">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="" range="31 - 8" rwaccess="R/W"/> 
+		<bitfield id="BYTE_FIFO_1" width="8" begin="7" end="0" resetval="0x0" description="" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="JTAGAP_CFG_1_BYTEFIFO2" acronym="JTAGAP_CFG_1_BYTEFIFO2" offset="0x14" width="32" description="Reading this location reads a 16 bits from the FIFO.  Writing it loads 16 bits into the FIFO. 
+Reset value is UNDEFINED">
+		<bitfield id="RESERVED" width="16" begin="31" end="16" resetval="0x0" description="" range="31 - 16" rwaccess="R/W"/> 
+		<bitfield id="BYTE_FIFO_2" width="16" begin="15" end="0" resetval="0x0" description="" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="JTAGAP_CFG_1_BYTEFIFO3" acronym="JTAGAP_CFG_1_BYTEFIFO3" offset="0x18" width="32" description="Reading this location reads a 24 bits from the FIFO.  Writing it loads 24 bits into the FIFO. 
+Reset value is UNDEFINED">
+		<bitfield id="RESERVED" width="8" begin="31" end="24" resetval="0x0" description="" range="31 - 24" rwaccess="R/W"/> 
+		<bitfield id="BYTE_FIFO_3" width="24" begin="23" end="0" resetval="0x0" description="" range="23 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="JTAGAP_CFG_1_BYTEFIFO4" acronym="JTAGAP_CFG_1_BYTEFIFO4" offset="0x1C" width="32" description="Reading this location reads a 32 bits from the FIFO.  Writing it loads 32 bits into the FIFO. 
+Reset value is UNDEFINED">
+		<bitfield id="BYTE_FIFO_4" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="JTAGAP_CFG_1_ID_Register" acronym="JTAGAP_CFG_1_ID_Register" offset="0xFC" width="32" description="Reading this register returns the ID information for this AP.">
+		<bitfield id="REVISION" width="4" begin="31" end="28" resetval="0x0" description="Device Revision [1]" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="JEP_CODE" width="11" begin="27" end="17" resetval="0x0" description="Device JEP Code [0x23B]" range="27 - 17" rwaccess="R"/> 
+		<bitfield id="CLASS" width="1" begin="16" end="16" resetval="0x0" description="Device Class[0] [not a memory access port]" range="16" rwaccess="R"/> 
+		<bitfield id="SPARE" width="8" begin="15" end="8" resetval="0x0" description="Spare, returns 0" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="VARIANT" width="4" begin="7" end="4" resetval="0x0" description="Device Variant [1]" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="TYPE" width="4" begin="3" end="0" resetval="0x0" description="Device Type: 0=JTAG, 1=AHB, 2=APB [0]" range="3 - 0" rwaccess="R"/>
+	</register>
+</module>

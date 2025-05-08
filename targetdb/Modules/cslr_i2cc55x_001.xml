@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="I2C" HW_revision="1.0" XML_version="1.0" description="Inter-Integrated Circuit">
+	<register id="I2CMDR" acronym="I2CMDR" offset="9" width="16" description="I2C Mode Register">
+		<bitfield id="NACKMOD" width="1" begin="15" end="15" resetval="0" description="NACK mode bit (not available in TMS320VC5503/5507/5509 DSPs)." range="" rwaccess="RW">
+			<!--In the slave-receiver mode:-->
+			<bitenum id="0" value="0" token="0" description="The I2C module sends an acknowledge (ACK) bit to the transmitter during the each acknowledge cycle on the bus."/>
+			<!--In the master-receiver mode:-->
+			<bitenum id="0" value="0" token="0" description="The I2C module sends an ACK bit during each acknowledge cycle until the internal data counter counts down to 0."/>
+			<bitenum id="1" value="1" token="1" description="The I2C module sends a NACK bit to the transmitter during the next acknowledge cycle on the bus."/>
+		</bitfield>
+		<bitfield id="FREE" width="1" begin="14" end="14" resetval="0" description="This emulation mode bit is used to determine what the state of the I2C module will be when a breakpoint is encountered in the high-level language debugger." range="" rwaccess="RW">
+			<!--When I2C module is master:-->
+			<bitenum id="0" value="0" token="0" description="If SCL is low when the breakpoint occurs, the I2C module stops immediately and keeps driving SCL low, whether the I2C module is the transmitter or the receiver."/>
+			<!--When I2C module is slave:-->
+			<bitenum id="0" value="0" token="0" description="A breakpoint forces the I2C module to stop when the current transmission/reception is complete."/>
+			<bitenum id="1" value="1" token="1" description="The I2C module runs free"/>
+		</bitfield>
+		<bitfield id="STT" width="1" begin="13" end="13" resetval="0" description="START condition bit (only applicable when the I2C module is a master)." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="In the master mode, STT is automatically cleared after the START condition has been generated."/>
+			<bitenum id="1" value="1" token="1" description="In the master mode, setting STT to 1 causes the I2C module to generate a START condition on the I2C-bus."/>
+			<bitenum id="0" value="0" token="0" description="In the slave mode, if STT is 0, the I2C module does not monitor the bus for commands from a master."/>
+			<bitenum id="1" value="1" token="1" description="In the slave mode, if STT is 1, the I2C module monitors the bus and transmits/receives data in response to commands from a master."/>
+		</bitfield>
+		<bitfield id="IDLEEN" width="1" begin="12" end="12" resetval="0" description="Idle enable bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The I2C module cannot be affected when the CPU executes an IDLE instruction."/>
+			<bitenum id="1" value="1" token="1" description="Setting this bit allows the I2C module to be deactivated by an IDLE instruction."/>
+		</bitfield>
+		<bitfield id="STP" width="1" begin="11" end="11" resetval="0" description="STOP condition bit (only applicable when the I2C module is a master)." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="STP is automatically cleared after the STOP condition has been generated."/>
+			<bitenum id="1" value="1" token="1" description="STP has been set by the DSP to generate a STOP condition when the internal data counter of the I2C module counts down to 0."/>
+		</bitfield>
+		<bitfield id="MST" width="1" begin="10" end="10" resetval="0" description="Master mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Slave mode."/>
+			<bitenum id="1" value="1" token="1" description="Master mode."/>
+		</bitfield>
+		<bitfield id="TRX" width="1" begin="9" end="9" resetval="0" description="Transmitter mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Receiver mode."/>
+			<bitenum id="1" value="1" token="1" description="Transmitter mode."/>
+		</bitfield>
+		<bitfield id="XA" width="1" begin="8" end="8" resetval="0" description="Expanded address enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="7-bit addressing mode (normal address mode)."/>
+			<bitenum id="1" value="1" token="1" description="10-bit addressing mode (expanded address mode)."/>
+		</bitfield>
+		<bitfield id="RM" width="1" begin="7" end="7" resetval="0" description="Repeat mode bit (only applicable when the I2C module is a master-transmitter)." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Nonrepeat mode."/>
+			<bitenum id="1" value="1" token="1" description="Repeat mode."/>
+		</bitfield>
+		<bitfield id="DLB" width="1" begin="6" end="6" resetval="0" description="Digital loopback mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Digital loopback mode is disabled."/>
+			<bitenum id="1" value="1" token="1" description="Digital loopback mode is enabled."/>
+		</bitfield>
+		<bitfield id="IRS" width="1" begin="5" end="5" resetval="0" description="I2C module reset bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The I2C module is in reset/disabled."/>
+			<bitenum id="1" value="1" token="1" description="The I2C module is enabled."/>
+		</bitfield>
+		<bitfield id="STB" width="1" begin="4" end="4" resetval="0" description="START byte mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The I2C module is not in the START byte mode."/>
+			<bitenum id="1" value="1" token="1" description="The I2C module is in the START byte mode."/>
+		</bitfield>
+		<bitfield id="FDF" width="1" begin="3" end="3" resetval="0" description="Free data format mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Free data format mode is disabled."/>
+			<bitenum id="1" value="1" token="1" description="Free data format mode is enabled."/>
+		</bitfield>
+		<bitfield id="BC" width="3" begin="2" end="0" resetval="0" description="Bit count bits." range="" rwaccess="RW">
+			<bitenum id="000" value="0" token="000" description="8 bits per data byte"/>
+			<bitenum id="001" value="1" token="001" description="1 bit per data byte"/>
+			<bitenum id="010" value="2" token="010" description="2 bits per data byte"/>
+			<bitenum id="011" value="3" token="011" description="3 bits per data byte"/>
+			<bitenum id="100" value="4" token="100" description="4 bits per data byte"/>
+			<bitenum id="101" value="5" token="101" description="5 bits per data byte"/>
+			<bitenum id="110" value="6" token="110" description="6 bits per data byte"/>
+			<bitenum id="111" value="7" token="111" description="7 bits per data byte"/>
+		</bitfield>
+	</register>
+<!-- bull - what should the below offset be? it was empty -->
+	<register id="I2CMDR2" acronym="I2CMDR2" offset="0" width="32" description="I2C Mode Register 2">
+		<bitfield id="Reserved" width="31" begin="31" end="1" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="IDLEEN" width="1" begin="0" end="0" resetval="0" description="I2C idle enable bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The I2C does not go into an IDLE state when the DSP executes the IDLE instruction."/>
+			<bitenum id="1" value="1" token="1" description="The I2C does go into an IDLE state when the DSP executes the IDLE instruction."/>
+		</bitfield>
+	</register>
+	<register id="I2CIER" acronym="I2CIER" offset="1" width="16" description="I2C Interrupt Enable Register">
+		<bitfield id="Reserved" width="11" begin="15" end="5" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="XRDY" width="1" begin="4" end="4" resetval="0" description="Transmit-data-ready interrupt enable bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+		<bitfield id="RRDY" width="1" begin="3" end="3" resetval="0" description="Receive-data-ready interrupt enable bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+		<bitfield id="ARDY" width="1" begin="2" end="2" resetval="0" description="Register-access-ready interrupt enable bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+		<bitfield id="NACK" width="1" begin="1" end="1" resetval="0" description="No-acknowledgement interrupt enable bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+		<bitfield id="AL" width="1" begin="0" end="0" resetval="0" description="Arbitration-lost interrupt enable bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Interrupt request disabled"/>
+			<bitenum id="1" value="1" token="1" description="Interrupt request enabled"/>
+		</bitfield>
+	</register>
+	<register id="I2CSTR" acronym="I2CSTR" offset="2" width="16" description="I2C Status Register">
+		<bitfield id="Reserved" width="2" begin="15" end="14" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="NACKSNT" width="1" begin="13" end="13" resetval="0" description="NACK sent bit (not available in TMS320VC5503/5507/5509 DSPs)." range="" rwaccess="RW1C">
+			<bitenum id="0" value="0" token="0" description="NACK not sent."/>
+			<bitenum id="1" value="1" token="1" description="NACK sent"/>
+		</bitfield>
+		<bitfield id="BB" width="1" begin="12" end="12" resetval="0" description="Bus busy bit." range="" rwaccess="RW1C">
+			<bitenum id="0" value="0" token="0" description="Bus free."/>
+			<bitenum id="1" value="1" token="1" description="Bus busy"/>
+		</bitfield>
+		<bitfield id="RSFULL" width="1" begin="11" end="11" resetval="0" description="Receive shift register full bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="No overrun detected."/>
+			<bitenum id="1" value="1" token="1" description="Overrun detected"/>
+		</bitfield>
+		<bitfield id="XSMT" width="1" begin="10" end="10" resetval="1" description="Transmit shift register empty bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="Underflow detected (empty)"/>
+			<bitenum id="1" value="1" token="1" description="No underflow detected (not empty)."/>
+		</bitfield>
+		<bitfield id="AAS" width="1" begin="9" end="9" resetval="0" description="Addressed-as-slave bit" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="In the 7-bit addressing mode, the AAS bit is cleared when receiving a NACK, a STOP condition, or a repeated START condition."/>
+			<bitenum id="1" value="1" token="1" description="The I2C module has recognized its own slave address or an address of all zeros (general call)."/>
+		</bitfield>
+		<bitfield id="AD0" width="1" begin="8" end="8" resetval="0" description="Address 0 bit" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="AD0 has been cleared by a START or STOP condition."/>
+			<bitenum id="1" value="1" token="1" description="An address of all zeros (general call) is detected."/>
+		</bitfield>
+		<bitfield id="Reserved" width="3" begin="7" end="5" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="XRDY" width="1" begin="4" end="4" resetval="1" description="Transmit-data-ready interrupt flag bit." range="" rwaccess="RW1C">
+			<bitenum id="0" value="0" token="0" description="I2CDXR not ready."/>
+			<bitenum id="1" value="1" token="1" description="I2CDXR ready:"/>
+		</bitfield>
+		<bitfield id="RRDY" width="1" begin="3" end="3" resetval="0" description="Receive-data-ready interrupt flag bit." range="" rwaccess="RW1C">
+			<bitenum id="0" value="0" token="0" description="I2CDRR not ready."/>
+			<bitenum id="1" value="1" token="1" description="I2CDRR ready:"/>
+		</bitfield>
+		<bitfield id="ARDY" width="1" begin="2" end="2" resetval="0" description="Register-access-ready interrupt flag bit (only applicable when the I2C module is in the master mode)." range="" rwaccess="RW1C">
+			<bitenum id="0" value="0" token="0" description="The registers are not ready to be accessed."/>
+			<bitenum id="1" value="1" token="1" description="The registers are ready to be accessed."/>
+		</bitfield>
+		<bitfield id="NACK" width="1" begin="1" end="1" resetval="0" description="No-acknowledgement interrupt flag bit." range="" rwaccess="RW1C">
+			<bitenum id="0" value="0" token="0" description="ACK received/NACK not received."/>
+			<bitenum id="1" value="1" token="1" description="NACK bit received."/>
+		</bitfield>
+		<bitfield id="AL" width="1" begin="0" end="0" resetval="0" description="Arbitration-lost interrupt flag bit (only applicable when the I2C module is a master-transmitter)." range="" rwaccess="RW1C">
+			<bitenum id="0" value="0" token="0" description="Arbitration not lost."/>
+			<bitenum id="1" value="1" token="1" description="Arbitration lost."/>
+		</bitfield>
+	</register>
+	<register id="I2CISRC" acronym="I2CISRC" offset="10" width="16" description="I2C Interrupt Source Register">
+		<bitfield id="Reserved" width="4" begin="15" end="12" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="TESTMD" width="4" begin="11" end="8" resetval="0" description="Although there is no reason for you to write to I2CISRC, remember that bits 11-8 must remain 0 for proper operation of the I2C module." range="" rwaccess="RW">
+		</bitfield>
+		<bitfield id="Reserved" width="5" begin="7" end="3" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="INTCODE" width="3" begin="2" end="0" resetval="0" description="Interrupt code bits." range="" rwaccess="R">
+			<bitenum id="000" value="0" token="000" description="None"/>
+			<bitenum id="001" value="1" token="001" description="Arbitration lost"/>
+			<bitenum id="010" value="2" token="010" description="No-acknowledgement condition detected"/>
+			<bitenum id="011" value="3" token="011" description="Registers ready to be accessed"/>
+			<bitenum id="100" value="4" token="100" description="Receive data ready"/>
+			<bitenum id="101" value="5" token="101" description="Transmit data ready"/>
+<!-- bull			<bitenum id="110-111" value="110-111" token="110-111" description="Reserved"/> -->
+		</bitfield>
+	</register>
+	<register id="I2CPSC" acronym="I2CPSC" offset="12" width="16" description="I2C Prescaler Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="IPSC" width="8" begin="7" end="0" resetval="0" description="I2C prescaler divide-down value." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="I2CCLKL" acronym="I2CCLKL" offset="3" width="16" description="I2C Clock Divider Registers">
+		<bitfield id="ICCL" width="16" begin="15" end="0" resetval="0" description="Clock low-time divide-down value of 1-65536." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="I2CCLKH" acronym="I2CCLKH" offset="4" width="16" description="I2C Clock Divider Registers">
+		<bitfield id="ICCH" width="16" begin="15" end="0" resetval="0" description="Clock high-time divide-down value of 1-65536." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="I2CSAR" acronym="I2CSAR" offset="7" width="16" description="I2C Slave Address Register">
+		<bitfield id="Reserved" width="6" begin="15" end="10" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="SAR" width="10" begin="9" end="0" resetval="3FFh" description="In 7-bit addressing mode (XA = 0 in I2CMDR): Bits 6-0 provide the 7-bit slave address that the I2C module transmits when it is in the master-transmitter mode. In 10-bit addressing mode (XA = 1 in I2CMDR): Bits 9-0 provide the 10-bit slave address that the I2C module transmits when it is in the master-transmitter mode." range="" rwaccess="R">
+		</bitfield>
+	</register>
+	<register id="I2COAR" acronym="I2COAR" offset="0" width="16" description="I2C Own Address Register">
+		<bitfield id="Reserved" width="6" begin="15" end="10" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		<bitfield id="OAR" width="10" begin="9" end="0" resetval="0" description="In 7-bit addressing mode (XA = 0 in I2CMDR): Bits 6-0 provide the 7-bit slave address of the I2C module. In 10-bit addressing mode (XA = 1 in I2CMDR): Bits 9-0 provide the 10-bit slave address of the I2C module." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="I2CCNT" acronym="I2CCNT" offset="5" width="16" description="I2C Data Count Register">
+		<bitfield id="ICDC" width="16" begin="15" end="0" resetval="0" description="Data count value." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	<register id="I2CDRR" acronym="I2CDRR" offset="6" width="16" description="I2C Data Receive Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="DATA" width="8" begin="7" end="0" resetval="0" description="Receive data" range="" rwaccess="R">
+		</bitfield>
+	</register>
+	<register id="I2CDXR" acronym="I2CDXR" offset="8" width="16" description="I2C Data Transmit Register">
+		<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		<bitfield id="DATA" width="8" begin="7" end="0" resetval="8" description="Transmit data" range="" rwaccess="RW">
+		</bitfield>
+	</register>
+</module>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<device id="DM365" partnum="TMS320DM365" HW_revision="1" XML_version="2" desc="TMS320DM365" description="DaVinci ARM9-only device&#xA;LIMITED SUPPORT NOTICE:&#xA; This device requires third party support and may be removed in a future release.">
+	<!-- Filter for project wizard -->
+	<property Type="stringfield" Value="DaVinci DM3xx ARM9-only device" id="FilterString" />
+	<instance XML_version="1.2" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+	<router HW_revision="1.0" XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+		<subpath id="subpath_0">
+			<property Type="numericfield" Value="0x10" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="0" id="Force Configuration"/>
+			<cpu HW_revision="" XML_version="1.2" desc="ARM9" description="" id="device_2" isa="ARM9">
+				<!-- <property Type="filepathfield" Value="../../../emulation/boards/evmdm365/gel/evmdm365.gel" id="GEL File"/> -->
+				<!-- Project Wizard Settings -->
+                <property Type="stringfield" Value="true" id="IsElfDefault" />
+                <property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="--silicon_version=5e --code_state=32 -D=dm365" id="CompilerBuildOptions" />
+                <property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+                <property Type="stringfield" Value="DM365.cmd" id="LinkerCmd" />
+				<!-- END Project Wizard Settings -->
+			</cpu>
+		</subpath>
+		<subpath id="subpath_ETB">
+			<property Type="stringfield" Value="real time" id="Startup Mode"/>
+			<property ID="subpath.address" Type="numericfield" Value="0x11" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<instance href="../cpus/etb11.xml" desc="ETB11_0" description="" id="ETB" isa="ETB11" xml="etb11.xml" xmlpath="../cpus/" />
+			<cpu HW_revision="" XML_version="1.2" desc="ETB11_0" description="" id="ETB" isa="ETB11"/>
+		</subpath>
+	</router>
+</device>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="DMA" HW_revision="1.0" XML_version="1.0" description="Direct Memory Access">
+	<register id="DMAGCR" acronym="DMAGCR" offset="0" width="16" description="Global control register (only one)">
+		<bitfield id="Reserved" width="12" begin="15" end="4" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="Reserved" width="1" begin="3" end="3" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="FREE" width="1" begin="2" end="2" resetval="0" description="Emulation mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="A breakpoint suspends DMA transfers."/>
+			<bitenum id="1" value="1" token="1" description="DMA transfers continue uninterrupted when a breakpoint occurs."/>
+		</bitfield>
+		
+		<bitfield id="EHPIEXCL" width="1" begin="1" end="1" resetval="0" description="HPI exclusive access bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The HPI shares the internal RAM with the DMA channels."/>
+			<bitenum id="1" value="1" token="1" description="The HPI has exclusive access to the internal RAM."/>
+		</bitfield>
+		
+		<bitfield id="EHPIPRIO" width="1" begin="0" end="0" resetval="0" description="HPI priority bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Low priority level."/>
+			<bitenum id="1" value="1" token="1" description="High priority level."/>
+		</bitfield>
+	</register>
+	
+	<register id="DMAGSCR" acronym="DMAGSCR" offset="2" width="16" description="Global software compatibility register (only one)">
+		<bitfield id="Reserved" width="15" begin="15" end="1" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DINDXMD" width="1" begin="0" end="0" resetval="0" description="Destination element and frame index mode bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Compatibility mode."/>
+			<bitenum id="1" value="1" token="1" description="Enhanced mode."/>
+		</bitfield>
+	</register>
+	
+	<register id="DMAGTCR" acronym="DMAGTCR" offset="3" width="16" description="Global Time-Out Control Register">
+		<bitfield id="Reserved" width="14" begin="15" end="2" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="DTCE" width="1" begin="1" end="1" resetval="0" description="DARAM time-out counter enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="DARAM time-out counter disabled."/>
+			<bitenum id="1" value="1" token="1" description="DARAM time-out counter enabled."/>
+		</bitfield>
+		
+		<bitfield id="STCE" width="1" begin="0" end="0" resetval="0" description="SARAM time-out counter enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="SARAM time-out counter disabled."/>
+			<bitenum id="1" value="1" token="1" description="SARAM time-out counter enabled."/>
+		</bitfield>
+	</register>
+	
+	<register id="DMACCR" acronym="DMACCR" offset="1" width="16" description="Channel Control Register">
+		<bitfield id="DSTAMODE" width="2" begin="15" end="14" resetval="0" description="Destination addressing mode bits." range="" rwaccess="RW">
+			<bitenum id="00b" value="0" token="00b" description="Constant address."/>
+			<bitenum id="01b" value="1" token="01b" description="Automatic post increment."/>
+			<bitenum id="10b" value="2" token="10b" description="Single index."/>
+			<bitenum id="11b" value="3" token="11b" description="Double index (sort)."/>
+		</bitfield>
+		
+		<bitfield id="SRCAMODE" width="2" begin="13" end="12" resetval="0" description="Source addressing mode bits." range="" rwaccess="RW">
+			<bitenum id="00b" value="0" token="00b" description="Constant address."/>
+			<bitenum id="01b" value="1" token="01b" description="Automatic post increment."/>
+			<bitenum id="10b" value="2" token="10b" description="Single index."/>
+			<bitenum id="11b" value="3" token="11b" description="Double index (sort)."/>
+		</bitfield>
+		
+		<bitfield id="ENDPROG" width="1" begin="11" end="11" resetval="0" description="End-of-programming bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Configuration registers ready for programming / Programming in progress."/>
+			<bitenum id="1" value="1" token="1" description="This reserved bit must be kept 0."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="1" begin="10" end="10" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="REPEAT" width="1" begin="9" end="9" resetval="0" description="Repeat condition bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Repeat only if ENDPROG = 1."/>
+			<bitenum id="1" value="1" token="1" description="Repeat regardless of ENDPROG."/>
+		</bitfield>
+		
+		<bitfield id="AUTOINIT" width="1" begin="8" end="8" resetval="0" description="Auto-initialization bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Auto-initialization is disabled."/>
+			<bitenum id="1" value="1" token="1" description="Auto-initialization is enabled."/>
+		</bitfield>
+		
+		<bitfield id="EN" width="1" begin="7" end="7" resetval="0" description="Channel enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The channel is disabled."/>
+			<bitenum id="1" value="1" token="1" description="The channel is enabled."/>
+		</bitfield>
+		
+		<bitfield id="PRIO" width="1" begin="6" end="6" resetval="0" description="Channel priority bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Low priority."/>
+			<bitenum id="1" value="1" token="1" description="High priority."/>
+		</bitfield>
+		
+		<bitfield id="FS" width="1" begin="5" end="5" resetval="0" description="Frame/element synchronization bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Element synchronization."/>
+			<bitenum id="1" value="1" token="1" description="Frame synchronization."/>
+		</bitfield>
+		
+		<bitfield id="SYNC" width="5" begin="4" end="0" resetval="0" description="Synchronization control bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="DMACICR" acronym="DMACICR" offset="2" width="16" description="Interrupt Control Register">
+		<bitfield id="Reserved" width="10" begin="15" end="6" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="BLOCKIE" width="1" begin="5" end="5" resetval="0" description="Whole block interrupt enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not record the event."/>
+			<bitenum id="1" value="1" token="1" description="Set the BLOCK bit and send the channel interrupt request to the CPU."/>
+		</bitfield>
+		
+		<bitfield id="LASTIE" width="1" begin="4" end="4" resetval="0" description="Last frame interrupt enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not record the event."/>
+			<bitenum id="1" value="1" token="1" description="Set the LAST bit and send the channel interrupt request to the CPU."/>
+		</bitfield>
+		
+		<bitfield id="FRAMEIE" width="1" begin="3" end="3" resetval="0" description="Whole frame interrupt enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not record the event."/>
+			<bitenum id="1" value="1" token="1" description="Set the FRAME bit and send the channel interrupt request to the CPU."/>
+		</bitfield>
+		
+		<bitfield id="HALFIE" width="1" begin="2" end="2" resetval="0" description="Half frame interrupt enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not record the event."/>
+			<bitenum id="1" value="1" token="1" description="Set the HALF bit and send the channel interrupt request to the CPU."/>
+		</bitfield>
+		
+		<bitfield id="DROPIE" width="1" begin="1" end="1" resetval="1" description="Synchronization event drop interrupt enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not record the drop."/>
+			<bitenum id="1" value="1" token="1" description="Set the DROP bit and send the channel interrupt request to the CPU."/>
+		</bitfield>
+		
+		<bitfield id="TIMEOUTIE" width="1" begin="0" end="0" resetval="1" description="Time-out interrupt enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Do not record the time-out error."/>
+			<bitenum id="1" value="1" token="1" description="Set the TIMEOUT bit and send the bus-error interrupt request to the CPU."/>
+		</bitfield>
+	</register>
+	
+	<register id="DMACSR" acronym="DMACSR" offset="3" width="16" description="Status Register">
+		<bitfield id="Reserved" width="9" begin="15" end="7" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="SYNC" width="1" begin="6" end="6" resetval="0" description="Synchronization event status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The DMA controller has finished servicing the previous access request."/>
+			<bitenum id="1" value="1" token="1" description="The synchronization event has occurred."/>
+		</bitfield>
+		
+		<bitfield id="BLOCK" width="1" begin="5" end="5" resetval="0" description="Whole block status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The whole-block event has not occurred yet, or BLOCK has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="The whole block has been transferred."/>
+		</bitfield>
+		
+		<bitfield id="LAST" width="1" begin="4" end="4" resetval="0" description="Last frame status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The last-frame event has not occurred yet, or LAST has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="The DMA controller has started transferring the last frame."/>
+		</bitfield>
+		
+		<bitfield id="FRAME" width="1" begin="3" end="3" resetval="0" description="Whole frame status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The whole-frame event has not occurred yet, or FRAME has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="The whole frame has been transferred."/>
+		</bitfield>
+		
+		<bitfield id="HALF" width="1" begin="2" end="2" resetval="0" description="Half frame status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The half-frame event has not occurred yet, or HALF has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="The first half of the frame has been transferred."/>
+		</bitfield>
+		
+		<bitfield id="DROP" width="1" begin="1" end="1" resetval="0" description="Synchronization event drop status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A synchronization event drop has not occurred, or DROP has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="A synchronization event drop has occurred."/>
+		</bitfield>
+		
+		<bitfield id="TIMEOUT" width="1" begin="0" end="0" resetval="0" description="Time-out status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="A time-out error has not occurred, or TIMEOUT has been cleared."/>
+			<bitenum id="1" value="1" token="1" description="A time-out error has occurred."/>
+		</bitfield>
+	</register>
+	
+	<register id="DMACSDP" acronym="DMACSDP" offset="0" width="16" description="Source and Destination Parameters Register">
+		<bitfield id="DSTBEN" width="2" begin="15" end="14" resetval="0" description="Destination burst enable bits." range="" rwaccess="RW">
+			<bitenum id="00b" value="0" token="00b" description="Bursting disabled (single access enabled) at the destination."/>
+			<bitenum id="01b" value="1" token="01b" description="Bursting disabled (single access enabled) at the destination."/>
+			<bitenum id="10b" value="2" token="10b" description="Bursting enabled at the destination."/>
+			<bitenum id="11b" value="3" token="11b" description="Reserved (do not use)."/>
+		</bitfield>
+		
+		<bitfield id="DSTPACK" width="1" begin="13" end="13" resetval="0" description="Destination packing enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Packing disabled at the destination."/>
+			<bitenum id="1" value="1" token="1" description="Packing enabled at the destination."/>
+		</bitfield>
+		
+		<bitfield id="DST" width="4" begin="12" end="9" resetval="0" description="Destination selection bits." range="" rwaccess="RW">
+			<bitenum id="0000b" value="0" token="0000b" description="SARAM (single-access RAM inside the DSP)."/>
+			<bitenum id="0001b" value="1" token="0001b" description="DARAM (dual-access RAM inside the DSP)."/>
+			<bitenum id="0010b" value="2" token="0010b" description="External memory (via the external memory interface, EMIF)."/>
+			<bitenum id="0100b" value="4" token="0100b" description="Peripherals (via the peripheral bus controller)."/>
+<!-- bull			<bitenum id="Others" value="Others" token="Others" description="Reserved."/> -->
+		</bitfield>
+		
+		<bitfield id="SRCBEN" width="2" begin="8" end="7" resetval="0" description="Source burst enable bits." range="" rwaccess="RW">
+			<bitenum id="00b" value="0" token="00b" description="Bursting disabled (single access enabled) at the source."/>
+			<bitenum id="01b" value="1" token="01b" description="Bursting disabled (single access enabled) at the source."/>
+			<bitenum id="10b" value="2" token="10b" description="Bursting enabled at the source."/>
+			<bitenum id="11b" value="3" token="11b" description="Reserved (do not use)."/>
+		</bitfield>
+		
+		<bitfield id="SRCPACK" width="1" begin="6" end="6" resetval="0" description="Source packing enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Packing disabled at the source."/>
+			<bitenum id="1" value="1" token="1" description="Packing enabled at the source."/>
+		</bitfield>
+		
+		<bitfield id="SRC" width="4" begin="5" end="2" resetval="0" description="Source selection bits." range="" rwaccess="RW">
+			<bitenum id="0000b" value="0" token="0000b" description="SARAM (single-access RAM inside the DSP)."/>
+			<bitenum id="0001b" value="1" token="0001b" description="DARAM (dual-access RAM inside the DSP)."/>
+			<bitenum id="0010b" value="2" token="0010b" description="External memory (via the external memory interface, EMIF)."/>
+			<bitenum id="0011b" value="3" token="0011b" description="Peripherals (via the peripheral bus controller)."/>
+<!-- bull			<bitenum id="Others" value="Others" token="Others" description="Reserved."/> -->
+		</bitfield>
+		
+		<bitfield id="DATATYPE" width="2" begin="1" end="0" resetval="0" description="Data type bit." range="" rwaccess="RW">
+			<bitenum id="00b" value="0" token="00b" description="8-bit."/>
+			<bitenum id="01b" value="1" token="01b" description="16-bit."/>
+			<bitenum id="10b" value="2" token="10b" description="32-bit."/>
+			<bitenum id="11b" value="3" token="11b" description="Reserved (do not use)."/>
+		</bitfield>
+	</register>
+	
+	<register id="DMACSSAL" acronym="DMACSSAL" offset="4" width="16" description="Source Start Address Registers">
+		<bitfield id="SSAL" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="Lower part of source start address (byte address)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="DMACSSAU" acronym="DMACSSAU" offset="5" width="16" description="Source Start Address Registers">
+		<bitfield id="SSAU" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="Upper part of source start address (byte	address)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="DMACDSAL" acronym="DMACDSAL" offset="6" width="16" description="Destination Start Address Registers">
+		<bitfield id="DSAL" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="Lower part of destination start address (byte address)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="DMACDSAU" acronym="DMACDSAU" offset="7" width="16" description="Destination Start Address Registers">
+		<bitfield id="DSAU" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="Upper part of destination start address (byte address)." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="DMACEN" acronym="DMACEN" offset="8" width="16" description="Element Number Register">
+		<bitfield id="ELEMENTNUM" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="" range="" rwaccess="RW">
+			<bitenum id="0000h" value="0" token="0000h" description="Reserved (do not use)."/>
+<!-- bull			<bitenum id="0001h-FFFFh" value="0001h-FFFFh" token="0001h-FFFFh" description="Number of elements per frame (1-65535)."/> -->
+		</bitfield>
+	</register>
+	
+	<register id="DMACFN" acronym="DMACFN" offset="9" width="16" description="Frame Number Register">
+		<bitfield id="FRAMENUM" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="" range="" rwaccess="RW">
+			<bitenum id="0000h" value="0" token="0000h" description="Reserved (do not use)."/>
+<!-- bull			<bitenum id="0001h-FFFFh" value="0001h-FFFFh" token="0001h-FFFFh" description="Number of frames per block (1-65535)."/> -->
+		</bitfield>
+	</register>
+	
+	<register id="DMACEI/DMACSEI" acronym="DMACEI/DMACSEI" offset="10" width="16" description="Element Index Registers">
+		<bitfield id="ELEMENTNDX" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="" range="" rwaccess="RW">
+<!-- bull			<bitenum id="-32768 to 32767" value="-32768 to 32767" token="-32768 to 32767" description="When DINDXMD = 0, DMACSEI is used as DMACEI; it contains the element index (in bytes) for both the source and the destination. When DINDXMD = 1, DMACSEI contains the source element index (in bytes)."/> -->
+		</bitfield>
+	</register>
+	
+	<register id="DMACDEI" acronym="DMACDEI" offset="14" width="16" description="Element Index Registers">
+		<bitfield id="ELEMENTNDX" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="" range="" rwaccess="RW">
+<!-- bull			<bitenum id="-32768 to 32767" value="-32768 to 32767" token="-32768 to 32767" description="When DINDXMD = 1, DMACDEI contains the destination element index (in bytes)."/> -->
+		</bitfield>
+	</register>
+	
+	<register id="DMACFI/DMACSFI" acronym="DMACFI/DMACSFI" offset="10" width="16" description="Frame Index Registers">
+		<bitfield id="FRAMENDX" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="" range="" rwaccess="RW">
+<!-- bull			<bitenum id="-32768 to 32767" value="-32768 to 32767" token="-32768 to 32767" description="When DINDXMD = 0, DMACSFI is used as DMACFI; it contains the frame index (in bytes) for both the source and the destination. When DINDXMD = 1, DMACSFI contains the source frame index (in bytes)."/> -->
+		</bitfield>
+	</register>
+	
+	<register id="DMACDFI" acronym="DMACDFI" offset="15" width="16" description="Frame Index Registers">
+		<bitfield id="FRAMENDX" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="" range="" rwaccess="RW">
+<!-- bull			<bitenum id="-32768 to 32767" value="-32768 to 32767" token="-32768 to 32767" description="When DINDXMD = 1, DMACDFI contains the destination frame index (in bytes)."/> -->
+		</bitfield>
+	</register>
+	
+	<register id="DMACSAC" acronym="DMACSAC" offset="12" width="16" description="Source Address Counter">
+		<bitfield id="SAC" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="Low 16 bits of current source address." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="DMACDAC" acronym="DMACDAC" offset="13" width="16" description="Destination Address Counter">
+		<bitfield id="DAC" width="16" begin="15" end="0" resetval="Value after DSP reset is not defined" description="Low 16 bits of the current destination address." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+</module>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!--
+	NOTE: To run the baremetal script J7AEP_SI.gel on a:
+	- GP device: set DIP switches for NOBOOT mode.
+	- HS-FS device: set DIP swtich EMU_SW:OFF,ON for WIR mode.
+	- HS-SE device: set DIP swtich EMU_SW:OFF,ON for WIR mode, and send an unlock certificate using dbgauth before running. 
+-->
+<board 	id="EVM_J721S2" XML_version="1" desc="EVM_J721S2" description="J721S2_TDA4VL General Purpose Evaluation Module">
+    <instance XML_version="1.2" desc="J721S2_TDA4VL_0" href="devices/J721S2_TDA4VL.xml" id="J721S2_TDA4VL" xml="J721S2_TDA4VL.xml" xmlpath="devices"/>
+	<device id="J721S2_TDA4VL" partnum="J721S2_TDA4VL" HW_revision="1" XML_version="2" desc="J721S2_TDA4VL" description="J721S2/TDA4VL - Cortex A72 Embedded Processor">
+        <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+            <subpath id="SMS_TIFSM">
+                <cpu HW_revision="1.0" XML_version="1.2" description="Cortex M4F CPU" id="CORTEX_M4F_0" isa="Cortex_M3">
+                    <property Type="filepathfield" Value="../../emulation/gel/J721S2_TDA4VL/J7AEP_SI.gel" id="GEL File"/>
+                </cpu>
+            </subpath>
+        </router>
+    </device>
+</board>

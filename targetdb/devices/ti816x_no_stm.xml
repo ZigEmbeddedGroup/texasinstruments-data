@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<device id="TI816x" partnum="TI816x" HW_revision="1" XML_version="2" desc="TI816x(no STM, ETB only)" description="TI816x&#xA;LIMITED SUPPORT NOTICE:&#xA; This device requires third party support and may be removed in a future release.">
+                <instance XML_version="1.2" desc="IcePick_D_0" href="routers/icepick_d.xml" id="IcePick_D_0" xml="icepick_d.xml" xmlpath="routers"/>
+                <router HW_revision="1.0" XML_version="1.2" description="ICEPick_D Router" id="IcePick_D_0" isa="ICEPICK_D">
+                    <subpath desc="dspSS" id="subpath_1">
+                        <property Type="numericfield" Value="0x1" id="Port Number"/>
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                    <instance XML_version="1.2" desc="C674X_0" href="cpus/c674x.xml" id="C674X_0" xml="c674x.xml" xmlpath="cpus"/>
+                    <cpu HW_revision="1.0" XML_version="1.2" desc="C674X_0" description="C674x+ GEM+FP CPU" deviceSim="false" id="C674X_0" isa="TMS320C674X"/>
+                    </subpath>
+                    <subpath desc="IVAHD0_iCont0" id="subpath_2">
+                        <property Type="numericfield" Value="0x2" id="Port Number"/>
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                    <instance XML_version="1.2" desc="ARM9_0" href="cpus/arm9.xml" id="ARM9_IVAHD0_iCont0" xml="arm9.xml" xmlpath="cpus"/>
+                    </subpath>
+                    <subpath desc="IVAHD0_iCont1" id="subpath_3">
+                        <property Type="numericfield" Value="0x3" id="Port Number"/>
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                    <instance XML_version="1.2" desc="ARM9_1" href="cpus/arm9.xml" id="ARM9_IVAHD0_iCont1" xml="arm9.xml" xmlpath="cpus"/>
+                    </subpath>
+                    <subpath desc="IVAHD1_iCont0" id="subpath_4">
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                        <property Type="numericfield" Value="0x4" id="Port Number"/>
+                        <instance XML_version="1.2" desc="ARM9_2" href="cpus/arm9.xml" id="ARM9_IVAHD1_iCont0" xml="arm9.xml" xmlpath="cpus"/>
+                    </subpath>
+                    <subpath desc="IVAHD1_iCont1" id="subpath_5">
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                        <property Type="numericfield" Value="0x5" id="Port Number"/>
+                        <instance XML_version="1.2" desc="ARM9_3" href="cpus/arm9.xml" id="ARM9_IVAHD1_iCont1" xml="arm9.xml" xmlpath="cpus"/>
+                    </subpath>
+                    <subpath desc="IVAHD2_iCont0" id="subpath_6">
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                        <property Type="numericfield" Value="0x6" id="Port Number"/>
+                        <instance XML_version="1.2" desc="ARM9_4" href="cpus/arm9.xml" id="ARM9_IVAHD2_iCont0" xml="arm9.xml" xmlpath="cpus"/>
+                    </subpath>
+                    <subpath desc="IVAHD2_iCont1" id="subpath_7">
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                        <property Type="numericfield" Value="0x7" id="Port Number"/>
+                        <instance XML_version="1.2" desc="ARM9_5" href="cpus/arm9.xml" id="ARM9_IVAHD2_iCont1" xml="arm9.xml" xmlpath="cpus"/>
+                    </subpath>
+                    <subpath desc="TPPSS" id="subpath_8">
+                        <property Type="choicelist" Value="1" id="Initial Configuration"/>
+                        <property Type="choicelist" Value="1" id="Custom Configuration"/>
+                        <property Type="choicelist" Value="1" id="Pseudo Address"/>
+                        <property Type="numericfield" Value="0x8" id="Port Number"/>
+                        <instance XML_version="1.2" desc="ARM9_TPPSS" href="cpus/arm9.xml" id="ARM9_TPPSS" xml="arm9.xml" xmlpath="cpus"/>
+                    </subpath>
+                  <subpath desc="Ducati1" id="subpath_9">
+                      <property Type="numericfield" Value="0x9" id="Port Number"/>
+                      <instance XML_version="1.2" desc="CS_DAP_RTOS" href="routers/cs_dap.xml" id="CS_DAP_RTOS" xml="cs_dap.xml" xmlpath="routers"/>
+                      <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_RTOS" isa="CS_DAP">
+                         <property Type="numericfield" Value="0x4b6b902f" id="DAP TAP ID"/>
+                         <subpath desc="CortexM3_RTOS" id="cortexM3_RTOS">
+                              <property Type="numericfield" Value="0x9" id="Port Number"/>
+                              <property Type="choicelist" Value="0" id="Type"/>
+                              <property Type="choicelist" Value="1" id="Pseudo"/>
+                              <instance XML_version="1.2" desc="CortexM3_RTOS" href="cpus/cortex_m3.xml" id="CortexM3_RTOS" xml="cortex_m3.xml" xmlpath="cpus"/>
+                              <cpu HW_revision="1.0" XML_version="1.2" desc="CortexM3_RTOS" description="Cortex_M3 CPU" deviceSim="false" id="CortexM3_RTOS" isa="Cortex_M3"/>
+                              <!-- Cross Triggering Settings -->
+                              <instance XML_version="1.2" desc="ICECrusherCS_0" href="cpus/cs_child.xml" id="ICECrusherCS_0" xml="cs_child.xml" xmlpath="cpus" />
+                              <cpu HW_revision="1.0" XML_version="1.2" description="Cross Triggering" deviceSim="false" id="ICECrusherCS_0" isa="cs_child">
+                                 <property Type="numericfield" Value="0x4bc44c09" id="Identity" />
+                                 <property Type="numericfield" Value="0xE0042000" id="Address" />
+                              </cpu>
+                              <!-- END Cross Triggering Settings -->
+                         </subpath>
+                      </router>
+                  </subpath>
+                  <subpath desc="Ducati2" id="subpath_10">
+             	    <property Type="numericfield" Value="0xa" id="Port Number"/>
+                      <instance XML_version="1.2" desc="CS_DAP_ISS" href="routers/cs_dap.xml" id="CS_DAP_ISS" xml="cs_dap.xml" xmlpath="routers"/>
+                      <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_ISS" isa="CS_DAP">
+                         <property Type="numericfield" Value="0x4b6b902f" id="DAP TAP ID"/>
+                         <subpath desc="CortexM3_ISS" id="cortexm3_2">
+                              <property Type="numericfield" Value="0xa" id="Port Number"/>
+                              <property Type="choicelist" Value="0" id="Type"/>
+                              <property Type="choicelist" Value="1" id="Pseudo"/>
+                              <instance XML_version="1.2" desc="CortexM3_ISS" href="cpus/cortex_m3.xml" id="CortexM3_ISS" xml="cortex_m3.xml" xmlpath="cpus"/>
+                              <cpu HW_revision="1.0" XML_version="1.2" desc="CortexM3_ISS" description="Cortex_M3 CPU" deviceSim="false" id="CortexM3_ISS" isa="Cortex_M3"/>
+                              <!-- Cross Triggering Settings -->
+                              <instance XML_version="1.2" desc="ICECrusherCS_0" href="cpus/cs_child.xml" id="ICECrusherCS_0" xml="cs_child.xml" xmlpath="cpus" />
+                              <cpu HW_revision="1.0" XML_version="1.2" description="Cross Triggering" deviceSim="false" id="ICECrusherCS_0" isa="cs_child">
+                                 <property Type="numericfield" Value="0x4bc44c09" id="Identity" />
+                                 <property Type="numericfield" Value="0xE0042000" id="Address" />
+                              </cpu>
+                              <!-- END Cross Triggering Settings -->
+                         </subpath>
+                      </router>
+                   </subpath>
+                  <subpath desc="secSS" id="subpath_11">
+             	    <property Type="numericfield" Value="0xb" id="Port Number"/>
+                      <instance XML_version="1.2" desc="CS_DAP_secSS" href="routers/cs_dap.xml" id="CS_DAP_secSS" xml="cs_dap.xml" xmlpath="routers"/>
+                      <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_secSS" isa="CS_DAP">
+                         <property Type="numericfield" Value="0x4b6b902f" id="DAP TAP ID"/>
+                         <subpath desc="CortexM3_secSS" id="cortexM3_secSS">
+                              <property Type="numericfield" Value="0xb" id="Port Number"/>
+                              <property Type="choicelist" Value="0" id="Type"/>
+                              <property Type="choicelist" Value="1" id="Pseudo"/>
+                               <instance XML_version="1.2" desc="CortexM3_secSS" href="cpus/cortex_m3.xml" id="CortexM3_secSS" xml="cortex_m3.xml" xmlpath="cpus"/>
+                                <cpu HW_revision="1.0" XML_version="1.2" desc="CortexM3_secSS" description="Cortex_M3 CPU" deviceSim="false" id="CortexM3_secSS" isa="Cortex_M3"/>
+                         </subpath>
+                      </router>
+                   </subpath>
+                    <subpath desc="DAP" id="subpath_12">
+                        <property Type="numericfield" Value="0xc" id="Port Number" /> 
+                        <instance XML_version="1.2" desc="CS_DAP_DebugSS" href="routers/cs_dap.xml" id="CS_DAP_0" xml="cs_dap.xml" xmlpath="routers" /> 
+                        <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+                          <property Type="numericfield" Value="0x4b6b902f" id="DAP TAP ID" /> 
+                          <property Type="filepathfield" Value="../../../emulation/gel/TI816x_trace_dapdebugss.gel" id="GEL File"/>
+						  <subpath id="ModenaSS">
+                                <property Type="numericfield" Value="0x0" id="Port Number"/>
+                                <property Type="choicelist" Value="2" id="Type"/>
+                                <property Type="choicelist" Value="1" id="Pseudo"/>
+                                <instance XML_version="1.2" desc="CortexA8_0" href="cpus/cortex_a8.xml" id="CortexA8" xml="cortex_a8.xml" xmlpath="cpus" /> 
+                                    <cpu HW_revision="1.0" XML_version="1.2" desc="CortexA8" description="Cortex_A8 CPU" deviceSim="false" id="CortexA8" isa="Cortex_A8">
+                                        <property Type="numericfield" Value="0x80001000" id="Address" /> 
+                                    </cpu>
+                                <instance XML_version="1.2" desc="cs_child_0" href="cpus/cs_child.xml" id="cs_child_0" xml="cs_child.xml" xmlpath="cpus" /> 
+                                    <cpu HW_revision="1.0" XML_version="1.2" desc="ICECrusherCS" description="cs_child" deviceSim="false" id="cs_child_0" isa="cs_child">
+                                    <property Type="numericfield" Value="0x80003000" id="Address" /> 
+                                    <property Type="numericfield" Value="0x48c44c09" id="Identity" /> 
+                                    </cpu>
+                                <instance XML_version="1.2" desc="cs_child_1" href="cpus/cs_child.xml" id="cs_child_1" xml="cs_child.xml" xmlpath="cpus"/>
+                                    <cpu HW_revision="1.0" XML_version="1.2" desc="ETM" description="cs_child" deviceSim="false" id="cs_child_1" isa="cs_child">
+                                    <property Type="numericfield" Value="0x80000000" id="Address"/>
+                                    <property Type="numericfield" Value="0x48C6E409" id="Identity"/>
+                                    </cpu>
+                            </subpath>
+                            <subpath id="Trace_STM">
+                               <property Type="numericfield" Value="0x13" id="Port Number"/>
+                               <property Type="choicelist" Value="0x0" id="Type"/>
+                                <instance XML_version="1.2" desc="CSETB_0" href="cpus/csetb.xml" id="CSETB_0" xml="csetb.xml" xmlpath="cpus"/>
+                                 <cpu HW_revision="1.0" XML_version="1.2" description="CS Embedded Trace Buffer" deviceSim="false" id="CSETB_0" isa="CS_ETB">
+                                    <property Type="numericfield" Value="0x54162000" id="Address"/>
+                                </cpu>
+                            </subpath>
+                        </router>
+                    </subpath>
+                </router>
+</device>

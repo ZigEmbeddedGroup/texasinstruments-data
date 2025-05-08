@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<board 	id="OMAP5432_UEVM" XML_version="1" desc="OMAP5432_UEVM" description="OMAP5432 uEVM board">
+    <instance XML_version="1.2" desc="OMAP5432_0" href="devices/OMAP5432_ES2_PUBLIC.xml" id="OMAP5432_0" xml="OMAP5432_ES2_PUBLIC.xml" xmlpath="devices"/>
+    <device HW_revision="2.0" XML_version="1.2" description="OMAP5430 ES2.0 Public device registers" id="OMAP5432_0" partnum="OMAP5432" simulation="no">
+        <router HW_revision="1.0" XML_version="1.2" description="ICEPick_D Router" id="IcePick_D_0" isa="ICEPICK_D">
+                  <subpath desc="Tesla" id="subpath_0">
+						<cpu HW_revision="1.0" XML_version="1.2" description="Tesla CPU" deviceSim="false" id="C646X_0" isa="TMS320C646X">
+                    <property Type="filepathfield" Value="../../emulation/gel/omap5430/omap5430_c64_startup.gel" id="GEL File"/>
+                </cpu>
+            </subpath>
+            <subpath desc="iCONT1" id="subpath_1">
+							<cpu HW_revision="1.0" XML_version="1.2" description="ARM9_ICONT1" deviceSim="false" id="ARM9_0" isa="ARM9">
+                    <property Type="filepathfield" Value="../../emulation/gel/omap5430/omap5430_ivahd_iCont1_startup.gel" id="GEL File"/>
+                </cpu>
+            </subpath>
+                  <subpath desc="iCONT2" id="subpath_2">
+					   <cpu HW_revision="1.0" XML_version="1.2" description="ARM9_ICONT2" deviceSim="false" id="ARM9_1" isa="ARM9">
+                    <property Type="filepathfield" Value="../../emulation/gel/omap5430/omap5430_ivahd_iCont2_startup.gel" id="GEL File"/>
+                </cpu>
+            </subpath>
+                  <subpath desc="Cortex_M4_IPUss1" id="subpath_3">
+                <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_1" isa="CS_DAP">
+                         <subpath desc="Cortex_M4_RTOS" id="cortexm4_1">
+                              <cpu HW_revision="1.0" XML_version="1.2" desc="Cortex_M4_0" description="Cortex_M4 CPU" deviceSim="false" id="Cortex_M4_0" isa="Cortex_M3">
+                            <property Type="filepathfield" Value="../../emulation/gel/omap5430/omap5430_cortexM4_rtos_startup.gel" id="GEL File"/>
+                        </cpu>
+                    </subpath>
+                </router>
+            </subpath>
+                  <subpath desc="Cortex_M4_IPUss2" id="subpath_4">
+                <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_2" isa="CS_DAP">
+                         <subpath desc="Cortex_M4_ISS" id="cortexm4_2">
+                           <cpu HW_revision="1.0" XML_version="1.2" desc="Cortex_M4_1" description="Cortex_M4 CPU" deviceSim="false" id="Cortex_M4_1" isa="Cortex_M3">
+                            <property Type="filepathfield" Value="../../emulation/gel/omap5430/omap5430_cortexM4_simcop_startup.gel" id="GEL File"/>
+                        </cpu>
+                    </subpath>
+                </router>
+            </subpath>
+                    <subpath desc="DAP" id="subpath_5">
+                <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+                    <subpath id="Cortex_A15_MPUss">
+                        <router HW_revision="1.0" XML_version="1.2" description="CS_DAP_PC Router" id="CS_DAP_PC_0" isa="CS_DAP_PC">
+                            <subpath id="cortex_a15_0">
+                                        <cpu HW_revision="1.0" XML_version="1.2" description="CortexA15 CPU" deviceSim="false" id="CortexA15_0" isa="CortexA15">
+                                    <property Type="filepathfield" Value="../../emulation/gel/omap5430/omap5430_cortexa15_cpu0_startup.gel" id="GEL File"/>
+                                </cpu>
+                            </subpath>
+                            <subpath id="cortex_a15_1">
+                                <property Type="numericfield" Value="0x1" desc="Port Number_0" id="Port Number"/>
+                                <property Type="choicelist" Value="1" desc="Type_0" id="Type"/>
+                                        <cpu HW_revision="1.0" XML_version="1.2" description="CortexA15 CPU" deviceSim="false" id="CortexA15_1" isa="CortexA15">
+                                    <property Type="filepathfield" Value="../../emulation/gel/omap5430/omap5430_cortexa15_cpu1_startup.gel" id="GEL File"/>
+                                </cpu>
+                            </subpath>
+                        </router>
+                    </subpath>
+                </router>
+            </subpath>
+        </router>
+    </device>
+</board>

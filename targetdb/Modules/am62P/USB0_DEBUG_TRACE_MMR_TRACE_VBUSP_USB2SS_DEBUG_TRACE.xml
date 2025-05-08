@@ -1,0 +1,109 @@
+<module name="USB0_DEBUG_TRACE_MMR_TRACE_VBUSP_USB2SS_DEBUG_TRACE" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRACE_CTRL" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRACE_CTRL" offset="0x80" width="32" description="Debug trace control register">
+		<bitfield id="RSVD" width="28" begin="31" end="4" resetval="0x0" description="Reserved bits" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="EN_OUT_EP14" width="1" begin="3" end="3" resetval="0x0" description="Debug trace enable for OUT Endpoint 14" range="3" rwaccess="R/W"/> 
+		<bitfield id="EN_OUT_EP15" width="1" begin="2" end="2" resetval="0x0" description="Debug trace enable for OUT Endpoint 15" range="2" rwaccess="R/W"/> 
+		<bitfield id="EN_IN_EP14" width="1" begin="1" end="1" resetval="0x0" description="Debug trace enable for IN Endpoint 14" range="1" rwaccess="R/W"/> 
+		<bitfield id="EN_IN_EP15" width="1" begin="0" end="0" resetval="0x0" description="Debug trace enable for IN Endpoint 15" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W0" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W0" offset="0x0" width="32" description="TRB0 Word 0. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits" range="31 - 30" rwaccess="R/W"/> 
+		<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number" range="29 - 14" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits" range="13 - 12" rwaccess="R/W"/> 
+		<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete" range="11" rwaccess="R/W"/> 
+		<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC" range="10" rwaccess="R/W"/> 
+		<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB" range="9 - 4" rwaccess="R/W"/> 
+		<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet" range="3" rwaccess="R/W"/> 
+		<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers" range="2" rwaccess="R/W"/> 
+		<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list" range="1" rwaccess="R/W"/> 
+		<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W1" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W1" offset="0x4" width="32" description="TRB0 Word 1. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits" range="27" rwaccess="R/W"/> 
+		<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits" range="26" rwaccess="R/W"/> 
+		<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size" range="22 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W2" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W2" offset="0x8" width="32" description="TRB0 Word 2. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W3" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB0_W3" offset="0xC" width="32" description="TRB0 Word 3. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W0" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W0" offset="0x10" width="32" description="TRB1 Word 0. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits" range="31 - 30" rwaccess="R/W"/> 
+		<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number" range="29 - 14" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits" range="13 - 12" rwaccess="R/W"/> 
+		<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete" range="11" rwaccess="R/W"/> 
+		<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC" range="10" rwaccess="R/W"/> 
+		<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB" range="9 - 4" rwaccess="R/W"/> 
+		<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet" range="3" rwaccess="R/W"/> 
+		<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers" range="2" rwaccess="R/W"/> 
+		<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list" range="1" rwaccess="R/W"/> 
+		<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W1" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W1" offset="0x14" width="32" description="TRB1 Word 1. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits" range="27" rwaccess="R/W"/> 
+		<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits" range="26" rwaccess="R/W"/> 
+		<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size" range="22 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W2" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W2" offset="0x18" width="32" description="TRB1 Word 2. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W3" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB1_W3" offset="0x1C" width="32" description="TRB1 Word 3. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W0" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W0" offset="0x20" width="32" description="TRB2 Word 0. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits" range="31 - 30" rwaccess="R/W"/> 
+		<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number" range="29 - 14" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits" range="13 - 12" rwaccess="R/W"/> 
+		<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete" range="11" rwaccess="R/W"/> 
+		<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC" range="10" rwaccess="R/W"/> 
+		<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB" range="9 - 4" rwaccess="R/W"/> 
+		<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet" range="3" rwaccess="R/W"/> 
+		<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers" range="2" rwaccess="R/W"/> 
+		<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list" range="1" rwaccess="R/W"/> 
+		<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W1" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W1" offset="0x24" width="32" description="TRB2 Word 1. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits" range="27" rwaccess="R/W"/> 
+		<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits" range="26" rwaccess="R/W"/> 
+		<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size" range="22 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W2" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W2" offset="0x28" width="32" description="TRB2 Word 2. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W3" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB2_W3" offset="0x2C" width="32" description="TRB2 Word 3. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W0" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W0" offset="0x30" width="32" description="TRB3 Word 0. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits" range="31 - 30" rwaccess="R/W"/> 
+		<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number" range="29 - 14" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits" range="13 - 12" rwaccess="R/W"/> 
+		<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete" range="11" rwaccess="R/W"/> 
+		<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC" range="10" rwaccess="R/W"/> 
+		<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB" range="9 - 4" rwaccess="R/W"/> 
+		<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet" range="3" rwaccess="R/W"/> 
+		<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers" range="2" rwaccess="R/W"/> 
+		<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list" range="1" rwaccess="R/W"/> 
+		<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W1" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W1" offset="0x34" width="32" description="TRB3 Word 1. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits" range="27" rwaccess="R/W"/> 
+		<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits" range="26" rwaccess="R/W"/> 
+		<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size" range="22 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W2" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W2" offset="0x38" width="32" description="TRB3 Word 2. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W3" acronym="DEBUG_TRACE_MMR__TRACE_VBUSP__USB2SS_DEBUG_TRACE_TRB3_W3" offset="0x3C" width="32" description="TRB3 Word 3. Please refer to Controller programming guide for more details on these fields.">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low" range="31 - 0" rwaccess="R/W"/>
+	</register>
+</module>

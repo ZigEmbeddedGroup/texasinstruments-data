@@ -1,0 +1,36 @@
+<module name="MCU_CPT2_AGGR0_STP2ATB_CFG" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_TRACE_CONTROL" acronym="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_TRACE_CONTROL" offset="0x0" width="32" description="This register contains the control and status settings for STP Trace control register. MID_Fifofull indicates status of internal Initiator/Channel Fifo as full. Data_Fifofull indicates the status of internal Data Fifo as full. It is possible that if MID_Fifofull is full and when new initiator_id is seen on STPMI i/f, the data will not be accepted as MID is full. It will wait for MID to be read out corresponding to Data.">
+		<bitfield id="RSVD3" width="7" begin="31" end="25" resetval="0x0" description="" range="31 - 25" rwaccess="R"/> 
+		<bitfield id="MID_FIFO_FUL" width="1" begin="24" end="24" resetval="0x0" description="" range="24" rwaccess="R"/> 
+		<bitfield id="DATA_FIFO_FULL" width="1" begin="23" end="23" resetval="0x0" description="" range="23" rwaccess="R"/> 
+		<bitfield id="RSVD2" width="17" begin="22" end="6" resetval="0x0" description="" range="22 - 6" rwaccess="R"/> 
+		<bitfield id="COMPEN" width="1" begin="5" end="5" resetval="0x0" description="" range="5" rwaccess="R/W"/> 
+		<bitfield id="RSVD1" width="2" begin="4" end="3" resetval="0x0" description="" range="4 - 3" rwaccess="R"/> 
+		<bitfield id="SNCEN" width="1" begin="2" end="2" resetval="0x1" description="" range="2" rwaccess="R"/> 
+		<bitfield id="TSEN" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R"/>
+	</register>
+	<register id="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_TRACE_ID" acronym="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_TRACE_ID" offset="0x4" width="32" description="This register contains the trace id register settings. This value is sampled from input and is exported on ATB interface as ATID field. This is usually programmed only when top-level configuration errors results in collision between ID's.">
+		<bitfield id="RSVD" width="25" begin="31" end="7" resetval="0x0" description="" range="31 - 7" rwaccess="R"/> 
+		<bitfield id="TRACEID" width="7" begin="6" end="0" resetval="0x0" description="" range="6 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_SYNC_CONTROL" acronym="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_SYNC_CONTROL" offset="0x10" width="32" description="This register contains the periodic interval after which an ASYNC packet is exported over ATB interface. This counter register controls the interval between synchronization packets. The number of bytes between which a sync packet is sent based on this counter value. Writing a value of 0x0 disables the synchronization counter, however if the client has any other synchronization scheme, that will continue to operate.
+When this register is written, STPMI2ATB will immediately perform synchronization and reset the counter value to the newly programmed value ensuring subsequent synchronization occurs in the period programmed.
+This async requests will result in a Initiator switch. A async request will result in async packet followed by VERSION packet which is followed by a new M8/C8 packet before any Dx packet is sent.">
+		<bitfield id="RSVD" width="19" begin="31" end="13" resetval="0x0" description="" range="31 - 13" rwaccess="R"/> 
+		<bitfield id="MODE" width="1" begin="12" end="12" resetval="0x1" description="" range="12" rwaccess="R/W"/> 
+		<bitfield id="COUNT" width="12" begin="11" end="0" resetval="0x1920" description="" range="11 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_FLUSH_CONTROL" acronym="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_FLUSH_CONTROL" offset="0x14" width="32" description="This register contains the bits to indicate flush in STPMI2ATB. It also controls priority control for other conditions in STPMI2ATB.">
+		<bitfield id="RSVD1" width="26" begin="31" end="6" resetval="0x0" description="" range="31 - 6" rwaccess="R"/> 
+		<bitfield id="FORCE_FLUSH" width="1" begin="5" end="5" resetval="0x0" description="" range="5" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="3" begin="4" end="2" resetval="0x7" description="" range="4 - 2" rwaccess="R"/> 
+		<bitfield id="ASYNC_PE" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R/W"/> 
+		<bitfield id="AUTO_FLUSH" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_FEATURES" acronym="VBUSP2APB_WRAP__STP2ATB_VBUS__CFG_REGS_STP_FEATURES" offset="0x18" width="32" description="This register contains the bits to indicate the features implemented in STPMI2ATB. It shows the VERSION packet implemented based on STP2.0 type of encoding timestamp packet. It also indicates what protocol is followed in the IP.">
+		<bitfield id="RSVD" width="25" begin="31" end="7" resetval="0x0" description="" range="31 - 7" rwaccess="R"/> 
+		<bitfield id="STP_TS_VERSION" width="3" begin="6" end="4" resetval="0x4" description="" range="6 - 4" rwaccess="R"/> 
+		<bitfield id="PROT" width="4" begin="3" end="0" resetval="0x1" description="" range="3 - 0" rwaccess="R"/>
+	</register>
+</module>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device id="C6457" partnum="TMS320C6457" HW_revision="1" XML_version="2" desc="TMS320C6457" description="TMS320C6457 - This configuration contains full peripheral register specifications.&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+	<!-- Filter for Project Wizard -->
+	<property Type="stringfield" Value="C645x High Performance DSP"   id="FilterString" />
+	<property Type="stringfield" Value="real time" id="Startup Mode" />
+	<instance XML_version="1.2" href="../routers/icepick_c.xml" desc="ICEPICK_C_0" id="ICEPICK_C_0" xml="icepick_c.xml" xmlpath="../cpus/" />
+	<router HW_revision="1.0" XML_version="1.2" description="ICEPICK_C Router" id="ICEPICK_C_0" isa="ICEPICK_C">
+		<property Type="stringfield" Value="real time" id="Startup Mode" />
+		<subpath desc="Subpath_0" id="Subpath_0">
+			<property Type="stringfield" Value="real time" id="Startup Mode" />
+			<property ID="subpath.address" Type="numericfield" Value="16" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<cpu HW_revision="1.0" XML_version="1.2" description="Bypass Cpu" id="bypass_0" isa="BYPASS71"/>
+		</subpath>
+		<subpath desc="Subpath_1" id="Subpath_1">
+			<property Type="stringfield" Value="real time" id="Startup Mode" />
+			<property ID="subpath.address" Type="numericfield" Value="17" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance href="../cpus/c64xp.xml" desc="C64X+ CPU" description="" id="C64XP_0" isa="TMS320C64XP" xml="c64xp.xml" xmlpath="../cpus/" />
+			<cpu HW_revision="" XML_version="1.2" desc="C64XP_0" description="" id="C64XP_0" isa="TMS320C64XP">
+				<!-- Project Wizard Settings -->
+				<property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="--silicon_version=64+ -D=c6457" id="CompilerBuildOptions" />
+				<property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+				<property Type="stringfield" Value="C6457.cmd" id="LinkerCmd" />
+				<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+				<!-- End project wizard settigns -->
+				<instance href="../Modules/TCI6484_C6457/cslr_intc.xml" id="INTC" xml="cslr_intc.xml" xmlpath="../Modules/TCI6484_C6457/" description="System Interrupt Controller " baseaddr="0x1800000" endaddr="0x180ffff" size="0x10000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_pwrdwnPdc.xml" id="PDC" xml="cslr_pwrdwnPdc.xml" xmlpath="../Modules/TCI6484_C6457/" description="System Power Down Controller" baseaddr="0x1810000" endaddr="0x1810fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_bwmngmt.xml" id="BWMNGMT" xml="cslr_bwmngmt.xml" xmlpath="../Modules/TCI6484_C6457/" description="Bandwidth Management Module" baseaddr="0x1820200" endaddr="0x18202ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_cache.xml" id="CACHE" xml="cslr_cache.xml" xmlpath="../Modules/TCI6484_C6457/" description="L1P, L1D &amp; L2 Cache Modules" baseaddr="0x1840000" endaddr="0x185ffff" size="0x60000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edc.xml" id="EDCGEM" xml="cslr_edc.xml" xmlpath="../Modules/TCI6484_C6457/" description="Error Detection and Correction" baseaddr="0x1846000" endaddr="0x1849fff" size="0x4000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_memprot_L2.xml" id="MEMPROT_L2" xml="cslr_memprot_L2.xml" xmlpath="../Modules/TCI6484_C6457/" description="Memory Protection for L2" baseaddr="0x184a000" endaddr="0x184a3ff" size="0x400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_memprot_L1P.xml" id="MEMPROT_L1P" xml="cslr_memprot_L1P.xml" 	xmlpath="../Modules/TCI6484_C6457/" description="Memory Protection for L1P" baseaddr="0x184a400" endaddr="0x184abff" size="0x800" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_memprot_L1D.xml" id="MEMPROT_L1D" xml="cslr_memprot_L1D.xml" 	xmlpath="../Modules/TCI6484_C6457/" description="Memory Protection for L1D" baseaddr="0x184ac00" endaddr="0x184afff" size="0x400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_pwrdwnL2.xml" id="Power_Down_L2" xml="cslr_pwrdwnL2.xml" 	xmlpath="../Modules/TCI6484_C6457/" description="L2 Power Down Registers " baseaddr="0x184c000" endaddr="0x184ffff" size="0x4000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_hpi.xml" id="HPI" xml="cslr_hpi.xml" xmlpath="../Modules/TCI6484_C6457/" description="UHPI" baseaddr="0x2880000" endaddr="0x288007f" size="0x80" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_dev.xml" id="DEV" xml="cslr_dev.xml" xmlpath="../Modules/TCI6484_C6457/" description="SoC Level Registers" baseaddr="0x2880000" endaddr="0x2880bff" size="0xc00" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_mcbsp.xml" id="MCBSP0" xml="cslr_mcbsp.xml" xmlpath="../Modules/TCI6484_C6457/" description="McBSP" baseaddr="0x28c0000" endaddr="0x28c00ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_mcbsp.xml" id="MCBSP1" xml="cslr_mcbsp.xml" xmlpath="../Modules/TCI6484_C6457/" description="McBSP" baseaddr="0x2900000" endaddr="0x29000ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_tmr.xml" id="TMR0" xml="cslr_tmr.xml" xmlpath="../Modules/TCI6484_C6457/" description="TIMER" baseaddr="0x2940000" endaddr="0x294007f" size="0x80" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_tmr.xml" id="TMR1" xml="cslr_tmr.xml" xmlpath="../Modules/TCI6484_C6457/" description="TIMER" baseaddr="0x2980000" endaddr="0x298007f" size="0x80" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_pll1.xml" id="PLLC" xml="cslr_pll1.xml" xmlpath="../Modules/TCI6484_C6457/" description="PLL Controller" baseaddr="0x29a0000" endaddr="0x29a01ff" size="0x200" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edma3cc.xml" id="EDMA3CC"  xml="cslr_edma3cc.xml" xmlpath="../Modules/TCI6484_C6457/" description="3PCC" baseaddr="0x2a00000" endaddr="0x2a07fff"  size="0x8000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edma3tc.xml" id="EDMA3TC0" xml="cslr_edma3tc.xml" xmlpath="../Modules/TCI6484_C6457/" description="3PTC0" baseaddr="0x2a20000" endaddr="0x2a203ff" size="0x0400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edma3tc.xml" id="EDMA3TC1" xml="cslr_edma3tc.xml" xmlpath="../Modules/TCI6484_C6457/" description="3PTC1" baseaddr="0x2a28000" endaddr="0x2a283ff" size="0x0400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edma3tc.xml" id="EDMA3TC2" xml="cslr_edma3tc.xml" xmlpath="../Modules/TCI6484_C6457/" description="3PTC2" baseaddr="0x2a30000" endaddr="0x2a303ff" size="0x0400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edma3tc.xml" id="EDMA3TC3" xml="cslr_edma3tc.xml" xmlpath="../Modules/TCI6484_C6457/" description="3PTC3" baseaddr="0x2a38000" endaddr="0x2a383ff" size="0x0400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edma3tc.xml" id="EDMA3TC4" xml="cslr_edma3tc.xml" xmlpath="../Modules/TCI6484_C6457/" description="3PTC4" baseaddr="0x2a40000" endaddr="0x2a403ff" size="0x0400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_edma3tc.xml" id="EDMA3TC5" xml="cslr_edma3tc.xml" xmlpath="../Modules/TCI6484_C6457/" description="3PTC5" baseaddr="0x2a48000" endaddr="0x2a483ff" size="0x0400" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_psc.xml" id="PSC" xml="cslr_psc.xml" xmlpath="../Modules/TCI6484_C6457/" description="PSC" baseaddr="0x2ac0000" endaddr="0x2ac0fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_gpio.xml" id="GPIO" xml="cslr_gpio.xml" xmlpath="../Modules/TCI6484_C6457/" description="GPIO Registers" baseaddr="0x2b00000" endaddr="0x2b000ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_i2c.xml" id="I2C" xml="cslr_i2c.xml" xmlpath="../Modules/TCI6484_C6457/" description="I2C" baseaddr="0x2b04000" endaddr="0x2b0407f" size="0x80" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_utopia2.xml" id="UTOPIA2" xml="cslr_utopia2.xml" xmlpath="../Modules/TCI6484_C6457/" description="Utopia Level 2" baseaddr="0x2b40000" endaddr="0x2b401ff" size="0x200" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/ms_ti_vcp2_rl_config_bus_011.xml" id="VCP2_CFG" xml="ms_ti_vcp2_rl_config_bus_011.xml" xmlpath="../Modules/TCI6484_C6457/" description="VCP2" baseaddr="0x2b80000" endaddr="0x2b800ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/ms_ti_vcp2_rl_edma_bus_011.xml" id="VCP2_EDMA" xml="ms_ti_vcp2_rl_edma_bus_011.xml" xmlpath="../Modules/TCI6484_C6457/" description="VCP2" baseaddr="0x58000000" endaddr="0x5800ffff" size="0x0010000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/ms_ti_tcp2_rl_config_bus_011.xml" id="TCP2A_CFG" xml="ms_ti_tcp2_rl_config_bus_011.xml" xmlpath="../Modules/TCI6484_C6457/" description="TCP2" baseaddr="0x2ba0000" endaddr="0x2ba00ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/ms_ti_tcp2_rl_edma_bus_011.xml" id="TCP2A_EDMA" xml="ms_ti_tcp2_rl_edma_bus_011.xml" xmlpath="../Modules/TCI6484_C6457/" description="TCP2" baseaddr="0x50000000" endaddr="0x500fffff" size="0x0100000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/ms_ti_tcp2_rl_config_bus_011.xml" id="TCP2B_CFG" xml="ms_ti_tcp2_rl_config_bus_011.xml" xmlpath="../Modules/TCI6484_C6457/" description="TCP2" baseaddr="0x2ba0100" endaddr="0x2ba01ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/ms_ti_tcp2_rl_edma_bus_011.xml" id="TCP2B_EDMA" xml="ms_ti_tcp2_rl_edma_bus_011.xml" xmlpath="../Modules/TCI6484_C6457/" description="TCP2"  baseaddr="0x50100000" endaddr="0x501fffff" size="0x0100000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_emac.xml" id="EMAC" xml="cslr_emac.xml" xmlpath="../Modules/TCI6484_C6457/" description="EMAC" baseaddr="0x2c80000" endaddr="0x2c807ff" size="0x0800" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_ectl.xml" id="ECTL" xml="cslr_ectl.xml" xmlpath="../Modules/TCI6484_C6457/" description="EMAC Wrapper Control" baseaddr="0x2c82000" endaddr="0x2c83fff" size="0x1000" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_mdio.xml" id="MDIO" xml="cslr_mdio.xml" xmlpath="../Modules/TCI6484_C6457/" description="MDIO" baseaddr="0x2c81800" endaddr="0x2c818ff" size="0x100" accessnumbytes="4" permissions="p"/>
+				<!--					<instance href="../Modules/TCI6484_C6457/cslr_srio.xml" id="SRIO" xml="cslr_srio.xml" xmlpath="../Modules/TCI6484_C6457/" description="Rapid IO" baseaddr="0x2d00000" endaddr="0x2d20fff" size="0x01000" accessnumbytes="4" permissions="p"/> -->
+				<instance href="../Modules/TCI6484_C6457/cslr_emifa.xml" id="EMIFA" xml="cslr_emifa.xml" xmlpath="../Modules/TCI6484_C6457/" description="ASYNC EMIF Control" baseaddr="0x70000000" endaddr="0x700000ff" size="0x0000100" accessnumbytes="4" permissions="p"/>
+				<instance href="../Modules/TCI6484_C6457/cslr_ddr2.xml" id="DDR2" xml="cslr_ddr2.xml" xmlpath="../Modules/TCI6484_C6457/" description="DDR2 EMIF CTRL" 	 baseaddr="0x78000000" endaddr="0x780000ff" size="0x0000100" accessnumbytes="4" permissions="p"/>
+			</cpu>
+		</subpath>
+	</router>
+</device>

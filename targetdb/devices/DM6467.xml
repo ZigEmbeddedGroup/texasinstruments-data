@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="DM6467" partnum="TMS320DM6467" HW_revision="1" XML_version="2" desc="TMS320DM6467" description="DaVinci DM646x - ARM9 and C64x+ Fixed-point DSP&#xA;LIMITED SUPPORT NOTICE:&#xA; This device requires third party support and may be removed in a future release.">
+	<!-- Filter to list device under in project wizard -->
+	<property Type="stringfield" Value="DaVinci DM646x" id="FilterString" />
+	<instance XML_version="1.2" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+	<router HW_revision="1.0" XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+		<subpath id="subpath_0">
+			<property Type="numericfield" Value="0x10" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance XML_version="1.2" desc="ARM9_0" href="cpus/arm9.xml" id="ARM9_0" xml="arm9.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" desc="ARM926" description="The ARM9 Core" id="ARM9_0" isa="ARM9">
+				<!-- Project Wizard Settings -->
+				<property Type="stringfield" Value="true" id="IsElfDefault" />
+				<property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="-D=dm6467 --silicon_version=5e --code_state=32" id="CompilerBuildOptions" />
+				<property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+				<property Type="stringfield" Value="DM6467.cmd" id="LinkerCmd" />
+				<!-- END Project Wizard Settings -->
+			</cpu>
+		</subpath>
+		<subpath id="subpath_1">
+			<property Type="numericfield" Value="0x12" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance XML_version="1.2" desc="C64XP_0" href="cpus/c64xp.xml" id="C64XP_0" xml="c64xp.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" desc="C64XP" description="C64xPlus CPU" id="C64XP_0" isa="TMS320C64XP">
+				<!--  Project Wizard Settings  -->
+				<property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="-D=dm6467 --silicon_version=64+" id="CompilerBuildOptions" />
+				<property Type="stringfield" Value="--define=DSP_CORE=1 --stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+				<property Type="stringfield" Value="DM6467.cmd" id="LinkerCmd" />
+				<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+				<!--  END Project Wizard Settings -->
+			</cpu>
+		</subpath>
+		<subpath id="subpath_2">
+			<property Type="numericfield" Value="0x13" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance XML_version="1.2" desc="ARM968" href="cpus/arm9.xml" id="ARM968" xml="arm9.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" desc="ARM968_0" description="The ARM9 Core" id="ARM968" isa="ARM9"/>
+		</subpath>
+		<subpath id="subpath_3">
+			<property Type="numericfield" Value="0x14" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance XML_version="1.2" desc="ARM968_0" href="cpus/arm9.xml" id="ARM968_0" xml="arm9.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" desc="ARM968_1" description="The ARM9 Core" id="ARM968_0" isa="ARM9"/>
+		</subpath>
+	</router>
+</device>

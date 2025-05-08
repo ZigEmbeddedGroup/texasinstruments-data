@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="ADC" HW_revision="1.0" XML_version="1.0" description="Analog-to-Digital Converter">
+	<register id="ADCCTL" acronym="ADCCTL" offset="0" width="16" description="ADC control register">
+		<bitfield id="ADCSTART" width="1" begin="15" end="15" resetval="0" description="Start of conversion bit" range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Writing 0 has no effect."/>
+			<bitenum id="1" value="1" token="1" description="Start conversion cycle."/>
+		</bitfield>
+		
+		<bitfield id="CHSELECT" width="3" begin="14" end="12" resetval="111" description="Analog input channel select bits." range="" rwaccess="RW">
+			<bitenum id="000" value="0" token="000" description="Analog input AIN0 is selected"/>
+			<bitenum id="001" value="1" token="001" description="Analog input AIN1 is selected"/>
+			<bitenum id="010" value="2" token="010" description="Analog input AIN2 is selected."/>
+			<bitenum id="011" value="3" token="011" description="Analog input AIN3 is selected."/>
+<!-- bull			<bitenum id="100-111" value="100-111" token="100-111" description="All analog switches are off."/> -->
+		</bitfield>
+		
+		<bitfield id="Reserved" width="12" begin="11" end="0" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+	</register>
+	
+	<register id="ADCDATA" acronym="ADCDATA" offset="1" width="16" description="ADC Data Register">
+		<bitfield id="ADCBUSY" width="1" begin="15" end="15" resetval="0" description="ADC busy bit" range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="ADC data is available."/>
+			<bitenum id="1" value="1" token="1" description="ADC is busy performing a conversion."/>
+		</bitfield>
+		
+		<bitfield id="CHSELECT" width="3" begin="14" end="12" resetval="111" description="Channel select bits." range="" rwaccess="R">
+			<bitenum id="000" value="0" token="000" description="Analog input AIN0 is selected."/>
+			<bitenum id="001" value="1" token="001" description="Analog input AIN1 is selected."/>
+			<bitenum id="010" value="2" token="010" description="Analog input AIN2 is selected."/>
+			<bitenum id="011" value="3" token="011" description="Analog input AIN3 is selected."/>
+<!-- bull			<bitenum id="100-111" value="100-111" token="100-111" description="Reserved"/> -->
+		</bitfield>
+		
+		<bitfield id="Reserved" width="2" begin="11" end="10" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="ADCDATA" width="10" begin="9" end="0" resetval="0" description="ADC data bits." range="" rwaccess="R">
+		</bitfield>
+	</register>
+	
+	<register id="ADCCLKDIV" acronym="ADCCLKDIV" offset="2" width="16" description="ADC Clock Divider Register">
+		<bitfield id="SAMPTIMEDIV" width="8" begin="15" end="8" resetval="0" description="Sample and hold time divider bits." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="Reserved" width="4" begin="7" end="4" resetval="0" description="These reserved bits are always read as 0s." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="CONVRATEDIV" width="4" begin="3" end="0" resetval="1111" description="Conversion clock rate divider bits." range="" rwaccess="RW">
+			<bitenum id="0000" value="0" token="0000" description="Conversion clock = ADC clock divided by 2."/>
+			<bitenum id="0001" value="1" token="0001" description="Conversion clock = ADC clock divided by 4."/>
+			<bitenum id="0010" value="2" token="0010" description="Conversion clock = ADC clock divided by 6."/>
+			<bitenum id="0011" value="3" token="0011" description="Conversion clock = ADC clock divided by 8."/>
+			<bitenum id="0100" value="4" token="0100" description="Conversion clock = ADC clock divided by 10."/>
+			<bitenum id="0101" value="5" token="0101" description="Conversion clock = ADC clock divided by 12."/>
+			<bitenum id="0110" value="6" token="0110" description="Conversion clock = ADC clock divided by 14."/>
+			<bitenum id="0111" value="7" token="0111" description="Conversion clock = ADC clock divided by 16."/>
+			<bitenum id="1000" value="8" token="1000" description="Conversion clock = ADC clock divided by 18."/>
+			<bitenum id="1001" value="9" token="1001" description="Conversion clock = ADC clock divided by 20."/>
+			<bitenum id="1010" value="10" token="1010" description="Conversion clock = ADC clock divided by 22."/>
+			<bitenum id="1011" value="11" token="1011" description="Conversion clock = ADC clock divided by 24."/>
+			<bitenum id="1100" value="12" token="1100" description="Conversion clock = ADC clock divided by 26."/>
+			<bitenum id="1101" value="13" token="1101" description="Conversion clock = ADC clock divided by 28."/>
+			<bitenum id="1110" value="14" token="1110" description="Conversion clock = ADC clock divided by 30."/>
+			<bitenum id="1111" value="15" token="1111" description="Conversion clock = ADC clock divided by 32."/>
+		</bitfield>
+	</register>
+	
+	<register id="ADCCLKCTL" acronym="ADCCLKCTL" offset="3" width="16" description="ADC Clock Control Register">
+		<bitfield id="Reserved" width="7" begin="15" end="9" resetval="0" description="Reserved." range="" rwaccess="R">
+		</bitfield>
+		
+		<bitfield id="IDLEEN" width="1" begin="8" end="8" resetval="0" description="Idle enable bit for the ADC." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The ADC cannot be placed in the idle state."/>
+			<bitenum id="1" value="1" token="1" description="If the peripherals domain is idle, the ADC is in the idle state."/>
+		</bitfield>
+		
+		<bitfield id="CPUCLKDIV" width="8" begin="7" end="0" resetval="07h" description="CPU clock divider bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+</module>

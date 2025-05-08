@@ -1,0 +1,44 @@
+<module name="C7X256V1_CORE0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="C7XV_CFG_MMR_c7xv_rev_id" acronym="C7XV_CFG_MMR_c7xv_rev_id" offset="0x0" width="32" description="Revision parameters">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Scheme" range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Scheme" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="MODULE_ID" width="12" begin="27" end="16" resetval="0x0" description="Module ID" range="27 - 16" rwaccess="R"/> 
+		<bitfield id="REVRTL" width="5" begin="15" end="11" resetval="0x0" description="RTL version" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="REVMAX" width="3" begin="10" end="8" resetval="0x1" description="Major version" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x2" description="Custom version" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="REVMIN" width="6" begin="5" end="0" resetval="0x1" description="Minor version" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="C7XV_CFG_MMR_c7xv_wrap_def" acronym="C7XV_CFG_MMR_c7xv_wrap_def" offset="0x4" width="32" description="Definition parameters">
+		<bitfield id="EL2SIZE" width="3" begin="18" end="16" resetval="0x0" description="EL2 size" range="18 - 16" rwaccess="R"/> 
+		<bitfield id="L2SIZE" width="5" begin="15" end="11" resetval="0x8" description="L2 size" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="L1DSIZE" width="2" begin="10" end="9" resetval="0x2" description="L1D size" range="10 - 9" rwaccess="R"/> 
+		<bitfield id="L1PSIZE" width="2" begin="8" end="7" resetval="0x0" description="L1P size" range="8 - 7" rwaccess="R"/> 
+		<bitfield id="VWIDTH" width="2" begin="6" end="5" resetval="0x2" description="Vector width size" range="6 - 5" rwaccess="R"/> 
+		<bitfield id="RISCV" width="1" begin="4" end="4" resetval="0x1" description="RISCV ISA supported" range="4" rwaccess="R"/> 
+		<bitfield id="MMA" width="2" begin="3" end="2" resetval="0x1" description="MMA type" range="3 - 2" rwaccess="R"/> 
+		<bitfield id="CPU" width="2" begin="1" end="0" resetval="0x0" description="CPU type" range="1 - 0" rwaccess="R"/>
+	</register>
+	<register id="C7XV_CFG_MMR_c7xv_reset_boot_vec_l" acronym="C7XV_CFG_MMR_c7xv_reset_boot_vec_l" offset="0x10" width="32" description="C7xV wrap reset boot vector Register LSBs">
+		<bitfield id="RESET_BASE_VECTOR_LO" width="32" begin="31" end="0" resetval="0x1048576" description="RVBARADDR0[31:0]" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="C7XV_CFG_MMR_c7xv_reset_boot_vec_h" acronym="C7XV_CFG_MMR_c7xv_reset_boot_vec_h" offset="0x14" width="32" description="C7xV wrap reset boot vector Register MSBs">
+		<bitfield id="RESET_BASE_VECTOR_HI" width="32" begin="31" end="0" resetval="0x0" description="RVBARADDR0[48:32]" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="C7XV_CFG_MMR_c7xv_corepac_cfg" acronym="C7XV_CFG_MMR_c7xv_corepac_cfg" offset="0x18" width="32" description="C7xV wrap corepac configuration register">
+		<bitfield id="CPU_SYS_RISCV_MODE" width="1" begin="0" end="0" resetval="0x0" description="Enables CPU booting in RISC-V mode, default is C7xVISA mode" range="0" rwaccess="R"/>
+	</register>
+	<register id="C7XV_CFG_MMR_c7xv_corepac_pwr_cfg" acronym="C7XV_CFG_MMR_c7xv_corepac_pwr_cfg" offset="0x1C" width="32" description="nfiguration register">
+		
+	</register>
+	<register id="C7XV_CFG_MMR_c7xv_corepac_pwr_status" acronym="C7XV_CFG_MMR_c7xv_corepac_pwr_status" offset="0x20" width="32" description="C7xV wrap corepac power status register">
+		<bitfield id="PBIST_LPSC_IDLE" width="1" begin="16" end="16" resetval="0x0" description="PBIST LPSC idle status" range="16" rwaccess="R"/> 
+		<bitfield id="DRU_IDLE" width="1" begin="7" end="7" resetval="0x0" description="L2 idle status" range="7" rwaccess="R"/> 
+		<bitfield id="L2_IDLE" width="1" begin="6" end="6" resetval="0x0" description="L2 idle status" range="6" rwaccess="R"/> 
+		<bitfield id="DEBUG_IDLE" width="1" begin="5" end="5" resetval="0x0" description="Debug idle status" range="5" rwaccess="R"/> 
+		<bitfield id="SE_IDLE" width="1" begin="4" end="4" resetval="0x0" description="SE idle status" range="4" rwaccess="R"/> 
+		<bitfield id="DMC_IDLE" width="1" begin="3" end="3" resetval="0x0" description="DMC idle status" range="3" rwaccess="R"/> 
+		<bitfield id="PMC_IDLE" width="1" begin="2" end="2" resetval="0x0" description="PMC idle status" range="2" rwaccess="R"/> 
+		<bitfield id="CPU_IDLE" width="1" begin="1" end="1" resetval="0x0" description="CPU idle status" range="1" rwaccess="R"/> 
+		<bitfield id="CORE_LPSC_IDLE" width="1" begin="0" end="0" resetval="0x0" description="Core LPSC idle status" range="0" rwaccess="R"/>
+	</register>
+</module>

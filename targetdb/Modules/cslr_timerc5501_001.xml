@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="Timer" HW_revision="1.0" XML_version="1.0" description="Timer">
+	<register id="EMU" acronym="EMU" offset="2" width="16" description="Emulation Management Register">
+		<bitfield id="Reserved" width="14" begin="15" end="2" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="SOFT" width="1" begin="1" end="1" resetval="0" description="Used in conjunction with FREE bit to determine how the timer responds to an emulation suspend event." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The timer stops immediately."/>
+			<bitenum id="1" value="1" token="1" description="The timer stops when the timer counter register increments and reaches the value in the timer period register."/>
+		</bitfield>
+		
+		<bitfield id="FREE" width="1" begin="0" end="0" resetval="0" description="Used in conjunction with SOFT bit to determine how the timer responds to an emulation suspend event." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="The SOFT bit selects the timer response."/>
+			<bitenum id="1" value="1" token="1" description="The timer runs free, regardless of the value of the SOFT bit."/>
+		</bitfield>
+	</register>
+	
+	<register id="CLK" acronym="CLK" offset="3" width="16" description="Timer Clock Speed Register">
+		<bitfield id="Reserved" width="12" begin="15" end="4" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="CLKDIV" width="4" begin="3" end="0" resetval="0" description="Clock divide-down ratio bits." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="Internal clock source for the timer is the fast peripherals clock (SYSCLK1)."/>
+			<bitenum id="1h" value="1" token="1h" description="Internal clock source for the timer is SYSCLK1 divided by1."/>
+			<bitenum id="2h" value="2" token="2h" description="Internal clock source for the timer is SYSCLK1 divided by 2."/>
+			<bitenum id="3h" value="3" token="3h" description="Reserved"/>
+			<bitenum id="4h" value="4" token="4h" description="Internal clock source for the timer is SYSCLK1 divided by 4."/>
+<!-- bull			<bitenum id="5h-7h" value="5h-7h" token="5h-7h" description="Reserved"/> -->
+			<bitenum id="8h" value="8" token="8h" description="Internal clock source for the timer is SYSCLK1 divided by 8."/>
+<!-- bull			<bitenum id="9-15h" value="9-15h" token="9-15h" description="Reserved"/> -->
+		</bitfield>
+	</register>
+	
+	<register id="GPINT" acronym="GPINT" offset="4" width="16" description="GPIO Interrupt Control Register">
+		<bitfield id="Reserved" width="11" begin="15" end="5" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TIN1INV" width="1" begin="4" end="4" resetval="0" description="Timer input 1 invert enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Noninverted (rising) timer input 1 signal generates a timer interrupt or event."/>
+			<bitenum id="1" value="1" token="1" description="Inverted (falling) timer input 1 signal generates a timer interrupt or event."/>
+		</bitfield>
+		
+		<bitfield id="Reserved" width="3" begin="3" end="1" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TIN1INT" width="1" begin="0" end="0" resetval="0" description="Timer input 1 interrupt enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Timer sources the timer interrupt or event."/>
+			<bitenum id="1" value="1" token="1" description="Timer input 1 sources the timer interrupt or event."/>
+		</bitfield>
+	</register>
+	
+	<register id="GPEN" acronym="GPEN" offset="5" width="16" description="GPIO Enable Register">
+		<bitfield id="Reserved" width="14" begin="15" end="2" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TOUT1EN" width="1" begin="1" end="1" resetval="0" description="Timer output 1 enable bit in the GPIO mode." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Timer output 1 (TOUT1) functions as a timer output."/>
+			<bitenum id="1" value="1" token="1" description="Timer output 1 (TOUT1) functions as GPIO."/>
+		</bitfield>
+		
+		<bitfield id="TIN1EN" width="1" begin="0" end="0" resetval="0" description="Timer input 1 enable bit in the GPIO mode." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Timer input 1 (TIN1) functions as a timer input."/>
+			<bitenum id="1" value="1" token="1" description="Timer input 1 (TIN1) functions as GPIO."/>
+		</bitfield>
+	</register>
+	
+	<register id="GPDAT" acronym="GPDAT" offset="6" width="16" description="GPIO Data Register">
+		<bitfield id="Reserved" width="14" begin="15" end="2" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TOUT1DAT" width="1" begin="1" end="1" resetval="0" description="Timer output 1 data bit in the GPIO mode." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Drive the signal on the timer pin low."/>
+			<bitenum id="1" value="1" token="1" description="Drive the signal on the timer pin high."/>
+		</bitfield>
+		
+		<bitfield id="TIN1DAT" width="1" begin="0" end="0" resetval="0" description="Timer input 1 data bit in the GPIO mode." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Drive the signal on the timer pin low."/>
+			<bitenum id="1" value="1" token="1" description="Drive the signal on the timer pin high."/>
+		</bitfield>
+	</register>
+	
+	<register id="GPDIR" acronym="GPDIR" offset="7" width="16" description="GPIO Direction Register">
+		<bitfield id="Reserved" width="14" begin="15" end="2" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TOUT1DIR" width="1" begin="1" end="1" resetval="0" description="Timer output 1 direction bit in the GPIO mode." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The timer pin functions as a general-purpose input."/>
+			<bitenum id="1" value="1" token="1" description="The timer pin functions as a general-purpose output."/>
+		</bitfield>
+		
+		<bitfield id="TIN1DIR" width="1" begin="0" end="0" resetval="0" description="Timer input 1 direction bit in the GPIO mode." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The timer pin functions as a general-purpose input."/>
+			<bitenum id="1" value="1" token="1" description="The timer pin functions as a general-purpose output."/>
+		</bitfield>
+	</register>
+	
+	<register id="CNT1" acronym="CNT1" offset="8" width="16" description="Counter Register">
+		<bitfield id="CNT1" width="16" begin="15" end="0" resetval="0" description="Counter register." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="CNT2" acronym="CNT2" offset="9" width="16" description="Counter Register">
+		<bitfield id="CNT2" width="16" begin="15" end="0" resetval="0" description="Counter register." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="CNT3" acronym="CNT3" offset="10" width="16" description="Counter Register">
+		<bitfield id="CNT3" width="16" begin="15" end="0" resetval="0" description="Counter register." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="CNT4" acronym="CNT4" offset="11" width="16" description="Counter Register">
+		<bitfield id="CNT4" width="16" begin="15" end="0" resetval="0" description="Counter register." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="PRD1" acronym="PRD1" offset="12" width="16" description="Period Register">
+		<bitfield id="PRD1" width="16" begin="15" end="0" resetval="0" description="Period bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="PRD2" acronym="PRD2" offset="13" width="16" description="Period Register">
+		<bitfield id="PRD2" width="16" begin="15" end="0" resetval="0" description="Period bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="PRD3" acronym="PRD3" offset="14" width="16" description="Period Register">
+		<bitfield id="PRD3" width="16" begin="15" end="0" resetval="0" description="Period bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="PRD4" acronym="PRD4" offset="15" width="16" description="Period Register">
+		<bitfield id="PRD4" width="16" begin="15" end="0" resetval="0" description="Period bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="CTL1" acronym="CTL1" offset="16" width="16" description="Timer Control Register">
+		<bitfield id="Reserved" width="6" begin="15" end="10" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TIEN" width="1" begin="9" end="9" resetval="0" description="Timer input enable bit determines if the timer clock is gated by the timer input." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Timer clock is not gated by the timer input."/>
+			<bitenum id="1" value="1" token="1" description="Timer clock is gated by a high state of the timer input synchronized with the internal clock."/>
+		</bitfield>
+		
+		<bitfield id="CLKSRC" width="1" begin="8" end="8" resetval="0" description="Clock source bit determines the clock source for the timer." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The clock source is the internal clock."/>
+			<bitenum id="1" value="1" token="1" description="The clock source is the signal on the timer pin."/>
+		</bitfield>
+		
+		<bitfield id="ENAMODE" width="2" begin="7" end="6" resetval="0" description="Enabling mode bits determine the timer mode." range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="00" description="The timer is disabled (not counting) and maintains the current value."/>
+			<bitenum id="01" value="1" token="01" description="The timer is enabled one time."/>
+			<bitenum id="10" value="2" token="10" description="The timer is enabled continuously."/>
+			<bitenum id="11" value="3" token="11" description="Reserved"/>
+		</bitfield>
+		
+		<bitfield id="PWID" width="2" begin="5" end="4" resetval="0" description="Pulse width bits." range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="00" description="The pulse width is 1 timer clock cycle."/>
+			<bitenum id="01" value="1" token="01" description="The pulse width is 2 timer clock cycles."/>
+			<bitenum id="10" value="2" token="10" description="The pulse width is 3 timer clock cycles."/>
+			<bitenum id="11" value="3" token="11" description="The pulse width is 4 timer clock cycles."/>
+		</bitfield>
+		
+		<bitfield id="CP" width="1" begin="3" end="3" resetval="0" description="Clock/pulse mode bit for timer output." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Pulse mode."/>
+			<bitenum id="1" value="1" token="1" description="Clock mode."/>
+		</bitfield>
+		
+		<bitfield id="INVIN" width="1" begin="2" end="2" resetval="0" description="Timer input inverter control bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="A noninverted timer input drives the timer."/>
+			<bitenum id="1" value="1" token="1" description="An inverted timer input drives the timer."/>
+		</bitfield>
+		
+		<bitfield id="INVOUT" width="1" begin="1" end="1" resetval="0" description="Timer output inverter control bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The timer output is not inverted."/>
+			<bitenum id="1" value="1" token="1" description="The timer output is inverted."/>
+		</bitfield>
+		
+		<bitfield id="TSTAT" width="1" begin="0" end="0" resetval="0" description="Timer status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="Timer output is low."/>
+			<bitenum id="1" value="1" token="1" description="Timer output is high."/>
+		</bitfield>
+	</register>
+	
+	<register id="CTL2" acronym="CTL2" offset="17" width="16" description="Timer Control Register">
+		<bitfield id="Reserved" width="6" begin="15" end="10" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TIEN" width="1" begin="9" end="9" resetval="0" description="Timer input enable bit determines if the timer clock is gated by the timer input." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Timer clock is not gated by the timer input."/>
+			<bitenum id="1" value="1" token="1" description="Timer clock is gated by a high state of the timer input synchronized with the internal clock."/>
+		</bitfield>
+		
+		<bitfield id="CLKSRC" width="1" begin="8" end="8" resetval="0" description="Clock source bit determines the clock source for the timer." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The clock source is the internal clock."/>
+			<bitenum id="1" value="1" token="1" description="The clock source is the signal on the timer pin."/>
+		</bitfield>
+		
+		<bitfield id="ENAMODE" width="2" begin="7" end="6" resetval="0" description="Enabling mode bits determine the timer mode." range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="00" description="The timer is disabled (not counting) and maintains the current value."/>
+			<bitenum id="01" value="1" token="01" description="The timer is enabled one time."/>
+			<bitenum id="10" value="2" token="10" description="The timer is enabled continuously."/>
+			<bitenum id="11" value="3" token="11" description="Reserved"/>
+		</bitfield>
+		
+		<bitfield id="PWID" width="2" begin="5" end="4" resetval="0" description="Pulse width bits." range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="00" description="The pulse width is 1 timer clock cycle."/>
+			<bitenum id="01" value="1" token="01" description="The pulse width is 2 timer clock cycles."/>
+			<bitenum id="10" value="2" token="10" description="The pulse width is 3 timer clock cycles."/>
+			<bitenum id="11" value="3" token="11" description="The pulse width is 4 timer clock cycles."/>
+		</bitfield>
+		
+		<bitfield id="CP" width="1" begin="3" end="3" resetval="0" description="Clock/pulse mode bit for timer output." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Pulse mode."/>
+			<bitenum id="1" value="1" token="1" description="Clock mode."/>
+		</bitfield>
+		
+		<bitfield id="INVIN" width="1" begin="2" end="2" resetval="0" description="Timer input inverter control bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="A noninverted timer input drives the timer."/>
+			<bitenum id="1" value="1" token="1" description="An inverted timer input drives the timer."/>
+		</bitfield>
+		
+		<bitfield id="INVOUT" width="1" begin="1" end="1" resetval="0" description="Timer output inverter control bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="The timer output is not inverted."/>
+			<bitenum id="1" value="1" token="1" description="The timer output is inverted."/>
+		</bitfield>
+		
+		<bitfield id="TSTAT" width="1" begin="0" end="0" resetval="0" description="Timer status bit." range="" rwaccess="R">
+			<bitenum id="0" value="0" token="0" description="Timer output is low."/>
+			<bitenum id="1" value="1" token="1" description="Timer output is high."/>
+		</bitfield>
+	</register>
+	
+	<register id="GCTL1" acronym="GCTL1" offset="18" width="16" description="Global Timer Control Register 1">
+		<bitfield id="TDDR34" width="4" begin="15" end="12" resetval="0" description="Timer divide-down ratio bits." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="PSC34" width="4" begin="11" end="8" resetval="0" description="Prescale period bits." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="Reserved" width="4" begin="7" end="4" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="TIMMODE" width="2" begin="3" end="2" resetval="0" description="Timer mode bits determine the timer operating mode." range="" rwaccess="RW">
+			<bitenum id="00" value="0" token="0" description="The timer is in the 64-bit general-purpose timer mode."/>
+			<bitenum id="01" value="1" token="1" description="The timer is in the dual 32-bit timers unchained mode."/>
+			<bitenum id="10" value="2" token="2" description="The timer is in the 64-bit watchdog timer mode."/>
+			<bitenum id="11" value="3" token="3" description="The timer is in the dual 32-bit timers chained mode."/>
+		</bitfield>
+		
+		<bitfield id="TIM34RS" width="1" begin="1" end="1" resetval="0" description="Timer 3:4 reset bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Timer 3:4 is in reset."/>
+			<bitenum id="1" value="1" token="1" description="Timer 3:4 is not in reset."/>
+		</bitfield>
+		
+		<bitfield id="TIM12RS" width="1" begin="0" end="0" resetval="0" description="Timer 1:2 reset bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Timer 1:2 is in reset."/>
+			<bitenum id="1" value="1" token="1" description="Timer 1:2 is not in reset."/>
+		</bitfield>
+	</register>
+	
+	<register id="WDTWCTL1" acronym="WDTWCTL1" offset="12308" width="16" description="Watchdog Timer Control Register 1">
+		<bitfield id="WDFLAG" width="1" begin="15" end="15" resetval="0" description="Watchdog timer flag bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="No watchdog timer timeout event occurred."/>
+			<bitenum id="1" value="1" token="1" description="Watchdog timer timeout event occurred."/>
+		</bitfield>
+		
+		<bitfield id="WDEN" width="1" begin="14" end="14" resetval="0" description="Watchdog timer enable bit." range="" rwaccess="RW">
+			<bitenum id="0" value="0" token="0" description="Watchdog timer is disabled."/>
+			<bitenum id="1" value="1" token="1" description="Watchdog timer is enabled."/>
+		</bitfield>
+		
+		<bitfield id="WDIKEY" width="2" begin="13" end="12" resetval="0" description="Watchdog idle enable key bits." range="" rwaccess="RW">
+		</bitfield>
+		
+		<bitfield id="Reserved" width="12" begin="11" end="0" resetval="0" description="Reserved." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+	
+	<register id="WDTWCTL2" acronym="WDTWCTL2" offset="12309" width="16" description="Watchdog Timer Control Register 2">
+		<bitfield id="WDKEY" width="16" begin="15" end="0" resetval="0" description="Watchdog timer service key bits." range="" rwaccess="RW">
+		</bitfield>
+	</register>
+</module>
