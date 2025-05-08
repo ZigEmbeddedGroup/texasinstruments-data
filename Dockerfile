@@ -60,8 +60,8 @@ ARG PATCH_VER
 ARG BUILD_VER
 
 # Download and extract CCS installation package
-RUN wget -q https://software-dl.ti.com/ccs/esd/CCSv${MAJOR_VER}/CCS_${MAJOR_VER}_${MINOR_VER}_${PATCH_VER}/exports/CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.tar.gz
-RUN tar -zxvf CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.tar.gz
+RUN wget -q https://software-dl.ti.com/ccs/esd/CCSv${MAJOR_VER}/CCS_${MAJOR_VER}_${MINOR_VER}_${PATCH_VER}/exports/CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.zip
+RUN unzip CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.zip
 
 ARG COMPONENTS
 
