@@ -66,13 +66,13 @@ RUN tar -zxvf CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.t
 
 ARG COMPONENTS
 
-RUN tree /ccs_install
-
 # Install CCS in unattended mode
 RUN /ccs_install/CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --enable-components ${COMPONENTS} --prefix /opt/ti --install-BlackHawk false --install-Segger false
 
 # Clean up installation directory
 RUN rm -r /ccs_install
+
+RUN tree /opt/ti
 
 # Set working directory to home
 WORKDIR /home
