@@ -67,7 +67,7 @@ RUN unzip CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux.zip
 ARG COMPONENTS
 
 # Install CCS in unattended mode
-RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --prefix /opt/ti
+RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --prefix /opt/ti --debuglevel 4
 
 # Clean up installation directory
 RUN rm -r /ccs_install
