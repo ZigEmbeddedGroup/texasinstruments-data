@@ -66,6 +66,7 @@ RUN unzip CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux.zip
 
 ARG COMPONENTS
 
+RUN mkdir /opt/ti
 # Install CCS in unattended mode
 RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --prefix /opt/ti --debuglevel 4 || $(cat /opt/ti/ccs/install_logs/*/ccs_install_20.1.1.00008.log)
 
