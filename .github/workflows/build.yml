@@ -58,9 +58,12 @@ jobs:
       run: echo "::set-output name=id::$(docker create ${{ env.IMAGE }})"
     - name: Extract files from container
       run: |
-          rm -rf targetdb
+          rm -rf targetdb msp430
           docker cp ${{ steps.container.outputs.id }}:/opt/ti/ccs/ccs_base/common/targetdb .
-          docker cp ${{ steps.container.outputs.id }}:/opt/ti/ccs/ccs_base/msp430 .
+          docker cp ${{ steps.container.outputs.id }}:/opt/ti/ccs/ccs_base/msp430 tmp
+          mkdir -p msp430
+          cp tmp/include/*.cmd msp430
+          rm -rf tmp
     - name: Remove temporary container
       run: docker rm ${{ steps.container.outputs.id }}
 
