@@ -47,6 +47,7 @@ RUN apt-get install -y libtinfo5:i386
 RUN apt-get install -y libpython2.7
 RUN apt-get install -y build-essential
 RUN apt-get install -y wget
+RUN apt-get install -y tree
 
 # Clear APT cache to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
