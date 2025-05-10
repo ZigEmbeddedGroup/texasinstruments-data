@@ -69,6 +69,6 @@ jobs:
 
     - name: Commit changes
       run: |
-          git add targetdb
+          git add targetdb msp430
           git commit -m "commit targetdb, version ${{ env.MAJOR_VER }}.${{ env.MINOR_VER }}.${{ env.PATCH_VER }}.${{ env.BUILD_VER }}"
           git push origin ${{ github.head_ref }}
