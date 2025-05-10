@@ -60,10 +60,7 @@ jobs:
       run: |
           rm -rf targetdb
           docker cp ${{ steps.container.outputs.id }}:/opt/ti/ccs/ccs_base/common/targetdb .
-          docker cp ${{ steps.container.outputs.id }}:/opt/ti/ccs/ccs_base/msp430 tmp
-          mkdir -p msp430/include
-          cp tmp/include/lnk_*.cmd msp430/include
-          rm -rf tmp
+          docker cp ${{ steps.container.outputs.id }}:/opt/ti/ccs/ccs_base/msp430 .
     - name: Remove temporary container
       run: docker rm ${{ steps.container.outputs.id }}
 
