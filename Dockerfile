@@ -72,6 +72,8 @@ RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/c
 # Clean up installation directory
 RUN rm -r /ccs_install
 
+RUN find /opt/ti
+
 # Set working directory to home
 WORKDIR /home
 
