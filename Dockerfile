@@ -47,6 +47,7 @@ RUN apt-get install -y libtinfo5:i386
 RUN apt-get install -y libpython2.7
 RUN apt-get install -y build-essential
 RUN apt-get install -y wget
+RUN apt-get install -y tree
 
 # Clear APT cache to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -67,6 +68,8 @@ ARG COMPONENTS
 
 # Install CCS in unattended mode
 RUN /ccs_install/CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --enable-components ${COMPONENTS} --prefix /opt/ti --install-BlackHawk false --install-Segger false
+
+RUN tree /opt/ti/css/css_base
 
 # Clean up installation directory
 RUN rm -r /ccs_install
