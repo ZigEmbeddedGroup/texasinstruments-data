@@ -69,8 +69,11 @@ ARG COMPONENTS
 
 RUN ls /ccs_install
 
+# Help in case we need it
+RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --help
+
 # Install CCS in unattended mode
-RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --enable-components ${COMPONENTS} --prefix /opt/ti --install-BlackHawk false --install-Segger false
+RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --enable-components ${COMPONENTS} --prefix /opt/ti 
 
 # Clean up installation directory
 RUN rm -r /ccs_install
