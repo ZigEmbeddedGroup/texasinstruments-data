@@ -3,19 +3,19 @@
    <register acronym="DESC" width="32" description="Description.
 
 This register identifies the peripheral and its exact version. " id="DESC" offset="0x0">
-      <bitfield range="" begin="31" width="16" end="16" rwaccess="RW" description="Module identifier used to uniquely identify this IP." id="MODULEID" resetval="0x141">
+      <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Module identifier used to uniquely identify this IP." id="MODULEID" resetval="0x141">
       </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RW" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB." id="STDIPOFF" resetval="0x1">
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB." id="STDIPOFF" resetval="0x1">
          <bitenum id="STDIPMMR" value="1" token="These MMRs begin at offset 64*STDIPOFF from IP base address
 " description="These MMRs begin at offset 64*STDIPOFF from IP base address
 "/>
          <bitenum id="NO_STDIPMMR" value="0" token="STDIP MMRs do not exist" description="STDIP MMRs do not exist"/>
       </bitfield>
-      <bitfield range="" begin="11" width="4" end="8" rwaccess="RW" description="IP Instance Number.  If multiple instances of IP exist in the device, this field can identify the instance number" id="INSTNUM" resetval="0x0">
+      <bitfield range="" begin="11" width="4" end="8" rwaccess="RO" description="IP Instance Number.  If multiple instances of IP exist in the device, this field can identify the instance number" id="INSTNUM" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="4" end="4" rwaccess="RW" description="Major rev of the IP" id="MAJREV" resetval="0x1">
+      <bitfield range="" begin="7" width="4" end="4" rwaccess="RO" description="Major rev of the IP" id="MAJREV" resetval="0x1">
       </bitfield>
-      <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Minor rev of the IP" id="MINREV" resetval="0x0">
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor rev of the IP" id="MINREV" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CLKCTL" width="32" description="Systimer Output Event Control Register.
@@ -449,11 +449,11 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT2 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT2 event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
@@ -575,7 +575,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -583,7 +583,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -705,7 +705,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -713,7 +713,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -811,261 +811,261 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
       </bitfield>
    </register>
    <register acronym="ISET0" width="32" description="Interrupt set register. This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set." id="ISET0" offset="0x50">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="WO" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="WO" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="29" width="1" end="29" rwaccess="RW" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
+      <bitfield range="" begin="29" width="1" end="29" rwaccess="WO" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="28" width="1" end="28" rwaccess="RW" description="MDMDONE event" id="MDMDONE" resetval="0x0">
+      <bitfield range="" begin="28" width="1" end="28" rwaccess="WO" description="MDMDONE event" id="MDMDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="MDMIN event" id="MDMIN" resetval="0x0">
+      <bitfield range="" begin="27" width="1" end="27" rwaccess="WO" description="MDMIN event" id="MDMIN" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="MDMOUT event" id="MDMOUT" resetval="0x0">
+      <bitfield range="" begin="26" width="1" end="26" rwaccess="WO" description="MDMOUT event" id="MDMOUT" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="WO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="WO" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="22" width="1" end="22" rwaccess="RW" description="RFEDONE event" id="RFEDONE" resetval="0x0">
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="RFEDONE event" id="RFEDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="21" width="1" end="21" rwaccess="RW" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="WO" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="20" width="1" end="20" rwaccess="RW" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
+      <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="19" width="1" end="19" rwaccess="RW" description="LOCK event" id="LOCK" resetval="0x0">
+      <bitfield range="" begin="19" width="1" end="19" rwaccess="WO" description="LOCK event" id="LOCK" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="WO" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="TXFIFO event" id="TXFIFO" resetval="0x0">
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="WO" description="TXFIFO event" id="TXFIFO" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="RXFIFO event" id="RXFIFO" resetval="0x0">
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="WO" description="RXFIFO event" id="RXFIFO" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="PBE15 event" id="PBE15" resetval="0x0">
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="WO" description="PBE15 event" id="PBE15" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="14" width="1" end="14" rwaccess="RW" description="PBE14 event" id="PBE14" resetval="0x0">
+      <bitfield range="" begin="14" width="1" end="14" rwaccess="WO" description="PBE14 event" id="PBE14" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="13" width="1" end="13" rwaccess="RW" description="PBE13 event" id="PBE13" resetval="0x0">
+      <bitfield range="" begin="13" width="1" end="13" rwaccess="WO" description="PBE13 event" id="PBE13" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="PBE12 event" id="PBE12" resetval="0x0">
+      <bitfield range="" begin="12" width="1" end="12" rwaccess="WO" description="PBE12 event" id="PBE12" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="PBE11 event" id="PBE11" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="PBE11 event" id="PBE11" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="PBE10 event" id="PBE10" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="PBE10 event" id="PBE10" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="PBE9 event" id="PBE9" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="PBE9 event" id="PBE9" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="PBE8 event" id="PBE8" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="PBE8 event" id="PBE8" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="PBE7 event" id="PBE7" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="PBE7 event" id="PBE7" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="PBE6 event" id="PBE6" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="PBE6 event" id="PBE6" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="PBE5 event" id="PBE5" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="PBE5 event" id="PBE5" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="PBE4 event" id="PBE4" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="PBE4 event" id="PBE4" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="PBE3 event" id="PBE3" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="PBE3 event" id="PBE3" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="PBE2 event" id="PBE2" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="PBE2 event" id="PBE2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="PBE1 event" id="PBE1" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="PBE1 event" id="PBE1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="PBE0 event" id="PBE0" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="PBE0 event" id="PBE0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
    </register>
    <register acronym="ICLR0" width="32" description="Interrupt clear. Write a 1 to clear corresponding Interrupt." id="ICLR0" offset="0x54">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="WO" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="WO" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="29" width="1" end="29" rwaccess="RW" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
+      <bitfield range="" begin="29" width="1" end="29" rwaccess="WO" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="28" width="1" end="28" rwaccess="RW" description="MDMDONE event" id="MDMDONE" resetval="0x0">
+      <bitfield range="" begin="28" width="1" end="28" rwaccess="WO" description="MDMDONE event" id="MDMDONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="MDMIN event" id="MDMIN" resetval="0x0">
+      <bitfield range="" begin="27" width="1" end="27" rwaccess="WO" description="MDMIN event" id="MDMIN" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="MDMOUT event" id="MDMOUT" resetval="0x0">
+      <bitfield range="" begin="26" width="1" end="26" rwaccess="WO" description="MDMOUT event" id="MDMOUT" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="WO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="WO" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="22" width="1" end="22" rwaccess="RW" description="RFEDONE event" id="RFEDONE" resetval="0x0">
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="RFEDONE event" id="RFEDONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="21" width="1" end="21" rwaccess="RW" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="WO" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="20" width="1" end="20" rwaccess="RW" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
+      <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="19" width="1" end="19" rwaccess="RW" description="LOCK event" id="LOCK" resetval="0x0">
+      <bitfield range="" begin="19" width="1" end="19" rwaccess="WO" description="LOCK event" id="LOCK" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="WO" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="TXFIFO event" id="TXFIFO" resetval="0x0">
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="WO" description="TXFIFO event" id="TXFIFO" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="RXFIFO event" id="RXFIFO" resetval="0x0">
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="WO" description="RXFIFO event" id="RXFIFO" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="PBE15 event" id="PBE15" resetval="0x0">
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="WO" description="PBE15 event" id="PBE15" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="14" width="1" end="14" rwaccess="RW" description="PBE14 event" id="PBE14" resetval="0x0">
+      <bitfield range="" begin="14" width="1" end="14" rwaccess="WO" description="PBE14 event" id="PBE14" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="13" width="1" end="13" rwaccess="RW" description="PBE13 event" id="PBE13" resetval="0x0">
+      <bitfield range="" begin="13" width="1" end="13" rwaccess="WO" description="PBE13 event" id="PBE13" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="PBE12 event" id="PBE12" resetval="0x0">
+      <bitfield range="" begin="12" width="1" end="12" rwaccess="WO" description="PBE12 event" id="PBE12" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="PBE11 event" id="PBE11" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="PBE11 event" id="PBE11" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="PBE10 event" id="PBE10" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="PBE10 event" id="PBE10" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="PBE9 event" id="PBE9" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="PBE9 event" id="PBE9" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="PBE8 event" id="PBE8" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="PBE8 event" id="PBE8" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="PBE7 event" id="PBE7" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="PBE7 event" id="PBE7" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="PBE6 event" id="PBE6" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="PBE6 event" id="PBE6" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="PBE5 event" id="PBE5" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="PBE5 event" id="PBE5" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="PBE4 event" id="PBE4" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="PBE4 event" id="PBE4" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="PBE3 event" id="PBE3" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="PBE3 event" id="PBE3" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="PBE2 event" id="PBE2" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="PBE2 event" id="PBE2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="PBE1 event" id="PBE1" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="PBE1 event" id="PBE1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="PBE0 event" id="PBE0" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="PBE0 event" id="PBE0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -1099,11 +1099,11 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT2 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT2 event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
@@ -1225,7 +1225,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -1233,7 +1233,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -1355,7 +1355,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -1363,7 +1363,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -1461,131 +1461,131 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
       </bitfield>
    </register>
    <register acronym="ISET1" width="32" description="Interrupt set register. This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set." id="ISET1" offset="0x90">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="WO" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="WO" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="29" width="1" end="29" rwaccess="RW" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
+      <bitfield range="" begin="29" width="1" end="29" rwaccess="WO" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="28" width="1" end="28" rwaccess="RW" description="MDMDONE event" id="MDMDONE" resetval="0x0">
+      <bitfield range="" begin="28" width="1" end="28" rwaccess="WO" description="MDMDONE event" id="MDMDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="MDMIN event" id="MDMIN" resetval="0x0">
+      <bitfield range="" begin="27" width="1" end="27" rwaccess="WO" description="MDMIN event" id="MDMIN" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="MDMOUT event" id="MDMOUT" resetval="0x0">
+      <bitfield range="" begin="26" width="1" end="26" rwaccess="WO" description="MDMOUT event" id="MDMOUT" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="WO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="WO" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="22" width="1" end="22" rwaccess="RW" description="RFEDONE event" id="RFEDONE" resetval="0x0">
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="RFEDONE event" id="RFEDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="21" width="1" end="21" rwaccess="RW" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="WO" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="20" width="1" end="20" rwaccess="RW" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
+      <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="19" width="1" end="19" rwaccess="RW" description="LOCK event" id="LOCK" resetval="0x0">
+      <bitfield range="" begin="19" width="1" end="19" rwaccess="WO" description="LOCK event" id="LOCK" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="WO" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="TXFIFO event" id="TXFIFO" resetval="0x0">
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="WO" description="TXFIFO event" id="TXFIFO" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="RXFIFO event" id="RXFIFO" resetval="0x0">
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="WO" description="RXFIFO event" id="RXFIFO" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="PBE15 event" id="PBE15" resetval="0x0">
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="WO" description="PBE15 event" id="PBE15" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="14" width="1" end="14" rwaccess="RW" description="PBE14 event" id="PBE14" resetval="0x0">
+      <bitfield range="" begin="14" width="1" end="14" rwaccess="WO" description="PBE14 event" id="PBE14" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="13" width="1" end="13" rwaccess="RW" description="PBE13 event" id="PBE13" resetval="0x0">
+      <bitfield range="" begin="13" width="1" end="13" rwaccess="WO" description="PBE13 event" id="PBE13" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="PBE12 event" id="PBE12" resetval="0x0">
+      <bitfield range="" begin="12" width="1" end="12" rwaccess="WO" description="PBE12 event" id="PBE12" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="PBE11 event" id="PBE11" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="PBE11 event" id="PBE11" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="PBE10 event" id="PBE10" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="PBE10 event" id="PBE10" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="PBE9 event" id="PBE9" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="PBE9 event" id="PBE9" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="PBE8 event" id="PBE8" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="PBE8 event" id="PBE8" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="PBE7 event" id="PBE7" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="PBE7 event" id="PBE7" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="PBE6 event" id="PBE6" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="PBE6 event" id="PBE6" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="PBE5 event" id="PBE5" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="PBE5 event" id="PBE5" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="PBE4 event" id="PBE4" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="PBE4 event" id="PBE4" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="PBE3 event" id="PBE3" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="PBE3 event" id="PBE3" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="PBE2 event" id="PBE2" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="PBE2 event" id="PBE2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="PBE1 event" id="PBE1" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="PBE1 event" id="PBE1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="PBE0 event" id="PBE0" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="PBE0 event" id="PBE0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -1593,127 +1593,127 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
    <register acronym="ICLR1" width="32" description="Interrupt clear. Write a 1 to clear corresponding Interrupt." id="ICLR1" offset="0x94">
       <bitfield range="" begin="31" width="1" end="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED31" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="WO" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="29" width="1" end="29" rwaccess="RW" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
+      <bitfield range="" begin="29" width="1" end="29" rwaccess="WO" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="28" width="1" end="28" rwaccess="RW" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
+      <bitfield range="" begin="28" width="1" end="28" rwaccess="WO" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="MDMDONE event" id="MDMDONE" resetval="0x0">
+      <bitfield range="" begin="27" width="1" end="27" rwaccess="WO" description="MDMDONE event" id="MDMDONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="MDMIN event" id="MDMIN" resetval="0x0">
+      <bitfield range="" begin="26" width="1" end="26" rwaccess="WO" description="MDMIN event" id="MDMIN" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="MDMOUT event" id="MDMOUT" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="WO" description="MDMOUT event" id="MDMOUT" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="WO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="22" width="1" end="22" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="21" width="1" end="21" rwaccess="RW" description="RFEDONE event" id="RFEDONE" resetval="0x0">
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="WO" description="RFEDONE event" id="RFEDONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="20" width="1" end="20" rwaccess="RW" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
+      <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="19" width="1" end="19" rwaccess="RW" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
+      <bitfield range="" begin="19" width="1" end="19" rwaccess="WO" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="LOCK event" id="LOCK" resetval="0x0">
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="WO" description="LOCK event" id="LOCK" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="WO" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="TXFIFO event" id="TXFIFO" resetval="0x0">
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="WO" description="TXFIFO event" id="TXFIFO" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="RXFIFO event" id="RXFIFO" resetval="0x0">
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="WO" description="RXFIFO event" id="RXFIFO" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="14" width="1" end="14" rwaccess="RW" description="PBE15 event" id="PBE15" resetval="0x0">
+      <bitfield range="" begin="14" width="1" end="14" rwaccess="WO" description="PBE15 event" id="PBE15" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="13" width="1" end="13" rwaccess="RW" description="PBE14 event" id="PBE14" resetval="0x0">
+      <bitfield range="" begin="13" width="1" end="13" rwaccess="WO" description="PBE14 event" id="PBE14" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="PBE13 event" id="PBE13" resetval="0x0">
+      <bitfield range="" begin="12" width="1" end="12" rwaccess="WO" description="PBE13 event" id="PBE13" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="PBE12 event" id="PBE12" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="PBE12 event" id="PBE12" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="PBE11 event" id="PBE11" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="PBE11 event" id="PBE11" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="PBE10 event" id="PBE10" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="PBE10 event" id="PBE10" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="PBE9 event" id="PBE9" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="PBE9 event" id="PBE9" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="PBE8 event" id="PBE8" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="PBE8 event" id="PBE8" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="PBE6 event" id="PBE6" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="PBE6 event" id="PBE6" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="PBE5 event" id="PBE5" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="PBE5 event" id="PBE5" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="PBE4 event" id="PBE4" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="PBE4 event" id="PBE4" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="PBE3 event" id="PBE3" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="PBE3 event" id="PBE3" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="PBE2 event" id="PBE2" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="PBE2 event" id="PBE2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="PBE1 event" id="PBE1" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="PBE1 event" id="PBE1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="PBE0 event" id="PBE0" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="PBE0 event" id="PBE0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -1747,11 +1747,11 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT2 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT2 event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable interrupt mask" description="Enable interrupt mask"/>
          <bitenum id="DIS" value="0" token="Disable interrupt mask" description="Disable interrupt mask"/>
       </bitfield>
@@ -1873,7 +1873,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -1881,7 +1881,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -2003,7 +2003,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -2011,7 +2011,7 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -2109,131 +2109,131 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
       </bitfield>
    </register>
    <register acronym="ISET2" width="32" description="Interrupt set register. This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set." id="ISET2" offset="0xd0">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="WO" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="WO" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="29" width="1" end="29" rwaccess="RW" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
+      <bitfield range="" begin="29" width="1" end="29" rwaccess="WO" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="28" width="1" end="28" rwaccess="RW" description="MDMDONE event" id="MDMDONE" resetval="0x0">
+      <bitfield range="" begin="28" width="1" end="28" rwaccess="WO" description="MDMDONE event" id="MDMDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="MDMIN event" id="MDMIN" resetval="0x0">
+      <bitfield range="" begin="27" width="1" end="27" rwaccess="WO" description="MDMIN event" id="MDMIN" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="MDMOUT event" id="MDMOUT" resetval="0x0">
+      <bitfield range="" begin="26" width="1" end="26" rwaccess="WO" description="MDMOUT event" id="MDMOUT" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="WO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="WO" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="22" width="1" end="22" rwaccess="RW" description="RFEDONE event" id="RFEDONE" resetval="0x0">
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="RFEDONE event" id="RFEDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="21" width="1" end="21" rwaccess="RW" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="WO" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="20" width="1" end="20" rwaccess="RW" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
+      <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="19" width="1" end="19" rwaccess="RW" description="LOCK event" id="LOCK" resetval="0x0">
+      <bitfield range="" begin="19" width="1" end="19" rwaccess="WO" description="LOCK event" id="LOCK" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="WO" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="TXFIFO event" id="TXFIFO" resetval="0x0">
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="WO" description="TXFIFO event" id="TXFIFO" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="RXFIFO event" id="RXFIFO" resetval="0x0">
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="WO" description="RXFIFO event" id="RXFIFO" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="PBE15 event" id="PBE15" resetval="0x0">
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="WO" description="PBE15 event" id="PBE15" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="14" width="1" end="14" rwaccess="RW" description="PBE14 event" id="PBE14" resetval="0x0">
+      <bitfield range="" begin="14" width="1" end="14" rwaccess="WO" description="PBE14 event" id="PBE14" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="13" width="1" end="13" rwaccess="RW" description="PBE13 event" id="PBE13" resetval="0x0">
+      <bitfield range="" begin="13" width="1" end="13" rwaccess="WO" description="PBE13 event" id="PBE13" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="PBE12 event" id="PBE12" resetval="0x0">
+      <bitfield range="" begin="12" width="1" end="12" rwaccess="WO" description="PBE12 event" id="PBE12" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="PBE11 event" id="PBE11" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="PBE11 event" id="PBE11" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="PBE10 event" id="PBE10" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="PBE10 event" id="PBE10" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="PBE9 event" id="PBE9" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="PBE9 event" id="PBE9" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="PBE8 event" id="PBE8" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="PBE8 event" id="PBE8" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="PBE7 event" id="PBE7" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="PBE7 event" id="PBE7" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="PBE6 event" id="PBE6" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="PBE6 event" id="PBE6" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="PBE5 event" id="PBE5" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="PBE5 event" id="PBE5" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="PBE4 event" id="PBE4" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="PBE4 event" id="PBE4" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="PBE3 event" id="PBE3" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="PBE3 event" id="PBE3" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="PBE2 event" id="PBE2" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="PBE2 event" id="PBE2" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="PBE1 event" id="PBE1" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="PBE1 event" id="PBE1" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="PBE0 event" id="PBE0" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="PBE0 event" id="PBE0" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -2241,127 +2241,127 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
    <register acronym="ICLR2" width="32" description="Interrupt clear. Write a 1 to clear corresponding Interrupt." id="ICLR2" offset="0xd4">
       <bitfield range="" begin="31" width="1" end="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED31" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="WO" description="SYSTIM2 event" id="SYSTIM2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="29" width="1" end="29" rwaccess="RW" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
+      <bitfield range="" begin="29" width="1" end="29" rwaccess="WO" description="SYSTIM1 event" id="SYSTIM1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="28" width="1" end="28" rwaccess="RW" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
+      <bitfield range="" begin="28" width="1" end="28" rwaccess="WO" description="SYSTIM0 event" id="SYSTIM0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="MDMDONE event" id="MDMDONE" resetval="0x0">
+      <bitfield range="" begin="27" width="1" end="27" rwaccess="WO" description="MDMDONE event" id="MDMDONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="MDMIN event" id="MDMIN" resetval="0x0">
+      <bitfield range="" begin="26" width="1" end="26" rwaccess="WO" description="MDMIN event" id="MDMIN" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="MDMOUT event" id="MDMOUT" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="WO" description="MDMOUT event" id="MDMOUT" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT2" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="WO" description="MDMSOFT2 event" id="MDMSOFT2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="MDMSOFT1 event" id="MDMSOFT1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="22" width="1" end="22" rwaccess="RW" description="MDMSOFT event" id="MDMSOFT0" resetval="0x0">
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="MDMSOFT0 event" id="MDMSOFT0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="21" width="1" end="21" rwaccess="RW" description="RFEDONE event" id="RFEDONE" resetval="0x0">
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="WO" description="RFEDONE event" id="RFEDONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="20" width="1" end="20" rwaccess="RW" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
+      <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="RFESOFT1 event" id="RFESOFT1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="19" width="1" end="19" rwaccess="RW" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
+      <bitfield range="" begin="19" width="1" end="19" rwaccess="WO" description="RFESOFT0 event" id="RFESOFT0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="LOCK event" id="LOCK" resetval="0x0">
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="WO" description="LOCK event" id="LOCK" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="WO" description="LOSS_OF_LOCK event" id="LOL" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="TXFIFO event" id="TXFIFO" resetval="0x0">
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="WO" description="TXFIFO event" id="TXFIFO" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="RXFIFO event" id="RXFIFO" resetval="0x0">
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="WO" description="RXFIFO event" id="RXFIFO" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="14" width="1" end="14" rwaccess="RW" description="PBE15 event" id="PBE15" resetval="0x0">
+      <bitfield range="" begin="14" width="1" end="14" rwaccess="WO" description="PBE15 event" id="PBE15" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="13" width="1" end="13" rwaccess="RW" description="PBE14 event" id="PBE14" resetval="0x0">
+      <bitfield range="" begin="13" width="1" end="13" rwaccess="WO" description="PBE14 event" id="PBE14" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="PBE13 event" id="PBE13" resetval="0x0">
+      <bitfield range="" begin="12" width="1" end="12" rwaccess="WO" description="PBE13 event" id="PBE13" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="PBE12 event" id="PBE12" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="PBE12 event" id="PBE12" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="PBE11 event" id="PBE11" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="PBE11 event" id="PBE11" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="PBE10 event" id="PBE10" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="PBE10 event" id="PBE10" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="PBE9 event" id="PBE9" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="PBE9 event" id="PBE9" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="PBE8 event" id="PBE8" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="PBE8 event" id="PBE8" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="PBE6 event" id="PBE6" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="PBE6 event" id="PBE6" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="PBE5 event" id="PBE5" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="PBE5 event" id="PBE5" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="PBE4 event" id="PBE4" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="PBE4 event" id="PBE4" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="PBE3 event" id="PBE3" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="PBE3 event" id="PBE3" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="PBE2 event" id="PBE2" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="PBE2 event" id="PBE2" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="PBE1 event" id="PBE1" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="PBE1 event" id="PBE1" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="PBE0 event" id="PBE0" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="PBE0 event" id="PBE0" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>

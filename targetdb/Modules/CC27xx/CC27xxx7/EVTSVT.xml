@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module id="EVTSVT" HW_revision="" XML_version="1.0" description="This is top module of Event Fabric  for LOKI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setup_parser.xsd">
-   <register acronym="DESC" width="32" description="Description 
-                    
-                    This register provides IP module ID, revision information, instance index and standard MMR registers offset." id="DESC" offset="0x0">
+   <register acronym="DESC" width="32" description="Description Register. This register provides IP module ID, revision information, instance index and standard MMR registers offset." id="DESC" offset="0x0">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Module identifier used to uniquely identify this IP." id="MODID" resetval="0x3045">
       </bitfield>
       <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
@@ -16,11 +14,9 @@
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="DESCEX" width="32" description="Extended Description
-                    
-                    This register provides configuration details of the IP to software drivers and end users.
+   <register acronym="DESCEX" width="32" description="Extended Description Register. This register provides configuration details of the IP to software drivers and end users.
 " id="DESCEX" offset="0x4">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Nember of DMA input  channels" id="IDMA" resetval="0xe">
+      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Number of DMA input  channels" id="IDMA" resetval="0xe">
       </bitfield>
       <bitfield range="" begin="21" width="5" end="17" rwaccess="RO" description="Number of DMA output channels" id="NDMA" resetval="0x10">
       </bitfield>
@@ -33,9 +29,7 @@
       <bitfield range="" begin="7" width="8" end="0" rwaccess="RO" description="Number of Publishers" id="NPUB" resetval="0x39">
       </bitfield>
    </register>
-   <register acronym="DTB" width="32" description="Digital test bus control 
-                    
-                    This register can be used to bring out IP internal signals to the pads for observation. 16 signals can be observed per select value." id="DTB" offset="0x64">
+   <register acronym="DTB" width="32" description="Digital test bus control register. This register can be used to bring out IP internal signals to the pads for observation. 16 signals can be observed per select value." id="DTB" offset="0x64">
       <bitfield range="" begin="31" width="30" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED2" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="1" width="2" end="0" rwaccess="RW" description="Digital test bus selection mux control.
@@ -57,15 +51,13 @@ Writing a value of 1&#39;b1 clears the NMI status when set." id="SRAM_EVT_STA" r
    </register>
    <register acronym="CPUIRQ0SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ0
 " id="CPUIRQ0SEL" offset="0x404">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -131,15 +123,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ1SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ1
 " id="CPUIRQ1SEL" offset="0x408">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -205,15 +195,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ2SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ2
 " id="CPUIRQ2SEL" offset="0x40c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -279,15 +267,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ3SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ3
 " id="CPUIRQ3SEL" offset="0x410">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -353,15 +339,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ4SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ4
 " id="CPUIRQ4SEL" offset="0x414">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -427,9 +411,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ5SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ5
 " id="CPUIRQ5SEL" offset="0x418">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x11">
          <bitenum id="GPIO_COMB" value="17" token="GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS" description="GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS"/>
@@ -437,9 +419,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ6SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ6
 " id="CPUIRQ6SEL" offset="0x41c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x14">
          <bitenum id="LRFD_IRQ0" value="20" token="LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0" description="LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0"/>
@@ -447,9 +427,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ7SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ7
 " id="CPUIRQ7SEL" offset="0x420">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x15">
          <bitenum id="LRFD_IRQ1" value="21" token="LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1" description="LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1"/>
@@ -457,9 +435,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ8SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ8
 " id="CPUIRQ8SEL" offset="0x424">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x1c">
          <bitenum id="DMA_DONE_COMB" value="28" token="DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE" description="DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE"/>
@@ -467,9 +443,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ9SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ9
 " id="CPUIRQ9SEL" offset="0x428">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x1e">
          <bitenum id="AES_COMB" value="30" token="AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS" description="AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS"/>
@@ -477,9 +451,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ10SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ10
 " id="CPUIRQ10SEL" offset="0x42c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x17">
          <bitenum id="SPI0_COMB" value="23" token="SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS" description="SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS"/>
@@ -487,9 +459,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ11SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ11
 " id="CPUIRQ11SEL" offset="0x430">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x1f">
          <bitenum id="UART0_COMB" value="31" token="UART0 combined interrupt, interrupt flags are found here UART0:MIS" description="UART0 combined interrupt, interrupt flags are found here UART0:MIS"/>
@@ -497,9 +467,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ12SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ12
 " id="CPUIRQ12SEL" offset="0x434">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x20">
          <bitenum id="I2C0_IRQ" value="32" token="Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS" description="Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS"/>
@@ -507,9 +475,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ13SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ13
 " id="CPUIRQ13SEL" offset="0x438">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x1a">
          <bitenum id="LGPT0_COMB" value="26" token="LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS" description="LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS"/>
@@ -517,9 +483,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ14SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ14
 " id="CPUIRQ14SEL" offset="0x43c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x1b">
          <bitenum id="LGPT1_COMB" value="27" token="LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS" description="LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS"/>
@@ -527,9 +491,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ15SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ15
 " id="CPUIRQ15SEL" offset="0x440">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x18">
          <bitenum id="ADC_COMB" value="24" token="ADC combined interrupt request, interrupt flags can be found here ADC:MIS0" description="ADC combined interrupt request, interrupt flags can be found here ADC:MIS0"/>
@@ -537,15 +499,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ16SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ16
 " id="CPUIRQ16SEL" offset="0x444">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -611,15 +571,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ17SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ17
 " id="CPUIRQ17SEL" offset="0x448">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -685,9 +643,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ18SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ18
 " id="CPUIRQ18SEL" offset="0x44c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x39">
          <bitenum id="LGPT2_COMB" value="57" token="LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS" description="LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS"/>
@@ -695,9 +651,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ19SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ19
 " id="CPUIRQ19SEL" offset="0x450">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x3f">
          <bitenum id="LGPT3_COMB" value="63" token="LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS" description="LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS"/>
@@ -705,9 +659,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ20SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ20
 " id="CPUIRQ20SEL" offset="0x454">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x42">
          <bitenum id="I2S_IRQ" value="66" token="I2S interrupt event, controlled by I2S:IRQMASK" description="I2S interrupt event, controlled by I2S:IRQMASK"/>
@@ -715,9 +667,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ21SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ21
 " id="CPUIRQ21SEL" offset="0x458">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x43">
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -725,9 +675,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ22SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ22
 " id="CPUIRQ22SEL" offset="0x45c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x35">
          <bitenum id="UART1_COMB" value="53" token="UART1 combined interrupt, interrupt flags are found here UART1:MIS" description="UART1 combined interrupt, interrupt flags are found here UART1:MIS"/>
@@ -735,9 +683,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ23SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ23
 " id="CPUIRQ23SEL" offset="0x460">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x45">
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
@@ -745,19 +691,15 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ24SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ24
 " id="CPUIRQ24SEL" offset="0x464">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x46">
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
       </bitfield>
    </register>
    <register acronym="CPUIRQ25SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ25
 " id="CPUIRQ25SEL" offset="0x468">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x47">
          <bitenum id="HSM_SEC_IRQ" value="71" token="HSM Secure IRQ" description="HSM Secure IRQ"/>
@@ -765,9 +707,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ26SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ26
 " id="CPUIRQ26SEL" offset="0x46c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x48">
          <bitenum id="HSM_NONSEC_IRQ" value="72" token="HSM Non-secure IRQ" description="HSM Non-secure IRQ"/>
@@ -775,9 +715,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ27SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ27
 " id="CPUIRQ27SEL" offset="0x470">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x49">
          <bitenum id="HSM_OTP_IRQ" value="73" token="HSM OTP IRQ" description="HSM OTP IRQ"/>
@@ -785,9 +723,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ28SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ28
 " id="CPUIRQ28SEL" offset="0x474">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x2">
          <bitenum id="AON_PMU_COMB" value="2" token="PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT" description="PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT"/>
@@ -795,9 +731,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ29SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ29
 " id="CPUIRQ29SEL" offset="0x478">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x3">
          <bitenum id="AON_CKM_COMB" value="3" token="CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS" description="CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS"/>
@@ -805,9 +739,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ30SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ30
 " id="CPUIRQ30SEL" offset="0x47c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x4">
          <bitenum id="AON_RTC_COMB" value="4" token="AON_RTC event, controlled by the RTC:IMASK setting" description="AON_RTC event, controlled by the RTC:IMASK setting"/>
@@ -815,9 +747,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ31SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ31
 " id="CPUIRQ31SEL" offset="0x480">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x6">
          <bitenum id="AON_LPMCMP_IRQ" value="6" token="AON LPCMP interrupt, controlled by SYS0:LPCMPCFG" description="AON LPCMP interrupt, controlled by SYS0:LPCMPCFG"/>
@@ -825,9 +755,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="CPUIRQ32SEL" width="32" description="Output Selection for CPU Interrupt CPUIRQ32
 " id="CPUIRQ32SEL" offset="0x484">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x7">
          <bitenum id="AON_IOC_COMB" value="7" token="IOC synchronous combined event, controlled by IOC:EVTCFG" description="IOC synchronous combined event, controlled by IOC:EVTCFG"/>
@@ -835,9 +763,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="SYSTIMC0SEL" width="32" description="Output Selection for SYSTIMC0
 " id="SYSTIMC0SEL" offset="0x488">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x4">
          <bitenum id="AON_RTC_COMB" value="4" token="AON_RTC event, controlled by the RTC:IMASK setting" description="AON_RTC event, controlled by the RTC:IMASK setting"/>
@@ -845,15 +771,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="SYSTIMC1SEL" width="32" description="Output Selection for SYSTIMC1
 " id="SYSTIMC1SEL" offset="0x48c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -919,9 +843,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="SYSTIMC2SEL" width="32" description="Output Selection for SYSTIMC2
 " id="SYSTIMC2SEL" offset="0x490">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x32">
          <bitenum id="LRFD_EVT0" value="50" token="LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0" description="LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0"/>
@@ -929,9 +851,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="SYSTIMC3SEL" width="32" description="Output Selection for SYSTIMC3
 " id="SYSTIMC3SEL" offset="0x494">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x33">
          <bitenum id="LRFD_EVT1" value="51" token="LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1" description="LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1"/>
@@ -939,9 +859,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="SYSTIMC4SEL" width="32" description="Output Selection for SYSTIMC4
 " id="SYSTIMC4SEL" offset="0x498">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x34">
          <bitenum id="LRFD_EVT2" value="52" token="LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2" description="LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2"/>
@@ -949,15 +867,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="SYSTIMC5SEL" width="32" description="Output Selection for SYSTIMC5
 " id="SYSTIMC5SEL" offset="0x49c">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -1023,15 +939,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="ADCTRGSEL" width="32" description="Output Selection for ADCTRG
 " id="ADCTRGSEL" offset="0x4a0">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -1097,15 +1011,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPTSYNCSEL" width="32" description="Output Selection for LGPTSYNC
 " id="LGPTSYNCSEL" offset="0x4a4">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -1171,15 +1083,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT0IN0SEL" width="32" description="Output Selection for LGPT0IN0
 " id="LGPT0IN0SEL" offset="0x4a8">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -1245,9 +1155,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT0IN1SEL" width="32" description="Output Selection for LGPT0IN1
 " id="LGPT0IN1SEL" offset="0x4ac">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1291,9 +1199,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT0IN2SEL" width="32" description="Output Selection for LGPT0IN2
 " id="LGPT0IN2SEL" offset="0x4b0">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1337,9 +1243,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT0TENSEL" width="32" description="Output Selection for LGPT0TEN
 " id="LGPT0TENSEL" offset="0x4b4">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1383,15 +1287,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT1IN0SEL" width="32" description="Output Selection for LGPT1IN0
 " id="LGPT1IN0SEL" offset="0x4b8">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -1457,9 +1359,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT1IN1SEL" width="32" description="Output Selection for LGPT1IN1
 " id="LGPT1IN1SEL" offset="0x4bc">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1503,9 +1403,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT1IN2SEL" width="32" description="Output Selection for LGPT1IN2
 " id="LGPT1IN2SEL" offset="0x4c0">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1549,9 +1447,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT1TENSEL" width="32" description="Output Selection for LGPT1TEN
 " id="LGPT1TENSEL" offset="0x4c4">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1595,15 +1491,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT2IN0SEL" width="32" description="Output Selection for LGPT2IN0
 " id="LGPT2IN0SEL" offset="0x4c8">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -1669,9 +1563,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT2IN1SEL" width="32" description="Output Selection for LGPT2IN1
 " id="LGPT2IN1SEL" offset="0x4cc">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1715,9 +1607,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT2IN2SEL" width="32" description="Output Selection for LGPT2IN2
 " id="LGPT2IN2SEL" offset="0x4d0">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1761,9 +1651,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT2TENSEL" width="32" description="Output Selection for LGPT2TEN
 " id="LGPT2TENSEL" offset="0x4d4">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1807,15 +1695,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT3IN0SEL" width="32" description="Output Selection for LGPT3IN0
 " id="LGPT3IN0SEL" offset="0x4d8">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -1881,9 +1767,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT3IN1SEL" width="32" description="Output Selection for LGPT3IN1
 " id="LGPT3IN1SEL" offset="0x4dc">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1927,9 +1811,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT3IN2SEL" width="32" description="Output Selection for LGPT3IN2
 " id="LGPT3IN2SEL" offset="0x4e0">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -1973,9 +1855,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LGPT3TENSEL" width="32" description="Output Selection for LGPT3TEN
 " id="LGPT3TENSEL" offset="0x4e4">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
@@ -2019,9 +1899,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LRFDIN0SEL" width="32" description="Output Selection for LRFDIN0
 " id="LRFDIN0SEL" offset="0x4e8">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x25">
          <bitenum id="SYSTIM2" value="37" token="SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2" description="SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2"/>
@@ -2029,9 +1907,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LRFDIN1SEL" width="32" description="Output Selection for LRFDIN1
 " id="LRFDIN1SEL" offset="0x4ec">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x26">
          <bitenum id="SYSTIM3" value="38" token="SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3" description="SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3"/>
@@ -2039,9 +1915,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="LRFDIN2SEL" width="32" description="Output Selection for LRFDIN2
 " id="LRFDIN2SEL" offset="0x4f0">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Read only selection value" id="PUBID" resetval="0x27">
          <bitenum id="SYSTIM4" value="39" token="SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4" description="SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4"/>
@@ -2049,15 +1923,13 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="I2SSTMPSEL" width="32" description="Output Selection for I2SSTMP
 " id="I2SSTMPSEL" offset="0x4f4">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED22" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="21" width="15" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -2123,9 +1995,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH0SEL" width="32" description="Output Selection for DMA CH0
 " id="DMACH0SEL" offset="0xc00">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2135,9 +2005,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH1SEL" width="32" description="Output Selection for DMA CH1
 " id="DMACH1SEL" offset="0xc04">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2147,9 +2015,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH2SEL" width="32" description="Output Selection for DMA CH2
 " id="DMACH2SEL" offset="0xc08">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2159,9 +2025,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH3SEL" width="32" description="Output Selection for DMA CH3
 " id="DMACH3SEL" offset="0xc0c">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2171,9 +2035,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH4SEL" width="32" description="Output Selection for DMA CH4
 " id="DMACH4SEL" offset="0xc10">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2183,9 +2045,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH5SEL" width="32" description="Output Selection for DMA CH5
 " id="DMACH5SEL" offset="0xc14">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2195,9 +2055,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH6SEL" width="32" description="Output Selection for DMA CH6
 " id="DMACH6SEL" offset="0xc18">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2207,9 +2065,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
    </register>
    <register acronym="DMACH7SEL" width="32" description="Output Selection for DMA CH7
 " id="DMACH7SEL" offset="0xc1c">
-      <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="28" width="25" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Read/write selection value.
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="IPID" resetval="0x0">
@@ -2231,7 +2087,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -2309,7 +2165,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -2387,7 +2243,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>
@@ -2465,7 +2321,7 @@ Writing any other value than values defined by a ENUM may result in undefined be
 Writing any other value than values defined by a ENUM may result in undefined behavior." id="PUBID" resetval="0x0">
          <bitenum id="SYSTIM5" value="76" token="SYSTIM Channel 5 event" description="SYSTIM Channel 5 event"/>
          <bitenum id="GPIO_EVT1" value="75" token="GPIO generic published event 1, controlled by GPIO:EVTCFG" description="GPIO generic published event 1, controlled by GPIO:EVTCFG"/>
-         <bitenum id="VCE_IRQ" value="70" token="VCE IRQ" description="VCE IRQ"/>
+         <bitenum id="APU_IRQ" value="70" token="APU IRQ" description="APU IRQ"/>
          <bitenum id="SPI1_COMB" value="69" token="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS" description="SPI1 combined interrupt request, interrupt flags can be found here SPI1:MIS"/>
          <bitenum id="CAN_EVT" value="68" token="MCAN general event, interrupt flags can be found here MCAN:MIS1" description="MCAN general event, interrupt flags can be found here MCAN:MIS1"/>
          <bitenum id="CAN_IRQ" value="67" token="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0" description="MCAN interrupt event, interrupt flags can be found here MCAN:MIS0"/>

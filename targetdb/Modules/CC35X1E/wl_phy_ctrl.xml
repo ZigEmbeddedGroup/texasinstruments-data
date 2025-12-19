@@ -1,0 +1,595 @@
+<?xml version="1.0" ?>
+<module id="WL_PHY_CTRL" XML_version="1.0" description="">
+	<register acronym="SCR_SRC_ADDR" id="scr_src_addr" width="32" description="Internal scripter registers affect the scripter on-going behavior." offset="0x0">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Defines the current script base address.  The scripter fetch bus will read consecutive rows from this address in increments of 4." id="MEM_SRC_ADDR_WROPT" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_DEST_RD_OFFSET_ADDR" id="scr_dest_rd_offset_addr" width="32" description="Scripter Destination offset address" offset="0x4">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Set destination read address bits [31:16].
+4590  - PHY MCU RAMs 
+4591  - PHY MCU SCR RAM and Regs 
+4592  - PHY OCP interConnect components but MCU. 
+Other - To SOC" id="MEM_DEST_RD_OFFSET_ADDR" resetval="{'@spirit:resolve': 'immediate', '#text': '0x4592'}"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x4592'}"/>
+	</register>
+	<register acronym="SCR_DATA_BIT_SEL" id="scr_data_bit_sel" width="32" description="Data bit select" offset="0x8">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="This field has 2 purposes:
+1. Set the bits that will be changed in the next read modify write command.
+2. Set the bits that will be checked in the next conditional write command." id="MEM_DATA_BIT_SEL_WROPT" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_DATA_MATCH" id="scr_data_match" width="32" description="Matching value for conditional write command." offset="0xc">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="This register is used for conditional write operations. This register needs to be defined and then a variable value is read and compared (according to the bits set in the data_bit_sel register).
+(Set the matching value for the next conditional write command)" id="MEM_DATA_MATCH_WROPT" resetval="0xffff"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_SPARE_1" id="scr_spare_1" width="32" offset="0x10">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" id="MEM_SCR_SPARE_1" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_WAIT_DELAY" id="scr_wait_delay" width="32" description="Scripter Wait Delay Register" offset="0x14">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x11'}"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Once this register is set to a non-zero value the scripter exe bus is suspended untill it decrements all the way back to zero." id="MEM_WAIT_DELAY_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x11'}"/>
+	</register>
+	<register acronym="SCR_CTRL_OPS" id="scr_ctrl_ops" width="32" offset="0x18">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="This pulse bit allows the FW to trigger the start of a script. The FW needs to per-set the value of the src_addr register." id="MEM_SCR_START_WRCL" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="This bit must be set at the end of any script. It may also be used to abort a running script externally by FW." id="MEM_SCR_STOP_WRCL" resetval="0x0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_FIFO_MON" id="scr_fifo_mon" width="32" offset="0x1c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="FIFO_UNDERFLOW_RDCL" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" id="FIFO_OVERFLOW_RDCL" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" id="FIFO_FULL" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" id="FIFO_FLUSH" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" id="FIFO_EMPTY" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" id="FIFO_ALMOST_FULL" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="FIFO_ALMOST_EMPTY" resetval="0x0"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_TOOLS_1" id="scr_tools_1" width="32" offset="0x20">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" id="MEM_SCR_LOOP_CNT_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" id="MEM_SCR_LOOP_DECR_WRCL" resetval="0x0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_DEST_WR_OFFSET_ADDR" id="scr_dest_wr_offset_addr" width="32" description="Scripter Destination offset address" offset="0x24">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Set destination write address bits [31:16].
+4590  - PHY MCU RAMs 
+4591  - PHY MCU SCR RAM and Regs 
+4592  - PHY OCP interConnect components but MCU. 
+Other - To SOC" id="MEM_DEST_WR_OFFSET_ADDR" resetval="{'@spirit:resolve': 'immediate', '#text': '0x4592'}"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x4592'}"/>
+	</register>
+	<register acronym="CTRL_SM_TRANSITION_THRESHOLD" id="ctrl_sm_transition_threshold" width="32" offset="0x30">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="Event Executer (cortex, scripter or both) transition time limit.
+When executer exeedes this value,  
+SM_TRANSITION_PERIOD_EXCEEDED_TH is set high (clr by s/w).
+
+Counts up to 102.4us. Resolution is 0.8us. Default ix 0x2 (1.6us)." id="MEM_TRANSITION_TIME_TRACK_TH" resetval="0x2"/>
+		<bitfield width="21" end="11" begin="31" rwaccess="RO" id="Reserved" resetval="0x2"/>
+	</register>
+	<register acronym="CTRL_SM_TRANSITION_STATUS" id="ctrl_sm_transition_status" width="32" offset="0x34">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="the period of time  that is measured from the time an 
+event is sent to cortex/scripter till the time cortex/scripter
+is done and phy state is changed.
+
+Time is measured at 25ns*32=800ns units (1.25M rate) 
+(as if you concate 5 LSB equal to '0' on the right side of this number.)" id="SM_TRANSITION_PERIOD" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="This indication is set when:
+SM_TRANSITION_PERIOD[in 25ns units]&gt; SM_TRANSITION_PERIOD_TH" id="SM_TRANSITION_PERIOD_EXCEEDED_TH" resetval="0x0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_GENERAL_CONFIG" id="ctrl_general_config" width="32" offset="0x38">
+		<bitfield width="6" end="2" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="'0' - invalid event is not enabled. will not be sent to cortex.
+'1' - invalid event is enabled. will be sent to cortex." id="MEM_INVALID_EVENT_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="this mode controls the ADDR reg in SCR:
+0 - ADDR is fetched from Upper-half[15:0] 
+1 - ADDR is fetched from Upper-half[31:16] 
+2 - ADDR is fetched from Lower-half[15:0] 
+3 - ADDR is fetched from Lower-half[31:16]" id="MEM_SCR_INDEX_MODE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="10" end="20" begin="29" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="PHY Control FSM Bypass: 
+This field will be loaded to PHY STATE immediately at acripter/cortex done.
+It replaces the default h/w next_state (that is selected per event at &quot;evet start&quot;) ." id="EVENT_NEXT_STATE_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="00 - Do not measure transition time
+01 - Measure CTX transition time
+10 - Measure SCR transition time
+11 - Measure CTX or SCR transition time (if both are excuted, measure till the last one finishes)
+
+note: time is measured @40M rate (each unit is 25ns)" id="MEM_TRANSITION_TIME_TRACK_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="'0' - invalid event will be ganarated according to event valid bit map (MEM_EVENT_VALID_FOR_STATE0..8)
+'1' - No invalid event support. All events are valid at any state regardless tovalid bit map." id="MEM_VALIDATE_ALL_EVENTS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+	</register>
+	<register acronym="CTRL_GENERAL_STATUS" id="ctrl_general_status" width="32" offset="0x3c">
+		<bitfield width="5" end="8" begin="12" rwaccess="RO" description="Holds the index of current effective not masked event.
+The index is valid for reading as long as the event is active*.
+Once event handling is done (either trigering scr/ctx or not) this field holds last active event.
+ 
+*) An Active event is an event that is handles by h/w  in one of the following ways:
+An non-mask event, for specific current PHY STATE, can be &quot;non-valid&quot;, 
+&quot;valid and not executable&quot; or &quot;valid and exeutable&quot; by scripter/cortex.
+
+If event is &quot;non-valid&quot;
+   if INVALID_EVENT_EN = 1 it will trigger the cortex - index is held till cortex is done and event gets cleared.
+   if INVALID_EVENT_EN = 0 it will only change PHY STATE to next state and event gets cleared.
+Else if &quot;event is not executable&quot; 
+   it will only change PHY State to next state - this field holds event index for few cycles till event gets cleared.
+Else (&quot;valid and executable&quot;)
+   It will trigger cortex/scripter. index is held till cortex/scripter are done and event gets cleared." id="ACTIVE_EVENT_INDEX" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="Holds the current state of the operational PHY CTRL FSM." id="PHY_CTRL_STATE" resetval="0x0"/>
+		<bitfield width="13" end="13" begin="25" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" description="This register indicates a script triggered by an executable event
+toward the scripter is currently running.
+For Script index refer to ACTIVE_EVENT_INDEX" id="SCR_BUSY" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" description="indication that an event is sent to cortex/scripter.
+and cortex/scripter is during execution.
+When done, phy state will be changed." id="SM_IN_TRANSITION" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="indication that invalid event is sent to cortex.
+This means that INVALID_EVENT_EN was set to 1." id="INVALID_EVENT" resetval="0x0"/>
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Input from SOC that indicates the mode to move to upon 
+wsoc_change_mode or wsoc_change_mode_with_abort are set." id="WSOC_PHY_NEXT_MODE" resetval="0x0"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RO" description="Indication from SOC" id="WSOC_PMAC_IN_PROGRESS" resetval="0x0"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" description="Rx suspend sideband status bit from MAC:
+indication that the suspend event that was set is of type NO STOMP
+This indication is cleared by Rx_Ctrl.suspend_end event" id="RX_SUSPEND_MAC_NOSTOMP_LEVEL" resetval="0x0"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" description="Rx suspend sideband status bit from MAC:
+indication of Spatial Reuse.
+This indication is cleared by Rx_Ctrl.suspend_end event" id="RX_SUSPEND_MAC_CCASR_LEVEL" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_EVENT_MASK" id="ctrl_event_mask" width="32" offset="0x40">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Each bit set to '1' will mask the corresponding event from 
+changing PHY state and/or triggering script/cortex.
+
+Events are indexed as follow:
+
+0  -  Reserved                       
+1  -  tx_header_rise             
+2  -  rxt_stomp_ind_for_ctrl     
+3  -  wsoc_change_mode_rise      
+4  -  wsoc_change_mode_abort_rise
+5  -  wsoc_cmd_rise              
+6  -  phy_dma_done               
+7  -  rx_last                    
+8  -  tx_active_fall             
+9  -  wsoc_rx_abort_rise         
+10 -  wsoc_pmac_not_in_progress  
+11 -  rx_suspend_rcmnd           
+12 -  ls_reject                  
+13 -  plcp_hdr_err               
+14 -  rx_bd                      
+15 -  rx_ctrl_select_11b         
+16 -  timer_irq                  
+17 -  tx_multi                   
+18 -  rx_ctrl_td_eop             
+19 -  trigger_frame_ind_rise     
+20 -  rx_pd_rise                 
+21 -  rx_multi                   
+22 -  coex_busy                  
+23 -  wsoc_tx_mute_rise          
+24 -  rx_suspend_end             
+25 -  wsoc_event_done_rise       
+26 -  rx_unsupported             
+27 -  gp_adc_event               
+28 -  nw_ip_gpio_1_tgl           
+29 -  nw_ip_gpio_2_tgl           
+30 -  ana_pa_dc2dc_ready_rise    
+31 -  ocla_triger_rise" id="MEM_EVENT_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0xffbfffdf'}"/>
+	</register>
+	<register acronym="CTRL_EVENT_CTX_MASK" id="ctrl_event_ctx_mask" width="32" offset="0x44">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Defines whether a specific event is executable and will be sent (IRQ) to cortex.
+0 - event is not masked. will be sent to cortex.
+1 - event is masked. will not be sent to cortex.
+*Events Bit map is the same as specified at MEM_EVENT_MASK" id="MEM_EVENT_CTX_MASK" resetval="0x8594ffc5"/>
+	</register>
+	<register acronym="CTRL_EVENT_SCR_MASK" id="ctrl_event_scr_mask" width="32" offset="0x48">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Defines whether a specific event is executable and will be sent (IRQ) to scripter.
+0 - event is not masked. will be sent to scripter.
+1 - event is masked. will not be sent to scripter.
+*Events Bit map is the same as specified at MEM_EVENT_MASK" id="MEM_EVENT_SCR_MASK" resetval="0xfe7f04be"/>
+	</register>
+	<register acronym="CTRL_EVENT_EXECUTER" id="ctrl_event_executer" width="32" offset="0x4c">
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Cortex Done indication.
+When this pulse is set, the executable event is done 
+and h/w chenges PHY STATE." id="MEM_CTX_DONE_WRCL" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" id="MEM_TRANSITION_PERIOD_EXCEEDED_TH_CLR_WRCL" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_EVENT_STATUS_SET" id="ctrl_event_status_set" width="32" description="Setting a bit in this register sets corresponding bit in status reg.
+It is equivalent to the occurence of an HW event." offset="0x50">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="MEM_STATUS_SET_WRCL" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_EVENT_STATUS_CLR" id="ctrl_event_status_clr" width="32" description="Setting a bit in this register clears the corresponding 
+bit in the status register." offset="0x54">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="MEM_STATUS_CLR_WRCL" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_EVENT_STATUS" id="ctrl_event_status" width="32" description="This registers latches events that are not masked. 
+The event stays latched till automatically cleared 
+once the event is handled. (Either non-valid, valid 
+but not executable or executable)." offset="0x58">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="STATUS" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_0" id="ctrl_event_valid_for_state_0" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map (Events vs. Index) is the same as specified at MEM_EVENT_MASK
+*Events 1,5,16,25,27-29 and 31 are always &quot;Valid&quot; for this state (equal to &quot;1&quot;. Hard-wired by h/w)" offset="0x5c">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="8" end="17" begin="24" rwaccess="RW" id="MEM_EVENTS_17to24_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_EVENT_26_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_25_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_16_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="10" end="6" begin="15" rwaccess="RW" id="MEM_EVENTS_06to15_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="3" end="27" begin="29" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENTS_27to29_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_0" resetval="0xfb79c6ff"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_1" id="ctrl_event_valid_for_state_1" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map (Events vs. Index) is the same as specified at MEM_EVENT_MASK
+*Events 1,5,16,25,27-29 and 31 are always &quot;Valid&quot; for this state (equal to &quot;1&quot;. Hard-wired by h/w)" offset="0x60">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="8" end="17" begin="24" rwaccess="RW" id="MEM_EVENTS_17to24_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_EVENT_26_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_25_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_16_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="10" end="6" begin="15" rwaccess="RW" id="MEM_EVENTS_06to15_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="3" end="27" begin="29" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENTS_27to29_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_1" resetval="0xfe6d3eff"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_2" id="ctrl_event_valid_for_state_2" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map (Events vs. Index) is the same as specified at MEM_EVENT_MASK
+*Events 1,5,16,25,27-29 and 31 are always &quot;Valid&quot; for this state (equal to &quot;1&quot;. Hard-wired by h/w)" offset="0x64">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="8" end="17" begin="24" rwaccess="RW" id="MEM_EVENTS_17to24_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_EVENT_26_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_25_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_16_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="10" end="6" begin="15" rwaccess="RW" id="MEM_EVENTS_06to15_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="3" end="27" begin="29" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENTS_27to29_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_2" resetval="0xfa79c6ff"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_3" id="ctrl_event_valid_for_state_3" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map (Events vs. Index) is the same as specified at MEM_EVENT_MASK
+*Events 1,5,16,25,27-29 and 31 are always &quot;Valid&quot; for this state (equal to &quot;1&quot;. Hard-wired by h/w)" offset="0x68">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="8" end="17" begin="24" rwaccess="RW" id="MEM_EVENTS_17to24_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_EVENT_26_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_25_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_16_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="10" end="6" begin="15" rwaccess="RW" id="MEM_EVENTS_06to15_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="3" end="27" begin="29" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENTS_27to29_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_3" resetval="0xfb6506ff"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_4" id="ctrl_event_valid_for_state_4" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map is the same as specified at MEM_EVENT_MASK
+*Events 1, 5, 16, 25, 27-9,  and 31 are always Valid for this state (Equal to &quot;1&quot;. Hard-wired by h/w)
+*Events 11-15, 18, 20, 24 and 26 are always Not Valid for this state (Equal to &quot;0&quot;. Hard-wired by h/w)" offset="0x6c">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Event 5 always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="Events 18 always 0 - hw &quot;hard wired&quot;." id="EVENT_18_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="5" end="6" begin="10" rwaccess="RW" id="MEM_EVENTS_06to10_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RW" id="MEM_EVENTS_21to23_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="MEM_EVENT_17_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="6" end="24" begin="29" rwaccess="RO" description="Event 24 always 0 - hw &quot;hard wired&quot;. 
+Event 25 always 1 - hw &quot;hard wired&quot;. 
+Event 26 always 0 - hw &quot;hard wired&quot;. 
+Event 27 always 1 - hw &quot;hard wired&quot;. 
+Event 28 always 1 - hw &quot;hard wired&quot;. 
+Event 29 always 1 - hw &quot;hard wired&quot;." id="EVENTS_24to29_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="6" end="11" begin="16" rwaccess="RO" description="Events 11-15 always 0 - hw &quot;hard wired&quot;. 
+Event 16 always 1 - hw &quot;hard wired&quot;." id="EVENTS_11to16_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" id="MEM_EVENT_19_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="Events 20 always 0 - hw &quot;hard wired&quot;." id="EVENT_20_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="Events 31 always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Event 1 always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_4" resetval="0xfac3057a"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_5" id="ctrl_event_valid_for_state_5" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map is the same as specified at MEM_EVENT_MASK
+*Events 1, 5, 16, 25, 27-9,  and 31 are always Valid for this state (Equal to &quot;1&quot;. Hard-wired by h/w)
+*Events 11-15, 18, 20, 24 and 26 are always Not Valid for this state (Equal to &quot;0&quot;. Hard-wired by h/w)" offset="0x70">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Event 5 always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="Events 18 always 0 - hw &quot;hard wired&quot;." id="EVENT_18_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="5" end="6" begin="10" rwaccess="RW" id="MEM_EVENTS_06to10_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RW" id="MEM_EVENTS_21to23_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="MEM_EVENT_17_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="6" end="24" begin="29" rwaccess="RO" description="Event 24 always 0 - hw &quot;hard wired&quot;. 
+Event 25 always 1 - hw &quot;hard wired&quot;. 
+Event 26 always 0 - hw &quot;hard wired&quot;. 
+Event 27 always 1 - hw &quot;hard wired&quot;. 
+Event 28 always 1 - hw &quot;hard wired&quot;. 
+Event 29 always 1 - hw &quot;hard wired&quot;." id="EVENTS_24to29_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="6" end="11" begin="16" rwaccess="RO" description="Events 11-15 always 0 - hw &quot;hard wired&quot;. 
+Event 16 always 1 - hw &quot;hard wired&quot;." id="EVENTS_11to16_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" id="MEM_EVENT_19_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="Events 20 always 0 - hw &quot;hard wired&quot;." id="EVENT_20_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="Events 31 always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Event 1 always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_5" resetval="0xfa43077a"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATES_6to8" id="ctrl_event_valid_for_states_6to8" width="32" description="Defines whether a specific event is valid for this PHY State (non-active states: 
+standby, idle and prepared to sleep).
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map is the same as specified at MEM_EVENT_MASK
+*Events 5 and 25 are always equal to &quot;1&quot; (hard-wired by h/w)" offset="0x74">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="Event 0 is always 0 - hw &quot;hard wired&quot;. 
+Event 1 is always 1 - hw &quot;hard wired&quot;. 
+Event 2 is always 0 - hw &quot;hard wired&quot;." id="EVENTS_00to02_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" id="MEM_EVENT_22_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Event 5 always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="2" end="3" begin="4" rwaccess="RW" id="MEM_EVENTS_03to04_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" id="MEM_EVENT_06_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" id="MEM_EVENT_10_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="3" end="7" begin="9" rwaccess="RO" description="Event 7-9 always 0 - hw &quot;hard wired&quot;." id="EVENTS_07to09_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="4" end="18" begin="21" rwaccess="RO" description="Events 18-21 always 0 - hw &quot;hard wired&quot;." id="EVENTS_18to21_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="7" end="23" begin="29" rwaccess="RO" description="Event 23 always 0 - hw &quot;hard wired&quot;. 
+Event 24 always 0 - hw &quot;hard wired&quot;. 
+Event 25 always 1 - hw &quot;hard wired&quot;. 
+Event 26 always 0 - hw &quot;hard wired&quot;. 
+Event 27 always 1 - hw &quot;hard wired&quot;. 
+Event 28 always 1 - hw &quot;hard wired&quot;. 
+Event 29 always 1 - hw &quot;hard wired&quot;." id="EVENTS_23to29_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="MEM_EVENT_17_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="6" end="11" begin="16" rwaccess="RO" description="Events 11-15 always 0 - hw &quot;hard wired&quot;. 
+Event 16 always 1 - hw &quot;hard wired&quot;." id="EVENTS_11to16_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="Event 31 always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATES_6to8" resetval="0xfa41047a"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_9" id="ctrl_event_valid_for_state_9" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map (Events vs. Index) is the same as specified at MEM_EVENT_MASK
+*Events 1,5,16,25,27-29 and 31 are always &quot;Valid&quot; for this state (equal to &quot;1&quot;. Hard-wired by h/w)" offset="0x78">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="8" end="17" begin="24" rwaccess="RW" id="MEM_EVENTS_17to24_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_EVENT_26_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_25_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_16_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="10" end="6" begin="15" rwaccess="RW" id="MEM_EVENTS_06to15_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="3" end="27" begin="29" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENTS_27to29_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_9" resetval="0xfa650eff"/>
+	</register>
+	<register acronym="CTRL_EVENT_VALID_FOR_STATE_10" id="ctrl_event_valid_for_state_10" width="32" description="Defines whether a specific event is valid for this PHY State.
+0 - event is not valid.
+1 - event is valid.
+*Events Bit map (Events vs. Index) is the same as specified at MEM_EVENT_MASK
+*Events 1,5,16,25,27-29 and 31 are always &quot;Valid&quot; for this state (equal to &quot;1&quot;. Hard-wired by h/w)" offset="0x7c">
+		<bitfield width="3" end="2" begin="4" rwaccess="RW" id="MEM_EVENTS_02to04_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_05_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="8" end="17" begin="24" rwaccess="RW" id="MEM_EVENTS_17to24_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_EVENT_26_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_25_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_16_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="10" end="6" begin="15" rwaccess="RW" id="MEM_EVENTS_06to15_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" id="MEM_EVENT_30_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="3" end="27" begin="29" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENTS_27to29_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_31_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="always 1 - hw &quot;hard wired&quot;." id="EVENT_01_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_EVENT_00_VALID_FOR_STATE_10" resetval="0xfae3007a"/>
+	</register>
+	<register acronym="CTRL_SW_CONFIG_HW_EVENTS" id="ctrl_sw_config_hw_events" width="32" description="This register masks the h/w events.
+It also sets the time between abort/eop to rx start (if any)." offset="0x80">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Masks the abort sources. If the mask bit is set the rx_abort will not be raised automatically.
+Abort sources: 0 - plcp_hdr_err, 1 - tx_header_rise, 2 - ls_reject." id="MEM_RX_ABORT_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="'1' - rx_stomp will not be raised immediately after 
+rx_stomp indication from IEM." id="MEM_RX_STOMP_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Defines the delay between rx_abort rising and rx_start.
+Valid range 1-255 (in 25ns steps).
+Setting 0 to this reg means no rx start is issued after rx abort." id="MEM_RX_ABORT_TO_START" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="Defines the delay between rx_eop rising and rx_start. 
+Valid range 1-255 (in 25ns steps).
+Setting 0 to this reg means no rx start is issued after rx eop." id="MEM_RX_EOP_TO_START" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+		<bitfield width="7" end="7" begin="13" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="'0' - tx header be set in tx control H/W when tx_header from MAC is set.
+'1' - tx_header is masked. Will not  be set when tx_header from MAC is set." id="MEM_TX_HEADER_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RW" description="Rx Suspend Type decision to Rx Ctrl:
+0 - do not shut-off Ana or PLL
+1 - shuf-off Analog
+2 - shut-off PLL
+
+By default (@suspend pulse from Rx Ctrl) the Type is loaded with Rx Ctrl recommendation." id="RX_SUSPEND_TYPE_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Mask RX Suspend Spatial Reuse from MAC" id="MEM_RX_SUSPEND_CCASR_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x28010000'}"/>
+	</register>
+	<register acronym="CTRL_SW_TRIGGER_HW_EVENTS" id="ctrl_sw_trigger_hw_events" width="32" description="This register is responsible of the generation of:
+Rx abort, Rx stomp, Rx start, Phy Event and Phy conmmand done indications." offset="0x84">
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="FW triggered rx_start pulse." id="MEM_RX_START_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="FW triggered rx_abort pulse." id="MEM_RX_ABORT_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="FW triggered rx_stomp pulse." id="MEM_RX_STOMP_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="FW triggered rx_abort pulse. No rx start is followed." id="MEM_RX_STOP_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="5" end="2" begin="6" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="PHY to SOC Event" id="WL_PHY_EVENT_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="PHY to SOC command done indication.
+PHY finish handling SOC command." id="WL_PHY_CMD_DONE_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="FW triggered tx_header pulse.
+This pulse is extended to @20M as 
+tx_ctrl (i/f to mac) currently works @20M" id="MEM_TX_HEADER_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="FW triggers Rx Suspend pulse (40M) toward Rx Ctrl.
+Also used to set the suspend-start level indication (e.g. toward the CCA)" id="RX_SUSPEND_START_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Override value for RX Suspend Spatial Reuse from MAC" id="RX_SUSPEND_CCASR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="CTRL_GENERAL_CNT_1" id="ctrl_general_cnt_1" width="32" offset="0x88">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Genetal event counter.
+The event is one of the 32 events the PHY control use
+The select of event is using field &quot;MEM_GENERLA_CNT_1_CFG" id="MEM_GENERAL_CNT_1_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="CTRL_GENERAL_CNT_2" id="ctrl_general_cnt_2" width="32" offset="0x8c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Genetal event counter.
+The event is one of the 32 events the PHY control use
+The select of event is using field &quot;MEM_GENERLA_CNT_2_CFG" id="MEM_GENERAL_CNT_2_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="CTRL_GENERAL_CNT_CFG" id="ctrl_general_cnt_cfg" width="32" offset="0x90">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Select the event for GENERAL_CNT_1
+For event detail please refer to PHY Control spec Doc" id="MEM_GENERAL_CNT_1_CFG" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="5" end="16" begin="20" rwaccess="RW" description="Select the event for GENERAL_CNT_2
+For event detail please refer to PHY Control spec Doc" id="MEM_GENERAL_CNT_2_CFG" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable  for GENERAL_CNT_1" id="MEM_GENERAL_CNT_1_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="Enable  for GENERAL_CNT_2" id="MEM_GENERAL_CNT_2_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="CTRL_PHY_GPIO" id="ctrl_phy_gpio" width="32" offset="0x94">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" id="WL_PHY_GPIO_1_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" id="WL_PHY_GPIO_2_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" id="WL_PHY_GPIO_3_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" id="WL_PHY_GPIO_4_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_WLPHY_GPIO_NEG_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" id="MEM_WLPHY_GPIO_POS_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RW" description="GPIO selector :
+0 - select gpio 0
+1 - select gpio 1
+...
+45 - select gpio 45
+46-63 No GPIO is selectes, Effectively it means Mask GPIO" id="MEM_WLPHY_CTRL_GPIO_SEL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="CTRL_SPARE_1" id="ctrl_spare_1" width="32" offset="0xa0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_CTRL_SPARE_1" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_SPARE_2" id="ctrl_spare_2" width="32" offset="0xa4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_CTRL_SPARE_2" resetval="0x0"/>
+	</register>
+	<register acronym="RX_MULTI_EVENT_MASK" id="rx_multi_event_mask" width="32" offset="0xb0">
+		<bitfield width="24" end="0" begin="23" rwaccess="RW" description="Each bit set to '1' will mask the corresponding RX CTRL event from 
+changing PHY state and/or triggering script/cortex.
+
+Events are indexed as follow:
+
+0 - vd_sig_done         
+1 - rx_header_rise      
+2 - bs_rise             
+3 - bs_fall             
+4 - pd_dismiss          
+5 - td_ack_done         
+6 - rx_dc_clip          
+7 - rx_11ax_td_data_eop 
+8 - radar_pattern_detect
+9 - pll_relock_clac_done
+10- ed_high             
+11- cca_cs_with_energy  
+12- phy_cca             
+13- qual_cca            
+14- ch_traffic_est_done
+15- rx_suspend_mac   
+16-23 - Reserved" id="MEM_RX_MULTI_EVENT_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0xffffff'}"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xffffff'}"/>
+	</register>
+	<register acronym="RX_MULTI_EVENT_STATUS_SET" id="rx_multi_event_status_set" width="32" description="Setting a bit in this register sets corresponding bit in rx ctrl status reg.
+It is equivalent to the occurence of an HW event." offset="0xb4">
+		<bitfield width="24" end="0" begin="23" rwaccess="WO" id="MEM_RX_MULTI_STATUS_SET_WRCL" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RX_MULTI_EVENT_STATUS_CLR" id="rx_multi_event_status_clr" width="32" description="Setting a bit in this register clears the corresponding 
+bit in the rx ctrl status register." offset="0xb8">
+		<bitfield width="24" end="0" begin="23" rwaccess="WO" id="MEM_RX_MULTI_STATUS_CLR_WRCL" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RX_MULTI_EVENT_STATUS" id="rx_multi_event_status" width="32" description="This registers latches Rx Ctrl events that are not masked. 
+The event stays latched till clr by S/w (not automatically cleared)." offset="0xbc">
+		<bitfield width="24" end="0" begin="23" rwaccess="RO" id="RX_MULTI_STATUS" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="TX_MULTI_EVENT_MASK" id="tx_multi_event_mask" width="32" offset="0xc0">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Each bit set to '1' will mask the corresponding TX events from 
+changing PHY state and/or triggering script/cortex.
+
+Events are indexed as follow:
+
+0	Tx HDR Fall
+1	RFNL Mul clip irq
+2	Tx clibration Seq IRQ
+3	Aux Rx Required
+4-7  Reserved" id="MEM_TX_MULTI_EVENT_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0xffff'}"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xffff'}"/>
+	</register>
+	<register acronym="TX_MULTI_EVENT_STATUS_SET" id="tx_multi_event_status_set" width="32" description="Setting a bit in this register sets corresponding bit in tx multi status reg.
+It is equivalent to the occurence of an HW event." offset="0xc4">
+		<bitfield width="8" end="0" begin="7" rwaccess="WO" id="MEM_TX_MULTI_STATUS_SET_WRCL" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="TX_MULTI_EVENT_STATUS_CLR" id="tx_multi_event_status_clr" width="32" description="Setting a bit in this register clears the corresponding 
+bit in the tx multi status register." offset="0xc8">
+		<bitfield width="8" end="0" begin="7" rwaccess="WO" id="MEM_TX_MULTI_STATUS_CLR_WRCL" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="TX_MULTI_EVENT_STATUS" id="tx_multi_event_status" width="32" description="This registers latches Tx Multi events that are not masked. 
+The event stays latched till clr by S/w (not automatically cleared)." offset="0xcc">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" id="TX_MULTI_STATUS" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SCR_BLE_EVENT_MODE" id="scr_ble_event_mode" width="32" offset="0xd0">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="the period of time  that is measured from the time an 
+event is sent to cortex/scripter till the time cortex/scripter
+is done and phy state is changed.
+
+Time is measured at 25ns*32=800ns units (1.25M rate) 
+(as if you concate 5 LSB equal to '0' on the right side of this number.)" id="scr_ble_event_mode" resetval="0x0"/>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="CTRL_PHY_VCTRL_HDET_TEMP" id="ctrl_phy_vctrl_hdet_temp" width="32" offset="0xd4">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" id="MEM_VCTRL_STATUS_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="VCTRL_DN_STATUS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" id="VCTRL_UP_STATUS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" id="MEM_VCTRL_DN_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" id="MEM_VCTRL_UP_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" id="MEM_HIGH_TEMP_DET_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="CTRL_PHY_COEX" id="ctrl_phy_coex" width="32" offset="0xd8">
+		<bitfield width="6" end="2" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="This register will hold information regarding the PHY PM mode and sub-modes when PHY state is Coex" id="MEM_PHY_COEX_STATE_SUB_MODE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" description="bit 0 - grant
+bit 1 - degrant 
+
+'1' - mask event
+'0' - do not mask, will cause event" id="MEM_COEX_WIFI_GRANT_IP_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="COEX_WIFI_GRANT_STATUS" id="coex_wifi_grant_status" width="32" offset="0xdc">
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="'1' - grant - rise detect" id="COEX_WIFI_GRANT_IP_STATUS_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="COEX_WIFI_DEGRANT_STATUS" id="coex_wifi_degrant_status" width="32" offset="0xe0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="'1' - degrant - fall detect" id="COEX_WIFI_DEGRANT_IP_STATUS_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+</module>

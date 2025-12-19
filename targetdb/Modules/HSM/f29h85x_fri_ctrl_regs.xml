@@ -1,0 +1,93 @@
+<module id="FRI_CTRL_REGS" HW_revision="" description="FRI CTRL Registers">
+	<register id="REVISION" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="IP Revision Register">
+		<bitfield id="MINREV" description="Minor Revision Number" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="MAJREV" description="Major Revision Number" begin="15" end="8" width="8" rwaccess="R"/>
+	</register>
+	<register id="FRDCNTL" width="32" page="0" offset="0x10" instances="1" instaddr="4" internal="0" description="Flash Read Control Register">
+		<bitfield id="RWAIT" description="Read Waitstate" begin="11" end="8" width="4" rwaccess="RW"/>
+		<bitfield id="TRIMENGRRWAIT" description="Read Waitstate of Trim and ENGR sectors" begin="27" end="24" width="4" rwaccess="RW"/>
+	</register>
+	<register id="FRDCNTL_LOCK" width="32" page="0" offset="0x14" instances="1" instaddr="4" internal="0" description="Flash Read Control Lock Register">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRDCNTL_COMMIT" width="32" page="0" offset="0x18" instances="1" instaddr="4" internal="0" description="Flash Read Control Commit Register">
+		<bitfield id="COMMIT" description="FRDCNTL_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI1_INTF_CTRL" width="32" page="0" offset="0x30" instances="1" instaddr="4" internal="0" description="Flash Read Interface 1 Control Register">
+		<bitfield id="PREFETCH_EN" description="Prefetch Enable" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_EN" description="Data Line Buffer Enable" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_EN" description="Code Cache Enable" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_PREREAD_EN" description="Sequential Data Preread Mode Enable" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI1_INTF_CTRL_LOCK" width="32" page="0" offset="0x34" instances="1" instaddr="4" internal="0" description="Flash Read Interface 1 Control Lock Register">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI1_INTF_CTRL_COMMIT" width="32" page="0" offset="0x38" instances="1" instaddr="4" internal="0" description="Flash Read Interface 1 Control Commit Register">
+		<bitfield id="COMMIT" description="FRD_INTF_CTRL_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI1_INTF_CLR" width="32" page="0" offset="0x3c" instances="1" instaddr="4" internal="0" description="Flash Read Interface 1 Clear Register">
+		<bitfield id="PREFETCH_CLR" description="Prefetch Clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_CLR" description="Data Line Buffer Clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_CLR" description="Code Cache Clear" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI2_INTF_CTRL" width="32" page="0" offset="0x40" instances="1" instaddr="4" internal="0" description="Flash Read Interface 2 Control Register">
+		<bitfield id="PREFETCH_EN" description="Prefetch Enable" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_EN" description="Data Line Buffer Enable" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_EN" description="Code Cache Enable" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_PREREAD_EN" description="Sequential Data Preread Mode Enable" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI2_INTF_CTRL_LOCK" width="32" page="0" offset="0x44" instances="1" instaddr="4" internal="0" description="Flash Read Interface 2 Control Lock Register">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI2_INTF_CTRL_COMMIT" width="32" page="0" offset="0x48" instances="1" instaddr="4" internal="0" description="Flash Read Interface 2 Control Commit Register">
+		<bitfield id="COMMIT" description="FRD_INTF_CTRL_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI2_INTF_CLR" width="32" page="0" offset="0x4c" instances="1" instaddr="4" internal="0" description="Flash Read Interface 2 Clear Register">
+		<bitfield id="PREFETCH_CLR" description="Prefetch Clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_CLR" description="Data Line Buffer Clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_CLR" description="Code Cache Clear" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI3_INTF_CTRL" width="32" page="0" offset="0x50" instances="1" instaddr="4" internal="0" description="Flash Read Interface 3 Control Register">
+		<bitfield id="PREFETCH_EN" description="Prefetch Enable" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_EN" description="Data Line Buffer Enable" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_EN" description="Code Cache Enable" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_PREREAD_EN" description="Sequential Data Preread Mode Enable" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI3_INTF_CTRL_LOCK" width="32" page="0" offset="0x54" instances="1" instaddr="4" internal="0" description="Flash Read Interface 3 Control Lock Register">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI3_INTF_CTRL_COMMIT" width="32" page="0" offset="0x58" instances="1" instaddr="4" internal="0" description="Flash Read Interface 3 Control Commit Register">
+		<bitfield id="COMMIT" description="FRD_INTF_CTRL_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI3_INTF_CLR" width="32" page="0" offset="0x5c" instances="1" instaddr="4" internal="0" description="Flash Read Interface 3 Clear Register">
+		<bitfield id="PREFETCH_CLR" description="Prefetch Clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_CLR" description="Data Line Buffer Clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_CLR" description="Code Cache Clear" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI4_INTF_CTRL" width="32" page="0" offset="0x60" instances="1" instaddr="4" internal="0" description="Flash Read Interface 4 Control Register">
+		<bitfield id="PREFETCH_EN" description="Prefetch Enable" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_EN" description="Data Line Buffer Enable" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_EN" description="Code Cache Enable" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_PREREAD_EN" description="Sequential Data Preread Mode Enable" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI4_INTF_CTRL_LOCK" width="32" page="0" offset="0x64" instances="1" instaddr="4" internal="0" description="Flash Read Interface 4 Control Lock Register">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI4_INTF_CTRL_COMMIT" width="32" page="0" offset="0x68" instances="1" instaddr="4" internal="0" description="Flash Read Interface 4 Control Commit Register">
+		<bitfield id="COMMIT" description="FRD_INTF_CTRL_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FRI4_INTF_CLR" width="32" page="0" offset="0x6c" instances="1" instaddr="4" internal="0" description="Flash Read Interface 4 Clear Register">
+		<bitfield id="PREFETCH_CLR" description="Prefetch Clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DATA_CACHE_CLR" description="Data Line Buffer Clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CODE_CACHE_CLR" description="Code Cache Clear" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+	<register id="PARITY_TEST" width="32" page="0" offset="0x70" instances="1" instaddr="4" internal="0" description="Parity Test Enable">
+		<bitfield id="TESTEN" description="Parity Test Enable" begin="3" end="0" width="4" rwaccess="RW"/>
+	</register>
+	<register id="PARITY_TEST_LOCK" width="32" page="0" offset="0x74" instances="1" instaddr="4" internal="0" description="Parity Test Lock Register">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="PARITY_TEST_COMMIT" width="32" page="0" offset="0x78" instances="1" instaddr="4" internal="0" description="Parity Test Commit Register">
+		<bitfield id="COMMIT" description="PARITY_TEST_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+</module>

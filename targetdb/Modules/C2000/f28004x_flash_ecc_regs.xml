@@ -23,10 +23,10 @@
 		<bitfield id="UNC_ERR_H" description="Upper 64 bits Uncorrectable error occurred" begin="18" end="18" width="1" rwaccess="R"/>
 	</register>
 	<register id="ERR_POS" width="32" page="1" offset="0xc" internal="0" description="Error Position">
-		<bitfield id="ERR_POS_L" description="Bit Position of Single bit Error in lower 64 bits" begin="5" end="0" width="6" rwaccess="R"/>
-		<bitfield id="ERR_TYPE_L" description="Error Type in lower 64 bits" begin="8" end="8" width="1" rwaccess="R"/>
-		<bitfield id="ERR_POS_H" description="Bit Position of Single bit Error in upper 64 bits" begin="21" end="16" width="6" rwaccess="R"/>
-		<bitfield id="ERR_TYPE_H" description="Error Type in upper 64 bits" begin="24" end="24" width="1" rwaccess="R"/>
+		<bitfield id="ERR_POS_L" description="Bit Position of Single bit Error in lower 64 bits" begin="5" end="0" width="6" rwaccess="RW"/>
+		<bitfield id="ERR_TYPE_L" description="Error Type in lower 64 bits" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="ERR_POS_H" description="Bit Position of Single bit Error in upper 64 bits" begin="21" end="16" width="6" rwaccess="RW"/>
+		<bitfield id="ERR_TYPE_H" description="Error Type in upper 64 bits" begin="24" end="24" width="1" rwaccess="RW"/>
 	</register>
 	<register id="ERR_STATUS_CLR" width="32" page="1" offset="0xe" internal="0" description="Error Status Clear">
 		<bitfield id="FAIL_0_L_CLR" description="Lower 64bits Single Bit Error Corrected Value 0 Clear" begin="0" end="0" width="1" rwaccess="RW"/>

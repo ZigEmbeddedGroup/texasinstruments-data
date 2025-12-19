@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="MEMCFG" HW_revision="0.5">
+    <register id="MEMCFG_TEST" width="32" offset="0x1000" description="RAM TEST Register">
+        <bitfield id="TEST_ULL" description="Selects the defferent modes for ULL RAM: #br#    00: Functional Mode. #br#    01: Writes are allowed to data bits only. No write to ECC bits. #br#    10: Writes are allowed to ECC bits only. No write to data bits. #br#    11: Same as functional mode" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="TEST_GLXMP_0" description="Selects the defferent modes for GLXMP_0 RAM: #br#    00: Functional Mode. #br#    01: Writes are allowed to data bits only. No write to ECC bits. #br#    10: Writes are allowed to ECC bits only. No write to data bits. #br#    11: Same as functional mode" begin="3" end="2" width="2" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="TEST_GLXMP_1" description="Selects the defferent modes for GLXMP_1 RAM: #br#    00: Functional Mode. #br#    01: Writes are allowed to data bits only. No write to ECC bits. #br#    10: Writes are allowed to ECC bits only. No write to data bits. #br#    11: Same as functional mode" begin="5" end="4" width="2" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="TEST_GLXMP_2" description="Selects the defferent modes for GLXMP_2 RAM: #br#    00: Functional Mode. #br#    01: Writes are allowed to data bits only. No write to ECC bits. #br#    10: Writes are allowed to ECC bits only. No write to data bits. #br#    11: Same as functional mode" begin="7" end="6" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="MEMCFG_RAM_CACHE_CONFIG" width="32" offset="0x1004" description="RAM CACHE configuration">
+        <bitfield id="ULL_CACHE_ENABLE" description="Cache configuration for ULL RAM: #br#    1: Cache enable. #br#    0: Cache support disable." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_0_CACHE_ENABLE" description="Cache configuration for GLXMP_0 RAM: #br#    1: Cache enable. #br#    0: Cache support disable." begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_1_CACHE_ENABLE" description="Cache configuration for GLXMP_1 RAM: #br#    1: Cache enable. #br#    0: Cache support disable." begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_2_CACHE_ENABLE" description="Cache configuration for GLXMP_2 RAM: #br#    1: Cache enable. #br#    0: Cache support disable." begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="MEMCFG_RAM_WS_CONFIG" width="32" offset="0x1008" description="RAM wait state configuration">
+        <bitfield id="ULL_WS_ENABLE" description="Wait state configuration for ULL RAM: #br#    0: 1wait state disable. #br#    1: 1 wait enable." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_0_WS_ENABLE" description="Wait state configuration for GLXMP_0 RAM: #br#    0: 1wait state disable. #br#    1: 1 wait enable." begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_1_WS_ENABLE" description="Wait state configuration for GLXMP_1 RAM: #br#    0: 1wait state disable. #br#    1: 1 wait enable." begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_2_WS_ENABLE" description="Wait state configuration for GLXMP_2 RAM: #br#    0: 1wait state disable. #br#    1: 1 wait enable." begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="MEMCFG_RAM_CACHE_CLEAR" width="32" offset="0x100C" description="RAM cache clear">
+        <bitfield id="ULL_CACHE_CLEAR" description="Cache clear configuration for ULL RAM: #br#    0: wont clear the cache valid slots. #br#    1: Clear the all cache valid slots and write back the write buffer data to memory macro." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_0_CACHE_CLEAR" description="Cache clear configuration for GLAMP_0 RAM: #br#    0: wont clear the cache valid slots. #br#    1: Clear the all cache valid slots and write back the write buffer data to memory macro." begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_1_WS_CACHE_CLEAR" description="Cache clear configuration for GLXMP_1 RAM: #br#    0: wont clear the cache valid slots. #br#    1: Clear the all cache valid slots and write back the write buffer data to memory macro." begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="GLXMP_2_WS_CACHE_CLEAR" description="Cache clear configuration for GLXMP_2 RAM: #br#    0: wont clear the cache valid slots. #br#    1: Clear the all cache valid slots and write back the write buffer data to memory macro." begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="MEMCFG_ROM_WS_CONFIG" width="32" offset="0x1010" description="ROM wait state configuration">
+        <bitfield id="ROM_WS_ENABLE" description="Wait state configuration ROM: #br#    0: 1wait state disable. #br#    1: 1 wait enable." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+
+</module>

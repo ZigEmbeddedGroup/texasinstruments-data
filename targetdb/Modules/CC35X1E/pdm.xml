@@ -1,0 +1,520 @@
+<?xml version="1.0" ?>
+<module id="PDM" XML_version="1.0" description="">
+	<register acronym="DESC" id="desc" width="32" description="Description Register
+This register identifies the peripheral and its exact version." offset="0x0">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Minor revision of the IP" id="MINREV" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="Major revision of the IP" id="MAJREV" resetval="0x1">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Instance Number within the device. This will be a parameter to the RTL for modules that can have multiple instances" id="INSTIDX" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="Standard IP offset
+64 Bit standard IP MMR block (beginning with aggregated IRQ registers) 
+
+0: STDIP MMRs do not exist
+1:15: These MMRs begin at offset 64*STDIPOFF from IP base address" id="STDIPOFF" resetval="0x1">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Module identification contains a unique peripheral identification number. The assignments are maintained in a central database for all of the platform modules to ensure uniqueness." id="MODID" resetval="0x3342">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+	</register>
+	<register acronym="DESCEX" id="descex" width="32" description="This register reflects the configuration of this peripheral instance" offset="0x4">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="Number of available PDM Channels.
+Value 1 indicates two channels that can be used for stereo or dual mono microphone connections." id="NUMCHAN" resetval="4">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="7" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0"/>
+	</register>
+	<register acronym="IMASK" id="imask" width="32" description="Interrupt Mask. If a bit is set, then corresponding interrupt is un-masked. Un-masking the interrupt causes the raw interrupt to be visible in MIS." offset="0x44">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="*PDM* data event mask" id="PDMDATA" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrupt Enable" description="Interrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Data Overflow event mask." id="OVFL" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Samplestamp Trigger event mask" id="STPTRIG" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+			<bitenum id="CLR" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="DMA Done event mask." id="DMADONE" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Data Underflow event mask." id="UNFL" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="5" end="1" begin="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+	</register>
+	<register acronym="RIS" id="ris" width="32" description="Raw interrupt status. Reflects all pending interrupts, regardless of masking. The RIS register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the ICLR register bit even if the corresponding IMASK bit is not enabled." offset="0x48">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="PDM DATA event" id="PDMDATA" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Data Overflow event.
+Data has been written to the buffer before the previous values was read.
+This flag gets set if one of the channel OVERFLOW flags gets set" id="OVFL" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Samplestamp Trigger event" id="STPTRIG" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="DMA Done  event." id="DMADONE" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Data Underflow event.
+Data has been read from an emty FIFO.
+This flag gets set if one of the channel UNDERFLOW flags gets set." id="UNFL" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="5" end="1" begin="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+	</register>
+	<register acronym="MIS" id="mis" width="32" description="Masked interrupt status. This is an AND of the IMASK and RIS registers." offset="0x4c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Masked PDMDATA event" id="PDMDATA" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Masked Data Overflow event." id="OVFL" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Masked Samplestamp Trigger event." id="STPTRIG" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Masked DMA Done  event." id="DMADONE" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Masked Data Underflow event." id="UNFL" resetval="0x0">
+			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="5" end="1" begin="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+	</register>
+	<register acronym="ISET" id="iset" width="32" description="Interrupt set. Allows interrupts to be set by software (useful in diagnostics and safety checks). Writing a 1 to a bit in ISET will set the event and therefore the related RIS bit also gets set. If the interrupt is enabled through the mask, then the corresponding MIS bit is also set." offset="0x50">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Set PDMDATA event." id="PDMDATA" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Set Data Overflow event." id="OVFL" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Set Samplestamp Trigger event." id="STPTRIG" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+			<bitenum id="NO_EFFECT" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Set DMA Done  event." id="DMADONE" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Set Data Underflow event." id="UNFL" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="5" end="1" begin="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED_2" resetval="0x0"/>
+	</register>
+	<register acronym="ICLR" id="iclr" width="32" description="Interrupt clear. Write a 1 to clear corresponding Interrupt." offset="0x54">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Clear PDMDATA event." id="PDMDATA" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="CLR" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Clear Data Overflow event." id="OVFL" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="CLR" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Clear Samplestamp Trigger event." id="STPTRIG" resetval="0x0">
+			<bitenum id="CLR" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+			<bitenum id="NO_EFFECT" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Clear DMA Done event." id="DMADONE" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="CLR" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Clear Data Underflow event." id="UNFL" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Interrupt disable" description="Interrupt disable"/>
+			<bitenum id="CLR" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
+		</bitfield>
+		<bitfield width="5" end="1" begin="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+	</register>
+	<register acronym="EMU" id="emu" width="32" description="This register can be used by the software developer to control the behavior of the peripheral relative to the 'Core Halted' input" offset="0x60">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Free run control" id="HALT" resetval="0">
+			<bitenum id="STOP" value="1" token="The peripheral freezes functionality while the Core Halted input is asserted and resumes when it is deasserted." description="The peripheral freezes functionality while the Core Halted input is asserted and resumes when it is deasserted."/>
+			<bitenum id="RUN" value="0" token="The peripheral ignores the state of the Core Halted input" description="The peripheral ignores the state of the Core Halted input"/>
+		</bitfield>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="CTL" id="ctl" width="32" description="PDM control register" offset="0x100">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable conversion on *PDM*" id="ENPDM" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Disable Channel" description="Disable Channel"/>
+			<bitenum id="EN" value="1" token="Enable Channel" description="Enable Channel"/>
+		</bitfield>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0"/>
+	</register>
+	<register acronym="ICLKCTL" id="iclkctl" width="32" description="Input clock Control Register" offset="0x104">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="Divider for ICLK
+iclk = PLLCLK/(ICLK +1)" id="IDIV" resetval="0x0">
+			<bitenum id="MIN" value="0" token="Minimum value of BDIV" description="Minimum value of BDIV"/>
+			<bitenum id="MAX" value="1023" token="Maximum value of BDIV" description="Maximum value of BDIV"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="This bit is used to enable BCLK to Sigma-Delta Modulator on-chip." id="BCLKEN" resetval="0x0">
+			<bitenum id="DIS" value="0" token="BCLK is disabled" description="BCLK is disabled"/>
+			<bitenum id="EN" value="1" token="BCLK is enabled" description="BCLK is enabled"/>
+		</bitfield>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERED17" resetval="0x0"/>
+	</register>
+	<register acronym="FIFOCTL1" id="fifoctl1" width="32" description="PDM FIFO control register" offset="0x108">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable FIFO0 for DMA access through the [FIFODATA] Register" id="ENFIFO0" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Disable Channel" description="Disable Channel"/>
+			<bitenum id="EN" value="1" token="Enable Channel" description="Enable Channel"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enable FIFO1 for DMA access through the [FIFODATA] Register" id="ENFIFO1" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Disable Channel" description="Disable Channel"/>
+			<bitenum id="EN" value="1" token="Enable Channel" description="Enable Channel"/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0"/>
+	</register>
+	<register acronym="FIFODATA" id="fifodata" width="32" description="*FIFO* Data Register (FIFO read)
+This register provides the Data of the FIFO based on [FIFOCTL.ENFIFO0] and [FIFOCTL.ENFIFO1]
+This allows the DMA to just have single address to read all the FIFO content when triggered." offset="0x10c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="FIFO Read Register" id="VALUE" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="4294967295" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+	</register>
+	<register acronym="CCTL" id="cctl" width="32" description="PDM Channel control register" offset="0x110">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="Data Input Configuration" id="CHEN" resetval="0x700000">
+			<bitenum id="CH0ENABLE" value="1" token="Input channel 0 is enabled." description="Input channel 0 is enabled."/>
+			<bitenum id="CH0_1ENABLE" value="2" token="Input channel 1 is enabled." description="Input channel 1 is enabled."/>
+			<bitenum id="MANC" value="4" token="Input from Manchester Decoder, also enables Manchester Coding of bitstream.
+CH0 is enabled by default as the operation and CH1 enable bit is discarded." description="Input from Manchester Decoder, also enables Manchester Coding of bitstream.
+CH0 is enabled by default as the operation and CH1 enable bit is discarded."/>
+			<bitenum id="DISABLE" value="0" token="Both Channels are disabled." description="Both Channels are disabled."/>
+		</bitfield>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="Digital Filter Select" id="DFS" resetval="0x700000">
+			<bitenum id="SINC1" value="0" token="SINC1 filter" description="SINC1 filter"/>
+			<bitenum id="SINC2" value="1" token="SINC2 filter" description="SINC2 filter"/>
+			<bitenum id="SINC3" value="2" token="SINC3 filter" description="SINC3 filter"/>
+			<bitenum id="SINC4" value="3" token="SINC4 filter" description="SINC4 filter"/>
+		</bitfield>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Data alignment" id="ALIGN" resetval="0x700000">
+			<bitenum id="RIGHT" value="0" token="Right-aligned. LSB of filter output is bit 0." description="Right-aligned. LSB of filter output is bit 0."/>
+			<bitenum id="LEFT" value="1" token="Left-aligned. MSB of filter output (depending on OSR) is bit 31." description="Left-aligned. MSB of filter output (depending on OSR) is bit 31."/>
+		</bitfield>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Data Format" id="DATAFMT" resetval="0x700000">
+			<bitenum id="OFFSET" value="0" token="Offset binary" description="Offset binary"/>
+			<bitenum id="TWOSCOMP" value="1" token="Twos complement" description="Twos complement"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="Select the clock edge for data channel 0" id="CH0CLKEG" resetval="0x700000">
+			<bitenum id="RISING" value="0" token="Rising edge is selected" description="Rising edge is selected"/>
+			<bitenum id="FALLING" value="1" token="Failing edge is selected" description="Failing edge is selected"/>
+		</bitfield>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="Select the clock edge for data channel 1" id="CH1CLKEG" resetval="0x700000">
+			<bitenum id="RISING" value="0" token="Rising edge is selected" description="Rising edge is selected"/>
+			<bitenum id="FALLING" value="1" token="Failing edge is selected" description="Failing edge is selected"/>
+		</bitfield>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Channel 0 Data Input Select" id="CH0IPSEL" resetval="0x700000">
+			<bitenum id="DATA0" value="0" token="Data pin 0 selected as source for channel 0." description="Data pin 0 selected as source for channel 0."/>
+			<bitenum id="DATA1" value="1" token="Data pin 1 selected as source for channel 0." description="Data pin 1 selected as source for channel 0."/>
+			<bitenum id="SDM" value="2" token="SDM output selected as source for channel 0." description="SDM output selected as source for channel 0."/>
+			<bitenum id="Reserved" value="3" token="Data pin 0 selected as source for channel 0." description="Data pin 0 selected as source for channel 0."/>
+		</bitfield>
+		<bitfield width="2" end="29" begin="30" rwaccess="RW" description="Channel 1 Data Input Select" id="CH1IPSEL" resetval="0x700000">
+			<bitenum id="DATA0" value="0" token="Data pin 0 selected as source for channel 1." description="Data pin 0 selected as source for channel 1."/>
+			<bitenum id="DATA1" value="1" token="Data pin 1 selected as source for channel 1." description="Data pin 1 selected as source for channel 1."/>
+			<bitenum id="SDM" value="2" token="SDM output selected as source for channel 1." description="SDM output selected as source for channel 1."/>
+			<bitenum id="Reserved" value="3" token="Data pin 0 selected as source for channel 1." description="Data pin 0 selected as source for channel 1."/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Enables peak value detection for channel-0" id="ENPKCH0" resetval="0x700000">
+			<bitenum id="EN" value="1" token="Enables peak value detection for channel-0" description="Enables peak value detection for channel-0"/>
+			<bitenum id="DIS" value="0" token="Disables peak value detection for channel-0" description="Disables peak value detection for channel-0"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="Enables peak value detection for channel-0" id="ENPKCH1" resetval="0x700000">
+			<bitenum id="EN" value="1" token="Enables peak value detection for channel-1" description="Enables peak value detection for channel-1"/>
+			<bitenum id="DIS" value="0" token="Enables peak value detection for channel-1" description="Enables peak value detection for channel-1"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="Enables average power calculation for channel-0" id="ENPOWCH0" resetval="0x700000">
+			<bitenum id="EN" value="1" token="Enables average power calculation for channel-0" description="Enables average power calculation for channel-0"/>
+			<bitenum id="DIS" value="0" token="Disables average power calculation for channel-0" description="Disables average power calculation for channel-0"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="Enables average power calculation for channel-1" id="ENPOWCH1" resetval="0x700000">
+			<bitenum id="EN" value="1" token="Enables average power calculation for channel-1" description="Enables average power calculation for channel-1"/>
+			<bitenum id="DIS" value="0" token="Enables average power calculation for channel-1" description="Enables average power calculation for channel-1"/>
+		</bitfield>
+		<bitfield width="3" end="20" begin="22" rwaccess="RW" description="Select scaling factor for the averaging blocks. Selscale value used internally is 1/(2^(3+VALUE))
+Ex: When value is 0, selscale is 1/8, and when value is 7, selscale is 1/1024" id="SELSCALE" resetval="0x700000">
+			<bitenum id="VAL0" value="0" token="Scaling factor is 1/8" description="Scaling factor is 1/8"/>
+			<bitenum id="VAL1" value="1" token="Scaling factor is 1/16" description="Scaling factor is 1/16"/>
+			<bitenum id="VAL2" value="2" token="Scaling factor is 1/32" description="Scaling factor is 1/32"/>
+			<bitenum id="VAL3" value="3" token="Scaling factor is 1/64" description="Scaling factor is 1/64"/>
+			<bitenum id="VAL4" value="4" token="Scaling factor is 1/128" description="Scaling factor is 1/128"/>
+			<bitenum id="VAL5" value="5" token="Scaling factor is 1/256" description="Scaling factor is 1/256"/>
+			<bitenum id="VAL6" value="6" token="Scaling factor is 1/512" description="Scaling factor is 1/512"/>
+			<bitenum id="VAL7" value="7" token="Scaling factor is 1/1024" description="Scaling factor is 1/1024"/>
+		</bitfield>
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x700000"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x700000"/>
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED23" resetval="0x700000"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED27" resetval="0x700000"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED31" resetval="0x700000"/>
+	</register>
+	<register acronym="OSR" id="osr" width="32" description="Oversampling Control Register" offset="0x114">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Oversampling rate. The oversampling rate is defined as OSRx + 1.
+Applicable oversampling rates are 2 to 256. Default is 64." id="VALUE" resetval="0x3f">
+			<bitenum id="MINIMUM" value="1" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="255" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x3f"/>
+	</register>
+	<register acronym="STA" id="sta" width="32" description="PDM control register" offset="0x118">
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Manchester Clock status.
+Indicates that Manchester mode is in locked mode or not." id="MANCLK" resetval="0x0">
+			<bitenum id="UNLOCKED" value="0" token="Manchester clock not locked." description="Manchester clock not locked."/>
+			<bitenum id="LOCKED" value="1" token="Manchester clock locked." description="Manchester clock locked."/>
+		</bitfield>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="*AGC* accelerator ready status. Software must read AGCVALx, PKVALx and AVGPOWx registers only when AGCRDY is '1'. Reading these registers while AGCRDY is 0 may provide incorrect values." id="AGCRDY" resetval="0x1">
+			<bitenum id="NOT_RDY" value="0" token="Not ready" description="Not ready"/>
+			<bitenum id="RDY" value="1" token="Ready" description="Ready"/>
+		</bitfield>
+		<bitfield width="16" end="1" begin="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED18" resetval="0"/>
+	</register>
+	<register acronym="FIFOCTL2" id="fifoctl2" width="32" description="FIFO Control" offset="0x120">
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="FIFO Flush
+Setting this bit will Flush the FIFO. This bit will self-clear when the
+flush has completed." id="FIFOFLSH" resetval="0x0">
+			<bitenum id="NOFLUSH" value="0" token="Do not Flush FIFO" description="Do not Flush FIFO"/>
+			<bitenum id="FLUSH" value="1" token="Flush FIFO" description="Flush FIFO"/>
+		</bitfield>
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="FIFO Trigger Level Select  Sets the trigger points for the FIFO events.
+Note: FIFO depth is only 2 the level 1/4 and 3/4 default to 1/2." id="TRGLVL" resetval="0x0">
+			<bitenum id="LEVEL_1" value="0" token="Trigger when RX FIFO contains &gt;= 1 byte" description="Trigger when RX FIFO contains &gt;= 1 byte"/>
+			<bitenum id="LEVEL_2" value="1" token="Trigger when RX FIFO contains &gt;= 2 byte" description="Trigger when RX FIFO contains &gt;= 2 byte"/>
+			<bitenum id="LEVEL_3" value="2" token="Trigger when RX FIFO contains &gt;= 3 byte" description="Trigger when RX FIFO contains &gt;= 3 byte"/>
+			<bitenum id="LEVEL_4" value="3" token="Trigger when RX FIFO contains &gt;= 4 byte" description="Trigger when RX FIFO contains &gt;= 4 byte"/>
+			<bitenum id="LEVEL_5" value="4" token="Trigger when RX FIFO contains &gt;= 5 byte" description="Trigger when RX FIFO contains &gt;= 5 byte"/>
+			<bitenum id="LEVEL_6" value="5" token="Trigger when RX FIFO contains &gt;= 6 byte" description="Trigger when RX FIFO contains &gt;= 6 byte"/>
+			<bitenum id="LEVEL_7" value="6" token="Trigger when RX FIFO contains &gt;= 7 byte" description="Trigger when RX FIFO contains &gt;= 7 byte"/>
+			<bitenum id="LEVEL_8" value="7" token="Trigger when RX FIFO contains &gt;= 8 byte" description="Trigger when RX FIFO contains &gt;= 8 byte"/>
+			<bitenum id="LEVEL_9" value="8" token="Trigger when RX FIFO contains &gt;= 9 byte" description="Trigger when RX FIFO contains &gt;= 9 byte"/>
+			<bitenum id="LEVEL_10" value="9" token="Trigger when RX FIFO contains &gt;= 10 byte" description="Trigger when RX FIFO contains &gt;= 10 byte"/>
+			<bitenum id="LEVEL_11" value="10" token="Trigger when RX FIFO contains &gt;= 11 byte" description="Trigger when RX FIFO contains &gt;= 11 byte"/>
+			<bitenum id="LEVEL_12" value="11" token="Trigger when RX FIFO contains &gt;= 12 byte" description="Trigger when RX FIFO contains &gt;= 12 byte"/>
+		</bitfield>
+		<bitfield width="3" end="4" begin="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x0"/>
+	</register>
+	<register acronym="FIFOSR" id="fifosr" width="32" description="FIFO Status Register." offset="0x124">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Number of Bytes which could be read from the CH0 FIFO" id="CH0FCNT" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Number of Bytes which could be read from the CH1 FIFO" id="CH1FCNT" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="CH1 FIFO Full" id="CH1FFULL" resetval="0x0">
+			<bitenum id="CLEARED" value="0" token="The transmitter is not full." description="The transmitter is not full."/>
+			<bitenum id="SET" value="1" token="If the FIFO is disabled (FEN is 0), the transmit holding register is full. If the FIFO is enabled (FEN is 1), the transmit FIFO is full." description="If the FIFO is disabled (FEN is 0), the transmit holding register is full. If the FIFO is enabled (FEN is 1), the transmit FIFO is full."/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="CH0 FIFO Full" id="CH0FFULL" resetval="0">
+			<bitenum id="CLEARED" value="0" token="The receiver can receive data." description="The receiver can receive data."/>
+			<bitenum id="SET" value="1" token="If the FIFO is disabled (FEN is 0), the receive holding register is full. If the FIFO is enabled (FEN is 1), the receive FIFO is full." description="If the FIFO is disabled (FEN is 0), the receive holding register is full. If the FIFO is enabled (FEN is 1), the receive FIFO is full."/>
+		</bitfield>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="CH1 FIFO Empty" id="CH1FEMP" resetval="0x1">
+			<bitenum id="CLEARED" value="0" token="The transmitter has data to transmit." description="The transmitter has data to transmit."/>
+			<bitenum id="SET" value="1" token="If the FIFO is disabled (FEN is 0), the transmit holding register is empty. If the FIFO is enabled (FEN is 1), the transmit FIFO is empty." description="If the FIFO is disabled (FEN is 0), the transmit holding register is empty. If the FIFO is enabled (FEN is 1), the transmit FIFO is empty."/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="CH0 FIFO Empty" id="CH0FEMP" resetval="0x1">
+			<bitenum id="CLEARED" value="0" token="The receiver is not empty." description="The receiver is not empty."/>
+			<bitenum id="SET" value="1" token="If the FIFO is disabled (FEN is 0), the receive holding register is empty. If the FIFO is enabled (FEN is 1), the receive FIFO is empty." description="If the FIFO is disabled (FEN is 0), the receive holding register is empty. If the FIFO is enabled (FEN is 1), the receive FIFO is empty."/>
+		</bitfield>
+		<bitfield width="2" end="4" begin="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+		<bitfield width="2" end="12" begin="13" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="AVGVAL0" id="avgval0" width="32" description="Average sample value for channel-0, 32-bit register." offset="0x200">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Average sample value for channel-0" id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Minimum value of register" description="Minimum value of register"/>
+			<bitenum id="MAXIMUM" value="4294967295" token="Highest value" description="Highest value"/>
+		</bitfield>
+	</register>
+	<register acronym="PKVAL0" id="pkval0" width="32" description="Peak sample value for channel-0" offset="0x204">
+		<bitfield width="24" end="0" begin="23" rwaccess="RO" description="Peak sample value for channel-0. Bits [22:0] applicable for operation in 2's complement format and bits [23:0] applicable for operation in offset binary format." id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="8388607" token="Largest value" description="Largest value"/>
+		</bitfield>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0"/>
+	</register>
+	<register acronym="AVGPOW0" id="avgpow0" width="32" description="Average sample power for channel-0" offset="0x208">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Average sample power for channel-0" id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="4294967295" token="Highest value" description="Highest value"/>
+		</bitfield>
+	</register>
+	<register acronym="AVGVAL1" id="avgval1" width="32" description="Average sample value for channel-1, 32-bit register." offset="0x20c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Average sample value for channel-1" id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Minimum value of register" description="Minimum value of register"/>
+			<bitenum id="MAXIMUM" value="4294967295" token="Highest value" description="Highest value"/>
+		</bitfield>
+	</register>
+	<register acronym="PKVAL1" id="pkval1" width="32" description="Peak sample value for channel-1" offset="0x210">
+		<bitfield width="24" end="0" begin="23" rwaccess="RO" description="Peak sample value for channel-1. Bits [22:0] applicable for operation in 2's complement format and bits [23:0] applicable for operation in offset binary format." id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="8388607" token="Largest value" description="Largest value"/>
+		</bitfield>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0"/>
+	</register>
+	<register acronym="AVGPOW1" id="avgpow1" width="32" description="Average sample power for channel-1" offset="0x214">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Average sample power for channel-1" id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="4294967295" token="Highest value" description="Highest value"/>
+		</bitfield>
+	</register>
+	<register acronym="STPCTL" id="stpctl" width="32" description="Samplestamp Generator Control Register" offset="0x300">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enables the samplestamp generator. The samplestamp generator must only be enabled after it has been properly configured.;When cleared, all samplestamp generator counters and capture values are cleared." id="STPEN" resetval="0">
+			<bitenum id="DIS" value="0" token="Disable the samplestamp generator" description="Disable the samplestamp generator"/>
+			<bitenum id="EN" value="1" token="Enable the samplestamp generator" description="Enable the samplestamp generator"/>
+		</bitfield>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="STPXCAPT" id="stpxcapt" width="32" description="Captured REFCLK Counter Value, Capture Channel 0" offset="0x304">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="The value of the samplestamp XOSC counter [STMPXCNT.CURR_VALUE] last time an event was pulsed. The value is cleared when [STMPCTL.STMP_EN] = 0.
+Note: When calculating the fractional part of the sample stamp, [STMPXPER] may be less than this bit field." id="CAPTVAL" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPXPER" id="stpxper" width="32" description="REFCLK Period Value" offset="0x308">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="The number of REFCLK clock cycles in the previous Sample Clock period (that is -  the next value of the REFCLK counter at the positive Sample Clock edge, had it not been reset to 0).;The value is cleared when [STMPCTL.STMP_EN] = 0." id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPWCAPT" id="stpwcapt" width="32" description="Captured Sample Clock Counter Value, Capture Channel 0" offset="0x30c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="The value of the samplestamp Sample Clock counter [STMPWCNT.CURR_VALUE] last time an event was pulsed. This number corresponds to the number of positive Sample Clock edges since the samplestamp generator was enabled;The value is cleared when [STMPCTL.STPEN] = 0." id="CAPTVAL" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="STPWPER" id="stpwper" width="32" description="Sample Clock Counter Period Value" offset="0x310">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Used to define when [STMPWCNT] is to be reset so number of Sample Clock edges are found for the size of the sample buffer. This is thus a modulo value for the Sample Clock counter. This number must correspond to the size of the sample buffer used by the system (that is the index of the last sample plus 1)." id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPINTRG" id="stpintrg" width="32" description="WS Counter Trigger Value for Input Pins" offset="0x314">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="In Start W Count
+Compare value used to start the incoming audio streams.;This bit field must equal the Sample Clock counter value during the Sample Clock period in which the first input word(s) are sampled and stored to memory (that is the sample at the start of the very first DMA input buffer).;The value of this register takes effect when at least 32 PDMxCLK cycle ticks have happened.;Note: To avoid false triggers, this bit field must be set higher than [STPWPER.VALUE]." id="INSTRWCT" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPWSET" id="stpwset" width="32" description="Sample Clock Counter Set Operation" offset="0x318">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Sample Clock counter modification: Sets the running Sample Clock counter equal to the written value." id="VALUE" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPWADD" id="stpwadd" width="32" description="Sample Clock Counter Add Operation" offset="0x31c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Sample Clock counter modification: Adds the written value to the running Sample Clock counter. If a positive edge of Sample Clock occurs at the same time as the operation, this will be taken into account.;To add a negative value, write &quot;[STMPWPER.VALUE] - value&quot;.;" id="VALINC" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPXMIN" id="stpxmin" width="32" description="REFCLK Minimum Period Value;Minimum Value of [STPXPER]" offset="0x320">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Each time [STMPXPER] is updated, the value is also loaded into this register, provided that the value is smaller than the current value in this register.;When written, the register is reset to 0xFFFF (65535), regardless of the value written.;The minimum value can be used to detect extra Sample Clock pulses (this registers value will be significantly smaller than [STMPXPER.VALUE])." id="VALUE" resetval="65535">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPWCNT" id="stpwcnt" width="32" description="Current Value of sample clock count
+This register is reset when [STPCTL.STPEN]  = 0." offset="0x324">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Current value of the Sample Clock counter" id="CURRVAL" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPXCNT" id="stpxcnt" width="32" description="Current Value of XCNT
+This register is reset when [STPCTL.STPEN]  = 0." offset="0x328">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Current value of the REFCLK counter, latched when reading [STMPWCNT]." id="CURRVAL" resetval="0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="STPSTAT" id="stpstat" width="32" description="Samplestamp Generator Status Register" offset="0x32c">
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Low until the input pins are ready to be started by the samplestamp generator. When started (that is [STMPINTRIG] equals the WCLK counter) the bit goes back low." id="INRDY" resetval="0">
+			<bitenum id="CLR" value="0" token="Clear" description="Clear"/>
+			<bitenum id="SET" value="1" token="Set" description="Set"/>
+		</bitfield>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED0" resetval="0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0"/>
+	</register>
+	<register acronym="CLKCFG" id="clkcfg" width="32" description="Clock configuration register
+Note: Disable the [CLKCFG.MEM_CLK_EN] and [CLKCFG.ADFS_EN] to change [CLK_CFG.MEM_CLK_SEL] or [ADFS_CTRL1]/[ADFS_CTRL2] 
+After changing [CLK_CFG.MEM_CLK_SEL] or [ADFS_CTRL1]/[ADFS_CTRL2],  enable [CLKCFG.ADFS_EN] followed by [CLKCFG.MEM_CLK_EN]" offset="0x1000">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Clock enable" id="CLKEN" resetval="0">
+			<bitenum id="DIS" value="0" token="Disable Clock" description="Disable Clock"/>
+			<bitenum id="EN" value="1" token="Enable Clock" description="Enable Clock"/>
+		</bitfield>
+		<bitfield width="3" end="4" begin="6" rwaccess="RW" description="Clock Select" id="CLKSEL" resetval="0">
+			<bitenum id="SEL_0" value="0" token="No Clock" description="No Clock"/>
+			<bitenum id="SEL_1" value="1" token="SOC Clock(80MHz)" description="SOC Clock(80MHz)"/>
+			<bitenum id="SEL_2" value="2" token="SOC PLL Clock(un-swallowed 80MHz)" description="SOC PLL Clock(un-swallowed 80MHz)"/>
+			<bitenum id="SEL_3" value="3" token="HFXT" description="HFXT"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="ADFS Enable bit" id="ADFSEN" resetval="0">
+			<bitenum id="DIS" value="0" token="Disable ADFS" description="Disable ADFS"/>
+			<bitenum id="EN" value="1" token="Enable ADFS" description="Enable ADFS"/>
+		</bitfield>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="ADFSCTL1" id="adfsctl1" width="32" description="ADFS control register" offset="0x1004">
+		<bitfield width="21" end="0" begin="20" rwaccess="RW" description="Reference clock time period" id="TREF" resetval="0"/>
+		<bitfield width="11" end="21" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0"/>
+	</register>
+	<register acronym="ADFSCTL2" id="adfsctl2" width="32" description="ADFS control register 2" offset="0x1008">
+		<bitfield width="17" end="0" begin="16" rwaccess="RW" description="Difference in time periods of (reference clk/divisor) and required clock" id="DELTA" resetval="0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="Sign of delta value to be used." id="DLTASIGN" resetval="0">
+			<bitenum id="POS" value="0" token="Positive Sign" description="Positive Sign"/>
+			<bitenum id="NEG" value="1" token="Negative sign" description="Negative sign"/>
+		</bitfield>
+		<bitfield width="10" end="20" begin="29" rwaccess="RW" description="Value of divider to be used for ADFS" id="DIV" resetval="0"/>
+		<bitfield width="2" end="18" begin="19" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED18" resetval="0"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED30" resetval="0"/>
+	</register>
+</module>

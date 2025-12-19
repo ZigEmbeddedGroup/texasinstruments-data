@@ -1,0 +1,299 @@
+<?xml version="1.0" ?>
+<module id="WSOC_WGCM" XML_version="Unknown" description="">
+	<register acronym="WGCM_STB_GEN_CFG" id="wgcm_stb_gen_cfg" width="32" description="configuration of usec strobe
+value represent number of main ocp clocks per usec strobe. 
+if clock frequency changes, the usec strobe will drift with it." offset="0xc">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="number of wsoc ocp clocks to count per usec. (cfg should be 1 less that required - 19 for 20 clocks)" id="MEM_USEC_STB" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3e71f27'}"/>
+		<bitfield width="7" end="8" begin="14" rwaccess="RW" description="number of usec_stb to count per pulse. cfg should be 1 less than required (31 for 32 usec)" id="MEM_32USEC_STB" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3e71f27'}"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3e71f27'}"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RW" description="number of usec stb used in order to generage a 1 msec period" id="MEM_MSEC_STB" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3e71f27'}"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3e71f27'}"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3e71f27'}"/>
+	</register>
+	<register acronym="GNS_SPARE_REG" id="gns_spare_reg" width="32" description="clock enable for the BLE. 
+0 - clock disabled.
+1 - clock enabled." offset="0x2c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="clock enable for the BLE. 
+0 - clock disabled.
+1 - clock enabled." id="MEM_GNS_SPARE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_0_VALUE" id="gns_notification_0_value" width="32" offset="0x40">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_0_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_0_ENABLE" id="gns_notification_0_enable" width="32" offset="0x44">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_0_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_1_VALUE" id="gns_notification_1_value" width="32" offset="0x48">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_1_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_1_ENABLE" id="gns_notification_1_enable" width="32" offset="0x4c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_1_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_2_VALUE" id="gns_notification_2_value" width="32" offset="0x50">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_2_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_2_ENABLE" id="gns_notification_2_enable" width="32" offset="0x54">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_2_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_3_VALUE" id="gns_notification_3_value" width="32" offset="0x58">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_3_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_3_ENABLE" id="gns_notification_3_enable" width="32" offset="0x5c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_3_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_STATUS" id="gns_notification_status" width="32" offset="0x60">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Bit 0 - gns notification 0 
+Bit 1 - gns notification 1 
+Bit 2 - gns notification 2 
+Bit 3 - gns notification 3" id="MEM_GNS_NOTIF_STATUS_RDCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_RAW_STATUS" id="gns_raw_status" width="32" description="GNS_RAW_STATUS - LSB (31:0) 
+[ 0] = wgcm_in_nab_is_pending_recv_or_evt
+[ 1] = wgcm_in_nab_is_busy   
+[ 2] = wgcm_in_descrf_rx_nab_done_qne
+[ 3] = |mem_wgcm_in_sw_src[3:0]
+[ 4] = wgcm_wrapper_is_busy
+[ 5] = mem_force_core_on   
+[ 6] = ble_gns_busy   
+[ 7] = debugss_core_forceactive   
+[ 8] = queue_not_empty_m0_sw_usage_irq[0]
+[ 9] = queue_not_empty_m0_sw_usage_irq[1] 
+[10] = queue_not_empty_m0_sw_usage_irq[2] 
+[11] = queue_not_empty_m0_sw_usage_irq[3] 
+[12] = queue_not_empty_m0_sw_usage_irq[4] 
+[13] = queue_not_empty_m0_sw_usage_irq[5] 
+[14] = queue_not_empty_m0_sw_usage_irq[6] 
+[15] = queue_not_empty_m0_sw_usage_irq[7] 
+[16] = queue_not_empty_m0_sw_usage_irq[8] 
+[17] = queue_not_empty_m0_sw_usage_irq[9] 
+[18] = queue_not_empty_m3_sw_usage_irq[0]
+[19] = queue_not_empty_m3_sw_usage_irq[1] 
+[20] = queue_not_empty_m3_sw_usage_irq[2] 
+[21] = queue_not_empty_m3_sw_usage_irq[3] 
+[22] = queue_not_empty_m3_sw_usage_irq[4] 
+[23] = queue_not_empty_m3_sw_usage_irq[5] 
+[24] = queue_not_empty_m3_sw_usage_irq[6] 
+[25] = queue_not_empty_m3_sw_usage_irq[7] 
+[26] = queue_not_empty_m3_sw_usage_irq[8] 
+[27] = hif_tx_busy         
+[28] = hif_rx_busy         
+[29] = hif_dma_active      
+[30] = hif_fifo_not_empty
+[31] = gns_in_uart_fifo_not_empty" offset="0x70">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Bit 31" id="GNS_RAW_STATUS_RDCL" resetval="0"/>
+	</register>
+	<register acronym="GNS_HOST_IF_TRIGGER" id="gns_host_if_trigger" width="32" offset="0x74">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="[ 0] = wgcm_in_nab_is_pending_recv_or_evt
+[ 1] = wgcm_in_nab_is_busy   
+[ 2] = wgcm_in_descrf_rx_nab_done_qne
+[ 3] = |mem_wgcm_in_sw_src[3:0]
+[ 4] = wgcm_wrapper_is_busy
+[ 5] = mem_force_core_on   
+[ 6] = ble_gns_busy   
+[ 7] = debugss_core_forceactive   
+[ 8] = queue_not_empty_m0_sw_usage_irq[0]
+[ 9] = queue_not_empty_m0_sw_usage_irq[1] 
+[10] = queue_not_empty_m0_sw_usage_irq[2] 
+[11] = queue_not_empty_m0_sw_usage_irq[3] 
+[12] = queue_not_empty_m0_sw_usage_irq[4] 
+[13] = queue_not_empty_m0_sw_usage_irq[5] 
+[14] = queue_not_empty_m0_sw_usage_irq[6] 
+[15] = queue_not_empty_m0_sw_usage_irq[7] 
+[16] = queue_not_empty_m0_sw_usage_irq[8] 
+[17] = queue_not_empty_m0_sw_usage_irq[9] 
+[18] = queue_not_empty_m3_sw_usage_irq[0]
+[19] = queue_not_empty_m3_sw_usage_irq[1] 
+[20] = queue_not_empty_m3_sw_usage_irq[2] 
+[21] = queue_not_empty_m3_sw_usage_irq[3] 
+[22] = queue_not_empty_m3_sw_usage_irq[4] 
+[23] = queue_not_empty_m3_sw_usage_irq[5] 
+[24] = queue_not_empty_m3_sw_usage_irq[6] 
+[25] = queue_not_empty_m3_sw_usage_irq[7] 
+[26] = queue_not_empty_m3_sw_usage_irq[8] 
+[27] = hif_tx_busy         
+[28] = hif_rx_busy         
+[29] = hif_dma_active      
+[30] = hif_fifo_not_empty 
+[31] = gns_in_uart_fifo_not_empty" id="MEM_GNS_HOST_IF_TRIGGER_RDCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_HOST_IF_LOCK" id="gns_host_if_lock" width="32" offset="0x78">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="HOST Lock Status
+1 - HOST I/F is locked (Default)
+0 - HOST I/F is active
+This field initiate as &quot;loced&quot;, it can be written directly or latched &quot;loced&quot; ('0') while reading &quot;HOST_IF_TRIGGER&quot; field and the field is zero" id="MEM_GNS_HOST_IF_LOCK_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+	</register>
+	<register acronym="GNS_HOST_IF_EN" id="gns_host_if_en" width="32" offset="0x80">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_HOST_IF_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_CFG" id="gns_notification_cfg" width="32" offset="0x84">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="each bit per notification status bit
+0 -  AND - Notification set uppon all bit are equal
+1 -  OR   - Notification set uppon at least one bit is equal
+Please note : mode &quot;OR&quot; use de-morgan&quot; trick so need to negate the &quot;...NOTIFICATION_x_ENABLE&quot;" id="MEM_GNS_NOTIF_CFG" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_0_VALUE_63_32" id="gns_notification_0_value_63_32" width="32" offset="0x88">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_0_VALUE_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_0_ENABLE_63_32" id="gns_notification_0_enable_63_32" width="32" offset="0x8c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_0_EN_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_1_VALUE_63_32" id="gns_notification_1_value_63_32" width="32" offset="0x90">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_1_VALUE_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_1_ENABLE_63_32" id="gns_notification_1_enable_63_32" width="32" offset="0x94">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_1_EN_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_2_VALUE_63_32" id="gns_notification_2_value_63_32" width="32" offset="0x98">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_2_VALUE_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_2_ENABLE_63_32" id="gns_notification_2_enable_63_32" width="32" offset="0x9c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_2_EN_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_3_VALUE_63_32" id="gns_notification_3_value_63_32" width="32" offset="0xa0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_3_VALUE_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_NOTIFICATION_3_ENABLE_63_32" id="gns_notification_3_enable_63_32" width="32" offset="0xa4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_GNS_NOTIF_3_EN_63_32" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="GNS_RAW_STATUS_63_32" id="gns_raw_status_63_32" width="32" description="GNS_RAW_STATUS - MSB (63:32) 
+[ 0] =  wgcm_in_descrf_txdq_ac_qne        
+[ 1] =  wgcm_in_descrf_txdq_qne           
+[ 2] =  wgcm_in_wmac_pmac_ind_TBD         
+[ 3] =  wgcm_in_wmac_rx_main_is_busy      
+[ 4] =  wgcm_in_wmac_rxip                 
+[ 5] =  wgcm_in_wmac_rip                  
+[ 6] =  wgcm_in_wmac_any_ac_ctrl_is_busy  
+[ 7] =  wgcm_in_wmac_tx_main_is_busy      
+[ 8] =  wgcm_in_wmac_txip                 
+[ 9] =  wgcm_in_wmac_tip                  
+[10] =  wgcm_in_wmac_any_qv_high          
+[11] =  wgcm_in_descrf_mmu_dealloc_qne    
+[12] =  wgcm_in_mmu_request_pending       
+[13] =  wgcm_in_descrf_tx_exch_hi_prio_qne
+[14] =  wgcm_in_descrf_tx_exch_qne        
+[15] =  wgcm_in_descrf_rx_complete_qne    
+[16] =  wgcm_in_wmac_tb_seq_evt           
+[17] =  wgcm_in_wmac_imm_rsp_seq_evt      
+[18] =  wgcm_in_wmac_wait_for_imm_rsp_evt 
+[19] =  wgcm_in_wmac_bf_seq_evt           
+[20] =  mem_wgcm_in_sw_src[ 4]            
+[21] =  mem_wgcm_in_sw_src[ 5]            
+[22] =  mem_wgcm_in_sw_src[ 6]            
+[23] =  mem_wgcm_in_sw_src[ 7]            
+[24] =  mem_wgcm_in_sw_src[ 8]            
+[25] =  mem_wgcm_in_sw_src[ 9]            
+[26] =  mem_wgcm_in_sw_src[10]            
+[27] =  mem_wgcm_in_sw_src[11]            
+[28] =  mem_wgcm_in_sw_src[12]            
+[29] =  mem_wgcm_in_sw_src[13]            
+[30] =  mem_wgcm_in_sw_src[14]            
+[31] =  mem_wgcm_in_sw_src[15]" offset="0xa8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="GNS_RAW_STATUS_63_32" resetval="0"/>
+	</register>
+	<register acronym="GNS_RAW_STATUS_63_32_LOCK" id="gns_raw_status_63_32_lock" width="32" offset="0xac">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="GNS_RAW_STATUS_63_32_LOCK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="WGCM_SW_DISABLE_CLK" id="wgcm_sw_disable_clk" width="32" description="Disable clk (even if clk_request is '1')." offset="0xb0">
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="MEM_MCU_CTX_DAPCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_MCU_CTX_HCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" id="MEM_RS232_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" id="MEM_NAB_GEN_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" id="MEM_WMAC_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" id="MEM_MMU_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" id="MEM_NAB_SND_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_NAB_RCV_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" id="MEM_INTR_CTRL_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" id="MEM_DESCRF_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" id="MEM_UART_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" id="MEM_CON_DMA_GCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_MCU_CTX_FCLK_SW_DISABLE" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" id="MEM_MCU_GCLK_SW_DISABLE" resetval="0"/>
+	</register>
+	<register acronym="WGCM_SW_FORCE_CLK" id="wgcm_sw_force_clk" width="32" description="Force clk (even if fw_disable_clk is '1' or clk_request is '0')." offset="0xb4">
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="MEM_MCU_CTX_DAPCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_MCU_CTX_HCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" id="MEM_NAB_GEN_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" id="MEM_WMAC_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" id="MEM_MMU_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" id="MEM_NAB_SND_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_NAB_RCV_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" id="MEM_INTR_CTRL_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x1ffdf"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" id="MEM_DESCRF_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" id="MEM_UART_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" id="MEM_CON_DMA_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_MCU_CTX_FCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" id="MEM_MCU_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" id="MEM_CON_AES_GCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" id="MEM_INTR_CTRL_FCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" id="MEM_WMAC_FCLK_SW_FORCE" resetval="0x1ffdf"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" id="Reserved" resetval="0x1ffdf"/>
+	</register>
+	<register acronym="WGCM_CLK_REQ_STATUS" id="wgcm_clk_req_status" width="32" description="busy/clock request indication from sub-modules." offset="0xb8">
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" id="MCU_CTX_DAPCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" id="MCU_CTX_HCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" id="RS232_GCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="NAB_GEN_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" id="WMAC_GCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" id="MMU_GCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="NAB_SND_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="NAB_RCV_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" id="INTR_CTRL_GCLK_CLKREQ" resetval="0"/>
+		<bitfield width="18" end="14" begin="31" id="Reserved" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" id="DESCRF_GCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" id="UART_GCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" id="CON_DMA_GCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="MCU_CTX_FCLK_CLKREQ" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" id="MCU_GCLK_CLKREQ" resetval="0"/>
+	</register>
+	<register acronym="WGCM_CLK_ICG_EN_STATUS" id="wgcm_clk_icg_en_status" width="32" description="ICG Enable value." offset="0xbc">
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" id="MCU_CTX_DAPCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" id="MCU_CTX_HCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" id="RS232_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="NAB_GEN_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" id="WMAC_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" id="MMU_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="NAB_SND_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="NAB_RCV_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" id="INTR_CTRL_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="15" end="17" begin="31" id="Reserved" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" id="DESCRF_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" id="UART_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" id="CON_DMA_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="MCU_CTX_FCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" id="MCU_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" id="CON_AES_GCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="WMAC_FCLK_CLKEN" resetval="0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" id="INTR_CTRL_FCLK_CLKEN" resetval="0"/>
+	</register>
+	<register acronym="DEBUGSS_IF_LOCK" id="debugss_if_lock" width="32" description="The method: Obtain lock by Read. Following are all s/w operation possibilities: 
+When reading '1'  - lock is obtained. (i.e. no debugss request was active during the rd transaction).
+When reading '0'  - lock is not obtained. Try to read again. (i.e. at least debugss request event was active during the rd transaction).
+when writing '1'  - lock will be obtained regardless to debugss request status
+when writing '0'  - lock will be released." offset="0xc0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="DEBUGSS_IF_LOCK_WRDCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="DEBUGSS_IF_LOCK_COND_MASK" id="debugss_if_lock_cond_mask" width="32" description="Bit 0 - Masks DEBUGSS CSYSPWRUPREQ.
+Bit 1 - Masks DEBUGSS FORCEACTIVE.
+
+Set 1 - Mask request during lock check.
+Set 0 - O.W." offset="0xc4">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="MEM_DEBUGSS_IF_LOCK_COND_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="DEBUGSS_IF_LOCK_COND_STATUS" id="debugss_if_lock_cond_status" width="32" offset="0xc8">
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" id="DEBUGSS_CORE_FORCEACTIVE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="DEBUGSS_CORE_CSYSPWRUPREQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="DEBUGSS_PWRDWNDESIRED" id="debugss_pwrdwndesired" width="32" description="SW shall set this bit to inform debugger that it trying to go power down but FORCEACTIVE/SYSPWRUPREQ is set (i.e. debugss i/f lock is failing)." offset="0xcc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_CORE_DEBUGSS_PWRDWNDESIRED" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+</module>

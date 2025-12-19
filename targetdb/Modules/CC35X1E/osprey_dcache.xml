@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<module id="OSPREY_DCACHE" XML_version="UNKNOWN" description="">
+	<register acronym="MOD_VER" id="mod_ver" width="32" description="The Module and Version Register identifies the module identifier and revision of the L1 module." offset="0x0">
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" description="Module Scheme" id="SCHEME" resetval="1753221120"/>
+		<bitfield width="2" end="28" begin="29" rwaccess="RO" description="Module Business Unit" id="BU" resetval="1753221120"/>
+		<bitfield width="12" end="16" begin="27" rwaccess="RO" description="L1 module ID." id="MODULE_ID" resetval="1753221120"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" description="RTL Version." id="RTL_VERSION" resetval="1753221120"/>
+		<bitfield width="3" end="8" begin="10" rwaccess="RO" description="Major Revision." id="MAJOR_REVISION" resetval="1753221120"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" description="Custom Revision." id="CUSTOM_REVISION" resetval="1753221120"/>
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="Minor Revision." id="MINOR_REVISION" resetval="1753221120"/>
+	</register>
+	<register acronym="CTRL" id="ctrl" width="32" description="The control register defines the size of the remote cache data storage memory to use and whether the L1 is enabled." offset="0x4">
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="The ~icenable field determines whether the L1 configuration is enabled or not.#br# 0: Disabled#br# 1: Enabled #br# This field is write protected when the t_cfg_lock_ipcfg input is high." id="CENABLE" resetval="0x40000000"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" description="The ~irenable field determines if half the cache space is RAM or cache. #br# 0: No RAM 64K of cache#br# 1: RAM 32K of cache, 32K of RAM. This field is write protected when ~icenable is set or the t_cfg_lock_ipcfg input is high." id="RENABLE" resetval="0x40000000"/>
+		<bitfield width="30" end="0" begin="29" rwaccess="RO" id="reserved" resetval="0x40000000"/>
+	</register>
+	<register acronym="STS" id="sts" width="32" description="The Status register displays the state of the L1 module" offset="0x8">
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="The ~iok_to_go status bit indicates the Tag/LRU Ram has been initialized and the cache is in an operable state." id="OK_TO_GO" resetval="0"/>
+		<bitfield width="31" end="0" begin="30" rwaccess="RO" id="reserved" resetval="0"/>
+	</register>
+	<register acronym="CAL" id="cal" width="32" description="The L1 Cache Address Low Register defines start of the L1 cacheable space. The L1 cache can cache up to a range of 8MB of of the target Flash as defined by CAL&amp;gt;=CachedRange&amp;lt;=CAH. This register is write protected when ~icenable is set or the t_cfg_lock_ipcfg input is high." offset="0x10">
+		<bitfield width="20" end="12" begin="31" rwaccess="RW" description="The ~iaddr_lo defines the L1 low address[31:12] for the L1 to cache. The remaining bits 10:0 are assumed to be zero." id="ADDR_LO" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RO" id="reserved" resetval="0"/>
+	</register>
+	<register acronym="CAH" id="cah" width="32" description="The L1 Cache Address High Register defines end of the L1 cacheable space. The L1 cache can cache up to a range of 8MB of of the target Flash as defined by CAL&amp;gt;=CachedRange&amp;lt;=CAH. This register is write protected when ~icenable is set or the t_cfg_lock_ipcfg input is high." offset="0x18">
+		<bitfield width="20" end="12" begin="31" rwaccess="RW" description="The ~iaddr_hi defines the L1 high address[31:12] for the L1 to cache. The remaining bits 10:0 are assumed to be ones." id="ADDR_HI" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RO" id="reserved" resetval="0"/>
+	</register>
+	<register acronym="READ_COUNTER" id="read_counter" width="32" description="The L1 HIT Counter register holds the number of L1 Hits to the internal cache." offset="0x40">
+		<bitfield width="20" end="12" begin="31" rwaccess="RW" description="The hit Counts the number of hits to the L1 cache.
+Writing zero to this register will clear its contents
+
+When one reach the max, the rest of the counters are halted too." id="READ_HIT_COUNTER" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="The miss Counts the number of misses to the L1 cache.
+Writing zero to this register will clear its contents.
+
+When one reach the max, the rest of the counters are halted too." id="READ_MISS_COUNTER" resetval="0"/>
+	</register>
+	<register acronym="WRITE_COUNTER" id="write_counter" width="32" description="The L1 MISS Counter register holds the number of L1 Misses to the internal cache." offset="0x44">
+		<bitfield width="20" end="12" begin="31" rwaccess="RW" description="The hit Counts the number of hits to the L1 cache.
+Writing zero to this register will clear its contents.
+
+When one reach the max, the rest of the counters are halted too." id="WRITE_HIT_COUNTER" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="The miss Counts the number of misses to the L1 cache.
+Writing zero to this register will clear its contents.
+
+When one reach the max, the rest of the counters are halted too" id="WRITE_MISS_COUNTER" resetval="0"/>
+	</register>
+	<register acronym="ADDRESS_LATCH" id="address_latch" width="32" description="When having OTFDE AHB error, Latch the address accessed by D-cache" offset="0x48">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="When D-cache receive AHB error from the OTFDE it should latch the address accessed by D-cache.
+(OTFDE generates an error for write only)
+
+Writing zero to this register will clear its contents." id="ADDRESS_LATCH" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_FSM_STATE" id="cache_fsm_state" width="32" offset="0x4c">
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Dcache current FSM state
+
+WIDLE    = 5'd0; - No access to D-cache
+WRAMWR   = 5'd1; - Data RAM Write
+WRAMRD   = 5'd2; - Data RAM Read
+WCREADT  = 5'd4; - Read Hit
+WCREADC  = 5'd5; - Read Miss
+WCWRITET = 5'd6; - Write Hit
+EVICT    = 5'd7; -Write back to PSRAM
+WR_ALLOC = 5'd8; - Write Allocate in write miss
+RD_WA = 5'd9; - Word aligned read for a byte aligned read
+WD = 5'd10; - Writing data to PSRAM
+RDATA_CACHE = 5'd3; Reading data RAM for eviction
+DEC_DIR = 5'd11; - Deciding direction
+RDATA_CACHE_FLUSH = 5'd12; Reading data from data RAM for flush
+RD_SET     = 5'd13; Reading TAG &amp; MRU
+DET_GRANT  = 5'd14;  Detecting the granted way to evict
+EVICT_FLUSH = 5'd15; Eviction during Flush
+WD_DEBUG = 5'd16; Writing data to PSRAM during a debugger access" id="FSM_STATE" resetval="0x0"/>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Dcache current FSM state" id="RESERVED5" resetval="0x0"/>
+	</register>
+	<register acronym="IRQSTATUS_RAW" id="irqstatus_raw" width="32" description="The Interrupt Raw Status Register holds the raw status of the L1 error interrupts.
+Note: Read to the field of this register gives raw status of corresponding interrupt. S/W can set corresponding interrupt field for diagnostic purposes." offset="0x80">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="reserved" id="RESERVED0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="The ~ilock_cfg_wr bit indicates a write to a locked configuration register has occured. Write 1 to set the ~ilock_cfg_wr status for diagnostic purposes. Writing a 0 has no effect." id="LOCK_CFG_WR" resetval="0"/>
+	</register>
+	<register acronym="IRQSTATUS_MSK" id="irqstatus_msk" width="32" description="The Interrupt Masked Status Register holds the masked status for the L1 error interrupts. Writing to this register will EOI the interrupt, that is if another interrupt is pending, a new pulse interrupt will be generated.
+Note: Read to the field of this register gives masked status of corresponding interrupt. Writing 1 to the field of this register clears corresponding interrupt." offset="0x84">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="reserved" id="RESERVED0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="The ~ilock_cfg_wr bit indicates a write to a locked configuration register has occured. Write 1 to clear the ~ilock_cfg_wr status after interrupt has been serviced (raw status gets cleared, i.e. even if not enabled). Writing a 0 has no effect to this field." id="LOCK_CFG_WR" resetval="0"/>
+	</register>
+	<register acronym="IRQENABLE_SET" id="irqenable_set" width="32" description="The Interrupt Enable Set Register holds the interrupt enable status of the L1 error interrupts.
+Note:Writing 1 to field of this register will not mask the corresponding interrupt. IRQSTATUS_RAW and IRQSTATUS_MSK status field gives the same status." offset="0x88">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="reserved" id="RESERVED0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Interrupt Enable Set for ~ilock_cfg_wr error bit. Writing a 1 will enable the interrupt, and set this bit as well as the corresponding Interrupt Enable Clear Register. Writing a 0 has no effect." id="EN_LOCK_CFG_WR" resetval="0"/>
+	</register>
+	<register acronym="IRQENABLE_CLR" id="irqenable_clr" width="32" description="The Interrupt Enable Clear Register holds the interrupt enable status of the L1 error interrupts.
+Note:Writing 1 to field of this register masks the corresponding interrupt. IRQSTATUS_RAW and IRQSTATUS_MSK status field gives the raw status and masked status respectively" offset="0x8c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="reserved" id="RESERVED0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Interrupt Enable Clear for ~ilock_cfg_wr error bit. Writing a 1 will disable the interrupt, and clear this bit as well as the corresponding Interrupt Enable Set Register. Writing a 0 has no effect." id="EN_LOCK_CFG_WR" resetval="0"/>
+	</register>
+	<register acronym="CTRL1" id="ctrl1" width="32" description="Flush and invalidates requests" offset="0xc0">
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="0x0 - Do nothing
+0x1 - Flush
+The bit is self cleared when flush completed" id="FLUSH" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" description="0x0 - Do nothing
+0x1 - Invalidate
+This bit is self cleared when invalidate completed" id="INVALIDATE" resetval="0x0"/>
+		<bitfield width="30" end="0" begin="29" rwaccess="RO" id="reserved" resetval="0x0"/>
+	</register>
+	<register acronym="STATUS1" id="status1" width="32" description="Flush and invalidates status" offset="0xc4">
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="This bit indicates that Flush as been completed
+( Bit is cleared when Flush request bit is asserted )" id="FLUSH_STATUS" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" description="This bit indicates that invalidate has been completed
+( Bit is cleared when flush request bit is asserted )" id="INVALIDATE_STATUS" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" description="This bit indicates that Flush has failed
+( Bit is cleared when Flush request bit is asserted )" id="FLUSH_FAIL" resetval="0x0"/>
+		<bitfield width="29" end="0" begin="28" rwaccess="RO" id="reserved" resetval="0x0"/>
+	</register>
+</module>

@@ -1,0 +1,366 @@
+<?xml version="1.0" ?>
+<module id="ble_rfcore_rfe" XML_version="1.0" description="">
+	<register acronym="RFEENABLE" id="rfeenable" width="32" description="RF Engine Enable Register" offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="RFE Enable 0" id="RFE_EN0" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="RFE Enable 1" id="RFE_EN1" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enables the Magnitude Accumulator 0" id="ACC0" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable RFE to send Wake Events to MCE TOPsm" id="RFE_WAKE_EN" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable RFE FW Strob Signal (not in use - signals are ORed)" id="RFE_STROB_EN" resetval="0x0"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable for RSSI Control" id="RSSICTRL" resetval="0x0"/>
+	</register>
+	<register acronym="RFEINIT" id="rfeinit" width="32" description="RF Engine Initialization Register" offset="0x4">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Synch reset RFE0" id="RFE_INIT0" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Synch reset RFE1" id="RFE_INIR1" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Synch reset Magnitude Accumulator 0" id="ACC0" resetval="0x0"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Synch reset for RSSI Control" id="RSSICTRL" resetval="0x0"/>
+	</register>
+	<register acronym="RFESTROBES0" id="rfestrobes0" width="32" description="RF Engine (RFE) Strobe Register 0" offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Signal command done to CPE" id="CMDDONE" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Firmware defined event for RFE RAT0
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERAT0" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Firmware defined event for RFE RAT1
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERAT1" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Firmware defined event for RFE RAT2
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERAT2" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Firmware defined event for RFE RAT3
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERAT3" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Firmware defined event for RFE RAT4
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERAT4" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Firmware defined event for RFE RAT5
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERAT5" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Firmware defined event for RFE IRQ0
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFEIRQ0" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Firmware defined event for RFE IRQ1
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERIQ1" resetval="0x0"/>
+		<bitfield width="21" end="11" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Firmware defined event for RFE IRQ1
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERIQ2" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Firmware defined event for RFE IRQ3
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." id="RFERIQ3" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENTMODE" id="rfeeventmode" width="32" description="RF Engine (RFE) Event Mode Register" offset="0xc">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="BLE RFE to Scripter Event Mode" id="BLE_SCRPT_EVENT_MODE" resetval="0x0"/>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFETRIGER" id="rfetriger" width="32" description="RF Engine (RFE) Trigger Register" offset="0x10">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="BLE RFE to Scripter Trigger" id="BLE_SCRPT_TRIGGER" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="BLE RFE to TX-Config Trigger" id="BLE_TXCFG_TRIGGER" resetval="0x0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved13" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="RFE RSSI Start Trigger - Start the RSSI Accumulator operation." id="RFERSSI_START_TRIGGER" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="RFE RSSI Stop Trigger - Stop the RSSI Accumulator operation." id="RFERSSI_STOP_TRIGGER" resetval="0x0"/>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" id="Reserved1" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved5" resetval="0x0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RO" id="Reserved9" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENTDONE" id="rfeeventdone" width="32" description="RF Engine (RFE) Event Done Register" offset="0x14">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Scripter Event is Done" id="BLE_SCRPT_EVENT_DONE" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="TX-Config Event is Done" id="BLE_TXCFG_EVENT_DONE" resetval="0x0"/>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" id="Reserved1" resetval="0x0"/>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved5" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENTMODEDONE" id="rfeeventmodedone" width="32" description="RF Engine (RFE) Event Mode Done Register" offset="0x18">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="BLE RFE to Scripter Event Mode Done" id="BLE_SCRPT_EVENT_MODE_DONE" resetval="0x0"/>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESYNC" id="rfesync" width="32" description="RF Engine (RFE) SYNC Register" offset="0x1c">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="BLE RFE Sync signal from the BLE Modem" id="BLE_AGC_SYNC" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEOF" id="rfeeof" width="32" description="RF Engine (RFE) EOF Register" offset="0x20">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="BLE RFE - Rx Done Signal. Acts as End of Frame signal." id="BLE_AGC_EOF" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESCRPTCTRL" id="rfescrptctrl" width="32" description="RFE Direct GPO/IRQ/RAT Control by Phy-Scripter Register" offset="0x24">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Control IRQ0 - Scripter Tx-ON" id="SCRPT_IRQ0" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Control IRQ1 - Scripter Tx-OFF" id="SCRPT_IRQ1" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Control IRQ2 - Scripter Rx-ON" id="SCRPT_IRQ2" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Control IRQ3 - Scripter Rx-OFF" id="SCRPT_IRQ3" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Control RAT0 - Scripter Tx-ON" id="SCRPT_RAT0" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Control RAT1 - Scripter Tx-OFF" id="SCRPT_RAT1" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Control RAT2 - Scripter Rx-ON" id="SCRPT_RAT2" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Control RAT3 - Scripter Rx-OFF" id="SCRPT_RAT3" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Control RAT4 - Scripter TBD" id="SCRPT_RAT4" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Control RAT5 - Scripter TBD" id="SCRPT_RAT5" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Control GPO0 - Scripter Tx-ON" id="SCRPT_GPO0" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Control GPO1 - Scripter Tx-OFF" id="SCRPT_GPO1" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Control GPO2 - Scripter Rx-ON" id="SCRPT_GPO2" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Control GPO3 - Scripter Rx-OFF" id="SCRPT_GPO3" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Control GPO4 - Scripter TBD" id="SCRPT_GPO4" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Control GPO5 - Scripter TBD" id="SCRPT_GPO5" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENT0" id="rfeevent0" width="32" description="RFE Event-0 Flag Register" offset="0x28">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Status IRQ0 - Scripter Tx-ON" id="SCRPT_IRQ0" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Status IRQ1 - Scripter Tx-OFF" id="SCRPT_IRQ1" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Status IRQ2 - Scripter Rx-ON" id="SCRPT_IRQ2" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Status IRQ3 - Scripter Rx-OFF" id="SCRPT_IRQ3" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Status RAT0 - Scripter Tx-ON" id="SCRPT_RAT0" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Status RAT1 - Scripter Tx-OFF" id="SCRPT_RAT1" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Status RAT2 - Scripter Rx-ON" id="SCRPT_RAT2" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Status RAT3 - Scripter Rx-OFF" id="SCRPT_RAT3" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Status RAT4 - Scripter TBD" id="SCRPT_RAT4" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Status RAT5 - Scripter TBD" id="SCRPT_RAT5" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Status GPO0 - Scripter Tx-ON" id="SCRPT_GPO0" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="Status GPO1 - Scripter Tx-OFF" id="SCRPT_GPO1" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="Status GPO2 - Scripter Rx-ON" id="SCRPT_GPO2" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="Status GPO3 - Scripter Rx-OFF" id="SCRPT_GPO3" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="Status GPO4 - Scripter TBD" id="SCRPT_GPO4" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="Status GPO5 - Scripter TBD" id="SCRPT_GPO5" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENTMSK0" id="rfeeventmsk0" width="32" description="RFE Event-0 Mask Register" offset="0x2c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable mask for event RFEEVENT0. IRQ0 - Scripter Tx-ON" id="SCRPT_IRQ0" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enable mask for event RFEEVENT0. IRQ1 - Scripter Tx-OFF" id="SCRPT_IRQ1" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enable mask for event RFEEVENT0. IRQ2 - Scripter Rx-ON" id="SCRPT_IRQ2" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable mask for event RFEEVENT0. IRQ3 - Scripter Rx-OFF" id="SCRPT_IRQ3" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable mask for event RFEEVENT0. RAT0 - Scripter Tx-ON" id="SCRPT_RAT0" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable mask for event RFEEVENT0. RAT1 - Scripter Tx-OFF" id="SCRPT_RAT1" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enable mask for event RFEEVENT0. RAT2 - Scripter Rx-ON" id="SCRPT_RAT2" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable mask for event RFEEVENT0. RAT3 - Scripter Rx-OFF" id="SCRPT_RAT3" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable mask for event RFEEVENT0. RAT4 - Scripter TBD" id="SCRPT_RAT4" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable mask for event RFEEVENT0. RAT5 - Scripter TBD" id="SCRPT_RAT5" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enable mask for event RFEEVENT0. GPO0 - Scripter Tx-ON" id="SCRPT_GPO0" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enable mask for event RFEEVENT0. GPO1 - Scripter Tx-OFF" id="SCRPT_GPO1" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enable mask for event RFEEVENT0. GPO2 - Scripter Rx-ON" id="SCRPT_GPO2" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Enable mask for event RFEEVENT0. GPO3 - Scripter Rx-OFF" id="SCRPT_GPO3" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="Enable mask for event RFEEVENT0. GPO4 - Scripter TBD" id="SCRPT_GPO4" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="Enable mask for event RFEEVENT0. GPO5 - Scripter TBD" id="SCRPT_GPO5" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENTCLR0" id="rfeeventclr0" width="32" description="RFE Event-0 Clear Register" offset="0x30">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Clear event RFEEVENT0. IRQ0 - Scripter Tx-ON" id="SCRPT_IRQ0" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Clear event RFEEVENT0. IRQ1 - Scripter Tx-OFF" id="SCRPT_IRQ1" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Clear event RFEEVENT0. IRQ2 - Scripter Rx-ON" id="SCRPT_IRQ2" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Clear event RFEEVENT0. IRQ3 - Scripter Rx-OFF" id="SCRPT_IRQ3" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Clear event RFEEVENT0. RAT0 - Scripter Tx-ON" id="SCRPT_RAT0" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Clear event RFEEVENT0. RAT1 - Scripter Tx-OFF" id="SCRPT_RAT1" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Clear event RFEEVENT0. RAT2 - Scripter Rx-ON" id="SCRPT_RAT2" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Clear event RFEEVENT0. RAT3 - Scripter Rx-OFF" id="SCRPT_RAT3" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Clear event RFEEVENT0. RAT4 - Scripter TBD" id="SCRPT_RAT4" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Clear event RFEEVENT0. RAT5 - Scripter TBD" id="SCRPT_RAT5" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Clear event RFEEVENT0. GPO0 - Scripter Tx-ON" id="SCRPT_GPO0" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Clear event RFEEVENT0. GPO1 - Scripter Tx-OFF" id="SCRPT_GPO1" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Clear event RFEEVENT0. GPO2 - Scripter Rx-ON" id="SCRPT_GPO2" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Clear event RFEEVENT0. GPO3 - Scripter Rx-OFF" id="SCRPT_GPO3" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Clear event RFEEVENT0. GPO4 - Scripter TBD" id="SCRPT_GPO4" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Clear event RFEEVENT0. GPO5 - Scripter TBD" id="SCRPT_GPO5" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENT1" id="rfeevent1" width="32" description="RFE Event-1 Flag Register" offset="0x34">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="For Status of RFETRIGER.ble_scrpt_trigger" id="SCRPT_TRIG" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="For Status of RFETRIGER.ble_txcfg_trigger" id="TXCFG_TRIG" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="For Status of RFESYNC.ble_agc_sync" id="AGC_SYNC" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="For Status Debug - RFEEOF.ble_agc_eof" id="AGC_EOF" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="New command from MCE received in [MCERCEV.*] register" id="MDMCMD_IRQ" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Accumulation period completed in magnitude accumulator 0" id="ACC0_IRQ" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="External input event line RFC_GPI0" id="RFEGPI0" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="External input event line RFC_GPI1" id="RFEGPI1" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="External input event line RFC_GPI2" id="RFEGPI2" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="External input event line RFC_GPI3" id="RFEGPI3" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="External input event line RFC_GPI4" id="RFEGPI4" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="External input event line RFC_GPI5" id="RFEGPI5" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="External input event line RFC_GPI6" id="RFEGPI6" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="External input event line RFC_GPI7" id="RFEGPI7" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="Unused event line 14" id="WLPHYRXSTART" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="Unused event line 15" id="WLPHYRXSTOP" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENTMSK1" id="rfeeventmsk1" width="32" description="RFE Event-1 Mask Register" offset="0x38">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable mask for event RFEEVENT1.SCRPT_TRIG" id="SCRPT_TRIG" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enable mask for event RFEEVENT1.TXCFG_TRIG" id="TXCFG_TRIG" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enable mask for event RFEEVENT1.AGC_SYNC" id="AGC_SYNC" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable mask for event RFEEVENT1.AGC_EOF" id="AGC_EOF" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable mask for event RFEEVENT1.MDMCMD_IRQ" id="MDMCMD_IRQ" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable mask for event RFEEVENT1.ACC0_IRQ" id="ACC0_IRQ" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI0" id="RFEGPI0" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI1" id="RFEGPI1" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI2" id="RFEGPI2" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI3" id="RFEGPI3" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI4" id="RFEGPI4" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI5" id="RFEGPI5" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI6" id="RFEGPI6" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Enable mask for event RFEEVENT1.RFEGPI7" id="RFEGPI7" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="Enable mask for event RFEEVENT1.WLPHYRXSTART" id="WLPHYRXSTART" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="Enable mask for event RFEEVENT1.WLPHYRXSTOP" id="WLPHYRXSTOP" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEEVENTCLR1" id="rfeeventclr1" width="32" description="RFE Event-1 Clear Register" offset="0x3c">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Clear event RFEEVENT1.SCRPT_TRIG" id="SCRPT_TRIG" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Clear event RFEEVENT1.TXCFG_TRIG" id="TXCFG_TRIG" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Clear event RFEEVENT1.AGC_SYNC" id="AGC_SYNC" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Clear event RFEEVENT1.AGC_EOF" id="AGC_EOF" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Clear event RFEEVENT1.MDMCMD_IRQ" id="MDMCMD_IRQ" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Clear event RFEEVENT1.ACC0_IRQ" id="ACC0_IRQ" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI0" id="RFEGPI0" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI1" id="RFEGPI1" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI2" id="RFEGPI2" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI3" id="RFEGPI3" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI4" id="RFEGPI4" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI5" id="RFEGPI5" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI6" id="RFEGPI6" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Clear event RFEEVENT1.RFEGPI7" id="RFEGPI7" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Clear event RFEEVENT1.WLPHYRXSTART" id="WLPHYRXSTART" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Clear event RFEEVENT1.WLPHYRXSTOP" id="WLPHYRXSTOP" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEMCESEND" id="rfemcesend" width="32" description="RFE-to-MCE Send Command Register" offset="0x40">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Command to send to the MCE. Writing to this register will trigger an event in the MCE, and the command value written here will be readable in RFC_MDM:RFERCEV register." id="RFECMD" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEMCERCEV" id="rfemcercev" width="32" description="MCE-to-RFE Receive Command Register" offset="0x44">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Command received from MCE" id="MCECMD" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESPARE0" id="rfespare0" width="32" description="RFE Spare0 Value" offset="0x48">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware." id="VAL" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESPARE1" id="rfespare1" width="32" description="RFE Spare1 Value" offset="0x4c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware." id="VAL" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESPARE2" id="rfespare2" width="32" description="RFE Spare2 Value" offset="0x50">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware." id="VAL" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESPARE3" id="rfespare3" width="32" description="RFE Spare3 Value" offset="0x54">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware." id="VAL" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESPARE4" id="rfespare4" width="32" description="RFE Spare4 Value" offset="0x58">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware." id="VAL" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESPARE5" id="rfespare5" width="32" description="RFE Spare5 Value" offset="0x5c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware." id="VAL" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFETRCSEND" id="rfetrcsend" width="32" description="RFE Tracer Send Trigger Register" offset="0x60">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Sends a command to the tracer" id="SEND" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFETRCBUSY" id="rfetrcbusy" width="32" description="RFE Tracer Status Register" offset="0x64">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Checks if the tracer is busy" id="BUSY" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFETRCCMD" id="rfetrccmd" width="32" description="RFE Tracer Commmand Register" offset="0x68">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Packet header" id="PKTHDR" resetval="0x0"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="Number of parameters" id="PARCNT" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFETRCPAR0" id="rfetrcpar0" width="32" description="RFE Tracer Command Parameter Register 0" offset="0x6c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Parameter 0" id="PAR0" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFETRCPAR1" id="rfetrcpar1" width="32" description="RFE Tracer Command Parameter Register 1" offset="0x70">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Parameter 1" id="PAR1" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFEGPO0" id="rfegpo0" width="32" description="RFE Direct GPO control register" offset="0x74">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Control GPO0" id="GPO0" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Control GPO1" id="GPO1" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Control GPO2" id="GPO2" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Control GPO3" id="GPO3" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Control GPO4" id="GPO4" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Control GPO5" id="GPO5" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Control GPO6" id="GPO6" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Control GPO7" id="GPO7" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RSSIACCUMCFG" id="rssiaccumcfg" width="32" description="RSSI Offset Adjustment Register" offset="0x100">
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="RSSI Offset to convert to dBm (unsigned). This is used by the RFE to adjust its RSSI calculations.
+RSSI offset can be given during the calculation." id="RFERSSI_OFFSET" resetval="0x0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="Reserved14" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="RSSI Accumulator - Enable periodic mode:
+   0: One-shot mode
+   1: Periodic mode" id="RFERSSI_PERIODIC_MODE" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="RSSI Accumulator Accurary mode: 
+   0: fine
+   1: coarse" id="RFERSSI_ACCURACY_MODE" resetval="0x0"/>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" id="Reserved1" resetval="0x0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="RSSI Operation mode select: 
+   00: Default - Fine mode accuracy after SYNC Only. No Ext Trigger.
+   01: Trigger - By Ext-Trigger only, accuracy accordig to accuracy_mode register setting.
+   10: Both - By Ext-Trigger before SYNC use coarse accuracy, and As Default after SYNC.
+
+
+   00 : Default  - Post-SYNC-Only: Fine mode accuracy after SYNC.
+   01 : Full        - Pre-SYNC:           Coars mode accuracy before SYNC.
+                       - Post-SYNC:         Fine mode accuracy after SYNC.
+   10 : Trigger - By Ext Trigger only, accuracy accordig to accuracy_mode register.
+                        -The Trigger controlled by FW use next WI registers:
+			        - RFETRIGER.rferssi_start_trigger to Start Trigger.
+                                - RFETRIGER.rferssi_stop_trigger to Stop Trigger." id="RFERSSI_TRIGGER_MODE" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="RSSI AGC Debug mode - Force AGC Value from RFESPARE0.val (for debug)" id="RFERSSI_AGC_DEBUG_MODE" resetval="0x0"/>
+	</register>
+	<register acronym="RSSIBLANKING" id="rssiblanking" width="32" description="BLE RSSI BLANKING Register" offset="0x104">
+		<bitfield width="7" end="1" begin="7" rwaccess="RW" description="Duration (of 8MHz cycles) in which we wait to start the RSSI accumulation." id="RFERSSI_BLANKING_TIME" resetval="0x0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Status register indicate that &quot;RxMeterStart&quot; signal was received, so Ready for AGC Step and BLE Sync signals." id="RFERSSI_RX_METER_START" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Control dynamicly the operation of the magnitude estimator engine - for power saving.
+(for furure use - not sure connected)" id="RFERSSI_MAGN_EST_CTRL" resetval="0x0"/>
+	</register>
+	<register acronym="RSSIACCUMSCALE" id="rssiaccumscale" width="32" description="BLE RSSI ACCUMULATOR SCALE Register
+Set teh scaling value, by factor 1/2^(accum-scale)
+   0000 : DIV1   : 1/1 (no scaling)
+   0001 : DIV2   : 1/2
+   0010 : DIV4   : 1/4
+   0011 : DIV8   : 1/8
+   0100 : DIV16  : 1/16
+   0101 : DIV32  : 1/32
+   0110 : DIV64  : 1/64
+   0111 : DIV128 : 1/128
+   1XXX : DIV256 : 1/256" offset="0x108">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Coarse Scaling value, by factor 1/2^Scale: Values are from 1 to 1/256." id="RFERSSI_ACCUM_SCALE_COARSE" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="Fine Scaling value, by factor 1/2^Scale: Values are from 1 to 1/256." id="RFERSSI_ACCUM_SCALE_FINE" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RSSIACCUMPERIOD" id="rssiaccumperiod" width="32" description="BLE RSSI ACCUMULATOR PERIOD Register
+Accumulation period, in incoming samples" offset="0x10c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Coarse Period value, in incoming samples. 0 means 1 sample. Range is from 1 to 256." id="RFERSSI_ACCUM_PERIOD_COARSE" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Fine Period value, in incoming samples. 0 means 1 sample. Range is from 1 to 256." id="RFERSSI_ACCUM_PERIOD_FINE" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RSSIVALUE" id="rssivalue" width="32" description="BLE RSSI VALUE Register" offset="0x110">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Calculated RSSI value (signed).
+If this register reads as -255 (0xFF) it means that the value is not yet valid." id="RFERSSI_VALUE" resetval="0xff"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0xff"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="RSSI Ready: 
+   1: RSSI is ready to be read
+   0: Otherwise." id="RFERSSI_READY" resetval="0xff"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Counter as a stamp of a given valid RSSI calculation for periodic mode.
+RSSI is during masking (force by AGC Step).
+RSSI is Active (during operation).
+RSSI Ready used accuracy_mode: '0' - fine, '1' - coarse." id="RFERSSI_ACUURACY" resetval="0xff"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Counter as a stamp of a given valid RSSI calculation for periodic mode.
+RSSI is during masking (force by AGC Step).
+RSSI is Active (during operation).
+RSSI Ready used accuracy_mode: '0' - fine, '1' - coarse." id="RFERSSI_ACTIVE" resetval="0xff"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="RSSI is during masking so it is NOT working.
+(forced by AGC Step controled by wlphy-rx-ctrl)." id="RFERSSI_MASKING" resetval="0xff"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="Counter as a stamp for any given valid RSSI calculation.
+(For FW use - to know if RSSI was updated - for periodic mode.)" id="RFERSSI_VALUE_COUNT" resetval="0xff"/>
+	</register>
+	<register acronym="RSSIVALUEINVALID" id="rssivalueinvalid" width="32" description="BLE RSSI VALUE INVALID Register" offset="0x114">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="The value of BLE_RSSI_VALUE register in case of invalid value." id="RFERSSI_VALUE_INVALID" resetval="0x0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Select the RFERSSI_VALUE_INVALID value with  register in case of invalid value.
+Set to one when seeting the rferssi_value_invalid to specific value,
+Otherwise when RFERSSI_VALUE is not ready - HW will force it to 0x1FF." id="RFERSSI_VALUE_INVALID_SET" resetval="0x0"/>
+	</register>
+	<register acronym="RSSIACCUMDBG" id="rssiaccumdbg" width="32" description="BLE RSSI ACCUMULATOR DEBUG Register" offset="0x118">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Chosen RSSI accumulator Period. Used for debug options." id="RFERSSI_ACCUM_PERIOD_CHOSEN" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Chosen RSSI accumulator Scale. Used for debug options." id="RFERSSI_ACCUM_SCALE_CHOSEN" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MAGNACC0" id="magnacc0" width="32" description="Magnitude estimator 0 accumulator value" offset="0x11c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Accumulated magnitude over the period" id="ACCVAL" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="LIN2LOGOUT" id="lin2logout" width="32" description="Lin2Log output register" offset="0x120">
+		<bitfield width="7" end="0" begin="6" rwaccess="RO" description="Logarithmic output value. Calculation performed: LIN2LOGOUT = 20*log10(MATHACCELIN)." id="LOGVAL" resetval="0x3c"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x3c"/>
+	</register>
+</module>

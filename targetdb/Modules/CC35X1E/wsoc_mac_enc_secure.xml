@@ -1,0 +1,296 @@
+<module id="wsoc_mac_enc_secure" XML_version="1.0" description="">
+	<register acronym="ENC_CFG" id="enc_cfg" width="32" offset="0x0">
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="when set, bit[15] in the mac header field controlled will be used. other wise it wil be masked." id="AAD_USE_HT_ORDER_BIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="when set the mic bytes going to the aes engine (Rx) will be reversed in order" id="AES_BYTE_REV" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="0: FSM will go to GET_KEY only if &quot;key_changed&quot; 1: force GET_KEY even if not &quot;key_changed&quot;" id="FORCE_GET_KEY" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="6" end="2" begin="7" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved_5" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_6" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="3" end="9" begin="11" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="When MAC-ENC recieve Abort from PMAC-Rx, It mask this abort in case of Tx operation. When this bit is set to '1', the Abort-Tx-Mask is disabled, so Abort will also be functional while Tx." id="MEM_ABORT_TX_MASK_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="7" end="13" begin="19" rwaccess="RO" id="Reserved_4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="When WR '1' to this Register - it generate a Pulse to Clear the ENC_CMD Buffers. It is WRCL MMR, for value back to '1' one cycly after the WR cycle." id="MEM_ENC_CMD_BUF_CLR_PULSE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}" />
+	</register>
+	<register acronym="ENC_START" id="enc_start" width="32" offset="0x4">
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="HW start signal. asserted by the FSM. asserted high until machine is done." id="ENC_START" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="when value is 1, encryption core is running" id="ENC_CORE_BUSY" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="when value is 1, AES encryption core is running" id="AES_BUSY" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+		<bitfield width="1" end="0" begin="0" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+		<bitfield width="6" end="2" begin="7" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+		<bitfield width="22" end="10" begin="31" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+	</register>
+	<register acronym="ENC_STATUS" id="enc_status" width="32" description="status of operation. equals to last status pushed to status fifo. status returns parse_err on reset because no command is loaded. this status does not enter the status fifo." offset="0x8">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="cookie value of current loaded command" id="COOKIE" resetval="536870912" />
+		<bitfield width="10" end="10" begin="19" rwaccess="RO" description="command value of current loaded command" id="CMD" resetval="536870912" />
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" id="RESERVED" resetval="536870912" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" description="when set, operation ended successfully." id="ENC_SUCCESS" resetval="536870912" />
+		<bitfield width="3" end="25" begin="27" rwaccess="RO" id="RESERVED1" resetval="536870912" />
+		<bitfield width="1" end="28" begin="28" rwaccess="RO" description="if mic or icv check passed, read value is 0." id="MIC_ICV_CHECK_PASS_INVERT" resetval="536870912" />
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" description="if cmd filed doesnt match one of the engines, read value is 1." id="PARSE_ERR" resetval="536870912" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" description="set when one of the machines reached list end unexpectedly when trying to write to the packet RAM" id="WR_MEM_BLK_ERR_R" resetval="536870912" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="set when one of the machines reached list end unexpectedly when trying to read from the packet RAM" id="RD_MEM_BLK_ERR_R" resetval="536870912" />
+	</register>
+	<register acronym="ENC_DBG" id="enc_dbg" width="32" description="select the output debug port." offset="0xc">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" id="ENC_DBG_PORT_SEL" resetval="0" />
+		<bitfield width="12" end="4" begin="15" rwaccess="RO" id="Reserved" resetval="0" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="When set to '1' performe ABORT to all MAC-ENC module: bith for Rx and Tx. After some duration, user/SW should clr this bit to '0'." id="MEM_ENC_DBG_SW_ABORT" resetval="0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="0" />
+	</register>
+	<register acronym="ENC_RDMV_CUR_MBLK" id="enc_rdmv_cur_mblk" width="32" description="current treated mem block pointer (dword aligned)" offset="0x10">
+		<bitfield width="22" end="0" begin="21" rwaccess="RO" description="mem block pointer. dword aligned" id="RD_DMV_CUR_MBLK_PTR" resetval="0" />
+		<bitfield width="2" end="22" begin="23" rwaccess="RO" id="RESERVED" resetval="0" />
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="enc machine state machine." id="CURR_STATE" resetval="0" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="RESERVED1" resetval="0" />
+	</register>
+	<register acronym="ENC_WDMV_CUR_MBLK" id="enc_wdmv_cur_mblk" width="32" description="current treated mem block pointer (dword aligned)" offset="0x14">
+		<bitfield width="22" end="0" begin="21" rwaccess="RO" description="mem block pointer. dword aligned" id="WR_DMV_CUR_MBLK_PTR" resetval="0" />
+		<bitfield width="2" end="22" begin="23" rwaccess="RO" id="RESERVED" resetval="0" />
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="enc machine state machine." id="CURR_STATE" resetval="0" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="RESERVED1" resetval="0" />
+	</register>
+	<register acronym="ENC_SPARE_REG1" id="enc_spare_reg1" width="32" description="spare bits for future use." offset="0x18">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" id="SPARE_REG1_L" resetval="16908032" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" id="SPARE_REG1_H" resetval="16908032" />
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="sampled value of sel_spare1" id="SEL_SPARE1_D" resetval="16908032" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="decoded one hot value of spare_reg1_l[2:0]." id="SEL_SPARE1" resetval="16908032" />
+	</register>
+	<register acronym="ENC_SPARE_REG2" id="enc_spare_reg2" width="32" description="spare bits for future use." offset="0x1c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" id="SPARE_REG2" resetval="0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="RESERVED" resetval="0" />
+	</register>
+	<register acronym="ENC_CURR_STATUS" id="enc_curr_status" width="32" offset="0x20">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" id="CURR_STATE" resetval="0x0" />
+		<bitfield width="29" end="3" begin="31" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="KEY_PTR_FRAG_AND_COMMAND" id="key_ptr_frag_and_command" width="32" description="command field.  fragment number(for Tx) and contains the key pointer and the command word." offset="0x24">
+		<bitfield width="24" end="0" begin="23" rwaccess="RO" description="key pointer, full address" id="KEY_PTR" resetval="0" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0" />
+	</register>
+	<register acronym="COOKIE_AND_LENGTH" id="cookie_and_length" width="32" description="command field. contains the cookie, header length and payload length." offset="0x28">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="mac header length in bytes" id="HDR_LEN" resetval="0" />
+		<bitfield width="14" end="6" begin="19" rwaccess="RO" description="payload length in bytes" id="PLOAD_LEN" resetval="0" />
+		<bitfield width="12" end="20" begin="31" rwaccess="RO" id="Reserved" resetval="0" />
+	</register>
+	<register acronym="WR_CMD_ERROR_STATUS" id="wr_cmd_error_status" width="32" offset="0x2c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="error in time sequence of cmd1_valid_pulse and cmd2_valid_pulse [0] cmd1 received while waiting for cmd2 [1] cmd2 received before cmd1 [2] command fifo overflow" id="WR_CMD_ERROR_STATUS_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="ENC_KEY1" id="enc_key1" width="32" description="Contains the key for the encryption engines. loaded by the encryption machine. For AES and TKIP and WAPI will contain the actual key. For WEP, bits[6:0] will be used for wep_key_len field." offset="0x30">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="ENC_KEY_31_0" resetval="0" />
+	</register>
+	<register acronym="ENC_KEY2" id="enc_key2" width="32" description="Contains the key for the encryption engines. loaded by the encryption machine." offset="0x34">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="ENC_KEY_63_32" resetval="0" />
+	</register>
+	<register acronym="ENC_KEY3" id="enc_key3" width="32" description="Contains the key for the encryption engines. loaded by the encryption machine." offset="0x38">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="ENC_KEY_95_64" resetval="0" />
+	</register>
+	<register acronym="ENC_KEY4" id="enc_key4" width="32" description="Contains the key for the encryption engines. loaded by the encryption machine." offset="0x3c">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="ENC_KEY_127_96" resetval="0" />
+	</register>
+	<register acronym="SHARED_DEC_MIC1" id="shared_dec_mic1" width="32" description="Contains the mic value for the WAPI decryption. loaded by the encryption machine." offset="0x40">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="SHARED_MIC_31_0" resetval="0" />
+	</register>
+	<register acronym="SHARED_DEC_MIC2" id="shared_dec_mic2" width="32" description="Contains the mic value for the WAPI decryption. loaded by the encryption machine." offset="0x44">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="SHARED_MIC_63_32" resetval="0" />
+	</register>
+	<register acronym="SHARED_DEC_MIC3" id="shared_dec_mic3" width="32" description="Contains the mic value for the WAPI decryption. loaded by the encryption machine." offset="0x48">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="SHARED_MIC_95_64" resetval="0" />
+	</register>
+	<register acronym="SHARED_DEC_MIC4" id="shared_dec_mic4" width="32" description="Contains the mic value for the WAPI decryption. loaded by the encryption machine." offset="0x4c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="SHARED_MIC_127_96" resetval="0" />
+	</register>
+	<register acronym="PREV_KEY_PTR" id="prev_key_ptr" width="32" description="contains the saved key_ptr from previous command. used for wapi key calculation. key is latched when the encryption machine is done with an operation" offset="0x50">
+		<bitfield width="22" end="0" begin="21" rwaccess="RW" id="PREV_KEY_PTR" resetval="0" />
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="RESERVED" resetval="0" />
+	</register>
+	<register acronym="AES_QOS_CTRL_MASK" id="aes_qos_ctrl_mask" width="32" offset="0x54">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" id="AES_QOS_CTRL_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf'}" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf'}" />
+	</register>
+	<register acronym="AES_FC_MASK" id="aes_fc_mask" width="32" offset="0x58">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" id="AES_QOS_DATA_FC_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x47ff478f'}" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" id="AES_MNGT_FC_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x47ff478f'}" />
+	</register>
+	<register acronym="AES_FC_MASK_2" id="aes_fc_mask_2" width="32" offset="0x5c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" id="AES_OTHER_FC_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x478f'}" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x478f'}" />
+	</register>
+	<register acronym="AES_NONCE1" id="aes_nonce1" width="32" description="nonce field for the AES engine. calculated by HW." offset="0x60">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="SHARED_NONCE_31_0" resetval="0" />
+	</register>
+	<register acronym="AES_NONCE2" id="aes_nonce2" width="32" description="nonce field for the AES engine. calculated by HW." offset="0x64">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="SHARED_NONCE_63_32" resetval="0" />
+	</register>
+	<register acronym="AES_NONCE3" id="aes_nonce3" width="32" description="nonce field for the AES engine. calculated by HW." offset="0x68">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="SHARED_NONCE_95_64" resetval="0" />
+	</register>
+	<register acronym="AES_NONCE4" id="aes_nonce4" width="32" description="nonce field for the AES engine. calculated by HW." offset="0x6c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="SHARED_NONCE_127_96" resetval="16777216" />
+	</register>
+	<register acronym="AES_ASSO1" id="aes_asso1" width="32" description="value calculated by HW." offset="0x70">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 31:0 of the asso data" id="AES_ASSO1" resetval="0" />
+	</register>
+	<register acronym="AES_ASSO2" id="aes_asso2" width="32" description="value calculated by HW." offset="0x74">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bites 63:32 of the aes asso" id="AES_ASSO2" resetval="0" />
+	</register>
+	<register acronym="AES_ASSO3" id="aes_asso3" width="32" description="value calculated by HW." offset="0x78">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 95:64 of the aes_asso" id="AES_ASSO3" resetval="0" />
+	</register>
+	<register acronym="AES_ASSO4" id="aes_asso4" width="32" description="value calculated by HW." offset="0x7c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 127:96 of the aes_asso" id="AES_ASSO4" resetval="0" />
+	</register>
+	<register acronym="AES_AAD1" id="aes_aad1" width="32" description="value calculated by HW." offset="0x80">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 31:0 of the aad" id="AES_AAD_FULL1" resetval="0x0" />
+	</register>
+	<register acronym="AES_AAD2" id="aes_aad2" width="32" description="value calculated by HW." offset="0x84">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 63:32 of the aad" id="AES_AAD_FULL2" resetval="0" />
+	</register>
+	<register acronym="AES_AAD3" id="aes_aad3" width="32" description="value calculated by HW." offset="0x88">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 95:64 of the aad" id="AES_AAD_FULL3" resetval="0" />
+	</register>
+	<register acronym="AES_AAD4" id="aes_aad4" width="32" description="value calculated by HW." offset="0x8c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 127:96 of the aad" id="AES_AAD_FULL4" resetval="0" />
+	</register>
+	<register acronym="AES_AAD5" id="aes_aad5" width="32" description="value calculated by HW." offset="0x90">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 159:128 of the aad" id="AES_AAD_FULL5" resetval="0" />
+	</register>
+	<register acronym="AES_AAD6" id="aes_aad6" width="32" description="value calculated by HW." offset="0x94">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 191:160 of the aad" id="AES_AAD_FULL6" resetval="0" />
+	</register>
+	<register acronym="AES_AAD7" id="aes_aad7" width="32" description="value calculated by HW." offset="0x98">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 223:192 of the aad" id="AES_AAD_FULL7" resetval="0" />
+	</register>
+	<register acronym="AES_AAD8" id="aes_aad8" width="32" description="value calculated by HW." offset="0x9c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="bits 255:224 of the aad" id="AES_AAD_FULL8" resetval="0" />
+	</register>
+	<register acronym="AES_HEADER_LEN" id="aes_header_len" width="32" offset="0xa0">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" id="AES_HEADER_LEN" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_TEST_MODE" id="fips_test_mode" width="32" description="Configurate mode of operation:  FIPS_NONE = 0 (Functional). FIPS_ECB    = 1 (Test ECB Vectors). FIPS_CCM   = 2 (Test CCM Vectors)." offset="0xa4">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="FIPS_TEST_MODE" resetval="0x0" />
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_ENC_KEY1" id="fips_enc_key1" width="32" offset="0xa8">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="FIPS_ENC_KEY1" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_ENC_KEY2" id="fips_enc_key2" width="32" offset="0xac">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="FIPS_ENC_KEY2" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_ENC_KEY3" id="fips_enc_key3" width="32" offset="0xb0">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="FIPS_ENC_KEY3" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_ENC_KEY4" id="fips_enc_key4" width="32" offset="0xb4">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="FIPS_ENC_KEY4" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_IN_1" id="fips_data_in_1" width="32" offset="0xb8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_DATA_IN_1" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_IN_2" id="fips_data_in_2" width="32" offset="0xbc">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_DATA_IN_2" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_IN_3" id="fips_data_in_3" width="32" offset="0xc0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_DATA_IN_3" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_IN_4" id="fips_data_in_4" width="32" offset="0xc4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_DATA_IN_4" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_OUT_1" id="fips_data_out_1" width="32" offset="0xc8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="FIPS_DATA_OUT_1" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_OUT_2" id="fips_data_out_2" width="32" offset="0xcc">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="FIPS_DATA_OUT_2" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_OUT_3" id="fips_data_out_3" width="32" offset="0xd0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="FIPS_DATA_OUT_3" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_DATA_OUT_4" id="fips_data_out_4" width="32" offset="0xd4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="FIPS_DATA_OUT_4" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_ECB_STATUS" id="fips_ecb_status" width="32" offset="0xd8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="signal which indicates AES algorithm is in progress" id="FIPS_ECB_BUSY" resetval="0x0" />
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="signal which indicates data out is ready to be sampled - level signal" id="FIPS_ECB_DATA_OUT_RDY" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_ECB_CTRL" id="fips_ecb_ctrl" width="32" offset="0xdc">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="control signal which stops the AES operation and return the AES to the IDLE mode" id="FIPS_ECB_CLEAR" resetval="0x0" />
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="enable pulse which indicate valid data_in" id="FIPS_ECB_DATA_LOAD" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="enable pulse which indicate valid key_in." id="FIPS_ECB_KEY_LOAD" resetval="0x0" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="configuration input, indicates the number of rounds to do." id="FIPS_ECB_NUM_OF_ROUNDS" resetval="0x0" />
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_NONCE_1_IN" id="fips_ccm_nonce_1_in" width="32" offset="0xe0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_CCM_NONCE_1_IN" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_NONCE_2_IN" id="fips_ccm_nonce_2_in" width="32" offset="0xe4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_CCM_NONCE_2_IN" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_NONCE_3_IN" id="fips_ccm_nonce_3_in" width="32" offset="0xe8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_CCM_NONCE_3_IN" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_NONCE_4_IN" id="fips_ccm_nonce_4_in" width="32" offset="0xec">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" id="FIPS_CCM_NONCE_4_IN" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_CTRL" id="fips_ccm_ctrl" width="32" offset="0xf0">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" id="FIPS_CCM_DATA_LOAD" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" id="FIPS_CCM_KEY_LOAD" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" id="FIPS_CCM_IV_LOAD" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" id="FIPS_CCM_CLEAR" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" id="FIPS_CCM_DATA_OUT_ACK" resetval="0x0" />
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" id="FIPS_CCM_MIC_OUT_ACK" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_CFG" id="fips_ccm_cfg" width="32" offset="0xf4">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" id="FIPS_CCM_LAST_BLK_LEN" resetval="0x0" />
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" id="FIPS_CCM_LAST_BLK" resetval="0x0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" id="FIPS_CCM_HEADER" resetval="0x0" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="FIPS_CCM_ENCRYPTION" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_CFG_2" id="fips_ccm_cfg_2" width="32" offset="0xf8">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" id="FIPS_CCM_PLOAD_LEN" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_STATUS" id="fips_ccm_status" width="32" offset="0xfc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="FIPS_CCM_BUSY" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" id="FIPS_CCM_DATA_OUT_RDY" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" id="FIPS_CCM_MIC_OUT_RDY" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" id="FIPS_CCM_DONE" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" id="FIPS_CCM_MIC_GOOD" resetval="0x0" />
+		<bitfield width="4" end="5" begin="8" rwaccess="RO" id="FIPS_CCM_FSM_STATE" resetval="0x0" />
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_MIC_OUT_1" id="fips_ccm_mic_out_1" width="32" offset="0x100">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="FIPS_CCM_MIC_OUT_1" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_MIC_OUT_2" id="fips_ccm_mic_out_2" width="32" offset="0x104">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="FIPS_CCM_MIC_OUT_2" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_MIC_IN_1" id="fips_ccm_mic_in_1" width="32" offset="0x108">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_CCM_MIC_IN_1" resetval="0x0" />
+	</register>
+	<register acronym="FIPS_CCM_MIC_IN_2" id="fips_ccm_mic_in_2" width="32" offset="0x10c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="FIPS_CCM_MIC_IN_2" resetval="0x0" />
+	</register>
+	<register acronym="AES_CCMP_TAGS" id="aes_ccmp_tags" width="32" offset="0x110">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" id="SHARED_NONCE_TAG" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5901'}" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5901'}" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" id="SHARED_ASSO_TAG" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5901'}" />
+	</register>
+	<register acronym="LOCAL_MAC_ADDR1" id="local_mac_addr1" width="32" description="Contains the local mac address, used to override the address from source packet" offset="0x114">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="LOCAL_MAC_ADDR_31_0" resetval="0" />
+	</register>
+	<register acronym="LOCAL_MAC_ADDR2" id="local_mac_addr2" width="32" description="Contains the local mac address, used to override the address from source packet" offset="0x118">
+		<bitfield width="16" end="0" begin="15" rwaccess="WO" id="LOCAL_MAC_ADDR_47_32" resetval="0" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0" />
+	</register>
+	<register acronym="PEER_MAC_ADDR1" id="peer_mac_addr1" width="32" description="Contains the local mac address, used to override the address from source packet" offset="0x11c">
+		<bitfield width="16" end="0" begin="15" rwaccess="WO" id="LOCAL_MAC_ADDR_31_0" resetval="0" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0" />
+	</register>
+	<register acronym="PEER_MAC_ADDR2" id="peer_mac_addr2" width="32" description="Contains the local mac address, used to override the address from source packet" offset="0x120">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="PEER_MAC_ADDR_47_32" resetval="0" />
+	</register>
+</module>

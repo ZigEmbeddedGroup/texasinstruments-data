@@ -1,0 +1,117 @@
+<module name="MPU_4" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="MPU_4_REVISION" acronym="MPU_4_REVISION" offset="0" width="32" description="Revision.">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Scheme. " range="31:30" rwaccess="R"/>
+	<bitfield id="RESERVED" width="2" begin="29" end="28" resetval="0x0" description="Always read a s0. Writes have no affect." range="29:28" rwaccess="R"/>
+	<bitfield id="MODID" width="12" begin="27" end="16" resetval="0x3713" description="Module ID field." range="27:16" rwaccess="R"/>
+	<bitfield id="REVRTL" width="5" begin="15" end="11" resetval="0x10" description="RTL revision.Will vary depending on release." range="15:11" rwaccess="R"/>
+	<bitfield id="REVMAJ" width="3" begin="10" end="8" resetval="0x1" description="Major revision." range="10:8" rwaccess="R"/>
+	<bitfield id="REVCUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom revision." range="7:6" rwaccess="R"/>
+	<bitfield id="REVMIN" width="6" begin="5" end="0" resetval="0x1" description="Minor revision." range="5:0" rwaccess="R"/>
+	</register><register id="MPU_4_INTERRUPT_RAW_STATUS_SET" acronym="MPU_4_INTERRUPT_RAW_STATUS_SET" offset="16" width="32" description="Interrupt Raw Status/Set.">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Always read as 0." range="31:2" rwaccess="R"/>
+	<bitfield id="ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Raw status is read.Write a 1 to set the status. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register><register id="MPU_4_INTERRUPT_ENABLED_STATUS_CLEAR" acronym="MPU_4_INTERRUPT_ENABLED_STATUS_CLEAR" offset="20" width="32" description="Interrupt Enabled Status/Clear.">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Always read as 0." range="31:2" rwaccess="R"/>
+	<bitfield id="ENABLED_ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Enabled status is read.Write a 1 to clear the status. Writing a 0 has no effect." range="1" rwaccess="R/W0TC"/>
+	<bitfield id="ENABLED_PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="0" rwaccess="R/W0TC"/>
+	</register><register id="MPU_4_INTERRUPT_ENABLE" acronym="MPU_4_INTERRUPT_ENABLE" offset="24" width="32" description="Interrupt Enable.">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Always read as 0." range="31:2" rwaccess="R"/>
+	<bitfield id="ADDR_ERR_EN" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR_EN" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register><register id="MPU_4_INTERRUPT_ENABLE_CLEAR" acronym="MPU_4_INTERRUPT_ENABLE_CLEAR" offset="28" width="32" description="Interrupt Enable Clear.">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Always read as 0." range="31:2" rwaccess="R"/>
+	<bitfield id="ADDR_ERR_EN_CLR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable. Write a 1 to clear the enable. Writing a 0 has no effect." range="1" rwaccess="R/W0TC"/>
+	<bitfield id="PROT_ERR_EN_CLR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable. Write a 1 to clear the enable. Writing a 0 has no effect." range="0" rwaccess="R/W0TC"/>
+	</register><register id="MPU_4_PROGRAMMABLE_1_START_ADDRESS" acronym="MPU_4_PROGRAMMABLE_1_START_ADDRESS" offset="512" width="32" description="Programmable_1_Start_Address.">
+		<bitfield id="START_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Start address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_1_END_ADDRESS" acronym="MPU_4_PROGRAMMABLE_1_END_ADDRESS" offset="516" width="32" description="Programmable_1_End_Address.">
+		<bitfield id="END_ADDR" width="32" begin="31" end="0" resetval="0x0" description="End address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_1_MPPA" acronym="MPU_4_PROGRAMMABLE_1_MPPA" offset="520" width="32" description="Programmable_1_MPPA.">
+		<bitfield id="RESERVED3" width="3" begin="31" end="29" resetval="0x0" description="Always read as 0." range="31:29" rwaccess="R"/>
+	<bitfield id="LOCK" width="1" begin="28" end="28" resetval="0x0" description="this field is used for locking the corresponding MPU region configurations. Write 1 to lock the configurations along with the lock bit.Writing 1 is alllowed once per boot. Lock bit will clear on reset only.Once locked SW can not modify the MPU configurations along with lock bit. " range="28" rwaccess="R/W"/>
+	<bitfield id="RESERVED2" width="2" begin="27" end="26" resetval="0x0" description="Always read as 0." range="27:26" rwaccess="R"/>
+	<bitfield id="AID15_0" width="16" begin="25" end="10" resetval="0x0" description="AIDs checked for this region. Defaults to input value.0 = AID is not checked for these permissions.1 = AID is checked for these permissions." range="25:10" rwaccess="R/W"/>
+	<bitfield id="AIDX" width="1" begin="9" end="9" resetval="0x0" description="Additional AIDs checked. Defaults to input value." range="9" rwaccess="R/W"/>
+	<bitfield id="RESERVED1" width="1" begin="8" end="8" resetval="0x0" description="Always read as 0." range="8" rwaccess="R"/>
+	<bitfield id="NS" width="1" begin="7" end="7" resetval="0x0" description="Non-secure permission. Defaults to input value." range="7" rwaccess="R/W"/>
+	<bitfield id="EMU" width="1" begin="6" end="6" resetval="0x0" description="Debug permission. Defaults to input value." range="6" rwaccess="R/W"/>
+	<bitfield id="SR" width="1" begin="5" end="5" resetval="0x0" description="Supervisor read permission. Defaults to input value." range="5" rwaccess="R/W"/>
+	<bitfield id="SW" width="1" begin="4" end="4" resetval="0x0" description="Supervisor write permission. Defaults to input value." range="4" rwaccess="R/W"/>
+	<bitfield id="SX" width="1" begin="3" end="3" resetval="0x0" description="Supervisor executable permission. Defaults to input value." range="3" rwaccess="R/W"/>
+	<bitfield id="UR" width="1" begin="2" end="2" resetval="0x0" description="User read permission. Defaults to input value." range="2" rwaccess="R/W"/>
+	<bitfield id="UW" width="1" begin="1" end="1" resetval="0x0" description="User write permission. Defaults to input value." range="1" rwaccess="R/W"/>
+	<bitfield id="UX" width="1" begin="0" end="0" resetval="0x0" description="User executable permission. Defaults to input value." range="0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_2_START_ADDRESS" acronym="MPU_4_PROGRAMMABLE_2_START_ADDRESS" offset="528" width="32" description="Programmable_2_Start_Address.">
+		<bitfield id="START_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Start address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_2_END_ADDRESS" acronym="MPU_4_PROGRAMMABLE_2_END_ADDRESS" offset="532" width="32" description="Programmable_2_End_Address.">
+		<bitfield id="END_ADDR" width="32" begin="31" end="0" resetval="0x0" description="End address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_2_MPPA" acronym="MPU_4_PROGRAMMABLE_2_MPPA" offset="536" width="32" description="Programmable_2_MPPA.">
+		<bitfield id="RESERVED3" width="3" begin="31" end="29" resetval="0x0" description="Always read as 0" range="31:29" rwaccess="R"/>
+	<bitfield id="LOCK" width="1" begin="28" end="28" resetval="0x0" description="this field is used for locking the corresponding MPU region configurations. Write 1 to lock the configurations along with the lock bit.Writing 1 is alllowed once per boot. Lock bit will clear on reset only.Once locked SW can not modify the MPU configurations along with lock bit. " range="28" rwaccess="R/W"/>
+	<bitfield id="RESERVED2" width="2" begin="27" end="26" resetval="0x0" description="Always read as 0." range="27:26" rwaccess="R"/>
+	<bitfield id="AID15_0" width="16" begin="25" end="10" resetval="0x0" description="AIDs checked for this region. Defaults to input value.0 = AID is not checked for these permissions.1 = AID is checked for these permissions." range="25:10" rwaccess="R/W"/>
+	<bitfield id="AIDX" width="1" begin="9" end="9" resetval="0x0" description="Additional AIDs checked. Defaults to input value." range="9" rwaccess="R/W"/>
+	<bitfield id="RESERVED1" width="1" begin="8" end="8" resetval="0x0" description="Always read as 0." range="8" rwaccess="R"/>
+	<bitfield id="NS" width="1" begin="7" end="7" resetval="0x0" description="Non-secure permission. Defaults to input value." range="7" rwaccess="R/W"/>
+	<bitfield id="EMU" width="1" begin="6" end="6" resetval="0x0" description="Debug permission. Defaults to input value." range="6" rwaccess="R/W"/>
+	<bitfield id="SR" width="1" begin="5" end="5" resetval="0x0" description="Supervisor read permission. Defaults to input value." range="5" rwaccess="R/W"/>
+	<bitfield id="SW" width="1" begin="4" end="4" resetval="0x0" description="Supervisor write permission. Defaults to input value." range="4" rwaccess="R/W"/>
+	<bitfield id="SX" width="1" begin="3" end="3" resetval="0x0" description="Supervisor executable permission. Defaults to input value." range="3" rwaccess="R/W"/>
+	<bitfield id="UR" width="1" begin="2" end="2" resetval="0x0" description="User read permission. Defaults to input value." range="2" rwaccess="R/W"/>
+	<bitfield id="UW" width="1" begin="1" end="1" resetval="0x0" description="User write permission. Defaults to input value." range="1" rwaccess="R/W"/>
+	<bitfield id="UX" width="1" begin="0" end="0" resetval="0x0" description="User executable permission. Defaults to input value." range="0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_3_START_ADDRESS" acronym="MPU_4_PROGRAMMABLE_3_START_ADDRESS" offset="544" width="32" description="Programmable_3_Start_Address.">
+		<bitfield id="START_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Start address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_3_END_ADDRESS" acronym="MPU_4_PROGRAMMABLE_3_END_ADDRESS" offset="548" width="32" description="Programmable_3_End_Address.">
+		<bitfield id="END_ADDR" width="32" begin="31" end="0" resetval="0x0" description="End address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_3_MPPA" acronym="MPU_4_PROGRAMMABLE_3_MPPA" offset="552" width="32" description="Programmable_3_MPPA.">
+		<bitfield id="RESERVED3" width="3" begin="31" end="29" resetval="0x0" description="Always read as 0" range="31:29" rwaccess="R"/>
+	<bitfield id="LOCK" width="1" begin="28" end="28" resetval="0x0" description="this field is used for locking the corresponding MPU region configurations. Write 1 to lock the configurations along with the lock bit.Writing 1 is alllowed once per boot. Lock bit will clear on reset only.Once locked SW can not modify the MPU configurations along with lock bit. " range="28" rwaccess="R/W"/>
+	<bitfield id="RESERVED2" width="2" begin="27" end="26" resetval="0x0" description="Always read as 0." range="27:26" rwaccess="R"/>
+	<bitfield id="AID15_0" width="16" begin="25" end="10" resetval="0x0" description="AIDs checked for this region. Defaults to input value.0 = AID is not checked for these permissions.1 = AID is checked for these permissions." range="25:10" rwaccess="R/W"/>
+	<bitfield id="AIDX" width="1" begin="9" end="9" resetval="0x0" description="Additional AIDs checked. Defaults to input value." range="9" rwaccess="R/W"/>
+	<bitfield id="RESERVED1" width="1" begin="8" end="8" resetval="0x0" description="Always read as 0." range="8" rwaccess="R"/>
+	<bitfield id="NS" width="1" begin="7" end="7" resetval="0x0" description="Non-secure permission. Defaults to input value." range="7" rwaccess="R/W"/>
+	<bitfield id="EMU" width="1" begin="6" end="6" resetval="0x0" description="Debug permission. Defaults to input value." range="6" rwaccess="R/W"/>
+	<bitfield id="SR" width="1" begin="5" end="5" resetval="0x0" description="Supervisor read permission. Defaults to input value." range="5" rwaccess="R/W"/>
+	<bitfield id="SW" width="1" begin="4" end="4" resetval="0x0" description="Supervisor write permission. Defaults to input value." range="4" rwaccess="R/W"/>
+	<bitfield id="SX" width="1" begin="3" end="3" resetval="0x0" description="Supervisor executable permission. Defaults to input value." range="3" rwaccess="R/W"/>
+	<bitfield id="UR" width="1" begin="2" end="2" resetval="0x0" description="User read permission. Defaults to input value." range="2" rwaccess="R/W"/>
+	<bitfield id="UW" width="1" begin="1" end="1" resetval="0x0" description="User write permission. Defaults to input value." range="1" rwaccess="R/W"/>
+	<bitfield id="UX" width="1" begin="0" end="0" resetval="0x0" description="User executable permission. Defaults to input value." range="0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_4_START_ADDRESS" acronym="MPU_4_PROGRAMMABLE_4_START_ADDRESS" offset="560" width="32" description="Programmable_4_Start_Address.">
+		<bitfield id="START_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Start address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_4_END_ADDRESS" acronym="MPU_4_PROGRAMMABLE_4_END_ADDRESS" offset="564" width="32" description="Programmable_4_End_Address.">
+		<bitfield id="END_ADDR" width="32" begin="31" end="0" resetval="0x0" description="End address for range N. Defaults to input signal value." range="31:0" rwaccess="R/W"/>
+	</register><register id="MPU_4_PROGRAMMABLE_4_MPPA" acronym="MPU_4_PROGRAMMABLE_4_MPPA" offset="568" width="32" description="Programmable_4_MPPA.">
+		<bitfield id="RESERVED3" width="3" begin="31" end="29" resetval="0x0" description="Always read as 0" range="31:29" rwaccess="R"/>
+	<bitfield id="LOCK" width="1" begin="28" end="28" resetval="0x0" description="this field is used for locking the corresponding MPU region configurations. Write 1 to lock the configurations along with the lock bit.Writing 1 is alllowed once per boot. Lock bit will clear on reset only.Once locked SW can not modify the MPU configurations along with lock bit. " range="28" rwaccess="R/W"/>
+	<bitfield id="RESERVED2" width="2" begin="27" end="26" resetval="0x0" description="Always read as 0." range="27:26" rwaccess="R"/>
+	<bitfield id="AID15_0" width="16" begin="25" end="10" resetval="0x0" description="AIDs checked for this region. Defaults to input value.0 = AID is not checked for these permissions.1 = AID is checked for these permissions." range="25:10" rwaccess="R/W"/>
+	<bitfield id="AIDX" width="1" begin="9" end="9" resetval="0x0" description="Additional AIDs checked. Defaults to input value." range="9" rwaccess="R/W"/>
+	<bitfield id="RESERVED1" width="1" begin="8" end="8" resetval="0x0" description="Always read as 0." range="8" rwaccess="R"/>
+	<bitfield id="NS" width="1" begin="7" end="7" resetval="0x0" description="Non-secure permission. Defaults to input value." range="7" rwaccess="R/W"/>
+	<bitfield id="EMU" width="1" begin="6" end="6" resetval="0x0" description="Debug permission. Defaults to input value." range="6" rwaccess="R/W"/>
+	<bitfield id="SR" width="1" begin="5" end="5" resetval="0x0" description="Supervisor read permission. Defaults to input value." range="5" rwaccess="R/W"/>
+	<bitfield id="SW" width="1" begin="4" end="4" resetval="0x0" description="Supervisor write permission. Defaults to input value." range="4" rwaccess="R/W"/>
+	<bitfield id="SX" width="1" begin="3" end="3" resetval="0x0" description="Supervisor executable permission. Defaults to input value." range="3" rwaccess="R/W"/>
+	<bitfield id="UR" width="1" begin="2" end="2" resetval="0x0" description="User read permission. Defaults to input value." range="2" rwaccess="R/W"/>
+	<bitfield id="UW" width="1" begin="1" end="1" resetval="0x0" description="User write permission. Defaults to input value." range="1" rwaccess="R/W"/>
+	<bitfield id="UX" width="1" begin="0" end="0" resetval="0x0" description="User executable permission. Defaults to input value." range="0" rwaccess="R/W"/>
+	</register><register id="MPU_4_FAULT_ADDRESS" acronym="MPU_4_FAULT_ADDRESS" offset="768" width="32" description="Fault_Address.">
+		<bitfield id="FAULT_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Fault address." range="31:0" rwaccess="R"/>
+	</register><register id="MPU_4_FAULT_STATUS" acronym="MPU_4_FAULT_STATUS" offset="772" width="32" description="Fault Status.">
+		<bitfield id="ID" width="8" begin="31" end="24" resetval="0x0" description="Transfer ID" range="31:24" rwaccess="R"/>
+	<bitfield id="MSTID" width="8" begin="23" end="16" resetval="0x0" description="Initiator ID." range="23:16" rwaccess="R"/>
+	<bitfield id="RESERVED" width="3" begin="15" end="13" resetval="0x0" description="Always read as 0." range="15:13" rwaccess="R"/>
+	<bitfield id="PRIVID" width="4" begin="12" end="9" resetval="0x0" description="Privilege ID." range="12:9" rwaccess="R"/>
+	<bitfield id="RESERVED1" width="1" begin="8" end="8" resetval="0x0" description="Always read as 0." range="8" rwaccess="R"/>
+	<bitfield id="NS" width="1" begin="7" end="7" resetval="0x0" description="Non-secure access." range="7" rwaccess="R"/>
+	<bitfield id="RESERVED2" width="1" begin="6" end="6" resetval="0x0" description="Always read as 0." range="6" rwaccess="R"/>
+	<bitfield id="FAULT_TYPE" width="6" begin="5" end="0" resetval="0x0" description="Fault type.100000 = supervisor read fault010000 = supervisor write fault001000 = supervisor execute fault000100 = user read fault000010 = user write fault000001 = user execute fault111111 = relaxed cache linefill fault010010 = relaxed cache writeback fault000000 = no fault" range="5:0" rwaccess="R"/>
+	</register><register id="MPU_4_FAULT_CLEAR" acronym="MPU_4_FAULT_CLEAR" offset="776" width="32" description="Fault Clear.">
+		<bitfield id="RESERVED" width="31" begin="31" end="1" resetval="0x0" description="Always read as 0." range="31:1" rwaccess="R"/>
+	<bitfield id="FAULT_CLR" width="1" begin="0" end="0" resetval="0x0" description="Fault clear. Writing a 1 clears the current fault. Writing a0 has no effect." range="0" rwaccess="W"/>
+	</register>
+</module>

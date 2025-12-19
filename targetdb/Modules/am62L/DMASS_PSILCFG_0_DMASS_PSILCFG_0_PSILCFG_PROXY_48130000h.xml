@@ -1,0 +1,24 @@
+<module name="DMASS_PSILCFG_0_PSILCFG_PROXY" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="DMASS_PSILCFG_0_PSILCFG_PROXY_revision" acronym="DMASS_PSILCFG_0_PSILCFG_PROXY_revision" offset="0" width="32" description="The Revision Register contains the major and minor revisions for the module.">
+		<bitfield id="MODID" width="16" begin="31" end="16" resetval="0x26304" description="Module ID field   Reset Source: srst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="REVRTL" width="5" begin="15" end="11" resetval="0x0" description="RTL revision. Will vary depending on release.   Reset Source: srst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="REVMAJ" width="3" begin="10" end="8" resetval="0x1" description="Major revision   Reset Source: srst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom   Reset Source: srst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="REVMIN" width="6" begin="5" end="0" resetval="0x0" description="Minor revision   Reset Source: srst_n" range="5:0" rwaccess="R"/>
+	</register><register id="DMASS_PSILCFG_0_PSILCFG_PROXY_psil_to" acronym="DMASS_PSILCFG_0_PSILCFG_PROXY_psil_to" offset="16" width="32" description="The PSI-L proxy timeout register controls the timeout watchdog and reports timeout occurrances on PSI-L configuration transactions issued by the built in PSI-L proxy.">
+		<bitfield id="TOUT" width="1" begin="31" end="31" resetval="0x0" description="Timeout occurred.  When set indicates that a timeout has occurred on a config access.  Once set, this bit is persistent until manually cleared   Reset Source: srst_n" range="31" rwaccess="R/W"/>
+	<bitfield id="TOUT_CNT" width="16" begin="15" end="0" resetval="0x1024" description="Timeout period.  Specifies how many cycles to wait before closing up a conifiguration read or write transaction and asserting the tout bit   Reset Source: srst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="DMASS_PSILCFG_0_PSILCFG_PROXY_cmda" acronym="DMASS_PSILCFG_0_PSILCFG_PROXY_cmda" offset="256" width="32" description="The Command Register A contains the busy indicator, direction, and thread number for the configuration transaction.">
+		<bitfield id="PROXY_BUSY" width="1" begin="31" end="31" resetval="0x0" description="Indication that a configuration read or write is in progress 0      No transaction is in progress1      Transaction is in progress" range="31" rwaccess="R/W"/>
+	<bitfield id="PROXY_DIR" width="1" begin="30" end="30" resetval="0x0" description="Direction of configuration transaction 0      Write transaction1      Read transaction" range="30" rwaccess="R/W"/>
+	<bitfield id="PROXY_TOUT" width="1" begin="29" end="29" resetval="0x0" description="Indication that a timeout occurred. This bit should be written to 0 on each new transaction. 0      Transaction completed normally1      Timeout Occurred" range="29" rwaccess="R/W"/>
+	<bitfield id="PROXY_THREAD_ID" width="16" begin="15" end="0" resetval="0x0" description="Thread ID to which configuration read or write is being sent   Reset Source: srst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="DMASS_PSILCFG_0_PSILCFG_PROXY_cmdb" acronym="DMASS_PSILCFG_0_PSILCFG_PROXY_cmdb" offset="260" width="32" description="The Command Register B contains the byte enables and word address for the configuration transaction.">
+		<bitfield id="PROXY_BYTEN" width="4" begin="31" end="28" resetval="0x0" description="Byte enables to use for configuration read or write   Reset Source: srst_n" range="31:28" rwaccess="R/W"/>
+	<bitfield id="PROXY_ADDRESS" width="16" begin="15" end="0" resetval="0x0" description="Word (32-bit) address within thread configuration space for transaction 0      Peer thread ID register. Implemented for       src threads only.1      Peer credit register. Implemented for src       threads only.2      Enable register64     Capabilities register1024   Static TR register" range="15:0" rwaccess="R/W"/>
+	</register><register id="DMASS_PSILCFG_0_PSILCFG_PROXY_wdata" acronym="DMASS_PSILCFG_0_PSILCFG_PROXY_wdata" offset="264" width="32" description="The Write Data Register contains the data which is to be written during the configuration transaction.">
+		<bitfield id="PROXY_WDATA" width="32" begin="31" end="0" resetval="0x0" description="Configuration data word to be written   Reset Source: srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMASS_PSILCFG_0_PSILCFG_PROXY_rdata" acronym="DMASS_PSILCFG_0_PSILCFG_PROXY_rdata" offset="320" width="32" description="The Read Data Register contains the data which which was read back during the configuration transaction.">
+		<bitfield id="PROXY_RDATA" width="32" begin="31" end="0" resetval="0x0" description="Configuration data word that was read   Reset Source: srst_n" range="31:0" rwaccess="R/W"/>
+	</register>
+</module>

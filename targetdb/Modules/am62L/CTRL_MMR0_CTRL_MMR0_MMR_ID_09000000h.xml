@@ -1,0 +1,45 @@
+<module name="CTRL_MMR0_MMR_ID" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CTRL_MMR0_MMR_ID_PID" acronym="CTRL_MMR0_MMR_ID_PID" offset="0" width="32" description="">
+		<bitfield id="PID_MSB16" width="16" begin="31" end="16" resetval="0x24960" description="   Reset Source: mod_g_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="PID_MISC" width="5" begin="15" end="11" resetval="0x0" description="   Reset Source: mod_g_rst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="PID_MAJOR" width="3" begin="10" end="8" resetval="0x2" description="   Reset Source: mod_g_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="PID_CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="   Reset Source: mod_g_rst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="PID_MINOR" width="6" begin="5" end="0" resetval="0x21" description="   Reset Source: mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="CTRL_MMR0_MMR_ID_MMR_CFG1" acronym="CTRL_MMR0_MMR_ID_MMR_CFG1" offset="8" width="32" description="Indicates the MMR configuration">
+		<bitfield id="MMR_CFG1_PROXY_EN" width="1" begin="31" end="31" resetval="0x0" description="Proxy addressing not supported   Reset Source: mod_por_rst_n" range="31" rwaccess="R"/>
+	<bitfield id="MMR_CFG1_PARTITIONS" width="8" begin="7" end="0" resetval="0x0" description="No Partitions Present   Reset Source: mod_por_rst_n" range="7:0" rwaccess="R"/>
+	</register><register id="CTRL_MMR0_MMR_ID_intr_raw_status" acronym="CTRL_MMR0_MMR_ID_intr_raw_status" offset="4112" width="32" description="">
+		<bitfield id="PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TS"/>
+	<bitfield id="KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="CTRL_MMR0_MMR_ID_intr_enabled_status_clear" acronym="CTRL_MMR0_MMR_ID_intr_enabled_status_clear" offset="4116" width="32" description="">
+		<bitfield id="ENABLED_PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="CTRL_MMR0_MMR_ID_intr_enable" acronym="CTRL_MMR0_MMR_ID_intr_enable" offset="4120" width="32" description="">
+		<bitfield id="PROXY_ERR_EN" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TS"/>
+	<bitfield id="KICK_ERR_EN" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ADDR_ERR_EN" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR_EN" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="CTRL_MMR0_MMR_ID_intr_enable_clear" acronym="CTRL_MMR0_MMR_ID_intr_enable_clear" offset="4124" width="32" description="">
+		<bitfield id="PROXY_ERR_EN_CLR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TC"/>
+	<bitfield id="KICK_ERR_EN_CLR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ADDR_ERR_EN_CLR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="PROT_ERR_EN_CLR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="CTRL_MMR0_MMR_ID_eoi" acronym="CTRL_MMR0_MMR_ID_eoi" offset="4128" width="32" description="">
+		<bitfield id="EOI_VECTOR" width="8" begin="7" end="0" resetval="0x0" description="EOI vector value. Write this with interrupt distribution value in the chip.   Reset Source: mod_g_rst_n" range="7:0" rwaccess="R/W"/>
+	</register><register id="CTRL_MMR0_MMR_ID_fault_address" acronym="CTRL_MMR0_MMR_ID_fault_address" offset="4132" width="32" description="">
+		<bitfield id="FAULT_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Fault Address.   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="CTRL_MMR0_MMR_ID_fault_type_status" acronym="CTRL_MMR0_MMR_ID_fault_type_status" offset="4136" width="32" description="">
+		<bitfield id="FAULT_NS" width="1" begin="6" end="6" resetval="0x0" description="Non-secure access.   Reset Source: mod_g_rst_n" range="6" rwaccess="R"/>
+	<bitfield id="FAULT_TYPE" width="6" begin="5" end="0" resetval="0x0" description="Fault Type  10_0000 = Supervisor read  fault  - priv = 1 dir = 1 dtype != 1   01_0000 = Supervisor write fault  - priv = 1 dir = 0  00_1000 = Supervisor execute fault - priv = 1 dir = 1 dtype = 1  00_0100 = User read  fault - priv = 0 dir = 1 dtype = 1  00_0010 = User write fault - priv = 0 dir = 0  00_0001 = User execute fault - priv = 0 dir = 1 dtype = 1  00_0000 = No fault   Reset Source: mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="CTRL_MMR0_MMR_ID_fault_attr_status" acronym="CTRL_MMR0_MMR_ID_fault_attr_status" offset="4140" width="32" description="">
+		<bitfield id="FAULT_XID" width="12" begin="31" end="20" resetval="0x0" description="XID.   Reset Source: mod_g_rst_n" range="31:20" rwaccess="R"/>
+	<bitfield id="FAULT_ROUTEID" width="12" begin="19" end="8" resetval="0x0" description="Route ID.   Reset Source: mod_g_rst_n" range="19:8" rwaccess="R"/>
+	<bitfield id="FAULT_PRIVID" width="8" begin="7" end="0" resetval="0x0" description="Privilege ID.   Reset Source: mod_g_rst_n" range="7:0" rwaccess="R"/>
+	</register><register id="CTRL_MMR0_MMR_ID_fault_clear" acronym="CTRL_MMR0_MMR_ID_fault_clear" offset="4144" width="32" description="">
+		<bitfield id="FAULT_CLR" width="1" begin="0" end="0" resetval="0x0" description="Fault clear. Writing a 1 clears the current fault. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="W"/>
+	</register>
+</module>

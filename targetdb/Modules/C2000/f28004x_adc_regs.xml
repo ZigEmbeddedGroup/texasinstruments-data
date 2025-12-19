@@ -40,18 +40,18 @@
 	<register id="ADCINTSEL1N2" width="16" page="1" offset="0x7" internal="0" description="ADC Interrupt 1 and 2 Selection Register">
 		<bitfield id="INT1SEL" description="ADCINT1 EOC Source Select" begin="3" end="0" width="4" rwaccess="RW"/>
 		<bitfield id="INT1E" description="ADCINT1 Interrupt Enable" begin="5" end="5" width="1" rwaccess="RW"/>
-		<bitfield id="INT1CONT" description="ADCINT1 Continuous Mode Enable" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT1CONT" description="ADCINT1 Continue to Interrupt Mode" begin="6" end="6" width="1" rwaccess="RW"/>
 		<bitfield id="INT2SEL" description="ADCINT2 EOC Source Select" begin="11" end="8" width="4" rwaccess="RW"/>
 		<bitfield id="INT2E" description="ADCINT2 Interrupt Enable" begin="13" end="13" width="1" rwaccess="RW"/>
-		<bitfield id="INT2CONT" description="ADCINT2 Continuous Mode Enable" begin="14" end="14" width="1" rwaccess="RW"/>
+		<bitfield id="INT2CONT" description="ADCINT2 Continue to Interrupt Mode" begin="14" end="14" width="1" rwaccess="RW"/>
 	</register>
 	<register id="ADCINTSEL3N4" width="16" page="1" offset="0x8" internal="0" description="ADC Interrupt 3 and 4 Selection Register">
 		<bitfield id="INT3SEL" description="ADCINT3 EOC Source Select" begin="3" end="0" width="4" rwaccess="RW"/>
 		<bitfield id="INT3E" description="ADCINT3 Interrupt Enable" begin="5" end="5" width="1" rwaccess="RW"/>
-		<bitfield id="INT3CONT" description="ADCINT3 Continuous Mode Enable" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT3CONT" description="ADCINT3 Continue to Interrupt Mode" begin="6" end="6" width="1" rwaccess="RW"/>
 		<bitfield id="INT4SEL" description="ADCINT4 EOC Source Select" begin="11" end="8" width="4" rwaccess="RW"/>
 		<bitfield id="INT4E" description="ADCINT4 Interrupt Enable" begin="13" end="13" width="1" rwaccess="RW"/>
-		<bitfield id="INT4CONT" description="ADCINT4 Continuous Mode Enable" begin="14" end="14" width="1" rwaccess="RW"/>
+		<bitfield id="INT4CONT" description="ADCINT4 Continue to Interrupt Mode" begin="14" end="14" width="1" rwaccess="RW"/>
 	</register>
 	<register id="ADCSOCPRICTL" width="16" page="1" offset="0x9" internal="0" description="ADC SOC Priority Control Register">
 		<bitfield id="SOCPRIORITY" description="SOC Priority" begin="4" end="0" width="5" rwaccess="RW"/>
@@ -392,9 +392,6 @@
 	</register>
 	<register id="ADCINTCYCLE" width="16" page="1" offset="0x6f" internal="0" description="ADC Early Interrupt Generation Cycle">
 		<bitfield id="DELAY" description="Delay from ADCSOC fall edge to early interrupt generation." begin="15" end="0" width="16" rwaccess="RW"/>
-	</register>
-	<register id="ADCINLTRIM1" width="32" page="1" offset="0x70" internal="0" description="ADC Linearity Trim 1 Register">
-		<bitfield id="INLTRIM31TO0" description="ADC Linearity Trim Bits 31-0" begin="31" end="0" width="32" rwaccess="RW"/>
 	</register>
 	<register id="ADCINLTRIM2" width="32" page="1" offset="0x72" internal="0" description="ADC Linearity Trim 2 Register">
 		<bitfield id="INLTRIM63TO32" description="ADC Linearity Trim Bits 63-32" begin="31" end="0" width="32" rwaccess="RW"/>

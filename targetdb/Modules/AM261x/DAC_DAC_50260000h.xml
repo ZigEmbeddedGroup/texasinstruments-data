@@ -1,0 +1,23 @@
+<module name="DAC" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="DAC_DACREV" acronym="DAC_DACREV" offset="0" width="16" description="DAC Revision Register.">
+		<bitfield id="REV" width="8" begin="7" end="0" resetval="0x0" description="DAC Revision" range="7:0" rwaccess="R"/>
+	</register><register id="DAC_DACCTL" acronym="DAC_DACCTL" offset="2" width="16" description="DAC Control Register.">
+		<bitfield id="SYNCSEL" width="5" begin="8" end="4" resetval="0x0" description="DAC EPWMSYNCPER select. Determines which EPWMSYNCPER signal will update the DACVALA register. Where n represents the maximum number of EPWMSYNCPER signals available on the device:     0  EPWM1SYNCPER    1  EPWM2SYNCPER    2  EPWM3SYNCPER  ...  n-1  EPWMnSYNCPER" range="8:4" rwaccess="R/W"/>
+	<bitfield id="LOADMODE" width="1" begin="2" end="2" resetval="0x0" description="DACVALA load mode. Determines when the DACVALA register is updated with the value from DACVALS.   0  Load on next SYSCLK  1  Load on next EPWMSYNCPER specified by SYNCSEL" range="2" rwaccess="R/W"/>
+	<bitfield id="MODE" width="1" begin="1" end="1" resetval="0x0" description="DAC gain mode select. Selects the gain mode for the buffered output.  The MODE value is only used when DACREFSEL=1 and internal ADC reference mode is selected.   0  Gain is 1  1  Gain is 2" range="1" rwaccess="R/W"/>
+	<bitfield id="DACREFSEL" width="1" begin="0" end="0" resetval="0x0" description="DAC reference select. Selects which voltage references are used by the DAC.   0  VDAC/VSSA are the reference voltages  1  ADC VREFHI/VSSA are the reference voltages" range="0" rwaccess="R/W"/>
+	</register><register id="DAC_DACVALA" acronym="DAC_DACVALA" offset="4" width="16" description="DAC Value Register - Active.">
+		<bitfield id="DACVALA" width="12" begin="11" end="0" resetval="0x0" description="Active output code currently driven by the DAC" range="11:0" rwaccess="R"/>
+	</register><register id="DAC_DACVALS" acronym="DAC_DACVALS" offset="6" width="16" description="DAC Value Register - Shadow.">
+		<bitfield id="DACVALS" width="12" begin="11" end="0" resetval="0x0" description="Shadow output code to be loaded into DACVALA" range="11:0" rwaccess="R/W"/>
+	</register><register id="DAC_DACOUTEN" acronym="DAC_DACOUTEN" offset="8" width="16" description="DAC Output Enable Register.">
+		<bitfield id="DACOUTEN" width="1" begin="0" end="0" resetval="0x0" description="DAC output enable   0  DAC output is disabled  1  DAC output is enabled" range="0" rwaccess="R/W"/>
+	</register><register id="DAC_DACLOCK" acronym="DAC_DACLOCK" offset="10" width="16" description="DAC Lock Register.">
+		<bitfield id="KEY" width="4" begin="15" end="12" resetval="0x0" description="Writes to this register succeed only if this field is written with a value of 0xA. Only 16-bit writes will succeed [provided the KEY matches]. Read-modify-writes to individual bits in this register will be ignored." range="15:12" rwaccess="R/W"/>
+	<bitfield id="DACOUTEN" width="1" begin="2" end="2" resetval="0x0" description="Lock write-access to the DACOUTEN register.   0  DACOUTEN register is not locked. Write 0 to this bit has no effect.  1  DACOUTEN register is locked. Only a system reset can clear this bit." range="2" rwaccess="R/W1TS"/>
+	<bitfield id="DACVAL" width="1" begin="1" end="1" resetval="0x0" description="Lock write-access to the DACVALS register.   0  DACVALS register is not locked. Write 0 to this bit has no effect.  1  DACVALS register is locked. Only a system reset can clear this bit." range="1" rwaccess="R/W1TS"/>
+	<bitfield id="DACCTL" width="1" begin="0" end="0" resetval="0x0" description="Lock write-access to the DACCTL register.   0  DACCTL register is not locked. Write 0 to this bit has no effect.  1  DACCTL register is locked. Only a system reset can clear this bit." range="0" rwaccess="R/W1TS"/>
+	</register><register id="DAC_DACCONFIG" acronym="DAC_DACCONFIG" offset="14" width="16" description="DAC Configuration Register.">
+		<bitfield id="CONFIG" width="16" begin="15" end="0" resetval="0x0" description="DAC Configuration. This bit field is used for TI internal testing/debugging." range="15:0" rwaccess="R/W"/>
+	</register>
+</module>

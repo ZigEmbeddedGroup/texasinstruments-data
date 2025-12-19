@@ -14,8 +14,16 @@
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor revision" id="MINREV" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="IMASK" width="32" description="Interrupt mask register" id="IMASK" offset="0x44">
-      <bitfield range="" begin="31" width="11" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+   <register acronym="IMASK" width="32" description="Interrupt mask.
+
+This register selects interrupt sources which are allowed to pass from RIS to MIS when the corresponding bit-fields are set to 1." id="IMASK" offset="0x44">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="Indicates that HFOSC has settled, based on LOOPCFG.SETTLED_TARGET and LOOPCFG1.SETTLEIRQ" id="HFOSCSETTLED" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="RW" description="Indicates that the LFINC filter gearing mechanism has restarted more than LFINCCTL2.GEARRSTRTLIM" id="LFGEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="20" width="1" end="20" rwaccess="RW" description="Indicates system frequency has been lowered. It will be set only if HFTRACKCTL.UNDERCLK is appropriately configured and HFOSC tracking loop is not running." id="SYSUNDERCLOCKED" resetval="0x0">
       </bitfield>
@@ -68,7 +76,7 @@ Indicates that the LF clock is good, according to the configuration in LFQUALCTL
       </bitfield>
       <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="LFINC updated.
 
-Indicates that a new LFINC measurement value is available in CKM.LFCLKSTAT." id="LFINCUPD" resetval="0x0">
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC." id="LFINCUPD" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="TDC done event.
 
@@ -109,7 +117,13 @@ This is only a one-time check at HFXT startup." id="HFXTGOOD" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="RIS" width="32" description="Raw interrupt flag register" id="RIS" offset="0x48">
-      <bitfield range="" begin="31" width="11" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="Indicates that HFOSC has settled, based on LOOPCFG.SETTLED_TARGET and LOOPCFG1.SETTLEIRQ" id="HFOSCSETTLED" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="RO" description="Indicates that the LFINC filter gearing mechanism has restarted more than LFINCCTL2.GEARRSTRTLIM" id="LFGEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="20" width="1" end="20" rwaccess="RO" description="Indicates system frequency has been lowered. It will be set only if HFTRACKCTL.UNDERCLK is appropriately configured and HFOSC tracking loop is not running." id="SYSUNDERCLOCKED" resetval="0x0">
       </bitfield>
@@ -162,7 +176,7 @@ Indicates that the LF clock is good, according to the configuration in LFQUALCTL
       </bitfield>
       <bitfield range="" begin="9" width="1" end="9" rwaccess="RO" description="LFINC updated.
 
-Indicates that a new LFINC measurement value is available in CKM.LFCLKSTAT." id="LFINCUPD" resetval="0x0">
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC." id="LFINCUPD" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="TDC done event.
 
@@ -203,7 +217,13 @@ This is only a one-time check at HFXT startup." id="HFXTGOOD" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="MIS" width="32" description="Masked interrupt flag register" id="MIS" offset="0x4c">
-      <bitfield range="" begin="31" width="11" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="Indicates that HFOSC has settled, based on LOOPCFG.SETTLED_TARGET and LOOPCFG1.SETTLEIRQ" id="HFOSCSETTLED" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="RO" description="Indicates that the LFINC filter gearing mechanism has restarted more than LFINCCTL2.GEARRSTRTLIM" id="LFGEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="20" width="1" end="20" rwaccess="RO" description="Indicates system frequency has been lowered. It will be set only if HFTRACKCTL.UNDERCLK is appropriately configured and HFOSC tracking loop is not running." id="SYSUNDERCLOCKED" resetval="0x0">
       </bitfield>
@@ -256,7 +276,7 @@ Indicates that the LF clock is good, according to the configuration in LFQUALCTL
       </bitfield>
       <bitfield range="" begin="9" width="1" end="9" rwaccess="RO" description="LFINC updated.
 
-Indicates that a new LFINC measurement value is available in CKM.LFCLKSTAT." id="LFINCUPD" resetval="0x0">
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC." id="LFINCUPD" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="TDC done event.
 
@@ -297,7 +317,13 @@ This is only a one-time check at HFXT startup." id="HFXTGOOD" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="ISET" width="32" description="Interrupt flag set register" id="ISET" offset="0x50">
-      <bitfield range="" begin="31" width="11" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="Indicates that HFOSC has settled, based on LOOPCFG.SETTLED_TARGET and LOOPCFG1.SETTLEIRQ" id="HFOSCSETTLED" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="Indicates that the LFINC filter gearing mechanism has restarted more than LFINCCTL2.GEARRSTRTLIM" id="LFGEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="Indicates system frequency has been lowered. It will be set only if HFTRACKCTL.UNDERCLK is appropriately configured and HFOSC tracking loop is not running." id="SYSUNDERCLOCKED" resetval="0x0">
       </bitfield>
@@ -350,7 +376,7 @@ Indicates that the LF clock is good, according to the configuration in LFQUALCTL
       </bitfield>
       <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="LFINC updated.
 
-Indicates that a new LFINC measurement value is available in CKM.LFCLKSTAT." id="LFINCUPD" resetval="0x0">
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC." id="LFINCUPD" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="TDC done event.
 
@@ -391,7 +417,13 @@ This is only a one-time check at HFXT startup." id="HFXTGOOD" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="ICLR" width="32" description="Interrupt flag clear register" id="ICLR" offset="0x54">
-      <bitfield range="" begin="31" width="11" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="Indicates that HFOSC has settled, based on LOOPCFG.SETTLED_TARGET and LOOPCFG1.SETTLEIRQ" id="HFOSCSETTLED" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="Indicates that the LFINC filter gearing mechanism has restarted more than LFINCCTL2.GEARRSTRTLIM" id="LFGEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="Indicates system frequency has been lowered. It will be set only if HFTRACKCTL.UNDERCLK is appropriately configured and HFOSC tracking loop is not running." id="SYSUNDERCLOCKED" resetval="0x0">
       </bitfield>
@@ -444,7 +476,7 @@ Indicates that the LF clock is good, according to the configuration in LFQUALCTL
       </bitfield>
       <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="LFINC updated.
 
-Indicates that a new LFINC measurement value is available in CKM.LFCLKSTAT." id="LFINCUPD" resetval="0x0">
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC." id="LFINCUPD" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="TDC done event.
 
@@ -485,7 +517,13 @@ This is only a one-time check at HFXT startup." id="HFXTGOOD" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="IMSET" width="32" description="Interrupt mask set register" id="IMSET" offset="0x58">
-      <bitfield range="" begin="31" width="11" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="Indicates that HFOSC has settled, based on LOOPCFG.SETTLED_TARGET and LOOPCFG1.SETTLEIRQ" id="HFOSCSETTLED" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="Indicates that the LFINC filter gearing mechanism has restarted more than LFINCCTL2.GEARRSTRTLIM" id="LFGEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="Indicates system frequency has been lowered. It will be set only if HFTRACKCTL.UNDERCLK is appropriately configured and HFOSC tracking loop is not running." id="SYSUNDERCLOCKED" resetval="0x0">
       </bitfield>
@@ -538,7 +576,7 @@ Indicates that the LF clock is good, according to the configuration in LFQUALCTL
       </bitfield>
       <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="LFINC updated.
 
-Indicates that a new LFINC measurement value is available in CKM.LFCLKSTAT." id="LFINCUPD" resetval="0x0">
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC." id="LFINCUPD" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="TDC done event.
 
@@ -578,8 +616,16 @@ Indicates that HFXT started correctly. The frequency is not necessarily good eno
 This is only a one-time check at HFXT startup." id="HFXTGOOD" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="IMCLR" width="32" description="Interrupt mask clear register" id="IMCLR" offset="0x5c">
-      <bitfield range="" begin="31" width="11" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+   <register acronym="IMCLR" width="32" description="Interrupt mask clear register.
+
+Writing a 1 to a bit in this register will clear the corresponding IMASK bit." id="IMCLR" offset="0x5c">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="WO" description="Indicates that HFOSC has settled, based on LOOPCFG.SETTLED_TARGET and LOOPCFG1.SETTLEIRQ" id="HFOSCSETTLED" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="22" width="1" end="22" rwaccess="WO" description="Indicates that the LFINC filter gearing mechanism has restarted more than LFINCCTL2.GEARRSTRTLIM" id="LFGEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="21" width="1" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="20" width="1" end="20" rwaccess="WO" description="Indicates system frequency has been lowered. It will be set only if HFTRACKCTL.UNDERCLK is appropriately configured and HFOSC tracking loop is not running." id="SYSUNDERCLOCKED" resetval="0x0">
       </bitfield>
@@ -632,7 +678,7 @@ Indicates that the LF clock is good, according to the configuration in LFQUALCTL
       </bitfield>
       <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="LFINC updated.
 
-Indicates that a new LFINC measurement value is available in CKM.LFCLKSTAT." id="LFINCUPD" resetval="0x0">
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC." id="LFINCUPD" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="TDC done event.
 
@@ -672,47 +718,28 @@ Indicates that HFXT started correctly. The frequency is not necessarily good eno
 This is only a one-time check at HFXT startup." id="HFXTGOOD" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="HFOSCCTL" width="32" description="High frequency oscillator control" id="HFOSCCTL" offset="0x80">
-      <bitfield range="" begin="31" width="8" end="24" rwaccess="WO" description="Password protection for QUALBYP and FORCEOFF.
-
-Write this field to 0xA5 to accept writes to QUALBYP and FORCEOFF." id="PW" resetval="0x0">
+   <register acronym="HFOSCCTL" width="32" description="Internal. Only to be used through TI provided API." id="HFOSCCTL" offset="0x80">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="WO" description="Internal. Only to be used through TI provided API." id="PW" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="23" width="22" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
+      <bitfield range="" begin="23" width="22" end="2" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED2" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Force HFOSC off.
-
-Once this MMR is set, the system will stop. The only way to start the system again is system reset.
-This field is locked using the global-lock within SYS0." id="FORCEOFF" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="FORCEOFF" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Clock qualification bypass.
-
-HFOSC qualification will skip a fixed number of clock cycles to prevent glitches 
-or frequency overshoots from reaching the system. Setting this bit will bypass the qualification.
-This bit can be locked in SYS0. If unlocked, it is password protected with PW." id="QUALBYP" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="QUALBYP" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="HFXTCTL" width="32" description="High frequency crystal control" id="HFXTCTL" offset="0x84">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Software override for the amplitude compensation FSM
-
-Directly use control values in CKM.HFXTDYN0 and CKM.HFXTDYN1.
-Control injection and clock buffer using INJECT and LPBUFEN." id="AMPOVR" resetval="0x0">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="AMPOVR" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="30" width="4" end="27" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED27" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="HFXT bias enable.
-
-Controls the biasing if AMPOVR is set.
-Otherwise, the biasing is controlled by the amplitude compensation FSM." id="BIASEN" resetval="0x0">
+      <bitfield range="" begin="26" width="1" end="26" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="BIASEN" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="Low power clock buffer enable.
-
-Controls the clock buffer if AMPOVR is set.
-Otherwise, the buffer is controlled by the amplitude compensation FSM." id="LPBUFEN" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LPBUFEN" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="Control HFXT injection if AMPOVR is set." id="INJECT" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="INJECT" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="Bypass HFXT clock qualification.
-Enables HFXT propagation to the system without waiting for the qualification circuit." id="QUALBYP" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="QUALBYP" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="22" width="3" end="20" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED20" resetval="0x0">
       </bitfield>
@@ -726,24 +753,19 @@ Set this bit if a TXCO is connected." id="TCXOMODE" resetval="0x0">
       <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Type of temperature compensated crystal used.
 
 Only has effect if TCXOMODE is set." id="TCXOTYPE" resetval="0x0">
-         <bitenum id="CMOS" value="1" token="" description=""/>
-         <bitenum id="CLIPPEDSINE" value="0" token="" description=""/>
+         <bitenum id="CMOS" value="1" token="Use with CMOS TCXO" description="Use with CMOS TCXO"/>
+         <bitenum id="CLIPPEDSINE" value="0" token="Use with clipped-sine TCXO" description="Use with clipped-sine TCXO"/>
       </bitfield>
       <bitfield range="" begin="5" width="3" end="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Automatic enable.
-
-If this bit is set, EN will automatically be set at wakeup or before (using pre-wake mechanism in RTC)." id="AUTOEN" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="AUTOEN" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="High performance clock buffer enable.
 
 This bit controls the clock output for the RF PLL.
 It is required for radio operation." id="HPBUFEN" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="HFXT enable.
-
-Setting this bit will enable HFXT. It will automatically be cleared upon STANDBY entry.
-If AUTOEN is set, this bit will be set automatically on wakeup or before (pre-wake mechanism in RTC)." id="EN" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="EN" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="LFOSCCTL" width="32" description="Low frequency oscillator control" id="LFOSCCTL" offset="0x8c">
@@ -779,7 +801,9 @@ This value depends on the crystal and needs to be configured by Firmware." id="R
       <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Control the buffer used. In normal operation, low-power buffer is used in all device modes. The high-performance buffer is only used for test purposes.
 " id="HPBUFEN" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Amplitude regulation loop enable" id="AMPREGEN" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Amplitude regulation mode" id="AMPREGMODE" resetval="0x0">
+         <bitenum id="LOOPDIS" value="1" token="Amplitude control loop disabled" description="Amplitude control loop disabled"/>
+         <bitenum id="LOOPEN" value="0" token="Amplitude control loop enabled" description="Amplitude control loop enabled"/>
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="LFXT enable" id="EN" resetval="0x0">
       </bitfield>
@@ -803,7 +827,9 @@ and the &#34;good&#34; indicator will always be 1." id="CONSEC" resetval="0x64">
          <bitenum id="ON" value="1" token="Enable. Prevent STANDBY entry." description="Enable. Prevent STANDBY entry."/>
          <bitenum id="OFF" value="0" token="Disable. Do not prevent STANDBY entry." description="Disable. Do not prevent STANDBY entry."/>
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED30" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="Keeps the HFXT enabled till the LFINC filter settles" id="KEEPHFXTEN" resetval="0x0">
+         <bitenum id="EN" value="1" token="Enable. Keep HFXT enabled." description="Enable. Keep HFXT enabled."/>
+         <bitenum id="DIS" value="0" token="Disable. Do not keep HFXT enabled." description="Disable. Do not keep HFXT enabled."/>
       </bitfield>
       <bitfield range="" begin="29" width="22" end="8" rwaccess="RW" description="Integral part of the LFINC filter.
 
@@ -811,8 +837,8 @@ This value is updated by Hardware to reflect the current state of the filter.
 It can also be written to change the current state." id="INT" resetval="0x1e8480">
       </bitfield>
       <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Controls the final gear of the LFINC filter." id="STOPGEAR" resetval="0x0">
-         <bitenum id="HIGH" value="1" token="Highest final gear. Best dynamic frequency tracking, but higher variation in filter value." description="Highest final gear. Best dynamic frequency tracking, but higher variation in filter value."/>
-         <bitenum id="LOW" value="0" token="Lowest final gear. Best settling, but less dynamic frequency tracking." description="Lowest final gear. Best settling, but less dynamic frequency tracking."/>
+         <bitenum id="HIGH" value="1" token="The LF filter is considered settled when LFCLKSTAT2.MAINGEAR reads 8 and  LFCLKSTAT2.SUBGEAR reads 7. That means the LF filter will take 71 LF periods to settle provided the gear does not restarts." description="The LF filter is considered settled when LFCLKSTAT2.MAINGEAR reads 8 and  LFCLKSTAT2.SUBGEAR reads 7. That means the LF filter will take 71 LF periods to settle provided the gear does not restarts."/>
+         <bitenum id="LOW" value="0" token="The LF filter is considered settled when LFCLKSTAT2.MAINGEAR reads 9 and  LFCLKSTAT2.SUBGEAR reads 7. That means the LF filter will take 79 LF periods to settle provided the gear does not restarts." description="The LF filter is considered settled when LFCLKSTAT2.MAINGEAR reads 9 and  LFCLKSTAT2.SUBGEAR reads 7. That means the LF filter will take 79 LF periods to settle provided the gear does not restarts."/>
       </bitfield>
       <bitfield range="" begin="6" width="2" end="5" rwaccess="RW" description="Controls the threshold for gearing restart of the LFINC filter.
 
@@ -833,7 +859,10 @@ The filter will require 16-24 LFCLK periods to settle (depending on STOPGEAR), b
          <bitenum id="ON" value="1" token="Use soft gearing restarts" description="Use soft gearing restarts"/>
          <bitenum id="OFF" value="0" token="Don&#39;t use soft gearing restarts" description="Don&#39;t use soft gearing restarts"/>
       </bitfield>
-      <bitfield range="" begin="1" width="2" end="0" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED0" resetval="0x0">
+      <bitfield range="" begin="1" width="2" end="0" rwaccess="RW" description="Enable LFINC filter. Programming with a value of 0x3 will disable the LFINC filter" id="EN" resetval="0x1">
+         <bitenum id="AUTO" value="2" token="Enable based on HFOS getting settled. HFOSC gets settled after the tracking loop has updated equal to or more than LOOPCFG.SETTLED_TARGET times." description="Enable based on HFOS getting settled. HFOSC gets settled after the tracking loop has updated equal to or more than LOOPCFG.SETTLED_TARGET times."/>
+         <bitenum id="EN" value="1" token="ENABLED" description="ENABLED"/>
+         <bitenum id="DIS" value="0" token="DISABLED" description="DISABLED"/>
       </bitfield>
    </register>
    <register acronym="LFINCOVR" width="32" description="Low frequency time increment override control" id="LFINCOVR" offset="0x9c">
@@ -850,60 +879,34 @@ Otherwise the value is calculated automatically.
 The current LFINC value can be read from [CKM.LFCLKSTAT.LFINC]." id="LFINC" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="AMPADCCTL" width="32" description="Amplitude ADC control" id="AMPADCCTL" offset="0xa0">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Software override.
-
-Control Amplitude ADC from software" id="SWOVR" resetval="0x0">
+   <register acronym="AMPADCCTL" width="32" description="Internal. Only to be used through TI provided API." id="AMPADCCTL" offset="0xa0">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="SWOVR" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="30" width="13" end="18" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED18" resetval="0x0">
+      <bitfield range="" begin="30" width="13" end="18" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED18" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="Enable HFXT Peak Detector.
-
-If the peak detector is used by the AMPCOMP FSM, this bit can be used to keep the peak detector always enabled.
-If SWOVR is set, this bit directly controls the peak detector." id="PEAKDETEN" resetval="0x0">
-         <bitenum id="ENABLE" value="1" token="Enable peak detector" description="Enable peak detector"/>
-         <bitenum id="DISABLE" value="0" token="Disable peak detector (unless requested by AMPCOMP FSM)" description="Disable peak detector (unless requested by AMPCOMP FSM)"/>
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="PEAKDETEN" resetval="0x0">
+         <bitenum id="ENABLE" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="DISABLE" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
-      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="Enable Amplitude ADC.
-
-If the ADC is used by the AMPCOMP FSM, this bit can be used to keep the ADC always enabled.
-If SWOVR is set, this bit directly controls the ADC." id="ADCEN" resetval="0x0">
-         <bitenum id="ENABLE" value="1" token="Enable ADC" description="Enable ADC"/>
-         <bitenum id="DISABLE" value="0" token="Disable ADC (unless requested by AMPCOMP FSM)" description="Disable ADC (unless requested by AMPCOMP FSM)"/>
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="ADCEN" resetval="0x0">
+         <bitenum id="ENABLE" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="DISABLE" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED15" resetval="0x0">
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED15" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="14" width="7" end="8" rwaccess="RW" description="Comparator reference input in compare mode
-
-This bitfield is only active if SWOVR is set. SRCSEL selects the source to be compared.
-Result will be available in CKM.AMPADCSTAT.
-
-" id="COMPVAL" resetval="0x0">
+      <bitfield range="" begin="14" width="7" end="8" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="COMPVAL" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="3" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
+      <bitfield range="" begin="7" width="3" end="5" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED5" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Select the input to the ADC
-
-Only active if SWOVR is set." id="SRCSEL" resetval="0x0">
-         <bitenum id="PEAK" value="1" token="Measure HFXT peak voltage" description="Measure HFXT peak voltage"/>
-         <bitenum id="BIAS" value="0" token="Measure bias voltage" description="Measure bias voltage"/>
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="SRCSEL" resetval="0x0">
+         <bitenum id="PEAK" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="BIAS" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
-      <bitfield range="" begin="3" width="2" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
+      <bitfield range="" begin="3" width="2" end="2" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED2" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Start a comparison
-
-This bit is only active if SWOVR is set. SRCSEL selects the source to be measured.
-COMPVAL configures the threshold value.
-Result will be available in CKM.AMPADCSTAT.
-
-" id="COMPSTRT" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="COMPSTRT" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Start a SAR conversion
-
-This bit is only active if SWOVR is set. SRCSEL selects the source to be measured.
-Result will be available in CKM.AMPADCSTAT.
-
-" id="SARSTRT" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="SARSTRT" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="HFTRACKCTL" width="32" description="High frequency tracking loop control" id="HFTRACKCTL" offset="0xa4">
@@ -923,30 +926,30 @@ Change only while the tracking loop is disabled." id="REFCLK" resetval="0x0">
          <bitenum id="LRF" value="1" token="Select LRF reference clock." description="Select LRF reference clock."/>
          <bitenum id="HFXT" value="0" token="Select HFXT as reference clock." description="Select HFXT as reference clock."/>
       </bitfield>
-      <bitfield range="" begin="25" width="26" end="0" rwaccess="RW" description="Ratio. Ratio format is 2b.24b" id="RATIO" resetval="0x400000">
+      <bitfield range="" begin="25" width="26" end="0" rwaccess="RW" description="Reference clock ratio. Ratio format is 2b.24b
+
+RATIO = 24MHz / (2*reference-frequency) * 2^24
+Commonly used reference clock frequencies are provided as enumerations.
+" id="RATIO" resetval="0x400000">
+         <bitenum id="REF4M" value="50331648" token="Use for 4MHz reference clock" description="Use for 4MHz reference clock"/>
+         <bitenum id="REF8M" value="25165824" token="Use for 8MHz Reference clock" description="Use for 8MHz Reference clock"/>
+         <bitenum id="REF48M" value="4194304" token="Use for 48MHz reference clock" description="Use for 48MHz reference clock"/>
       </bitfield>
    </register>
-   <register acronym="LDOCTL" width="32" description="LDO control
-
-By default, the LDO is controlled by the HFXT Amplitude compensation.
-This register is used for software overrides." id="LDOCTL" offset="0xa8">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Software override.
-
-Control LDO from software" id="SWOVR" resetval="0x0">
+   <register acronym="LDOCTL" width="32" description="Internal. Only to be used through TI provided API." id="LDOCTL" offset="0xa8">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="SWOVR" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="30" width="26" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
+      <bitfield range="" begin="30" width="26" end="5" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED5" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Enable levelshifters from ULL to VCKM. Needs to be timer-based. Worst-case LDO startup time is 5us across PVT." id="HFXTLVLEN" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="HFXTLVLEN" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Enable faster startup.
-This bit should be set together with EN, and cleared after 5us." id="STARTCTL" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="STARTCTL" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Enable faster startup.
-This bit should be set together with EN, and cleared after 5us." id="START" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="START" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Bypass LDO" id="BYPASS" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="BYPASS" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Enable LDO" id="EN" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="EN" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="NABIASCTL" width="32" description="Nanoamp-bias control" id="NABIASCTL" offset="0xac">
@@ -961,6 +964,17 @@ This bit should be set together with EN, and cleared after 5us." id="START" rese
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Enable LFMONITOR.
 Enable only after a LF clock source has been selected, enabled and is stable.
 If LFMONITOR detects a clock loss, the system will be reset." id="EN" resetval="0x0">
+      </bitfield>
+   </register>
+   <register acronym="LFINCCTL2" width="32" description="Low frequency time increment control-2" id="LFINCCTL2" offset="0xb4">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Adjusts LFINC while transitioning from fake to real LF clock if necessary. For the adjustment to happen, tracking loop must be running." id="ADJUSTLFINC" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="30" width="21" end="10" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="9" width="6" end="4" rwaccess="RW" description="Specifies the number of times gear could be restarted before raising an interrupt. It has no impact on the number of times gear can be reduced.
+A value of 0 indicates that the interrupt mechanism is disabled" id="GEARRSTRTLIM" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Specifies the number by which gear should be reduced post standby exit" id="GEARREDCNT" resetval="0x2">
       </bitfield>
    </register>
    <register acronym="LFCLKSEL" width="32" description="Low frequency clock selection" id="LFCLKSEL" offset="0xc0">
@@ -984,16 +998,16 @@ If not running, LFTICK will be generated from HFOSC and STANDBY entry will be pr
          <bitenum id="FAKE" value="0" token="No LF clock selected. LFTICK will be generated from HFOSC, STANDBY entry will be prevented." description="No LF clock selected. LFTICK will be generated from HFOSC, STANDBY entry will be prevented."/>
       </bitfield>
    </register>
-   <register acronym="TDCCLKSEL" width="32" description="TDC clock selection" id="TDCCLKSEL" offset="0xc4">
-      <bitfield range="" begin="31" width="29" end="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x0">
+   <register acronym="TDCCLKSEL" width="32" description="Internal. Only to be used through TI provided API." id="TDCCLKSEL" offset="0xc4">
+      <bitfield range="" begin="31" width="29" end="3" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED3" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="2" width="3" end="0" rwaccess="RW" description="Select reference clock for the TDC." id="REFCLK" resetval="0x0">
-         <bitenum id="HFXT" value="5" token="48MHz HFXT" description="48MHz HFXT"/>
-         <bitenum id="AFOSC" value="4" token="AFOSC clock div by 2" description="AFOSC clock div by 2"/>
-         <bitenum id="GPI" value="3" token="General purpose input signal" description="General purpose input signal"/>
-         <bitenum id="CLKULL" value="2" token="24MHz CLKULL" description="24MHz CLKULL"/>
-         <bitenum id="CLKSVT" value="1" token="96MHz HFOSC clock div by 2" description="96MHz HFOSC clock div by 2"/>
-         <bitenum id="NONE" value="0" token="No reference clock" description="No reference clock"/>
+      <bitfield range="" begin="2" width="3" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="REFCLK" resetval="0x0">
+         <bitenum id="HFXT" value="5" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="AFOSC" value="4" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="GPI" value="3" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="CLKULL" value="2" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="CLKSVT" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="NONE" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
    </register>
    <register acronym="ADCCLKSEL" width="32" description="ADC clock selection" id="ADCCLKSEL" offset="0xc8">
@@ -1021,7 +1035,7 @@ Note: This is only a coarse frequency check based on LFQUALCTL. The clock may no
       </bitfield>
       <bitfield range="" begin="23" width="2" end="22" rwaccess="RO" description="Source of LFINC used by the RTC.
 
-This value depends on LFINCOVR.OVERRIDE, LFINCCTL.AVG, LFINCCTL.EN and the device state (ACTIVE/STANDBY)." id="LFINCSRC" resetval="0x3">
+This value depends on LFINCOVR.OVERRIDE, LF clock availability, HF tracking loop status and the device state (ACTIVE/STANDBY)." id="LFINCSRC" resetval="0x3">
          <bitenum id="FAKE" value="3" token="Using FAKE LFTICKs with corresponding LFINC value." description="Using FAKE LFTICKs with corresponding LFINC value."/>
          <bitenum id="OVERRIDE" value="2" token="Using override value from LFINCOVR.LFINC" description="Using override value from LFINCOVR.LFINC"/>
          <bitenum id="AVG" value="1" token="Using filtered / average value.
@@ -1044,7 +1058,7 @@ It is the LFCLK period according to CLKULL cycles." id="LFINC" resetval="0x1e848
       <bitfield range="" begin="30" width="15" end="16" rwaccess="RO" description="HFXT startup time
 
 Can be used by software to plan starting HFXT ahead in time.
-Measured whenever HFXT is enabled in CLKULL periods (24MHz), from [CKM.HFXTCTL.EN] until the clock is good for radio operation (amplitude compensation is settled)." id="STARTUPTIME" resetval="0x0">
+Measured whenever HFXT is enabled in CLKULL periods (24MHz), from HFXTCTL.EN until the clock is good for radio operation (amplitude compensation is settled)." id="STARTUPTIME" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="15" width="14" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
       </bitfield>
@@ -1053,30 +1067,25 @@ Measured whenever HFXT is enabled in CLKULL periods (24MHz), from [CKM.HFXTCTL.E
 Indicates a lower than expected HFXT frequency.
 HFXT will not recover from this fault, disabling and re-enabling HFXT is required." id="FAULT" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="HFXT clock available" id="GOOD" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="HFXT clock available.
+
+The frequency is not necessarily good enough for radio operation." id="GOOD" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="AMPADCSTAT" width="32" description="HFXT Amplitude ADC Status" id="AMPADCSTAT" offset="0xe8">
-      <bitfield range="" begin="31" width="7" end="25" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED25" resetval="0x0">
+   <register acronym="AMPADCSTAT" width="32" description="Internal. Only to be used through TI provided API." id="AMPADCSTAT" offset="0xe8">
+      <bitfield range="" begin="31" width="7" end="25" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED25" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="24" width="1" end="24" rwaccess="RO" description="Most recent comparison output" id="COMPOUT" resetval="0x0">
+      <bitfield range="" begin="24" width="1" end="24" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="COMPOUT" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED23" resetval="0x0">
+      <bitfield range="" begin="23" width="1" end="23" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED23" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="22" width="7" end="16" rwaccess="RO" description="Most recently measured peak voltage - raw
-
-This value is the raw output of the HFXT ADC.
-For the actual peak voltage use the value (PEAK + 0.0150)/0.74 + K, where &#39;K&#39; is a function of process variation and is stored in FCFG1 register." id="PEAKRAW" resetval="0x0">
+      <bitfield range="" begin="22" width="7" end="16" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="PEAKRAW" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="8" end="8" rwaccess="RO" description="Most recently measured peak voltage - bias corrected
-
-This value is computed as 2*PEAKRAW-BIAS
-
-Actual voltage = (2*PEAKRAW-BIAS - 0.015)/0.74 + K, where &#39;K&#39; is a function of process variation and is stored in FCFG1 register." id="PEAK" resetval="0x0">
+      <bitfield range="" begin="15" width="8" end="8" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="PEAK" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Most recently measured bias voltage" id="BIAS" resetval="0x0">
+      <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="BIAS" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="TRACKSTAT" width="32" description="HF tracking loop status information" id="TRACKSTAT" offset="0xec">
@@ -1098,26 +1107,25 @@ This field uses the internal fractional representation (sign, 5 integer bits, 7 
 The actual trim value applied to the oscillator is delta-sigma modulated 6 bits non-signed
 (inverted sign bit + integer bits).
 
-INTERNAL
-This field can be written by also writing a magic value (0xA5) into LOOPERR (bits 23:16)" id="FINETRIM" resetval="0x1d80">
+" id="FINETRIM" resetval="0x1d80">
       </bitfield>
    </register>
    <register acronym="AMPSTAT" width="32" description="HFXT Amplitude Compensation Status" id="AMPSTAT" offset="0xf0">
       <bitfield range="" begin="31" width="3" end="29" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED29" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="28" width="4" end="25" rwaccess="RO" description="Current AMPCOMP FSM state." id="STATE" resetval="0x0">
-         <bitenum id="SETTLED" value="15" token="" description=""/>
-         <bitenum id="UPDATEUP" value="14" token="" description=""/>
-         <bitenum id="TXCOMODE" value="12" token="" description=""/>
-         <bitenum id="SHUTDN0" value="10" token="" description=""/>
-         <bitenum id="INJWAIT" value="7" token="" description=""/>
-         <bitenum id="UPDATEDN" value="6" token="" description=""/>
-         <bitenum id="RAMP0" value="5" token="" description=""/>
-         <bitenum id="RAMP1" value="4" token="" description=""/>
-         <bitenum id="INJECT" value="3" token="" description=""/>
-         <bitenum id="SHUTDN1" value="2" token="" description=""/>
-         <bitenum id="LDOSTART" value="1" token="" description=""/>
-         <bitenum id="IDLE" value="0" token="" description=""/>
+         <bitenum id="SETTLED" value="15" token="Settled state" description="Settled state"/>
+         <bitenum id="UPDATEUP" value="14" token="Amplitude up correction" description="Amplitude up correction"/>
+         <bitenum id="TXCOMODE" value="12" token="TCXO settled state" description="TCXO settled state"/>
+         <bitenum id="SHUTDN0" value="10" token="First shutdown state" description="First shutdown state"/>
+         <bitenum id="INJWAIT" value="7" token="Post injection settle wait" description="Post injection settle wait"/>
+         <bitenum id="UPDATEDN" value="6" token="Amplitude down correction" description="Amplitude down correction"/>
+         <bitenum id="RAMP0" value="5" token="Initial amplitude ramping with HFXTINIT values" description="Initial amplitude ramping with HFXTINIT values"/>
+         <bitenum id="RAMP1" value="4" token="Transition to HFXTTARG values" description="Transition to HFXTTARG values"/>
+         <bitenum id="INJECT" value="3" token="Injecting HFOSC for fast startup" description="Injecting HFOSC for fast startup"/>
+         <bitenum id="SHUTDN1" value="2" token="Second shutdown state" description="Second shutdown state"/>
+         <bitenum id="LDOSTART" value="1" token="Starting LDO" description="Starting LDO"/>
+         <bitenum id="IDLE" value="0" token="FSM in idle state" description="FSM in idle state"/>
       </bitfield>
       <bitfield range="" begin="24" width="7" end="18" rwaccess="RO" description="Current IDAC control value." id="IDAC" resetval="0x0">
       </bitfield>
@@ -1134,129 +1142,157 @@ This applies to IREF, Q1CAP, Q2CAP values." id="CTRLATTARGET" resetval="0x0">
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="HFXT amplitude good" id="AMPGOOD" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="ATBCTL0" width="32" description="Analog test bus controls
-
-All fields within this register are locked using the global-lock within SYS0." id="ATBCTL0" offset="0x100">
-      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+   <register acronym="LFCLKSTAT2" width="32" description="Low-frequency clock status-2" id="LFCLKSTAT2" offset="0xf4">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="23" width="24" end="0" rwaccess="RW" description="Testmux selection
-ALWAYS write this signal to 0 (OFF), before selecting another configuration!
-Not following this might result in device damage." id="SEL" resetval="0x0">
-         <bitenum id="AFOSCTESTCLK" value="589824" token="ull_ckm_afosc_testclk connected to vr_atb_ckmanatop_clk" description="ull_ckm_afosc_testclk connected to vr_atb_ckmanatop_clk"/>
-         <bitenum id="LFXTTESTCLK" value="458752" token="ull_ckm_lfxt_testclk connected to vr_atb_ckmanatop_clk" description="ull_ckm_lfxt_testclk connected to vr_atb_ckmanatop_clk"/>
-         <bitenum id="LFOSCTESTCLK" value="327680" token="ull_ckm_lfosc_testclk connected to vr_atb_ckmanatop_clk" description="ull_ckm_lfosc_testclk connected to vr_atb_ckmanatop_clk"/>
-         <bitenum id="HFXTTESTCLK" value="196608" token="ull_ckm_hfxt_testclk connected to vr_atb_ckmanatop_clk" description="ull_ckm_hfxt_testclk connected to vr_atb_ckmanatop_clk"/>
-         <bitenum id="HFOSCTESTCLK" value="65536" token="ull_ckm_hfosc_testclk connected to vr_atb_ckmanatop_clk" description="ull_ckm_hfosc_testclk connected to vr_atb_ckmanatop_clk"/>
-         <bitenum id="AFOSCOUT" value="16384" token="vr_atb_afosc connected to vr_atb_ckmanatop_ana" description="vr_atb_afosc connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="LFMONVTEST" value="4096" token="vr_atb_lfmonitor_vtest connected to vr_atb_ckmanatop_ana" description="vr_atb_lfmonitor_vtest connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="HFOSCOUT" value="256" token="vr_atb_hfosc_out connected to vr_atb_ckmanatop_ana" description="vr_atb_hfosc_out connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="NABIASITEST" value="128" token="vr_atb_nabias_itest_250n_dn connected to vr_atb_ckmanatop_ana" description="vr_atb_nabias_itest_250n_dn connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="ADCDACOUT" value="64" token="vr_atb_hfxtadc_dacout connected to vr_atb_ckmanatop_ana" description="vr_atb_hfxtadc_dacout connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="ADCCOMPIN" value="32" token="vr_atb_hfxtadc_compin connected to vr_atb_ckmanatop_ana" description="vr_atb_hfxtadc_compin connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="ADCCOMPOUT" value="16" token="vr_atb_hfxtadc_compout connected to vr_atb_ckmanatop_ana" description="vr_atb_hfxtadc_compout connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="LFXTANA" value="8" token="vr_atb_lfxt_ana connected to vr_atb_ckmanatop_ana" description="vr_atb_lfxt_ana connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="VDDCKM" value="2" token="vr_atb_ckmldo_vddckm connected to vr_atb_ckmanatop_ana" description="vr_atb_ckmldo_vddckm connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="HFXTANA" value="1" token="vr_atb_hfxt_ana connected to vr_atb_ckmanatop_ana" description="vr_atb_hfxt_ana connected to vr_atb_ckmanatop_ana"/>
-         <bitenum id="OFF" value="0" token="No signal connected to ATB. All outputs high impedant" description="No signal connected to ATB. All outputs high impedant"/>
+      <bitfield range="" begin="6" width="3" end="4" rwaccess="RO" description="The value of sub gear in LF filter. It counts from 0 to 7." id="SUBGEAR" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="The value of main gear in LF filter. The main gear increments when the sub gear crosses 7." id="MAINGEAR" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="ATBCTL1" width="32" description="Analog test bus controls
-
-All fields within this register are locked using the global-lock within SYS0." id="ATBCTL1" offset="0x104">
-      <bitfield range="" begin="31" width="13" end="19" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED19" resetval="0x0">
+   <register acronym="ATBCTL0" width="32" description="Internal. Only to be used through TI provided API." id="ATBCTL0" offset="0x100">
+      <bitfield range="" begin="31" width="8" end="24" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED24" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="Control bandgap test output signals" id="BGAP" resetval="0x0">
+      <bitfield range="" begin="23" width="24" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="SEL" resetval="0x0">
+         <bitenum id="AFOSCTESTCLK" value="589824" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="LFXTTESTCLK" value="458752" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="LFOSCTESTCLK" value="327680" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="HFXTTESTCLK" value="196608" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="HFOSCTESTCLK" value="65536" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="AFOSCOUT" value="16384" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="LFMONVTEST" value="4096" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="HFOSCOUT" value="256" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="NABIASITEST" value="128" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="ADCDACOUT" value="64" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="ADCCOMPIN" value="32" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="ADCCOMPOUT" value="16" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="LFXTANA" value="8" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="VDDCKM" value="2" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="HFXTANA" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="OFF" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
-      <bitfield range="" begin="17" width="3" end="15" rwaccess="RW" description="Control AFOSC test output signals" id="AFOSC" resetval="0x0">
+   </register>
+   <register acronym="ATBCTL1" width="32" description="Internal. Only to be used through TI provided API." id="ATBCTL1" offset="0x104">
+      <bitfield range="" begin="31" width="13" end="19" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED19" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="14" width="2" end="13" rwaccess="RW" description="Control LFOSC test output signals" id="LFOSC" resetval="0x0">
-         <bitenum id="BOTH" value="3" token="Both LFOSC test signals (TESTCLK, VDD LOCAL)" description="Both LFOSC test signals (TESTCLK, VDD LOCAL)"/>
-         <bitenum id="VDDLOCAL" value="2" token="LFOSC VDD LOCAL" description="LFOSC VDD LOCAL"/>
-         <bitenum id="TESTCLK" value="1" token="LFOSC test clock" description="LFOSC test clock"/>
-         <bitenum id="OFF" value="0" token="No output signal selected" description="No output signal selected"/>
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="BGAP" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="Enable NABIAS test mode." id="NABIAS" resetval="0x0">
+      <bitfield range="" begin="17" width="3" end="15" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="AFOSC" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED11" resetval="0x0">
+      <bitfield range="" begin="14" width="2" end="13" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LFOSC" resetval="0x0">
+         <bitenum id="BOTH" value="3" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="VDDLOCAL" value="2" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="TESTCLK" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="OFF" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Control LFXT test output signals" id="LFXT" resetval="0x0">
-         <bitenum id="TESTCLK" value="1" token="LFXT test clock" description="LFXT test clock"/>
-         <bitenum id="OFF" value="0" token="No output signal selected" description="No output signal selected"/>
+      <bitfield range="" begin="12" width="1" end="12" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="NABIAS" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="9" width="2" end="8" rwaccess="RW" description="Control LFMON test output signals" id="LFMON" resetval="0x0">
-         <bitenum id="TEST2" value="2" token="Test signal 2 / in phase with inverted clock signal" description="Test signal 2 / in phase with inverted clock signal"/>
-         <bitenum id="TEST1" value="1" token="Test signal 1 / in phase with LF clock" description="Test signal 1 / in phase with LF clock"/>
-         <bitenum id="OFF" value="0" token="No output signal selected" description="No output signal selected"/>
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED11" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Enable HFXT test mode." id="HFXT" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LFXT" resetval="0x0">
+         <bitenum id="TESTCLK" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="OFF" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
-      <bitfield range="" begin="6" width="4" end="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x0">
+      <bitfield range="" begin="9" width="2" end="8" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LFMON" resetval="0x0">
+         <bitenum id="TEST2" value="2" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="TEST1" value="1" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
+         <bitenum id="OFF" value="0" token="Internal. Only to be used through TI provided API." description="Internal. Only to be used through TI provided API."/>
       </bitfield>
-      <bitfield range="" begin="2" width="3" end="0" rwaccess="RW" description="Control HFOSC test output signals" id="HFOSC" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="HFXT" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="6" width="4" end="3" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED3" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="2" width="3" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="HFOSC" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="DTBCTL" width="32" description="Digital test bus mux control" id="DTBCTL" offset="0x108">
       <bitfield range="" begin="31" width="9" end="23" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED23" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="22" width="5" end="18" rwaccess="RW" description="Select data to output on DTB[15:11]" id="DSEL2" resetval="0x0">
+      <bitfield range="" begin="22" width="5" end="18" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="DSEL2" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="17" width="5" end="13" rwaccess="RW" description="Select data to output on DTB[10:6]" id="DSEL1" resetval="0x0">
+      <bitfield range="" begin="17" width="5" end="13" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="DSEL1" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="12" width="5" end="8" rwaccess="RW" description="Select data to output on DTB[5:1]" id="DSEL0" resetval="0x0">
+      <bitfield range="" begin="12" width="5" end="8" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="DSEL0" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="7" width="5" end="3" rwaccess="RW" description="Select clock to output on DTB[0]" id="CLKSEL" resetval="0x0">
+         <bitenum id="HFOSC_DIV2" value="18" token="HFOSC div by 2 clock" description="HFOSC div by 2 clock"/>
+         <bitenum id="AFOSC" value="17" token="Select AFOSC after qualification" description="Select AFOSC after qualification"/>
+         <bitenum id="LFXT" value="15" token="Select LFXT" description="Select LFXT"/>
+         <bitenum id="LFOSC" value="14" token="Select LFOSC" description="Select LFOSC"/>
+         <bitenum id="HFXT" value="13" token="Select HFXT" description="Select HFXT"/>
+         <bitenum id="HFXTBY8" value="12" token="Select HFXT divided by 8" description="Select HFXT divided by 8"/>
+         <bitenum id="HFOSC" value="10" token="Select HFOSC after qualification" description="Select HFOSC after qualification"/>
+         <bitenum id="LFCLK" value="7" token="Select LFCLK (selected by LFCLKSEL.MAIN)" description="Select LFCLK (selected by LFCLKSEL.MAIN)"/>
+         <bitenum id="TRACKREF" value="4" token="Select tracking loop reference clock" description="Select tracking loop reference clock"/>
+         <bitenum id="CLKADC" value="2" token="Select CLKADC (48 MHz)" description="Select CLKADC (48 MHz)"/>
+         <bitenum id="CLKSVT" value="1" token="Select CLKSVT (48 MHz)" description="Select CLKSVT (48 MHz)"/>
+         <bitenum id="CLKULL" value="0" token="Select CLKULL (24 MHz during ACTIVE, 32kHz during STANDBY)" description="Select CLKULL (24 MHz during ACTIVE, 32kHz during STANDBY)"/>
       </bitfield>
       <bitfield range="" begin="2" width="2" end="1" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Enable DTB output" id="EN" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="TRIM0" width="32" description="Production Trim Register 0
-
-Note: This register contains the HFOSC and AFOSC coarse trims. 
-Changing it might result in frequency overshoots. 
-To prevent these from reaching the system, the clock is gated off for some periods after writing this register." id="TRIM0" offset="0x110">
-      <bitfield range="" begin="31" width="6" end="26" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED26" resetval="0x0">
+   <register acronym="DTBCTL2" width="32" description="Digital test bus mux control" id="DTBCTL2" offset="0x10c">
+      <bitfield range="" begin="31" width="18" end="14" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED14" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="AFOSC mode trim" id="AFOSC_MODE" resetval="0x0">
+      <bitfield range="" begin="13" width="4" end="10" rwaccess="RW" description="Select a DTB other than DTB0 to route the clock. Value of 0 indicates that clock 2 won&#39;t be sent to DTB." id="CLK2DTBSEL" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="24" width="4" end="21" rwaccess="RW" description="AFOSC mid trim" id="AFOSC_MID" resetval="0x0">
+      <bitfield range="" begin="9" width="2" end="8" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="20" width="5" end="16" rwaccess="RW" description="AFOSC coarse trim" id="AFOSC_COARSE" resetval="0x0">
+      <bitfield range="" begin="7" width="3" end="5" rwaccess="RW" description="Select the clock that needs to be routed to a DTB other than DTB0" id="CLKSEL2" resetval="0x0">
+         <bitenum id="CLKSVT" value="1" token="Select CLKSVT (48 MHz)" description="Select CLKSVT (48 MHz)"/>
+         <bitenum id="CLKULL" value="0" token="Select CLKULL (24 MHz during ACTIVE, 32kHz during STANDBY)" description="Select CLKULL (24 MHz during ACTIVE, 32kHz during STANDBY)"/>
       </bitfield>
-      <bitfield range="" begin="15" width="6" end="10" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0">
+      <bitfield range="" begin="4" width="2" end="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="HFOSC mode trim
-This field is locked using the global-lock within SYS0." id="HFOSC_MODE" resetval="0x0">
+      <bitfield range="" begin="2" width="2" end="1" rwaccess="RW" description="These bits are used to configure the  divider value." id="CLK2DIVVAL" resetval="0x0">
+         <bitenum id="DIVBY16" value="3" token="Divide by 16" description="Divide by 16"/>
+         <bitenum id="DIVBY8" value="2" token="Divide by 8" description="Divide by 8"/>
+         <bitenum id="DIVBY4" value="1" token="Divide by 4" description="Divide by 4"/>
+         <bitenum id="DIVBY2" value="0" token="Divide by 2" description="Divide by 2"/>
       </bitfield>
-      <bitfield range="" begin="8" width="4" end="5" rwaccess="RW" description="HFOSC mid trim
-This field is locked using the global-lock within SYS0." id="HFOSC_MID" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="4" width="5" end="0" rwaccess="RW" description="HFOSC coarse trim
-This field is locked using the global-lock within SYS0." id="HFOSC_COARSE" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Enable divider on second clock path" id="CLK2DIVEN" resetval="0x0">
+         <bitenum id="EN" value="1" token="Enable" description="Enable"/>
+         <bitenum id="DIS" value="0" token="Disable" description="Disable"/>
       </bitfield>
    </register>
-   <register acronym="TRIM1" width="32" description="Production Trim Register 1" id="TRIM1" offset="0x114">
-      <bitfield range="" begin="31" width="2" end="30" rwaccess="RW" description="Bias current trim for HFXT slicer." id="HFXTSLICER" resetval="0x0">
+   <register acronym="TRIM0" width="32" description="Internal. Only to be used through TI provided API." id="TRIM0" offset="0x110">
+      <bitfield range="" begin="31" width="6" end="26" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED26" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="29" width="2" end="28" rwaccess="RW" description="IBIAS value for the HFXT peak detector" id="PEAKIBIAS" resetval="0x0">
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="AFOSC_MODE" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="Decrease uDIGLDO reference current by 25nA" id="NABIAS_UDIGLDO" resetval="0x1">
+      <bitfield range="" begin="24" width="4" end="21" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="AFOSC_MID" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="26" width="3" end="24" rwaccess="RW" description="HFXT LDO bandwidth trim" id="LDOBW" resetval="0x0">
+      <bitfield range="" begin="20" width="5" end="16" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="AFOSC_COARSE" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="23" width="4" end="20" rwaccess="RW" description="HFXT LDO feedback trim" id="LDOFB" resetval="0x6">
+      <bitfield range="" begin="15" width="6" end="10" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED10" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="19" width="4" end="16" rwaccess="RW" description="LF delay cell trim" id="LFDLY" resetval="0xf">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="HFOSC_MODE" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="Increase LFOSC reference current by 25nA" id="NABIAS_LFOSC" resetval="0x1">
+      <bitfield range="" begin="8" width="4" end="5" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="HFOSC_MID" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="14" width="7" end="8" rwaccess="RW" description="NABIAS resistor trim" id="NABIAS_RES" resetval="0x14">
+      <bitfield range="" begin="4" width="5" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="HFOSC_COARSE" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="8" end="0" rwaccess="RW" description="LFOSC cap trim.
-
-Note:-
-It&#39;s changing resistor inside LFOC, and not capacitor." id="LFOSC_CAP" resetval="0x39">
+   </register>
+   <register acronym="TRIM1" width="32" description="Internal. Only to be used through TI provided API." id="TRIM1" offset="0x114">
+      <bitfield range="" begin="31" width="2" end="30" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="HFXTSLICER" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="29" width="2" end="28" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="PEAKIBIAS" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="27" width="1" end="27" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="NABIAS_UDIGLDO" resetval="0x1">
+      </bitfield>
+      <bitfield range="" begin="26" width="3" end="24" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LDOBW" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="4" end="20" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LDOFB" resetval="0x6">
+      </bitfield>
+      <bitfield range="" begin="19" width="4" end="16" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LFDLY" resetval="0xf">
+      </bitfield>
+      <bitfield range="" begin="15" width="1" end="15" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="NABIAS_LFOSC" resetval="0x1">
+      </bitfield>
+      <bitfield range="" begin="14" width="7" end="8" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="NABIAS_RES" resetval="0x14">
+      </bitfield>
+      <bitfield range="" begin="7" width="8" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="LFOSC_CAP" resetval="0x39">
       </bitfield>
    </register>
    <register acronym="HFXTINIT" width="32" description="Initial values for HFXT ramping" id="HFXTINIT" offset="0x118">
@@ -1270,697 +1306,697 @@ It&#39;s changing resistor inside LFOC, and not capacitor." id="LFOSC_CAP" reset
       </bitfield>
       <bitfield range="" begin="11" width="6" end="6" rwaccess="RW" description="Initial HFXT Q2 cap trim" id="Q2CAP" resetval="0x0">
          <bitenum id="CAP63" value="63" token="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F" description="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F"/>
          <bitenum id="CAP62" value="62" token="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F" description="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F"/>
          <bitenum id="CAP61" value="61" token="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F" description="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F"/>
          <bitenum id="CAP60" value="60" token="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F" description="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F"/>
          <bitenum id="CAP59" value="59" token="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F" description="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F"/>
          <bitenum id="CAP58" value="58" token="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F" description="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F"/>
          <bitenum id="CAP57" value="57" token="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F" description="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F"/>
          <bitenum id="CAP56" value="56" token="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F" description="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F"/>
          <bitenum id="CAP55" value="55" token="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F" description="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F"/>
          <bitenum id="CAP54" value="54" token="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F" description="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F"/>
          <bitenum id="CAP53" value="53" token="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F" description="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F"/>
          <bitenum id="CAP52" value="52" token="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F" description="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F"/>
          <bitenum id="CAP51" value="51" token="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F" description="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F"/>
          <bitenum id="CAP50" value="50" token="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F" description="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F"/>
          <bitenum id="CAP49" value="49" token="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F" description="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F"/>
          <bitenum id="CAP48" value="48" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP47" value="47" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP46" value="46" token="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F" description="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F"/>
          <bitenum id="CAP45" value="45" token="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F" description="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F"/>
          <bitenum id="CAP44" value="44" token="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F" description="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F"/>
          <bitenum id="CAP43" value="43" token="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F" description="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F"/>
          <bitenum id="CAP42" value="42" token="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F" description="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F"/>
          <bitenum id="CAP41" value="41" token="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F" description="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F"/>
          <bitenum id="CAP40" value="40" token="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F" description="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F"/>
          <bitenum id="CAP39" value="39" token="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F" description="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F"/>
          <bitenum id="CAP38" value="38" token="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F" description="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F"/>
          <bitenum id="CAP37" value="37" token="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F" description="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F"/>
          <bitenum id="CAP36" value="36" token="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F" description="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F"/>
          <bitenum id="CAP35" value="35" token="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F" description="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F"/>
          <bitenum id="CAP34" value="34" token="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F" description="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F"/>
          <bitenum id="CAP33" value="33" token="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F" description="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F"/>
          <bitenum id="CAP32" value="32" token="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F" description="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F"/>
          <bitenum id="CAP31" value="31" token="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F" description="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F"/>
          <bitenum id="CAP30" value="30" token="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F" description="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F"/>
          <bitenum id="CAP29" value="29" token="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F" description="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F"/>
          <bitenum id="CAP28" value="28" token="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F" description="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F"/>
          <bitenum id="CAP27" value="27" token="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F" description="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F"/>
          <bitenum id="CAP26" value="26" token="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F" description="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F"/>
          <bitenum id="CAP25" value="25" token="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F" description="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F"/>
          <bitenum id="CAP24" value="24" token="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F" description="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F"/>
          <bitenum id="CAP23" value="23" token="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F" description="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F"/>
          <bitenum id="CAP22" value="22" token="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F" description="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F"/>
          <bitenum id="CAP21" value="21" token="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F" description="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F"/>
          <bitenum id="CAP20" value="20" token="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F" description="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F"/>
          <bitenum id="CAP19" value="19" token="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F" description="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F"/>
          <bitenum id="CAP18" value="18" token="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F" description="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F"/>
          <bitenum id="CAP17" value="17" token="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F" description="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F"/>
          <bitenum id="CAP16" value="16" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP15" value="15" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP14" value="14" token="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F" description="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F"/>
          <bitenum id="CAP13" value="13" token="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F" description="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F"/>
          <bitenum id="CAP12" value="12" token="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 " description="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 "/>
          <bitenum id="CAP11" value="11" token="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F" description="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F"/>
          <bitenum id="CAP10" value="10" token="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 " description="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 "/>
          <bitenum id="CAP9" value="9" token="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 " description="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 "/>
          <bitenum id="CAP8" value="8" token="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 " description="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 "/>
          <bitenum id="CAP7" value="7" token="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 " description="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 "/>
          <bitenum id="CAP6" value="6" token="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 " description="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 "/>
          <bitenum id="CAP5" value="5" token="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 " description="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 "/>
          <bitenum id="CAP4" value="4" token="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 " description="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 "/>
          <bitenum id="CAP3" value="3" token="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 " description="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 "/>
          <bitenum id="CAP2" value="2" token="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 " description="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 "/>
          <bitenum id="CAP1" value="1" token="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 " description="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 "/>
          <bitenum id="CAP0" value="0" token="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F" description="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F"/>
       </bitfield>
       <bitfield range="" begin="5" width="6" end="0" rwaccess="RW" description="Initial HFXT Q1 cap trim" id="Q1CAP" resetval="0x0">
          <bitenum id="CAP63" value="63" token="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F" description="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F"/>
          <bitenum id="CAP62" value="62" token="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F" description="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F"/>
          <bitenum id="CAP61" value="61" token="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F" description="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F"/>
          <bitenum id="CAP60" value="60" token="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F" description="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F"/>
          <bitenum id="CAP59" value="59" token="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F" description="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F"/>
          <bitenum id="CAP58" value="58" token="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F" description="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F"/>
          <bitenum id="CAP57" value="57" token="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F" description="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F"/>
          <bitenum id="CAP56" value="56" token="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F" description="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F"/>
          <bitenum id="CAP55" value="55" token="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F" description="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F"/>
          <bitenum id="CAP54" value="54" token="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F" description="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F"/>
          <bitenum id="CAP53" value="53" token="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F" description="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F"/>
          <bitenum id="CAP52" value="52" token="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F" description="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F"/>
          <bitenum id="CAP51" value="51" token="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F" description="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F"/>
          <bitenum id="CAP50" value="50" token="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F" description="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F"/>
          <bitenum id="CAP49" value="49" token="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F" description="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F"/>
          <bitenum id="CAP48" value="48" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP47" value="47" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP46" value="46" token="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F" description="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F"/>
          <bitenum id="CAP45" value="45" token="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F" description="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F"/>
          <bitenum id="CAP44" value="44" token="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F" description="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F"/>
          <bitenum id="CAP43" value="43" token="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F" description="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F"/>
          <bitenum id="CAP42" value="42" token="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F" description="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F"/>
          <bitenum id="CAP41" value="41" token="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F" description="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F"/>
          <bitenum id="CAP40" value="40" token="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F" description="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F"/>
          <bitenum id="CAP39" value="39" token="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F" description="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F"/>
          <bitenum id="CAP38" value="38" token="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F" description="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F"/>
          <bitenum id="CAP37" value="37" token="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F" description="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F"/>
          <bitenum id="CAP36" value="36" token="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F" description="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F"/>
          <bitenum id="CAP35" value="35" token="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F" description="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F"/>
          <bitenum id="CAP34" value="34" token="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F" description="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F"/>
          <bitenum id="CAP33" value="33" token="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F" description="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F"/>
          <bitenum id="CAP32" value="32" token="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F" description="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F"/>
          <bitenum id="CAP31" value="31" token="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F" description="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F"/>
          <bitenum id="CAP30" value="30" token="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F" description="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F"/>
          <bitenum id="CAP29" value="29" token="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F" description="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F"/>
          <bitenum id="CAP28" value="28" token="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F" description="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F"/>
          <bitenum id="CAP27" value="27" token="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F" description="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F"/>
          <bitenum id="CAP26" value="26" token="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F" description="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F"/>
          <bitenum id="CAP25" value="25" token="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F" description="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F"/>
          <bitenum id="CAP24" value="24" token="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F" description="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F"/>
          <bitenum id="CAP23" value="23" token="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F" description="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F"/>
          <bitenum id="CAP22" value="22" token="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F" description="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F"/>
          <bitenum id="CAP21" value="21" token="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F" description="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F"/>
          <bitenum id="CAP20" value="20" token="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F" description="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F"/>
          <bitenum id="CAP19" value="19" token="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F" description="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F"/>
          <bitenum id="CAP18" value="18" token="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F" description="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F"/>
          <bitenum id="CAP17" value="17" token="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F" description="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F"/>
          <bitenum id="CAP16" value="16" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP15" value="15" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP14" value="14" token="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F" description="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F"/>
          <bitenum id="CAP13" value="13" token="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F" description="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F"/>
          <bitenum id="CAP12" value="12" token="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 " description="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 "/>
          <bitenum id="CAP11" value="11" token="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F" description="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F"/>
          <bitenum id="CAP10" value="10" token="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 " description="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 "/>
          <bitenum id="CAP9" value="9" token="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 " description="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 "/>
          <bitenum id="CAP8" value="8" token="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 " description="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 "/>
          <bitenum id="CAP7" value="7" token="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 " description="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 "/>
          <bitenum id="CAP6" value="6" token="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 " description="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 "/>
          <bitenum id="CAP5" value="5" token="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 " description="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 "/>
          <bitenum id="CAP4" value="4" token="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 " description="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 "/>
          <bitenum id="CAP3" value="3" token="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 " description="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 "/>
          <bitenum id="CAP2" value="2" token="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 " description="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 "/>
          <bitenum id="CAP1" value="1" token="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 " description="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 "/>
          <bitenum id="CAP0" value="0" token="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F" description="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F"/>
       </bitfield>
    </register>
    <register acronym="HFXTTARG" width="32" description="Target values for HFXT ramping" id="HFXTTARG" offset="0x11c">
       <bitfield range="" begin="31" width="2" end="30" rwaccess="RW" description="ADC hysteresis used during IDAC updates.
 
-Every AMPCFG0.INTERVAL, IDAC will be regulated
+Every AMPCFG1.INTERVAL, IDAC will be regulated
 - up as long as ADC $lt; AMPTHR
 - down as long as ADC $gt; AMPTHR+AMPHYST" id="AMPHYST" resetval="0x1">
       </bitfield>
@@ -1972,690 +2008,690 @@ Every AMPCFG0.INTERVAL, IDAC will be regulated
       </bitfield>
       <bitfield range="" begin="11" width="6" end="6" rwaccess="RW" description="Target HFXT Q2 cap trim" id="Q2CAP" resetval="0x2d">
          <bitenum id="CAP63" value="63" token="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F" description="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F"/>
          <bitenum id="CAP62" value="62" token="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F" description="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F"/>
          <bitenum id="CAP61" value="61" token="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F" description="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F"/>
          <bitenum id="CAP60" value="60" token="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F" description="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F"/>
          <bitenum id="CAP59" value="59" token="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F" description="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F"/>
          <bitenum id="CAP58" value="58" token="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F" description="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F"/>
          <bitenum id="CAP57" value="57" token="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F" description="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F"/>
          <bitenum id="CAP56" value="56" token="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F" description="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F"/>
          <bitenum id="CAP55" value="55" token="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F" description="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F"/>
          <bitenum id="CAP54" value="54" token="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F" description="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F"/>
          <bitenum id="CAP53" value="53" token="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F" description="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F"/>
          <bitenum id="CAP52" value="52" token="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F" description="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F"/>
          <bitenum id="CAP51" value="51" token="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F" description="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F"/>
          <bitenum id="CAP50" value="50" token="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F" description="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F"/>
          <bitenum id="CAP49" value="49" token="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F" description="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F"/>
          <bitenum id="CAP48" value="48" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP47" value="47" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP46" value="46" token="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F" description="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F"/>
          <bitenum id="CAP45" value="45" token="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F" description="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F"/>
          <bitenum id="CAP44" value="44" token="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F" description="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F"/>
          <bitenum id="CAP43" value="43" token="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F" description="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F"/>
          <bitenum id="CAP42" value="42" token="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F" description="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F"/>
          <bitenum id="CAP41" value="41" token="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F" description="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F"/>
          <bitenum id="CAP40" value="40" token="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F" description="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F"/>
          <bitenum id="CAP39" value="39" token="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F" description="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F"/>
          <bitenum id="CAP38" value="38" token="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F" description="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F"/>
          <bitenum id="CAP37" value="37" token="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F" description="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F"/>
          <bitenum id="CAP36" value="36" token="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F" description="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F"/>
          <bitenum id="CAP35" value="35" token="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F" description="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F"/>
          <bitenum id="CAP34" value="34" token="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F" description="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F"/>
          <bitenum id="CAP33" value="33" token="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F" description="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F"/>
          <bitenum id="CAP32" value="32" token="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F" description="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F"/>
          <bitenum id="CAP31" value="31" token="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F" description="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F"/>
          <bitenum id="CAP30" value="30" token="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F" description="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F"/>
          <bitenum id="CAP29" value="29" token="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F" description="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F"/>
          <bitenum id="CAP28" value="28" token="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F" description="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F"/>
          <bitenum id="CAP27" value="27" token="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F" description="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F"/>
          <bitenum id="CAP26" value="26" token="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F" description="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F"/>
          <bitenum id="CAP25" value="25" token="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F" description="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F"/>
          <bitenum id="CAP24" value="24" token="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F" description="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F"/>
          <bitenum id="CAP23" value="23" token="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F" description="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F"/>
          <bitenum id="CAP22" value="22" token="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F" description="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F"/>
          <bitenum id="CAP21" value="21" token="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F" description="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F"/>
          <bitenum id="CAP20" value="20" token="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F" description="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F"/>
          <bitenum id="CAP19" value="19" token="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F" description="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F"/>
          <bitenum id="CAP18" value="18" token="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F" description="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F"/>
          <bitenum id="CAP17" value="17" token="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F" description="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F"/>
          <bitenum id="CAP16" value="16" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP15" value="15" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP14" value="14" token="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F" description="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F"/>
          <bitenum id="CAP13" value="13" token="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F" description="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F"/>
          <bitenum id="CAP12" value="12" token="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 " description="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 "/>
          <bitenum id="CAP11" value="11" token="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F" description="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F"/>
          <bitenum id="CAP10" value="10" token="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 " description="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 "/>
          <bitenum id="CAP9" value="9" token="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 " description="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 "/>
          <bitenum id="CAP8" value="8" token="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 " description="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 "/>
          <bitenum id="CAP7" value="7" token="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 " description="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 "/>
          <bitenum id="CAP6" value="6" token="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 " description="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 "/>
          <bitenum id="CAP5" value="5" token="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 " description="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 "/>
          <bitenum id="CAP4" value="4" token="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 " description="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 "/>
          <bitenum id="CAP3" value="3" token="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 " description="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 "/>
          <bitenum id="CAP2" value="2" token="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 " description="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 "/>
          <bitenum id="CAP1" value="1" token="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 " description="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 "/>
          <bitenum id="CAP0" value="0" token="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F" description="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F"/>
       </bitfield>
       <bitfield range="" begin="5" width="6" end="0" rwaccess="RW" description="Target HFXT Q1 cap trim" id="Q1CAP" resetval="0x2d">
          <bitenum id="CAP63" value="63" token="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F" description="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F"/>
          <bitenum id="CAP62" value="62" token="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F" description="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F"/>
          <bitenum id="CAP61" value="61" token="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F" description="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F"/>
          <bitenum id="CAP60" value="60" token="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F" description="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F"/>
          <bitenum id="CAP59" value="59" token="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F" description="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F"/>
          <bitenum id="CAP58" value="58" token="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F" description="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F"/>
          <bitenum id="CAP57" value="57" token="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F" description="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F"/>
          <bitenum id="CAP56" value="56" token="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F" description="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F"/>
          <bitenum id="CAP55" value="55" token="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F" description="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F"/>
          <bitenum id="CAP54" value="54" token="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F" description="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F"/>
          <bitenum id="CAP53" value="53" token="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F" description="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F"/>
          <bitenum id="CAP52" value="52" token="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F" description="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F"/>
          <bitenum id="CAP51" value="51" token="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F" description="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F"/>
          <bitenum id="CAP50" value="50" token="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F" description="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F"/>
          <bitenum id="CAP49" value="49" token="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F" description="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F"/>
          <bitenum id="CAP48" value="48" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP47" value="47" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP46" value="46" token="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F" description="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F"/>
          <bitenum id="CAP45" value="45" token="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F" description="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F"/>
          <bitenum id="CAP44" value="44" token="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F" description="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F"/>
          <bitenum id="CAP43" value="43" token="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F" description="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F"/>
          <bitenum id="CAP42" value="42" token="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F" description="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F"/>
          <bitenum id="CAP41" value="41" token="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F" description="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F"/>
          <bitenum id="CAP40" value="40" token="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F" description="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F"/>
          <bitenum id="CAP39" value="39" token="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F" description="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F"/>
          <bitenum id="CAP38" value="38" token="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F" description="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F"/>
          <bitenum id="CAP37" value="37" token="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F" description="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F"/>
          <bitenum id="CAP36" value="36" token="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F" description="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F"/>
          <bitenum id="CAP35" value="35" token="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F" description="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F"/>
          <bitenum id="CAP34" value="34" token="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F" description="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F"/>
          <bitenum id="CAP33" value="33" token="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F" description="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F"/>
          <bitenum id="CAP32" value="32" token="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F" description="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F"/>
          <bitenum id="CAP31" value="31" token="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F" description="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F"/>
          <bitenum id="CAP30" value="30" token="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F" description="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F"/>
          <bitenum id="CAP29" value="29" token="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F" description="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F"/>
          <bitenum id="CAP28" value="28" token="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F" description="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F"/>
          <bitenum id="CAP27" value="27" token="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F" description="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F"/>
          <bitenum id="CAP26" value="26" token="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F" description="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F"/>
          <bitenum id="CAP25" value="25" token="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F" description="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F"/>
          <bitenum id="CAP24" value="24" token="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F" description="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F"/>
          <bitenum id="CAP23" value="23" token="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F" description="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F"/>
          <bitenum id="CAP22" value="22" token="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F" description="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F"/>
          <bitenum id="CAP21" value="21" token="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F" description="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F"/>
          <bitenum id="CAP20" value="20" token="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F" description="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F"/>
          <bitenum id="CAP19" value="19" token="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F" description="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F"/>
          <bitenum id="CAP18" value="18" token="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F" description="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F"/>
          <bitenum id="CAP17" value="17" token="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F" description="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F"/>
          <bitenum id="CAP16" value="16" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP15" value="15" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP14" value="14" token="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F" description="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F"/>
          <bitenum id="CAP13" value="13" token="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F" description="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F"/>
          <bitenum id="CAP12" value="12" token="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 " description="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 "/>
          <bitenum id="CAP11" value="11" token="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F" description="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F"/>
          <bitenum id="CAP10" value="10" token="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 " description="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 "/>
          <bitenum id="CAP9" value="9" token="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 " description="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 "/>
          <bitenum id="CAP8" value="8" token="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 " description="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 "/>
          <bitenum id="CAP7" value="7" token="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 " description="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 "/>
          <bitenum id="CAP6" value="6" token="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 " description="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 "/>
          <bitenum id="CAP5" value="5" token="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 " description="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 "/>
          <bitenum id="CAP4" value="4" token="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 " description="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 "/>
          <bitenum id="CAP3" value="3" token="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 " description="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 "/>
          <bitenum id="CAP2" value="2" token="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 " description="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 "/>
          <bitenum id="CAP1" value="1" token="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 " description="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 "/>
          <bitenum id="CAP0" value="0" token="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F" description="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F"/>
       </bitfield>
    </register>
@@ -2665,8 +2701,8 @@ Software can change these values to dynamically transition the HFXT configuratio
 Set SEL to select the alternative set of target values." id="HFXTDYN" offset="0x120">
       <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Select the dynamic configuration.
 
-Amplitude ramping will always happen using the values in HFXTINIT0, HFXTINIT1, HFXTTARG0 and HFXTTARG1.
-Afterwards, this bit can be used to select between HFXTTARG0/HFXTTARG1 and HFXTDYN0/HFXTDYN1.
+Amplitude ramping will always happen using the values in HFXTINIT, and HFXTTARG.
+Afterwards, this bit can be used to select between HFXTTARG and HFXTDYN.
 Hardware will ensure a smooth transition of analog control signals." id="SEL" resetval="0x0">
          <bitenum id="DYNAMIC" value="1" token="Select configuration in CKM.HFXTDYN0 and CKM.HFXTDYN1." description="Select configuration in CKM.HFXTDYN0 and CKM.HFXTDYN1."/>
          <bitenum id="TARGET" value="0" token="Select configuration in CKM.HFXTTARG0 and CKM.HFXTTARG1." description="Select configuration in CKM.HFXTTARG0 and CKM.HFXTTARG1."/>
@@ -2681,690 +2717,690 @@ Hardware will ensure a smooth transition of analog control signals." id="SEL" re
       </bitfield>
       <bitfield range="" begin="11" width="6" end="6" rwaccess="RW" description="Target HFXT Q2 cap trim" id="Q2CAP" resetval="0x2d">
          <bitenum id="CAP63" value="63" token="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F" description="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F"/>
          <bitenum id="CAP62" value="62" token="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F" description="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F"/>
          <bitenum id="CAP61" value="61" token="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F" description="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F"/>
          <bitenum id="CAP60" value="60" token="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F" description="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F"/>
          <bitenum id="CAP59" value="59" token="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F" description="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F"/>
          <bitenum id="CAP58" value="58" token="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F" description="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F"/>
          <bitenum id="CAP57" value="57" token="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F" description="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F"/>
          <bitenum id="CAP56" value="56" token="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F" description="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F"/>
          <bitenum id="CAP55" value="55" token="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F" description="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F"/>
          <bitenum id="CAP54" value="54" token="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F" description="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F"/>
          <bitenum id="CAP53" value="53" token="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F" description="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F"/>
          <bitenum id="CAP52" value="52" token="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F" description="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F"/>
          <bitenum id="CAP51" value="51" token="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F" description="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F"/>
          <bitenum id="CAP50" value="50" token="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F" description="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F"/>
          <bitenum id="CAP49" value="49" token="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F" description="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F"/>
          <bitenum id="CAP48" value="48" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP47" value="47" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP46" value="46" token="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F" description="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F"/>
          <bitenum id="CAP45" value="45" token="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F" description="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F"/>
          <bitenum id="CAP44" value="44" token="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F" description="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F"/>
          <bitenum id="CAP43" value="43" token="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F" description="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F"/>
          <bitenum id="CAP42" value="42" token="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F" description="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F"/>
          <bitenum id="CAP41" value="41" token="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F" description="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F"/>
          <bitenum id="CAP40" value="40" token="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F" description="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F"/>
          <bitenum id="CAP39" value="39" token="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F" description="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F"/>
          <bitenum id="CAP38" value="38" token="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F" description="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F"/>
          <bitenum id="CAP37" value="37" token="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F" description="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F"/>
          <bitenum id="CAP36" value="36" token="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F" description="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F"/>
          <bitenum id="CAP35" value="35" token="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F" description="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F"/>
          <bitenum id="CAP34" value="34" token="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F" description="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F"/>
          <bitenum id="CAP33" value="33" token="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F" description="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F"/>
          <bitenum id="CAP32" value="32" token="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F" description="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F"/>
          <bitenum id="CAP31" value="31" token="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F" description="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F"/>
          <bitenum id="CAP30" value="30" token="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F" description="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F"/>
          <bitenum id="CAP29" value="29" token="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F" description="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F"/>
          <bitenum id="CAP28" value="28" token="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F" description="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F"/>
          <bitenum id="CAP27" value="27" token="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F" description="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F"/>
          <bitenum id="CAP26" value="26" token="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F" description="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F"/>
          <bitenum id="CAP25" value="25" token="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F" description="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F"/>
          <bitenum id="CAP24" value="24" token="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F" description="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F"/>
          <bitenum id="CAP23" value="23" token="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F" description="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F"/>
          <bitenum id="CAP22" value="22" token="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F" description="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F"/>
          <bitenum id="CAP21" value="21" token="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F" description="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F"/>
          <bitenum id="CAP20" value="20" token="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F" description="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F"/>
          <bitenum id="CAP19" value="19" token="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F" description="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F"/>
          <bitenum id="CAP18" value="18" token="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F" description="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F"/>
          <bitenum id="CAP17" value="17" token="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F" description="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F"/>
          <bitenum id="CAP16" value="16" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP15" value="15" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP14" value="14" token="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F" description="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F"/>
          <bitenum id="CAP13" value="13" token="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F" description="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F"/>
          <bitenum id="CAP12" value="12" token="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 " description="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 "/>
          <bitenum id="CAP11" value="11" token="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F" description="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F"/>
          <bitenum id="CAP10" value="10" token="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 " description="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 "/>
          <bitenum id="CAP9" value="9" token="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 " description="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 "/>
          <bitenum id="CAP8" value="8" token="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 " description="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 "/>
          <bitenum id="CAP7" value="7" token="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 " description="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 "/>
          <bitenum id="CAP6" value="6" token="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 " description="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 "/>
          <bitenum id="CAP5" value="5" token="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 " description="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 "/>
          <bitenum id="CAP4" value="4" token="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 " description="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 "/>
          <bitenum id="CAP3" value="3" token="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 " description="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 "/>
          <bitenum id="CAP2" value="2" token="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 " description="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 "/>
          <bitenum id="CAP1" value="1" token="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 " description="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 "/>
          <bitenum id="CAP0" value="0" token="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F" description="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F"/>
       </bitfield>
       <bitfield range="" begin="5" width="6" end="0" rwaccess="RW" description="Target HFXT Q1 cap trim" id="Q1CAP" resetval="0x2d">
          <bitenum id="CAP63" value="63" token="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F" description="Nominal 25C	=	1.10E-11 F
-Stong 25C		=	1.00E-11 F
+Strong 25C		=	1.00E-11 F
 Weak 25C		=	1.19E-11 F"/>
          <bitenum id="CAP62" value="62" token="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F" description="Nominal 25C	=	1.08E-11 F
-Stong 25C		=	9.82E-12 F
+Strong 25C		=	9.82E-12 F
 Weak 25C		=	1.17E-11 F"/>
          <bitenum id="CAP61" value="61" token="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F" description="Nominal 25C	=	1.06E-11 F
-Stong 25C		=	9.64E-12 F
+Strong 25C		=	9.64E-12 F
 Weak 25C		=	1.15E-11 F"/>
          <bitenum id="CAP60" value="60" token="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F" description="Nominal 25C	=	1.04E-11 F
-Stong 25C		=	9.45E-12 F
+Strong 25C		=	9.45E-12 F
 Weak 25C		=	1.13E-11 F"/>
          <bitenum id="CAP59" value="59" token="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F" description="Nominal 25C	=	1.02E-11 F
-Stong 25C		=	9.26E-12 F
+Strong 25C		=	9.26E-12 F
 Weak 25C		=	1.11E-11 F"/>
          <bitenum id="CAP58" value="58" token="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F" description="Nominal 25C	=	1.00E-11 F
-Stong 25C		=	9.07E-12 F
+Strong 25C		=	9.07E-12 F
 Weak 25C		=	1.09E-11 F"/>
          <bitenum id="CAP57" value="57" token="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F" description="Nominal 25C	=	9.84E-12 F
-Stong 25C		=	8.89E-12 F
+Strong 25C		=	8.89E-12 F
 Weak 25C		=	1.07E-11 F"/>
          <bitenum id="CAP56" value="56" token="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F" description="Nominal 25C	=	9.65E-12 F
-Stong 25C		=	8.70E-12 F
+Strong 25C		=	8.70E-12 F
 Weak 25C		=	1.04E-11 F"/>
          <bitenum id="CAP55" value="55" token="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F" description="Nominal 25C	=	9.46E-12 F
-Stong 25C		=	8.51E-12 F
+Strong 25C		=	8.51E-12 F
 Weak 25C		=	1.02E-11 F"/>
          <bitenum id="CAP54" value="54" token="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F" description="Nominal 25C	=	9.26E-12 F
-Stong 25C		=	8.32E-12 F
+Strong 25C		=	8.32E-12 F
 Weak 25C		=	1.00E-11 F"/>
          <bitenum id="CAP53" value="53" token="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F" description="Nominal 25C	=	9.07E-12 F
-Stong 25C		=	8.13E-12 F
+Strong 25C		=	8.13E-12 F
 Weak 25C		=	9.81E-12 F"/>
          <bitenum id="CAP52" value="52" token="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F" description="Nominal 25C	=	8.88E-12 F
-Stong 25C		=	7.94E-12 F
+Strong 25C		=	7.94E-12 F
 Weak 25C		=	9.60E-12 F"/>
          <bitenum id="CAP51" value="51" token="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F" description="Nominal 25C	=	8.69E-12 F
-Stong 25C		=	7.76E-12 F
+Strong 25C		=	7.76E-12 F
 Weak 25C		=	9.39E-12 F"/>
          <bitenum id="CAP50" value="50" token="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F" description="Nominal 25C	=	8.49E-12 F
-Stong 25C		=	7.57E-12 F
+Strong 25C		=	7.57E-12 F
 Weak 25C		=	9.18E-12 F"/>
          <bitenum id="CAP49" value="49" token="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F" description="Nominal 25C	=	8.30E-12 F
-Stong 25C		=	7.38E-12 F
+Strong 25C		=	7.38E-12 F
 Weak 25C		=	8.96E-12 F"/>
          <bitenum id="CAP48" value="48" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP47" value="47" token="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F" description="Nominal 25C	=	8.10E-12 F
-Stong 25C		=	7.18E-12 F
+Strong 25C		=	7.18E-12 F
 Weak 25C		=	8.75E-12 F"/>
          <bitenum id="CAP46" value="46" token="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F" description="Nominal 25C	=	7.97E-12 F
-Stong 25C		=	7.05E-12 F
+Strong 25C		=	7.05E-12 F
 Weak 25C		=	8.60E-12 F"/>
          <bitenum id="CAP45" value="45" token="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F" description="Nominal 25C	=	7.83E-12 F
-Stong 25C		=	6.91E-12 F
+Strong 25C		=	6.91E-12 F
 Weak 25C		=	8.44E-12 F"/>
          <bitenum id="CAP44" value="44" token="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F" description="Nominal 25C	=	7.69E-12 F
-Stong 25C		=	6.77E-12 F
+Strong 25C		=	6.77E-12 F
 Weak 25C		=	8.29E-12 F"/>
          <bitenum id="CAP43" value="43" token="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F" description="Nominal 25C	=	7.55E-12 F
-Stong 25C		=	6.63E-12 F
+Strong 25C		=	6.63E-12 F
 Weak 25C		=	8.13E-12 F"/>
          <bitenum id="CAP42" value="42" token="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F" description="Nominal 25C	=	7.40E-12 F
-Stong 25C		=	6.49E-12 F
+Strong 25C		=	6.49E-12 F
 Weak 25C		=	7.98E-12 F"/>
          <bitenum id="CAP41" value="41" token="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F" description="Nominal 25C	=	7.26E-12 F
-Stong 25C		=	6.35E-12 F
+Strong 25C		=	6.35E-12 F
 Weak 25C		=	7.82E-12 F"/>
          <bitenum id="CAP40" value="40" token="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F" description="Nominal 25C	=	7.12E-12 F
-Stong 25C		=	6.21E-12 F
+Strong 25C		=	6.21E-12 F
 Weak 25C		=	7.67E-12 F"/>
          <bitenum id="CAP39" value="39" token="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F" description="Nominal 25C	=	6.98E-12 F
-Stong 25C		=	6.06E-12 F
+Strong 25C		=	6.06E-12 F
 Weak 25C		=	7.51E-12 F"/>
          <bitenum id="CAP38" value="38" token="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F" description="Nominal 25C	=	6.84E-12 F
-Stong 25C		=	5.92E-12 F
+Strong 25C		=	5.92E-12 F
 Weak 25C		=	7.35E-12 F"/>
          <bitenum id="CAP37" value="37" token="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F" description="Nominal 25C	=	6.69E-12 F
-Stong 25C		=	5.78E-12 F
+Strong 25C		=	5.78E-12 F
 Weak 25C		=	7.20E-12 F"/>
          <bitenum id="CAP36" value="36" token="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F" description="Nominal 25C	=	6.55E-12 F
-Stong 25C		=	5.63E-12 F
+Strong 25C		=	5.63E-12 F
 Weak 25C		=	7.04E-12 F"/>
          <bitenum id="CAP35" value="35" token="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F" description="Nominal 25C	=	6.41E-12 F
-Stong 25C		=	5.49E-12 F
+Strong 25C		=	5.49E-12 F
 Weak 25C		=	6.88E-12 F"/>
          <bitenum id="CAP34" value="34" token="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F" description="Nominal 25C	=	6.26E-12 F
-Stong 25C		=	5.35E-12 F
+Strong 25C		=	5.35E-12 F
 Weak 25C		=	6.72E-12 F"/>
          <bitenum id="CAP33" value="33" token="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F" description="Nominal 25C	=	6.12E-12 F
-Stong 25C		=	5.20E-12 F
+Strong 25C		=	5.20E-12 F
 Weak 25C		=	6.56E-12 F"/>
          <bitenum id="CAP32" value="32" token="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F" description="Nominal 25C	=	5.97E-12 F
-Stong 25C		=	5.05E-12 F
+Strong 25C		=	5.05E-12 F
 Weak 25C		=	6.40E-12 F"/>
          <bitenum id="CAP31" value="31" token="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F" description="Nominal 25C	=	5.72E-12 F
-Stong 25C		=	4.79E-12 F
+Strong 25C		=	4.79E-12 F
 Weak 25C		=	6.12E-12 F"/>
          <bitenum id="CAP30" value="30" token="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F" description="Nominal 25C	=	5.60E-12 F
-Stong 25C		=	4.67E-12 F
+Strong 25C		=	4.67E-12 F
 Weak 25C		=	5.99E-12 F"/>
          <bitenum id="CAP29" value="29" token="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F" description="Nominal 25C	=	5.49E-12 F
-Stong 25C		=	4.56E-12 F
+Strong 25C		=	4.56E-12 F
 Weak 25C		=	5.87E-12 F"/>
          <bitenum id="CAP28" value="28" token="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F" description="Nominal 25C	=	5.37E-12 F
-Stong 25C		=	4.44E-12 F
+Strong 25C		=	4.44E-12 F
 Weak 25C		=	5.74E-12 F"/>
          <bitenum id="CAP27" value="27" token="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F" description="Nominal 25C	=	5.26E-12 F
-Stong 25C		=	4.32E-12 F
+Strong 25C		=	4.32E-12 F
 Weak 25C		=	5.61E-12 F"/>
          <bitenum id="CAP26" value="26" token="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F" description="Nominal 25C	=	5.15E-12 F
-Stong 25C		=	4.21E-12 F
+Strong 25C		=	4.21E-12 F
 Weak 25C		=	5.49E-12 F"/>
          <bitenum id="CAP25" value="25" token="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F" description="Nominal 25C	=	5.03E-12 F
-Stong 25C		=	4.09E-12 F
+Strong 25C		=	4.09E-12 F
 Weak 25C		=	5.36E-12 F"/>
          <bitenum id="CAP24" value="24" token="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F" description="Nominal 25C	=	4.91E-12 F
-Stong 25C		=	3.97E-12 F
+Strong 25C		=	3.97E-12 F
 Weak 25C		=	5.23E-12 F"/>
          <bitenum id="CAP23" value="23" token="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F" description="Nominal 25C	=	4.80E-12 F
-Stong 25C		=	3.85E-12 F
+Strong 25C		=	3.85E-12 F
 Weak 25C		=	5.10E-12 F"/>
          <bitenum id="CAP22" value="22" token="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F" description="Nominal 25C	=	4.68E-12 F
-Stong 25C		=	3.73E-12 F
+Strong 25C		=	3.73E-12 F
 Weak 25C		=	4.98E-12 F"/>
          <bitenum id="CAP21" value="21" token="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F" description="Nominal 25C	=	4.57E-12 F
-Stong 25C		=	3.60E-12 F
+Strong 25C		=	3.60E-12 F
 Weak 25C		=	4.85E-12 F"/>
          <bitenum id="CAP20" value="20" token="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F" description="Nominal 25C	=	4.45E-12 F
-Stong 25C		=	3.48E-12 F
+Strong 25C		=	3.48E-12 F
 Weak 25C		=	4.72E-12 F"/>
          <bitenum id="CAP19" value="19" token="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F" description="Nominal 25C	=	4.33E-12 F
-Stong 25C		=	3.36E-12 F
+Strong 25C		=	3.36E-12 F
 Weak 25C		=	4.59E-12 F"/>
          <bitenum id="CAP18" value="18" token="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F" description="Nominal 25C	=	4.21E-12 F
-Stong 25C		=	3.23E-12 F
+Strong 25C		=	3.23E-12 F
 Weak 25C		=	4.46E-12 F"/>
          <bitenum id="CAP17" value="17" token="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F" description="Nominal 25C	=	4.09E-12 F
-Stong 25C		=	3.11E-12 F
+Strong 25C		=	3.11E-12 F
 Weak 25C		=	4.33E-12 F"/>
          <bitenum id="CAP16" value="16" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP15" value="15" token="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F" description="Nominal 25C	=	3.97E-12 F
-Stong 25C		=	2.98E-12 F
+Strong 25C		=	2.98E-12 F
 Weak 25C		=	4.20E-12 F"/>
          <bitenum id="CAP14" value="14" token="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F" description="Nominal 25C	=	3.88E-12 F
-Stong 25C		=	2.89E-12 F
+Strong 25C		=	2.89E-12 F
 Weak 25C		=	4.10E-12 F"/>
          <bitenum id="CAP13" value="13" token="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F" description="Nominal 25C	=	3.79E-12 F
-Stong 25C		=	2.79E-12 F
+Strong 25C		=	2.79E-12 F
 Weak 25C		=	4.00E-12 F"/>
          <bitenum id="CAP12" value="12" token="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 " description="Nominal 25C	=	3.70E-12 F
-Stong 25C		=	2.69E-12 F
+Strong 25C		=	2.69E-12 F
 Weak 25C		=	3.90E-12 F
 "/>
          <bitenum id="CAP11" value="11" token="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F" description="Nominal 25C	=	3.61E-12 F
-Stong 25C		=	2.59E-12 F
+Strong 25C		=	2.59E-12 F
 Weak 25C		=	3.80E-12 F"/>
          <bitenum id="CAP10" value="10" token="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 " description="Nominal 25C	=	3.51E-12 F
-Stong 25C		=	2.49E-12 F
+Strong 25C		=	2.49E-12 F
 Weak 25C		=	3.70E-12 F
 "/>
          <bitenum id="CAP9" value="9" token="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 " description="Nominal 25C	=	3.42E-12 F
-Stong 25C		=	2.39E-12 F
+Strong 25C		=	2.39E-12 F
 Weak 25C		=	3.60E-12 F
 "/>
          <bitenum id="CAP8" value="8" token="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 " description="Nominal 25C	=	3.33E-12 F
-Stong 25C		=	2.29E-12 F
+Strong 25C		=	2.29E-12 F
 Weak 25C		=	3.50E-12 F
 "/>
          <bitenum id="CAP7" value="7" token="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 " description="Nominal 25C	=	3.23E-12 F
-Stong 25C		=	2.19E-12 F
+Strong 25C		=	2.19E-12 F
 Weak 25C		=	3.40E-12 F
 "/>
          <bitenum id="CAP6" value="6" token="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 " description="Nominal 25C	=	3.14E-12 F
-Stong 25C		=	2.09E-12 F
+Strong 25C		=	2.09E-12 F
 Weak 25C		=	3.30E-12 F
 "/>
          <bitenum id="CAP5" value="5" token="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 " description="Nominal 25C	=	3.04E-12 F
-Stong 25C		=	1.99E-12 F
+Strong 25C		=	1.99E-12 F
 Weak 25C		=	3.19E-12 F
 "/>
          <bitenum id="CAP4" value="4" token="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 " description="Nominal 25C	=	2.95E-12 F
-Stong 25C		=	1.89E-12 F
+Strong 25C		=	1.89E-12 F
 Weak 25C		=	3.09E-12 F
 "/>
          <bitenum id="CAP3" value="3" token="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 " description="Nominal 25C	=	2.85E-12 F
-Stong 25C		=	1.79E-12 F
+Strong 25C		=	1.79E-12 F
 Weak 25C		=	2.99E-12 F
 "/>
          <bitenum id="CAP2" value="2" token="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 " description="Nominal 25C	=	2.76E-12 F
-Stong 25C		=	1.69E-12 F
+Strong 25C		=	1.69E-12 F
 Weak 25C		=	2.89E-12 F
 "/>
          <bitenum id="CAP1" value="1" token="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 " description="Nominal 25C	=	2.66E-12 F
-Stong 25C		=	1.60E-12 F
+Strong 25C		=	1.60E-12 F
 Weak 25C		=	2.79E-12 F
 "/>
          <bitenum id="CAP0" value="0" token="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F" description="Nominal 25C	=	2.57E-12 F
-Stong 25C		=	1.50E-12 F
+Strong 25C		=	1.50E-12 F
 Weak 25C		=	2.69E-12 F"/>
       </bitfield>
    </register>
@@ -3434,10 +3470,10 @@ Set to 0 to disable automatic bias measurements." id="BIASLT" resetval="0xff">
 Set to 0 to disable periodic adjustments.
 
 This value specifies the number of clock cycles between adjustments.
-The clock speed is defined in [CKM.AMPCFG0.FSMRATE]." id="INTERVAL" resetval="0xff">
+The clock speed is defined in AMPCFG0.FSMRATE." id="INTERVAL" resetval="0xff">
       </bitfield>
    </register>
-   <register acronym="LOOPCFG" width="32" description="Configuration Register for the Tracking Loop. Writing to this MMR will override the filter output to FINETRIM_INIT." id="LOOPCFG" offset="0x12c">
+   <register acronym="LOOPCFG" width="32" description="Configuration Register for the Tracking Loop" id="LOOPCFG" offset="0x12c">
       <bitfield range="" begin="31" width="6" end="26" rwaccess="RW" description="Initial value for the resistor fine trim" id="FINETRIM_INIT" resetval="0x18">
       </bitfield>
       <bitfield range="" begin="25" width="5" end="21" rwaccess="RW" description="Error-updates for 4xBOOST_TARGET times using KI_BOOST/KP_BOOST, before using KI/KP.
@@ -3447,7 +3483,9 @@ Note: If boost is used for long duration using large values of KI_BOOST $amp; KP
       </bitfield>
       <bitfield range="" begin="17" width="3" end="15" rwaccess="RW" description="Integral loop coefficient during BOOST" id="KI_BOOST" resetval="0x4">
       </bitfield>
-      <bitfield range="" begin="14" width="5" end="10" rwaccess="RW" description="Number of updates before HFOSC is considered &#34;settled&#34;" id="SETTLED_TARGET" resetval="0xc">
+      <bitfield range="" begin="14" width="5" end="10" rwaccess="RW" description="Number of HFOSC tracking loop updates before HFOSC is considered &#34;settled&#34;. The tracking loop updates at a rough frequency of (2*Reference frequency/256).
+If the reference frequency is 48MHz, the loop update frequency comes out to be 375Khz.
+Internally the MMR is multiplied by 4" id="SETTLED_TARGET" resetval="0x13">
       </bitfield>
       <bitfield range="" begin="9" width="4" end="6" rwaccess="RW" description="Out-of-range threshold. OOR_LIMIT is compared with absolute value of 5 MSB bits of loop filter error." id="OOR_LIMIT" resetval="0xe">
       </bitfield>
@@ -3457,7 +3495,11 @@ Note: If boost is used for long duration using large values of KI_BOOST $amp; KP
       </bitfield>
    </register>
    <register acronym="LOOPCFG1" width="32" description="Configuration Register for underclocking HFOSC" id="LOOPCFG1" offset="0x130">
-      <bitfield range="" begin="31" width="7" end="25" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED25" resetval="0x0">
+      <bitfield range="" begin="31" width="6" end="26" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED26" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="25" width="1" end="25" rwaccess="RW" description="Configuration to enable the interrupt when the HFOSC tracking loop has settled. The interrupt will be based on LOOPCFG.SETTLED_TARGET." id="SETTLEIRQ" resetval="0x0">
+         <bitenum id="ENABLE" value="1" token="Enable the interrupt to indicate that HFOSC tracking loop has settled." description="Enable the interrupt to indicate that HFOSC tracking loop has settled."/>
+         <bitenum id="DISABLE" value="0" token="Disable the interrupt to indicate that HFOSC tracking loop has settled." description="Disable the interrupt to indicate that HFOSC tracking loop has settled."/>
       </bitfield>
       <bitfield range="" begin="24" width="19" end="6" rwaccess="RW" description="Timer to trigger HFOSC underclocking. The timer will run at approximately 32.768 KHz." id="UNDERCLKCNT" resetval="0x0">
       </bitfield>
@@ -3495,19 +3537,18 @@ This bit can be locked in SYS0. If unlocked, it is password protected with PW." 
          <bitenum id="_98MHZ" value="131478591" token="" description=""/>
       </bitfield>
    </register>
-   <register acronym="BANDGAPCTL" width="32" description="Configuration Register for the Tracking Loop" id="BANDGAPCTL" offset="0x148">
-      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Software override for bandgap control signals.
-This field is locked using the global-lock within SYS0." id="BGOVR" resetval="0x0">
+   <register acronym="BANDGAPCTL" width="32" description="Internal. Only to be used through TI provided API." id="BANDGAPCTL" offset="0x148">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="BGOVR" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="30" width="27" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
+      <bitfield range="" begin="30" width="27" end="4" rwaccess="RO" description="Internal. Only to be used through TI provided API." id="RESERVED4" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Bandgap reference enable." id="VBGAPBYP" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="VBGAPBYP" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Bandgap bypass counter. The counter runs at 24 MHz." id="VBGAPREFEN" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="VBGAPREFEN" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="This MMR is used only when BANDCFG.BGOVR is set." id="VDDRREFEN" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="VDDRREFEN" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Enable reference voltage to AFOSC and HFOSC. This MMR is used only when BANDCFG.BGOVR is set." id="REFEN" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="REFEN" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="AFCLKSEL" width="32" description="Audio clock selection" id="AFCLKSEL" offset="0x150">
@@ -3569,9 +3610,11 @@ This field uses the fractional representation of the actual error(30 fractional 
       </bitfield>
       <bitfield range="" begin="24" width="25" end="0" rwaccess="RO" description="Current AFOSC Fine-trim value
 
-This field uses the internal fractional representation (sign, 4 integer bits, 8 fractional bits).
-The actual trim value applied to the oscillator is delta-sigma modulated 5 bits non-signed
-(inverted sign bit + integer bits)." id="FINETRIM" resetval="0x1d80000">
+This field uses the internal fractional representation (sign, 5 integer bits, 19 fractional bits).
+The actual trim value applied to the oscillator is delta-sigma modulated 6 bits non-signed
+(inverted sign bit + integer bits).
+
+" id="FINETRIM" resetval="0x1d80000">
       </bitfield>
    </register>
    <register acronym="LOOPCFGAF" width="32" description="Configuration Register for the Audio frequency Tracking Loop" id="LOOPCFGAF" offset="0x170">

@@ -12,11 +12,17 @@
     <property Name="SWD Password [1] (32-bit HEX format)" Type="numericfield" Value="0" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" id="MSPM0SWDPassword1" />
     <property Name="SWD Password [2] (32-bit HEX format)" Type="numericfield" Value="0" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" id="MSPM0SWDPassword2" />
     <property Name="SWD Password [3] (32-bit HEX format)" Type="numericfield" Value="0" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" id="MSPM0SWDPassword3" />
+    <property Type="numericfield" Value="0" id="etparams.ahbap_index" />
+    <property Type="numericfield" Value="3" id="etparams.etap_index" />
+    <property Type="numericfield" Value="3" id="etparams.regsel_value" />
+    <property Type="numericfield" Value="1" id="etparams.domainctrl_value" />
+    <property Type="stringfield" Value="cmcu" id="AETT Platform"/>
+    <property Type="filepathfield" Value="../../emulation/analysis/dpk/devices/mspm0/AETT_database_cmcu_mspm0.jsonc" id="AETT Database File"/>
     <instance XML_revision="1.2" desc="CS_DAP_0" href="routers/cs_dap.xml" id="CS_DAP_0" xml="cs_dap.xml" xmlpath="Routers"/>
     <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
         <property Type="hiddenfield" Value="1" id="Use Board Reset" />
         <property Type="filepathfield" Value="../../../emulation/gel/mspm0_cs_dap_init.gel" id="GEL File"/>
-        <instance href="../Modules/AP/CFGAP.xml" id="" xml="CFGAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="CFGAP" requestor="MSP" baseaddr="0x00020100" endaddr="0x000201FC" size="0x100" accessnumbytes="4" permissions="p"/>
+        <instance href="../Modules/msp/CFGAP.xml" id="" xml="CFGAP.xml" xmlpath="../Modules/msp/" HW_version="CS_DAP" description="CFGAP" requestor="MSP" baseaddr="0x00020100" endaddr="0x000201FC" size="0x100" accessnumbytes="4" permissions="p"/>
         <instance href="../Modules/AP/SECAP.xml" id="" xml="SECAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="SECAP" requestor="MSP" baseaddr="0x00020200" endaddr="0x000202FC" size="0x100" accessnumbytes="4" permissions="p"/>
         <instance href="../Modules/AP/PWRAP.xml" id="" xml="PWRAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="PWRAP" requestor="MSP" baseaddr="0x00020400" endaddr="0x000204FC" size="0x100" accessnumbytes="4" permissions="p"/>
         <property Type="choicelist" Value="1" id="Device Management"/>
@@ -99,6 +105,7 @@
                 <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40082000" description=""  href="../Modules/msp/mspm0gx51x/WWDT1_1.0.xml" id="wwdt1" xml="WWDT1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm0gx51x/"></instance>
                 <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x00000000" description=""  href="../Modules/msp/NVIC_1.0.xml" id="nvic" xml="NVIC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/"></instance>
                 <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x00000000" description=""  href="../Modules/msp/SYSTICK_1.0.xml" id="systick" xml="SYSTICK_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x00000000" description=""  href="../Modules/msp/ETAP.xml" id="" xml="ETAP.xml" permissions="p" requestor="MSP" size="00" xmlpath="../Modules/msp/"></instance>
                 <!--Driver Settings-->
                 <property Type="hiddenfield" Value="1" id="Auto Release WIR on Connect"/>
                 <!-- Project Wizard Settings -->

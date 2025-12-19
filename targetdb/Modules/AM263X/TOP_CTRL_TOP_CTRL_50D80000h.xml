@@ -1,0 +1,295 @@
+<module name="TOP_CTRL" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="TOP_CTRL_EFUSE_DIEID0" acronym="TOP_CTRL_EFUSE_DIEID0" offset="16" width="32" description="Register to read DIEID0.">
+		<bitfield id="EFUSE_DIEID0_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE DieID[31:0]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_DIEID1" acronym="TOP_CTRL_EFUSE_DIEID1" offset="20" width="32" description="Register to read DIEID1.">
+		<bitfield id="EFUSE_DIEID1_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE DieID[63:32]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_DIEID2" acronym="TOP_CTRL_EFUSE_DIEID2" offset="24" width="32" description="Register to read DIEID2.">
+		<bitfield id="EFUSE_DIEID2_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE DieID[95:64]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_DIEID3" acronym="TOP_CTRL_EFUSE_DIEID3" offset="28" width="32" description="Register to read DIEID3.">
+		<bitfield id="EFUSE_DIEID3_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE DieID[127:96]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_UID0" acronym="TOP_CTRL_EFUSE_UID0" offset="32" width="32" description="Register to read UID0.">
+		<bitfield id="EFUSE_UID0_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE UID[31:0]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_UID1" acronym="TOP_CTRL_EFUSE_UID1" offset="36" width="32" description="Register to read UID1.">
+		<bitfield id="EFUSE_UID1_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE UID[63:32]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_UID2" acronym="TOP_CTRL_EFUSE_UID2" offset="40" width="32" description="Register to read UID2.">
+		<bitfield id="EFUSE_UID2_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE UID[95:64]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_UID3" acronym="TOP_CTRL_EFUSE_UID3" offset="44" width="32" description="Register to read UID3.">
+		<bitfield id="EFUSE_UID3_VAL" width="24" begin="23" end="0" resetval="0x0" description="EFUSE UID[120:96]" range="23:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_DEVICE_TYPE" acronym="TOP_CTRL_EFUSE_DEVICE_TYPE" offset="48" width="32" description="This register indicates Device Type-  High Secure : 0b 1100 1100 (0xA).">
+		<bitfield id="EFUSE_DEVICE_TYPE_VAL" width="16" begin="15" end="0" resetval="0x0" description="EFUSE Device Type" range="15:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_FROM0_CHECKSUM" acronym="TOP_CTRL_EFUSE_FROM0_CHECKSUM" offset="52" width="32" description="The register provides checksum for efuse FROM0.">
+		<bitfield id="EFUSE_FROM0_CHECKSUM_VAL" width="32" begin="31" end="0" resetval="0x0" description="32 bit FROM0 Checksum" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE_JTAG_USERCODE_ID" acronym="TOP_CTRL_EFUSE_JTAG_USERCODE_ID" offset="56" width="32" description="Register to read JTAG user IDCODE.">
+		<bitfield id="EFUSE_JTAG_USERCODE_ID_VAL" width="32" begin="31" end="0" resetval="0x0" description="EFUSE JTAG_USER_CODE_ID[31:0];. Denotes part variant" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_EFUSE1_ROW_12" acronym="TOP_CTRL_EFUSE1_ROW_12" offset="1064" width="32" description="This register provides details on EFUSE values written into Row 12.">
+		<bitfield id="EFUSE1_ROW_12_CUSTOMER_IP_DISABLE" width="1" begin="25" end="25" resetval="0x0" description="Customer IP set control0 - All IPs enabled1 - Customer IP set disabled [PWM24-31,CMPSSA6-9,CMPSSB6-9 disabled]" range="25" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_EPWM_FEATURE_DISABLE" width="1" begin="24" end="24" resetval="0x0" description="Customer protected features inside PWM IP 0 - All features enabled1 - Customer defined features are protected" range="24" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_CANFD_DIS" width="4" begin="23" end="20" resetval="0x0" description="CANFD disables. Bit positions correspond to CAN instance. 0 - CAN is enabled1 - CAN is disabled" range="23:20" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_PRU_ICSS_HW_DIS" width="8" begin="19" end="12" resetval="0x0" description="ICSSM IP feature configuration0 - ICSSM feature enabled1 - ICSSM feature disabled" range="19:12" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_PRU_ICSS_DIS" width="1" begin="11" end="11" resetval="0x0" description="ICSSM IP disable0 - ICSSM enabled1 - ICSSM disabled" range="11" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_TWOX_CTRL_PERIP_DISABLE" width="1" begin="10" end="10" resetval="0x0" description="2x control IPs enabled0 - 1x control IPs" range="10" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_R5SS_FREQ" width="1" begin="9" end="9" resetval="0x0" description="R5SS Freq0 - 400 MHz1 - 200 MHz" range="9" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_R5SS1_DISABLE" width="1" begin="8" end="8" resetval="0x0" description="Supports single R5SS0 cluster, disables R5SS1 cluster" range="8" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_R5SS1_DUAL_CORE_DISABLE" width="1" begin="7" end="7" resetval="0x0" description="Disabling switching to Dual Core mode by the application. Forced lockstep is forced dual core not enabled" range="7" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_R5SS1_FORCE_DUAL_CORE" width="1" begin="6" end="6" resetval="0x0" description="Enable MSS R5FSS1 dual core boot mode. Force Dual core" range="6" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_R5SS0_DUAL_CORE_DISABLE" width="1" begin="5" end="5" resetval="0x0" description="Disabling switching to Dual Core mode by the application. Forced lockstep is forced dual core not enabled" range="5" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_R5SS0_FORCE_DUAL_CORE" width="1" begin="4" end="4" resetval="0x0" description="Enable MSS R5FSS0 dual core boot mode. Force Dual core" range="4" rwaccess="R"/>
+	<bitfield id="EFUSE1_ROW_12_L2_MEM_SIZE" width="4" begin="3" end="0" resetval="0x0" description="Decides memory size 0000- L2-  2 MB 0001- L2- 1.5 MB 0010- L2- 1 MB 0011- L2- 0.5 MB Others - Reserved" range="3:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_MAC_ID0" acronym="TOP_CTRL_MAC_ID0" offset="1280" width="32" description="Ethernet MAC address lower 32-bits.">
+		<bitfield id="MAC_ID0_MACID_LO" width="32" begin="31" end="0" resetval="0x0" description="48-bit Ethernet MAC_ID field. Can be used by SW through MMR read - MAC ID low [32bits]" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_MAC_ID1" acronym="TOP_CTRL_MAC_ID1" offset="1284" width="32" description="Ethernet MAC address upper 16-bits.">
+		<bitfield id="MAC_ID1_MACID_HI" width="16" begin="15" end="0" resetval="0x0" description="48-bit Ethernet MAC_ID field. Can be used by SW through MMR read - MAC ID high [16bits]" range="15:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_ADC_REFBUF0_CTRL" acronym="TOP_CTRL_ADC_REFBUF0_CTRL" offset="3072" width="32" description="This register is used to enable or disable ADC Reference buffer 0">
+		<bitfield id="ADC_REFBUF0_CTRL_ENABLE" width="3" begin="2" end="0" resetval="0x0" description="Enables adc reference 0, mask hhv before enable000:Disable111 : Enable" range="2:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_ADC_REFBUF1_CTRL" acronym="TOP_CTRL_ADC_REFBUF1_CTRL" offset="3076" width="32" description="This register is used to enable or disable ADC Reference buffer 1">
+		<bitfield id="ADC_REFBUF1_CTRL_ENABLE" width="3" begin="2" end="0" resetval="0x0" description="Enables adc reference 1, mask hhv before enable000:Disable111 : Enable" range="2:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_ADC_REF_COMP_CTRL" acronym="TOP_CTRL_ADC_REF_COMP_CTRL" offset="3080" width="32" description="This register is used to enable or disable the voltage monitors  which measure if the ADC reference voltage is good or not.">
+		<bitfield id="ADC_REF_COMP_CTRL_ADC34_REFOK_EN" width="3" begin="10" end="8" resetval="0x0" description="Enables reference comparators [ROK1]. This monitors adc3 &#38; adc4 refernc" range="10:8" rwaccess="R/W"/>
+	<bitfield id="ADC_REF_COMP_CTRL_ADC12_REFOK_EN" width="3" begin="6" end="4" resetval="0x0" description="Enables reference comparators [ROK0B]. This monitors adc1 &#38; adc2 refernce" range="6:4" rwaccess="R/W"/>
+	<bitfield id="ADC_REF_COMP_CTRL_ADC0_REFOK_EN" width="3" begin="2" end="0" resetval="0x0" description="Enables reference comparators [ROK0]. This monitors adc0 refernce" range="2:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_ADC_REF_GOOD_STATUS" acronym="TOP_CTRL_ADC_REF_GOOD_STATUS" offset="3084" width="32" description="This register shows the status of ADC reference voltages as measured by the ADC Reference OK voltage monitors.">
+		<bitfield id="ADC_REF_GOOD_STATUS_ADC12_REF_UV_GOOD" width="1" begin="5" end="5" resetval="0x1" description="Under Voltage check OK" range="5" rwaccess="R"/>
+	<bitfield id="ADC_REF_GOOD_STATUS_ADC12_REF_OV_GOOD" width="1" begin="4" end="4" resetval="0x1" description="Over voltage check OK" range="4" rwaccess="R"/>
+	<bitfield id="ADC_REF_GOOD_STATUS_ADC0_REF_UV_GOOD" width="1" begin="3" end="3" resetval="0x1" description="Under Voltage check OK" range="3" rwaccess="R"/>
+	<bitfield id="ADC_REF_GOOD_STATUS_ADC0_REF_OV_GOOD" width="1" begin="2" end="2" resetval="0x1" description="Over voltage check OK" range="2" rwaccess="R"/>
+	<bitfield id="ADC_REF_GOOD_STATUS_ADC34_REF_UV_GOOD" width="1" begin="1" end="1" resetval="0x1" description="Under Voltage check OK" range="1" rwaccess="R"/>
+	<bitfield id="ADC_REF_GOOD_STATUS_ADC34_REF_OV_GOOD" width="1" begin="0" end="0" resetval="0x1" description="Over voltage check OK" range="0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_VMON_CTRL" acronym="TOP_CTRL_VMON_CTRL" offset="3088" width="32" description="This register is used to enable or disable the power supply voltage monitors present on the device.">
+		<bitfield id="VMON_CTRL_CMP8_EN" width="3" begin="26" end="24" resetval="0x7" description="VMON EN" range="26:24" rwaccess="R/W"/>
+	<bitfield id="VMON_CTRL_CMP7_EN" width="3" begin="22" end="20" resetval="0x7" description="VMON EN" range="22:20" rwaccess="R/W"/>
+	<bitfield id="VMON_CTRL_CMP5_EN" width="3" begin="18" end="16" resetval="0x7" description="VMON EN" range="18:16" rwaccess="R/W"/>
+	<bitfield id="VMON_CTRL_CMP3_EN" width="3" begin="14" end="12" resetval="0x7" description="VMON EN" range="14:12" rwaccess="R/W"/>
+	<bitfield id="VMON_CTRL_CMP2_EN" width="3" begin="10" end="8" resetval="0x7" description="VMON EN" range="10:8" rwaccess="R/W"/>
+	<bitfield id="VMON_CTRL_CMP1_EN" width="3" begin="6" end="4" resetval="0x7" description="VMON EN" range="6:4" rwaccess="R/W"/>
+	<bitfield id="VMON_CTRL_CMP0_EN" width="3" begin="2" end="0" resetval="0x7" description="VMON EN" range="2:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_VMON_STAT" acronym="TOP_CTRL_VMON_STAT" offset="3092" width="32" description="This register shows the status output from the voltage monitors present on the device.">
+		<bitfield id="VMON_STAT_CMP8_UV_OK" width="1" begin="10" end="10" resetval="0x1" description="VMON OK" range="10" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP7_UV_OK" width="1" begin="9" end="9" resetval="0x1" description="VMON OK" range="9" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP5_UV_OK" width="1" begin="8" end="8" resetval="0x1" description="VMON OK" range="8" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP5_OV_OK" width="1" begin="7" end="7" resetval="0x1" description="VMON OK" range="7" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP3_UV_OK" width="1" begin="6" end="6" resetval="0x1" description="VMON OK" range="6" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP3_OV_OK" width="1" begin="5" end="5" resetval="0x1" description="VMON OK" range="5" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP2_UV_OK" width="1" begin="4" end="4" resetval="0x1" description="VMON OK" range="4" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP2_OV_OK" width="1" begin="3" end="3" resetval="0x1" description="VMON OK" range="3" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP1_UV_OK" width="1" begin="2" end="2" resetval="0x1" description="VMON OK" range="2" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP1_OV_OK" width="1" begin="1" end="1" resetval="0x1" description="VMON OK" range="1" rwaccess="R"/>
+	<bitfield id="VMON_STAT_CMP0_UV_OK" width="1" begin="0" end="0" resetval="0x1" description="VMON OK" range="0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_PMU_COARSE_STAT" acronym="TOP_CTRL_PMU_COARSE_STAT" offset="3096" width="32" description="This register shows the status of coarse voltage monitors present in the device.">
+		<bitfield id="PMU_COARSE_STAT_BG_RDY" width="1" begin="3" end="3" resetval="0x1" description="Bandgap coarse detection status signals." range="3" rwaccess="R"/>
+	<bitfield id="PMU_COARSE_STAT_LDO_RDY" width="1" begin="2" end="2" resetval="0x1" description="LDO coarse detection status signals." range="2" rwaccess="R"/>
+	<bitfield id="PMU_COARSE_STAT_VCORE_RDY" width="1" begin="1" end="1" resetval="0x1" description="vcore coarse detection status signals." range="1" rwaccess="R"/>
+	<bitfield id="PMU_COARSE_STAT_VSUP18_RDY" width="1" begin="0" end="0" resetval="0x1" description="vdda18 coarse detection status signals." range="0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_MASK_VMON_ERROR_ESM_H" acronym="TOP_CTRL_MASK_VMON_ERROR_ESM_H" offset="3104" width="32" description="This register is used to select the voltage monitors whose Error staus should   triggering the ESM High Interrupt.">
+		<bitfield id="MASK_VMON_ERROR_ESM_H_ADC12_REF_UV_MASK" width="1" begin="16" end="16" resetval="0x1" description="VMON Error Mask to ESM" range="16" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_ADC12_REF_OV_MASK" width="1" begin="15" end="15" resetval="0x1" description="VMON Error Mask to ESM" range="15" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_ADC0_REF_UV_MASK" width="1" begin="14" end="14" resetval="0x1" description="VMON Error Mask to ESM" range="14" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_ADC0_REF_OV_MASK" width="1" begin="13" end="13" resetval="0x1" description="VMON Error Mask to ESM" range="13" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_ADC34_REF_UV_MASK" width="1" begin="12" end="12" resetval="0x1" description="VMON Error Mask to ESM" range="12" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_ADC34_REF_OV_MASK" width="1" begin="11" end="11" resetval="0x1" description="VMON Error Mask to ESM" range="11" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP8_UV_ERR_MASK" width="1" begin="10" end="10" resetval="0x1" description="VMON Error Mask to ESM" range="10" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP7_UV_ERR_MASK" width="1" begin="9" end="9" resetval="0x1" description="VMON Error Mask to ESM" range="9" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP5_UV_ERR_MASK" width="1" begin="8" end="8" resetval="0x1" description="VMON Error Mask to ESM" range="8" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP5_OV_ERR_MASK" width="1" begin="7" end="7" resetval="0x1" description="VMON Error Mask to ESM" range="7" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP3_UV_ERR_MASK" width="1" begin="6" end="6" resetval="0x1" description="VMON Error Mask to ESM" range="6" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP3_OV_ERR_MASK" width="1" begin="5" end="5" resetval="0x1" description="VMON Error Mask to ESM" range="5" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP2_UV_ERR_MASK" width="1" begin="4" end="4" resetval="0x1" description="VMON Error Mask to ESM" range="4" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP2_OV_ERR_MASK" width="1" begin="3" end="3" resetval="0x1" description="VMON Error Mask to ESM" range="3" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP1_UV_ERR_NASK" width="1" begin="2" end="2" resetval="0x1" description="VMON Error Mask to ESM" range="2" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP1_OV_ERR_MASK" width="1" begin="1" end="1" resetval="0x1" description="VMON Error Mask to ESM" range="1" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_H_CMP0_UV_ERR_MASK" width="1" begin="0" end="0" resetval="0x1" description="VMON Error Mask to ESM" range="0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_MASK_VMON_ERROR_ESM_L" acronym="TOP_CTRL_MASK_VMON_ERROR_ESM_L" offset="3108" width="32" description="This register is used to select the voltage monitors whose Error staus should   triggering the ESM Low Interrupt.">
+		<bitfield id="MASK_VMON_ERROR_ESM_L_ADC12_REF_UV_MASK" width="1" begin="16" end="16" resetval="0x1" description="VMON Error Mask to INTR" range="16" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_ADC12_REF_OV_MASK" width="1" begin="15" end="15" resetval="0x1" description="VMON Error Mask to INTR" range="15" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_ADC0_REF_UV_MASK" width="1" begin="14" end="14" resetval="0x1" description="VMON Error Mask to INTR" range="14" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_ADC0_REF_OV_MASK" width="1" begin="13" end="13" resetval="0x1" description="VMON Error Mask to INTR" range="13" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_ADC34_REF_UV_MASK" width="1" begin="12" end="12" resetval="0x1" description="VMON Error Mask to INTR" range="12" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_ADC34_REF_OV_MASK" width="1" begin="11" end="11" resetval="0x1" description="VMON Error Mask to INTR" range="11" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP8_UV_ERR_MASK" width="1" begin="10" end="10" resetval="0x1" description="VMON Error Mask to INTR" range="10" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP7_UV_ERR_MASK" width="1" begin="9" end="9" resetval="0x1" description="VMON Error Mask to INTR" range="9" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP5_UV_ERR_MASK" width="1" begin="8" end="8" resetval="0x1" description="VMON Error Mask to INTR" range="8" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP5_OV_ERR_MASK" width="1" begin="7" end="7" resetval="0x1" description="VMON Error Mask to INTR" range="7" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP3_UV_ERR_MASK" width="1" begin="6" end="6" resetval="0x1" description="VMON Error Mask to INTR" range="6" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP3_OV_ERR_MASK" width="1" begin="5" end="5" resetval="0x1" description="VMON Error Mask to INTR" range="5" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP2_UV_ERR_MASK" width="1" begin="4" end="4" resetval="0x1" description="VMON Error Mask to INTR" range="4" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP2_OV_ERR_MASK" width="1" begin="3" end="3" resetval="0x1" description="VMON Error Mask to INTR" range="3" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP1_UV_ERR_NASK" width="1" begin="2" end="2" resetval="0x1" description="VMON Error Mask to INTR" range="2" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP1_OV_ERR_MASK" width="1" begin="1" end="1" resetval="0x1" description="VMON Error Mask to INTR" range="1" rwaccess="R/W"/>
+	<bitfield id="MASK_VMON_ERROR_ESM_L_CMP0_UV_ERR_MASK" width="1" begin="0" end="0" resetval="0x1" description="VMON Error Mask to INTR" range="0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_VMON_FILTER_CTRL" acronym="TOP_CTRL_VMON_FILTER_CTRL" offset="3124" width="32" description="This register is used to configure the filter present on the Voltage monitor outputs.">
+		<bitfield id="VMON_FILTER_CTRL_SELECT_VALUE" width="2" begin="1" end="0" resetval="0x0" description="VMON FILTER control select00 : no filtering [default]01 : filtering for 4.8us10 : filtering for 9.6us11 : filtering for 14.4us**Note: This bit will only be reset by PORz." range="1:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_TSENSE_CFG" acronym="TOP_CTRL_TSENSE_CFG" offset="3328" width="32" description="This register is used to enable and configure  the Temperature sensors present in the device.">
+		<bitfield id="TSENSE_CFG_TMPSOFF" width="1" begin="28" end="28" resetval="0x1" description="Temperature sensor off0 : on1 : off**Note: This bit will only be reset by PORz." range="28" rwaccess="R/W"/>
+	<bitfield id="TSENSE_CFG_BGROFF" width="1" begin="24" end="24" resetval="0x1" description="BandGap on/off control 1 : off 0 : on**Note: This bit will only be reset by PORz." range="24" rwaccess="R/W"/>
+	<bitfield id="TSENSE_CFG_AIPOFF" width="1" begin="20" end="20" resetval="0x1" description="1 : iddq mode select 0 : normal mode**Note: This bit will only be reset by PORz." range="20" rwaccess="R/W"/>
+	<bitfield id="TSENSE_CFG_SNSR_MX_HIZ" width="1" begin="16" end="16" resetval="0x1" description="Sensor mux hiz control0 : normal operation. Mux will select either one of the anlaog sensor  1 : mux  will be high impedence**Note: This bit will only be reset by PORz." range="16" rwaccess="R/W"/>
+	<bitfield id="TSENSE_CFG_DELAY" width="6" begin="13" end="8" resetval="0x0" description="Number of wait clock cycles between each TMPS Readout. Configure a Non zero value as delay value since configuring 0 is not allowed**Note: This bit will only be reset by PORz." range="13:8" rwaccess="R/W"/>
+	<bitfield id="TSENSE_CFG_SENSOR_SEL" width="4" begin="7" end="4" resetval="0x0" description="Sensor Selection sensor enable bits for each sensor 0 : sensor disable 1 : sensor enablebit3:temp_sensor3bit2:temp_sensor2bit1:temp_sensor1bit0:temp_sensor0**Note: This bit will only be reset by PORz." range="7:4" rwaccess="R/W"/>
+	<bitfield id="TSENSE_CFG_ENABLE" width="1" begin="0" end="0" resetval="0x0" description="Temperature controller enable**Note: This bit will only be reset by PORz." range="0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_TSENSE_STATUS" acronym="TOP_CTRL_TSENSE_STATUS" offset="3332" width="32" description="This register shows the status of Temperature comparator events which are unmasked.">
+		<bitfield id="TSENSE_STATUS_S1_COLD" width="1" begin="6" end="6" resetval="0x0" description="temperature Sensor 1 hot event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="6" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_S1_HOT" width="1" begin="5" end="5" resetval="0x0" description="temperature Sensor 1 cold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="5" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_S1_LOW_THRHLD" width="1" begin="4" end="4" resetval="0x0" description="temperature Sensor 1 low threshold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="4" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_S0_COLD" width="1" begin="2" end="2" resetval="0x0" description="temperature Sensor 0 hot event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="2" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_S0_HOT" width="1" begin="1" end="1" resetval="0x0" description="temperature Sensor 0 cold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="1" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_S0_LOW_THRHLD" width="1" begin="0" end="0" resetval="0x0" description="temperature Sensor 0 low threshold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE_STATUS_RAW" acronym="TOP_CTRL_TSENSE_STATUS_RAW" offset="3336" width="32" description="This register shows the status of all Temperature comparators events including masked events.">
+		<bitfield id="TSENSE_STATUS_RAW_S1_COLD" width="1" begin="6" end="6" resetval="0x0" description="temperature Sensor 1 hot event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="6" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_RAW_S1_HOT" width="1" begin="5" end="5" resetval="0x0" description="temperature Sensor 1 cold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="5" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_RAW_S1_LOW_THRHLD" width="1" begin="4" end="4" resetval="0x0" description="temperature Sensor 1 low threshold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="4" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_RAW_S0_COLD" width="1" begin="2" end="2" resetval="0x0" description="temperature Sensor 0 hot event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="2" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_RAW_S0_HOT" width="1" begin="1" end="1" resetval="0x0" description="temperature Sensor 0 cold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="1" rwaccess="R"/>
+	<bitfield id="TSENSE_STATUS_RAW_S0_LOW_THRHLD" width="1" begin="0" end="0" resetval="0x0" description="temperature Sensor 0 low threshold event detect0 : event not occured1 : event occurred**Note: This bit will only be reset by PORz." range="0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE0_ALERT" acronym="TOP_CTRL_TSENSE0_ALERT" offset="3348" width="32" description="This register is used to configure the temperature thresholds for Temp Sensor 0 for generating Alert Interrupts.">
+		<bitfield id="TSENSE0_ALERT_ALERT_THRHLD_HOT" width="8" begin="23" end="16" resetval="0x0" description="cold threshold/low temp threshold**Note: This bit will only be reset by PORz." range="23:16" rwaccess="R/W"/>
+	<bitfield id="TSENSE0_ALERT_ALERT_THRHLD_COLD" width="8" begin="7" end="0" resetval="0x0" description="Hot threshold/high temp threshold**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_TSENSE0_CNTL" acronym="TOP_CTRL_TSENSE0_CNTL" offset="3352" width="32" description="This register is used to control and configure Temperature sensor 0">
+		<bitfield id="TSENSE0_CNTL_MASK_LOW_THRHLD" width="1" begin="24" end="24" resetval="0x0" description="mask low threshold comparator output**Note: This bit will only be reset by PORz." range="24" rwaccess="R/W"/>
+	<bitfield id="TSENSE0_CNTL_MASK_COLD" width="1" begin="20" end="20" resetval="0x1" description="Mask hot comparator output**Note: This bit will only be reset by PORz." range="20" rwaccess="R/W"/>
+	<bitfield id="TSENSE0_CNTL_MASK_HOT" width="1" begin="16" end="16" resetval="0x0" description="mask cold comparator output**Note: This bit will only be reset by PORz." range="16" rwaccess="R/W"/>
+	<bitfield id="TSENSE0_CNTL_ACCU_CLEAR" width="1" begin="8" end="8" resetval="0x0" description="Accumulator clear**Note: This bit will only be reset by PORz." range="8" rwaccess="R/W"/>
+	<bitfield id="TSENSE0_CNTL_FIFO_FREEZE" width="1" begin="4" end="4" resetval="0x0" description="fifo freeze**Note: This bit will only be reset by PORz." range="4" rwaccess="R/W"/>
+	<bitfield id="TSENSE0_CNTL_FIFO_CLEAR" width="1" begin="0" end="0" resetval="0x0" description="fifo clear**Note: This bit will only be reset by PORz." range="0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_TSENSE0_RESULT" acronym="TOP_CTRL_TSENSE0_RESULT" offset="3356" width="32" description="This register shows the most recent temperature readout and  status of any ongoing Temperature measurement from Temperature Sensor 0">
+		<bitfield id="TSENSE0_RESULT_ECOZ" width="1" begin="16" end="16" resetval="0x0" description="Conversion in Progress.1 : Conversion on going0 : conversion completed**Note: This bit will only be reset by PORz." range="16" rwaccess="R"/>
+	<bitfield id="TSENSE0_RESULT_DTEMP" width="8" begin="7" end="0" resetval="0x0" description="Temp Code readout**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE0_DATA0" acronym="TOP_CTRL_TSENSE0_DATA0" offset="3360" width="32" description="This register shows Temp Sensor 0 result data in FIFO Register 0">
+		<bitfield id="TSENSE0_DATA0_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 0 Data 0 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE0_DATA0_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature Sensor0 FIFO data 0**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE0_DATA1" acronym="TOP_CTRL_TSENSE0_DATA1" offset="3364" width="32" description="This register shows Temp Sensor 0 result data in FIFO Register 1">
+		<bitfield id="TSENSE0_DATA1_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 0 Data 1 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE0_DATA1_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature Sensor0 FIFO data 1**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE0_DATA2" acronym="TOP_CTRL_TSENSE0_DATA2" offset="3368" width="32" description="This register shows Temp Sensor 0 result data in FIFO Register 2">
+		<bitfield id="TSENSE0_DATA2_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 0 Data 2 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE0_DATA2_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature Sensor0 FIFO data 2**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE0_DATA3" acronym="TOP_CTRL_TSENSE0_DATA3" offset="3372" width="32" description="This register shows Temp Sensor 0 result data in FIFO Register 3">
+		<bitfield id="TSENSE0_DATA3_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 0 Data 3 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE0_DATA3_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature Sensor0 FIFO data 3**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE0_ACCU" acronym="TOP_CTRL_TSENSE0_ACCU" offset="3376" width="32" description="Temp Sensor 0 Result Accumulator Register.">
+		<bitfield id="TSENSE0_ACCU_CUMUL" width="32" begin="31" end="0" resetval="0x0" description="cumulative sum of past DTEMPs**Note: This bit will only be reset by PORz." range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE1_TSHUT" acronym="TOP_CTRL_TSENSE1_TSHUT" offset="3392" width="32" description="This register is used to override the factory specified Tshut temperature with an application specific Tshut temperature for Temperature sensor 1">
+		<bitfield id="TSENSE1_TSHUT_EFUSE_OVERRIDE" width="3" begin="31" end="29" resetval="0x0" description="Efuse override000 -- Value from EFUSE is used as tshut hot and tshut cold thresholds111 - Overide value takes effect**Note: This bit will only be reset by PORz." range="31:29" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_TSHUT_TSHUT_THRHLD_HOT" width="8" begin="23" end="16" resetval="0x0" description="tshut hot threshold. Reads efuse value untill overwritten with override = 111**Note: This bit will only be reset by PORz." range="23:16" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_TSHUT_TSHUT_THRSHLD_COLD" width="8" begin="7" end="0" resetval="0x0" description="tshut cold threshold. Reads efuse value untill overwritten with override = 111**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_TSENSE1_ALERT" acronym="TOP_CTRL_TSENSE1_ALERT" offset="3396" width="32" description="This register is used to configure the temperature thresholds for Temp Sensor 1 for generating Alert Interrupts.">
+		<bitfield id="TSENSE1_ALERT_ALERT_THRHLD_HOT" width="8" begin="23" end="16" resetval="0x0" description="cold threshold/low temp threshold**Note: This bit will only be reset by PORz." range="23:16" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_ALERT_ALERT_THRHLD_COLD" width="8" begin="7" end="0" resetval="0x0" description="Hot threshold/high temp threshold**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_TSENSE1_CNTL" acronym="TOP_CTRL_TSENSE1_CNTL" offset="3400" width="32" description="This register is used to control and configure Temperature sensor 1">
+		<bitfield id="TSENSE1_CNTL_MASK_LOW_THRHLD" width="1" begin="24" end="24" resetval="0x0" description="mask low threshold comparator output**Note: This bit will only be reset by PORz." range="24" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_CNTL_MASK_COLD" width="1" begin="20" end="20" resetval="0x1" description="Mask hot comparator output**Note: This bit will only be reset by PORz." range="20" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_CNTL_MASK_HOT" width="1" begin="16" end="16" resetval="0x0" description="mask cold comparator output**Note: This bit will only be reset by PORz." range="16" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_CNTL_ACCU_CLEAR" width="1" begin="8" end="8" resetval="0x0" description="Accumulator clear**Note: This bit will only be reset by PORz." range="8" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_CNTL_FIFO_FREEZE" width="1" begin="4" end="4" resetval="0x0" description="fifo freeze**Note: This bit will only be reset by PORz." range="4" rwaccess="R/W"/>
+	<bitfield id="TSENSE1_CNTL_FIFO_CLEAR" width="1" begin="0" end="0" resetval="0x0" description="fifo clear**Note: This bit will only be reset by PORz." range="0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_TSENSE1_RESULT" acronym="TOP_CTRL_TSENSE1_RESULT" offset="3404" width="32" description="This register shows the most recent temperature readout and status of any ongoing Temperature measurement from Temperature Sensor 1">
+		<bitfield id="TSENSE1_RESULT_ECOZ" width="1" begin="16" end="16" resetval="0x0" description="Conversion in Progress.1 : Conversion on going0 : conversion completed**Note: This bit will only be reset by PORz." range="16" rwaccess="R"/>
+	<bitfield id="TSENSE1_RESULT_DTEMP" width="8" begin="7" end="0" resetval="0x0" description="Temp Code readout**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE1_DATA0" acronym="TOP_CTRL_TSENSE1_DATA0" offset="3408" width="32" description="This register shows Temp Sensor 1 result data in FIFO Register 0">
+		<bitfield id="TSENSE1_DATA0_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 1 Data 0 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE1_DATA0_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature sensor 1 FIFO Data 0**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE1_DATA1" acronym="TOP_CTRL_TSENSE1_DATA1" offset="3412" width="32" description="This register shows Temp Sensor 1 result data in FIFO Register 1">
+		<bitfield id="TSENSE1_DATA1_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 1 Data 1 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE1_DATA1_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature sensor 1 FIFO Data 1**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE1_DATA2" acronym="TOP_CTRL_TSENSE1_DATA2" offset="3416" width="32" description="This register shows Temp Sensor 1 result data in FIFO Register 2">
+		<bitfield id="TSENSE1_DATA2_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 1 Data 2 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE1_DATA2_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature sensor 1 FIFO Data 2**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE1_DATA3" acronym="TOP_CTRL_TSENSE1_DATA3" offset="3420" width="32" description="This register shows Temp Sensor 1 result data in FIFO Register 3">
+		<bitfield id="TSENSE1_DATA3_TAG" width="24" begin="31" end="8" resetval="0x0" description="Timestamp for temperature sesnor 1 Data 3 measured**Note: This bit will only be reset by PORz." range="31:8" rwaccess="R"/>
+	<bitfield id="TSENSE1_DATA3_DATA" width="8" begin="7" end="0" resetval="0x0" description="Temperature sensor 1 FIFO Data 3**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE1_ACCU" acronym="TOP_CTRL_TSENSE1_ACCU" offset="3424" width="32" description="Temp Sensor 1 Result Accumulator Register.">
+		<bitfield id="TSENSE1_ACCU_CUMUL" width="32" begin="31" end="0" resetval="0x0" description="cumulative sum of past DTEMPs**Note: This bit will only be reset by PORz." range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE2_RESULT" acronym="TOP_CTRL_TSENSE2_RESULT" offset="3452" width="32" description="This register shows the most recent temperature readout and status of any ongoing Temperature measurement from Temperature Sensor 2">
+		<bitfield id="TSENSE2_RESULT_ECOZ" width="1" begin="16" end="16" resetval="0x0" description="Conversion in Progress.1 : Conversion on going0 : conversion completed**Note: This bit will only be reset by PORz." range="16" rwaccess="R"/>
+	<bitfield id="TSENSE2_RESULT_DTEMP" width="8" begin="7" end="0" resetval="0x0" description="Temp Code readout**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_TSENSE3_RESULT" acronym="TOP_CTRL_TSENSE3_RESULT" offset="3500" width="32" description="This register shows the most recent temperature readout and status of any ongoing Temperature measurement from Temperature Sensor 3">
+		<bitfield id="TSENSE3_RESULT_ECOZ" width="1" begin="16" end="16" resetval="0x0" description="Conversion in Progress.1 : Conversion on going0 : conversion completed**Note: This bit will only be reset by PORz." range="16" rwaccess="R"/>
+	<bitfield id="TSENSE3_RESULT_DTEMP" width="8" begin="7" end="0" resetval="0x0" description="Temp Code readout**Note: This bit will only be reset by PORz." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RW0" acronym="TOP_CTRL_HW_SPARE_RW0" offset="4048" width="32" description="">
+		<bitfield id="HW_SPARE_RW0_HW_SPARE_RW0" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RW1" acronym="TOP_CTRL_HW_SPARE_RW1" offset="4052" width="32" description="">
+		<bitfield id="HW_SPARE_RW1_HW_SPARE_RW1" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RW2" acronym="TOP_CTRL_HW_SPARE_RW2" offset="4056" width="32" description="">
+		<bitfield id="HW_SPARE_RW2_HW_SPARE_RW2" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RW3" acronym="TOP_CTRL_HW_SPARE_RW3" offset="4060" width="32" description="">
+		<bitfield id="HW_SPARE_RW3_HW_SPARE_RW3" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RO0" acronym="TOP_CTRL_HW_SPARE_RO0" offset="4064" width="32" description="">
+		<bitfield id="HW_SPARE_RO0_HW_SPARE_RO0" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RO1" acronym="TOP_CTRL_HW_SPARE_RO1" offset="4068" width="32" description="">
+		<bitfield id="HW_SPARE_RO1_HW_SPARE_RO1" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RO2" acronym="TOP_CTRL_HW_SPARE_RO2" offset="4072" width="32" description="">
+		<bitfield id="HW_SPARE_RO2_HW_SPARE_RO2" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_HW_SPARE_RO3" acronym="TOP_CTRL_HW_SPARE_RO3" offset="4076" width="32" description="">
+		<bitfield id="HW_SPARE_RO3_HW_SPARE_RO3" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_HW_SPARE_WPH" acronym="TOP_CTRL_HW_SPARE_WPH" offset="4080" width="32" description="">
+		<bitfield id="HW_SPARE_WPH_HW_SPARE_WPH" width="32" begin="31" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="31:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_HW_SPARE_REC" acronym="TOP_CTRL_HW_SPARE_REC" offset="4084" width="32" description="">
+		<bitfield id="HW_SPARE_REC_HW_SPARE_REC31" width="1" begin="31" end="31" resetval="0x0" description="Reserved for HW R&#38;D" range="31" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC30" width="1" begin="30" end="30" resetval="0x0" description="Reserved for HW R&#38;D" range="30" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC29" width="1" begin="29" end="29" resetval="0x0" description="Reserved for HW R&#38;D" range="29" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC28" width="1" begin="28" end="28" resetval="0x0" description="Reserved for HW R&#38;D" range="28" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC27" width="1" begin="27" end="27" resetval="0x0" description="Reserved for HW R&#38;D" range="27" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC26" width="1" begin="26" end="26" resetval="0x0" description="Reserved for HW R&#38;D" range="26" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC25" width="1" begin="25" end="25" resetval="0x0" description="Reserved for HW R&#38;D" range="25" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC24" width="1" begin="24" end="24" resetval="0x0" description="Reserved for HW R&#38;D" range="24" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC23" width="1" begin="23" end="23" resetval="0x0" description="Reserved for HW R&#38;D" range="23" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC22" width="1" begin="22" end="22" resetval="0x0" description="Reserved for HW R&#38;D" range="22" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC21" width="1" begin="21" end="21" resetval="0x0" description="Reserved for HW R&#38;D" range="21" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC20" width="1" begin="20" end="20" resetval="0x0" description="Reserved for HW R&#38;D" range="20" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC19" width="1" begin="19" end="19" resetval="0x0" description="Reserved for HW R&#38;D" range="19" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC18" width="1" begin="18" end="18" resetval="0x0" description="Reserved for HW R&#38;D" range="18" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC17" width="1" begin="17" end="17" resetval="0x0" description="Reserved for HW R&#38;D" range="17" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC16" width="1" begin="16" end="16" resetval="0x0" description="Reserved for HW R&#38;D" range="16" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC15" width="1" begin="15" end="15" resetval="0x0" description="Reserved for HW R&#38;D" range="15" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC14" width="1" begin="14" end="14" resetval="0x0" description="Reserved for HW R&#38;D" range="14" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC13" width="1" begin="13" end="13" resetval="0x0" description="Reserved for HW R&#38;D" range="13" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC12" width="1" begin="12" end="12" resetval="0x0" description="Reserved for HW R&#38;D" range="12" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC11" width="1" begin="11" end="11" resetval="0x0" description="Reserved for HW R&#38;D" range="11" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC10" width="1" begin="10" end="10" resetval="0x0" description="Reserved for HW R&#38;D" range="10" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC9" width="1" begin="9" end="9" resetval="0x0" description="Reserved for HW R&#38;D" range="9" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC8" width="1" begin="8" end="8" resetval="0x0" description="Reserved for HW R&#38;D" range="8" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC7" width="1" begin="7" end="7" resetval="0x0" description="Reserved for HW R&#38;D" range="7" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC6" width="1" begin="6" end="6" resetval="0x0" description="Reserved for HW R&#38;D" range="6" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC5" width="1" begin="5" end="5" resetval="0x0" description="Reserved for HW R&#38;D" range="5" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC4" width="1" begin="4" end="4" resetval="0x0" description="Reserved for HW R&#38;D" range="4" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC3" width="1" begin="3" end="3" resetval="0x0" description="Reserved for HW R&#38;D" range="3" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC2" width="1" begin="2" end="2" resetval="0x0" description="Reserved for HW R&#38;D" range="2" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC1" width="1" begin="1" end="1" resetval="0x0" description="Reserved for HW R&#38;D" range="1" rwaccess="R/W"/>
+	<bitfield id="HW_SPARE_REC_HW_SPARE_REC0" width="1" begin="0" end="0" resetval="0x0" description="Reserved for HW R&#38;D" range="0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_LOCK0_KICK0" acronym="TOP_CTRL_LOCK0_KICK0" offset="4104" width="32" description=" - KICK0 component.">
+		<bitfield id="LOCK0_KICK0" width="32" begin="31" end="0" resetval="0x0" description=" - KICK0 component" range="31:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_LOCK0_KICK1" acronym="TOP_CTRL_LOCK0_KICK1" offset="4108" width="32" description=" - KICK1 component.">
+		<bitfield id="LOCK0_KICK1" width="32" begin="31" end="0" resetval="0x0" description=" - KICK1 component" range="31:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_INTR_RAW_STATUS" acronym="TOP_CTRL_INTR_RAW_STATUS" offset="4112" width="32" description="Interrupt Raw Status/Set Register.">
+		<bitfield id="PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="3" rwaccess="R/W1TS"/>
+	<bitfield id="KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register><register id="TOP_CTRL_INTR_ENABLED_STATUS_CLEAR" acronym="TOP_CTRL_INTR_ENABLED_STATUS_CLEAR" offset="4116" width="32" description="Interrupt Enabled Status/Clear register.">
+		<bitfield id="ENABLED_PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="3" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="1" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="0" rwaccess="R/W1TC"/>
+	</register><register id="TOP_CTRL_INTR_ENABLE" acronym="TOP_CTRL_INTR_ENABLE" offset="4120" width="32" description="Interrupt Enable register.">
+		<bitfield id="PROXY_ERR_EN" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="3" rwaccess="R/W1TS"/>
+	<bitfield id="KICK_ERR_EN" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ADDR_ERR_EN" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR_EN" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register><register id="TOP_CTRL_INTR_ENABLE_CLEAR" acronym="TOP_CTRL_INTR_ENABLE_CLEAR" offset="4124" width="32" description="Interrupt Enable Clear register.">
+		<bitfield id="PROXY_ERR_EN_CLR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="3" rwaccess="R/W1TC"/>
+	<bitfield id="KICK_ERR_EN_CLR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ADDR_ERR_EN_CLR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="1" rwaccess="R/W1TC"/>
+	<bitfield id="PROT_ERR_EN_CLR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="0" rwaccess="R/W1TC"/>
+	</register><register id="TOP_CTRL_EOI" acronym="TOP_CTRL_EOI" offset="4128" width="32" description="EOI register.">
+		<bitfield id="EOI_VECTOR" width="8" begin="7" end="0" resetval="0x0" description="EOI vector value. Write this with interrupt distribution value in the chip." range="7:0" rwaccess="R/W"/>
+	</register><register id="TOP_CTRL_FAULT_ADDRESS" acronym="TOP_CTRL_FAULT_ADDRESS" offset="4132" width="32" description="Fault Address register.">
+		<bitfield id="FAULT_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Fault Address." range="31:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_FAULT_TYPE_STATUS" acronym="TOP_CTRL_FAULT_TYPE_STATUS" offset="4136" width="32" description="Fault Type Status register.">
+		<bitfield id="FAULT_NS" width="1" begin="6" end="6" resetval="0x0" description="Non-secure access." range="6" rwaccess="R"/>
+	<bitfield id="FAULT_TYPE" width="6" begin="5" end="0" resetval="0x0" description="Fault Type  10_0000 = Supervisor read  fault  - priv = 1 dir = 1 dtype != 1   01_0000 = Supervisor write fault  - priv = 1 dir = 0  00_1000 = Supervisor execute fault - priv = 1 dir = 1 dtype = 1  00_0100 = User read  fault - priv = 0 dir = 1 dtype = 1  00_0010 = User write fault - priv = 0 dir = 0  00_0001 = User execute fault - priv = 0 dir = 1 dtype = 1  00_0000 = No fault" range="5:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_FAULT_ATTR_STATUS" acronym="TOP_CTRL_FAULT_ATTR_STATUS" offset="4140" width="32" description="Fault Attribute Status register.">
+		<bitfield id="FAULT_XID" width="12" begin="31" end="20" resetval="0x0" description="XID." range="31:20" rwaccess="R"/>
+	<bitfield id="FAULT_ROUTEID" width="12" begin="19" end="8" resetval="0x0" description="Route ID." range="19:8" rwaccess="R"/>
+	<bitfield id="FAULT_PRIVID" width="8" begin="7" end="0" resetval="0x0" description="Privilege ID." range="7:0" rwaccess="R"/>
+	</register><register id="TOP_CTRL_FAULT_CLEAR" acronym="TOP_CTRL_FAULT_CLEAR" offset="4144" width="32" description="Fault Clear register.">
+		<bitfield id="FAULT_CLR" width="1" begin="0" end="0" resetval="0x0" description="Fault clear. Writing a 1 clears the current fault. Writing a 0 has no effect." range="0" rwaccess="W"/>
+	</register>
+</module>

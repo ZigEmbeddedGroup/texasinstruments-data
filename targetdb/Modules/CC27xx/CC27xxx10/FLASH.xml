@@ -7,7 +7,7 @@ each instantiated flash bank through FBAP ports." xmlns:xsi="http://www.w3.org/2
    <register acronym="IMASK" width="32" description="Interrupt Mask Register:
 The IMASK register holds the current interrupt mask settings. Masked interrupts
 are read in the MIS register. PSD compliant register." id="IMASK" offset="0x28">
-      <bitfield range="" begin="31" width="31" end="1" rwaccess="RW" description="Reserved" id="RESERVED_31_1" resetval="0x0">
+      <bitfield range="" begin="31" width="31" end="1" rwaccess="RO" description="Reserved" id="RESERVED_31_1" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Interrupt mask for DONE:
 0: Interrupt is disabled in MIS register
@@ -103,7 +103,7 @@ STATCMD.DONE being set by the flash wrapper hardware.
 flash wrapper hardware clears this register after the processing of the command 
 has completed.
 " id="CMDEXEC" offset="0x100">
-      <bitfield range="" begin="31" width="31" end="1" rwaccess="RW" description="Reserved" id="RESERVED_31_1" resetval="0x0">
+      <bitfield range="" begin="31" width="31" end="1" rwaccess="RO" description="Reserved" id="RESERVED_31_1" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Command Execute value
 Initiates execution of the command specified in the CMDTYPE register." id="VAL" resetval="0x0">
@@ -117,7 +117,7 @@ hardware.
 This register is blocked for writes after CMDEXEC is written to a 1 and 
 prior to STATCMD.DONE being set by the hardware to indicate that 
 command execution has completed." id="CMDTYPE" offset="0x104">
-      <bitfield range="" begin="31" width="25" end="7" rwaccess="RW" description="Reserved" id="RESERVED_31_7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Reserved" id="RESERVED_31_7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="3" end="4" rwaccess="RW" description="Command size " id="SIZE" resetval="0x0">
          <bitenum id="BANK" value="5" token="Operate on an entire flash bank" description="Operate on an entire flash bank"/>
@@ -127,7 +127,7 @@ command execution has completed." id="CMDTYPE" offset="0x104">
          <bitenum id="TWOWORD" value="1" token="Operate on 2 flash words" description="Operate on 2 flash words"/>
          <bitenum id="ONEWORD" value="0" token="Operate on 1 flash word" description="Operate on 1 flash word"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Reserved" id="RESERVED_3" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Reserved" id="RESERVED_3" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="2" width="3" end="0" rwaccess="RW" description="Command type" id="COMMAND" resetval="0x0">
          <bitenum id="BLANKVERIFY" value="6" token="Blank Verify - Check whether a flash word is in the erased state.
@@ -147,7 +147,7 @@ This register is blocked for writes after CMDEXEC is written to a 1 and
 prior to STATCMD.DONE being set by the hardware to indicate that 
 command execution has completed.
 " id="CMDCTL" offset="0x108">
-      <bitfield range="" begin="31" width="10" end="22" rwaccess="RW" description="Reserved" id="RESERVED_31_22" resetval="0x0">
+      <bitfield range="" begin="31" width="10" end="22" rwaccess="RO" description="Reserved" id="RESERVED_31_22" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="21" width="1" end="21" rwaccess="RW" description="Enable invalid data verify.  
 This checks for 0-$gt;1 transitions in the memory when
@@ -177,7 +177,7 @@ CMDCTL.REGIONSEL directly as the region ID.
       </bitfield>
       <bitfield range="" begin="15" width="2" end="14" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED14" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="13" width="1" end="13" rwaccess="RW" description="Reserved" id="RESERVED_13" resetval="0x0">
+      <bitfield range="" begin="13" width="1" end="13" rwaccess="RO" description="Reserved" id="RESERVED_13" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="12" width="4" end="9" rwaccess="RW" description="Bank Region
 A specific region ID can be written to this field to indicate to which region an 
@@ -253,7 +253,7 @@ register and prior to STATCMD.DONE being set by the flash wrapper
 hardware.
 This register is written to all 0 after the completion of all flash wrapper commands.
 " id="CMDBYTEN" offset="0x124">
-      <bitfield range="" begin="31" width="14" end="18" rwaccess="RW" description="Reserved" id="RESERVED_31_18" resetval="0x0">
+      <bitfield range="" begin="31" width="14" end="18" rwaccess="RO" description="Reserved" id="RESERVED_31_18" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="17" width="2" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
@@ -374,21 +374,23 @@ bit [31]:	When 1, sector 31 of the flash memory will be protected from program
    <register acronym="CMDWEPROTB" width="32" description="Command WriteErase Protect B Register
 This register allows main region sectors to be protected from program and
 erase.  Each bit corresponds to a group of 8 sectors. 
-There are 3 cases for how these protect bits are applied:
-1. Single-bank system:  
-    In the case where only a single flash bank is present,
-    the first 32 sectors are protected via the CMDWEPROTA register.  Thus, the
-    protection give by the bits in CMDWEPROTB begin with sector 32.
-2. Multi-bank system, Bank 0:	
-    When multiple flash banks are present, the first
-    32 sectors of bank 0 are protected via the CMDWEPROTA register.  Thus, only
-    bits 4 and above of CMDWEPROTB would be applicable to bank 0.  The protection of
-    bit 4 and above would begin at sector 32.  Bits 3:0
+There are multiple cases for how these protect bits are applied:
+1. Single-bank system, CMDWEPROTA register present:
+    The first 32 sectors are protected via the CMDWEPROTA register.  Thus, the
+    protection given by the bits in CMDWEPROTB begin with sector 32.
+2. Single-bank system, CMDWEPROTA register not present:
+    The protection given by the bits in CMDWEPROTB begin with sector 0.
+3. Multi-bank system, CMDWEPROTA register present - Bank 0:	
+    The first 32 sectors of bank 0 are protected via the CMDWEPROTA register.
+    Thus, only bits 4 and above of CMDWEPROTB would be applicable to bank 0.
+    The protection of bit 4 and above would begin at sector 32.  Bits 3:0
     of WEPROTB are ignored for bank 0.
-3. Multi-bank system, Banks 1-N:
+4. Multi-bank system, CMDWEPROTA register present, Banks 1-N:
     For banks other than bank 0 in a multi-bank system, CMDWEPROTA has
     no effect, so the bits in CMDWEPROTB will protect these banks starting
     from sector 0.
+5. Multi-bank system, CMDWEPROTA register not present:
+    The bits in CMDWEPROTB will protect any of the banks starting from sector 0.
 This register is blocked for writes after a 1 is written to the CMDEXEC
 register and prior to STATCMD.DONE being set by the flash wrapper
 hardware.
@@ -493,7 +495,7 @@ This register is blocked for writes after CMDEXEC is written to a 1 and
 prior to STATCMD.DONE being set by the hardware to indicate that 
 command execution has completed.
 " id="CFGCMD" offset="0x3b0">
-      <bitfield range="" begin="31" width="25" end="7" rwaccess="RW" description="Reserved" id="RESERVED_31_7" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Reserved" id="RESERVED_31_7" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="6" width="3" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
       </bitfield>
@@ -510,11 +512,11 @@ register and prior to STATCMD.DONE being set by the flash wrapper
 hardware." id="CFGPCNT" offset="0x3b4">
       <bitfield range="" begin="31" width="12" end="20" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED20" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="19" width="3" end="17" rwaccess="RW" description="Reserved" id="RESERVED_17_19" resetval="0x0">
+      <bitfield range="" begin="19" width="3" end="17" rwaccess="RO" description="Reserved" id="RESERVED_17_19" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="16" width="1" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RW" description="Reserved" id="RESERVED_15_12" resetval="0x0">
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Reserved" id="RESERVED_15_12" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="11" width="8" end="4" rwaccess="RW" description="Override maximum pulse counter with this value.  
 If MAXPCNTOVR = 0, then this field is ignored.
@@ -527,7 +529,7 @@ to override the max pulse count for program only.  Full max value will be
          <bitenum id="MAXIMUM" value="255" token="Maximum value" description="Maximum value"/>
          <bitenum id="MINIMUM" value="0" token="Minimum value" description="Minimum value"/>
       </bitfield>
-      <bitfield range="" begin="3" width="3" end="1" rwaccess="RW" description="Reserved" id="RESERVED_3_1" resetval="0x0">
+      <bitfield range="" begin="3" width="3" end="1" rwaccess="RO" description="Reserved" id="RESERVED_3_1" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Override hard-wired maximum pulse count.  If MAXERSPCNTOVR
 is not set, then setting this value alone will override the max pulse count for
@@ -603,7 +605,7 @@ necessary during execution of a command.
       </bitfield>
       <bitfield range="" begin="25" width="5" end="21" rwaccess="RO" description="Current Bank ID
 A bank indicator is stored in this register which represents the current bank on
-which the state  machine is operating.  There is 1 bit per bank." id="BANKID" resetval="0x0">
+which the state  machine is operating.  There is 1 bit per bank." id="BANKID" resetval="0x1">
          <bitenum id="BANK4" value="16" token="Bank 4" description="Bank 4"/>
          <bitenum id="BANK3" value="8" token="Bank 3" description="Bank 3"/>
          <bitenum id="BANK2" value="4" token="Bank 2" description="Bank 2"/>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<board id="AM275x_EVM"  XML_version="1" desc="AM275_EVM" description="AM275x - Signal Processing MCU Evaluation Module">
+
+   <instance XML_version="1.2" desc="AM275x_EVM_0" href="devices/AM275.xml" id="AM275x_EVM_0" xml="AM275.xml" xmlpath="devices"/>
+   <device HW_revision="1" XML_version="1.2" description="AM275x - Signal Processing MCU" id="AM275x_EVM_0" partnum="AM275" simulation="no">
+                                                
+                        <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+                                                        
+                            <subpath id="SMS_CM4_0_TIFS">
+                                                                
+                                <cpu HW_revision="1.0" XML_version="1.2" desc="SMS_CM4_0_TIFS_0" description="Cortex_M4F CPU" deviceSim="false" id="SMS_CM4_0_TIFS" isa="Cortex_M4F"/>
+				<property Type="filepathfield" Value="..\..\emulation\gel\AM275\AM275x.gel" id="GEL File"/>                
+                            </subpath>
+                                                    
+                            <subpath id="MAIN_R5_0_0">
+                                <cpu HW_revision="1.0" XML_version="1.2" desc="MAIN_Cortex_R5_0_0" description="MAIN_Cortex_R5_0_0" deviceSim="false" id="MAIN_R5_0_0" isa="Cortex_R5">
+                                    
+                                </cpu>
+                            </subpath>
+                            <subpath id="ComputeCluster_C71_0">
+                                <cpu HW_revision="1.0" XML_version="1.2" description="C75x CPU" id="C75X_0" isa="TMS320C75XX">
+                                                                    </cpu>
+                            </subpath>
+
+      </router>
+   </device>
+</board>

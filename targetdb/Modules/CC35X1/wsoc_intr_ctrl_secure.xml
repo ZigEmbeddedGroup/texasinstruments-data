@@ -1,0 +1,291 @@
+<module id="wsoc_intr_ctrl_secure" XML_version="1.0" description="">
+	<register acronym="IRQ0_MASK_L" id="irq0_mask_l" width="32" description="IRQ0 Mask (IRQ0_MASK_L) Registers Mask for 32 of 64 triggers 1 - Masked       (Interupt Disabled) 2 - Not Masked (Interrupt enabled)" offset="0x0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="IRQ0_MASK_L_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="IRQ0_MASK_H" id="irq0_mask_h" width="32" description="IRQ0 Mask (IRQ0_MASK_H) Registers [63:32] Mask for 32 of 64 triggers 1 - Masked       (Interupt Disabled) 0 - Not Masked (Interrupt enabled)" offset="0x4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="IRQ0_MASK_H_WROPT" resetval="0x0">
+			<bitenum id="VALUE_1" value="1" token="disabled. masked;0 = corresponding interrupt is enabled for ARM Fast Interrupt Request (IRQ0)" description="disabled. masked;0 = corresponding interrupt is enabled for ARM Fast Interrupt Request (IRQ0)" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ0_MASK_SET_L" id="irq0_mask_set_l" width="32" description="IRQ0 Mask Set (IRQ0_MASK_SET_L) Registers [31:0] Set mask bits in IRQ0_MASK Register  1 Set mask bit 0 No Change" offset="0x8">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ0_MASK_SET_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="set corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" description="set corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ0_MASK_SET_H" id="irq0_mask_set_h" width="32" description="IRQ0 Mask Set (IRQ0_MASK_SET_H) Registers [63:32] Set mask bits in IRQ0_MASK Register  1 Set mask bit 0 No Change" offset="0xc">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ0_MASK_SET_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="set corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" description="set corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ0_MASK_CLR_L" id="irq0_mask_clr_l" width="32" description="IRQ0 Mask Clear (IRQ0_MASK_CLR_L) Registers [31:0]  Clear mask bits of register IRQ0_MASK_L 1 - Clear Mask 0 - No change" offset="0x10">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ0_MASK_CLR_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="clear corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" description="clear corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ0_MASK_CLR_H" id="irq0_mask_clr_h" width="32" description="IRQ0 Mask Clear (IRQ0_MASK_CLR_H) Registers [63:32] Clear mask bits of register IRQ0_MASK_H 1 - Clear Mask 0 - No change" offset="0x14">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ0_MASK_CLR_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="clear corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" description="clear corresponding bit in IRQ0 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ0_MIS_L" id="irq0_mis_l" width="32" description="IRQ0 Interrupt Status (IRQ0_STS_L) Registers [31:0] Read Interupt_Status register  with IRQ0_MASK" offset="0x18">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="IRQ0_MIS_L" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ0 MASK" description="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ0 MASK" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ0_MIS_H" id="irq0_mis_h" width="32" description="IRQ0 Interrupt Status (IRQ0_STS_H) Registers [63:32] Read Interupt_Status register  with IRQ0_MASK" offset="0x1c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="IRQ0_MIS_H" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ0 MASK" description="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ0 MASK" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MASK_L" id="irq1_mask_l" width="32" description="IRQ Mask (IRQ1_MASK_L) Registers [31:0]  Mask for 32 of 64 triggers 1 - Masked       (Interupt Disabled) 2 - Not Masked (Interrupt enabled)" offset="0x20">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="IRQ1_MASK_L_WROPT" resetval="0x0">
+			<bitenum id="VALUE_1" value="1" token="disabled. masked;0 = corresponding interrupt is enabled for ARM Interrupt Request (IRQ)" description="disabled. masked;0 = corresponding interrupt is enabled for ARM Interrupt Request (IRQ)" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MASK_H" id="irq1_mask_h" width="32" description="IRQ Mask (IRQ1_MASK_H) Registers [63:32] Mask for 32 of 64 triggers 1 - Masked       (Interupt Disabled) 0 - Not Masked (Interrupt enabled)" offset="0x24">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="IRQ1_MASK_H_WROPT" resetval="0x0">
+			<bitenum id="VALUE_1" value="1" token="disabled. masked;0 = corresponding interrupt is enabled for ARM Interrupt Request (IRQ)" description="disabled. masked;0 = corresponding interrupt is enabled for ARM Interrupt Request (IRQ)" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MASK_SET_L" id="irq1_mask_set_l" width="32" description="IRQ Mask Set (IRQ1_MASK_SET_L) Registers [31:0] RQ Mask Set (IRQ_MASK_SET_H) Registers [63:32] Set mask bits of register IRQ_MASK 1 - Set Mask 0 - No change" offset="0x28">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ1_MASK_SET_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="set corresponding bit in IRQ Interrupt Mask register;0 = no effect" description="set corresponding bit in IRQ Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MASK_SET_H" id="irq1_mask_set_h" width="32" description="IRQ Mask Set (IRQ1_MASK_SET_H) Registers [63:32] Set mask bits of register IRQ_MASK 1 - Set Mask 0 - No change" offset="0x2c">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ1_MASK_SET_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="set corresponding bit in IRQ Interrupt Mask register;0 = no effect" description="set corresponding bit in IRQ Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MASK_CLR_L" id="irq1_mask_clr_l" width="32" description="IRQ Mask Clear (IRQ1_MASK_CLR_L) Registers [31:0] Clear mask bits of register IRQ_MASK_L 1 - Clear Mask 0 - No change" offset="0x30">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ1_MASK_CLR_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="clear corresponding bit in IRQ Interrupt Mask register;0 = no effect" description="clear corresponding bit in IRQ Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MASK_CLR_H" id="irq1_mask_clr_h" width="32" description="IRQ Mask Clear (IRQ1_MASK_CLR_H) Registers [63:32] Clear mask bits of register IRQ_MASK_H 1 - Clear Mask 0 - No change" offset="0x34">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ1_MASK_CLR_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="clear corresponding bit in IRQ Interrupt Mask register;0 = no effect" description="clear corresponding bit in IRQ Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MIS_L" id="irq1_mis_l" width="32" description="Masked IRQ1 Interrupt Status (IRQ1_STS_L) Registers [31:0] Read Interupt_Status register  with IRQ_MASK" offset="0x38">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="IRQ1_MIS_L" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ MASK" description="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ MASK" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ1_MIS_H" id="irq1_mis_h" width="32" description="IRQ Interrupt Status (IRQ1_STS_H) Registers [63:32] Read Interupt_Status register  with IRQ_MASK" offset="0x3c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="IRQ1_MIS_H" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ MASK" description="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ MASK" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MASK_L" id="irq2_mask_l" width="32" description="IRQ2 Mask (IRQ2_MASK_L) Registers Mask for 32 of 64 triggers 1 - Masked       (Interupt Disabled) 2 - Not Masked (Interrupt enabled)" offset="0x40">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="IRQ2_MASK_L_WROPT" resetval="0x0">
+			<bitenum id="VALUE_1" value="1" token="disabled. masked;0 = corresponding interrupt is enabled for ARM Fast Interrupt Request (IRQ2)" description="disabled. masked;0 = corresponding interrupt is enabled for ARM Fast Interrupt Request (IRQ2)" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MASK_H" id="irq2_mask_h" width="32" description="IRQ2 Mask (IRQ2_MASK_H) Registers [63:32] Mask for 32 of 64 triggers 1 - Masked       (Interupt Disabled) 0 - Not Masked (Interrupt enabled)" offset="0x44">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="IRQ2_MASK_H_WROPT" resetval="0x0">
+			<bitenum id="VALUE_1" value="1" token="disabled. masked;0 = corresponding interrupt is enabled for ARM Fast Interrupt Request (IRQ2)" description="disabled. masked;0 = corresponding interrupt is enabled for ARM Fast Interrupt Request (IRQ2)" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MASK_SET_L" id="irq2_mask_set_l" width="32" description="IRQ2 Mask Set (IRQ2_MASK_SET_L) Registers [31:0] Set mask bits in IRQ2_MASK Register  1 Set mask bit 0 No Change" offset="0x48">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ2_MASK_SET_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="set corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" description="set corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MASK_SET_H" id="irq2_mask_set_h" width="32" description="IRQ2 Mask Set (IRQ2_MASK_SET_H) Registers [63:32] Set mask bits in IRQ2_MASK Register  1 Set mask bit 0 No Change" offset="0x4c">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ2_MASK_SET_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="set corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" description="set corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MASK_CLR_L" id="irq2_mask_clr_l" width="32" description="IRQ2 Mask Clear (IRQ2_MASK_CLR_L) Registers [31:0]  Clear mask bits of register IRQ2_MASK_L 1 - Clear Mask 0 - No change" offset="0x50">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ2_MASK_CLR_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="clear corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" description="clear corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MASK_CLR_H" id="irq2_mask_clr_h" width="32" description="IRQ2 Mask Clear (IRQ2_MASK_CLR_H) Registers [63:32] Clear mask bits of register IRQ2_MASK_H 1 - Clear Mask 0 - No change" offset="0x54">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="IRQ2_MASK_CLR_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="clear corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" description="clear corresponding bit in IRQ2 Interrupt Mask register;0 = no effect" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MIS_L" id="irq2_mis_l" width="32" description="IRQ2 Interrupt Status (IRQ2_STS_L) Registers [31:0] Read Interupt_Status register  with IRQ2_MASK" offset="0x58">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="IRQ2_MIS_L" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ2 MASK" description="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ2 MASK" />
+		</bitfield>
+	</register>
+	<register acronym="IRQ2_MIS_H" id="irq2_mis_h" width="32" description="IRQ2 Interrupt Status (IRQ2_STS_H) Registers [63:32] Read Interupt_Status register  with IRQ2_MASK" offset="0x5c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="IRQ2_MIS_H" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ2 MASK" description="corresponding unmasked Interrupt is pending;0 = corresponding interrupt is inactive or masked by IRQ2 MASK" />
+		</bitfield>
+	</register>
+	<register acronym="RIS_L" id="ris_l" width="32" description="Raw Interrupt Status (previously INT_STS_RAW_L) Register [31:0]  Read Interupt_Status register  umasked" offset="0xa0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="INT_STS_L" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding Interrupt is pending;0 = corresponding interrupt is inactive" description="corresponding Interrupt is pending;0 = corresponding interrupt is inactive" />
+		</bitfield>
+	</register>
+	<register acronym="RIS_H" id="ris_h" width="32" description="Raw Interrupt Status (previously INT_STS_RAW_H) Register Low [63:32]  Read Interupt_Status register  umasked" offset="0xa4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="INT_STS_H" resetval="0">
+			<bitenum id="READVALUE_1" value="1" token="corresponding Interrupt is pending;0 = corresponding interrupt is inactive" description="corresponding Interrupt is pending;0 = corresponding interrupt is inactive" />
+		</bitfield>
+	</register>
+	<register acronym="INT_ACK_L" id="int_ack_l" width="32" description="Acknowledge (INT_ACK_L) Registers Acknowledge for any bit of INT_STS  [31:0]  1 - Acknoledge  (Interupt bit of INT STS is set to 0) 0 - No change" offset="0xa8">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="INT_ACK_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="corresponding Interrupt clears on write;0 = corresponding interrupt is not disturbed" description="corresponding Interrupt clears on write;0 = corresponding interrupt is not disturbed" />
+		</bitfield>
+	</register>
+	<register acronym="INT_ACK_H" id="int_ack_h" width="32" description="Interrupt Acknowledge (INT_ACK_H) Registers [63:32]  Acknowledge for any bit of INT_STS  [63:32]  1 - Acknoledge  (Interupt bit of NT STS is set to 0) 0 - No change" offset="0xac">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="INT_ACK_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="corresponding Interrupt clears on write;0 = corresponding interrupt is not disturbed" description="corresponding Interrupt clears on write;0 = corresponding interrupt is not disturbed" />
+		</bitfield>
+	</register>
+	<register acronym="INT_TRIG_L" id="int_trig_l" width="32" description="Interrupt Trigger (INT_TRIG_L) Registers  [31:0]  Setting each interupt bit of INT_STS as following  1 Set to 1 (Interrupt happend) 0 No change  In any case INT_STS will be updated due to the hardware  triggers" offset="0xb0">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="INT_TRIG_L_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="corresponding Interrupt is activated [except for indirect interrupts. bits  30.31 and 51];0 = corresponding interrupt is not disturbed" description="corresponding Interrupt is activated [except for indirect interrupts. bits  30.31 and 51];0 = corresponding interrupt is not disturbed" />
+		</bitfield>
+	</register>
+	<register acronym="INT_TRIG_H" id="int_trig_h" width="32" description="Interrupt Trigger (INT_TRIG_H) Registers  [63:32]  Setting each interupt bit of INT_STS as following  1 Set to 1 (Interrupt happend) 0 No change  In any case INT_STS will be updated due to the hardware  triggers" offset="0xb4">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" id="INT_TRIG_H_WRCL" resetval="0">
+			<bitenum id="WRITEVALUE_1" value="1" token="corresponding Interrupt is activated [except for indirect interrupts. bits  30.31 and 51];0 = corresponding interrupt is not disturbed" description="corresponding Interrupt is activated [except for indirect interrupts. bits  30.31 and 51];0 = corresponding interrupt is not disturbed" />
+		</bitfield>
+	</register>
+	<register acronym="RIS_CLR_L" id="ris_clr_l" width="32" description="Interrupt Status Clear (RIS_CLR_L) Registers [31:0] Clears all bits of INT_STS register  In any case INT_STS will be updated due to the hardware  triggers" offset="0xb8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Clears on Read.;1 = corresponding Interrupt is pending;0 = corresponding interrupt is inactive" id="RIS_CLR_L_RDCL" resetval="0" />
+	</register>
+	<register acronym="RIS_CLR_H" id="ris_clr_h" width="32" description="Interrupt Status Clear (RIS_CLR_H) Registers [63:32] Clears all bits of INT_STS register  In any case INT_STS will be updated due to the hardware  triggers" offset="0xbc">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Clears on Read.;1 = corresponding Interrupt is pending;0 = corresponding interrupt is inactive" id="RIS_CLR_H_RDCL" resetval="0" />
+	</register>
+	<register acronym="DIRECT_IRQ_0_3_CFG" id="direct_irq_0_3_cfg" width="32" description="defines  4 direct interrupt lines (mapped to direct sources 0 to 3)" offset="0xc0">
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="interrupt 1 source index" id="MEM_DIR_IRQ_1_SEL" resetval="0" />
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" description="interrupt 2 source index" id="MEM_DIR_IRQ_2_SEL" resetval="0" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RW" description="interrupt 2 source enable. 0: interrupt disabled, 1: interrupt enabled" id="MEM_DIR_IRQ_2_EN" resetval="0" />
+		<bitfield width="6" end="24" begin="29" rwaccess="RW" description="interrupt 3 source index" id="MEM_DIR_IRQ_3_SEL" resetval="0" />
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="interrupt 1 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_1_EN" resetval="0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="interrupt 0 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_0_EN" resetval="0" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="interrupt 3 enable. 0: interrupt disabled, 1: interrupt enabled" id="MEM_DIR_IRQ_3_EN" resetval="0" />
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="interrupt 0 source index" id="MEM_DIR_IRQ_0_SEL" resetval="0" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="Reserved" resetval="0" />
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" id="Reserved_2" resetval="0" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" id="Reserved_3" resetval="0" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved_4" resetval="0" />
+	</register>
+	<register acronym="DIRECT_IRQ_4_7_CFG" id="direct_irq_4_7_cfg" width="32" description="defines  4 direct interrupt lines (mapped to direct sources 3 to 7)" offset="0xc4">
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="interrupt 5 source index" id="MEM_DIR_IRQ_5_SEL" resetval="0" />
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" description="interrupt 6 source index" id="MEM_DIR_IRQ_6_SEL" resetval="0" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RW" description="interrupt 6 source enable. 0: interrupt disabled, 1: interrupt enabled" id="MEM_DIR_IRQ_6_EN" resetval="0" />
+		<bitfield width="6" end="24" begin="29" rwaccess="RW" description="interrupt 7 source index" id="MEM_DIR_IRQ_7_SEL" resetval="0" />
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="interrupt 5 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_5_EN" resetval="0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="interrupt 4 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_4_EN" resetval="0" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="interrupt 7 enable. 0: interrupt disabled, 1: interrupt enabled" id="MEM_DIR_IRQ_7_EN" resetval="0" />
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="interrupt 4 source index" id="MEM_DIR_IRQ_4_SEL" resetval="0" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="Reserved" resetval="0" />
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" id="Reserved_2" resetval="0" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" id="Reserved_3" resetval="0" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved_4" resetval="0" />
+	</register>
+	<register acronym="DIRECT_IRQ_8_11_CFG" id="direct_irq_8_11_cfg" width="32" description="defines  4 direct interrupt lines (mapped to direct sources 8 to 11)" offset="0xc8">
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="interrupt 9 source index" id="MEM_DIR_IRQ_9_SEL" resetval="0" />
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" description="interrupt 10 source index" id="MEM_DIR_IRQ_10_SEL" resetval="0" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RW" description="interrupt 10 source enable. 0: interrupt disabled, 1: interrupt enabled" id="MEM_DIR_IRQ_10_EN" resetval="0" />
+		<bitfield width="6" end="24" begin="29" rwaccess="RW" description="interrupt 11 source index" id="MEM_DIR_IRQ_11_SEL" resetval="0" />
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="interrupt 9 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_9_EN" resetval="0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="interrupt 8 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_8_EN" resetval="0" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="interrupt 11 enable. 0: interrupt disabled, 1: interrupt enabled" id="MEM_DIR_IRQ_11_EN" resetval="0" />
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="interrupt 8 source index" id="MEM_DIR_IRQ_8_SEL" resetval="0" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="Reserved" resetval="0" />
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" id="Reserved_2" resetval="0" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" id="Reserved_3" resetval="0" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved_4" resetval="0" />
+	</register>
+	<register acronym="DIRECT_IRQ_12_13_CFG" id="direct_irq_12_13_cfg" width="32" description="defines 2 direct interrupt lines (mapped to direct sources 12 to 13)" offset="0xcc">
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="interrupt 9 source index" id="MEM_DIR_IRQ_13_SEL" resetval="0" />
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="interrupt 13 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_13_EN" resetval="0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="interrupt 12 enable. 0: interrupt disable, 1: interrupt enabled" id="MEM_DIR_IRQ_12_EN" resetval="0" />
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="interrupt 12 source index" id="MEM_DIR_IRQ_12_SEL" resetval="0" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="Reserved" resetval="0" />
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" id="Reserved_2" resetval="0" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved_3" resetval="0" />
+	</register>
+	<register acronym="PMAC_IRQ_CTRL" id="pmac_irq_ctrl" width="32" description="IRQ selection list: Bit 12 - wsoc_rx_trigger_frame_irq    Bit 11 - wmac_tx_cand_done_irq        Bit 10 - wmac_scrpt_irq1            Bit 9  - wmac_scrpt_irq0            Bit 8  - wmac_tx_exch_done_irq      Bit 7  - wmac_ppdu_abort_irq        Bit 6  - wmac_rxcmd_header_irq      Bit 5  - wmac_rx_suspended_irq      Bit 4  - wmac_phy_hdr_start_irq     Bit 3  - wmac_tx_trigger_irq        Bit 2  - wmac_rx_time_out_irq       Bit 1  - wmac_rx_complete_irq       Bit 0  - wmac_tx_stop_irq" offset="0xe4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_0" resetval="0x0" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_1" resetval="0x0" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_3" resetval="0x0" />
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_4" resetval="0x0" />
+		<bitfield width="4" end="20" begin="23" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_5" resetval="0x0" />
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_6" resetval="0x0" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" description="select the pmac source to be connected as an interrupt trigger." id="MEM_PMAC_IRQ_SEL_7" resetval="0x0" />
+	</register>
+	<register acronym="MCU_LP_TIMERS_RIS" id="mcu_lp_timers_ris" width="32" description="raw interrupt status for timers 3,5,6 aggregated interrupt source." offset="0xe8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="MCU_TMR3_RIS" resetval="0x0" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="MCU_TMR5_RIS" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" id="MCU_TMR6_RIS" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="MCU_LP_TIMERS_RIS_CLR" id="mcu_lp_timers_ris_clr" width="32" description="writing 1 to a bit will clear the RIS. writing 0 will be ignored." offset="0xec">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" id="MCU_TMR3_RIS_CLR_WRCL" resetval="0x0" />
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" id="MCU_TMR5_RIS_CLR_WRCL" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" id="MCU_TMR6_RIS_CLR_WRCL" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="MCU_LP_TIMERS_MASK" id="mcu_lp_timers_mask" width="32" description="MCU Timers 3,5,6 Interrupt mask." offset="0xf0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_MCU_TMR3_MASK" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_MCU_TMR5_MASK" resetval="0x0" />
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" id="MEM_MCU_TMR6_MASK" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="FIFO_CNC1_BLK3_MASK" id="fifo_cnc1_blk3_mask" width="32" offset="0xf4">
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="Bit mask for BLK fifo concentrator." id="MEM_FIFO_CNC1_BLK3_MASK" resetval="0x0" />
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="FIFO_CNC2_BLK3_MASK" id="fifo_cnc2_blk3_mask" width="32" offset="0xf8">
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="Bit mask for BLK fifo concentrator." id="MEM_FIFO_CNC2_BLK3_MASK" resetval="0x0" />
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="FIFO_CNC1_BLK5_MASK" id="fifo_cnc1_blk5_mask" width="32" offset="0xfc">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="Bit mask for BLK fifo concentrator." id="MEM_FIFO_CNC1_BLK5_MASK" resetval="0x0" />
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="FIFO_CNC2_BLK5_MASK" id="fifo_cnc2_blk5_mask" width="32" offset="0x100">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="Bit mask for BLK fifo concentrator." id="MEM_FIFO_CNC2_BLK5_MASK" resetval="0x0" />
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="NW_TO_PHY_INT_SET" id="nw_to_phy_int_set" width="32" offset="0x104">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="writing 1 to this bit toggle the signal wsoc_cmd towards the phy. the toggle signal will be derived in the phy to detect rise/fall." id="WSOC_CMD_WRCL" resetval="0x0" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="current state of the toggle signal. for debug only. actual state does not mean and interrupt is asserted as only a change is detected at the phy." id="WSOC_CMD_STS" resetval="0x0" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="current state of the toggle signal. for debug only. actual state does not mean and interrupt is asserted as only a change is detected at the phy." id="WSOC_EVENT_DONE_STS" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="writing 1 to this bit toggle the signal wsoc_event_done towards the phy. the toggle signal will be derived in the phy to detect rise/fall." id="WSOC_EVENT_DONE_WRCL" resetval="0x0" />
+		<bitfield width="14" end="2" begin="15" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="ELP_WAKEUP_EVT_RIS" id="elp_wakeup_evt_ris" width="32" offset="0x108">
+		<bitfield width="17" end="0" begin="16" rwaccess="RO" description="Bit 0  : tmr_wakeup_req Bit 1  : hif_wakeup_int Bit 2  : gpio_wakeup_src[0] Bit 3  : gpio_wakeup_src[1] Bit 4  : evt_mng_m3_irq0 Bit 5  : evt_mng_m3_irq1 Bit 6  : evt_mng_m3_irq2 Bit 7  : evt_mng_m3_irq3 Bit 8  : evt_mng_m3_irq4 Bit 9  : evt_mng_m3_irq5 Bit 10 : evt_mng_m3_irq6 Bit 11 : evt_mng_m3_irq7 Bit 12 : evt_mng_m3_irq8 Bit 13 : evt_mng_m3_irq9 Bit 14 : mem_ns_sw_interrupt_to_cm3 Bit 15 : mem_sec_sw_interrupt_to_cm3 Bit 16 : debugss_core_forceactive" id="ELP_WAKEUP_EVT_RIS" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="ELP_WAKEUP_EVT_RIS_CLR" id="elp_wakeup_evt_ris_clr" width="32" description="writing 1 to a bit will clear the RIS. writing 0 will be ignored." offset="0x10c">
+		<bitfield width="17" end="0" begin="16" rwaccess="WO" description="Bit 0  : tmr_wakeup_req Bit 1  : hif_wakeup_int Bit 2  : gpio_wakeup_src[0] Bit 3  : gpio_wakeup_src[1] Bit 4  : evt_mng_m3_irq0 Bit 5  : evt_mng_m3_irq1 Bit 6  : evt_mng_m3_irq2 Bit 7  : evt_mng_m3_irq3 Bit 8  : evt_mng_m3_irq4 Bit 9  : evt_mng_m3_irq5 Bit 10 : evt_mng_m3_irq6 Bit 11 : evt_mng_m3_irq7 Bit 12 : evt_mng_m3_irq8 Bit 13 : evt_mng_m3_irq9 Bit 14 : mem_ns_sw_interrupt_to_cm3 Bit 15 : mem_sec_sw_interrupt_to_cm3 Bit 16 : debugss_core_forceactive" id="ELP_WAKEUP_EVT_RIS_CLR_WRCL" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="ELP_WAKEUP_EVT_MASK" id="elp_wakeup_evt_mask" width="32" description="Set 1 - Mask event. Set 0 - Otherwise." offset="0x110">
+		<bitfield width="17" end="0" begin="16" rwaccess="RW" description="Bit 0  : tmr_wakeup_req Bit 1  : hif_wakeup_int Bit 2  : gpio_wakeup_src[0] Bit 3  : gpio_wakeup_src[1] Bit 4  : evt_mng_m3_irq0 Bit 5  : evt_mng_m3_irq1 Bit 6  : evt_mng_m3_irq2 Bit 7  : evt_mng_m3_irq3 Bit 8  : evt_mng_m3_irq4 Bit 9  : evt_mng_m3_irq5 Bit 10 : evt_mng_m3_irq6 Bit 11 : evt_mng_m3_irq7 Bit 12 : evt_mng_m3_irq8 Bit 13 : evt_mng_m3_irq9 Bit 14 : mem_ns_sw_interrupt_to_cm3 Bit 15 : mem_sec_sw_interrupt_to_cm3 Bit 16 : debugss_core_forceactive" id="MEM_ELP_WAKEUP_EVT_MASK" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="ELP_WAKEUP_EVT_MIS" id="elp_wakeup_evt_mis" width="32" description="Masked Interrupt Status" offset="0x114">
+		<bitfield width="17" end="0" begin="16" rwaccess="RO" description="Bit 0  : tmr_wakeup_req Bit 1  : hif_wakeup_int Bit 2  : gpio_wakeup_src[0] Bit 3  : gpio_wakeup_src[1] Bit 4  : evt_mng_m3_irq0 Bit 5  : evt_mng_m3_irq1 Bit 6  : evt_mng_m3_irq2 Bit 7  : evt_mng_m3_irq3 Bit 8  : evt_mng_m3_irq4 Bit 9  : evt_mng_m3_irq5 Bit 10 : evt_mng_m3_irq6 Bit 11 : evt_mng_m3_irq7 Bit 12 : evt_mng_m3_irq8 Bit 13 : evt_mng_m3_irq9 Bit 14 : mem_ns_sw_interrupt_to_cm3 Bit 15 : mem_sec_sw_interrupt_to_cm3 Bit 16 : debugss_core_forceactive" id="ELP_WAKEUP_EVT_MIS" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="MCU_LP_TIMERS_MIS" id="mcu_lp_timers_mis" width="32" description="masked interrupt status for timers 3,5,6 aggregated interrupt source." offset="0x118">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" id="MCU_TMR3_MIS" resetval="0x0" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="MCU_TMR5_MIS" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" id="MCU_TMR6_MIS" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+</module>

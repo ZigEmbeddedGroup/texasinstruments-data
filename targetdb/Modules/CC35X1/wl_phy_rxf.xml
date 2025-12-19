@@ -1,0 +1,667 @@
+<?xml version="1.0" ?>
+<module id="WL_PHY_RXF" XML_version="1.0" description="">
+	<register acronym="RXF_ENABLES" id="rxf_enables" width="32" offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_RXF_ENABLE_BIN_ZEROING" resetval="0x3"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_VITERBI_ENABLE_BACK_2_LSIG_STATE" resetval="0x3"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x3"/>
+	</register>
+	<register acronym="VITERBI_TRACE_BACK_STATUS" id="viterbi_trace_back_status" width="32" offset="0x4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="VITERBI_TRACE_BACK_OUT" resetval="0x0"/>
+	</register>
+	<register acronym="SCRAMBLER_INIT_VALUE_STATUS" id="scrambler_init_value_status" width="32" offset="0x8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="SCRAMBLER_INIT_VALUE" resetval="0x0"/>
+	</register>
+	<register acronym="PTD_THERSHOLDS" id="ptd_thersholds" width="32" offset="0x44">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" id="MEM_PTD_SIG_SIMILARITY_SNR_TH" resetval="0x18200c"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved" resetval="0x18200c"/>
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" id="MEM_PTD_SIG_SIMILARITY_CORR_TH_LOW_SNR" resetval="0x18200c"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x18200c"/>
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" id="MEM_PTD_SIG_SIMILARITY_CORR_TH_HIGH_SNR" resetval="0x18200c"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x18200c"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_00" id="phase_tracking_cfg_00" width="32" offset="0x48">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_ACQUISTION_LENGTH_HE" resetval="0xc070b0b"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_ACQUISTION_LENGTH_HT" resetval="0xc070b0b"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_ACQUISTION_LENGTH_LEGACY" resetval="0xc070b0b"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_ACQUISTION_LENGTH_LEGACY_OFDM6" resetval="0xc070b0b"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_01" id="phase_tracking_cfg_01" width="32" offset="0x4c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="None" id="MEM_RXF_FORCE_LOOP_SWITCH_ON_HE_LTF" resetval="0x1e0a03"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="None" id="MEM_RXF_FORCE_LOOP_SWITCH_ON_HT_LTF" resetval="0x1e0a03"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="None" id="MEM_RXF_FORCE_PHASE_CORR_TD" resetval="0x1e0a03"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved" resetval="0x1e0a03"/>
+		<bitfield width="7" end="8" begin="14" rwaccess="RW" description="None" id="MEM_RXF_K_FORWARD_EXT_GEAR_TS1" resetval="0x1e0a03"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x1e0a03"/>
+		<bitfield width="7" end="16" begin="22" rwaccess="RW" description="None" id="MEM_RXF_K_FORWARD_EXT_GEAR_TS2" resetval="0x1e0a03"/>
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x1e0a03"/>
+		<bitfield width="2" end="24" begin="25" rwaccess="RW" description="None" id="MEM_RXF_IS5GHZ_BAND" resetval="0x1e0a03"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x1e0a03"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_02" id="phase_tracking_cfg_02" width="32" offset="0x50">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_FORWARD_EXT_1" resetval="0x20100"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_FORWARD_EXT_2" resetval="0x20100"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_FORWARD_EXT_3" resetval="0x20100"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_1" resetval="0x20100"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_03" id="phase_tracking_cfg_03" width="32" offset="0x54">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_2_HX" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_2_LEGACY" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_3_HE" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_3_HT" resetval="0x0"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_04" id="phase_tracking_cfg_04" width="32" offset="0x58">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_3_LEGACY" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_4_HE" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_4_HT" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_4_LEGACY" resetval="0x0"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_05" id="phase_tracking_cfg_05" width="32" offset="0x5c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_5_HE" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_5_HT" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_5_LEGACY" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_6_HE" resetval="0x0"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_06" id="phase_tracking_cfg_06" width="32" offset="0x60">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_6_HT" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_6_LEGACY" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_7_HE" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_7_HT" resetval="0x0"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_07" id="phase_tracking_cfg_07" width="32" offset="0x64">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_INTERSECT_7_LEGACY" resetval="0x1020200"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_EXT_1" resetval="0x1020200"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_EXT_2" resetval="0x1020200"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_EXT_3" resetval="0x1020200"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_08" id="phase_tracking_cfg_08" width="32" offset="0x68">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_1" resetval="0x1b0f3380"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_2_HX" resetval="0x1b0f3380"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_2_LEGACY" resetval="0x1b0f3380"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_3_HE" resetval="0x1b0f3380"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_09" id="phase_tracking_cfg_09" width="32" offset="0x6c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_3_HT" resetval="0x2110f1b"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_3_LEGACY" resetval="0x2110f1b"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_4_HE" resetval="0x2110f1b"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_4_HT" resetval="0x2110f1b"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_10" id="phase_tracking_cfg_10" width="32" offset="0x70">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_4_LEGACY" resetval="0xa02010c"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_5_HE" resetval="0xa02010c"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_5_HT" resetval="0xa02010c"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_5_LEGACY" resetval="0xa02010c"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_11" id="phase_tracking_cfg_11" width="32" offset="0x74">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_6_HE" resetval="0x2070202"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_6_HT" resetval="0x2070202"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_6_LEGACY" resetval="0x2070202"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_7_HE" resetval="0x2070202"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_12" id="phase_tracking_cfg_12" width="32" offset="0x78">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_7_HT" resetval="0x602"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_INTERNAL_7_LEGACY" resetval="0x602"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x602"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_13" id="phase_tracking_cfg_13" width="32" offset="0x7c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="None" id="MEM_RXF_PHASE_CORR_TD_INV_N" resetval="0x0"/>
+		<bitfield width="15" end="1" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="12" end="16" begin="27" rwaccess="RW" description="None" id="MEM_RXF_PHASE_CORR_TD_VAL" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_14" id="phase_tracking_cfg_14" width="32" offset="0x80">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_EXT_GEAR_TS1" resetval="0x84020"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="Reserved" resetval="0x84020"/>
+		<bitfield width="7" end="8" begin="14" rwaccess="RW" description="None" id="MEM_RXF_K_SLOPE_EXT_GEAR_TS2" resetval="0x84020"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x84020"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="None" id="MEM_RXF_SYMBOL_NUM2_SNAP_ESTIMATION" resetval="0x84020"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x84020"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_15" id="phase_tracking_cfg_15" width="32" offset="0x84">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" id="MEM_RXF_FOFFSET_DIV_FS_VAL" resetval="0x300000"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" id="MEM_RXF_FORCE_FOFFSET_DIV_FS" resetval="0x300000"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved" resetval="0x300000"/>
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" id="MEM_RXF_SIG_REF_LLR_CNT" resetval="0x300000"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x300000"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_16" id="phase_tracking_cfg_16" width="32" offset="0x88">
+		<bitfield width="15" end="0" begin="14" rwaccess="RW" id="MEM_RXF_SFO_DIV_FS_VAL" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" id="MEM_RXF_FORCE_SFO_DIV_FS" resetval="0x0"/>
+		<bitfield width="7" end="17" begin="23" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="MEM_RXF_CFO_CORR_INV_N" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="MEM_RXF_SFO_CORR_INV_N" resetval="0x0"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_RXF_PHASE_CORR_FD_INV_N" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_17" id="phase_tracking_cfg_17" width="32" offset="0x8c">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" id="MEM_RXF_PHASE_CORR_FD_VAL" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" id="MEM_RXF_FORCE_PHASE_CORR_FD" resetval="0x0"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" id="MEM_RXF_FREEZE_LOOP" resetval="0x0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="PHASE_TRACKING_CFG_18" id="phase_tracking_cfg_18" width="32" offset="0x90">
+		<bitfield width="15" end="0" begin="14" rwaccess="RO" id="RXF_CFO_EST_SNAP" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" id="CSI_PILOT_POLARITY_VEC" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_CFG_00" id="snr_meter_cfg_00" width="32" description="Rx SnrMeter configuration reg" offset="0x100">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="The forgetting factor of the moving average SNR estimation." id="MEM_MOVING_AVERAGE_ALPHA" resetval="0x4"/>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x4"/>
+	</register>
+	<register acronym="SNR_METER_CFG_01" id="snr_meter_cfg_01" width="32" description="Rx SnrMeter configuration reg" offset="0x104">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="If packet SNR is bigger than PacketSNRHighRangeInt, PacketSNRInt is raised." id="MEM_PACKET_SNR_HIGH_RANGE_INT" resetval="0xa0280"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0xa0280"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="If packet SNR is lower than PacketSNRLowRangeInt, PacketSNRInt is raised." id="MEM_PACKET_SNR_LOW_RANGE_INT" resetval="0xa0280"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xa0280"/>
+	</register>
+	<register acronym="SNR_METER_CFG_02" id="snr_meter_cfg_02" width="32" description="Rx SnrMeter configuration reg" offset="0x108">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="If moving SNR is bigger than MovingSNRHighRangeInt, MovingSNRInt is raised." id="MEM_MOVING_SNR_HIGH_RANGE_INT" resetval="0xa0280"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0xa0280"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="If moving SNR is lower than MovingSNRLowRangeInt, MovingSNRInt is raised." id="MEM_MOVING_SNR_LOW_RANGE_INT" resetval="0xa0280"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xa0280"/>
+	</register>
+	<register acronym="SNR_METER_CFG_03" id="snr_meter_cfg_03" width="32" description="Rx SnrMeter configuration reg" offset="0x10c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="If Symbol SNR is bigger than SymbolSNRHighRangeInt, SymbolSNRInt is raised." id="MEM_SYMBOL_SNR_HIGH_RANGE_INT" resetval="0xa0280"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0xa0280"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="If Symbol SNR is lower than SymbolSNRLowRangeInt, SymbolSNRInt is raised." id="MEM_SYMBOL_SNR_LOW_RANGE_INT" resetval="0xa0280"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xa0280"/>
+	</register>
+	<register acronym="SNR_METER_CFG_04" id="snr_meter_cfg_04" width="32" description="Rx SnrMeter configuration reg" offset="0x110">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="If modulation is BPSK and measured packet SNR is less than SNRValidThModBPSK, SNRValidFlag is false." id="MEM_SNR_VALID_TH_MOD_BPSK" resetval="0x100a0503"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x100a0503"/>
+		<bitfield width="5" end="8" begin="12" rwaccess="RW" description="If modulation is QPSK and measured packet SNR is less than SNRValidThModQPSK, SNRValidFlag is false." id="MEM_SNR_VALID_TH_MOD_QPSK" resetval="0x100a0503"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x100a0503"/>
+		<bitfield width="5" end="16" begin="20" rwaccess="RW" description="If modulation is QAM16 and measured packet SNR is less than SNRValidThModBQAM16, SNRValidFlag is false." id="MEM_SNR_VALID_TH_MOD_QAM16" resetval="0x100a0503"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x100a0503"/>
+		<bitfield width="5" end="24" begin="28" rwaccess="RW" description="If modulation is QAM64 and measured packet SNR is less than SNRValidThModQAM64, SNRValidFlag is false." id="MEM_SNR_VALID_TH_MOD_QAM64" resetval="0x100a0503"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x100a0503"/>
+	</register>
+	<register acronym="SNR_METER_CFG_05" id="snr_meter_cfg_05" width="32" description="Rx SnrMeter configuration reg" offset="0x114">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="SNRBin0 status register index. The indexes are in HE notations. Non He indexes should be written with 2 LSB zeros (Only 6 MSBs are valid for non-He packets)." id="MEM_BIN_0_INDEX" resetval="0x1e140a"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="SNRBin1 status register index. The indexes are in HE notations. Non He indexes should be written with 2 LSB zeros (Only 6 MSBs are valid for non-He packets)." id="MEM_BIN_1_INDEX" resetval="0x1e140a"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="SNRBin2 status register index. The indexes are in HE notations. Non He indexes should be written with 2 LSB zeros (Only 6 MSBs are valid for non-He packets)." id="MEM_BIN_2_INDEX" resetval="0x1e140a"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0x1e140a"/>
+	</register>
+	<register acronym="SNR_METER_CFG_06" id="snr_meter_cfg_06" width="32" description="Rx SnrMeter configuration reg" offset="0x118">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="The Viterbi llr scaling uses active RU SNR estimation. We might like to shift this measured value by SNROffsetHeMU_XX dB when HE_MU packet with RU size XX" id="MEM_SNR_OFFSET_HE_MU_26" resetval="0x0"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="The Viterbi llr scaling uses active RU SNR estimation. We might like to shift this measured value by SNROffsetHeMU_XX dB when HE_MU packet with RU size XX" id="MEM_SNR_OFFSET_HE_MU_52" resetval="0x0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" description="The Viterbi llr scaling uses active RU SNR estimation. We might like to shift this measured value by SNROffsetHeMU_XX dB when HE_MU packet with RU size XX" id="MEM_SNR_OFFSET_HE_MU_106" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+		<bitfield width="6" end="24" begin="29" rwaccess="RW" description="The Viterbi llr scaling uses active RU SNR estimation. We might like to shift this measured value by SNROffsetHeMU_XX dB when HE_MU packet with RU size XX" id="MEM_SNR_OFFSET_HE_MU_242" resetval="0x0"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_CFG_07" id="snr_meter_cfg_07" width="32" description="Rx SnrMeter configuration reg" offset="0x11c">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_0" resetval="0x0"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_1" resetval="0x0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_CFG_08" id="snr_meter_cfg_08" width="32" description="Rx SnrMeter configuration reg" offset="0x120">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_3" resetval="0x0"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_4" resetval="0x0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_5" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_CFG_09" id="snr_meter_cfg_09" width="32" description="Rx SnrMeter configuration reg" offset="0x124">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_6" resetval="0x0"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_7" resetval="0x0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" description="The SNR per RU estimation might be erroneous due to non-accounted for spurs/wiped bin. This might degrade SNR estimation performance. These registers allow compensating for these impairments." id="MEM_SNR_PER_RU_OFFSET_8" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_00" id="snr_meter_stat_00" width="32" description="Rx SnrMeter status reg" offset="0x128">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr per packet" id="PACKET_SNR" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="average snr" id="MOVING_AVERAGE_SNR" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_01" id="snr_meter_stat_01" width="32" description="Rx SnrMeter status reg" offset="0x12c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr preamble" id="PREAMBLE_SNR" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="snr for active RU" id="ACTIVE_RU_SNR_FIX" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_02" id="snr_meter_stat_02" width="32" description="Rx SnrMeter status reg" offset="0x130">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Set to high every update of Packet SNR." id="PACKET_SNR_READY_FLAG" resetval="0x0"/>
+		<bitfield width="15" end="1" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="The value of the Packet SNR when PacketSNRInt set high." id="PACKET_SNR_FREEZE_INT" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_03" id="snr_meter_stat_03" width="32" description="Rx SnrMeter status reg" offset="0x134">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="The value of the MovingAverageSNR when MovingSNRInt set high." id="MOVING_SNR_FREEZE_INT" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="The value of the SymbolSNR when SymbolSNRInt set high." id="SYMBOL_SNR_FREEZE_INT" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_04" id="snr_meter_stat_04" width="32" description="Rx SnrMeter status reg" offset="0x138">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr for ru 0" id="SNR_RU_0" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="snr for ru 1" id="SNR_RU_1" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_05" id="snr_meter_stat_05" width="32" description="Rx SnrMeter status reg" offset="0x13c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr for ru 2" id="SNR_RU_2" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="snr for ru 3" id="SNR_RU_3" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_06" id="snr_meter_stat_06" width="32" description="Rx SnrMeter status reg" offset="0x140">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr for ru 4" id="SNR_RU_4" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="snr for ru 5" id="SNR_RU_5" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_07" id="snr_meter_stat_07" width="32" description="Rx SnrMeter status reg" offset="0x144">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr for ru 6" id="SNR_RU_6" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="snr for ru 7" id="SNR_RU_7" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_08" id="snr_meter_stat_08" width="32" description="Rx SnrMeter status reg" offset="0x148">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr for ru 8" id="SNR_RU_8" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_09" id="snr_meter_stat_09" width="32" description="Rx SnrMeter status reg" offset="0x14c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr for bin 0" id="SNR_PER_BIN_0" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="snr for bin 1" id="SNR_PER_BIN_1" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SNR_METER_STAT_10" id="snr_meter_stat_10" width="32" description="Rx SnrMeter status reg" offset="0x150">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="snr for bin 2" id="SNR_PER_BIN_2" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="snr for bin 2" id="SNR_SYMBOL_FIX" resetval="0x0"/>
+		<bitfield width="5" end="26" begin="30" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="snr for bin 2" id="SNR_VALID" resetval="0x0"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_00" id="rxf_compensation_filter_cfg_00" width="32" offset="0x180">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_0" resetval="0xf000ff"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0xf000ff"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_1" resetval="0xf000ff"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xf000ff"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_01" id="rxf_compensation_filter_cfg_01" width="32" offset="0x184">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_2" resetval="0xd200e1"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0xd200e1"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_3" resetval="0xd200e1"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xd200e1"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_02" id="rxf_compensation_filter_cfg_02" width="32" offset="0x188">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_4" resetval="0xb800c5"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0xb800c5"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_5" resetval="0xb800c5"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xb800c5"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_03" id="rxf_compensation_filter_cfg_03" width="32" offset="0x18c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_6" resetval="0xa200ad"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0xa200ad"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_7" resetval="0xa200ad"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xa200ad"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_04" id="rxf_compensation_filter_cfg_04" width="32" offset="0x190">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_8" resetval="0x900099"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x900099"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_9" resetval="0x900099"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x900099"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_05" id="rxf_compensation_filter_cfg_05" width="32" offset="0x194">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_10" resetval="0x800087"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x800087"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_11" resetval="0x800087"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x800087"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_06" id="rxf_compensation_filter_cfg_06" width="32" offset="0x198">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_12" resetval="0x720079"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x720079"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_13" resetval="0x720079"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x720079"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_07" id="rxf_compensation_filter_cfg_07" width="32" offset="0x19c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_14" resetval="0x67006d"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x67006d"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_15" resetval="0x67006d"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x67006d"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_08" id="rxf_compensation_filter_cfg_08" width="32" offset="0x1a0">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_16" resetval="0x5e0062"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x5e0062"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_17" resetval="0x5e0062"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x5e0062"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_09" id="rxf_compensation_filter_cfg_09" width="32" offset="0x1a4">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_18" resetval="0x56005a"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x56005a"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_19" resetval="0x56005a"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x56005a"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_10" id="rxf_compensation_filter_cfg_10" width="32" offset="0x1a8">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_20" resetval="0x500053"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x500053"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_21" resetval="0x500053"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x500053"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_11" id="rxf_compensation_filter_cfg_11" width="32" offset="0x1ac">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_22" resetval="0x4a004d"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x4a004d"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_23" resetval="0x4a004d"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x4a004d"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_12" id="rxf_compensation_filter_cfg_12" width="32" offset="0x1b0">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_24" resetval="0x460048"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x460048"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_25" resetval="0x460048"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x460048"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_13" id="rxf_compensation_filter_cfg_13" width="32" offset="0x1b4">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_26" resetval="0x430045"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x430045"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_27" resetval="0x430045"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x430045"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_14" id="rxf_compensation_filter_cfg_14" width="32" offset="0x1b8">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_28" resetval="0x410042"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x410042"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_29" resetval="0x410042"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x410042"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_15" id="rxf_compensation_filter_cfg_15" width="32" offset="0x1bc">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_30" resetval="0x400041"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x400041"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_31" resetval="0x400041"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x400041"/>
+	</register>
+	<register acronym="RXF_COMPENSATION_FILTER_CFG_16" id="rxf_compensation_filter_cfg_16" width="32" offset="0x1c0">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Compensation Filter configuable values" id="MEM_RXF_COMPENSATION_FILTER_BIN_32" resetval="0x40"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x40"/>
+	</register>
+	<register acronym="LLR_SCALER_FORCE_CFG" id="llr_scaler_force_cfg" width="32" description="LLR Scaler register used for using of forced values for scalers" offset="0x220">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Force the scaler to the ones in the scaling registers" id="MEM_RXF_LLR_SCALING_FORCE_OV" resetval="0x77700e"/>
+		<bitfield width="4" end="1" begin="4" rwaccess="RW" description="In force mode, used as fixed scaling." id="MEM_RXF_LLR_SCALING_BPSK_VAL" resetval="0x77700e"/>
+		<bitfield width="7" end="5" begin="11" rwaccess="RO" id="Reserved" resetval="0x77700e"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="In force mode, used as fixed scaling." id="MEM_RXF_LLR_SCALING_QPSK_VAL" resetval="0x77700e"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="In force mode, used as fixed scaling." id="MEM_RXF_LLR_SCALING_QAM16_VAL" resetval="0x77700e"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RW" description="In force mode, used as fixed scaling." id="MEM_RXF_LLR_SCALING_QAM64_VAL" resetval="0x77700e"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x77700e"/>
+	</register>
+	<register acronym="LLR_SCALER_NF_RF_MAX_SNR_CFG" id="llr_scaler_nf_rf_max_snr_cfg" width="32" description="LLR Scaler Noise Figures and Max Calculated SNR configuration" offset="0x224">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Noise figure for RF index 0 
+[dB]" id="MEM_RXF_LLR_SCALING_NF_RFIDX0" resetval="0xa83c2b28"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Noise figure for RF index 1
+Default  --&gt; 5.375 x 2^3 = 43
+[dB]" id="MEM_RXF_LLR_SCALING_NF_RFIDX1" resetval="0xa83c2b28"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Noise figure for RF index 2
+Default  --&gt; 7.5 x 2^3 = 60
+[dB]" id="MEM_RXF_LLR_SCALING_NF_RFIDX2" resetval="0xa83c2b28"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="Max Value for Calculated SNR
+ [dB]" id="MEM_RXF_LLR_SCALING_SNR_MAX" resetval="0xa83c2b28"/>
+	</register>
+	<register acronym="LLR_SCALER_STATUS" id="llr_scaler_status" width="32" description="Status register for LLR Scaler" offset="0x228">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Calculated SNR - Changes only in LSIG or MRC LSIG/RLSIG
+ [dB]" id="LLR_SCLR_CALCULATED_SNR" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="The SNR used for scaling. It is updated according to SnrSymbolCounter value.
+ [dB]" id="LLR_SCLR_SNR_FOR_SCALING" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="LLR_SCALER_QAM64_THR_CFG" id="llr_scaler_qam64_thr_cfg" width="32" description="LLR Scaler register for QAM64 Scaler Threshold configuraton" offset="0x22c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="QAM64 Scaler Threshold LUT[0]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM64_THR_LUT0" resetval="0x70625854"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="QAM64 Scaler Threshold LUT[1]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM64_THR_LUT1" resetval="0x70625854"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="QAM64 Scaler Threshold LUT[2]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM64_THR_LUT2" resetval="0x70625854"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="QAM64 Scaler Threshold LUT[3]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM64_THR_LUT3" resetval="0x70625854"/>
+	</register>
+	<register acronym="LLR_SCALER_QAM64_VAL_CFG" id="llr_scaler_qam64_val_cfg" width="32" description="LLR Scaler register for QAM64 Scaler Value configuraton" offset="0x230">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="QAM64 Scaler Value LUT[0]" id="MEM_RXF_LLR_SCALING_QAM64_VAL_LUT0" resetval="0x76543"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="QAM64 Scaler Value LUT[1]" id="MEM_RXF_LLR_SCALING_QAM64_VAL_LUT1" resetval="0x76543"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="QAM64 Scaler Value LUT[2]" id="MEM_RXF_LLR_SCALING_QAM64_VAL_LUT2" resetval="0x76543"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="QAM64 Scaler Value LUT[3]" id="MEM_RXF_LLR_SCALING_QAM64_VAL_LUT3" resetval="0x76543"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="QAM64 Scaler Value LUT[4]" id="MEM_RXF_LLR_SCALING_QAM64_VAL_LUT4" resetval="0x76543"/>
+		<bitfield width="12" end="20" begin="31" rwaccess="RO" id="Reserved" resetval="0x76543"/>
+	</register>
+	<register acronym="LLR_SCALER_QAM16_THR_CFG" id="llr_scaler_qam16_thr_cfg" width="32" description="LLR Scaler register for QAM16 Scaler Threshold configuraton" offset="0x234">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="QAM16 Scaler Threshold LUT[0]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM16_THR_LUT0" resetval="0x564c4438"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="QAM16 Scaler Threshold LUT[1]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM16_THR_LUT1" resetval="0x564c4438"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="QAM16 Scaler Threshold LUT[2]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM16_THR_LUT2" resetval="0x564c4438"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="QAM16 Scaler Threshold LUT[3]
+ [dB]" id="MEM_RXF_LLR_SCALING_QAM16_THR_LUT3" resetval="0x564c4438"/>
+	</register>
+	<register acronym="LLR_SCALER_QAM16_VAL_CFG" id="llr_scaler_qam16_val_cfg" width="32" description="LLR Scaler register for QAM16 Scaler Value configuraton" offset="0x238">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="QAM16 Scaler Value LUT[0]" id="MEM_RXF_LLR_SCALING_QAM16_VAL_LUT0" resetval="0x76543"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="QAM16 Scaler Value LUT[1]" id="MEM_RXF_LLR_SCALING_QAM16_VAL_LUT1" resetval="0x76543"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="QAM16 Scaler Value LUT[2]" id="MEM_RXF_LLR_SCALING_QAM16_VAL_LUT2" resetval="0x76543"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="QAM16 Scaler Value LUT[3]" id="MEM_RXF_LLR_SCALING_QAM16_VAL_LUT3" resetval="0x76543"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="QAM16 Scaler Value LUT[4]" id="MEM_RXF_LLR_SCALING_QAM16_VAL_LUT4" resetval="0x76543"/>
+		<bitfield width="12" end="20" begin="31" rwaccess="RO" id="Reserved" resetval="0x76543"/>
+	</register>
+	<register acronym="LLR_SCALER_QPSK_THR_CFG" id="llr_scaler_qpsk_thr_cfg" width="32" description="LLR Scaler register for QPSK Scaler Threshold configuraton" offset="0x23c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="QPSK Scaler Threshold LUT[0]
+ [dB]" id="MEM_RXF_LLR_SCALING_QPSK_THR_LUT0" resetval="0x3f35281b"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="QPSK Scaler Threshold LUT[1]
+ [dB]" id="MEM_RXF_LLR_SCALING_QPSK_THR_LUT1" resetval="0x3f35281b"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="QPSK Scaler Threshold LUT[2]
+ [dB]" id="MEM_RXF_LLR_SCALING_QPSK_THR_LUT2" resetval="0x3f35281b"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="QPSK Scaler Threshold LUT[3]
+ [dB]" id="MEM_RXF_LLR_SCALING_QPSK_THR_LUT3" resetval="0x3f35281b"/>
+	</register>
+	<register acronym="LLR_SCALER_QPSK_VAL_CFG" id="llr_scaler_qpsk_val_cfg" width="32" description="LLR Scaler register for QPSK Scaler Value configuraton" offset="0x240">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="QPSK Scaler Value LUT[0]" id="MEM_RXF_LLR_SCALING_QPSK_VAL_LUT0" resetval="0x76543"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="QPSK Scaler Value LUT[1]" id="MEM_RXF_LLR_SCALING_QPSK_VAL_LUT1" resetval="0x76543"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="QPSK Scaler Value LUT[2]" id="MEM_RXF_LLR_SCALING_QPSK_VAL_LUT2" resetval="0x76543"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="QPSK Scaler Value LUT[3]" id="MEM_RXF_LLR_SCALING_QPSK_VAL_LUT3" resetval="0x76543"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="QPSK Scaler Value LUT[4]" id="MEM_RXF_LLR_SCALING_QPSK_VAL_LUT4" resetval="0x76543"/>
+		<bitfield width="12" end="20" begin="31" rwaccess="RO" id="Reserved" resetval="0x76543"/>
+	</register>
+	<register acronym="LLR_SCALER_BPSK_THR_CFG" id="llr_scaler_bpsk_thr_cfg" width="32" description="LLR Scaler register for BPSK Scaler Threshold configuraton" offset="0x244">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="BPSK Scaler Threshold LUT[0]
+ [dB]" id="MEM_RXF_LLR_SCALING_BPSK_THR_LUT0" resetval="0x3a2c1e0e"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="BPSK Scaler Threshold LUT[1]
+ [dB]" id="MEM_RXF_LLR_SCALING_BPSK_THR_LUT1" resetval="0x3a2c1e0e"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="BPSK Scaler Threshold LUT[2]
+ [dB]" id="MEM_RXF_LLR_SCALING_BPSK_THR_LUT2" resetval="0x3a2c1e0e"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="BPSK Scaler Threshold LUT[3]
+ [dB]" id="MEM_RXF_LLR_SCALING_BPSK_THR_LUT3" resetval="0x3a2c1e0e"/>
+	</register>
+	<register acronym="LLR_SCALER_BPSK_VAL_CFG" id="llr_scaler_bpsk_val_cfg" width="32" description="LLR Scaler register for BPSK Scaler Value configuraton" offset="0x248">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="BPSK Scaler Value LUT[0]" id="MEM_RXF_LLR_SCALING_BPSK_VAL_LUT0" resetval="0x76543"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="BPSK Scaler Value LUT[1]" id="MEM_RXF_LLR_SCALING_BPSK_VAL_LUT1" resetval="0x76543"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="BPSK Scaler Value LUT[2]" id="MEM_RXF_LLR_SCALING_BPSK_VAL_LUT2" resetval="0x76543"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="BPSK Scaler Value LUT[3]" id="MEM_RXF_LLR_SCALING_BPSK_VAL_LUT3" resetval="0x76543"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="BPSK Scaler Value LUT[4]" id="MEM_RXF_LLR_SCALING_BPSK_VAL_LUT4" resetval="0x76543"/>
+		<bitfield width="12" end="20" begin="31" rwaccess="RO" id="Reserved" resetval="0x76543"/>
+	</register>
+	<register acronym="LLR_SCALER_TARGET_BO_CFG" id="llr_scaler_target_bo_cfg" width="32" description="LLR Scaler register for Active RU target BO" offset="0x24c">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="The target BO (in dB) of active RU. This target BO is identical to all RUs. It should match full spectrum BO." id="MEM_RXF_LLR_SCALING_ACTIVE_RU_TARGET_BO" resetval="0x1c"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x1c"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_00" id="channel_smoothing_cfg_00" width="32" description="Channel Estimation Rotator value in RSSIs. Units: [Number of Bins]" offset="0x300">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Below (ChEstSnrIndThrLowPlus110 - 110) dBm" id="MEM_CH_EST_ROT_VAL4_LOW_SNR" resetval="0xe0b09"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0xe0b09"/>
+		<bitfield width="5" end="8" begin="12" rwaccess="RW" description="Between (ChEstSnrIndThrLowPlus110 - 110) dBm and (ChEstSnrIndThrHighPlus110 - 110) dBm" id="MEM_CH_EST_ROT_VAL4_MED_SNR" resetval="0xe0b09"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" id="Reserved_2" resetval="0xe0b09"/>
+		<bitfield width="5" end="16" begin="20" rwaccess="RW" description="Above (ChEstSnrIndThrHighPlus110 - 110) dBm" id="MEM_CH_EST_ROT_VAL4_HIGH_SNR" resetval="0xe0b09"/>
+		<bitfield width="11" end="21" begin="31" rwaccess="RO" id="Reserved_3" resetval="0xe0b09"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_01" id="channel_smoothing_cfg_01" width="32" description="RSSI Threshold.  Units: [dBm + 110]" offset="0x304">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Low RSSI Threshold" id="MEM_CH_EST_SNR_IND_THR_LOW_PLUS110" resetval="0x251e"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="Reserved" resetval="0x251e"/>
+		<bitfield width="7" end="8" begin="14" rwaccess="RW" description="High RSSI Threshold" id="MEM_CH_EST_SNR_IND_THR_HIGH_PLUS110" resetval="0x251e"/>
+		<bitfield width="17" end="15" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x251e"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_02" id="channel_smoothing_cfg_02" width="32" description="Spur frequency. Units: [Legacy LTF bin num units]" offset="0x308">
+		<bitfield width="9" end="0" begin="8" rwaccess="RW" description="Spur 1 Frequency" id="MEM_FSPUR1_FOR_SMOOTHING" resetval="0x1000100"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="0x1000100"/>
+		<bitfield width="9" end="16" begin="24" rwaccess="RW" description="Spur 2 Frequency" id="MEM_FSPUR2_FOR_SMOOTHING" resetval="0x1000100"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x1000100"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_03" id="channel_smoothing_cfg_03" width="32" description="CFO Threshold. Units: [Bin index units (HE or non-HE)]" offset="0x30c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="Spur CFO Threshold" id="MEM_DC_CFO_THR_IN_BIN_NUM_UNITS" resetval="0x303"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved" resetval="0x303"/>
+		<bitfield width="3" end="8" begin="10" rwaccess="RW" description="DC CFO Threshold" id="MEM_SPUR_CFO_THR_IN_BIN_NUM_UNITS" resetval="0x303"/>
+		<bitfield width="21" end="11" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x303"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_04" id="channel_smoothing_cfg_04" width="32" description="NBI Smoothing RSSI Threshold. Units: [dBm + 110]" offset="0x310">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="NBI Smoothing RSSI Threshold" id="MEM_NBI_SMOOTHING_RSSI_THR_PLUS110" resetval="0x28"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x28"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_05" id="channel_smoothing_cfg_05" width="32" description="Enable Dynamic Raw on edges" offset="0x314">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable Dynamic Raw on edges" id="MEM_EN_USE_RAW_ON_EDGES" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_06" id="channel_smoothing_cfg_06" width="32" description="Filter coefficient for HE LTF X1 - Decimated by 4" offset="0x318">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient for HE LTF X1 - Center" id="MEM_C0_X1" resetval="0xd20333c"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient for HE LTF X1 - Adjacent to center" id="MEM_C1_X1" resetval="0xd20333c"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Filter coefficient for HE LTF X1 - Two taps from the center" id="MEM_C2_X1" resetval="0xd20333c"/>
+		<bitfield width="7" end="24" begin="30" rwaccess="RW" description="Filter coefficient for HE LTF X1 - Three taps from the center" id="MEM_C3_X1" resetval="0xd20333c"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved" resetval="0xd20333c"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_07" id="channel_smoothing_cfg_07" width="32" description="Filter coefficient for HE LTF X1 - Decimated by 4" offset="0x31c">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Filter coefficient for HE LTF X1 - Four taps from the center" id="MEM_C4_X1" resetval="0x280002"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="Reserved" resetval="0x280002"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_FORCE_ALL26_BIN_RUS_TO_RAW" resetval="0x280002"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x280002"/>
+		<bitfield width="7" end="16" begin="22" rwaccess="RW" id="MEM_DC_SMOOTHING_RSSI_THR_PLUS110" resetval="0x280002"/>
+		<bitfield width="9" end="23" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x280002"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_08" id="channel_smoothing_cfg_08" width="32" description="Filter coefficient for HE LTF X2 - Decimated by 2" offset="0x320">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient for HE LTF X2 - Center" id="MEM_C0_X2" resetval="0x7f164158"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient for HE LTF X2 - Adjacent to center" id="MEM_C1_X2" resetval="0x7f164158"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Filter coefficient for HE LTF X2 - Two taps from the center" id="MEM_C2_X2" resetval="0x7f164158"/>
+		<bitfield width="7" end="24" begin="30" rwaccess="RW" description="Filter coefficient for HE LTF X2 - Three taps from the center" id="MEM_C3_X2" resetval="0x7f164158"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved" resetval="0x7f164158"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_09" id="channel_smoothing_cfg_09" width="32" description="Filter coefficient for HE LTF X2 - Decimated by 2" offset="0x324">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Filter coefficient for HE LTF X2 - Four taps from the center" id="MEM_C4_X2" resetval="0x7e"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x7e"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_10" id="channel_smoothing_cfg_10" width="32" description="Filter coefficient for HE LTF X4 - Decimated by 1 - No decimation" offset="0x328">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient for HE LTF X4 - Center" id="MEM_C0_X4" resetval="0xd20333c"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient for HE LTF X4 - Adjacent to center" id="MEM_C1_X4" resetval="0xd20333c"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Filter coefficient for HE LTF X4 - Two taps from the center" id="MEM_C2_X4" resetval="0xd20333c"/>
+		<bitfield width="7" end="24" begin="30" rwaccess="RW" description="Filter coefficient for HE LTF X4 - Three taps from the center" id="MEM_C3_X4" resetval="0xd20333c"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved" resetval="0xd20333c"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_11" id="channel_smoothing_cfg_11" width="32" description="Filter coefficient for HE LTF X4 - Decimated by 1 - No decimation" offset="0x32c">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Filter coefficient for HE LTF X4 - Four taps from the center" id="MEM_C4_X4" resetval="0x2"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x2"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_12" id="channel_smoothing_cfg_12" width="32" description="Filter coefficient for non-HE LTF at high SNR" offset="0x330">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient for non-HE LTF at high RSSI - Center" id="MEM_C0_HIGH_SNR" resetval="0x791c495c"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient for non-HE LTF at high RSSI - Adjacent to center" id="MEM_C1_HIGH_SNR" resetval="0x791c495c"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Filter coefficient for non-HE LTF at high RSSI - Two taps from the center" id="MEM_C2_HIGH_SNR" resetval="0x791c495c"/>
+		<bitfield width="7" end="24" begin="30" rwaccess="RW" description="Filter coefficient for non-HE LTF at high RSSI - Three taps from the center" id="MEM_C3_HIGH_SNR" resetval="0x791c495c"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved" resetval="0x791c495c"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_13" id="channel_smoothing_cfg_13" width="32" description="Filter coefficient for non-HE LTF at high SNR" offset="0x334">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Filter coefficient for non-HE LTF at high RSSI - Four taps from the center" id="MEM_C4_HIGH_SNR" resetval="0x74"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x74"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_14" id="channel_smoothing_cfg_14" width="32" description="Filter coefficient for non-HE LTF at mid SNR" offset="0x338">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient for non-HE LTF at mid RSSI - Center" id="MEM_C0_MID_SNR" resetval="0x791c495c"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient for non-HE LTF at mid RSSI - Adjacent to center" id="MEM_C1_MID_SNR" resetval="0x791c495c"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Filter coefficient for non-HE LTF at mid RSSI - Two taps from the center" id="MEM_C2_MID_SNR" resetval="0x791c495c"/>
+		<bitfield width="7" end="24" begin="30" rwaccess="RW" description="Filter coefficient for non-HE LTF at mid RSSI - Three taps from the center" id="MEM_C3_MID_SNR" resetval="0x791c495c"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved" resetval="0x791c495c"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_15" id="channel_smoothing_cfg_15" width="32" description="Filter coefficient for non-HE LTF at mid SNR" offset="0x33c">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Filter coefficient for non-HE LTF at mid RSSI - Four taps from the center" id="MEM_C4_MID_SNR" resetval="0x74"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x74"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_16" id="channel_smoothing_cfg_16" width="32" description="Filter coefficient for non-HE LTF at low SNR" offset="0x340">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient for non-HE LTF at low RSSI - Center" id="MEM_C0_LOW_SNR" resetval="0x7213d49"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient for non-HE LTF at low RSSI - Adjacent to center" id="MEM_C1_LOW_SNR" resetval="0x7213d49"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Filter coefficient for non-HE LTF at low RSSI - Two taps from the center" id="MEM_C2_LOW_SNR" resetval="0x7213d49"/>
+		<bitfield width="7" end="24" begin="30" rwaccess="RW" description="Filter coefficient for non-HE LTF at low RSSI - Three taps from the center" id="MEM_C3_LOW_SNR" resetval="0x7213d49"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved" resetval="0x7213d49"/>
+	</register>
+	<register acronym="CHANNEL_SMOOTHING_CFG_17" id="channel_smoothing_cfg_17" width="32" description="Filter coefficient for non-HE LTF at low SNR" offset="0x344">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Filter coefficient for non-HE LTF at low RSSI - Four taps from the center" id="MEM_C4_LOW_SNR" resetval="0x77"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="Reserved" resetval="0x77"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Bypass channel smoothing" id="MEM_BYPASS_CHANNEL_SMOOTHING" resetval="0x77"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x77"/>
+	</register>
+	<register acronym="CSI_CFG_0" id="csi_cfg_0" width="32" offset="0x348">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="Log of decimation rate used on HE/EHT CSIs
+Note that during CSI-Expansion states (i.e. states in which CSI is generated from data and not from an LTF) this register is never used, even if packet is HE/EHT. 
+0 is No decimation
+1 is decimation by 2
+2 is decimation by 4
+3 is decimation by 8" id="MEM_DECIM_OFST_NON_HE" resetval="0x10000"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved" resetval="0x10000"/>
+		<bitfield width="3" end="8" begin="10" rwaccess="RW" description="Decimation offset used for HE/EHT CSI's. 
+Note that during CSI-Expansion states (i.e. states in which CSI is generated from data and not from an LTF) this register is never used, even if packet is HE/EHT. 
+Should be between 0 and 
+(2 power LogDecimRateHe)-1" id="MEM_DECIM_OFST_HE" resetval="0x10000"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x10000"/>
+		<bitfield width="2" end="16" begin="17" rwaccess="RW" description="Log of decimation rate used on HE/EHT CSIs
+Note that during CSI-Expansion states (i.e. states in which CSI is generated from data and not from an LTF) this register is never used, even if packet is HE/EHT. 
+0 is No decimation
+1 is decimation by 2
+2 is decimation by 4
+3 is decimation by 8" id="MEM_LOG_DECIM_RATE_HE" resetval="0x10000"/>
+		<bitfield width="6" end="18" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x10000"/>
+		<bitfield width="2" end="24" begin="25" rwaccess="RW" description="Log of decimation rate used on Legacy/HT/VHT CSIs
+Note that during CSI-Expansion states (i.e. states in which CSI is generated from data and not from an LTF) this register is used, even if packet is HE/EHT. In that case the value of the register may be changed by FW during any RXF-CSI-FSM state which is not a channel-estimation state or DataProcess state.
+0 is No decimation
+1 is decimation by 2
+2 is decimation by 4
+3 is decimation by 8" id="MEM_LOG_DECIM_RATE_NON_HE" resetval="0x10000"/>
+		<bitfield width="2" end="26" begin="27" rwaccess="RO" id="Reserved_4" resetval="0x10000"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="Enable decimation on data symbols" id="MEM_ENABLE_DECIMATION_ON_DATA" resetval="0x10000"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" id="Reserved_5" resetval="0x10000"/>
+	</register>
+	<register acronym="CSI_CFG_1" id="csi_cfg_1" width="32" offset="0x34c">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="This is the BF-Report-RAM base address for non-legacy-CSI
+Note that this is used also for CSI-Expansion modes, even if they are based on legacy packets. 
+Also note that the BfReportRamAddBaseLegacy, used for the legacy CSI, is set at 0, and not exported as a register." id="MEM_BF_REPORT_RAM_ADDR_BASE_NON_LEGACY" resetval="0x101001b"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="Reserved" resetval="0x101001b"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="This sets the number of left-shifts performed on the HVal before it is quantized into CSIs {8,8} bits. 
+Allows to tune the CSIs dynamic range. The higher the number in the reg, the smaller the dynamic range is and the smaller the quantization noise it." id="MEM_CSI_PRE_SCALER" resetval="0x101001b"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x101001b"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Disable CSI feature" id="MEM_DISABLE_CSI" resetval="0x101001b"/>
+		<bitfield width="7" end="17" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x101001b"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="Disable CSI feature" id="MEM_CSI_FSM_TO_IDLE_IF_MEMORY_IS_LOCKED" resetval="0x101001b"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x101001b"/>
+	</register>
+	<register acronym="CSI_CFG_2" id="csi_cfg_2" width="32" offset="0x350">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Resets CSI to IDLE state" id="CSI_RESET_WRCL" resetval="0x0"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Initiates a CSI-Expansion of Antenna-switching type. 
+Note that actual switching of the antenna needs to be configured through" id="CSI_SWITCH_ANT_WRCL" resetval="0x0"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" description="Marks to the CSI-FSM that the AFE/DFE transient immediately following the ant/freq switch, as seen in the TdAcq input, is over.
+Note that the HW shall automatically add the necessary delays to this in order to make sure next CSI is generated from a non-corrupt symbol." id="CSI_SWITCH_FREQ_WRCL" resetval="0x0"/>
+		<bitfield width="7" end="17" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="WO" description="Marks to the CSI-FSM that the AFE/DFE transient immediately following the ant/freq switch, as seen in the TdAcq input, is over.
+Note that the HW shall automatically add the necessary delays to this in order to make sure next CSI is generated from a non-corrupt symbol." id="CSI_SWITCH_TRASIENT_DONE_WRCL" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x0"/>
+	</register>
+	<register acronym="BF_RESET" id="bf_reset" width="32" offset="0x370">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" id="BF_RESET_WRCL" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="BF_MEMORY_STATUS" id="bf_memory_status" width="32" offset="0x374">
+		<bitfield width="2" end="0" begin="1" rwaccess="RO" id="BF_MEMORY_STATUS" resetval="0x0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="BF_MEMORY_COBFIG" id="bf_memory_cobfig" width="32" offset="0x378">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" id="MEM_PHY_BF_MEMORY_STATUS_RESET_FW_WRCL" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="BF_REPORT_RAM" id="bf_report_ram" width="32" offset="0x400">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BF Report RAM" id="MEM_BF_REPORT_RAM_5FC_WRMEMP" resetval="0x0"/>
+	</register>
+</module>

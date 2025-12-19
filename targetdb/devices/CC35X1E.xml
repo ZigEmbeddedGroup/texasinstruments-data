@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device id="CC35X1E" partnum="CC35X1E" HW_revision="1" XML_version="2" desc="CC35X1E" description="Osprey MX1 PG2">
+    <property Type="stringfield" Value="cmcu" id="AETT Platform"/>
+    <property Type="filepathfield" Value="../../emulation/analysis/dpk/devices/CC35xx/AETT_database_cmcu_cc35x1e.jsonc" id="AETT Database File"/>
+    <!-- Filter to list device under in project wizard -->
+    <property Type="stringfield" Value="Wireless Connectivity MCU" id="FilterString" />
+    <property Type="stringfield" Value="TIXDS110_Connection.xml" id="DefaultConnection" />
+    <property Type="stringfield" Value="TICLANG" id="DefaultToolChain" />
+    <jtag>
+        <property Type="choicelist" Value="0" id="dataFileRequired" />
+        <property Type="choicelist" Value="0" id="Debug Probe Selection">
+            <choice Name="Select by serial number" value="0">
+                <property Type="stringfield" Value="12345678" id="-- Enter the serial number" />
+            </choice>
+        </property>
+
+        <property Type="choicelist" Value="0" id="Power Selection">
+            <choice Name="Probe supplied power" value="1">
+                <property Type="stringfield" Value="1.8V" id="Voltage Level" />
+            </choice>
+            <choice Name="Target supplied power" value="0">
+                <property Type="choicelist" Value="0" id="Default" />
+            </choice>
+        </property>
+        <property Type="choicelist" Value="2" id="The JTAG TCLK Frequency (MHz)">
+            <choice Name="Fixed with user selected faster value" value="SPECIFIC">
+                <property Type="choicelist" Value="2" id="Select TCK Setting" />
+            </choice>
+        </property>
+        <property Type="choicelist" Value="1" id="SWD Mode Settings" />
+    </jtag>
+    <property Type="hiddenfield" Value="true" id="autoResetOnConnectByDefault"/>
+
+
+    <instance XML_revision="1.2" desc="CS_DAP_0" href="routers/cs_dap.xml" id="CS_DAP_0" xml="cs_dap.xml" xmlpath="Routers" />
+    <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+        <property Type="filepathfield" Value="../../../emulation/gel/CC35X1E_DAP.gel" id="GEL File" />
+        <property Type="stringfield" Value="true" id="CanFlashWhileDisconnected" />
+        <instance href="../Modules/CC35xx/AP/ETAP.xml"  id="ETAP" xml="ETAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="ETAP" requestor="" baseaddr="0x00020300" endaddr="0x00023FC" size="0x100" accessnumbytes="4" permissions="p"/>
+        <instance href="../Modules/CC35xx/AP/SECAP.xml" id="SECAP" xml="SECAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="SECAP" requestor="" baseaddr="0x00020200" endaddr="0x000202FC" size="0x100" accessnumbytes="4" permissions="p"/>
+        <instance href="../Modules/CC35xx/AP/PWRAP.xml" id="PWRAP" xml="PWRAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="PWRAP" requestor="" baseaddr="0x00020100" endaddr="0x00021FC" size="0x100" accessnumbytes="4" permissions="p"/>
+        <instance href="../Modules/CC35xx/AP/CFGAP.xml" id="CFGAP" xml="CFGAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="CFGAP" requestor="" baseaddr="0x00020000" endaddr="0x00020FC" size="0x100" accessnumbytes="4" permissions="p"/>
+
+        <subpath desc="APP" id="subpath_0">
+            <instance XML_version="1.2" desc="Cortex_M33_0" href="cpus/cortex_m33.xml" id="Cortex_M33_0" xml="cortex_m33.xml" xmlpath="cpus" />
+            <cpu HW_revision="1.0" XML_version="1.2" desc="APP_MCU" description="Cortex_M33 CPU" deviceSim="false" id="Cortex_M33_0" isa="Cortex_M33">
+                <property Type="numericfield" Value="0x02000007" id="Access Port Designator" />
+                <property Type="filepathfield" Value="../../../emulation/gel/CC35X1E_M33.gel" id="GEL File" />
+                <property Type="stringfield" Value="little" id="Endianness"/>
+                <property Type="hiddenfield" Value="1" id="Use Board Reset"/>
+                <property Type="hiddenfield" Value="1" id="Use CPU Reset"/>
+                <property Type="stringfield" Value="true" id="CanFlashWhileDisconnected" />
+
+                <instance href="../Modules/CC35xx/CPU_SCS.xml" xml="CPU_SCS.xml" id="CPU_SCS" xmlpath="../Modules/CC35xx" baseaddr="0xE000ED00" endaddr="0xE000ED90" size="0x90" accessnumbytes="4" permissions="p" />
+                
+	<!-- =================================== Device peripherals M33 ==================================== -->
+
+	<instance href="../Modules/CC35X1E/coex.xml" xml="coex.xml" id="coex" xmlpath="../Modules/CC35xx" baseaddr="0x40850000" endaddr="0x408500e8" size="0xe8" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/coex_secure.xml" xml="coex_secure.xml" id="coex_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44850000" endaddr="0x448500e8" size="0xe8" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_ana_pg.xml" xml="wl_phy_ana_pg.xml" id="wl_phy_ana_pg" xmlpath="../Modules/CC35xx" baseaddr="0x40928000" endaddr="0x40928628" size="0x628" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_ana_pg_secure.xml" xml="wl_phy_ana_pg_secure.xml" id="wl_phy_ana_pg_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44928000" endaddr="0x44928628" size="0x628" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/core_aon.xml" xml="core_aon.xml" id="core_aon" xmlpath="../Modules/CC35xx" baseaddr="0x41E00000" endaddr="0x41e0011c" size="0x11c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/core_aon_secure.xml" xml="core_aon_secure.xml" id="core_aon_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45e00000" endaddr="0x45e0011c" size="0x11c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rx_dfe.xml" xml="wl_phy_rx_dfe.xml" id="wl_phy_rx_dfe" xmlpath="../Modules/CC35xx" baseaddr="0x40923000" endaddr="0x40923030" size="0x30" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rx_dfe_secure.xml" xml="wl_phy_rx_dfe_secure.xml" id="wl_phy_rx_dfe_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44923000" endaddr="0x44923030" size="0x30" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_wgcm.xml" xml="wsoc_wgcm.xml" id="wsoc_wgcm" xmlpath="../Modules/CC35xx" baseaddr="0x40830000" endaddr="0x408300ec" size="0xec" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_wgcm_secure.xml" xml="wsoc_wgcm_secure.xml" id="wsoc_wgcm_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44830000" endaddr="0x448300ec" size="0xec" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/prcm_scratchpad.xml" xml="prcm_scratchpad.xml" id="prcm_scratchpad" xmlpath="../Modules/CC35xx" baseaddr="0x41098000" endaddr="0x41099020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/prcm_scratchpad_secure.xml" xml="prcm_scratchpad_secure.xml" id="prcm_scratchpad_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45098000" endaddr="0x45099020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_rdbell_cm0p.xml" xml="ble_rfcore_rdbell_cm0p.xml" id="ble_rfcore_rdbell_cm0p" xmlpath="../Modules/CC35xx" baseaddr="0x40D01000" endaddr="0x40d01150" size="0x150" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_rdbell_cm0p_secure.xml" xml="ble_rfcore_rdbell_cm0p_secure.xml" id="ble_rfcore_rdbell_cm0p_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d01000" endaddr="0x44d01150" size="0x150" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/i2c0.xml" xml="i2c0.xml" id="i2c0" xmlpath="../Modules/CC35xx" baseaddr="0x41200000" endaddr="0x41201020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/i2c0_secure.xml" xml="i2c0_secure.xml" id="i2c0_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45200000" endaddr="0x45201020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/i2c1.xml" xml="i2c1.xml" id="i2c1" xmlpath="../Modules/CC35xx" baseaddr="0x41210000" endaddr="0x41211020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/i2c1_secure.xml" xml="i2c1_secure.xml" id="i2c1_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45210000" endaddr="0x45211020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_debugss.xml" xml="soc_debugss.xml" id="soc_debugss" xmlpath="../Modules/CC35xx" baseaddr="0x00020000" endaddr="0x2041c" size="0x41c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_debugss_secure.xml" xml="soc_debugss_secure.xml" id="soc_debugss_secure" xmlpath="../Modules/CC35xx" baseaddr="0x4020000" endaddr="0x402041c" size="0x41c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_mcu.xml" xml="wsoc_mcu.xml" id="wsoc_mcu" xmlpath="../Modules/CC35xx" baseaddr="0x40800000" endaddr="0x40800280" size="0x280" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_mcu_secure.xml" xml="wsoc_mcu_secure.xml" id="wsoc_mcu_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44800000" endaddr="0x44800280" size="0x280" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_aon.xml" xml="soc_aon.xml" id="soc_aon" xmlpath="../Modules/CC35xx" baseaddr="0x41100000" endaddr="0x41102988" size="0x2988" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_aon_secure.xml" xml="soc_aon_secure.xml" id="soc_aon_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45100000" endaddr="0x45102988" size="0x2988" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_common.xml" xml="wl_phy_common.xml" id="wl_phy_common" xmlpath="../Modules/CC35xx" baseaddr="0x40925000" endaddr="0x40925220" size="0x220" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_common_secure.xml" xml="wl_phy_common_secure.xml" id="wl_phy_common_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44925000" endaddr="0x44925220" size="0x220" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rxf.xml" xml="wl_phy_rxf.xml" id="wl_phy_rxf" xmlpath="../Modules/CC35xx" baseaddr="0x4092D800" endaddr="0x4092dc20" size="0x420" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rxf_secure.xml" xml="wl_phy_rxf_secure.xml" id="wl_phy_rxf_secure" xmlpath="../Modules/CC35xx" baseaddr="0x4492d800" endaddr="0x4492dc20" size="0x420" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/osprey_dcache.xml" xml="osprey_dcache.xml" id="osprey_dcache" xmlpath="../Modules/CC35xx" baseaddr="0x41902400" endaddr="0x419024e4" size="0xe4" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/osprey_dcache_secure.xml" xml="osprey_dcache_secure.xml" id="osprey_dcache_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45902400" endaddr="0x459024e4" size="0xe4" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_top.xml" xml="ble_top.xml" id="ble_top" xmlpath="../Modules/CC35xx" baseaddr="0x40D00000" endaddr="0x40d00460" size="0x460" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_top_secure.xml" xml="ble_top_secure.xml" id="ble_top_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d00000" endaddr="0x44d00460" size="0x460" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rtc.xml" xml="rtc.xml" id="rtc" xmlpath="../Modules/CC35xx" baseaddr="0x41108000" endaddr="0x41108088" size="0x88" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rtc_secure.xml" xml="rtc_secure.xml" id="rtc_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45108000" endaddr="0x45108088" size="0x88" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/prcm_aon.xml" xml="prcm_aon.xml" id="prcm_aon" xmlpath="../Modules/CC35xx" baseaddr="0x41090000" endaddr="0x410971d0" size="0x71d0" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/prcm_aon_secure.xml" xml="prcm_aon_secure.xml" id="prcm_aon_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45090000" endaddr="0x450971d0" size="0x71d0" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hsm.xml" xml="hsm.xml" id="hsm" xmlpath="../Modules/CC35xx" baseaddr="0x41B00000" endaddr="0x41b0401c" size="0x401c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hsm_secure.xml" xml="hsm_secure.xml" id="hsm_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45b00000" endaddr="0x45b0401c" size="0x401c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_uart.xml" xml="wsoc_uart.xml" id="wsoc_uart" xmlpath="../Modules/CC35xx" baseaddr="0x40860000" endaddr="0x40860040" size="0x40" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_uart_secure.xml" xml="wsoc_uart_secure.xml" id="wsoc_uart_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44860000" endaddr="0x44860040" size="0x40" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ospreyadc.xml" xml="ospreyadc.xml" id="ospreyadc" xmlpath="../Modules/CC35xx" baseaddr="0x412B0000" endaddr="0x412b2020" size="0x2020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ospreyadc_secure.xml" xml="ospreyadc_secure.xml" id="ospreyadc_secure" xmlpath="../Modules/CC35xx" baseaddr="0x452b0000" endaddr="0x452b2020" size="0x2020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_plcp.xml" xml="wl_phy_plcp.xml" id="wl_phy_plcp" xmlpath="../Modules/CC35xx" baseaddr="0x4092D000" endaddr="0x4092d058" size="0x58" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_plcp_secure.xml" xml="wl_phy_plcp_secure.xml" id="wl_phy_plcp_secure" xmlpath="../Modules/CC35xx" baseaddr="0x4492d000" endaddr="0x4492d058" size="0x58" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_dma.xml" xml="host_dma.xml" id="host_dma" xmlpath="../Modules/CC35xx" baseaddr="0x41A00000" endaddr="0x41a0e03c" size="0xe03c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_dma_secure.xml" xml="host_dma_secure.xml" id="host_dma_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45a00000" endaddr="0x45a0e03c" size="0xe03c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/spi0.xml" xml="spi0.xml" id="spi0" xmlpath="../Modules/CC35xx" baseaddr="0x41220000" endaddr="0x41221020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/spi0_secure.xml" xml="spi0_secure.xml" id="spi0_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45220000" endaddr="0x45221020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/spi1.xml" xml="spi1.xml" id="spi1" xmlpath="../Modules/CC35xx" baseaddr="0x41230000" endaddr="0x41231020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/spi1_secure.xml" xml="spi1_secure.xml" id="spi1_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45230000" endaddr="0x45231020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_ocp_ic.xml" xml="wsoc_ocp_ic.xml" id="wsoc_ocp_ic" xmlpath="../Modules/CC35xx" baseaddr="0x408C0000" endaddr="0x408c0084" size="0x84" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_ocp_ic_secure.xml" xml="wsoc_ocp_ic_secure.xml" id="wsoc_ocp_ic_secure" xmlpath="../Modules/CC35xx" baseaddr="0x448c0000" endaddr="0x448c0084" size="0x84" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pdm.xml" xml="pdm.xml" id="pdm" xmlpath="../Modules/CC35xx" baseaddr="0x41280000" endaddr="0x41281028" size="0x1028" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pdm_secure.xml" xml="pdm_secure.xml" id="pdm_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45280000" endaddr="0x45281028" size="0x1028" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_intr_ctrl.xml" xml="wsoc_intr_ctrl.xml" id="wsoc_intr_ctrl" xmlpath="../Modules/CC35xx" baseaddr="0x40810000" endaddr="0x40810138" size="0x138" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_intr_ctrl_secure.xml" xml="wsoc_intr_ctrl_secure.xml" id="wsoc_intr_ctrl_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44810000" endaddr="0x44810138" size="0x138" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/dcan.xml" xml="dcan.xml" id="dcan" xmlpath="../Modules/CC35xx" baseaddr="0x412A0000" endaddr="0x412a2020" size="0x2020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/dcan_secure.xml" xml="dcan_secure.xml" id="dcan_secure" xmlpath="../Modules/CC35xx" baseaddr="0x452a0000" endaddr="0x452a2020" size="0x2020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_tx_dfe.xml" xml="wl_phy_tx_dfe.xml" id="wl_phy_tx_dfe" xmlpath="../Modules/CC35xx" baseaddr="0x40921000" endaddr="0x40921220" size="0x220" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_tx_dfe_secure.xml" xml="wl_phy_tx_dfe_secure.xml" id="wl_phy_tx_dfe_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44921000" endaddr="0x44921220" size="0x220" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rx_11b.xml" xml="wl_phy_rx_11b.xml" id="wl_phy_rx_11b" xmlpath="../Modules/CC35xx" baseaddr="0x4092C000" endaddr="0x4092c61c" size="0x61c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rx_11b_secure.xml" xml="wl_phy_rx_11b_secure.xml" id="wl_phy_rx_11b_secure" xmlpath="../Modules/CC35xx" baseaddr="0x4492c000" endaddr="0x4492c61c" size="0x61c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_ic.xml" xml="soc_ic.xml" id="soc_ic" xmlpath="../Modules/CC35xx" baseaddr="0x410F0000" endaddr="0x410f0058" size="0x58" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_ic_secure.xml" xml="soc_ic_secure.xml" id="soc_ic_secure" xmlpath="../Modules/CC35xx" baseaddr="0x450f0000" endaddr="0x450f0058" size="0x58" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_rfe.xml" xml="ble_rfcore_rfe.xml" id="ble_rfcore_rfe" xmlpath="../Modules/CC35xx" baseaddr="0x40D06000" endaddr="0x40d06140" size="0x140" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_rfe_secure.xml" xml="ble_rfcore_rfe_secure.xml" id="ble_rfcore_rfe_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d06000" endaddr="0x44d06140" size="0x140" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hif.xml" xml="hif.xml" id="hif" xmlpath="../Modules/CC35xx" baseaddr="0x408A0000" endaddr="0x408a0094" size="0x94" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hif_secure.xml" xml="hif_secure.xml" id="hif_secure" xmlpath="../Modules/CC35xx" baseaddr="0x448a0000" endaddr="0x448a0094" size="0x94" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/uartlin0.xml" xml="uartlin0.xml" id="uartlin0" xmlpath="../Modules/CC35xx" baseaddr="0x41240000" endaddr="0x41241020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/uartlin0_secure.xml" xml="uartlin0_secure.xml" id="uartlin0_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45240000" endaddr="0x45241020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/uartlin1.xml" xml="uartlin1.xml" id="uartlin1" xmlpath="../Modules/CC35xx" baseaddr="0x41250000" endaddr="0x41251020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/uartlin1_secure.xml" xml="uartlin1_secure.xml" id="uartlin1_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45250000" endaddr="0x45251020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/uartlin2.xml" xml="uartlin2.xml" id="uartlin2" xmlpath="../Modules/CC35xx" baseaddr="0x41300000" endaddr="0x41301020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/uartlin2_secure.xml" xml="uartlin2_secure.xml" id="uartlin2_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45300000" endaddr="0x45301020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_tx_cfg.xml" xml="wl_phy_tx_cfg.xml" id="wl_phy_tx_cfg" xmlpath="../Modules/CC35xx" baseaddr="0x4092C800" endaddr="0x4092cc0c" size="0x40c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_tx_cfg_secure.xml" xml="wl_phy_tx_cfg_secure.xml" id="wl_phy_tx_cfg_secure" xmlpath="../Modules/CC35xx" baseaddr="0x4492c800" endaddr="0x4492cc0c" size="0x40c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/gpadc_ctrl.xml" xml="gpadc_ctrl.xml" id="gpadc_ctrl" xmlpath="../Modules/CC35xx" baseaddr="0x410C0000" endaddr="0x410c0090" size="0x90" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/gpadc_ctrl_secure.xml" xml="gpadc_ctrl_secure.xml" id="gpadc_ctrl_secure" xmlpath="../Modules/CC35xx" baseaddr="0x450c0000" endaddr="0x450c0090" size="0x90" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_mcu.xml" xml="wl_phy_mcu.xml" id="wl_phy_mcu" xmlpath="../Modules/CC35xx" baseaddr="0x4091C000" endaddr="0x4091c09c" size="0x9c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_mcu_secure.xml" xml="wl_phy_mcu_secure.xml" id="wl_phy_mcu_secure" xmlpath="../Modules/CC35xx" baseaddr="0x4491c000" endaddr="0x4491c09c" size="0x9c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_ctrl.xml" xml="wl_phy_ctrl.xml" id="wl_phy_ctrl" xmlpath="../Modules/CC35xx" baseaddr="0x40925800" endaddr="0x40925900" size="0x100" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_ctrl_secure.xml" xml="wl_phy_ctrl_secure.xml" id="wl_phy_ctrl_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44925800" endaddr="0x44925900" size="0x100" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_mdm.xml" xml="ble_rfcore_mdm.xml" id="ble_rfcore_mdm" xmlpath="../Modules/CC35xx" baseaddr="0x40D05000" endaddr="0x40d052bc" size="0x2bc" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_mdm_secure.xml" xml="ble_rfcore_mdm_secure.xml" id="ble_rfcore_mdm_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d05000" endaddr="0x44d052bc" size="0x2bc" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_aaon.xml" xml="soc_aaon.xml" id="soc_aaon" xmlpath="../Modules/CC35xx" baseaddr="0x41104000" endaddr="0x41106038" size="0x2038" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_aaon_secure.xml" xml="soc_aaon_secure.xml" id="soc_aaon_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45104000" endaddr="0x45106038" size="0x2038" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_con_aes.xml" xml="wsoc_con_aes.xml" id="wsoc_con_aes" xmlpath="../Modules/CC35xx" baseaddr="0x40AA0000" endaddr="0x40aa011c" size="0x11c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_con_aes_secure.xml" xml="wsoc_con_aes_secure.xml" id="wsoc_con_aes_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44aa0000" endaddr="0x44aa011c" size="0x11c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ospi.xml" xml="ospi.xml" id="ospi" xmlpath="../Modules/CC35xx" baseaddr="0x41910000" endaddr="0x4191011c" size="0x11c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ospi_secure.xml" xml="ospi_secure.xml" id="ospi_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45910000" endaddr="0x4591011c" size="0x11c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sdio_core.xml" xml="sdio_core.xml" id="sdio_core" xmlpath="../Modules/CC35xx" baseaddr="0x412E0000" endaddr="0x41300010" size="0x20010" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sdio_core_secure.xml" xml="sdio_core_secure.xml" id="sdio_core_secure" xmlpath="../Modules/CC35xx" baseaddr="0x452e0000" endaddr="0x45300010" size="0x20010" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hostmcu_aon.xml" xml="hostmcu_aon.xml" id="hostmcu_aon" xmlpath="../Modules/CC35xx" baseaddr="0x411D0000" endaddr="0x411d007c" size="0x7c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hostmcu_aon_secure.xml" xml="hostmcu_aon_secure.xml" id="hostmcu_aon_secure" xmlpath="../Modules/CC35xx" baseaddr="0x451d0000" endaddr="0x451d007c" size="0x7c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/icache.xml" xml="icache.xml" id="icache" xmlpath="../Modules/CC35xx" baseaddr="0x41902000" endaddr="0x419020ac" size="0xac" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/icache_secure.xml" xml="icache_secure.xml" id="icache_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45902000" endaddr="0x459020ac" size="0xac" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_ocp_ic.xml" xml="wl_phy_ocp_ic.xml" id="wl_phy_ocp_ic" xmlpath="../Modules/CC35xx" baseaddr="0x4092F000" endaddr="0x4092f05c" size="0x5c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_ocp_ic_secure.xml" xml="wl_phy_ocp_ic_secure.xml" id="wl_phy_ocp_ic_secure" xmlpath="../Modules/CC35xx" baseaddr="0x4492f000" endaddr="0x4492f05c" size="0x5c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/iomux.xml" xml="iomux.xml" id="iomux" xmlpath="../Modules/CC35xx" baseaddr="0x41140000" endaddr="0x4117102c" size="0x3102c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/iomux_secure.xml" xml="iomux_secure.xml" id="iomux_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45140000" endaddr="0x4517102c" size="0x3102c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_rdbell.xml" xml="ble_rfcore_rdbell.xml" id="ble_rfcore_rdbell" xmlpath="../Modules/CC35xx" baseaddr="0x40D01000" endaddr="0x40d01048" size="0x48" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/ble_rfcore_rdbell_secure.xml" xml="ble_rfcore_rdbell_secure.xml" id="ble_rfcore_rdbell_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d01000" endaddr="0x44d01048" size="0x48" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_mcu_sec.xml" xml="host_mcu_sec.xml" id="host_mcu_sec" xmlpath="../Modules/CC35xx" baseaddr="0x41903000" endaddr="0x41903028" size="0x28" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_mcu_sec_secure.xml" xml="host_mcu_sec_secure.xml" id="host_mcu_sec_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45903000" endaddr="0x45903028" size="0x28" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sysresources.xml" xml="sysresources.xml" id="sysresources" xmlpath="../Modules/CC35xx" baseaddr="0x411E0000" endaddr="0x411e0424" size="0x424" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sysresources_secure.xml" xml="sysresources_secure.xml" id="sysresources_secure" xmlpath="../Modules/CC35xx" baseaddr="0x451e0000" endaddr="0x451e0424" size="0x424" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_mcu_ctx_ram.xml" xml="wl_phy_mcu_ctx_ram.xml" id="wl_phy_mcu_ctx_ram" xmlpath="../Modules/CC35xx" baseaddr="0x40900000" endaddr="0x40900020" size="0x20" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_mcu_ctx_ram_secure.xml" xml="wl_phy_mcu_ctx_ram_secure.xml" id="wl_phy_mcu_ctx_ram_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44900000" endaddr="0x44900020" size="0x20" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_ocla.xml" xml="wsoc_ocla.xml" id="wsoc_ocla" xmlpath="../Modules/CC35xx" baseaddr="0x411C0000" endaddr="0x411c00d0" size="0xd0" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_ocla_secure.xml" xml="wsoc_ocla_secure.xml" id="wsoc_ocla_secure" xmlpath="../Modules/CC35xx" baseaddr="0x451c0000" endaddr="0x451c00d0" size="0xd0" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rfc_trc.xml" xml="rfc_trc.xml" id="rfc_trc" xmlpath="../Modules/CC35xx" baseaddr="0x40D07000" endaddr="0x40d0704c" size="0x4c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rfc_trc_secure.xml" xml="rfc_trc_secure.xml" id="rfc_trc_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d07000" endaddr="0x44d0704c" size="0x4c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_debugss_dssm_mdb.xml" xml="soc_debugss_dssm_mdb.xml" id="soc_debugss_dssm_mdb" xmlpath="../Modules/CC35xx" baseaddr="0x410D0000" endaddr="0x410d00c8" size="0xc8" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/soc_debugss_dssm_mdb_secure.xml" xml="soc_debugss_dssm_mdb_secure.xml" id="soc_debugss_dssm_mdb_secure" xmlpath="../Modules/CC35xx" baseaddr="0x450d0000" endaddr="0x450d00c8" size="0xc8" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hsm_sec.xml" xml="hsm_sec.xml" id="hsm_sec" xmlpath="../Modules/CC35xx" baseaddr="0x41B05000" endaddr="0x41b05038" size="0x38" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hsm_sec_secure.xml" xml="hsm_sec_secure.xml" id="hsm_sec_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45b05000" endaddr="0x45b05038" size="0x38" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_descr_fifo.xml" xml="wsoc_descr_fifo.xml" id="wsoc_descr_fifo" xmlpath="../Modules/CC35xx" baseaddr="0x40A60000" endaddr="0x40a60820" size="0x820" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_descr_fifo_secure.xml" xml="wsoc_descr_fifo_secure.xml" id="wsoc_descr_fifo_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44a60000" endaddr="0x44a60820" size="0x820" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/systim.xml" xml="systim.xml" id="systim" xmlpath="../Modules/CC35xx" baseaddr="0x411E2000" endaddr="0x411e3020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/systim_secure.xml" xml="systim_secure.xml" id="systim_secure" xmlpath="../Modules/CC35xx" baseaddr="0x451e2000" endaddr="0x451e3020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_mcu.xml" xml="host_mcu.xml" id="host_mcu" xmlpath="../Modules/CC35xx" baseaddr="0x41900000" endaddr="0x41900054" size="0x54" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_mcu_secure.xml" xml="host_mcu_secure.xml" id="host_mcu_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45900000" endaddr="0x45900054" size="0x54" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rxt.xml" xml="wl_phy_rxt.xml" id="wl_phy_rxt" xmlpath="../Modules/CC35xx" baseaddr="0x40926000" endaddr="0x40926e20" size="0xe20" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_rxt_secure.xml" xml="wl_phy_rxt_secure.xml" id="wl_phy_rxt_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44926000" endaddr="0x44926e20" size="0xe20" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rfc_rat.xml" xml="rfc_rat.xml" id="rfc_rat" xmlpath="../Modules/CC35xx" baseaddr="0x40D02000" endaddr="0x40d020bc" size="0xbc" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rfc_rat_secure.xml" xml="rfc_rat_secure.xml" id="rfc_rat_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d02000" endaddr="0x44d020bc" size="0xbc" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/i2s.xml" xml="i2s.xml" id="i2s" xmlpath="../Modules/CC35xx" baseaddr="0x41270000" endaddr="0x41271028" size="0x1028" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/i2s_secure.xml" xml="i2s_secure.xml" id="i2s_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45270000" endaddr="0x45271028" size="0x1028" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_mcu_scr_ram.xml" xml="wl_phy_mcu_scr_ram.xml" id="wl_phy_mcu_scr_ram" xmlpath="../Modules/CC35xx" baseaddr="0x40910000" endaddr="0x40910020" size="0x20" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_mcu_scr_ram_secure.xml" xml="wl_phy_mcu_scr_ram_secure.xml" id="wl_phy_mcu_scr_ram_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44910000" endaddr="0x44910020" size="0x20" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_mmu.xml" xml="wsoc_mmu.xml" id="wsoc_mmu" xmlpath="../Modules/CC35xx" baseaddr="0x40580000" endaddr="0x40584020" size="0x4020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_mmu_secure.xml" xml="wsoc_mmu_secure.xml" id="wsoc_mmu_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44580000" endaddr="0x44584020" size="0x4020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_con_dma.xml" xml="wsoc_con_dma.xml" id="wsoc_con_dma" xmlpath="../Modules/CC35xx" baseaddr="0x40840000" endaddr="0x408400fc" size="0xfc" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_con_dma_secure.xml" xml="wsoc_con_dma_secure.xml" id="wsoc_con_dma_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44840000" endaddr="0x448400fc" size="0xfc" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hsm_non_sec.xml" xml="hsm_non_sec.xml" id="hsm_non_sec" xmlpath="../Modules/CC35xx" baseaddr="0x41B04000" endaddr="0x41b0402c" size="0x2c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/hsm_non_sec_secure.xml" xml="hsm_non_sec_secure.xml" id="hsm_non_sec_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45b04000" endaddr="0x45b0402c" size="0x2c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pmac_rx.xml" xml="pmac_rx.xml" id="pmac_rx" xmlpath="../Modules/CC35xx" baseaddr="0x40882000" endaddr="0x40882770" size="0x770" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pmac_rx_secure.xml" xml="pmac_rx_secure.xml" id="pmac_rx_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44882000" endaddr="0x44882770" size="0x770" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pll_sharing.xml" xml="pll_sharing.xml" id="pll_sharing" xmlpath="../Modules/CC35xx" baseaddr="0x410A0000" endaddr="0x410a0054" size="0x54" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pll_sharing_secure.xml" xml="pll_sharing_secure.xml" id="pll_sharing_secure" xmlpath="../Modules/CC35xx" baseaddr="0x450a0000" endaddr="0x450a0054" size="0x54" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pmac_tx.xml" xml="pmac_tx.xml" id="pmac_tx" xmlpath="../Modules/CC35xx" baseaddr="0x40881000" endaddr="0x40881620" size="0x620" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pmac_tx_secure.xml" xml="pmac_tx_secure.xml" id="pmac_tx_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44881000" endaddr="0x44881620" size="0x620" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sdmmc.xml" xml="sdmmc.xml" id="sdmmc" xmlpath="../Modules/CC35xx" baseaddr="0x412C0000" endaddr="0x412c4020" size="0x4020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sdmmc_secure.xml" xml="sdmmc_secure.xml" id="sdmmc_secure" xmlpath="../Modules/CC35xx" baseaddr="0x452c0000" endaddr="0x452c4020" size="0x4020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_nab.xml" xml="wsoc_nab.xml" id="wsoc_nab" xmlpath="../Modules/CC35xx" baseaddr="0x40890000" endaddr="0x40890170" size="0x170" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_nab_secure.xml" xml="wsoc_nab_secure.xml" id="wsoc_nab_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44890000" endaddr="0x44890170" size="0x170" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_tx.xml" xml="wl_phy_tx.xml" id="wl_phy_tx" xmlpath="../Modules/CC35xx" baseaddr="0x40920000" endaddr="0x40920620" size="0x620" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wl_phy_tx_secure.xml" xml="wl_phy_tx_secure.xml" id="wl_phy_tx_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44920000" endaddr="0x44920620" size="0x620" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_mac_enc.xml" xml="wsoc_mac_enc.xml" id="wsoc_mac_enc" xmlpath="../Modules/CC35xx" baseaddr="0x40883000" endaddr="0x40883140" size="0x140" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_mac_enc_secure.xml" xml="wsoc_mac_enc_secure.xml" id="wsoc_mac_enc_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44883000" endaddr="0x44883140" size="0x140" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rfc_pha.xml" xml="rfc_pha.xml" id="rfc_pha" xmlpath="../Modules/CC35xx" baseaddr="0x40D03000" endaddr="0x40d0331c" size="0x31c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/rfc_pha_secure.xml" xml="rfc_pha_secure.xml" id="rfc_pha_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44d03000" endaddr="0x44d0331c" size="0x31c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_common.xml" xml="wsoc_common.xml" id="wsoc_common" xmlpath="../Modules/CC35xx" baseaddr="0x40820000" endaddr="0x40820130" size="0x130" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/wsoc_common_secure.xml" xml="wsoc_common_secure.xml" id="wsoc_common_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44820000" endaddr="0x44820130" size="0x130" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pmac_acm.xml" xml="pmac_acm.xml" id="pmac_acm" xmlpath="../Modules/CC35xx" baseaddr="0x40881800" endaddr="0x40881c44" size="0x444" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/pmac_acm_secure.xml" xml="pmac_acm_secure.xml" id="pmac_acm_secure" xmlpath="../Modules/CC35xx" baseaddr="0x44881800" endaddr="0x44881c44" size="0x444" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/gptimer0.xml" xml="gptimer0.xml" id="gptimer0" xmlpath="../Modules/CC35xx" baseaddr="0x41260000" endaddr="0x41261020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/gptimer0_secure.xml" xml="gptimer0_secure.xml" id="gptimer0_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45260000" endaddr="0x45261020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/gptimer1.xml" xml="gptimer1.xml" id="gptimer1" xmlpath="../Modules/CC35xx" baseaddr="0x41268000" endaddr="0x41269020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/gptimer1_secure.xml" xml="gptimer1_secure.xml" id="gptimer1_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45268000" endaddr="0x45269020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_xip.xml" xml="host_xip.xml" id="host_xip" xmlpath="../Modules/CC35xx" baseaddr="0x41912000" endaddr="0x4191b02c" size="0x902c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/host_xip_secure.xml" xml="host_xip_secure.xml" id="host_xip_secure" xmlpath="../Modules/CC35xx" baseaddr="0x45912000" endaddr="0x4591b02c" size="0x902c" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sdio_card_fn1.xml" xml="sdio_card_fn1.xml" id="sdio_card_fn1" xmlpath="../Modules/CC35xx" baseaddr="0x412D0000" endaddr="0x412d1020" size="0x1020" accessnumbytes="4" permissions="p"/>
+	<instance href="../Modules/CC35X1E/sdio_card_fn1_secure.xml" xml="sdio_card_fn1_secure.xml" id="sdio_card_fn1_secure" xmlpath="../Modules/CC35xx" baseaddr="0x452d0000" endaddr="0x452d1020" size="0x1020" accessnumbytes="4" permissions="p"/>
+
+	<!-- =================================== END Device peripherals M33 ================================ -->
+
+            </cpu>
+            <property Type="numericfield" Value="0x6" id="Port Number" />
+            <property Type="choicelist" Value="0" id="Type" />
+            <property Type="choicelist" Value="1" id="Pseudo" />
+            <property Type="stringfield" Value="true" id="CanFlashWhileDisconnected" />
+        </subpath>
+    </router>
+</device>

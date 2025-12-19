@@ -1,0 +1,812 @@
+<?xml version="1.0" ?>
+<module id="GPADC_CTRL" XML_version="1.0" description="">
+	<register acronym="GPADC_TX_1_CTRL" id="gpadc_tx_1_ctrl" width="32" description="GPADC TX 1 CONTROL
+
+TX set 1 control register" offset="0x0">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="SENSOR INDEX
+
+0 - ATB
+1 - Vdd_Main
+2 - Vdd_PA
+3 - Thermal Protection
+4 - Thermal Calibration
+5 - Env_Det_Calibration
+6 - BG Blocker
+7 - PM BIST
+8 - RFCIO TEST_M
+9 - RFCIO TEST_P (using thermal protectio sens sel only)
+10 - PM BG 0.9V
+11 - PM BG 1.22V
+12 - I2V_VOUT
+13 - SPARE2
+14 - IS_RX_FILTER" id="SNSIDX" resetval="0x800"/>
+		<bitfield width="5" end="4" begin="8" rwaccess="RW" description="DELAY FROM EVENT
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle (1.6/1.7/2.0/2.4 us) need to be kept between 2 Agents
+
+0 - 0.5us - minimum value.
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us
+*note- delay from event is not accurate, additional of up to 200ns might be added." id="DLYFEVT" resetval="0x800"/>
+		<bitfield width="5" end="9" begin="13" rwaccess="RW" description="NUMBER OF SAMPLES
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - not allowed
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us" id="NUMOSMP" resetval="0x800"/>
+		<bitfield width="6" end="14" begin="19" rwaccess="RW" description="DELAY INTERVAL
+
+Full span 0..63 *12.8us, jumps in 12.8us, up to ~793.6us
+Full span 0..63 *13.6us, jumps in 13.6us, up to ~843.2us
+Full span 0..63 *16us, jumps in 16us, up to ~992us
+Full span 0..63 *19.2us, jumps in 19.2us, up to ~1190.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - Continues Mode (with gaps of 1 GPADC clk cycle between each number of samples)
+1 - 12.8 us
+2 - 25.6us
+3 - 38.4us
+...
+62 - 793.6us
+63 - Single shot [one sample]" id="DLYINTR" resetval="0x800"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="BYPASS ALPHA FILTER
+
+Alpha filter block indication,  bypass the alpha filter for the first sample" id="BYPALP" resetval="0x800"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="HARDWARE THRESHOLD ENABLE
+
+enble the comparators block to compare sample to HW threshold" id="HWTHREN" resetval="0x800"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" description="GAIN OUT SELECT
+
+'00' - chooses del_vbe_buf_outm
+'01' - chooses del_vbe_buf_outp
+'10' - chooses diffrential both p and m
+'11' - NA" id="GNOSEL" resetval="0x800"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="PMCIO spare dynamic bits" id="PMSPR" resetval="0x800"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" description="RFCIO spare dynamic bits" id="RFSPR" resetval="0x800"/>
+	</register>
+	<register acronym="GPADC_TX_2_CTRL" id="gpadc_tx_2_ctrl" width="32" description="GPADC TX 2 CONTROL
+
+TX set 2 control register" offset="0x4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="SENSOR INDEX
+
+0 - ATB
+1 - Vdd_Main
+2 - Vdd_PA
+3 - Thermal Protection
+4 - Thermal Calibration
+5 - Env_Det_Calibration
+6 - BG Blocker
+7 - PM BIST
+8 - RFCIO TEST_M
+9 - RFCIO TEST_P (using thermal protectio sens sel only)
+10 - PM BG 0.9V
+11 - PM BG 1.22V
+12 - I2V_VOUT
+13 - SPARE2
+14 - IS_RX_FILTER" id="SNSIDX" resetval="0x800"/>
+		<bitfield width="5" end="4" begin="8" rwaccess="RW" description="DELAY FROM EVENT
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle (1.6/1.7/2.0/2.4 us) need to be kept between 2 Agents
+
+0 - 0.5us - minimum value.
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us
+*note- delay from event is not accurate, additional of up to 200ns might be added." id="DLYFEVT" resetval="0x800"/>
+		<bitfield width="5" end="9" begin="13" rwaccess="RW" description="NUMBER OF SAMPLES
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - not allowed
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us" id="NUMOSMP" resetval="0x800"/>
+		<bitfield width="6" end="14" begin="19" rwaccess="RW" description="DELAY INTERVAL
+
+Full span 0..63 *12.8us, jumps in 12.8us, up to ~793.6us
+Full span 0..63 *13.6us, jumps in 13.6us, up to ~843.2us
+Full span 0..63 *16us, jumps in 16us, up to ~992us
+Full span 0..63 *19.2us, jumps in 19.2us, up to ~1190.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - Continues Mode (with gaps of 1 GPADC clk cycle between each number of samples)
+1 - 12.8 us
+2 - 25.6us
+3 - 38.4us
+...
+62 - 793.6us
+63 - Single shot [one sample]" id="DLYINTR" resetval="0x800"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="BYPASS ALPHA FILTER
+
+Alpha filter block indication,  bypass the alpha filter for the first sample" id="BYPALP" resetval="0x800"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="HARDWARE THRESHOLD ENABLE
+
+enble the comparators block to compare sample to HW threshold" id="HWTHREN" resetval="0x800"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" description="GAIN OUT SELECT
+
+'00' - chooses del_vbe_buf_outm
+'01' - chooses del_vbe_buf_outp
+'10' - chooses diffrential both p and m
+'11' - NA" id="GNOSEL" resetval="0x800"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="PMCIO spare dynamic bits" id="PMSPR" resetval="0x800"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" description="RFCIO spare dynamic bits" id="RFSPR" resetval="0x800"/>
+	</register>
+	<register acronym="GPADC_RX_1_CTRL" id="gpadc_rx_1_ctrl" width="32" description="GPADC RX 1 CONTROL
+
+RX set 3 control register" offset="0x8">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="SENSOR INDEX
+
+0 - ATB
+1 - Vdd_Main
+2 - Vdd_PA
+3 - Thermal Protection
+4 - Thermal Calibration
+5 - Env_Det_Calibration
+6 - BG Blocker
+7 - PM BIST
+8 - RFCIO TEST_M
+9 - RFCIO TEST_P (using thermal protectio sens sel only)
+10 - PM BG 0.9V
+11 - PM BG 1.22V
+12 - I2V_VOUT
+13 - SPARE2
+14 - IS_RX_FILTER" id="SNSIDX" resetval="0x800"/>
+		<bitfield width="5" end="4" begin="8" rwaccess="RW" description="DELAY FROM EVENT
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle (1.6/1.7/2.0/2.4 us) need to be kept between 2 Agents
+
+0 - 0.5us - minimum value.
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us
+*note- delay from event is not accurate, additional of up to 200ns might be added." id="DLYFEVT" resetval="0x800"/>
+		<bitfield width="5" end="9" begin="13" rwaccess="RW" description="NUMBER OF SAMPLES
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - not allowed
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us" id="NUMOSMP" resetval="0x800"/>
+		<bitfield width="6" end="14" begin="19" rwaccess="RW" description="DELAY INTERVAL
+
+Full span 0..63 *12.8us, jumps in 12.8us, up to ~793.6us
+Full span 0..63 *13.6us, jumps in 13.6us, up to ~843.2us
+Full span 0..63 *16us, jumps in 16us, up to ~992us
+Full span 0..63 *19.2us, jumps in 19.2us, up to ~1190.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - Continues Mode (with gaps of 1 GPADC clk cycle between each number of samples)
+1 - 12.8 us
+2 - 25.6us
+3 - 38.4us
+...
+62 - 793.6us
+63 - Single shot [one sample]" id="DLYINTR" resetval="0x800"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="BYPASS ALPHA FILTER
+
+Alpha filter block indication,  bypass the alpha filter for the first sample" id="BYPALP" resetval="0x800"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="HARDWARE THRESHOLD ENABLE
+
+enble the comparators block to compare sample to HW threshold" id="HWTHREN" resetval="0x800"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" description="GAIN OUT SELECT
+
+'00' - chooses del_vbe_buf_outm
+'01' - chooses del_vbe_buf_outp
+'10' - chooses diffrential both p and m
+'11' - NA" id="GNOSEL" resetval="0x800"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="PMCIO spare dynamic bits" id="PMSPR" resetval="0x800"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" description="RFCIO spare dynamic bits" id="RFSPR" resetval="0x800"/>
+	</register>
+	<register acronym="GPADC_RX_2_CTRL" id="gpadc_rx_2_ctrl" width="32" description="GPADC RX 2 CONTROL
+
+RX set 4 control register" offset="0xc">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="SENSOR INDEX
+
+0 - ATB
+1 - Vdd_Main
+2 - Vdd_PA
+3 - Thermal Protection
+4 - Thermal Calibration
+5 - Env_Det_Calibration
+6 - BG Blocker
+7 - PM BIST
+8 - RFCIO TEST_M
+9 - RFCIO TEST_P (using thermal protectio sens sel only)
+10 - PM BG 0.9V
+11 - PM BG 1.22V
+12 - I2V_VOUT
+13 - SPARE2
+14 - IS_RX_FILTER" id="SNSIDX" resetval="0x800"/>
+		<bitfield width="5" end="4" begin="8" rwaccess="RW" description="DELAY FROM EVENT
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle (1.6/1.7/2.0/2.4 us) need to be kept between 2 Agents
+
+0 - 0.5us - minimum value.
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us
+*note- delay from event is not accurate, additional of up to 200ns might be added." id="DLYFEVT" resetval="0x800"/>
+		<bitfield width="5" end="9" begin="13" rwaccess="RW" description="NUMBER OF SAMPLES
+
+Full span 0..31 *1.6us, jumps in 1.6us, up to ~49.6us
+Full span 0..31 *1.7us, jumps in 1.7us, up to ~52.7us
+Full span 0..31 *2us, jumps in 2us, up to ~62us
+Full span 0..31 *2.4us, jumps in 2.4us, up to ~74.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - not allowed
+1 - 1.6us
+2 - 3.2us
+3 - 4.8us
+...
+31 - 49.6us" id="NUMOSMP" resetval="0x800"/>
+		<bitfield width="6" end="14" begin="19" rwaccess="RW" description="DELAY INTERVAL
+
+Full span 0..63 *12.8us, jumps in 12.8us, up to ~793.6us
+Full span 0..63 *13.6us, jumps in 13.6us, up to ~843.2us
+Full span 0..63 *16us, jumps in 16us, up to ~992us
+Full span 0..63 *19.2us, jumps in 19.2us, up to ~1190.4us
+
+*note - 1 ganulation cycle need to be kept between 2 Agents
+
+0 - Continues Mode (with gaps of 1 GPADC clk cycle between each number of samples)
+1 - 12.8 us
+2 - 25.6us
+3 - 38.4us
+...
+62 - 793.6us
+63 - Single shot [one sample]" id="DLYINTR" resetval="0x800"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="BYPASS ALPHA FILTER
+
+Alpha filter block indication,  bypass the alpha filter for the first sample" id="BYPALP" resetval="0x800"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="HARDWARE THRESHOLD ENABLE
+
+enble the comparators block to compare sample to HW threshold" id="HWTHREN" resetval="0x800"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" description="GAIN OUT SELECT
+
+'00' - chooses del_vbe_buf_outm
+'01' - chooses del_vbe_buf_outp
+'10' - chooses diffrential both p and m
+'11' - NA" id="GNOSEL" resetval="0x800"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="PMCIO spare dynamic bits" id="PMSPR" resetval="0x800"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" description="RFCIO spare dynamic bits" id="RFSPR" resetval="0x800"/>
+	</register>
+	<register acronym="GPADC_GENERAL_CTRL" id="gpadc_general_ctrl" width="32" description="GPADC general control" offset="0x10">
+		<bitfield width="11" end="21" begin="31" rwaccess="RO" id="Reserved" resetval="0x1fd800"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="MUTE DISABLE
+
+'1' - disables the line mute output" id="MUTDIS" resetval="0x1fd800"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="adc end of conversion (busy) indication" id="EOCBUSY" resetval="0x1fd800"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="NONE EVENT MODE
+
+'1' - for using only RX set 1. ignors the TX transition.
+'0' - regular operation
+
+Process to operate NON EVENT MODE:
+
+1. Disable ALL SETs.
+2. config RX SETs
+3. Enable NON EVENT MODE
+4. Enable RX SETs
+5. once measurement has finished, Disable all SETs and reconfigure
+6. Disable NON EVENT MODE
+7. Enable SETs" id="NONEVTMOD" resetval="0x1fd800"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="SELECT OVERRIDE START OF CONVERSION
+
+'1' - uses overide value
+'0' - use regular operation" id="SELOVSOC" resetval="0x1fd800"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="OVERRIDE START OF CONVERSION
+
+'1' - uses overide value
+'0' - use regular operation" id="OVSOC" resetval="0x1fd800"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="SELCT OVERRIDE CLEAR
+
+'1' - uses overide value
+'0' - use regular operation" id="SELOVCLR" resetval="0x1fd800"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="OVERRIDE CLEAR
+
+overide value" id="OVCLR" resetval="0x1fd800"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="SELECT OVERRIDE ADC EN
+
+'1' - uses overide value
+'0' - use regular operation" id="SELOVADCEN" resetval="0x1fd800"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="OVERRIDE ADC ENABLE
+
+overide value" id="OVADCEN" resetval="0x1fd800"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="SELCT OVERRIDE PMCIO TEMP SENSOR
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVPMTS" resetval="0x1fd800"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="OVERRIDE PMCIO TEMP SENSOR
+
+overide value" id="OVPMTS" resetval="0x1fd800"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="SELECT OVERRIDE REGISTER 0
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVREG0" resetval="0x1fd800"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="SELECT OVERRIDE REGISTER 1
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVREG1" resetval="0x1fd800"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="SELECT OVERRIDE POWER DETECT BUFFER REGISTER 0
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVPDB0" resetval="0x1fd800"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="SELECT OVERRIDE POWER DETECT BUFFER REGISTER 1
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVPDB1" resetval="0x1fd800"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="SELECT OVERRIDE RXIF 
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVRXIF" resetval="0x1fd800"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="SELECT OVERRIDE RXFEB REG4
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVRXFEB" resetval="0x1fd800"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="SELECT OVERRIDE TEMPRATURE SENSOR WLAN
+
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="SELOVTMPSNS" resetval="0x1fd800"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RO" id="Reserved_2" resetval="0x1fd800"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="OUTPUT REGISTER USAGE
+
+LX PG1 and PG2 use only, for boot measurements.
+after boot should be set '1'.
+GPADC_REG0 and GPADC_REG1 control only.
+'0' - No GPADC CTRL
+'1' - GPADC CTRL output regs usage" id="OREGUSAG" resetval="0x1fd800"/>
+	</register>
+	<register acronym="GPADC_CONV_MNGR_TX_CTRL" id="gpadc_conv_mngr_tx_ctrl" width="32" description="Conversion Manager registers tx control set" offset="0x14">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="THERMAL PROTECTION SENSOR TX 1
+
+holds the configuration of the specific thermal sensor that thermal protection wish to convert" id="THPSNSTX1" resetval="0x0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="CALIBRATION TEMPRATURE SENSORE TX 1
+
+holds the configuration of the specific thermal sensor that calibration wish to convert" id="CTMPSNSTX1" resetval="0x0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="CALIBRATION ENVELOP DETECTOR SENSOR SELECT TX 1
+
+holds the configuration of the specific env_det sensor that calibration wish to convert" id="CEDSNSTX1" resetval="0x0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="POWER DETECT BUFFER ENVELOP DETECTOR TX 1
+
+DIFF mode:
+'000' - 8
+'001' - 5
+'010' - 4
+'011' - 2
+'100' - 1
+'101' - 0.5
+
+SE mode:
+'000' - 4
+'001' - 2.5
+'010' - 2
+'011' - 1
+'100' - 0.5
+'101' - 0.25" id="PBEDTX1" resetval="0x0"/>
+		<bitfield width="3" end="16" begin="18" rwaccess="RW" description="THERMAL PROTECTION SENSOR TX 2
+
+holds the configuration of the specific thermal sensor that thermal protection wish to convert" id="THPSNSTX2" resetval="0x0"/>
+		<bitfield width="3" end="19" begin="21" rwaccess="RW" description="CALIBRATION TEMPRATURE SENSORE TX 2
+
+holds the configuration of the specific thermal sensor that calibration wish to convert" id="CTMPSNSTX2" resetval="0x0"/>
+		<bitfield width="3" end="22" begin="24" rwaccess="RW" description="CALIBRATION ENVELOP DETECTOR SENSOR SELECT TX 2
+
+holds the configuration of the specific env_det sensor that calibration wish to convert" id="CEDSNSTX2" resetval="0x0"/>
+		<bitfield width="3" end="25" begin="27" rwaccess="RW" description="POWER DETECT BUFFER ENVELOP DETECTOR TX 2
+
+DIFF mode:
+'000' - 8
+'001' - 5
+'010' - 4
+'011' - 2
+'100' - 1
+'101' - 0.5
+
+SE mode:
+'000' - 4
+'001' - 2.5
+'010' - 2
+'011' - 1
+'100' - 0.5
+'101' - 0.25" id="PBEDTX2" resetval="0x0"/>
+		<bitfield width="2" end="12" begin="13" rwaccess="RW" description="REGISTER 1 GAIN TX 1
+
+holds the configuration of the gpadc_reg1 gain:
+SE
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.75
+'01' (0010) - 1.5 (~3.5db)
+'00' (0001) - 1 (0db)
+
+DIFF
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.5 (~3.5db)
+'01' (0010) - 1 (0db)
+'00' (0001) - NU" id="REG1GNTX1" resetval="0x0"/>
+		<bitfield width="2" end="28" begin="29" rwaccess="RW" description="REGISTER 1 GAIN TX 2
+
+holds the configuration of the gpadc_reg1 gain:
+SE
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.75
+'01' (0010) - 1.5 (~3.5db)
+'00' (0001) - 1 (0db)
+
+DIFF
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.5 (~3.5db)
+'01' (0010) - 1 (0db)
+'00' (0001) - NU" id="REG1GNTX2" resetval="0x0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_CONV_MNGR_RX_CTRL" id="gpadc_conv_mngr_rx_ctrl" width="32" description="Conversion Manager registers rx control set" offset="0x18">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="THERMAL PROTECTION SENSOR RX 1
+
+holds the configuration of the specific thermal sensor that thermal protection wish to convert" id="THPSNSRX1" resetval="0x0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="CALIBRATION TEMPRATURE SENSORE RX 1
+
+holds the configuration of the specific thermal sensor that calibration wish to convert" id="CTMPSNSRX1" resetval="0x0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="CALIBRATION ENVELOP DETECTOR SENSOR SELECT RX 1
+
+holds the configuration of the specific env_det sensor that calibration wish to convert" id="CEDSNSRX1" resetval="0x0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="POWER DETECT BUFFER ENVELOP DETECTOR RX 1
+
+DIFF mode:
+'000' - 8
+'001' - 5
+'010' - 4
+'011' - 2
+'100' - 1
+'101' - 0.5
+
+SE mode:
+'000' - 4
+'001' - 2.5
+'010' - 2
+'011' - 1
+'100' - 0.5
+'101' - 0.25" id="PBEDRX1" resetval="0x0"/>
+		<bitfield width="3" end="16" begin="18" rwaccess="RW" description="THERMAL PROTECTION SENSOR RX 2
+
+holds the configuration of the specific thermal sensor that thermal protection wish to convert" id="THPSNSRX2" resetval="0x0"/>
+		<bitfield width="3" end="19" begin="21" rwaccess="RW" description="CALIBRATION TEMPRATURE SENSORE RX 2
+
+holds the configuration of the specific thermal sensor that calibration wish to convert" id="CTMPSNSRX2" resetval="0x0"/>
+		<bitfield width="3" end="22" begin="24" rwaccess="RW" description="CALIBRATION ENVELOP DETECTOR SENSOR SELECT RX 2
+
+holds the configuration of the specific env_det sensor that calibration wish to convert" id="CEDSNSRX2" resetval="0x0"/>
+		<bitfield width="3" end="25" begin="27" rwaccess="RW" description="POWER DETECT BUFFER ENVELOP DETECTOR RX 2
+
+DIFF mode:
+'000' - 8
+'001' - 5
+'010' - 4
+'011' - 2
+'100' - 1
+'101' - 0.5
+
+SE mode:
+'000' - 4
+'001' - 2.5
+'010' - 2
+'011' - 1
+'100' - 0.5
+'101' - 0.25" id="PBEDRX2" resetval="0x0"/>
+		<bitfield width="2" end="12" begin="13" rwaccess="RW" description="REGISTER 1 GAIN RX 1
+
+holds the configuration of the gpadc_reg1 gain:
+SE
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.75
+'01' (0010) - 1.5 (~3.5db)
+'00' (0001) - 1 (0db)
+
+DIFF
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.5 (~3.5db)
+'01' (0010) - 1 (0db)
+'00' (0001) - NU" id="REG1GNRX1" resetval="0x0"/>
+		<bitfield width="2" end="28" begin="29" rwaccess="RW" description="REGISTER 1 GAIN RX 2
+
+holds the configuration of the gpadc_reg1 gain:
+SE
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.75
+'01' (0010) - 1.5 (~3.5db)
+'00' (0001) - 1 (0db)
+
+DIFF
+'11' (1000) - 2 (~6db)
+'10' (0100) - 1.5 (~3.5db)
+'01' (0010) - 1 (0db)
+'00' (0001) - NU" id="REG1GNRX2" resetval="0x0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_SET_GENERAL_CTRL" id="gpadc_set_general_ctrl" width="32" description="SETS GENERAL CONTROL" offset="0x1c">
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="INJECT MODE
+
+when '1' user config the mode : Manual (0) vs. Auto (1). Default is manual" id="INJMOD" resetval="0x0"/>
+		<bitfield width="2" end="2" begin="3" rwaccess="RW" description="MANUAL SET SELECTOR
+
+during debug a user would like to set the set selector
+00 - RX A
+01 - RX B
+10 - TX A
+11 - TX B" id="MANSETSEL" resetval="0x0"/>
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="GRANULATION SELECT
+
+defines the GPADC granulation
+0 - 1.6us
+1 - 1.7us
+2 - 2us
+3 - 2.4us" id="GRANSEL" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="INJECT ENABLE
+
+when '1' use Inject mode
+'1' - use manual set selector" id="INJEN" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="SINGLE MODE
+
+Force clear @adc_soc for each sample (1.6us); Defaul is 0 (Continous mode)." id="SNGMOD" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_M0_IRQ_MASK_CTRL" id="gpadc_m0_irq_mask_ctrl" width="32" description="M0 INTERRUPT BIT MASK
+
+M0 IRQ MASK registers control set" offset="0x20">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="VALUE
+
+1 - mask the event; 0 - do not mask. Event will cause IRQ
+'00000001' - tx set 1 high
+'00000010' - tx set 2 high
+'00000100' - rx set 1 high
+'00001000' - rx set 2 high
+'00010000' - tx set 1 low
+'00100000' - tx set 2 low
+'01000000' - rx set 1 low
+'10000000' - rx set 2 low" id="VAL" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_M0_IRQ_STATUS" id="gpadc_m0_irq_status" width="32" description="M0 IRQ status register" offset="0x24">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="VALUE
+
+M0 IRQ status register; clear upon read by S/W
+'00000001' - tx set 1 high
+'00000010' - tx set 2 high
+'00000100' - rx set 1 high
+'00001000' - rx set 2 high
+'00010000' - tx set 1 low
+'00100000' - tx set 2 low
+'01000000' - rx set 1 low
+'10000000' - rx set 2 low" id="VAL" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_M3_IRQ_MASK_CTRL" id="gpadc_m3_irq_mask_ctrl" width="32" description="M3 INTERRUPT BIT MASK
+
+M3 IRQ MASK registers control set" offset="0x28">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="VALUE
+
+1 - mask the event; 0 - do not mask. Event will cause IRQ 
+'00000001' - tx set 1 high
+'00000010' - tx set 2 high
+'00000100' - rx set 1 high
+'00001000' - rx set 2 high
+'00010000' - tx set 1 low
+'00100000' - tx set 2 low
+'01000000' - rx set 1 low
+'10000000' - rx set 2 low" id="VAL" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_M3_IRQ_STATUS" id="gpadc_m3_irq_status" width="32" description="M3 IRQ status register" offset="0x2c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="VALUE
+
+M0 IRQ status register; clear upon read by S/W
+'00000001' - tx set 1 high
+'00000010' - tx set 2 high
+'00000100' - rx set 1 high
+'00001000' - rx set 2 high
+'00010000' - tx set 1 low
+'00100000' - tx set 2 low
+'01000000' - rx set 1 low
+'10000000' - rx set 2 low" id="VAL" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_LOG_ALPHA_CTRL" id="gpadc_log_alpha_ctrl" width="32" description="LOG ALPHA
+
+GPADC Log Alpha cntrol reister
+Alpha value = 2^(-mem_)
+for example if mem_= 1 then alpha is 0.5.
+
+Y(n)= (1-alpha)*Y(n-1)+(alpha)*X(n)=Y(n-1)+(alpha)*(X(n)-Y(n-1))" offset="0x30">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="log alpha tx 1 value" id="TX1" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved_1" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="log alpha tx 2 value" id="TX2" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="log alpha rx 1 value" id="RX1" resetval="0x0"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="log alpha rx 2 value" id="RX2" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_THR_TX_1_CTRL" id="gpadc_thr_tx_1_ctrl" width="32" description="THRESHOLD TX 1
+
+defines threshold values for tx set 1" offset="0x34">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="defines high threshold value for tx set 1" id="HI" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="defines low threshold value for tx set 1" id="LO" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved_1" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_THR_TX_2_CTRL" id="gpadc_thr_tx_2_ctrl" width="32" description="THRESHOLD TX 2
+
+defines threshold values for tx set 1" offset="0x38">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="defines high threshold value for tx set 2" id="HI" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="defines low threshold value for tx set 2" id="LO" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved_1" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_THR_RX_1_CTRL" id="gpadc_thr_rx_1_ctrl" width="32" description="THRESHOLD RX 1
+
+defines threshold values for rx set 1" offset="0x3c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="defines high threshold value for rx set 1" id="HI" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="defines low threshold value for rx set 1" id="LO" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved_1" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_THR_RX_2_CTRL" id="gpadc_thr_rx_2_ctrl" width="32" description="THRESHOLD RX 2
+
+defines threshold values for rx set 2" offset="0x40">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="defines high threshold value for rx set 2" id="HI" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="defines low threshold value for rx set 2" id="LO" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved_1" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_HW_THERMAL_THR_CTRL" id="gpadc_hw_thermal_thr_ctrl" width="32" description="HARDWARE THERMAL THRESHOLD
+
+defines hw thermal threshold value" offset="0x44">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="VALUE
+
+hw thermal threshold value" id="VAL" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_LINE_MUTE" id="gpadc_line_mute" width="32" description="LINE MUTE 
+
+line mute registers control set" offset="0x48">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="SET
+
+write clear
+
+line mute result - S/W wr option" id="SET" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_ALPHA_RES_TX_1" id="gpadc_alpha_res_tx_1" width="32" description="Alpha result registers control set" offset="0x4c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="SET
+
+write clear
+ADC alpha filter result - S/W wr option" id="SET" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_ALPHA_RES_TX_2" id="gpadc_alpha_res_tx_2" width="32" description="Alpha result registers control set" offset="0x50">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="SET
+
+write clear
+ADC alpha filter result - S/W wr option" id="SET" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_ALPHA_RES_RX_1" id="gpadc_alpha_res_rx_1" width="32" description="Alpha result registers control set" offset="0x54">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="SET
+
+write clear
+ADC alpha filter result - S/W wr option" id="SET" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_ALPHA_RES_RX_2" id="gpadc_alpha_res_rx_2" width="32" description="Alpha result registers control set" offset="0x58">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="SET
+
+write clear
+ADC alpha filter result - S/W wr option" id="SET" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_ADC_SAMPLE_CTRL" id="gpadc_adc_sample_ctrl" width="32" description="SAMPLE CONTROL" offset="0x64">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="SET
+
+write clear
+
+ADC Sample - S/W wr option" id="SET" resetval="0x100"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x100"/>
+	</register>
+	<register acronym="ALPHA_FILTER_DATA_IS_VALID" id="alpha_filter_data_is_valid" width="32" description="ALPHA FILTER DATA VALID
+
+Alpha result registers control set" offset="0x68">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="alpha filter data is valid rx 1" id="RX1" resetval="0x0"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="alpha filter data is valid rx 2" id="RX2" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="alpha filter data is valid tx 1" id="TX1" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="alpha filter data is valid tx 2" id="TX2" resetval="0x0"/>
+	</register>
+	<register acronym="GPADC_SET_EN_CTRL" id="gpadc_set_en_ctrl" width="32" description="SET ENABLE CONTROL
+
+GPADC FW EN for each set" offset="0x6c">
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="FIRMWARE ENABLE
+
+Enable indication for TX set 1
+note:
+Between disable to enable must save min delay of 0.1us" id="TX1FWEN" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="FIRMWARE ENABLE
+
+Enable indication for TX set 2
+note:
+Between disable to enable must save min delay of 0.1us" id="TX2FWEN" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="FIRMWARE ENABLE
+
+Enable indication for RX set 1
+note:
+Between disable to enable must save min delay of 0.1us" id="RX1FWEN" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="FIRMWARE ENABLE
+
+Enable indication for RX set 2
+note:
+Between disable to enable must save min delay of 0.1us" id="RX2FWEN" resetval="0x0"/>
+	</register>
+	<register acronym="PMCIO_REGS" id="pmcio_regs" width="32" description="PMCIO REGS" offset="0x70">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="REGISTER 0" id="REG0" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="REGISTER1" id="REG1" resetval="0x0"/>
+	</register>
+</module>

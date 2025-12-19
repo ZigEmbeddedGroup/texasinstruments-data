@@ -1,0 +1,112 @@
+<module id="SECAP_HANDLER_REGS" HW_revision="" description="SECAP HANDLER Registers">
+	<register id="PASSWORD_ID" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="Password ID">
+		<bitfield id="ID" description="Password ID" begin="3" end="0" width="4" rwaccess="R"/>
+	</register>
+	<register id="PASSWORD1" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="Password1 Register">
+		<bitfield id="PASSWORD" description="SSU Password1 register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="PASSWORD2" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="Password2 Register">
+		<bitfield id="PASSWORD" description="SSU Password2 register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="PASSWORD3" width="32" page="0" offset="0xc" instances="1" instaddr="4" internal="0" description="Password3 Register">
+		<bitfield id="PASSWORD" description="SSU Password3 register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="PASSWORD4" width="32" page="0" offset="0x10" instances="1" instaddr="4" internal="0" description="Password4 Register">
+		<bitfield id="PASSWORD" description="SSU Password4 register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="DEBUG_ENABLE_STATUS" width="32" page="0" offset="0x14" instances="1" instaddr="4" internal="0" description="Debug status register">
+		<bitfield id="JTAG_DBGEN" description="JTAG Full Debug enable" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ZONE0_DBGEN" description="Zone1 Full Debug enable" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="ZONE1_DBGEN" description="Zone2 Full Debug enable" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="ZONE2_DBGEN" description="Zone3 Full Debug enable" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="ZONE3_DBGEN" description="Zone4 Full Debug enable" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="PARTIAL_ZONE1_DBGEN" description="Partial Zone1 Debug enable" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="PARTIAL_ZONE2_DBGEN" description="Partial Zone2 Debug enable" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="PARTIAL_ZONE3_DBGEN" description="Partial Zone3 Debug enable" begin="10" end="10" width="1" rwaccess="R"/>
+		<bitfield id="ZONEX_DBGEN" description="ZoneX Debug enable" begin="15" end="15" width="1" rwaccess="R"/>
+	</register>
+	<register id="TEST_PASSWORD1" width="32" page="0" offset="0x80" instances="1" instaddr="4" internal="0" description="Test Password1 Register">
+		<bitfield id="PASSWORD" description="HSM Test Password1 Register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="TEST_PASSWORD2" width="32" page="0" offset="0x84" instances="1" instaddr="4" internal="0" description="Test Password2 Register">
+		<bitfield id="PASSWORD" description="HSM Test Password2 Register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="TEST_PASSWORD3" width="32" page="0" offset="0x88" instances="1" instaddr="4" internal="0" description="Test Password3 Register">
+		<bitfield id="PASSWORD" description="HSM Test Password3 Register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="TEST_PASSWORD4" width="32" page="0" offset="0x8c" instances="1" instaddr="4" internal="0" description="Test Password4 Register">
+		<bitfield id="PASSWORD" description="HSM Test Password4 Register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="DBG2CPU1_CHR" width="32" page="0" offset="0x100" instances="1" instaddr="4" internal="0" description="Debugger to CPU1/SSU challenge response">
+		<bitfield id="MSG" description="Challenge response message" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU12DBG_CHR" width="32" page="0" offset="0x104" instances="1" instaddr="4" internal="0" description="CPU1/SSU to Debugger challenge response">
+		<bitfield id="MSG" description="Challenge response message" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="DBG2CPU1_HS" width="32" page="0" offset="0x108" instances="1" instaddr="4" internal="0" description="Debugger to CPU1/SSU Handshake">
+		<bitfield id="DAT" description="Handshaking message" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU12DBG_HS" width="32" page="0" offset="0x10c" instances="1" instaddr="4" internal="0" description="CPU1/SSU to Debugger Handshake">
+		<bitfield id="DAT" description="Handshaking message" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="DBG2CPU1_INT_FLG" width="32" page="0" offset="0x110" instances="1" instaddr="4" internal="0" description="Debugger to CPU1 interrupt flag">
+		<bitfield id="INT" description="Debugger to CPU Interrupt flag" begin="0" end="0" width="1" rwaccess="R"/>
+	</register>
+	<register id="DBG2CPU1_INT_FLG_SET" width="32" page="0" offset="0x114" instances="1" instaddr="4" internal="0" description="Debugger to CPU1 interrupt set">
+		<bitfield id="INT" description="Debugger to CPU Interrupt set" begin="0" end="0" width="1" rwaccess="R"/>
+	</register>
+	<register id="DBG2CPU1_INT_FLG_CLR" width="32" page="0" offset="0x118" instances="1" instaddr="4" internal="0" description="Debugger to CPU1 interrupt clear">
+		<bitfield id="INT" description="Debugger to CPU Interrupt flag clear" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSU_DBG_STATUS" width="32" page="0" offset="0x204" instances="1" instaddr="4" internal="0" description="Read only SSU DBG Status">
+		<bitfield id="MSG" description="SSU to debugger Status register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="HSM_DBG_STATUS" width="32" page="0" offset="0x208" instances="1" instaddr="4" internal="0" description="Read only HSM DBG Status">
+		<bitfield id="MSG" description="HSM to debugger Status register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CTL_DBG_STATUS" width="32" page="0" offset="0x20c" instances="1" instaddr="4" internal="0" description="Read only CTL DBG Status">
+		<bitfield id="MSG" description="CTL to debugger Status register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STATUS0" width="32" page="0" offset="0x210" instances="1" instaddr="4" internal="0" description="Read only GEN DBG Status0">
+		<bitfield id="MSG" description="GEN to debugger Status register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STATUS1" width="32" page="0" offset="0x214" instances="1" instaddr="4" internal="0" description="Read only GEN DBG Status1">
+		<bitfield id="MSG" description="GEN to debugger Status register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STATUS2" width="32" page="0" offset="0x218" instances="1" instaddr="4" internal="0" description="Read only GEN DBG Status2">
+		<bitfield id="MSG" description="GEN to debugger Status register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STATUS3" width="32" page="0" offset="0x21c" instances="1" instaddr="4" internal="0" description="Read only GEN DBG Status3">
+		<bitfield id="MSG" description="GEN to debugger Status register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_STATUS0" width="32" page="0" offset="0x220" instances="1" instaddr="4" internal="0" description="Read only GEN DBG_STICKY Status0">
+		<bitfield id="MSG" description="GEN to debugger Status sitcky register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_STATUS1" width="32" page="0" offset="0x224" instances="1" instaddr="4" internal="0" description="Read only GEN DBG_STICKY Status1">
+		<bitfield id="MSG" description="GEN to debugger Status sitcky register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_STATUS2" width="32" page="0" offset="0x228" instances="1" instaddr="4" internal="0" description="Read only GEN DBG_STICKY Status2">
+		<bitfield id="MSG" description="GEN to debugger Status sitcky register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_STATUS3" width="32" page="0" offset="0x22c" instances="1" instaddr="4" internal="0" description="Read only GEN DBG_STICKY Status3">
+		<bitfield id="MSG" description="GEN to debugger Status sitcky register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_CLR0" width="32" page="0" offset="0x230" instances="1" instaddr="4" internal="0" description="Write only GEN_DBG_STICKY clear register0">
+		<bitfield id="STATS_CLR" description="GEN to debugger Status clear register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_CLR1" width="32" page="0" offset="0x234" instances="1" instaddr="4" internal="0" description="Write only GEN_DBG_STICKY clear register1">
+		<bitfield id="STATS_CLR" description="GEN to debugger Status clear register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_CLR2" width="32" page="0" offset="0x238" instances="1" instaddr="4" internal="0" description="Write only GEN_DBG_STICKY clear register2">
+		<bitfield id="STATS_CLR" description="GEN to debugger Status clear register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="GEN_DBG_STICKY_CLR3" width="32" page="0" offset="0x23c" instances="1" instaddr="4" internal="0" description="Write only GEN_DBG_STICKY clear register3">
+		<bitfield id="STATS_CLR" description="GEN to debugger Status clear register" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="C29_DBG_RX_ADDR" width="32" page="0" offset="0x240" instances="1" instaddr="4" internal="0" description="RX Data Write Address">
+		<bitfield id="ADDRESS" description="Rx Bus Address register" begin="31" end="1" width="31" rwaccess="R"/>
+	</register>
+	<register id="JTAG_GEN" width="32" page="0" offset="0x244" instances="1" instaddr="4" internal="0" description="jtag general purpose register">
+		<bitfield id="MSG" description="JTAG general purpose message" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+</module>

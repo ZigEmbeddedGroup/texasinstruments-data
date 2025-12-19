@@ -1,0 +1,37 @@
+<module id="C29_SELFTEST_REGS" HW_revision="" description="C29 SELFTEST Registers">
+	<register id="SELFTEST_DIAG_DATA0" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="Diagnostics data register 0">
+		<bitfield id="SELFTEST_DIAG_DATA0" description="Self test Diagnostics data 0" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_DATA1" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="Diagnostics data register 1">
+		<bitfield id="SELFTEST_DIAG_DATA1" description="Self test Diagnostics data 1" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_DATA2" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="Diagnostics data register 2">
+		<bitfield id="SELFTEST_DIAG_DATA2" description="Self test Diagnostics data 2" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_ECC" width="32" page="0" offset="0x20" instances="1" instaddr="4" internal="0" description="Diagnostics ECC">
+		<bitfield id="SELFTEST_DIAG_ECC" description="Self test Diagnostics ECC" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_CONTROL" width="32" page="0" offset="0x28" instances="1" instaddr="4" internal="0" description="Diagnostic test enable">
+		<bitfield id="DIAG_TEST_EN" description="Diagnostic test enable" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="DIAG_MICRO_STEP_MODE" description="Diagnostic micro step mode" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="DIAG_ADDITIONAL_PIPELINE_EN" description="Additional pipeline enable" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="DIAG_SAFETY_SEL" description="Diagnostic safetly selection" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="DIAG_CHECKER_SEL" description="ECC checker selection" begin="11" end="8" width="4" rwaccess="RW"/>
+		<bitfield id="DIAG_ECC_WIDTH" description="Diagnostic ECC width" begin="19" end="16" width="4" rwaccess="RW"/>
+		<bitfield id="DIAG_DATA_WIDTH" description="Diagnostic Data width" begin="31" end="24" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_STATUS" width="32" page="0" offset="0x2c" instances="1" instaddr="4" internal="0" description="Diagnostic status register">
+		<bitfield id="DIAG_MICROSTEP_DONE" description="Done Micro step" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_TEST_DONE" description="Done self test" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_TEST_FAIL" description="Test failed" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_C_ERROR" description="Diagnostic correctable error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_UC_ERROR" description="Diagnostic uncorrectable error" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_CHECK_TYPE" description="Failed diagnostic check type" begin="6" end="5" width="2" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_BIT_INDEX" description="Error bit position" begin="15" end="8" width="8" rwaccess="R"/>
+	</register>
+	<register id="SELFTEST_DIAG_STATUS_CLR" width="32" page="0" offset="0x30" instances="1" instaddr="4" internal="0" description="Diagnostic status clear register">
+		<bitfield id="DIAG_MICROSTEP_DONE" description="Clear micro step done status flag" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DIAG_TEST_DONE" description="Clear selftest done status flag" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="DIAG_TEST_FAIL" description="Clear test failed status flags" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+</module>

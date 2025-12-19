@@ -1,0 +1,53 @@
+<module name="CPT2_AGGR_MMR" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CPT2_AGGR_MMR_AGGREGATOR_ID" acronym="CPT2_AGGR_MMR_AGGREGATOR_ID" offset="0" width="32" description="This is the standard TI peripheral ID register that exists at address 0 in the preipheral space">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="   Reset Source: cfg_rst_n" range="31:30" rwaccess="R"/>
+	<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="   Reset Source: cfg_rst_n" range="29:28" rwaccess="R"/>
+	<bitfield id="FUNCTION" width="12" begin="27" end="16" resetval="0x641" description="   Reset Source: cfg_rst_n" range="27:16" rwaccess="R"/>
+	<bitfield id="RTL_VER" width="5" begin="15" end="11" resetval="0x0" description="   Reset Source: cfg_rst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="MAJOR_REV" width="3" begin="10" end="8" resetval="0x1" description="   Reset Source: cfg_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="   Reset Source: cfg_rst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="MINOR_REV" width="6" begin="5" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="CPT2_AGGR_MMR_AGGREGATOR_CNTL" acronym="CPT2_AGGR_MMR_AGGREGATOR_CNTL" offset="4" width="32" description="This register contains the controls for serial indrect access and trace processing">
+		<bitfield id="RSVD1" width="21" begin="31" end="11" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:11" rwaccess="R"/>
+	<bitfield id="CONTINUOUS_READ_NUM" width="2" begin="10" end="9" resetval="0x0" description="Continuous Read Target Count. This field designates the number of continuous read target configured.   Reset Source: cfg_rst_n" range="10:9" rwaccess="R/W"/>
+	<bitfield id="CONTINUOUS_READ_MODE" width="1" begin="8" end="8" resetval="0x0" description="This bit controls the operating mode of the Serial Access Proxy0 = Direct access enabled 1 = Continuous read mode active.   Reset Source: cfg_rst_n" range="8" rwaccess="R/W"/>
+	<bitfield id="RSVD0" width="7" begin="7" end="1" resetval="0x0" description="   Reset Source: cfg_rst_n" range="7:1" rwaccess="R"/>
+	<bitfield id="TRACE_EN" width="1" begin="0" end="0" resetval="0x0" description="Trace Enable: This bit controls whether HLTMs are processed, converted to STP streams and exported via ATB. 0 = Disabled. Software can configure the Aggregator in this state. 1 = HLTM processing enabled. Software should not configure the Aggregator while in the enabled state; however, it is allowed to initiate a flush request (via STP_FLUSH_CONTROL:FORCE_FLUSH) while in the enabled state   Reset Source: cfg_rst_n" range="0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_AGGREGATOR_OWN" acronym="CPT2_AGGR_MMR_AGGREGATOR_OWN" offset="8" width="32" description="Module Ownership Control and Status Register">
+		<bitfield id="RSVD" width="29" begin="31" end="3" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:3" rwaccess="R"/>
+	<bitfield id="OWN" width="2" begin="2" end="1" resetval="0x0" description="   Reset Source: cfg_rst_n" range="2:1" rwaccess="R"/>
+	<bitfield id="CLAIM" width="1" begin="0" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_PORT0" acronym="CPT2_AGGR_MMR_CONT_READ_PORT0" offset="32" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:5" rwaccess="R"/>
+	<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="4:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_ADDR0" acronym="CPT2_AGGR_MMR_CONT_READ_ADDR0" offset="36" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_DATA0" acronym="CPT2_AGGR_MMR_CONT_READ_DATA0" offset="40" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_PORT1" acronym="CPT2_AGGR_MMR_CONT_READ_PORT1" offset="48" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:5" rwaccess="R"/>
+	<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="4:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_ADDR1" acronym="CPT2_AGGR_MMR_CONT_READ_ADDR1" offset="52" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_DATA1" acronym="CPT2_AGGR_MMR_CONT_READ_DATA1" offset="56" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_PORT2" acronym="CPT2_AGGR_MMR_CONT_READ_PORT2" offset="64" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:5" rwaccess="R"/>
+	<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="4:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_ADDR2" acronym="CPT2_AGGR_MMR_CONT_READ_ADDR2" offset="68" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_DATA2" acronym="CPT2_AGGR_MMR_CONT_READ_DATA2" offset="72" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_PORT3" acronym="CPT2_AGGR_MMR_CONT_READ_PORT3" offset="80" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:5" rwaccess="R"/>
+	<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="4:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_ADDR3" acronym="CPT2_AGGR_MMR_CONT_READ_ADDR3" offset="84" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="CPT2_AGGR_MMR_CONT_READ_DATA3" acronym="CPT2_AGGR_MMR_CONT_READ_DATA3" offset="88" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="   Reset Source: cfg_rst_n" range="31:0" rwaccess="R"/>
+	</register>
+</module>

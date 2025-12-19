@@ -1,0 +1,1228 @@
+<?xml version="1.0" ?>
+<module id="PMAC_ACM" XML_version="Unknown" description="">
+	<register acronym="AC0_DATA_FRM_PARAMS" id="ac0_data_frm_params" width="32" description="current data frame params as set by the tx candidate." offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="indication that the data AC regs are of a valid frame. asserte by candidate." id="AC0_DATA_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RW" description="data frame rate. pmac coding (not PHY coding)" id="AC0_DATA_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="data frame preamble. phy coding." id="AC0_DATA_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="20" begin="24" rwaccess="RW" description="data frame power." id="AC0_DATA_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="1" begin="9" rwaccess="RW" description="data frame's Virtual address index (frame at the head of the queue)" id="AC0_DATA_VA_IDX_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Immediate response is expected." id="AC0_DATA_IMM_RESP_REQ_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="AC0_DATA_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RW" id="AC0_DATA_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" id="AC0_DATA_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC0_IMM_EXPIRY_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC0_CTRL_FRM_PARAMS" id="ac0_ctrl_frm_params" width="32" offset="0x4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="control frame exist - for RTS/CTS, if this bit is asserted, current transmission will be of the protection frame.
+for cf_end, transmission depands on remaining time and data frame existence." id="AC0_CTRL_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="control frame rate. pmac coding (not PHY coding)" id="AC0_CTRL_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="control frame preamble (phy coding)" id="AC0_CTRL_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="12" begin="16" rwaccess="RW" description="control frame power." id="AC0_CTRL_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="control frame type: 0 - RTS,  1 - CTS, 2 - CF_END" id="AC0_CTRL_FRM_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="AC0_CTRL_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="18" begin="20" rwaccess="RW" id="AC0_CTRL_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" id="AC0_CTRL_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" id="AC0_CTRL_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="AC0_CTRL_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC0_PROT_DURATION" id="ac0_prot_duration" width="32" offset="0x8">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="protection frame duration - CTS, RTS or CF_END" id="AC0_PROTECTION_FRM_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RW" description="entire protection duration CTS+SIFS or RTS+SIFS+CTS+SIFS. field is ignored in burst case." id="AC0_PROTECTION_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC0_DURATION" id="ac0_duration" width="32" offset="0xc">
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="total transaction duration - protection + data frame and Imm response" id="AC0_TRANS_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="7" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Used LAS (Link adaptation state)." id="AC0_USED_LAS_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="Indication on wither LAS state was overriden by get_rate nad wither to easier or harder state 00 - same state 01 - easier state 10 - harder state" id="AC0_POLICY_TBL_IDX_DIFF_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC0_EXPIRY_TIME" id="ac0_expiry_time" width="32" offset="0x10">
+		<bitfield width="30" end="0" begin="29" rwaccess="RW" description="expiry time in micro seconds" id="AC0_EXPIRY_TIME_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC0_NO_EXPIRY_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC0_IR_PARAMS" id="ac0_ir_params" width="32" offset="0x14">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Imm response rate (pmac coding)" id="AC0_IR_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Imm response preamble (PHY coding)" id="AC0_IR_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC0_CW_PARAMS" id="ac0_cw_params" width="32" offset="0x20">
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="station retries counter." id="SRC_AC0_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" description="station retries counter limit. src clears on values greater then this limit." id="MEM_SRC_AC0_LIMIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW exponent for AC0" id="CW_EXP_AC0_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+		<bitfield width="20" end="4" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+	</register>
+	<register acronym="AC0_CW_PARAMS_2" id="ac0_cw_params_2" width="32" offset="0x24">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW min exponent" id="MEM_CWMIN_AC0" resetval="{'@spirit:resolve': 'immediate', '#text': '0x604'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="cw max exponent" id="MEM_CWMAX_AC0" resetval="{'@spirit:resolve': 'immediate', '#text': '0x604'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x604'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x604'}"/>
+	</register>
+	<register acronym="AC1_DATA_FRM_PARAMS" id="ac1_data_frm_params" width="32" description="current data frame params as set by the tx candidate." offset="0x30">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="indication that the data AC regs are of a valid frame. asserte by candidate." id="AC1_DATA_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="1" begin="9" rwaccess="RW" description="data frame's Virtual address index (frame at the head of the queue)" id="AC1_DATA_VA_IDX_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Immediate response is expected." id="AC1_DATA_IMM_RESP_REQ_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RW" description="data frame rate. pmac coding (not PHY coding)" id="AC1_DATA_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="data frame preamble. phy coding." id="AC1_DATA_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="20" begin="24" rwaccess="RW" description="data frame power." id="AC1_DATA_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="AC1_DATA_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RW" id="AC1_DATA_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" id="AC1_DATA_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC1_IMM_EXPIRY_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC1_CTRL_FRM_PARAMS" id="ac1_ctrl_frm_params" width="32" offset="0x34">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="control frame exist - for RTS/CTS, if this bit is asserted, current transmission will be of the protection frame.
+for cf_end, transmission depands on remaining time and data frame existence." id="AC1_CTRL_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="control frame type: 0 - RTS,  1 - CTS, 2 - CF_END" id="AC1_CTRL_FRM_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="control frame rate. pmac coding (not PHY coding)" id="AC1_CTRL_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="control frame preamble (phy coding)" id="AC1_CTRL_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="12" begin="16" rwaccess="RW" description="control frame power." id="AC1_CTRL_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="AC1_CTRL_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="18" begin="20" rwaccess="RW" id="AC1_CTRL_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" id="AC1_CTRL_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" id="AC1_CTRL_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="AC1_CTRL_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC1_PROT_DURATION" id="ac1_prot_duration" width="32" offset="0x38">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="protection frame duration - CTS, RTS or CF_END" id="AC1_PROTECTION_FRM_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RW" description="entire protection duration CTS+SIFS or RTS+SIFS+CTS+SIFS. field is ignored in burst case." id="AC1_PROTECTION_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC1_DURATION" id="ac1_duration" width="32" offset="0x3c">
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="total transaction duration - protection + data frame and Imm response" id="AC1_TRANS_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="7" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Used LAS (Link adaptation state)." id="AC1_USED_LAS_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="Indication on wither LAS state was overriden by get_rate nad wither to easier or harder state 00 - same state 01 - easier state 10 - harder state" id="AC1_POLICY_TBL_IDX_DIFF_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC1_EXPIRY_TIME" id="ac1_expiry_time" width="32" offset="0x40">
+		<bitfield width="30" end="0" begin="29" rwaccess="RW" description="expiry time in micro seconds" id="AC1_EXPIRY_TIME_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC1_NO_EXPIRY_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC1_IR_PARAMS" id="ac1_ir_params" width="32" offset="0x44">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Imm response rate (pmac coding)" id="AC1_IR_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Imm response preamble (PHY coding)" id="AC1_IR_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC1_CW_PARAMS" id="ac1_cw_params" width="32" offset="0x50">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW exponent for AC1" id="CW_EXP_AC1_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="station retries counter" id="SRC_AC1_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" id="MEM_SRC_AC1_LIMIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+		<bitfield width="20" end="4" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000004'}"/>
+	</register>
+	<register acronym="AC1_CW_PARAMS_2" id="ac1_cw_params_2" width="32" offset="0x54">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW min exponent" id="MEM_CWMIN_AC1" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa04'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="cw max exponent" id="MEM_CWMAX_AC1" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa04'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa04'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa04'}"/>
+	</register>
+	<register acronym="AC2_DATA_FRM_PARAMS" id="ac2_data_frm_params" width="32" description="current data frame params as set by the tx candidate." offset="0x60">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="indication that the data AC regs are of a valid frame. asserte by candidate." id="AC2_DATA_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="1" begin="9" rwaccess="RW" description="data frame's Virtual address index (frame at the head of the queue)" id="AC2_DATA_VA_IDX_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Immediate response is expected." id="AC2_DATA_IMM_RESP_REQ_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RW" description="data frame rate. pmac coding (not PHY coding)" id="AC2_DATA_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="data frame preamble. phy coding." id="AC2_DATA_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="20" begin="24" rwaccess="RW" description="data frame power." id="AC2_DATA_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="AC2_DATA_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RW" id="AC2_DATA_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" id="AC2_DATA_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC2_IMM_EXPIRY_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC2_CTRL_FRM_PARAMS" id="ac2_ctrl_frm_params" width="32" offset="0x64">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="control frame exist - for RTS/CTS, if this bit is asserted, current transmission will be of the protection frame.
+for cf_end, transmission depands on remaining time and data frame existence." id="AC2_CTRL_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="control frame type: 0 - RTS,  1 - CTS, 2 - CF_END" id="AC2_CTRL_FRM_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="control frame rate. pmac coding (not PHY coding)" id="AC2_CTRL_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="control frame preamble (phy coding)" id="AC2_CTRL_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="12" begin="16" rwaccess="RW" description="control frame power." id="AC2_CTRL_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="AC2_CTRL_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="18" begin="20" rwaccess="RW" id="AC2_CTRL_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" id="AC2_CTRL_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" id="AC2_CTRL_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="AC2_CTRL_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC2_PROT_DURATION" id="ac2_prot_duration" width="32" offset="0x68">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="protection frame duration - CTS, RTS or CF_END" id="AC2_PROTECTION_FRM_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RW" description="entire protection duration CTS+SIFS or RTS+SIFS+CTS+SIFS. field is ignored in burst case." id="AC2_PROTECTION_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC2_DURATION" id="ac2_duration" width="32" offset="0x6c">
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="total transaction duration - protection + data frame and Imm response" id="AC2_TRANS_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="7" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Used LAS (Link adaptation state)." id="AC2_USED_LAS_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="Indication on wither LAS state was overriden by get_rate nad wither to easier or harder state 00 - same state 01 - easier state 10 - harder state" id="AC2_POLICY_TBL_IDX_DIFF_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC2_EXPIRY_TIME" id="ac2_expiry_time" width="32" offset="0x70">
+		<bitfield width="30" end="0" begin="29" rwaccess="RW" description="expiry time in micro seconds" id="AC2_EXPIRY_TIME_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC2_NO_EXPIRY_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC2_IR_PARAMS" id="ac2_ir_params" width="32" offset="0x74">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Imm response rate (pmac coding)" id="AC2_IR_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Imm response preamble (PHY coding)" id="AC2_IR_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC2_CW_PARAMS" id="ac2_cw_params" width="32" offset="0x80">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW exponent for AC2" id="CW_EXP_AC2_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000003'}"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="station retries counter" id="SRC_AC2_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000003'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" id="MEM_SRC_AC2_LIMIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000003'}"/>
+		<bitfield width="20" end="4" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000003'}"/>
+	</register>
+	<register acronym="AC2_CW_PARAMS_2" id="ac2_cw_params_2" width="32" offset="0x84">
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="cw max exponent" id="MEM_CWMAX_AC2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x403'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x403'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x403'}"/>
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW min exponent" id="MEM_CWMIN_AC2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x403'}"/>
+	</register>
+	<register acronym="AC3_DATA_FRM_PARAMS" id="ac3_data_frm_params" width="32" description="current data frame params as set by the tx candidate." offset="0x90">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="indication that the data AC regs are of a valid frame. asserte by candidate." id="AC3_DATA_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="1" begin="9" rwaccess="RW" description="data frame's Virtual address index (frame at the head of the queue)" id="AC3_DATA_VA_IDX_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Immediate response is expected." id="AC3_DATA_IMM_RESP_REQ_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RW" description="data frame rate. pmac coding (not PHY coding)" id="AC3_DATA_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="data frame preamble. phy coding." id="AC3_DATA_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="20" begin="24" rwaccess="RW" description="data frame power." id="AC3_DATA_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="AC3_DATA_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RW" id="AC3_DATA_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" id="AC3_DATA_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC3_IMM_EXPIRY_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC3_CTRL_FRM_PARAMS" id="ac3_ctrl_frm_params" width="32" offset="0x94">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="control frame exist - for RTS/CTS, if this bit is asserted, current transmission will be of the protection frame.
+for cf_end, transmission depands on remaining time and data frame existence." id="AC3_CTRL_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="control frame type: 0 - RTS,  1 - CTS, 2 - CF_END" id="AC3_CTRL_FRM_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="control frame rate. pmac coding (not PHY coding)" id="AC3_CTRL_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="control frame preamble (phy coding)" id="AC3_CTRL_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="12" begin="16" rwaccess="RW" description="control frame power." id="AC3_CTRL_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="AC3_CTRL_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="18" begin="20" rwaccess="RW" id="AC3_CTRL_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" id="AC3_CTRL_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" id="AC3_CTRL_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="AC3_CTRL_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC3_PROT_DURATION" id="ac3_prot_duration" width="32" offset="0x98">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="protection frame duration - CTS, RTS or CF_END" id="AC3_PROTECTION_FRM_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RW" description="entire protection duration CTS+SIFS or RTS+SIFS+CTS+SIFS. field is ignored in burst case." id="AC3_PROTECTION_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC3_DURATION" id="ac3_duration" width="32" offset="0x9c">
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="total transaction duration - protection + data frame and Imm response" id="AC3_TRANS_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="7" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Used LAS (Link adaptation state)." id="AC3_USED_LAS_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="Indication on wither LAS state was overriden by get_rate nad wither to easier or harder state 00 - same state 01 - easier state 10 - harder state" id="AC3_POLICY_TBL_IDX_DIFF_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC3_EXPIRY_TIME" id="ac3_expiry_time" width="32" offset="0xa0">
+		<bitfield width="30" end="0" begin="29" rwaccess="RW" description="expiry time in micro seconds" id="AC3_EXPIRY_TIME_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC3_NO_EXPIRY_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC3_IR_PARAMS" id="ac3_ir_params" width="32" offset="0xa4">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Imm response rate (pmac coding)" id="AC3_IR_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Imm response preamble (PHY coding)" id="AC3_IR_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC3_CW_PARAMS" id="ac3_cw_params" width="32" offset="0xb0">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW exponent for AC3" id="CW_EXP_AC3_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="station retries counter" id="SRC_AC3_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" id="MEM_SRC_AC3_LIMIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="20" end="4" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+	</register>
+	<register acronym="AC3_CW_PARAMS_2" id="ac3_cw_params_2" width="32" offset="0xb4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW min exponent" id="MEM_CWMIN_AC3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="cw max exponent" id="MEM_CWMAX_AC3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+	</register>
+	<register acronym="AC4_DATA_FRM_PARAMS" id="ac4_data_frm_params" width="32" description="current data frame params as set by the tx candidate." offset="0xc0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="indication that the data AC regs are of a valid frame. asserte by candidate." id="AC4_DATA_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="1" begin="9" rwaccess="RW" description="data frame's Virtual address index (frame at the head of the queue)" id="AC4_DATA_VA_IDX_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Immediate response is expected." id="AC4_DATA_IMM_RESP_REQ_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RW" description="data frame rate. pmac coding (not PHY coding)" id="AC4_DATA_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="data frame preamble. phy coding." id="AC4_DATA_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="20" begin="24" rwaccess="RW" description="data frame power." id="AC4_DATA_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="AC4_DATA_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RW" id="AC4_DATA_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" id="AC4_DATA_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC4_IMM_EXPIRY_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC4_CTRL_FRM_PARAMS" id="ac4_ctrl_frm_params" width="32" offset="0xc4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="control frame exist - for RTS/CTS, if this bit is asserted, current transmission will be of the protection frame.
+for cf_end, transmission depands on remaining time and data frame existence." id="AC4_CTRL_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="control frame type: 0 - RTS,  1 - CTS, 2 - CF_END" id="AC4_CTRL_FRM_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="control frame rate. pmac coding (not PHY coding)" id="AC4_CTRL_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="control frame preamble (phy coding)" id="AC4_CTRL_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="12" begin="16" rwaccess="RW" description="control frame power." id="AC4_CTRL_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="AC4_CTRL_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="18" begin="20" rwaccess="RW" id="AC4_CTRL_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" id="AC4_CTRL_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" id="AC4_CTRL_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="AC4_CTRL_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC4_PROT_DURATION" id="ac4_prot_duration" width="32" offset="0xc8">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="protection frame duration - CTS, RTS or CF_END" id="AC4_PROTECTION_FRM_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RW" description="entire protection duration CTS+SIFS or RTS+SIFS+CTS+SIFS. field is ignored in burst case." id="AC4_PROTECTION_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC4_DURATION" id="ac4_duration" width="32" offset="0xcc">
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="total transaction duration - protection + data frame and Imm response" id="AC4_TRANS_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="7" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Used LAS (Link adaptation state)." id="AC4_USED_LAS_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="Indication on wither LAS state was overriden by get_rate nad wither to easier or harder state 00 - same state 01 - easier state 10 - harder state" id="AC4_POLICY_TBL_IDX_DIFF_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC4_EXPIRY_TIME" id="ac4_expiry_time" width="32" offset="0xd0">
+		<bitfield width="30" end="0" begin="29" rwaccess="RW" description="expiry time in micro seconds" id="AC4_EXPIRY_TIME_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC4_NO_EXPIRY_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC4_IR_PARAMS" id="ac4_ir_params" width="32" offset="0xd4">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Imm response rate (pmac coding)" id="AC4_IR_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Imm response preamble (PHY coding)" id="AC4_IR_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC4_CW_PARAMS" id="ac4_cw_params" width="32" offset="0xe0">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW exponent for AC4" id="CW_EXP_AC4_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="station retries coutner" id="SRC_AC4_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" id="MEM_SRC_AC4_LIMIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="20" end="4" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+	</register>
+	<register acronym="AC4_CW_PARAMS_2" id="ac4_cw_params_2" width="32" offset="0xe4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW min exponent" id="MEM_CWMIN_AC4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="cw max exponent" id="MEM_CWMAX_AC4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+	</register>
+	<register acronym="AC5_DATA_FRM_PARAMS" id="ac5_data_frm_params" width="32" description="current data frame params as set by the tx candidate." offset="0xf0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="indication that the data AC regs are of a valid frame. asserte by candidate." id="AC5_DATA_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="1" begin="9" rwaccess="RW" description="data frame's Virtual address index (frame at the head of the queue)" id="AC5_DATA_VA_IDX_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Immediate response is expected." id="AC5_DATA_IMM_RESP_REQ_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RW" description="data frame rate. pmac coding (not PHY coding)" id="AC5_DATA_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="data frame preamble. phy coding." id="AC5_DATA_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="20" begin="24" rwaccess="RW" description="data frame power." id="AC5_DATA_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="AC5_DATA_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RW" id="AC5_DATA_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" id="AC5_DATA_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC5_IMM_EXPIRY_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC5_CTRL_FRM_PARAMS" id="ac5_ctrl_frm_params" width="32" offset="0xf4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="control frame exist - for RTS/CTS, if this bit is asserted, current transmission will be of the protection frame.
+for cf_end, transmission depands on remaining time and data frame existence." id="AC5_CTRL_FRM_EXIST_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="control frame type: 0 - RTS,  1 - CTS, 2 - CF_END" id="AC5_CTRL_FRM_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RW" description="control frame rate. pmac coding (not PHY coding)" id="AC5_CTRL_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="control frame preamble (phy coding)" id="AC5_CTRL_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="12" begin="16" rwaccess="RW" description="control frame power." id="AC5_CTRL_PWR_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" id="AC5_CTRL_DCM_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="18" begin="20" rwaccess="RW" id="AC5_CTRL_GI_HE_LTF_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" id="AC5_CTRL_ER_BW_WROPT" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RW" id="AC5_CTRL_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="AC5_CTRL_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC5_PROT_DURATION" id="ac5_prot_duration" width="32" offset="0xf8">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="protection frame duration - CTS, RTS or CF_END" id="AC5_PROTECTION_FRM_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RW" description="entire protection duration CTS+SIFS or RTS+SIFS+CTS+SIFS. field is ignored in burst case." id="AC5_PROTECTION_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC5_DURATION" id="ac5_duration" width="32" offset="0xfc">
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="total transaction duration - protection + data frame and Imm response" id="AC5_TRANS_DUR_WROPT" resetval="0x0"/>
+		<bitfield width="9" end="7" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Used LAS (Link adaptation state)." id="AC5_USED_LAS_WROPT" resetval="0x0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="Indication on wither LAS state was overriden by get_rate nad wither to easier or harder state 00 - same state 01 - easier state 10 - harder state" id="AC5_POLICY_TBL_IDX_DIFF_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC5_EXPIRY_TIME" id="ac5_expiry_time" width="32" offset="0x100">
+		<bitfield width="30" end="0" begin="29" rwaccess="RW" description="expiry time in micro seconds" id="AC5_EXPIRY_TIME_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="AC5_NO_EXPIRY_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="AC5_IR_PARAMS" id="ac5_ir_params" width="32" offset="0x104">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Imm response rate (pmac coding)" id="AC5_IR_RATE_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Imm response preamble (PHY coding)" id="AC5_IR_PREAMBLE_WROPT" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="AC5_CW_PARAMS" id="ac5_cw_params" width="32" offset="0x110">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW mask for AC5" id="CW_EXP_AC5_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="station retries counter" id="SRC_AC5_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" id="MEM_SRC_AC5_LIMIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+		<bitfield width="20" end="4" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70000002'}"/>
+	</register>
+	<register acronym="AC5_CW_PARAMS_2" id="ac5_cw_params_2" width="32" offset="0x114">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="CW min exponent" id="MEM_CWMIN_AC5" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="cw max exponent" id="MEM_CWMAX_AC5" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x302'}"/>
+	</register>
+	<register acronym="CURR_AC_DATA_FRM_PARAMS" id="curr_ac_data_frm_params" width="32" description="current data frame params as set by the tx candidate." offset="0x120">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="indication that the data AC regs are of a valid frame. asserte by candidate." id="CURR_AC_DATA_FRM_EXIST_STS" resetval="0x0"/>
+		<bitfield width="9" end="1" begin="9" rwaccess="RO" description="data frame's Virtual address index (frame at the head of the queue)" id="CURR_AC_DATA_VA_IDX_STS" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Immediate response is expected." id="CURR_AC_DATA_IMM_RESP_REQ_STS" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" description="data frame rate. pmac coding (not PHY coding)" id="CURR_AC_DATA_RATE_STS" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" description="data frame preamble. phy coding." id="CURR_AC_DATA_PREAMBLE_STS" resetval="0x0"/>
+		<bitfield width="5" end="20" begin="24" rwaccess="RO" description="data frame power." id="CURR_AC_DATA_PWR_STS" resetval="0x0"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" id="CURR_AC_DATA_DCM_STS" resetval="0x0"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RO" id="CURR_AC_DATA_GI_HE_LTF_TYPE_STS" resetval="0x0"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" id="CURR_AC_DATA_ER_BW_STS" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="CURR_AC_IMM_EXPIRY_STS" resetval="0x0"/>
+	</register>
+	<register acronym="CURR_AC_CTRL_FRM_PARAMS" id="curr_ac_ctrl_frm_params" width="32" offset="0x124">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="control frame exist - for RTS/CTS, if this bit is asserted, current transmission will be of the protection frame.
+for cf_end, transmission depands on remaining time and data frame existence." id="CURR_AC_CTRL_FRM_EXIST_STS" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RO" description="control frame type: 0 - RTS,  1 - CTS, 2 - CF_END" id="CURR_AC_CTRL_FRM_TYPE_STS" resetval="0x0"/>
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" description="control frame rate. pmac coding (not PHY coding)" id="CURR_AC_CTRL_RATE_STS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="control frame preamble (phy coding)" id="CURR_AC_CTRL_PREAMBLE_STS" resetval="0x0"/>
+		<bitfield width="5" end="12" begin="16" rwaccess="RO" description="control frame power." id="CURR_AC_CTRL_PWR_STS" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="data frame DCM (Dual Code Modulation)." id="CURR_AC_CTRL_DCM_STS" resetval="0x0"/>
+		<bitfield width="3" end="18" begin="20" rwaccess="RO" id="CURR_AC_CTRL_GI_HE_LTF_TYPE_STS" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RO" id="CURR_AC_CTRL_ER_BW_STS" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="22" begin="23" rwaccess="RO" id="CURR_AC_CTRL_EHT_SIG_MCS_STS" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" id="CURR_AC_CTRL_EHT_LTF_NUM_STS" resetval="0x0"/>
+	</register>
+	<register acronym="CURR_AC_PROT_DURATION" id="curr_ac_prot_duration" width="32" offset="0x128">
+		<bitfield width="11" end="0" begin="10" rwaccess="RO" description="protection frame duration - CTS, RTS or CF_END" id="CURR_AC_PROTECTION_FRM_DUR_STS" resetval="0x0"/>
+		<bitfield width="11" end="16" begin="26" rwaccess="RO" description="entire protection duration CTS+SIFS or RTS+SIFS+CTS+SIFS. field is ignored in burst case." id="CURR_AC_PROTECTION_DUR_STS" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="CURR_AC_DURATION" id="curr_ac_duration" width="32" offset="0x12c">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="total transaction duration - protection + data frame and Imm response" id="CURR_AC_TRANS_DUR_STS" resetval="0x0"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CURR_AC_EXPIRY_TIME" id="curr_ac_expiry_time" width="32" offset="0x130">
+		<bitfield width="30" end="0" begin="29" rwaccess="RO" description="expiry time in micro seconds" id="CURR_AC_EXPIRY_TIME_STS" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="CURR_AC_NO_EXPIRY_STS" resetval="0x0"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CURR_AC_IR_PARAMS" id="curr_ac_ir_params" width="32" offset="0x134">
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Imm response rate (pmac coding)" id="CURR_AC_IR_RATE_STS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Imm response preamble (PHY coding)" id="CURR_AC_IR_PREAMBLE_STS" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="CFG_RX_TIMEOUT_OFDM" id="cfg_rx_timeout_ofdm" width="32" offset="0x204">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Rx timeout for legacy, HT-MM and HT-GF use cases." id="MEM_RX_TIMEOUT_AGN" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Rx timeout for HE non MU use cases (HE_SU, HE-ER-SU, HE-TB)." id="MEM_RX_TIMEOUT_AX_NON_MU" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Rx timeout for HE_MU use case." id="MEM_RX_TIMEOUT_AX_MU" resetval="0x0"/>
+	</register>
+	<register acronym="CFG_RX_TIMEOUT_11B" id="cfg_rx_timeout_11b" width="32" offset="0x20c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Rx timeout for 11b long use case." id="MEM_RX_TIMEOUT_B_LONG" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="Rx timeout for 11b short use case." id="MEM_RX_TIMEOUT_B_SHORT" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="CFG_PSPOLL_ACK_DUR_11B" id="cfg_pspoll_ack_dur_11b" width="32" description="claculations do not include the preamble - it is set by HW according to current incoming frame." offset="0x210">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="sifs + ack duration for 1mbps" id="MEM_ACK_DUR_1M" resetval="{'@spirit:resolve': 'immediate', '#text': '0x151f427a'}"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="sifs + ack duration for 2mbps" id="MEM_ACK_DUR_2M" resetval="{'@spirit:resolve': 'immediate', '#text': '0x151f427a'}"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="sifs + ack duration for 5.5mbps" id="MEM_ACK_DUR_5_5M" resetval="{'@spirit:resolve': 'immediate', '#text': '0x151f427a'}"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="sifs + ack duration for 11mbps" id="MEM_ACK_DUR_11M" resetval="{'@spirit:resolve': 'immediate', '#text': '0x151f427a'}"/>
+	</register>
+	<register acronym="CFG_PSPOLL_ACK_DUR_OFDM" id="cfg_pspoll_ack_dur_ofdm" width="32" offset="0x214">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="sifs + ack duration at 6mbps" id="MEM_ACK_DUR_6_OFDM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3c'}"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3c'}"/>
+	</register>
+	<register acronym="CFG_TX_EXCHANGE" id="cfg_tx_exchange" width="32" offset="0x218">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="CFG_WAIT_FOR_RESPONSE_WROPT" resetval="0x0"/>
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" id="CFG_EXPECTED_TYPE_WROPT" resetval="0x0"/>
+		<bitfield width="6" end="16" begin="21" rwaccess="RW" id="CFG_EXPECTED_TYPE_MASK_WROPT" resetval="0x0"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="CFG_CCA_BEHAVIOR" id="cfg_cca_behavior" width="32" offset="0x21c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="when set, if qual_cca is high while phy_cca is low, force qual_cca to as well and use RIP to prevent starting tranmission during currently received rx" id="MEM_EN_LOW_ENERGY_CCA" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="when set, low energy cf_end frame clears the NAV .
+when cleared lef cf_end is ignored with regards to NAV like all rx lef frames." id="MEM_EN_NAV_CLR_CF_END_ON_LEF" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2'}"/>
+	</register>
+	<register acronym="CFG_SILENCE_PIFS_CCA" id="cfg_silence_pifs_cca" width="32" description="PIFS counter for CCA" offset="0x220">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="PIFS duration for primary pifs counter. count is in 20MHz resolution (50ns)" id="MEM_CFG_PIFS_PRIM_CCA" resetval="{'@spirit:resolve': 'immediate', '#text': '0x19'}"/>
+		<bitfield width="2" end="15" begin="16" rwaccess="RW" description="00: disabled. force the status to silence period done.
+01: single count. counter counts until cca_idle time and locks until disabled.
+10: continuous count cca aware- clear the timer on every cca_busy 
+11: continuous count cca un-aware - on cca fall, count without stopping until expired." id="MEM_EN_PIFS_COUNT_MODE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x19'}"/>
+		<bitfield width="4" end="11" begin="14" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x19'}"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x19'}"/>
+	</register>
+	<register acronym="SILENCE_PIFS_VAL" id="silence_pifs_val" width="32" offset="0x224">
+		<bitfield width="11" end="0" begin="10" rwaccess="RO" description="current value of the silnce pifs counter" id="PRIM_CCA_SILENCE_PIFS_CNT" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" id="PRIM_CCA_SILENCE_PERIOD_DONE" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="CFG_TSF_LIMIT_EVENTS" id="cfg_tsf_limit_events" width="32" offset="0x228">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="when set, it any AC's TSF limit was crossed, create a qv de_assert request for that AC" id="MEM_TSF_LIM_EXCD_QV_DE_ASSERT" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="when set, if any AC's tsf limit was crossed, assert an IRQ to SW." id="MEM_TSF_LIM_EXCD_INTR_EN" resetval="0x0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="TX_NAV" id="tx_nav" width="32" offset="0x22c">
+		<bitfield width="15" end="0" begin="14" rwaccess="RW" description="tx nav counter.
+set by HW to 'duration' on tx_trigger.
+cleared when frames markd by SW to clear the tx_nav.
+counts in usec resolution" id="TX_NAV_WROPT" resetval="0x0"/>
+		<bitfield width="17" end="15" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="TX_TRIGGER_STATUS" id="tx_trigger_status" width="32" offset="0x230">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="ac lost in EDCA internal collision" id="AC0_LOSE" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="ac lost in EDCA internal collision" id="AC1_LOSE" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="ac lost in EDCA internal collision" id="AC2_LOSE" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="ac lost in EDCA internal collision" id="AC3_LOSE" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="ac lost in EDCA internal collision" id="AC4_LOSE" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="ac lost in EDCA internal collision" id="AC5_LOSE" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="0: EDCA        
+1: Immidiate response        
+2: Burst    
+3: Cf_end after rx time out
+4: Trigger-Based data          
+5: Trigger-Based immidiate response     
+6: Trigger-Based report" id="TX_WINNER_TYPE" resetval="0x0"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="16" begin="18" rwaccess="RO" description="latched value of the last AC winner (AC0-AC5). this may be used to understand in burst/cf_end which is the originating AC" id="TX_WINNER_AC" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="13" end="19" begin="31" rwaccess="RO" id="Reserved_2_2" resetval="0x0"/>
+	</register>
+	<register acronym="TX_DELAY_CNT" id="tx_delay_cnt" width="32" offset="0x234">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" id="MEM_TXDELAY_CNT" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf0'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf0'}"/>
+	</register>
+	<register acronym="TSF_START_AC0" id="tsf_start_ac0" width="32" description="The access mechanism is active when TSF bigger then TSF START.
+In case that TSF start is zero, then the above condition is true, so the access mechanim is active." offset="0x238">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_START_VALUE_AC0" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_END_AC0" id="tsf_end_ac0" width="32" description="It contains the low bits of the END TSF value.
+The access mechanism is active when TSF smaller then TSF END.
+In case that TSF start  is zero, then the above condition is true, so the access mechanim is active." offset="0x23c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_END_VALUE_AC0" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_START_AC1" id="tsf_start_ac1" width="32" description="The access mechanism is active when TSF bigger then TSF START.
+In case that TSF start is zero, then the above condition is true, so the access mechanim is active." offset="0x240">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_START_VALUE_AC1" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_END_AC1" id="tsf_end_ac1" width="32" description="It contains the low bits of the END TSF value.
+The access mechanism is active when TSF smaller then TSF END.
+In case that TSF start  is zero, then the above condition is true, so the access mechanim is active." offset="0x244">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_END_VALUE_AC1" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_START_AC2" id="tsf_start_ac2" width="32" description="The access mechanism is active when TSF bigger then TSF START.
+In case that TSF start is zero, then the above condition is true, so the access mechanim is active." offset="0x248">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_START_VALUE_AC2" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_END_AC2" id="tsf_end_ac2" width="32" description="It contains the low bits of the END TSF value.
+The access mechanism is active when TSF smaller then TSF END.
+In case that TSF start  is zero, then the above condition is true, so the access mechanim is active." offset="0x24c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_END_VALUE_AC2" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_START_AC3" id="tsf_start_ac3" width="32" description="The access mechanism is active when TSF bigger then TSF START.
+In case that TSF start is zero, then the above condition is true, so the access mechanim is active." offset="0x250">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_START_VALUE_AC3" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_END_AC3" id="tsf_end_ac3" width="32" description="It contains the low bits of the END TSF value.
+The access mechanism is active when TSF smaller then TSF END.
+In case that TSF start  is zero, then the above condition is true, so the access mechanim is active." offset="0x254">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_END_VALUE_AC3" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_START_AC4" id="tsf_start_ac4" width="32" description="The access mechanism is active when TSF bigger then TSF START.
+In case that TSF start is zero, then the above condition is true, so the access mechanim is active." offset="0x258">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_START_VALUE_AC4" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_END_AC4" id="tsf_end_ac4" width="32" description="It contains the low bits of the END TSF value.
+The access mechanism is active when TSF smaller then TSF END.
+In case that TSF start  is zero, then the above condition is true, so the access mechanim is active." offset="0x25c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_END_VALUE_AC4" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_START_AC5" id="tsf_start_ac5" width="32" description="The access mechanism is active when TSF bigger then TSF START.
+In case that TSF start is zero, then the above condition is true, so the access mechanim is active." offset="0x260">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_START_VALUE_AC5" resetval="0x0"/>
+	</register>
+	<register acronym="TSF_END_AC5" id="tsf_end_ac5" width="32" description="It contains the low bits of the END TSF value.
+The access mechanism is active when TSF smaller then TSF END.
+In case that TSF start  is zero, then the above condition is true, so the access mechanim is active." offset="0x264">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_TSF_END_VALUE_AC5" resetval="0x0"/>
+	</register>
+	<register acronym="CFG_BURST_THRESH" id="cfg_burst_thresh" width="32" offset="0x268">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="number of usec to add to the 'enough time for cf_end' indication from access to tx manager.
+this allows to avoid transmitting cf_end if txop is almost exhausted anyway." id="MEM_ENOUGH_TIME_CF_END_EXT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="CFG_IMM_RESP_TIME" id="cfg_imm_resp_time" width="32" offset="0x26c">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="delay in 40MHz cycles to count for imm response after rx (sifs) for ofdm rx" id="MEM_RX2TX_DELAY_OFDM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+		<bitfield width="12" end="16" begin="27" rwaccess="RW" description="delay in 40MHz cycles to count for imm response after rx (sifs) for 11b rx" id="MEM_RX2TX_DELAY_NON_OFDM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+	</register>
+	<register acronym="ACCESS_SPARE_REG" id="access_spare_reg" width="32" offset="0x270">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="MEM_ACCESS_SPARE_REG" resetval="0xffff"/>
+	</register>
+	<register acronym="QUIET_PERIOD_CFG" id="quiet_period_cfg" width="32" offset="0x274">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="when set, counter is reset on RIP | RXIP" id="MEM_QUIET_PERIOD_RIP_RST_EN" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="when set, counter is reset on NAV" id="MEM_QUIET_PERIOD_OUR_NAV_RST_EN" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="when set, counter is reset on QUAL_CCA (from phy, no MAC overrides)" id="MEM_QUIET_PERIOD_QUAL_RST_EN" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="when set, counter is reset on PHY_CCA (from phy, no MAC overrides)" id="MEM_QUIET_PERIOD_PHY_CCA_RST_EN" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="when set, counter is reset on TX_NAV" id="MEM_QUIET_PERIOD_TX_NAV_RST_EN" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="when set, counter is reset on TIP | TXIP" id="MEM_QUIET_PERIOD_TIP_RST_EN" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="when set, counter is paused on RIP | RXIP" id="MEM_QUIET_PERIOD_RIP_PAUSE_EN" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="when set, counter is paused on NAV" id="MEM_QUIET_PERIOD_OUR_NAV_PAUSE_EN" resetval="0x0"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="when set, counter is paused on QUAL_CCA (from phy, no MAC overrides)" id="MEM_QUIET_PERIOD_QUAL_PAUSE_EN" resetval="0x0"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="when set, counter is paused on PHY_CCA (from phy, no MAC overrides)" id="MEM_QUIET_PERIOD_PHY_CCA_PAUSE_EN" resetval="0x0"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="when set, counter is paused on TX_NAV" id="MEM_QUIET_PERIOD_TX_NAV_PAUSE_EN" resetval="0x0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="when set, counter is paused on TIP | TXIP" id="MEM_QUIET_PERIOD_TIP_PAUSE_EN" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="when set, counter is paused on RIP | RXIP" id="MEM_QUIET_PERIOD_RIP_STOP_EN" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="when set, counter is paused on NAV" id="MEM_QUIET_PERIOD_OUR_NAV_STOP_EN" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="when set, counter is paused on QUAL_CCA (from phy, no MAC overrides)" id="MEM_QUIET_PERIOD_QUAL_STOP_EN" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="when set, counter is paused on PHY_CCA (from phy, no MAC overrides)" id="MEM_QUIET_PERIOD_PHY_CCA_STOP_EN" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="when set, counter is paused on TX_NAV" id="MEM_QUIET_PERIOD_TX_NAV_STOP_EN" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="when set, counter is paused on TIP | TXIP" id="MEM_QUIET_PERIOD_TIP_STOP_EN" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="9" end="23" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="when set, counter is reset on NAV" id="MEM_QUIET_PERIOD_NOT_OUR_NAV_RST_EN" resetval="0x0"/>
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" description="when set, counter is paused on NAV" id="MEM_QUIET_PERIOD_NOT_OUR_NAV_PAUSE_EN" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="when set, counter is paused on NAV" id="MEM_QUIET_PERIOD_NOT_OUR_NAV_STOP_EN" resetval="0x0"/>
+	</register>
+	<register acronym="QUIET_PERIOD_THRESH" id="quiet_period_thresh" width="32" offset="0x278">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="counter threshold in 32usec resolution.
+Threshold should not be modified during counter operation. in order to change, counter need to be halted and re-configured" id="MEM_QUIET_PERIOD_THRESH" resetval="0x0"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="WO" description="counter kick, wr only/self clearing" id="QUIET_PERIOD_CNT_START_WRCL" resetval="0x0"/>
+		<bitfield width="20" end="11" begin="30" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="QUIET_PERIOD_STS" id="quiet_period_sts" width="32" offset="0x27c">
+		<bitfield width="11" end="0" begin="10" rwaccess="RO" description="current counter value" id="QUIET_PERIOD_CNT_VAL" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when read as 1, counter is during count (even if paused/cleared by the HW)" id="QUIET_PERIOD_CNT_STS" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="when read as 1, counter has already expired and asserted the interrupt." id="QUIET_PERIOD_DONE_STS" resetval="0x0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="QUIET_PERIOD_CNT_STOP" id="quiet_period_cnt_stop" width="32" offset="0x280">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="writing 1 to this bit will stop the counter." id="QUIET_PERIOD_CNT_STOP_WRCL" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="BACKOFF_TIMER_AC0_REG" id="backoff_timer_ac0_reg" width="32" description="Back-off counter for AC 0 (BACKOFF_TIMER_AC0_REG)" offset="0x284">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer. Latch with random value between 0 to CW[AC] count down to 0 every time AIFS[AC] timeout out and slot timer reaches zero." id="MEM_BACKOFF_TIMER_AC0_WROPT" resetval="0"/>
+	</register>
+	<register acronym="COPY_BACKOFF_TIMER_AC0_REG" id="copy_backoff_timer_ac0_reg" width="32" description="Copy back-off timer AC0 (COPY_BACKOFF_TIMER_AC0_REG)" offset="0x288">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer for AC0. Used for interference fix. Latch stores back-off value for AC0 when input/tx CCA indicate medium busy." id="MEM_COPY_BACKOFF_TIMER_AC0_WROPT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="RNG_AC0" id="rng_ac0" width="32" offset="0x28c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Initial value for Ramdom Number Generator for this AC" id="MEM_RNG_AC0_WROPT" resetval="2863289685"/>
+	</register>
+	<register acronym="AC0_TX_AIFS_CFG_REG" id="ac0_tx_aifs_cfg_reg" width="32" description="Slot Count (ACM_IFS_CFG1)" offset="0x290">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="AC0 AIFS counter size in micro seconds" id="MEM_CFG_TXAIFS0_CNT" resetval="61"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="RESERVED" resetval="61"/>
+	</register>
+	<register acronym="AC0_TX_AIFS_TIMER_REG" id="ac0_tx_aifs_timer_reg" width="32" description="Current value of AIFS timer for this ac" offset="0x294">
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Current value of AIFS timer in usec.;It_s a up counter. this value get compared with ACM_TX_AIFS[n] to start back-off countdown." id="MEM_TXAIFS0_TIMER_WROPT" resetval="0"/>
+	</register>
+	<register acronym="BACKOFF_TIMER_AC1_REG" id="backoff_timer_ac1_reg" width="32" description="Back-off counter for AC 1 (BACKOFF_TIMER_AC1_REG)" offset="0x298">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer. Latch with random value between 0 to CW[AC] count down to 0 every time AIFS[AC] timeout out and slot timer reaches zero." id="MEM_BACKOFF_TIMER_AC1_WROPT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="COPY_BACKOFF_TIMER_AC1_REG" id="copy_backoff_timer_ac1_reg" width="32" description="Copy back-off timer AC1 (COPY_BACKOFF_TIMER_AC1_REG)" offset="0x29c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer for AC1. Used for interference fix. Latch stores back-off value for AC1 when input/tx CCA indicate medium busy." id="MEM_COPY_BACKOFF_TIMER_AC1_WROPT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="RNG_AC1" id="rng_ac1" width="32" offset="0x2a0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Initial value for Ramdom Number Generator for this AC" id="MEM_RNG_AC1_WROPT" resetval="2857740885"/>
+	</register>
+	<register acronym="AC1_TX_AIFS_CFG_REG" id="ac1_tx_aifs_cfg_reg" width="32" description="Transmit AIFS1 timer (AC1_TX_AIFS_CFG_REG)" offset="0x2a4">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="TxAIFS1/EIFS timer in usec. ;Configured with the value obtained from EDCA parameter from QAP. No byte access must write entire field once." id="MEM_CFG_TXAIFS1_CNT" resetval="29"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="29"/>
+	</register>
+	<register acronym="AC1_TX_AIFS_TIMER_REG" id="ac1_tx_aifs_timer_reg" width="32" description="Current value of AIFS timer for this ac" offset="0x2a8">
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Current value of AIFS timer in usec.;It_s a up counter. this value get compared with ACM_TX_AIFS[n] to start back-off countdown." id="MEM_TXAIFS1_TIMER_WROPT" resetval="0"/>
+	</register>
+	<register acronym="BACKOFF_TIMER_AC2_REG" id="backoff_timer_ac2_reg" width="32" description="Back-off counter for AC 2 (BACKOFF_TIMER_AC2_REG)" offset="0x2ac">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer. Latch with random value between 0 to CW[AC] count down to 0 every time AIFS[AC] timeout out and slot timer reaches zero." id="MEM_BACKOFF_TIMER_AC2_WROPT" resetval="0"/>
+	</register>
+	<register acronym="COPY_BACKOFF_TIMER_AC2_REG" id="copy_backoff_timer_ac2_reg" width="32" description="Copy back-off timer AC2 (COPY_BACKOFF_TIMER_AC2_REG)" offset="0x2b0">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer for AC2. Used for interference fix. Latch stores back-off value for AC2 when input/tx CCA indicate medium busy." id="MEM_COPY_BACKOFF_TIMER_AC2_WROPT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="RNG_AC2" id="rng_ac2" width="32" offset="0x2b4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Initial value for Ramdom Number Generator for this AC" id="MEM_RNG_AC2_WROPT" resetval="1437226410"/>
+	</register>
+	<register acronym="AC2_TX_AIFS_CFG_REG" id="ac2_tx_aifs_cfg_reg" width="32" description="Transmit AIFS2 timer (AC2_TX_AIFS_CFG_REG)" offset="0x2b8">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="TxAIFS2/EIFS timer in usec. ;Configured with the value obtained from EDCA parameter from QAP.;No byte access must write entire field once." id="MEM_CFG_TXAIFS2_CNT" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="AC2_TX_AIFS_TIMER_REG" id="ac2_tx_aifs_timer_reg" width="32" description="Current value of AIFS timer for this ac" offset="0x2bc">
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Current value of AIFS timer in usec.;It_s a up counter. this value get compared with ACM_TX_AIFS[n] to start back-off countdown." id="MEM_TXAIFS2_TIMER_WROPT" resetval="0"/>
+	</register>
+	<register acronym="BACKOFF_TIMER_AC3_REG" id="backoff_timer_ac3_reg" width="32" description="Back-off counter for AC 3 (BACKOFF_TIMER_AC3_REG)" offset="0x2c0">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer. Latch with random value between 0 to CW[AC] count down to 0 every time AIFS[AC] timeout out and slot timer reaches zero." id="MEM_BACKOFF_TIMER_AC3_WROPT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="COPY_BACKOFF_TIMER_AC3_REG" id="copy_backoff_timer_ac3_reg" width="32" description="Copy back-off timer AC3 (COPY_BACKOFF_TIMER_AC3_REG)" offset="0x2c4">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Random back-off timer for AC3. Used for interference fix. Latch stores back-off value for AC3 when input/tx CCA indicate medium busy." id="MEM_COPY_BACKOFF_TIMER_AC3_WROPT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="RNG_AC3" id="rng_ac3" width="32" offset="0x2c8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Initial value for Ramdom Number Generator for this AC" id="MEM_RNG_AC3_WROPT" resetval="1515870810"/>
+	</register>
+	<register acronym="AC3_TX_AIFS_CFG_REG" id="ac3_tx_aifs_cfg_reg" width="32" description="Transmit AIFS3 timer (AC3_TX_AIFS_CFG_REG)" offset="0x2cc">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="TxAIFS3/EIFS timer in usec. ;Configured with the value obtained from EDCA parameter from QAP.;No byte access must write entire field once." id="MEM_CFG_TXAIFS3_CNT" resetval="21"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="21"/>
+	</register>
+	<register acronym="AC3_TX_AIFS_TIMER_REG" id="ac3_tx_aifs_timer_reg" width="32" description="Current value of AIFS timer for this ac" offset="0x2d0">
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Current value of AIFS timer in usec.;It_s a up counter. this value get compared with ACM_TX_AIFS[n] to start back-off countdown." id="MEM_TXAIFS3_TIMER_WROPT" resetval="0"/>
+	</register>
+	<register acronym="BACKOFF_TIMER_AC4_REG" id="backoff_timer_ac4_reg" width="32" offset="0x2d4">
+		<bitfield width="15" end="0" begin="14" rwaccess="RW" description="Backoff for AC4 mechanism" id="MEM_BACKOFF_TIMER_AC4_WROPT" resetval="0"/>
+		<bitfield width="17" end="15" begin="31" rwaccess="RO" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="COPY_OF_BACKOFF_TIMER_AC4_REG" id="copy_of_backoff_timer_ac4_reg" width="32" offset="0x2d8">
+		<bitfield width="15" end="0" begin="14" rwaccess="RW" description="copy Backoff for AC4 mechanism" id="MEM_COPY_BACKOFF_TIMER_AC4_WROPT" resetval="0"/>
+		<bitfield width="17" end="15" begin="31" rwaccess="RO" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="RNG_AC4" id="rng_ac4" width="32" offset="0x2dc">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Initial value for Ramdom Number Generator for this AC4" id="MEM_RNG_AC4_WROPT" resetval="2863289685"/>
+	</register>
+	<register acronym="AC4_TX_AIFS_CFG_REG" id="ac4_tx_aifs_cfg_reg" width="32" offset="0x2e0">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="aifs value for AC4" id="MEM_CFG_TXAIFS4_CNT" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="AC4_TX_AIFS_TIMER_REG" id="ac4_tx_aifs_timer_reg" width="32" description="Current value of AIFS timer for this ac" offset="0x2e4">
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Current value of AIFS timer in usec.;It_s a up counter. this value get compared with ACM_TX_AIFS[n] to start back-off countdown." id="MEM_TXAIFS4_TIMER_WROPT" resetval="0"/>
+	</register>
+	<register acronym="BACKOFF_TIMER_AC5_REG" id="backoff_timer_ac5_reg" width="32" offset="0x2e8">
+		<bitfield width="15" end="0" begin="14" rwaccess="RW" description="Backoff for AC5 mechanism" id="MEM_BACKOFF_TIMER_AC5_WROPT" resetval="0"/>
+		<bitfield width="17" end="15" begin="31" rwaccess="RO" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="COPY_OF_BACKOFF_TIMER_AC5_REG" id="copy_of_backoff_timer_ac5_reg" width="32" offset="0x2ec">
+		<bitfield width="15" end="0" begin="14" rwaccess="RW" description="copy Backoff for AC4 mechanism" id="MEM_COPY_BACKOFF_TIMER_AC5_WROPT" resetval="0"/>
+		<bitfield width="17" end="15" begin="31" rwaccess="RO" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="RNG_AC5" id="rng_ac5" width="32" offset="0x2f0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Initial value for Ramdom Number Generator for this AC5" id="MEM_RNG_AC5_WROPT" resetval="2863289685"/>
+	</register>
+	<register acronym="AC5_TX_AIFS_CFG_REG" id="ac5_tx_aifs_cfg_reg" width="32" offset="0x2f4">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="aifs value for AC5" id="MEM_CFG_TXAIFS5_CNT" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="AC5_TX_AIFS_TIMER_REG" id="ac5_tx_aifs_timer_reg" width="32" description="Current value of AIFS timer for this ac" offset="0x2f8">
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Current value of AIFS timer in usec.;It_s a up counter. this value get compared with ACM_TX_AIFS[n] to start back-off countdown." id="MEM_TXAIFS5_TIMER_WROPT" resetval="0"/>
+	</register>
+	<register acronym="ACM_TX_EIFS_TIMER_REG" id="acm_tx_eifs_timer_reg" width="32" description="Current value of EIFS counter (ACM_TX_EIFS_TIMER_REG)" offset="0x2fc">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Current value of EIFS timer in usec." id="MEM_TXEIFS_TIMER_WROPT" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="EIFS_COUNTER" id="eifs_counter" width="32" description="EIFS-DIFS value configuration for Meduim access backoff usage." offset="0x300">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="EIFS counter configuration value" id="MEM_CFG_QOS_TXEIFS_CNT" resetval="0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="For: Received frames which are not of AX type, and unsupported (meaning there is not a valid PHY Header): if '1' (default) - set EIFS timer if '0' - don't set EIFS timer" id="MEM_CFG_UNSUPPORTED_NON_AX_4EIFS" resetval="0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" description="Reserved" id="RESERVED_2" resetval="0"/>
+	</register>
+	<register acronym="OUR_NAV" id="our_nav" width="32" description="Network allocation Vector (NAV)*
+(1) OUR NAV / INTRA BSS NAV" offset="0x304">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="Reserved" resetval="0"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Network allocation vector (virtual carrier sense).  Loaded. cleared and decremented according to 802.11 spec.  When non-zero. normal transmit operations will be prevented.  (usec) ) (No byte access. must write as 16 bit register).
+
+our_bss: Protection from frames transmitted by STAs within its BSS, i.e., intra-BSS," id="OUR_NAV_WROPT" resetval="0"/>
+	</register>
+	<register acronym="NOT_OUR_NAV" id="not_our_nav" width="32" description="Network allocation Vector (NAV)*
+(2) NOT OUR NAV / INTER BSS NAV / BASIC NAV" offset="0x308">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved" id="Reserved" resetval="0"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Network allocation vector (virtual carrier sense).  Loaded. cleared and decremented according to 802.11 spec.  When non-zero. normal transmit operations will be prevented.  (usec) ) (No byte access. must write as 16 bit register).
+Network allocation vector (virtual carrier sense).  Loaded. cleared and decremented according to 802.11 spec.  When non-zero. normal transmit operations will be prevented.  (usec) ) (No byte access. must write as 16 bit register).
+
+not_our_bss: Avoid interference from frames transmitted by STAs in a neighboring BSS, i.e., inter-BSS." id="NOT_OUR_NAV_WROPT" resetval="0"/>
+	</register>
+	<register acronym="RX_NAV_CFG" id="rx_nav_cfg" width="32" description="Configuration controls for dual NAVs feature" offset="0x30c">
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x100001"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="if ='0':  Disable ability to update NAVs by TXOP field from PHY-Header" id="MEM_CFG_TXOP_UPDATE_EN" resetval="0x100001"/>
+		<bitfield width="14" end="8" begin="21" rwaccess="RW" description="If TXOP field is greater than this THR, don't update NAVs with TXOP" id="MEM_TXOP_HIGH_THR" resetval="0x100001"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x100001"/>
+	</register>
+	<register acronym="CFG_TB_RESP_TIME" id="cfg_tb_resp_time" width="32" offset="0x310">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="delay in 40MHz cycles to count for response after trigger frame (sifs) for ofdm rx" id="MEM_RX2TX_TB_DELAY_OFDM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+		<bitfield width="12" end="16" begin="27" rwaccess="RW" description="delay in 40MHz cycles to count for response after trigger frame (sifs) for 11b rx" id="MEM_RX2TX_TB_DELAY_NON_OFDM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf000f0'}"/>
+	</register>
+	<register acronym="CFG_TB_CS_TIME" id="cfg_tb_cs_time" width="32" offset="0x314">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Delay in 40MHz cycles to count when to start CS detection during SIFS period." id="MEM_TB_CS_DELAY_CNT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="TRIGGER_BASED_REQ_STATUS" id="trigger_based_req_status" width="32" offset="0x318">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Trigger-Based request general error. Bits [8:1] holds the reason for the error. Clear on read." id="TB_ERR_RDCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="11" end="21" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Trigger-Based request with rate error. Clear on TB_ERR_RDCL read." id="TB_RATE_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Trigger-Based request with GI_LTF field error. Clear on TB_ERR_RDCL read." id="TB_GI_LTF_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Trigger-Based request with bandwidth error. Clear on TB_ERR_RDCL read." id="TB_BW_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Trigger-Based request with DCM error. Clear on TB_ERR_RDCL read." id="TB_DCM_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Trigger-Based request with doppler error. Clear on TB_ERR_RDCL read." id="TB_DOPPLER_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Trigger-Based request with RU allocation error. Clear on TB_ERR_RDCL read." id="TB_RU_ALLOC_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="NFRP Trigger-Based request with feedback type error. Clear on TB_ERR_RDCL read." id="TB_NFRP_FEEDBACK_TYPE_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="NFRP Trigger-Based request with RU tone error. Clear on TB_ERR_RDCL read." id="TB_NFRP_RU_TONE_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Trigger-Based request with CS error. Clear on TB_ERR_RDCL read." id="TB_CS_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Trigger-Based request with unsupported type error. Clear on TB_ERR_RDCL read.
+The list of unsupported trigger types is determined by TRIGGER_BASED_TYPE_MASK configuration." id="TB_UNSUPPORTED_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="Trigger-Based request with FEC type error. Clear on TB_ERR_RDCL read." id="TB_FEC_TYPE_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="Trigger-Based request with HE LTF NUM error. Clear on TB_ERR_RDCL read." id="TB_HE_LTF_NUM_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="Trigger-Based request with LTF Mode error. Clear on TB_ERR_RDCL read." id="TB_LTF_MODE_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="Trigger-Based request with TB method error. Clear on TB_ERR_RDCL read." id="TB_METHOD_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="Trigger-Based request with STBC error. Clear on TB_ERR_RDCL read." id="TB_UL_STBC_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Trigger-Based request with Numer of SS error. Clear on TB_ERR_RDCL read." id="TB_NUM_OF_STS_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Trigger-Based request with Starting SS error. Clear on TB_ERR_RDCL read." id="TB_START_STS_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="Trigger-Based request with 11B packet error. Clear on TB_ERR_RDCL read." id="TB_11B_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="Trigger-Based MU-RTS TXOP-Sharing request error. Clear on TB_ERR_RDCL read." id="TB_TXOPSH_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="Trigger-Based request with 11.BE (=EHT=WiFi7) packet error. Clear on TB_ERR_RDCL read." id="TB_11BE_ERR_STS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="TRIGGER_BASED_REQ_ERR_OVERRIDE" id="trigger_based_req_err_override" width="32" offset="0x31c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Bypass HW error decision for Trigger-Based request.
+The override value is set by MEM_TB_ERR_OVERRIDE_VAL register" id="MEM_TB_ERR_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Override value for Trigger-Based request error decision." id="MEM_TB_ERR_OVERRIDE_VAL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="TRIGGER_BASED_DISABLE_RU_INDEX" id="trigger_based_disable_ru_index" width="32" description="Disable RU index 61-64 support
+Disable RU Size of 26 option
+Disable MRU as default option
+TB_BW MAPS for AX and BW" offset="0x320">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Disable RU index 61 support in 80MHz bandwidth" id="MEM_TB_BW_80_RU_61_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Disable RU index 62 support in 80MHz bandwidth" id="MEM_TB_BW_80_RU_62_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Disable RU index 63 support in 80MHz bandwidth" id="MEM_TB_BW_80_RU_63_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Disable RU index 64 support in 80MHz bandwidth" id="MEM_TB_BW_80_RU_64_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Disable RU index 61 support in 40MHz bandwidth" id="MEM_TB_BW_40_RU_61_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Disable RU index 62 support in 40MHz bandwidth" id="MEM_TB_BW_40_RU_62_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Disable RU Size 26 support in all bandwidthes" id="MEM_TB_RU_SIZE_26_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Disable EHT MRU TB type for all bandwidthes" id="MEM_TB_MRU_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="TB_BW MAP to define wich BW is Allowed
+bit[0] - 20/20MHz  (Default Allowed)
+bit[1] - 20/40MHz  (Default Allowed)
+bit[2] - 20/80MHz  (Default Allowed)
+bit[3] - 20/160MHz (Default Not Allowed)" id="MEM_TB_BW_MAP_AX" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+		<bitfield width="6" end="20" begin="25" rwaccess="RW" description="TB_BW MAP to define which BW is Allowed for BE (=EHT=WjFi7)
+bit[0] - 20/20MHz  (Default Allowed)
+bit[1] - 20/40MHz  (Default Not Allowed)
+bit[2] - 20/80MHz  (Default Not Allowed)
+bit[3] - 20/160MHz (Default Not Allowed)
+bit[4] - 20/320MHz-1 (Default Not Allowed)
+bit[5] - 20/320MHz-2 (Default Not Allowed)" id="MEM_TB_BW_MAP_BE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x170080'}"/>
+	</register>
+	<register acronym="AC0_BACKOFF_OVERRIDE" id="ac0_backoff_override" width="32" offset="0x324">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="AC0 backoff override value" id="MEM_AC0_BO_OVERRIDE_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Enable AC0 backoff override" id="MEM_AC0_BO_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="AC1_BACKOFF_OVERRIDE" id="ac1_backoff_override" width="32" offset="0x328">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="AC1 backoff override value" id="MEM_AC1_BO_OVERRIDE_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Enable AC1 backoff override" id="MEM_AC1_BO_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="AC2_BACKOFF_OVERRIDE" id="ac2_backoff_override" width="32" offset="0x32c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="AC2 backoff override value" id="MEM_AC2_BO_OVERRIDE_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Enable AC2 backoff override" id="MEM_AC2_BO_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="AC3_BACKOFF_OVERRIDE" id="ac3_backoff_override" width="32" offset="0x330">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="AC3 backoff override value" id="MEM_AC3_BO_OVERRIDE_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Enable AC3 backoff override" id="MEM_AC3_BO_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="AC4_BACKOFF_OVERRIDE" id="ac4_backoff_override" width="32" offset="0x334">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="AC4 backoff override value" id="MEM_AC4_BO_OVERRIDE_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Enable AC4 backoff override" id="MEM_AC4_BO_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="AC5_BACKOFF_OVERRIDE" id="ac5_backoff_override" width="32" offset="0x338">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="AC5 backoff override value" id="MEM_AC5_BO_OVERRIDE_VALUE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Enable AC5 backoff override" id="MEM_AC5_BO_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="TRIGGER_BASED_TYPE_MASK" id="trigger_based_type_mask" width="32" description="Disable RU index 61-64 support" offset="0x33c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Mask basic trigger frame" id="MEM_TB_BASIC_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Mask BFRP (Beamforming Report Poll) trigger frame" id="MEM_TB_BFRP_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Mask MU-BAR trigger frame" id="MEM_TB_MU_BAR_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Mask MU-RTS trigger frame" id="MEM_TB_MU_RTS_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Mask BSRP (Buffer Status Report Poll) trigger frame" id="MEM_TB_BSRP_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Mask GCR MU-BAR trigger frame" id="MEM_TB_GCR_MU_BAR_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Mask BQRP (Bandwidth Query Report Poll) trigger frame" id="MEM_TB_BQRP_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Mask NFRP (NDP Feedback Report Poll) trigger frame" id="MEM_TB_NFRP_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Mask reserved trigger frame (types 8-15)" id="MEM_TB_RESERVED_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x120'}"/>
+	</register>
+	<register acronym="TSF_RELOAD_BO" id="tsf_reload_bo" width="32" offset="0x340">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="when set, when crossing TSF limit, BO will be reloaded" id="MEM_CFG_RELOAD_EN_AC0" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3f'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="when set, when crossing TSF limit, BO will be reloaded" id="MEM_CFG_RELOAD_EN_AC1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3f'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="when set, when crossing TSF limit, BO will be reloaded" id="MEM_CFG_RELOAD_EN_AC2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3f'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="when set, when crossing TSF limit, BO will be reloaded" id="MEM_CFG_RELOAD_EN_AC3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3f'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="when set, when crossing TSF limit, BO will be reloaded" id="MEM_CFG_RELOAD_EN_AC4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3f'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="when set, when crossing TSF limit, BO will be reloaded" id="MEM_CFG_RELOAD_EN_AC5" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3f'}"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3f'}"/>
+	</register>
+	<register acronym="TXSIFS_TIMER" id="txsifs_timer" width="32" description="Transmit SIFS Timer (TXSIFS_TIMER)" offset="0x344">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="TxSIFS protocol timer.  0 if TxSIFS time expired. (usec) (No byte access. must write as 32 bit register)." id="TXSIFS_TIMER_WROPT" resetval="0xf0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="Reserved" resetval="0xf0"/>
+	</register>
+	<register acronym="BYPASS_EIFS" id="bypass_eifs" width="32" description="when bit [n] is 1. the related ac ignore eifs:
+n=0: ac0
+n=1: ac1
+n=2: ac2
+n=3: ac3
+n=4: tsf1
+n=5: tsf2" offset="0x348">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="see above" id="MEM_EIFS_BYPASS_AC0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_EIFS_BYPASS_AC1" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="MEM_EIFS_BYPASS_AC2" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" id="MEM_EIFS_BYPASS_AC3" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" id="MEM_EIFS_BYPASS_AC4" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" id="MEM_EIFS_BYPASS_AC5" resetval="0"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="SLOT_TIMER" id="slot_timer" width="32" description="Slot Timer (SLOT_TIMER)" offset="0x34c">
+		<bitfield width="12" end="0" begin="11" rwaccess="RO" description="Slot timer.  Continuously counts down the slot time while the medium is idle and the TxDIFS/EIFS time has expired. (usec)" id="SLOT_TIMER" resetval="800"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="800"/>
+	</register>
+	<register acronym="TSF_L" id="tsf_l" width="32" description="TSF Low (TSF_L)" offset="0x354">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Low 32 bits of station_s TSF timer. (usec) ) (No byte access. must write as 32 bit register).;This register must be read before _H" id="TSF_31_0_WRDCL" resetval="0"/>
+	</register>
+	<register acronym="TSF_H" id="tsf_h" width="32" description="TSF High (TSF_H)" offset="0x358">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="High 32 bits of station_s TSF timer. (usec) ) (No byte access. must write as 32 bit register).;This register must be written to before _L" id="HOLD_REG_WROPT" resetval="0"/>
+	</register>
+	<register acronym="MED_USAGE" id="med_usage" width="32" description="Medium Usage  (MED_USAGE)*" offset="0x35c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Incremented every usec when medium is busy (physical or virtual carrier sense).  Automatically cleared upon read." id="MED_USAGE_31_0_RDCL" resetval="0"/>
+	</register>
+	<register acronym="MED_USAGE_TM" id="med_usage_tm" width="32" description="Medium Usage Time (MED_USAGE_TM)" offset="0x360">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Number of usec sense MED_USAGE was last read.  (Note:  These 2 registers can give a general feel for the utilization of the network.  Must read MED_USAGE_TM prior to reading MED_USAGE.)" id="HOLD_REG_31_0" resetval="0"/>
+	</register>
+	<register acronym="DTIM_CNT" id="dtim_cnt" width="32" description="DTIM Counter  (DTIM_CNT)" offset="0x364">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Current DTIM count for BSS. ) (No byte access. must write as 32-bit register)." id="DTIM_CNT_WROPT" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Reserved" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="PRB_DLY" id="prb_dly" width="32" description="Probe Delay Time (PRB_DLY)" offset="0x368">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="Current value of probe delay timer.  Loaded with probe delay time upon clearing ENABLE [0] or ENABLE [1] or setting HW_DOZE.  Prevents normal transmit until a frame is received or reaches zero." id="PRB_DLY_TIMER" resetval="0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="CFG_ACM" id="cfg_acm" width="32" description="QOS Auto ACK Disable (CFG_ACM)" offset="0x36c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_CFG_NAV_QOS_EN" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="ACM_EDCA_CFG_REG0" id="acm_edca_cfg_reg0" width="32" description="EDCA Configuration 0 (ACM_EDCA_CFG_REG0)" offset="0x370">
+		<bitfield width="6" end="20" begin="25" rwaccess="RW" description="No back-off: if this bit is set do not follow back-off. start transmission after AIFS;Bit [23] _ for AC3;Bit [22] _ for AC2;Bit [21] _ for AC1;Bit [20] _ for AC0;OPTIONAL: Bits 23.22.21 must be left at default" id="MEM_CFG_AC_BACKOFF_DIS" resetval="0"/>
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="Accumulate internal collision count for AC.;[0] _ AC0;[1] _ AC1;[2] _ AC2;[3] _ AC3;when set internal collision count get accumulated and doesn_t get cleared when particular AC wins contention. For debug.;OPTIONAL: Must be left at default" id="MEM_CFG_ACCUM_INT_COLL_CNT" resetval="0"/>
+		<bitfield width="14" end="6" begin="19" rwaccess="RO" id="Reserved" resetval="0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0"/>
+	</register>
+	<register acronym="ACM_EDCA_CFG_REG1" id="acm_edca_cfg_reg1" width="32" description="EDCA Configuration 1 (ACM_EDCA_CFG_REG1)" offset="0x374">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="EDCA enable: enable EDCA functionality" id="MEM_CFG_EDCA_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable AC for transmission" id="MEM_CFG_AC0_ENABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="2" end="19" begin="20" rwaccess="RW" description="EDCA back-off configuration;00 _ evoke back-off for all Acs when last transmission from any AC fails.;01 _ evoke back-off for other Acs only after expiry of NAV set by previously failed transmission.;1x _ evoke back-off for all AC only after TXOP (as configured in ACM_EDCA_TXOP_AC[n]) expires if last transmission fails.;OPTIONAL: Must be left at default" id="MEM_CFG_EDCA_BACKOFF" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" description="Reset AIFS counter;Self-clearing but. If set clears AIFS timer." id="MEM_CFG_RST_AIFS_CNT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable AC for transmission" id="MEM_CFG_AC1_ENABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable AC for transmission" id="MEM_CFG_AC3_ENABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enable AC for transmission" id="MEM_CFG_AC2_ENABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable AC for transmission" id="MEM_CFG_AC4_ENABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable AC for transmission" id="MEM_CFG_AC5_ENABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="9" end="10" begin="18" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="9" end="21" begin="29" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved_4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x803f1'}"/>
+	</register>
+	<register acronym="ACM_IFS_CFG0" id="acm_ifs_cfg0" width="32" description="SIFS Count (ACM_IFS_CFG0)" offset="0x378">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Number of clock cycles in SIFS interval _ Radio RxTx turnaround time." id="MEM_CFG_TXSIFS_CNT" resetval="0x190"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="0x190"/>
+	</register>
+	<register acronym="ACM_IFS_CFG1" id="acm_ifs_cfg1" width="32" description="Slot time configuration (ACM_IFS_CFG1)" offset="0x37c">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="Slot time size in pMAC clock cycles (60Mhz clock)" id="MEM_CFG_SLOT_CNT" resetval="0x4b0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="0x4b0"/>
+	</register>
+	<register acronym="CCA_BUSY" id="cca_busy" width="32" description="CCA Medium Busy (CCA_BUSY)" offset="0x380">
+		<bitfield width="28" end="0" begin="27" rwaccess="RO" description="Free running counter that counts the number of clock cycles with CCA_N from the PHY high (indicating busy).  Cleared upon a read of CCA_BUSY_CLR." id="CCA_BUSY" resetval="0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Reserved" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="CCA_BUSY_CLR" id="cca_busy_clr" width="32" description="CCA Medium Busy (CCA_BUSY_CLR)" offset="0x384">
+		<bitfield width="28" end="0" begin="27" rwaccess="RO" description="Free running counter that counts the number of clock cycles with CCA_N from the PHY high (indicating busy).  Cleared upon a read of CCA_BUSY_RDCL_CLR." id="CCA_BUSY_RDCL" resetval="0"/>
+		<bitfield width="4" end="28" begin="31" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="CCA_IDLE" id="cca_idle" width="32" description="CCA Medium Idle (CCA_IDLE)" offset="0x388">
+		<bitfield width="28" end="0" begin="27" rwaccess="RO" description="Free running counter that counts the number of clock cycles with CCA_N from the PHY low (indicating idle).  Cleared upon a read of CCA_IDLE_CLR." id="CCA_IDLE" resetval="0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Reserved" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="CCA_IDLE_CLR" id="cca_idle_clr" width="32" description="CCA Medium Idle (CCA_IDLE_CLR)" offset="0x38c">
+		<bitfield width="28" end="0" begin="27" rwaccess="RO" description="Free running counter that counts the number of clock cycles with CCA_N from the PHY low (indicating idle).  Cleared upon a read of CCA_IDLE_RDCL_CLR." id="CCA_IDLE_RDCL" resetval="0"/>
+		<bitfield width="4" end="28" begin="31" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="CCAFALL2RX_DLY_TIMER" id="ccafall2rx_dly_timer" width="32" description="delay from QUAL CCA fall." offset="0x390">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Start value for the counter that counts from QUAL CCA falling.
+this counter is used to decrement from the duration feild from the frame header to
+adjust for PHY internal delay." id="MEM_CFG_CCAFALL2RX_DLY_YIMER" resetval="7"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="7"/>
+	</register>
+	<register acronym="CPU_OVRIDE_CCA" id="cpu_ovride_cca" width="32" description="override signals from phy" offset="0x394">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="phy_cca override enable" id="MEM_PHY_CCA_OVR_EN" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="phy_cca override value" id="MEM_PHY_CCA_OVR_VAL" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="phy_plcp_valid override enable" id="MEM_QUAL_CCA_OVR_EN" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="phy_plcp_valid override value" id="MEM_QUAL_CCA_OVR_VAL" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="0: all pv enabled. 1: mask all the PV status so they are all considered 0s." id="MEM_ALL_PV_CLR" resetval="0"/>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="NAV_UPDATE_CFG" id="nav_update_cfg" width="32" description="NAV Update Policy Configuration (NAV_UPDATE_CFG)" offset="0x398">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_UPDATE_NAV_STOMP_POLICY_EN" resetval="0x3"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_UPDATE_NAV_RTS_EN" resetval="0x3"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x3"/>
+	</register>
+	<register acronym="ACM_EDCA_STATUS_REG" id="acm_edca_status_reg" width="32" description="EDCA status (ACM_EDCA_STATUS_REG)" offset="0x39c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Internal collision count for AC0. Get cleared when AC0 wins" id="INTERNAL_COLLISION_AC0" resetval="0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="Internal collision count for AC1. Get cleared when AC1 wins" id="INTERNAL_COLLISION_AC1" resetval="0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="Internal collision count for AC3. Get cleared when AC3 wins" id="INTERNAL_COLLISION_AC3" resetval="0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Internal collision count for AC2. Get cleared when AC2 wins" id="INTERNAL_COLLISION_AC2" resetval="0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" description="Internal collision count for AC4. Get cleared when AC4 wins" id="INTERNAL_COLLISION_AC4" resetval="0"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" description="Internal collision count for AC5. Get cleared when AC5 wins" id="INTERNAL_COLLISION_AC5" resetval="0"/>
+	</register>
+	<register acronym="ACM_POST_CNXT_LD_TIME_REG" id="acm_post_cnxt_ld_time_reg" width="32" description="Post context load time (ACM_POST_CNXT_LD_TIME _REG)" offset="0x3a0">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="This timer start when back-off goes to 0. At backoff 0. context get loaded to PANG. At the expiry of this counter a transmit strobe is generated" id="MEM_CFG_POST_BACKOFF_TIMER" resetval="400"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved" resetval="400"/>
+	</register>
+	<register acronym="RX_TIMEOUT_CNT" id="rx_timeout_cnt" width="32" description="RX timeout counter" offset="0x3a4">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="RX timeout counter status in usec" id="RX_TOUT_DOWN_CNT" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="RX_RESPONSE_MODE" id="rx_response_mode" width="32" description="Controls the option of the response frame timing" offset="0x3a8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="1: the response frame is slot sligned (after rx2tx delay has passed from cca negation)" id="MEM_SLOT_ALLIGN" resetval="0x100"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="0:NAV !=0 holds tx2rx delay count" id="MEM_DISABLE_NAV_CHECK" resetval="0x100"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="0:txnav!=0  holds tx2rx delay count" id="MEM_DISABLE_TXNAV_CHECK" resetval="0x100"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="0:cca assertion holds tx2rx delay count" id="MEM_DISABLE_CCA_CHECK" resetval="0x100"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x100"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="0:NAV !=0 holds TB tx2rx delay count" id="MEM_DISABLE_TB_NAV_CHECK" resetval="0x100"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="0:txnav!=0  holds TB tx2rx delay count" id="MEM_DISABLE_TB_TXNAV_CHECK" resetval="0x100"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="0:cca assertion holds TB tx2rx delay count" id="MEM_DISABLE_TB_CCA_CHECK" resetval="0x100"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Disable check of phy_cca to 'not_our_nav'
+One of the conditions to block TB response in addition to the 'cs_req' and NAV !=0, is that the air is cleared (this is from the 802.11 spec).
+If this bit is '1' - TB response is not depended on the phy_cca indication." id="MEM_DISABLE_PHY_CCA_2NAV" resetval="0x100"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="0:NAV !=0 holds TB tx2rx delay count
+1: Ignore Not-Our NAV output" id="MEM_DISABLE_TB_NOT_OUR_NAV_CHECK" resetval="0x100"/>
+	</register>
+	<register acronym="PMAC_PROGRS" id="pmac_progrs" width="32" offset="0x3ac">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="1: from rx response trigger (asserted by RX parser) untill tx_start" id="RXIP_WROPT" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="1: when the flexible parser is not in IDLE" id="RIP_WROPT" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="1: from the end of transmission (when there is response ecpected), untill the response arrives or timeout" id="TXIP_WROPT" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="1: from tx_start trigger untill the last I/Q" id="TIP_WROPT" resetval="0"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="RX_START_TIME_LATCH" id="rx_start_time_latch" width="32" description="This register latch the time at the begining of plcp header (based on cfg in RX_TIME_LATCH_CTRL register" offset="0x3b0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="see above" id="RX_START_LATCH" resetval="0"/>
+	</register>
+	<register acronym="RX_END_TIME_LATCH" id="rx_end_time_latch" width="32" description="This register latch the time at rx complete interrupt (based on cfg in RX_TIME_LATCH_CTRL register" offset="0x3b4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="see above" id="RX_END_LATCH" resetval="0"/>
+	</register>
+	<register acronym="TSF_UPDATE_VALUE_LOW" id="tsf_update_value_low" width="32" description="When writing this register, the TSF counter is update by TSF + {TSF_UPDATE_VALUE_HIGH , TSF_UPDATE_VALUE_LOW}.
+So the TSF HIGH should be updated first" offset="0x3b8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="LOW 32 bit of the STF update value" id="TSF_UPDATE_VALUE_LOW_WROPT" resetval="0"/>
+	</register>
+	<register acronym="TSF_UPDATE_VALUE_HIGH" id="tsf_update_value_high" width="32" offset="0x3bc">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="HIGH 32 bit of the STF update value" id="MEM_TSF_UPDATE_VALUE_HIGH" resetval="0"/>
+	</register>
+	<register acronym="CFG_IGNORE_NAV" id="cfg_ignore_nav" width="32" description="Ignore NAV is zero indication on medium access backoff counters" offset="0x3c0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="ignore NAV is zero indication for AC0 backoff" id="MEM_CFG_IGNORE_NAV_AC0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="ignore NAV is zero indication for AC0 backoff" id="MEM_CFG_IGNORE_NAV_AC1" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="ignore NAV is zero indication for AC2 backoff" id="MEM_CFG_IGNORE_NAV_AC2" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="ignore NAV is zero indication for AC3 backoff" id="MEM_CFG_IGNORE_NAV_AC3" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="ignore NAV is zero indication for AC4 backoff" id="MEM_CFG_IGNORE_NAV_AC4" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="ignore NAV is zero indication for AC5 backoff" id="MEM_CFG_IGNORE_NAV_AC5" resetval="0"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="LATCHED_TSF_TX_START_LOW" id="latched_tsf_tx_start_low" width="32" description="The value of TSF on TX trigger pulse. (lower 32bits)" offset="0x3c4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="TSF_ON_TX_TRIGGER_31TO0" resetval="0"/>
+	</register>
+	<register acronym="LATCHED_TSF_TX_START_HIGH" id="latched_tsf_tx_start_high" width="32" description="The value of TSF on TX trigger pulse. (higher 32bits)" offset="0x3c8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="TSF_ON_TX_TRIGGER_63TO32" resetval="0"/>
+	</register>
+	<register acronym="TX_JULUTIME_LOW" id="tx_julutime_low" width="32" description="Latches TSF[31:0] on tx start." offset="0x3cc">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="TX_JULUTIME_LOW" resetval="0"/>
+	</register>
+	<register acronym="TX_JULUTIME_HIGH" id="tx_julutime_high" width="32" description="latches usec_offset on tx start.
+usec_offset is 6 bits counter on 40MHz. Cleared to 0 on usec_stb" offset="0x3d0">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" id="TX_JULUTIME_HIGH" resetval="0"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="RX_JULUTIME_LOW" id="rx_julutime_low" width="32" description="Latches TSF[31:0] on plcp header rise" offset="0x3d4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" id="RX_JULUTIME_LOW" resetval="0"/>
+	</register>
+	<register acronym="RX_JULUTIME_HIGH" id="rx_julutime_high" width="32" description="latches usec_offset on plcp header rise.
+usec_offset is 6 bits counter on 40MHz. Cleared to 0 on usec_stb" offset="0x3d8">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" id="RX_JULUTIME_HIGH" resetval="0"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="PRE_TX_OVERRIDE" id="pre_tx_override" width="32" description="override options for pre_tx logic" offset="0x3dc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="override the pre_tx signal entirely. when set, override value is taken from bit[1]" id="MEM_PRE_TX_OVERRIDE_EN" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="the override value to be used - 
+0:pre_tx is held low
+1: pre_tx is asserted" id="MEM_PRE_TX_OVERRIDE_VAL" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="prevent from backoff counter from being reloaded to '1' on reaching 0 (return to legacy logic)" id="MEM_DISABLE_PRE_TX_RELOAD_BACKOFF" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="disable only the imm_resp from triggering pre_tx" id="MEM_DISABLE_IMM_RESP_PRE_TX" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="disable the tx burst from triggering pre_tx logic" id="MEM_DISABLE_BURST_PRE_TX" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="when set, pre_tx will be asserted when an AC reached BO of 1 regardless of pv
+PG1.0 - field return 0 on read" id="MEM_OVERRIDE_PV_ON_BO1_PRE_TX" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="when set, pre_tx will be asserted once if any AC reached backoff of 1.
+when cleared, pre_tx is asserted on every AC reaching backof of 1" id="MEM_DISABLE_PRE_TX_CTR_RESTART_ON_CCA" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="when set, this ac will not trigger the pre_tx when its BO reaches value of 1" id="MEM_OVERRIDE_PRE_TX_LD_CNXT_AC0" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="when set, this ac will not trigger the pre_tx when its BO reaches value of 1" id="MEM_OVERRIDE_PRE_TX_LD_CNXT_AC1" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="when set, this ac will not trigger the pre_tx when its BO reaches value of 1" id="MEM_OVERRIDE_PRE_TX_LD_CNXT_AC2" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="when set, this ac will not trigger the pre_tx when its BO reaches value of 1" id="MEM_OVERRIDE_PRE_TX_LD_CNXT_AC3" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="when set, this ac will not trigger the pre_tx when its BO reaches value of 1" id="MEM_OVERRIDE_PRE_TX_LD_CNXT_AC4" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="when set, this ac will not trigger the pre_tx when its BO reaches value of 1" id="MEM_OVERRIDE_PRE_TX_LD_CNXT_AC5" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="when set, on cases where pre_tx caused Tx to be aborted, the Backoff counter will be loaded to 1.
+when cleared, a new backoff value is used." id="MEM_CFG_LOAD_BO_TO_1_ON_PRETX" resetval="0x0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="BACKOFF_CFG" id="backoff_cfg" width="32" description="Backoff Correction Congifuration (BACKOFF_CFG)" offset="0x3e0">
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Reserved" id="RESERVED28" resetval="2"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_QUAL_DLY_BACKOFF_EN" resetval="2">
+			<bitenum id="VALUE_1" value="1" token="Enable Backoff_timer reload on Qual_CCA. ;When Qual_CCA goes high. reload the counter with the copy_backoff_timer value that was copied when Input_CCA went high.;Enabled only if INT_CFG bit 0 is set;;0: Disable reload of this timer on Qual_CCA. ." description="Enable Backoff_timer reload on Qual_CCA. ;When Qual_CCA goes high. reload the counter with the copy_backoff_timer value that was copied when Input_CCA went high.;Enabled only if INT_CFG bit 0 is set;;0: Disable reload of this timer on Qual_CCA. ."/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_CA_BACKOFF_RELOAD_EN" resetval="2">
+			<bitenum id="VALUE_1" value="1" token="Enable Backoff_timer reload for Collision Avoidance. ;When Tx_CCA is high but Qual_CCA is low and the counter reaches a value of 1. reload the counter with the copy_backoff_timer value.;Enabled only if INT_CFG bit 0 is set;;0: Disable reload of this timer on reaching a value of 1. ;When Tx_CCA is high but Qual_CCA is low and the counter reaches a value of 1. freeze the counter and donot reload." description="Enable Backoff_timer reload for Collision Avoidance. ;When Tx_CCA is high but Qual_CCA is low and the counter reaches a value of 1. reload the counter with the copy_backoff_timer value.;Enabled only if INT_CFG bit 0 is set;;0: Disable reload of this timer on reaching a value of 1. ;When Tx_CCA is high but Qual_CCA is low and the counter reaches a value of 1. freeze the counter and donot reload."/>
+		</bitfield>
+	</register>
+	<register acronym="CCA_MON" id="cca_mon" width="32" description="CPU CCA Register  (CCA_MON)" offset="0x3e4">
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="phy_hdr_start_stb" id="S_RX_RDY" resetval="0x10"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Value of TX_CCA from Access Manager before MAC qualification for gating transmits" id="TX_CCA" resetval="0x10"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Value of Qual_CCA signal from Access Manager. include override" id="QUAL_CCA" resetval="0x10"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="synched input. no override applied" id="PHY_PLCP_VALID_SYNC" resetval="0x10"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="synched phy_cca, no override applied" id="PHY_CCA_SYNC" resetval="0x10"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RO" id="Reserved" resetval="0x10"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" id="Reserved_2" resetval="0x10"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" id="Reserved_3" resetval="0x10"/>
+		<bitfield width="5" end="7" begin="11" rwaccess="RO" id="Reserved_4" resetval="0x10"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="Reserved_5" resetval="0x10"/>
+	</register>
+	<register acronym="DELAY_CFG" id="delay_cfg" width="32" description="Probe Delay Register  (DELAY_CFG)" offset="0x3e8">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="Number of microseconds to wait after tx_path_en is asserted" id="MEM_CFG_PRB_DLY" resetval="0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="ENABLE" id="enable" width="32" description="ENABLE  Register (ENABLE)" offset="0x3ec">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_TX_PATH_EN" resetval="0">
+			<bitenum id="VALUE_1" value="1" token="enables Access Manager and Transmit Manager operation.;Must be de-asserted when changing radio channels.;0 = disable Access Manager and Transmit Manager;must be active for OFDM frames;(tx_path_en)" description="enables Access Manager and Transmit Manager operation.;Must be de-asserted when changing radio channels.;0 = disable Access Manager and Transmit Manager;must be active for OFDM frames;(tx_path_en)"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_RX_PATH_EN" resetval="0">
+			<bitenum id="VALUE_1" value="1" token="enable MAC receive interface.  Rising edge causes receive interface to look for next start of frame on baseband receive interface.;0 = disable MAC receive interface.  Falling edge causes Receive Manager to abort frame in progress.  If it has written a partial frame to memory then it will interrupt and report appropriate status. and ignore the baseband receive interface.;Must be active for OFDM frames;(rx_path_en)" description="enable MAC receive interface.  Rising edge causes receive interface to look for next start of frame on baseband receive interface.;0 = disable MAC receive interface.  Falling edge causes Receive Manager to abort frame in progress.  If it has written a partial frame to memory then it will interrupt and report appropriate status. and ignore the baseband receive interface.;Must be active for OFDM frames;(rx_path_en)"/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0"/>
+	</register>
+	<register acronym="INT_CFG" id="int_cfg" width="32" description="Inteference Avoidance Congifuration (INT_CFG)
+(WL8 Changes)" offset="0x3f0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_INT_FIX_ENABLE" resetval="1"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enables the usage of the pMAC test ports.
+while this bit is disabled all test ports outputs are zeros. (for power saving)
+
+********************************* NOTE **************************
+to enable usage of debug ports please set this bit to 1
+********************************* NOTE **************************" id="MEM_ENABLE_TP" resetval="1"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="RESERVED" resetval="1"/>
+		<bitfield width="10" end="8" begin="17" rwaccess="RW" description="selects the specific test port to be sent to the top from the PMAC after one 
+160 free clock pipe
+bits [4:0] indicates the PMAC test port selected till Ocla trigger
+bits [9:5] indicates the PMAC test port selected after Ocla trigger" id="MEM_PMAC_TP_SELECT" resetval="1"/>
+		<bitfield width="6" end="2" begin="7" rwaccess="RO" id="RESERVED1" resetval="1"/>
+	</register>
+	<register acronym="MAC_TIMESTAMP" id="mac_timestamp" width="32" description="MAC Time Stamp (MAC_TIMESTAMP)" offset="0x3f4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="MAC timestamp based on usecs" id="MAC_TIMESTAMP_WROPT" resetval="0"/>
+	</register>
+	<register acronym="TX_TRIGGER_BASED_ENABLE" id="tx_trigger_based_enable" width="32" description="Enable Configuration
+Set 1 - Enable TX Trigger based winners.
+Set 0 - Disable TX Trigger based winners." offset="0x3f8">
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x1"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_TX_TB_EN" resetval="0x1"/>
+	</register>
+	<register acronym="TRIGGER_BASED_PARAMS_DISABLE" id="trigger_based_params_disable" width="32" offset="0x3fc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_TB_DCM_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_TB_GI_HE_LTF_TYPE_0_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="MEM_TB_LTF_MODE_1_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="16" end="8" begin="23" rwaccess="RW" id="MEM_TB_NFRP_FEEDBACK_TYPE_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" id="MEM_TB_START_STS_1_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" id="MEM_TB_START_STS_2_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" id="MEM_TB_START_STS_3_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" id="MEM_TB_NFRP_START_STS_2_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" id="MEM_TB_NFRP_START_STS_3_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Added for Osprey-LSB-PG2" id="MEM_TB_11B_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Added for Osprey-LSB-PG2
+0: Not Disable TB-TX-Winner during Busy as exchange (as Legacy PG1)
+1: Disable TB-TX-Winner during Busy as exchange (Default for LSB-PG2)" id="MEM_TB_TX_WINNER_DUR_BUSY_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="EHT TXOP-Sharing Disable option" id="MEM_TB_TXOPSH_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+		<bitfield width="1" end="30" begin="30" rwaccess="RW" description="Added for Osprey-MDB-PG1: Option to block BE (= EHT=WiFi7) TB packet." id="MEM_TB_11BE_DISABLE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x5ffffe37'}"/>
+	</register>
+	<register acronym="IR_ERR_REQ_STATUS" id="ir_err_req_status" width="32" offset="0x400">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="IR request error." id="IR_ERR_RDCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="IR_REQ_ERR_OVERRIDE" id="ir_req_err_override" width="32" offset="0x404">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Bypass HW error decision for IR request.
+The override value is set by MEM_IR_ERR_OVERRIDE_VAL register" id="MEM_IR_ERR_OVERRIDE_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Override value for IR request error decision." id="MEM_IR_ERR_OVERRIDE_VAL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="TB_MU_RTS_PARAMS_CHECK_EN" id="tb_mu_rts_params_check_en" width="32" offset="0x408">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_TB_MU_RTS_RU_ALLOC_CHECK_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+	</register>
+	<register acronym="AC0_DATA_FRM_PARAMS_2" id="ac0_data_frm_params_2" width="32" description="current data frame params as set by the tx candidate." offset="0x40c">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="AC0_DATA_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="AC0_DATA_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC1_DATA_FRM_PARAMS_2" id="ac1_data_frm_params_2" width="32" description="current data frame params as set by the tx candidate." offset="0x410">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="AC1_DATA_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="AC1_DATA_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC2_DATA_FRM_PARAMS_2" id="ac2_data_frm_params_2" width="32" description="current data frame params as set by the tx candidate." offset="0x414">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="AC2_DATA_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="AC2_DATA_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC3_DATA_FRM_PARAMS_2" id="ac3_data_frm_params_2" width="32" description="current data frame params as set by the tx candidate." offset="0x418">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="AC3_DATA_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="AC3_DATA_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC4_DATA_FRM_PARAMS_2" id="ac4_data_frm_params_2" width="32" description="current data frame params as set by the tx candidate." offset="0x41c">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="AC4_DATA_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="AC4_DATA_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="AC5_DATA_FRM_PARAMS_2" id="ac5_data_frm_params_2" width="32" description="current data frame params as set by the tx candidate." offset="0x420">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" id="AC5_DATA_EHT_SIG_MCS_WROPT" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="AC5_DATA_EHT_LTF_NUM_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="CURR_AC_DATA_FRM_PARAMS_2" id="curr_ac_data_frm_params_2" width="32" description="current data frame params as set by the tx candidate." offset="0x424">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RO" id="CURR_AC_DATA_EHT_SIG_MCS_STS" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" id="CURR_AC_DATA_EHT_LTF_NUM_STS" resetval="0x0"/>
+	</register>
+</module>

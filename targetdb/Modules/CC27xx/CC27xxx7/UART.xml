@@ -62,10 +62,6 @@ When set to 1, it indicates that the received character did not have a valid sto
          <bitenum id="ERROR_NOTSET" value="0" token="Error flag is not set" description="Error flag is not set"/>
       </bitfield>
    </register>
-   <register acronym="RESERVED0" width="32" description="UART Reserved Area" id="RESERVED0" offset="0x8">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="	Reads to this field return zero, writes to this field are ignored." id="RESERVED" resetval="0x0">
-      </bitfield>
-   </register>
    <register acronym="FR" width="32" description="Flag
 Reads from this register return the UART flags." id="FR" offset="0x18">
       <bitfield range="" begin="31" width="24" end="8" rwaccess="RO" description="	Reads to this field return zero, writes to this field are ignored." id="RESERVED8" resetval="0x0">
@@ -100,10 +96,6 @@ This bit is set as soon as the transmit FIFO becomes non-empty, regardless of wh
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Clear To Send: 
 This bit is the complement of the active-low UART CTS input pin.
 That is, the bit is 1 when CTS input pin is LOW." id="CTS" resetval="0x1">
-      </bitfield>
-   </register>
-   <register acronym="RESERVED2" width="32" description="UART Reserved Area" id="RESERVED2" offset="0x1c">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="	Reads to this field return zero, writes to this field are ignored." id="RESERVED" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="UARTILPR" width="32" description="IrDA Low-Power Counter Register.
@@ -486,14 +478,6 @@ Writing 1 to this field clears the clear to send interrupt (RIS.CTS). Writing 0 
       <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Transmit DMA enable. If this bit is set to 1, DMA for the transmit FIFO is enabled." id="TXDMAE" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Receive DMA enable. If this bit is set to 1, DMA for the receive FIFO is enabled." id="RXDMAE" resetval="0x0">
-      </bitfield>
-   </register>
-   <register acronym="RESERVED3" width="32" description="UART Reserved Area" id="RESERVED3" offset="0x90">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="	Reads to this field return zero, writes to this field are ignored. " id="RESERVED" resetval="0x0">
-      </bitfield>
-   </register>
-   <register acronym="RESERVED4" width="32" description="UART Reserved Area For Future ID Expansion" id="RESERVED4" offset="0xfd0">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="	Reads to this field return zero, writes to this field are ignored. " id="RESERVED" resetval="0x0">
       </bitfield>
    </register>
 </module>

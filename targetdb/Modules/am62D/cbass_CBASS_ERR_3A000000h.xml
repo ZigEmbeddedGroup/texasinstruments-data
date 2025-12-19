@@ -1,0 +1,45 @@
+<module name="cbass_err" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="cbass_err_pid" acronym="cbass_err_pid" offset="0" width="32" description="The Revision Register contains the major and minor revisions for the module.">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="PID register scheme   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="31:30" rwaccess="R"/>
+	<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Business Unit: 10 = Processors   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="29:28" rwaccess="R"/>
+	<bitfield id="FUNC" width="12" begin="27" end="16" resetval="0x1536" description="Module ID   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="27:16" rwaccess="R"/>
+	<bitfield id="RTL" width="5" begin="15" end="11" resetval="0x6" description="RTL revision. Will vary depending on release.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="MAJOR" width="3" begin="10" end="8" resetval="0x1" description="Major revision   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="MINOR" width="6" begin="5" end="0" resetval="0x2" description="Minor revision   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="cbass_err_destination_id" acronym="cbass_err_destination_id" offset="4" width="32" description="The Destination ID Register defines the destination ID value for error messages.">
+		<bitfield id="DEST_ID" width="8" begin="7" end="0" resetval="0x0" description="The destination ID.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="7:0" rwaccess="R/W"/>
+	</register><register id="cbass_err_exception_logging_header0" acronym="cbass_err_exception_logging_header0" offset="36" width="32" description="The Exception Logging Header 0 Register contains the first word of the header.">
+		<bitfield id="TYPE_F" width="8" begin="31" end="24" resetval="0x0" description="Type. 7 = CBASS.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="31:24" rwaccess="R"/>
+	<bitfield id="SRC_ID" width="16" begin="23" end="8" resetval="0x0" description="Source ID. Always 0.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="23:8" rwaccess="R"/>
+	<bitfield id="DEST_ID" width="8" begin="7" end="0" resetval="0x0" description="Destination ID.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="7:0" rwaccess="R"/>
+	</register><register id="cbass_err_exception_logging_header1" acronym="cbass_err_exception_logging_header1" offset="40" width="32" description="The Exception Logging Header 1 Register contains the second word of the header.">
+		<bitfield id="GROUP" width="8" begin="31" end="24" resetval="0x0" description="Group. Always 0.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="31:24" rwaccess="R"/>
+	<bitfield id="CODE" width="8" begin="23" end="16" resetval="0x0" description="Code. 0 = CBASS decode error.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="23:16" rwaccess="R"/>
+	</register><register id="cbass_err_exception_logging_data0" acronym="cbass_err_exception_logging_data0" offset="44" width="32" description="The Exception Logging Data 0 Register contains the first word of the data.">
+		<bitfield id="ADDR_L" width="32" begin="31" end="0" resetval="0x0" description="Address lower 32 bits.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="cbass_err_exception_logging_data1" acronym="cbass_err_exception_logging_data1" offset="48" width="32" description="The Exception Logging Data 1 Register contains the second word of the data.">
+		<bitfield id="ADDR_H" width="16" begin="15" end="0" resetval="0x0" description="Address upper 16 bits.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="15:0" rwaccess="R"/>
+	</register><register id="cbass_err_exception_logging_data2" acronym="cbass_err_exception_logging_data2" offset="52" width="32" description="The Exception Logging Data 2 Register contains the third word of the data.">
+		<bitfield id="ROUTEID" width="12" begin="27" end="16" resetval="0x0" description="Route ID.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="27:16" rwaccess="R"/>
+	<bitfield id="WRITE" width="1" begin="13" end="13" resetval="0x0" description="Write.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="13" rwaccess="R"/>
+	<bitfield id="READ" width="1" begin="12" end="12" resetval="0x0" description="Read.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="12" rwaccess="R"/>
+	<bitfield id="DEBUG" width="1" begin="11" end="11" resetval="0x0" description="Debug.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="11" rwaccess="R"/>
+	<bitfield id="CACHEABLE" width="1" begin="10" end="10" resetval="0x0" description="Cacheable.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="10" rwaccess="R"/>
+	<bitfield id="PRIV" width="1" begin="9" end="9" resetval="0x0" description="Priv.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="9" rwaccess="R"/>
+	<bitfield id="SECURE" width="1" begin="8" end="8" resetval="0x0" description="Secure.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="8" rwaccess="R"/>
+	<bitfield id="PRIV_ID" width="8" begin="7" end="0" resetval="0x0" description="Priv ID.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="7:0" rwaccess="R"/>
+	</register><register id="cbass_err_exception_logging_data3" acronym="cbass_err_exception_logging_data3" offset="56" width="32" description="The Exception Logging Data 3 Register contains the fourth word of the data.">
+		<bitfield id="BYTECNT" width="10" begin="9" end="0" resetval="0x0" description="Byte count.   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="9:0" rwaccess="R"/>
+	</register><register id="cbass_err_err_intr_raw_stat" acronym="cbass_err_err_intr_raw_stat" offset="80" width="32" description="The interrupt raw status register indicates if there is null interrupt regardless of interrupt enable">
+		<bitfield id="INTR" width="1" begin="0" end="0" resetval="0x0" description="Level Interrupt status   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="cbass_err_err_intr_enabled_stat" acronym="cbass_err_err_intr_enabled_stat" offset="84" width="32" description="The interrupt status register is gated by the interrupt enable">
+		<bitfield id="ENABLED_INTR" width="1" begin="0" end="0" resetval="0x0" description="Level Enabled Interrupt status   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="cbass_err_err_intr_enable_set" acronym="cbass_err_err_intr_enable_set" offset="88" width="32" description="Only when this register is set, null access will cause interrupt to be generated.">
+		<bitfield id="INTR_ENABLE_SET" width="1" begin="0" end="0" resetval="0x0" description="Interrupt Enable Set Register   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="cbass_err_err_intr_enable_clr" acronym="cbass_err_err_intr_enable_clr" offset="92" width="32" description="Setting this register disables the null interrupt generation">
+		<bitfield id="INTR_ENABLE_CLR" width="1" begin="0" end="0" resetval="0x0" description="Interrupt Enable Clear Register   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="cbass_err_eoi" acronym="cbass_err_eoi" offset="96" width="32" description="Writing to EOI Register indicates that current interrupt has been serviced which then allows next interrupt to be generated">
+		<bitfield id="EOI_WR" width="16" begin="15" end="0" resetval="0x0" description="End Of Interrupt Register   Reset Source: SCRM_64b_clk2_rst_mod_g_rst_n" range="15:0" rwaccess="R/W"/>
+	</register>
+</module>

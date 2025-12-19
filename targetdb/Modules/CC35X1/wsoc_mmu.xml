@@ -1,0 +1,1014 @@
+<?xml version="1.0" ?>
+<module id="WSOC_MMU" XML_version="1.0" description="">
+	<register acronym="MASTER_0_REQ_REG" id="master_0_req_reg" width="32" offset="0x0">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted to the left to create the virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_0_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_1_REQ_REG" id="master_1_req_reg" width="32" offset="0x4">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create the virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_1_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_2_REQ_REG" id="master_2_req_reg" width="32" offset="0x8">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_2_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_3_REQ_REG" id="master_3_req_reg" width="32" offset="0xc">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_3_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_4_REQ_REG" id="master_4_req_reg" width="32" offset="0x10">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_4_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_5_REQ_REG" id="master_5_req_reg" width="32" offset="0x14">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_5_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_6_REQ_REG" id="master_6_req_reg" width="32" offset="0x18">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_6_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_7_REQ_REG" id="master_7_req_reg" width="32" offset="0x1c">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_7_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_8_REQ_REG" id="master_8_req_reg" width="32" offset="0x20">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_8_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MASTER_9_REQ_REG" id="master_9_req_reg" width="32" offset="0x24">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="1 = response with interrupt" id="response_type" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="2" end="25" begin="26" rwaccess="RW" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="pool" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="6" end="13" begin="18" rwaccess="RW" description="Virtual descriptor - should be shifted left to create virtual address" id="virtual_address" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Size (in Bytes) : 1-4096" id="request_size" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;done&quot;" id="done_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="1" end="29" begin="29" rwaccess="RW" description="go to &quot;no req&quot; status instead of &quot;error&quot;" id="fail_ov" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RW" description="Opcode : alloc (2'b00) / re-alloc (2'b01) / de-alloc (2'b10)" id="opcode" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="1 = when fail on size or pool go to &quot;wait&quot; and not to &quot;fail&quot;/&quot;no_req&quot;" id="MEM_GO_WAIT_9_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+		<bitfield width="3" end="21" begin="23" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x90000000'}"/>
+	</register>
+	<register acronym="MASTER_0_RESP_REG" id="master_0_resp_reg" width="32" offset="0x30">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_0" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_1_RESP_REG" id="master_1_resp_reg" width="32" offset="0x34">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_1" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_2_RESP_REG" id="master_2_resp_reg" width="32" offset="0x38">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_2" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_3_RESP_REG" id="master_3_resp_reg" width="32" offset="0x3c">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_3" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_4_RESP_REG" id="master_4_resp_reg" width="32" offset="0x40">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual desriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_4" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_5_RESP_REG" id="master_5_resp_reg" width="32" offset="0x44">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_5" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_6_RESP_REG" id="master_6_resp_reg" width="32" offset="0x48">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_6" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_7_RESP_REG" id="master_7_resp_reg" width="32" offset="0x4c">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_7" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_8_RESP_REG" id="master_8_resp_reg" width="32" offset="0x50">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_8" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_9_RESP_REG" id="master_9_resp_reg" width="32" offset="0x54">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_9" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="DE_ALLOC_FIFO_MANAGER_CFG" id="de_alloc_fifo_manager_cfg" width="32" offset="0x58">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="enables the dealloc fifo manager.
+when set to &quot;1&quot; it set to &quot;1&quot; shadow register, which will update the real register when fifo manager isn't during operation." id="MEM_DEALLOC_FIFO_MANAGER_EN_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1'}"/>
+	</register>
+	<register acronym="ERROR_ADDR_TRANS_DEBUG_REG" id="error_addr_trans_debug_reg" width="32" offset="0x100">
+		<bitfield width="24" end="0" begin="23" rwaccess="RO" description="The address that triggered the address translation interrupt." id="fail_debug" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="The master id that triggered the address translation interrupt." id="ERR_ADDRESS_TRANS_DEBUG_MSTR" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="valid bit, when 1 the data is valid, and can't be written by the HW till FW clears it." id="MEM_ERR_ADDRESS_TRANS_DEBUG_VALID_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="28" begin="30" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="VIRT_ADDR_FIELD_CFG" id="virt_addr_field_cfg" width="32" offset="0x200">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="size in bits of virtual offset field:
+mem_virt_offset_bits[3:0] == 4'h9, can represent 512B in the mb -&gt; for configurations 0,3
+mem_virt_offset_bits[3:0] == 4'h8, can represent 256B in the mb -&gt; for configurations 1,4
+mem_virt_offset_bits[3:0] == 4'h7, can represent 128B in the mb -&gt; for configurations 2,5" id="virt_offset_bits" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="3" end="4" begin="6" rwaccess="RO" description="size in bits of virtual memblock number field:
+mem_virt_mb_number_bits[2:0] == 3'h2, can represent 4   mb -&gt; for configuration 3
+mem_virt_mb_number_bits[2:0] == 3'h3, can represent 8   mb -&gt; for configurations 0,4
+mem_virt_mb_number_bits[2:0] == 3'h4, can represent 16 mb -&gt; for configurations 1,5
+mem_virt_mb_number_bits[2:0] == 3'h5, can represent 32 mb -&gt; for configuration 2" id="virt_mb_number_bits" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="size in bits of virtual base field:
+mem_virt_base_bits[3:0] == 7, can represent 128 virt desc -&gt; for configurations 0,1,2
+mem_virt_base_bits[3:0] == 8, can represent 256 virt desc -&gt; for configurations 3,4,5" id="virt_base_bits" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="number of virtual descriptors - should be also synced with the tail pointers
+this value is used in the init fsm
+MUST BE EVEN NUMBER. odd value will fail the HW." id="number_of_virt_addresses" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="3" end="28" begin="30" rwaccess="RW" description="the configurations need to be correlated to the other fields - virt_offset_bits, virt_mb_number_bits and virt_base_bits
+
+config = 0 : 128 virt desc, 8   mb (max in each virt desc), 512B (each mb size) -&gt; 4KB virtual space
+config = 1 : 128 virt desc, 16 mb (max in each virt desc), 256B (each mb size) -&gt; 4KB virtual space
+config = 2 : 128 virt desc, 32 mb (max in each virt desc), 128B (each mb size) -&gt; 4KB virtual space
+
+config = 3 :  256 desc, 4   mb (max in each virt desc), 512B (each mb size)  -&gt; 2KB virtual space 
+config = 4 :  256 desc, 8   mb (max in each virt desc), 256B (each mb size)  -&gt; 2KB virtual space
+config  =5 :  256 desc, 16 mb (max in each virt desc), 128B (each mb size)  -&gt; 2KB virtual space
+
+config = 6 : 128 virt desc, 16   mb (max in each virt desc), 512B (each mb size) -&gt; 8KB virtual space
+config = 7 : 128 virt desc, 32 mb (max in each virt desc), 256B (each mb size) -&gt; 8KB virtual space" id="MEM_ADDRESS_CONFIG" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="valid if MEM_ADDRESS_CONFIG is in range 0..7  (2 and 5 are not supporterd - 128B MMBLK mode)
+
+      ADDR_CFG_0 : is_config_valid = 1'b1;
+      ADDR_CFG_1 : is_config_valid = 1'b1;
+      ADDR_CFG_2 : is_config_valid = 1'b0; //128B is not supported in Osprey
+      ADDR_CFG_3 : is_config_valid = 1'b1;
+      ADDR_CFG_4 : is_config_valid = 1'b1;
+      ADDR_CFG_5 : is_config_valid = 1'b0;  //128B is not supported in Osprey
+      ADDR_CFG_6 : is_config_valid = 1'b1;
+      ADDR_CFG_7 : is_config_valid = 1'b1;" id="IS_CONFIG_VALID" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+		<bitfield width="3" end="25" begin="27" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x70f80858'}"/>
+	</register>
+	<register acronym="PHY_MB_CFG" id="phy_mb_cfg" width="32" offset="0x204">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="number of physical memblocks for allocation.
+should be synced with the tail pointers.
+this value is used in the init fsm.
+MUST BE EVEN NUMBER. odd value will fail the HW." id="phy_mb_for_alloc" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1000200'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical memblock size, should be one of these options:
+128, 256, 512 (the design supports 2^... format)" id="PHY_MB_SIZE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1000200'}"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1000200'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1000200'}"/>
+	</register>
+	<register acronym="POOL_0_WM" id="pool_0_wm" width="32" offset="0x208">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="virtual desc pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1100173'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical mb pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1100173'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1100173'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1100173'}"/>
+	</register>
+	<register acronym="POOL_1_WM" id="pool_1_wm" width="32" offset="0x20c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="virtual desc pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x15000df'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical mb pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x15000df'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x15000df'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x15000df'}"/>
+	</register>
+	<register acronym="POOL_2_WM" id="pool_2_wm" width="32" offset="0x210">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="virtual desc pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1d000f8'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical mb pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1d000f8'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1d000f8'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1d000f8'}"/>
+	</register>
+	<register acronym="POOL_3_WM" id="pool_3_wm" width="32" offset="0x214">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="virtual desc pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa00031'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical mb pool limit can be water mark or statistics.
+if water mark mechanism is enabled, when the number of virtual used (allocated) is higher than this value, this pool will fail to allocate.
+if statistics (stat) mechanism is enabled, when the number of virtual used (allocated) in this pool higher than this value, this pool will fail to allocate." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa00031'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa00031'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa00031'}"/>
+	</register>
+	<register acronym="POOL_0_STAT" id="pool_0_stat" width="32" offset="0x218">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="virtual address statistics - how many virtual descriptors allocated in this pool" id="VIRT_ADDR_STAT" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical memblocks statistics - how many memblocks allocated in this pool" id="PHY_MB_STAT" resetval="0x0"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="POOL_1_STAT" id="pool_1_stat" width="32" offset="0x21c">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="virtual address statistics - how many virtual descriptors allocated in this pool" id="VIRT_ADDR_STAT" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical memblocks statistics - how many memblocks allocated in this pool" id="PHY_MB_STAT" resetval="0x0"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="POOL_2_STAT" id="pool_2_stat" width="32" offset="0x220">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="virtual address statistics - how many virtual descriptors allocated in this pool" id="VIRT_ADDR_STAT" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical memblocks statistics - how many memblocks allocated in this pool" id="PHY_MB_STAT" resetval="0x0"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="POOL_3_STAT" id="pool_3_stat" width="32" offset="0x224">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="virtual address statistics - how many virtual descriptors allocated in this pool" id="VIRT_ADDR_STAT" resetval="0x0"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="physical memblocks statistics - how many memblocks allocated in this pool" id="PHY_MB_STAT" resetval="0x0"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MASTERS_PRIORITY_1_8" id="masters_priority_1_8" width="32" offset="0x228">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="master id assigned to priority 1" id="PRIORITY1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="master id assigned to priority 2" id="PRIORITY2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="master id assigned to priority 3" id="PRIORITY3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="master id assigned to priority 4" id="PRIORITY4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="master id assigned to priority 5" id="PRIORITY5" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RW" description="master id assigned to priority 6" id="PRIORITY6" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RW" description="master id assigned to priority 7" id="PRIORITY7" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RW" description="master id assigned to priority 8" id="PRIORITY8" resetval="{'@spirit:resolve': 'immediate', '#text': '0x43210987'}"/>
+	</register>
+	<register acronym="MASTERS_PRIORITY_9_10" id="masters_priority_9_10" width="32" offset="0x22c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="master id assigned to priority 9" id="PRIORITY9" resetval="{'@spirit:resolve': 'immediate', '#text': '0x65'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="master id assigned to priority 10" id="PRIORITY10" resetval="{'@spirit:resolve': 'immediate', '#text': '0x65'}"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x65'}"/>
+	</register>
+	<register acronym="FSMS_ARB_PRIORITY" id="fsms_arb_priority" width="32" offset="0x230">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="&quot;0&quot; for Address Translation FSM, &quot;1&quot; for Memory Management FSM" id="MEM_MNG_FSM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="INIT_REG" id="init_reg" width="32" offset="0x234">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="command to start init of MMU memories" id="INIT_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="16" begin="17" rwaccess="RO" description="init state
+00 - INIT_IDLE
+01 - INIT_RUN
+10 - INIT_DONE" id="INIT_OV" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="constant register configuration from top AOD
+select if MMU will run INIT after reset
+0 = run INIT after reset
+1 = do NOT run init" id="INIT_OV_1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="POOL_0_THR" id="pool_0_thr" width="32" offset="0x238">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="threshold value for allocated virtual descriptors.
+in pool  water mark mechanism, when virt used descriptors number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated virt descriptors number is going under this avlue, an interrupt will be triggered if not masked." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xe00094'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="threshold value for allocated physical memblocks.
+in pool  water mark mechanism, when mb used number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated mb number is going under this avlue, an interrupt will be triggered if not masked." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xe00094'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xe00094'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xe00094'}"/>
+	</register>
+	<register acronym="POOL_1_THR" id="pool_1_thr" width="32" offset="0x23c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="threshold value for allocated virtual descriptors.
+in pool  water mark mechanism, when virt used descriptors number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated virt descriptors number is going under this avlue, an interrupt will be triggered if not masked." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x18000c6'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="threshold value for allocated physical memblocks.
+in pool  water mark mechanism, when mb used number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated mb number is going under this avlue, an interrupt will be triggered if not masked." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x18000c6'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x18000c6'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x18000c6'}"/>
+	</register>
+	<register acronym="POOL_2_THR" id="pool_2_thr" width="32" offset="0x240">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="threshold value for allocated virtual descriptors.
+in pool  water mark mechanism, when virt used descriptors number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated virt descriptors number is going under this avlue, an interrupt will be triggered if not masked." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1e000df'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="threshold value for allocated physical memblocks.
+in pool  water mark mechanism, when mb used number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated mb number is going under this avlue, an interrupt will be triggered if not masked." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1e000df'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1e000df'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1e000df'}"/>
+	</register>
+	<register acronym="POOL_3_THR" id="pool_3_thr" width="32" offset="0x244">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="threshold value for allocated virtual descriptors.
+in pool  water mark mechanism, when virt used descriptors number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated virt descriptors number is going under this avlue, an interrupt will be triggered if not masked." id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x500018'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="threshold value for allocated physical memblocks.
+in pool  water mark mechanism, when mb used number is going under this value, an interrupt will be triggered if isn't masked.
+in pool statistics mechanism, when this pool allocated mb number is going under this avlue, an interrupt will be triggered if not masked." id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x500018'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x500018'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x500018'}"/>
+	</register>
+	<register acronym="PMAC_RX_THR" id="pmac_rx_thr" width="32" offset="0x260">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="threshold value for allocated virtual descriptors.
+used by pmac_rx_adu as mmu-almost-full
+when MEM_POOL_STAT_MECH = 0 (pool WaterMark): set when virt_used is above this threshold value
+when MEM_POOL_STAT_MECH = 1 (pool Statistics):    set when pool_virt_addr_stat_1(rx pool) is above this threshold value" id="VIRT_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xd5000a0'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="threshold value for allocated physical memblocks.
+used by pmac_rx_adu as mmu-almost-full
+when MEM_POOL_STAT_MECH = 0 (pool WaterMark): set when mb_used is above this threshold value
+when MEM_POOL_STAT_MECH = 1 (pool Statistics):    set when pool_phy_mb_addr_stat_1(rx pool) is above this threshold value" id="PHY_MB_WM" resetval="{'@spirit:resolve': 'immediate', '#text': '0xd5000a0'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xd5000a0'}"/>
+		<bitfield width="3" end="26" begin="28" rwaccess="RW" description="impact rx_full indication
+number of free MB needed BELOW the minimum threshold between WM (mem_pool_phy_mb_wm_1) and PHY (mem_phy_mb_for_alloc)
+needed in order to avoid init-alloc-requests (of size &gt; 1) that will fail because free_mb is less than requested_mb" id="MEM_RX_FULL_MIN_FREE_MB" resetval="{'@spirit:resolve': 'immediate', '#text': '0xd5000a0'}"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xd5000a0'}"/>
+	</register>
+	<register acronym="MESSAGE_BUFFER_CONFIG_1" id="message_buffer_config_1" width="32" offset="0x270">
+		<bitfield width="18" end="0" begin="17" rwaccess="RW" description="message_buffer start-address - OCP offset from PRAM BASE address
+represents the actual OCP maddr[17:0] of PRAM
+16 MSBs [17:2] are used as start pointer to RAM.
+2 LSBs [1:0] are dropped and assumed to be 2'b00" id="MEM_MSG_BUF_START_ADDR" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MESSAGE_BUFFER_CONFIG_2" id="message_buffer_config_2" width="32" offset="0x274">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="defines the number of words allocated to the message-buffer" id="MEM_MSG_BUF_SIZE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="0 - message-buffer is disabled. OCP will continue to work normally but
+    interface to PRAM will be disabled.
+    freeze current status: wr_ptr and len keep their value.
+1 - message-buffer is anabled. OCP write will be converted to PRAM write
+at rise - initialize counter and pointer to 0 (rise=init/restart)" id="MEM_MSG_BUF_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="0 - stop write to buffer when buffer is full (no message overwrite)
+1 - cyclic-mode - continue write to buffer when it is full. write-pointer will
+    wrap to start-address and continue write (overwrite old messages)" id="MEM_MSG_BUF_CYCLIC_EN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MESSAGE_BUFFER_STATUS" id="message_buffer_status" width="32" offset="0x278">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="write-pointer in words (increments by 1), points to the next empty address.
+Initial value is mem_msg_buf_start_addr[17:2] (OCP address divide by 4).
+Last message was written to (msg_buf_wr_ptr-1)
+When dumping the buffer content, need to start read from:
+(msg_buf_wr_ptr-msg_buf_length)*4 and consider cyclic address wrap.
+Also need to add PRAM base-address as ocp_maddr[23:18]
+Dumping the buffer content is done using direct PRAM access read from base
+0xD0_0000 + offset of mem_msg_buf_start_addr[17:0]" id="MSG_BUF_WR_PTR_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="Number of words written to message-buffer.
+Max value is mem_msg_buf_size." id="MSG_BUF_LENGTH_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="POOLS_STATIC_CFG" id="pools_static_cfg" width="32" offset="0x2fc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="&quot;1&quot; - SW manage pools through SW_POOLS_MNG FSM state
+&quot;0&quot; - HW manage pools" id="MEM_SW_POOLS_MNG" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="0 = pool wm mechanism to decide if the requested size is ok. 
+1 =  pool statistics mechanism to decide..." id="MEM_POOL_STAT_MECH" resetval="0x1"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="SW_POOLS_MNG" id="sw_pools_mng" width="32" offset="0x300">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="&quot;1&quot; - SW approves to continue in memory management FSM
+&quot;0&quot; - SW doesn't approve to continue in memory management FSM, will cause &quot;fail&quot; status to the relevant master and FSM will go back to IDLE" id="MEM_SW_MNG_GO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="&quot;1&quot; - the SW_MNG_GO bit is valid.
+&quot;0&quot; - the SW_MNG_GO bit isn't valid.
+
+after SW turns this bit to valid, HW will use the SW_MNG_GO bit and clear this (the UPDATE) bit." id="MEM_SW_MNG_UPDATE_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MEM_INT_DONE_AND_ERROR_MASKS" id="mem_int_done_and_error_masks" width="32" offset="0x304">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="mask for done interrupts, per master (0-9) - memory management FSM" id="MEM_REQUSET_DONE_IRQ_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x380'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="mask for error interrupt in memory management FSM (cortex only)" id="MEM_INT_ERROR_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x380'}"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="mask for error interrupt in address translation FSM (cortex only)" id="MEM_INT_ADDR_TRANS_ERR_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x380'}"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x380'}"/>
+		<bitfield width="7" end="17" begin="23" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x380'}"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x380'}"/>
+	</register>
+	<register acronym="MEM_INT_GOING_UNDER_THR_MASK" id="mem_int_going_under_thr_mask" width="32" description="masks for interrupts" offset="0x308">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="mask for going under threshold in pool X" id="MEM_INT_GOING_UNDER_THR_0_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="mask for going under threshold in pool X" id="MEM_INT_GOING_UNDER_THR_1_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="mask for going under threshold in pool X" id="MEM_INT_GOING_UNDER_THR_2_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="mask for going under threshold in pool X" id="MEM_INT_GOING_UNDER_THR_3_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="17" begin="23" rwaccess="RO" id="Reserved_3" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MEM_INT_FAIL_NF_DESC_MB_MASK" id="mem_int_fail_nf_desc_mb_mask" width="32" description="masks for interrupts" offset="0x30c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="mask for fail because no free descriptors in pool X (X=0..3)" id="MEM_INT_FAIL_NF_DESC_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf0f'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf0f'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="mask for fail because no free memblocks in pool X (X=0..3)" id="MEM_INT_FAIL_NF_MB_MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf0f'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xf0f'}"/>
+	</register>
+	<register acronym="INT_GOING_UNDER_THR_STATUS" id="int_going_under_thr_status" width="32" offset="0x314">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="status of going under threshold interrupt for pool X.
+clear on read." id="INT_GOING_UNDER_THR_0_RDCL" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="status of going under threshold interrupt for pool X.
+clear on read." id="INT_GOING_UNDER_THR_1_RDCL" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="status of going under threshold interrupt for pool X.
+clear on read." id="INT_GOING_UNDER_THR_2_RDCL" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" description="status of going under threshold interrupt for pool X.
+clear on read." id="INT_GOING_UNDER_THR_3_RDCL" resetval="0x0"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="7" end="17" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x0"/>
+	</register>
+	<register acronym="INT_FAIL_NF_DESC_MB" id="int_fail_nf_desc_mb" width="32" offset="0x318">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="interrupt for no free descriptors in pool X (X=0..3) for the request generated it.
+clear on read." id="INT_FAIL_NF_DESC_RDCL" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="interrupt for no free memblocks in pool X (X=0..3) for the request generated it.
+clear on read." id="INT_FAIL_NF_MB_RDCL" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="ERROR_DBG_REG_MEM_MNGMNT_FSM" id="error_dbg_reg_mem_mngmnt_fsm" width="32" description="memory management FSM error debug register.
+updated when error occurs (only the releavnt fields of the error!
+when updated, the valid bit set to &quot;1&quot;, and the register is locked untill SW clears this bit, by writing it to &quot;0&quot;." offset="0x320">
+		<bitfield width="2" end="29" begin="30" rwaccess="RO" description="2'b00 = not allocated descriptor
+2'b01 = illegal address (not in MMU valid address space)
+2'b10 = illegal request size (more than 2KB or 4KB, depend on the configuration)
+2'b11 = request when the response status isn't &quot;no_req&quot;" id="ERR_DBG_MEM_MNGMNT_REASON" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="master-id that caused the error:
+ 0 - mcu
+ 1 - mcu
+ 2 - mcu
+ 3 - mcu
+ 4 - reserved
+ 5 - reserved
+ 6 - reserved
+ 7 - PMAC RX (ADU)
+ 8 - NAB
+ 9 - internal (Dealloc FIFO)
+
+Note: MMU-master-id is not the same as OCP-IC-master-id" id="ERR_DBG_MEM_MNGMNT_MASTER_ID" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="virtual descriptor that caused the error" id="ERR_DBG_MEM_MNGMNT_DESC" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="13" end="16" begin="28" rwaccess="RO" description="request size that caused the error" id="ERR_DBG_MEM_MNGMNT_SIZE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="when this bit is &quot;0&quot;, the debug register can be written by HW (for debug pupose).
+after error occurs, the register field will be updated and this bit sets to &quot;1&quot;.
+when &quot;1&quot;, the register is locked, and can't be written by HW.
+SW can clear it by writing &quot;0&quot;. and than the debug register is ready for action..." id="MEM_ERR_DBG_MEM_MNGMNT_VALID_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="FAIL_NF_DESC_COUNTERS" id="fail_nf_desc_counters" width="32" description="counters for fail on no free descriptors per pool.
+read clear registers." offset="0x324">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="counter for fail requests on no free descriptors per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_DESC_0_COUNTER_RDCL" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="counter for fail requests on no free descriptors per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_DESC_1_COUNTER_RDCL" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="counter for fail requests on no free descriptors per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_DESC_2_COUNTER_RDCL" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="counter for fail requests on no free descriptors per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_DESC_3_COUNTER_RDCL" resetval="0x0"/>
+	</register>
+	<register acronym="FAIL_NF_MB_COUNTERS" id="fail_nf_mb_counters" width="32" description="counters for fail on no free memblocks per pool.
+read clear registers." offset="0x328">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="counter for fail requests on no free memblocks per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_MB_0_COUNTER_RDCL" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="counter for fail requests on no free memblocks per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_MB_1_COUNTER_RDCL" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="counter for fail requests on no free memblocks per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_MB_2_COUNTER_RDCL" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="counter for fail requests on no free memblocks per pool.
+when arriving highest value 8'hff - it is locked, till read.
+read clear." id="FAIL_NF_MB_3_COUNTER_RDCL" resetval="0x0"/>
+	</register>
+	<register acronym="VLUT_HEAD_TAIL" id="vlut_head_tail" width="32" offset="0x32c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="head pointer for VLUT - should be 0 according to init mechanism" id="MEM_HEAD_VLUT_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0xfe0000'}"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="tail pointer for VLUT - should be synced with the amount of virt addresses
+at write - MUST BE ODD NUMBER. even value will fail the HW." id="MEM_TAIL_VLUT_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0xfe0000'}"/>
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xfe0000'}"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0xfe0000'}"/>
+	</register>
+	<register acronym="MBLR_HEAD_TAIL" id="mblr_head_tail" width="32" offset="0x330">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="head pointer for MBLR - should be 0 according to init mechanism" id="MEM_HEAD_MBLR_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1fe0000'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RW" description="tail pointer for MBLR - should be synced with the amount of phy mb to allocate
+at write - MUST BE ODD NUMBER. even value will fail the HW." id="MEM_TAIL_MBLR_WROPT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1fe0000'}"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1fe0000'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1fe0000'}"/>
+	</register>
+	<register acronym="MEM_CACHE_VALID_CLR_WRCL" id="mem_cache_valid_clr_wrcl" width="32" description="generates pulse that will reset the valid bit of the masters cache line." offset="0x334">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" id="MEM_MASTER_0_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" id="MEM_MASTER_1_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" id="MEM_MASTER_2_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" id="MEM_MASTER_3_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" id="MEM_MASTER_4_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" id="MEM_MASTER_5_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" id="MEM_MASTER_6_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" id="MEM_MASTER_7_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" id="MEM_MASTER_8_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" id="MEM_MASTER_9_CACHE_VALID_CLR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="FORCE_REQ_STATUS_TO_NO_REQ" id="force_req_status_to_no_req" width="32" description="for use in extreme cases when need to switch response register from &quot;steady wait&quot; to &quot;no_req&quot;.
+when set to &quot;1&quot;, the response register status field is forced to &quot;no_req&quot;.
+&quot;steady wait&quot; means &quot;wait&quot; that can't switched to &quot;in progress&quot;.
+in order to bring the request register to steady wait, there is a need to set its priority to a number higher than 9.
+and read after the setting, if it is wait - it will be a steady wait.
+after using it - it should be written to &quot;0&quot;, to enable regular operation." offset="0x338">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_0_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_1_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_2_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_3_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_4_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_5_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_6_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_7_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_8_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" id="MEM_FORCE_REQ_STATUS_9_TO_NO_REQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="SW_ALLOC_DESC_PARAMS" id="sw_alloc_desc_params" width="32" description="registers for parsing SW allocated descriptors to actual PRAM address:
+Desc address = (Desc ID &lt; mem_number_of_virt_addresses) ? regular address translation : (Desc ID - mem_number_of_virt_addresses+1)*DESC_SIZE" offset="0x33c">
+		<bitfield width="19" end="0" begin="18" rwaccess="RW" description="the actual PRAM address which the SW allocated descriptors start." id="MEM_DESC_BASE_ADDR" resetval="{'@spirit:resolve': 'immediate', '#text': '0x7814000'}"/>
+		<bitfield width="13" end="19" begin="31" rwaccess="RW" description="the size of each SW allocated descriptor in bytes
+can be up to 512B
+TWO LSBs MUST BE 0 (size must be in multiples of 4)" id="MEM_DESC_SIZE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x7814000'}"/>
+	</register>
+	<register acronym="DESC_LIMIT" id="desc_limit" width="32" offset="0x340">
+		<bitfield width="9" end="0" begin="8" rwaccess="RW" description="limit to descriptor written in the address translation path (should include regular and sw allocated)" id="MEM_DESC_LIMIT" resetval="{'@spirit:resolve': 'immediate', '#text': '0xfe'}"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0xfe'}"/>
+	</register>
+	<register acronym="REQUEST_DONE_STATUS" id="request_done_status" width="32" offset="0x350">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="request done status - MASKED" id="REQUEST_DONE_STATUS_MASKED" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="10" end="16" begin="25" rwaccess="RO" description="request done status - BEFORE MASK" id="REQUEST_DONE_STATUS_RAW" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="MMNGMNT_FSM_CURRENT" id="mmngmnt_fsm_current" width="32" offset="0x400">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="4'h0 = IDLE
+4'h1 = SW_POOLS_MNG
+4'h2 = VIRT_ALLOC
+4'h3 = REALLOC_START
+4'h4 = VIRT_DEALLOC
+4'h5 = MBL_ALLOC
+4'h6 = MBL_EOL
+4'h7 = FIND_LAST_IN_MBL
+4'h8 = READ_HEAD_MBL
+4'h9 = MBL_DEALLOC" id="MMNGMNT_FSM_STATE" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="SELECTED_MASTER_ID" resetval="0x0"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RO" description="ALLOC            = 2'b00,
+REALLOC          = 2'b01,
+DEALLOC          = 2'b10;" id="SELECTED_OPCODE" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" id="SELECTED_GO_WAIT" resetval="0x0"/>
+		<bitfield width="13" end="16" begin="28" rwaccess="RO" id="SELECTED_SIZE" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" id="ERROR_OV" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" id="SUCCESS_OV" resetval="0x0"/>
+		<bitfield width="2" end="13" begin="14" rwaccess="RO" description="Pool = TX (2'b00) / RX (2'b01) / management (2'b10)" id="POOL" resetval="0x0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MMNGMNT_FSM_CURRENT_1" id="mmngmnt_fsm_current_1" width="32" offset="0x404">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" id="DESCRIPTOR" resetval="0x0"/>
+		<bitfield width="7" end="16" begin="22" rwaccess="RO" description="indication on the amount of memblocks needed to be allocated - being updated during allocation / reallocation process" id="MBL_REQ" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="9" end="23" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MMNGMNT_DESC_AND_MB_USED_CNT" id="mmngmnt_desc_and_mb_used_cnt" width="32" offset="0x408">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="amount of allocated memblocks - being updated during allocation / reallocation / deallocation process" id="MB_USED_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="amount of allocated virtual descriptors - being updated during allocation / deallocation process" id="VIRT_USED_WROPT" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MMNGMNT_VIRT_AND_MBL_PTRS" id="mmngmnt_virt_and_mbl_ptrs" width="32" offset="0x40c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="VLUT ptr is the address on the VLUT ram in few scenarios:
+assign VLUT_address[VLUT_LINES-1:0]            = (mem_mngmnt_fsm_state[3:0] == VIRT_ALLOC)    &amp; ~VLUT_changed                                          ? mem_head_vlut_wropt[VLUT_LINES-1:0]   :
+                                                    (mem_mngmnt_fsm_state[3:0] == REALLOC_START) &amp; ~VLUT_changed                                          ? virt_ptr[VLUT_LINES-1:0]          :
+                                                    ((mem_mngmnt_fsm_state[3:0] == VIRT_DEALLOC) &amp; ~VLUT_changed &amp; dealloc_phase_1)                       ? virt_ptr[VLUT_LINES-1:0]          :
+                                                    ((mem_mngmnt_fsm_state[3:0] == VIRT_DEALLOC) &amp; ~VLUT_changed &amp; ~dealloc_phase_1)                      ? tail_virt_d[VLUT_LINES-1:0]       :
+                                                    (mem_mngmnt_fsm_state[3:0] == MBL_EOL)       &amp; eol_updated                                            ? virt_ptr[VLUT_LINES-1:0]          : 
+                                                                                                                                                            {VLUT_LINES{1'h0}};" id="VIRT_PTR" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" description="PTR MBL is the address on the MBL ram in few scenarios:
+assign MBLR_address[MBLR_LINES-1:0]      = (mem_mngmnt_fsm_state[3:0] == VIRT_ALLOC)       &amp; (next_VLUT_changed | VLUT_changed)                  ? mem_head_mblr_wropt[MBLR_LINES-1:0]         :
+                                              (mem_mngmnt_fsm_state[3:0] == MBL_ALLOC)                                                              ? next_ptr_mbl[MBLR_LINES-1:0]                :
+                                              (mem_mngmnt_fsm_state[3:0] == MBL_EOL)          &amp; ~eol_updated                                        ? ptr_mbl[MBLR_LINES-1:0]                     :
+                                              (mem_mngmnt_fsm_state[3:0] == REALLOC_START)    &amp; (next_VLUT_changed | VLUT_changed)                  ? next_current_mb[MBLR_LINES-1:0]             :                                         
+                                              (mem_mngmnt_fsm_state[3:0] == FIND_LAST_IN_MBL) &amp; (next_ptr_mbl[MBLR_LINES:0] != EOL[MBLR_WIDTH-1:0]) ? next_current_mb[MBLR_LINES-1:0]             :
+                                              (mem_mngmnt_fsm_state[3:0] == FIND_LAST_IN_MBL) &amp; (next_ptr_mbl[MBLR_LINES:0] == EOL[MBLR_WIDTH-1:0]) ? current_mb[MBLR_LINES-1:0]                  :
+                                              (mem_mngmnt_fsm_state[3:0] == READ_HEAD_MBL)                                                          ? mem_head_mblr_wropt[MBLR_LINES-1:0]         :
+                                              (mem_mngmnt_fsm_state[3:0] == VIRT_DEALLOC)     &amp; (next_VLUT_changed | VLUT_changed) &amp;
+                                              (mem_tail_mblr_wropt[MBLR_LINES:0] != EOL[MBLR_WIDTH-1:0])           &amp; ~tail_connected                ? mem_tail_mblr_wropt[MBLR_LINES-1:0]         :
+                                              (mem_mngmnt_fsm_state[3:0] == VIRT_DEALLOC)     &amp; (next_VLUT_changed | VLUT_changed) &amp; tail_connected ? first_mbl[MBLR_LINES-1:0]                   :
+                                              (mem_mngmnt_fsm_state[3:0] == MBL_DEALLOC)      &amp; (next_ptr_mbl[MBLR_LINES:0] != EOL[MBLR_WIDTH-1:0]) ? next_current_mb[MBLR_LINES-1:0]             :
+                                                                                                                                                     {MBLR_LINES{1'h0}};" id="PTR_MBL" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MMNGMNT_MBLR_OTHER_PTRS" id="mmngmnt_mblr_other_ptrs" width="32" offset="0x410">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" id="CURRENT_MB" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" id="FIRST_MBL" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_0_RESP_REG_STATUS" id="master_0_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x414">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_0_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_1_RESP_REG_STATUS" id="master_1_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x418">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_1_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_2_RESP_REG_STATUS" id="master_2_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x41c">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_2_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_3_RESP_REG_STATUS" id="master_3_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x420">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_3_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_4_RESP_REG_STATUS" id="master_4_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x424">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_4_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_5_RESP_REG_STATUS" id="master_5_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x428">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_5_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_6_RESP_REG_STATUS" id="master_6_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x42c">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_6_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_7_RESP_REG_STATUS" id="master_7_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x430">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_7_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_8_RESP_REG_STATUS" id="master_8_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x434">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_8_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_9_RESP_REG_STATUS" id="master_9_resp_reg_status" width="32" description="This register is for reading / debugging the status and not for operational use!!!" offset="0x438">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="virtual descriptor" id="virtual_address" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="4'b0000 = NO_REQ
+4'b0010 = WAIT
+4'b0001 = IN_PROGRESS
+4'b1000 = SUCCESS
+4'b1001 = FAIL_NF_DESC // NF = No Free
+4'b1010 = FAIL_NF_MB   // NF = No Free
+4'b1011 = FAIL_SW
+4'b1111 = ERROR" id="request_status" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="when &quot;1&quot; indicates that finished one iteration on the FSM and is in sticky mode" id="interrupt_status" resetval="0x0"/>
+		<bitfield width="2" end="20" begin="21" rwaccess="RO" description="request opcode - updated when in &quot;wait&quot; status" id="OPCODE_9_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_0_0" id="cache_ocp_master_0_0" width="32" offset="0x500">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_0_0" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_0_1" id="cache_ocp_master_0_1" width="32" offset="0x504">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_0_1" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_0_2" id="cache_ocp_master_0_2" width="32" offset="0x508">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_0_2" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_0_3" id="cache_ocp_master_0_3" width="32" offset="0x50c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_0_3" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_1" id="cache_ocp_master_1" width="32" offset="0x510">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_1" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_2" id="cache_ocp_master_2" width="32" offset="0x514">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_2" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_3" id="cache_ocp_master_3" width="32" offset="0x518">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_3" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_4" id="cache_ocp_master_4" width="32" offset="0x51c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_4" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_5" id="cache_ocp_master_5" width="32" offset="0x520">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_5" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_6" id="cache_ocp_master_6" width="32" offset="0x524">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_6" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_7" id="cache_ocp_master_7" width="32" offset="0x528">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_7" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_8" id="cache_ocp_master_8" width="32" offset="0x52c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_8" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CACHE_OCP_MASTER_9" id="cache_ocp_master_9" width="32" offset="0x530">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="CACHE_WIDTH = VLUT_LINES + 5(amount of max MBs in virtual descriptor) +MBLR_LINES + 1(bit valid)" id="CACHE_OCP_MASTER_9" resetval="0x0"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="LRU_MECH_SHIFT_REGS" id="lru_mech_shift_regs" width="32" offset="0x540">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="1 hot - if msb is &quot;1&quot;, then this cahce line is the lru" id="LRU_MASTER_0_0" resetval="0x0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="1 hot - if msb is &quot;1&quot;, then this cahce line is the lru" id="LRU_MASTER_0_1" resetval="0x0"/>
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" description="1 hot - if msb is &quot;1&quot;, then this cahce line is the lru" id="LRU_MASTER_0_2" resetval="0x0"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="1 hot - if msb is &quot;1&quot;, then this cahce line is the lru" id="LRU_MASTER_0_3" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" id="Reserved_3" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x0"/>
+	</register>
+	<register acronym="MASTER_0_LEAST_USED_D" id="master_0_least_used_d" width="32" offset="0x544">
+		<bitfield width="2" end="0" begin="1" rwaccess="RO" description="sampled!!! signal of the terminal least used cache line, when considering not allocated lines and the oldest theat was used." id="MASTER_0_LEAST_USED_D" resetval="0x0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MMU_STATUS_GEN" id="mmu_status_gen" width="32" offset="0x600">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" id="MMU_SELECTED_MASTER_ID_D" resetval="0x0"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RO" id="DEALLOC_MANAGER_TRANSACTION_STATUS" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MEM_VLUT_RAM" id="mem_vlut_ram" width="32" description="VLUT - contains 2 VLUT words, each 14 bits:
+when address is even -&gt; [15:2]
+when address is odd   -&gt; [29:16]" offset="0x1000">
+		<bitfield width="28" end="2" begin="29" rwaccess="RW" id="MEM_VLUT_11FC_WRMEM" resetval="0x0"/>
+		<bitfield width="2" end="0" begin="1" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+	<register acronym="MEM_MBL_RAM" id="mem_mbl_ram" width="32" description="MBLR - contains 2 MBLR words, each 10 bits:
+when address is even -&gt; [15:6]
+when address is odd   -&gt; [25:16]" offset="0x4000">
+		<bitfield width="20" end="6" begin="25" rwaccess="RW" id="MEM_MBLR_4FFC_WRMEMP" resetval="0x0"/>
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0"/>
+	</register>
+</module>

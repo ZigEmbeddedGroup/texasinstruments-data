@@ -1,0 +1,7 @@
+<module name="proxy_target" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="PROXY_TARGET_THREAD_DATA_j" acronym="PROXY_TARGET_THREAD_DATA_j" offset="0" width="32" description="The Proxy Private register contains private information for the proxy thread a and should not be written, writes are ignored. Reads are allowed to know the source thread of the message.">
+		<bitfield id="SRC_THR" width="10" begin="9" end="0" resetval="0x0" description="Proxy source thread of message.   Reset Source: rst_mod_g_rst_n" range="9:0" rwaccess="R"/>
+	</register><register id="PROXY_TARGET_THREAD_MESSAGE_j_k" acronym="PROXY_TARGET_THREAD_MESSAGE_j_k" offset="4" width="32" description="The Message Data for proxy thread a. The word with index b = 14 contains the completion final byte.">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="Proxy Message Data   Reset Source: rst_mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register>
+</module>

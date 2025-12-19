@@ -1,0 +1,107 @@
+<module id="ESM_CPU_REGS" HW_revision="" description="ESM CPU Registers">
+	<group id="ERR_GRP" name="ERR_GRP" instances="8" offset="1024" instaddr="32">
+		<register id="RAW" width="32" page="0" offset="0" internal="0" description="Error Group N Event Raw Status/Set Register">
+		<bitfield id="sts" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+		<register id="STS" width="32" page="0" offset="4" internal="0" description="Error Group N Interrupt Enable Status/Clear Register">
+		<bitfield id="msk" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+		<register id="INTR_EN_SET" width="32" page="0" offset="8" internal="0" description="Error Group N Interrupt Enable Set Register">
+		<bitfield id="msk" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+		<register id="INTR_EN_CLR" width="32" page="0" offset="12" internal="0" description="Error Group N Interrupt Enabled Clear Register">
+		<bitfield id="msk" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+		<register id="INT_PRIO" width="32" page="0" offset="16" internal="0" description="Error Group N Interrupt Priority Register">
+		<bitfield id="msk" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+	</group>
+	<group id="ERR_EXT_GRP" name="ERR_EXT_GRP" instances="8" offset="2048" instaddr="32">
+		<register id="CRIT_EN_SET" width="32" page="0" offset="0" internal="0" description="Error Group N Critical Priority Interrupt Influence Set Register">
+		<bitfield id="msk" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+		<register id="CRIT_EN_CLR" width="32" page="0" offset="4" internal="0" description="Error Group N Critical Priority Interrupt Influence Clear Register">
+		<bitfield id="msk" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+	</group>
+	<register id="PID" width="32" page="0" offset="0" internal="0" description="Revision Register">
+		<bitfield id="minor" description="" begin="5" end="0" width="6" rwaccess="R"/>
+		<bitfield id="custom" description="" begin="7" end="6" width="2" rwaccess="R"/>
+		<bitfield id="major" description="" begin="10" end="8" width="3" rwaccess="R"/>
+		<bitfield id="rtl" description="" begin="15" end="11" width="5" rwaccess="R"/>
+		<bitfield id="func" description="" begin="27" end="16" width="12" rwaccess="R"/>
+		<bitfield id="bu" description="" begin="29" end="28" width="2" rwaccess="R"/>
+		<bitfield id="scheme" description="" begin="31" end="30" width="2" rwaccess="R"/>
+	</register>
+	<register id="INFO" width="32" page="0" offset="4" internal="0" description="Info Register">
+		<bitfield id="groups" description="" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="pulse_groups" description="" begin="15" end="8" width="8" rwaccess="R"/>
+		<bitfield id="crit_intr" description="" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="last_reset" description="" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="EN" width="32" page="0" offset="8" internal="0" description="Global Enable Register">
+		<bitfield id="key" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+	</register>
+	<register id="SFT_RST" width="32" page="0" offset="12" internal="0" description="Global Soft Reset Register">
+		<bitfield id="key" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+	</register>
+	<register id="LOW_PRI" width="32" page="0" offset="32" internal="0" description="Low Priority Prioritized Register">
+		<bitfield id="pls" description="" begin="31" end="16" width="16" rwaccess="R"/>
+		<bitfield id="lvl" description="" begin="15" end="0" width="16" rwaccess="R"/>
+	</register>
+	<register id="HI_PRI" width="32" page="0" offset="36" internal="0" description="High Priority Prioritized Register">
+		<bitfield id="pls" description="" begin="31" end="16" width="16" rwaccess="R"/>
+		<bitfield id="lvl" description="" begin="15" end="0" width="16" rwaccess="R"/>
+	</register>
+	<register id="LOW" width="32" page="0" offset="40" internal="0" description="Low Priority Interrupt Status Register">
+		<bitfield id="sts" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="HI" width="32" page="0" offset="44" internal="0" description="High Priority Interrupt Status Register">
+		<bitfield id="sts" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="EOI" width="32" page="0" offset="48" internal="0" description="EOI Interrupt Register">
+		<bitfield id="key" description="" begin="10" end="0" width="11" rwaccess="RW"/>
+	</register>
+	<register id="HI_PRI_WD_CFG" width="32" page="0" offset="128" internal="0" description="High Priority Watchdog Config Register">
+		<bitfield id="wd_en" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="emu_free" description="" begin="11" end="8" width="4" rwaccess="RW"/>
+	</register>
+	<register id="HI_PRI_WD_CNTR" width="32" page="0" offset="132" internal="0" description="High Priority Watchdog Counter Value Register">
+		<bitfield id="count" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="HI_PRI_WD_CNTR_PRE" width="32" page="0" offset="136" internal="0" description="High Priority Watchdog Pre-Load Register">
+		<bitfield id="count" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="HI_PRI_WD_INTR_SET" width="32" page="0" offset="140" internal="0" description="High Priority Watchdog Interrupt Status/Set Register">
+		<bitfield id="val" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HI_PRI_WD_INTR_CLR" width="32" page="0" offset="144" internal="0" description="High Priority Watchdog Interrupt Status/Clear Register">
+		<bitfield id="val" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="GROUP_N_LOCK" width="32" page="0" offset="256" internal="0" description="Group N Interrupt Lock Register">
+		<bitfield id="lock" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="GROUP_N_COMMIT" width="32" page="0" offset="260" internal="0" description="Group N Interrupt Commit Register">
+		<bitfield id="commit" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="CRI_PRI_INFLUENCE_LOCK" width="32" page="0" offset="280" internal="0" description="Critical Prioirty Interrupt Influence Lock Register">
+		<bitfield id="lock" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="CRI_PRI_INFLUENCE_COMMIT" width="32" page="0" offset="284" internal="0" description="Critical Priority Interrupt Influence Lock Register">
+		<bitfield id="commit" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="MMR_CONFIG_LOCK" width="32" page="0" offset="288" internal="0" description="MMR Config Lock Register">
+		<bitfield id="globel_en_lock" description="" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="global_soft_rst_lock" description="" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="errpin_lock" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="errpin_mon_lock" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="hi_pri_wd_lock" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="MMR_CONFIG_COMMIT" width="32" page="0" offset="292" internal="0" description="MMR Config Commit Register">
+		<bitfield id="globel_en_commit" description="" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="global_soft_rst_commit" description="" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="errpin_commit" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="errpin_mon_commit" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="hi_pri_wd_commit" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+</module>

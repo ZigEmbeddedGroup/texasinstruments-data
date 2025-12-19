@@ -1,0 +1,15 @@
+<module id="LFU_REGS" HW_revision="" description="LFU Registers">
+	<register id="LFUConfig" width="32" page="1" offset="0x0" internal="0" description="LFU configuration Register">
+		<bitfield id="LFU_CPU" description="SW configuration to implement LFU" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="PieVectorSwap" description="Swap of pie vector table" begin="12" end="12" width="1" rwaccess="RW"/>
+	</register>
+	<register id="LFUStatus" width="32" page="1" offset="0x2" internal="0" description="LFU Configuration Status Register">
+		<bitfield id="PieVectorSwap" description="Indicate the status of PieVectorSwap" begin="12" end="12" width="1" rwaccess="RW"/>
+	</register>
+	<register id="LFU_LOCK" width="32" page="1" offset="0x4" internal="0" description="LFU Lock Configuration">
+		<bitfield id="LFUConfig" description="Register lock configuration" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="LFU_COMMIT" width="32" page="1" offset="0x6" internal="0" description="LFU Commit Configuration">
+		<bitfield id="LFUConfig" description="Register commit configuration" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+</module>

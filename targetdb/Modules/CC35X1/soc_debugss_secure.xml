@@ -1,0 +1,232 @@
+<module id="soc_debugss_secure" XML_version="1.0" description="">
+	<register acronym="CFGAP_DEVICEID" id="cfgap_deviceid" width="32" description="CFGAP Device ID.  The device identification register allows the manufacturer, part number, and version of a component to be determined. This is the same 32-bit value obtained via the IDCODE instruction in the optional ICEPickM Scan module and is determined by tie-offs at DebugSS boundary." offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="The value 1 in bit 0 of a JTAG IDCODE means that a 32-bit scan register exists. This is replicated here for completeness." id="ALWAYSONE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2f'}" />
+		<bitfield width="11" end="1" begin="11" rwaccess="RO" description="TI's JEDEC bank and company code, which is 00000010111b" id="MAN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2f'}" />
+		<bitfield width="16" end="12" begin="27" rwaccess="RO" description="Identifies the part" id="PARTNUM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2f'}" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Revision of the device. This field should change each time that the logic or mask set of the device is revised." id="VER" resetval="{'@spirit:resolve': 'immediate', '#text': '0x2f'}" />
+	</register>
+	<register acronym="CFGAP_DEVICEUSERCODE" id="cfgap_deviceusercode" width="32" description="CFGAP Device User Code.  The Device Usercode register is used in conjunction with the Device Identification Register to provide extended device information. This is the same 32-bit value obtained via the USERCODE instruction in the optional ICEPickM Scan module and is determined by tie-offs at DebugSS boundary." offset="0x4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="The Device Usercode register is used in conjunction with the Device Identification Register to provide extended device information. This is the same 32-bit value obtained via the USERCODE instruction in the optional ICEPickM Scan module and is determined by tie-offs at DebugSS boundary." id="USERCODE" resetval="0" />
+	</register>
+	<register acronym="CFGAP_DEBUGSSVERSION" id="cfgap_debugssversion" width="32" description="CFGAP DEBUGSS Version.  The DebugSS Configuration Register provides information on the configuration of this particular instance of the subsystem." offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains a Trace submodule" id="TRACE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains Cross Trigger submodule" id="TRIG" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains an ICEPickM Scan module for extended scan support" id="ICEPICKM" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains an EnergyTrace AP" id="ETAP" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains a Secure AP" id="SECAP" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains an ABP-AP for accessing system level debug components" id="APBAP" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains an AHB-AP module for system bus mastering" id="SYSTEMAP" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="A value of '1' indicates this subsystem instance contains a Power-AP module" id="PWRAP" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="16" end="8" begin="23" rwaccess="RO" description="Reserved space write will be ignored and read will result in zeroes" id="RESERVED" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="Indicates the minor revision of this Subsystem instance. Currently 0000b" id="REVMIN" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Indicates the major revision of this Subsystem instance." id="REVMAJ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x40000098'}" />
+	</register>
+	<register acronym="RESERVED" id="reserved" width="32" description="Reserved space write will be ignored and read will result in zeroes" offset="0xc">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" id="Reserved32" resetval="0x0" />
+	</register>
+	<register acronym="CFGAP_BOOTDIAG" id="cfgap_bootdiag" width="32" description="CFGAP Boot Diag.  This register provides feedback on the boot process" offset="0x10">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="This register provides feedback on the boot process" id="DIAGVAL" resetval="0" />
+	</register>
+	<register acronym="CFGAP_LIFECYCLESTATE" id="cfgap_lifecyclestate" width="32" description="CFGAP Life-cycle.  Indicates the current device lifecycle state" offset="0x14">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Life cycle state" id="LCSVAL" resetval="0" />
+	</register>
+	<register acronym="DFT_EN" id="dft_en" width="32" description="DFT Enable.  This bit can be configured to enable multiplexing of JTAG signals on device pins." offset="0x18">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This bit can be configured to enable multiplexing of JTAG signals on device pins. Pin #2 --&gt; TCK ;Pin #3 --&gt; TMS ; Pin #10 --&gt; TDI ; Pin #15 --&gt; TDO. Refer to pinout_iomux.xls for more information." id="EN" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0x0" />
+	</register>
+	<register acronym="RST_REQ" id="rst_req" width="32" description="Reset Request.  This bit can be configured to request reset." offset="0x1c">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="This bit can be configured to request device reset" id="REQ" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="0x0" />
+	</register>
+	<register acronym="CFGAP_UNIQUE_DEVICEID_0" id="cfgap_unique_deviceid_0" width="32" description="CFGAP Unique Device 0.  Used to provide a unique device ID/token for security authentication of tester and tools.  Unique device ID is 64bit value and this register reads lower 32 bits." offset="0x28">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Used to provide a unique divide ID/token for security authentication of tester and tools" id="VAL" resetval="0" />
+	</register>
+	<register acronym="CFGAP_UNIQUE_DEVICEID_1" id="cfgap_unique_deviceid_1" width="32" description="CFGAP Unique Device 1.  Used to provide a unique device ID/token for security authentication of tester and tools.  Unique device ID is 64bit value and this register reads upper 32 bits." offset="0x2c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Used to provide a unique devide ID/token for security authentication of tester and tools" id="VAL" resetval="0" />
+	</register>
+	<register acronym="CFGAP_IDR" id="cfgap_idr" width="32" description="CFGAP Identification Register.  AP Identification Register.  The AP identification register allows tools to determine the manufacturer and the type of AP." offset="0xfc">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="The AP Type Register.  TI Subsystem Config APs have a type of 0001b" id="APTYPE" resetval="0x102e0001" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="AP Variant.  There is only one variant for this AP Type and it is 0." id="APVAR" resetval="0x102e0001" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="reserved." id="RESERVED" resetval="0x102e0001" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="AP Class.  0 indicates that this AP is not a bridge to a memory interconnect (not a Memory Access Port)." id="APCLASS" resetval="0x102e0001" />
+		<bitfield width="11" end="17" begin="27" rwaccess="RO" description="Manufacturer JEP106 ID.  The concatenated JEP106 ID and continuation ID for TI. This is 00000010111b." id="JEPIDS" resetval="0x102e0001" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Component Revision.  Indicates the revision of this AP instance. Currently 0001b" id="REV" resetval="0x102e0001" />
+	</register>
+	<register acronym="PWRAP_DPREC0" id="pwrap_dprec0" width="32" description="Sub-Domain PREC Register This register provides an interface for debug tooling to obtain status and override the power, reset and execution state of debug targets in dynamically controlled sub-domains." offset="0x100">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="1 indicates that WSOC MCU is present in this Osprey device." id="COREPRES" resetval="0x000000" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Input from DSSM. Indicate that WSOC MCU Power-AP overrides are writable." id="CORESACC" resetval="0x000000" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicated that WSOC MCU is clocked by it's functional clock." id="CLKSTATE" resetval="0x000000" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Provides debug override of the default state of the CORE P.D power and clock." id="FORCEACT" resetval="0x000000" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="&quot;1&quot; indicated that WSOC MCU is clocked artificially." id="CLKDWNDES" resetval="0x000000" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Input from PRCM. &quot;1&quot; indicates CORE domain is powered." id="PWR" resetval="0x000000" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="RESERVED" resetval="0x000000" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Input from ELP. Indicates that CORE domain can be shutdown." id="PWRDWNDES" resetval="0x000000" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="RESERVED_1" resetval="0x000000" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" id="RESERVED_2" resetval="0x000000" />
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicate that WSOC MCU is halted and in debug mode." id="DBGATT" resetval="0x000000" />
+		<bitfield width="2" end="11" begin="12" rwaccess="RW" description="Used to define debug properties. Not used in MX." id="DBGMOD" resetval="0x000000" />
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Defines operating mode of debug logic in Cortex. Not used in MX." id="DBGEN" resetval="0x000000" />
+		<bitfield width="3" end="14" begin="16" rwaccess="RW" description="Following are the field values with their description.  000 -&gt; Normal Operation;  001 -&gt; Wait in Reset (Reset Ext);  010 -&gt; Block Reset;  100- &gt; Reset Req." id="RSTCTL" resetval="0x000000" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="Input from PRCM. &quot;1&quot; indicates WSOC MCU is in reset. Setting this bit shall release the extended SYSRSTn to WSOc MCU." id="IRSTRELWIR" resetval="0x000000" />
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="input from PRCM. &quot;1&quot; indicate that WSOC MCU (SYSRSTn) reset is extended." id="UNNATRST" resetval="0x000000" />
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="Used to indicate power state of debug logic in the associated domain. 0 -&gt; Debug logic is off. 1 -&gt; Debug logic is powered." id="DBGPWR" resetval="0x000000" />
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" id="RESERVED_3" resetval="0x000000" />
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="Input from PRCM. Used by debug tools. A sticky bit Indicate that a power loss to CORE has happened since last time tools checked. Cleared on write by the tool." id="PWRLOSS" resetval="0x000000" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" description="Input from CPU-SS. Used by debug tools. A sticky bit Indicate that a reset to WSOC MCU has happened since last time tools checked. Cleared on write  by the tool." id="RSTOCC" resetval="0x000000" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Used to indicate that the domain entered retention since the bit is cleared. Not supported in MX." id="RETENTION" resetval="0x000000" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" id="RESERVED_4" resetval="0x000000" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" id="RESERVED_5" resetval="0x000000" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" id="RESERVED_6" resetval="0x000000" />
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" id="RESERVED_7" resetval="0x000000" />
+		<bitfield width="1" end="28" begin="28" rwaccess="RO" id="RESERVED_8" resetval="0x000000" />
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" id="RESERVED_9" resetval="0x000000" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="RESERVED_10" resetval="0x000000" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="RESERVED_11" resetval="0x000000" />
+	</register>
+	<register acronym="PWRAP_DPREC1" id="pwrap_dprec1" width="32" description="Sub-Domain PREC Register This register provides an interface for debug tooling to obtain status and override the power, reset and execution state of debug targets in dynamically controlled sub-domains." offset="0x104">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="1 indicates that WPHY MCU is present in this Osprey device." id="COREPRES" resetval="0x000000" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Input from DSSM. Indicate that WSOC MCU, WPHY and LRF MCU (CORE domain cores) Power-AP overrides are writable." id="CORESACC" resetval="0x000000" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicated that WPHY MCU is clocked by it's functional clock." id="CLKSTATE" resetval="0x000000" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Provides debug override of the default state of the CORE P.D power and clock." id="FORCEACT" resetval="0x000000" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Input from ?. &quot;1&quot; indicated that WPHY MCU is clocked artificially." id="CLKDWNDES" resetval="0x000000" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Input from PRCM. &quot;1&quot; indicates CORE domain is powered." id="PWR" resetval="0x000000" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="RESERVED" resetval="0x000000" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Input from ELP. Indicates that CORE domain can be shutdown." id="PWRDWNDES" resetval="0x000000" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="RESERVED_1" resetval="0x000000" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" id="RESERVED_2" resetval="0x000000" />
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicate that WPHY MCU is halted and in debug mode." id="DBGATT" resetval="0x000000" />
+		<bitfield width="2" end="11" begin="12" rwaccess="RW" description="Used to define debug properties. Not used in MX." id="DBGMOD" resetval="0x000000" />
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Defines operating mode of debug logic in Cortex. Not used in MX." id="DBGEN" resetval="0x000000" />
+		<bitfield width="3" end="14" begin="16" rwaccess="RW" description="Following are the field values with their description.  000 -&gt; Normal Operation;  001 -&gt; Wait in Reset (Reset Ext);  010 -&gt; Block Reset;  100- &gt; Reset Req." id="RSTCTL" resetval="0x000000" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Input from PRCM. &quot;1&quot; indicates WPHY MCU is in reset." id="INRST" resetval="0x000000" />
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" id="RESERVED_3" resetval="0x000000" />
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="Used to indicate power state of debug logic in the associated domain. 0 -&gt; Debug logic is off. 1 -&gt; Debug logic is powered." id="DBGPWR" resetval="0x000000" />
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" id="RESERVED_4" resetval="0x000000" />
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="Input from PRCM. Used by debug tools. A sticky bit Indicate that a power loss to CORE has happened since last time tools checked. Cleared on write by the tool." id="PWRLOSS" resetval="0x000000" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" description="Input from CPU-SS. Used by debug tools. A sticky bit Indicate that a reset to WPHY MCU has happened since last time tools checked. Cleared on write  by the tool." id="RSTOCC" resetval="0x000000" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Used to indicate that the domain entered retention since the bit is cleared. Not supported in MX." id="RETENTION" resetval="0x000000" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" id="RESERVED_5" resetval="0x000000" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" id="RESERVED_6" resetval="0x000000" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" id="RESERVED_7" resetval="0x000000" />
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" id="RESERVED_8" resetval="0x000000" />
+		<bitfield width="1" end="28" begin="28" rwaccess="RO" id="RESERVED_9" resetval="0x000000" />
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" id="RESERVED_10" resetval="0x000000" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="RESERVED_11" resetval="0x000000" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="RESERVED_12" resetval="0x000000" />
+	</register>
+	<register acronym="PWRAP_DPREC2" id="pwrap_dprec2" width="32" description="Sub-Domain PREC Register This register provides an interface for debug tooling to obtain status and override the power, reset and execution state of debug targets in dynamically controlled sub-domains." offset="0x108">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="1 indicates that LRF MCU is present in this Osprey device." id="COREPRES" resetval="0x000000" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Input from DSSM. Indicate that WSOC MCU, WPHY and LRF MCU (CORE domain cores) Power-AP overrides are writable." id="CORESACC" resetval="0x000000" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicated that LRF MCU is clocked by it's functional clock." id="CLKSTATE" resetval="0x000000" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Provides debug override of the default state of the CORE P.D power and clock." id="FORCEACT" resetval="0x000000" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Input from ?. &quot;1&quot; indicated that LRF MCU is clocked artificially." id="CLKDWNDES" resetval="0x000000" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Input from PRCM. &quot;1&quot; indicates CORE domain is powered." id="PWR" resetval="0x000000" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="RESERVED" resetval="0x000000" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Input from ELP. Indicates that CORE domain can be shutdown." id="PWRDWNDES" resetval="0x000000" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="RESERVED_1" resetval="0x000000" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" id="RESERVED_2" resetval="0x000000" />
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicate that LRF MCU is halted and in debug mode." id="DBGATT" resetval="0x000000" />
+		<bitfield width="2" end="11" begin="12" rwaccess="RW" description="Used to define debug properties. Not used in MX." id="DBGMOD" resetval="0x000000" />
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Defines operating mode of debug logic in Cortex. Not used in MX." id="DBGEN" resetval="0x000000" />
+		<bitfield width="3" end="14" begin="16" rwaccess="RW" description="Following are the field values with their description.  000 -&gt; Normal Operation;  001 -&gt; Wait in Reset (Reset Ext);  010 -&gt; Block Reset;  100- &gt; Reset Req." id="RSTCTL" resetval="0x000000" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Input from PRCM. &quot;1&quot; indicates LRF MCU is in reset." id="INRST" resetval="0x000000" />
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" id="RESERVED_3" resetval="0x000000" />
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="Used to indicate power state of debug logic in the associated domain. 0 -&gt; Debug logic is off. 1 -&gt; Debug logic is powered." id="DBGPWR" resetval="0x000000" />
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" id="RESERVED_4" resetval="0x000000" />
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="Input from PRCM. Used by debug tools. A sticky bit Indicate that a power loss to CORE has happened since last time tools checked. Cleared on write by the tool." id="PWRLOSS" resetval="0x000000" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" description="Input from CPU-SS. Used by debug tools. A sticky bit Indicate that a reset to LRF MCU has happened since last time tools checked. Cleared on write  by the tool." id="RSTOCC" resetval="0x000000" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Used to indicate that the domain entered retention since the bit is cleared. Not supported in MX." id="RETN" resetval="0x000000" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" id="RESERVED_5" resetval="0x000000" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" id="RESERVED_6" resetval="0x000000" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" id="RESERVED_7" resetval="0x000000" />
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" id="RESERVED_8" resetval="0x000000" />
+		<bitfield width="1" end="28" begin="28" rwaccess="RO" id="RESERVED_9" resetval="0x000000" />
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" id="RESERVED_10" resetval="0x000000" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="RESERVED_11" resetval="0x000000" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="RESERVED_12" resetval="0x000000" />
+	</register>
+	<register acronym="PWRAP_DPREC3" id="pwrap_dprec3" width="32" description="Sub-Domain PREC Register This register provides an interface for debug tooling to obtain status and override the power, reset and execution state of debug targets in dynamically controlled sub-domains." offset="0x10c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="1 indicates that APP MCU is present in this Osprey device." id="COREPRES" resetval="0x00000000" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Input from DSSM. Indicate that HOST Power-AP overrides are writable." id="CORESACC" resetval="0x00000000" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicated that APP MCU is clocked by it's functional clock." id="CLKSTATE" resetval="0x00000000" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Provides debug override of the default state of the HOST P.D power and clock." id="FORCEACT" resetval="0x00000000" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Input from ?. &quot;1&quot; indicated that APP MCU is clocked artificially." id="CLKDWNDES" resetval="0x00000000" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Input from PRCM. &quot;1&quot; indicates HOST domain is powered." id="PWR" resetval="0x00000000" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" id="RESERVED" resetval="0x00000000" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Input from ?. Indicates that HOST domain can be shutdown." id="PWRDWNDES" resetval="0x00000000" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" id="RESERVED_1" resetval="0x00000000" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" id="RESERVED_2" resetval="0x00000000" />
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Input from CPU-SS. &quot;1&quot; indicate that APP MCU is halted and in debug mode." id="DBGATT" resetval="0x00000000" />
+		<bitfield width="2" end="11" begin="12" rwaccess="RW" description="Used to define debug properties. Not used in MX." id="DBGMOD" resetval="0x00000000" />
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Defines operating mode of debug logic in Cortex. Not used in MX." id="DBGEN" resetval="0x00000000" />
+		<bitfield width="3" end="14" begin="16" rwaccess="RW" description="Following are the field values with their description.  000 -&gt; Normal Operation;  001 -&gt; Wait in Reset (Reset Ext);  010 -&gt; Block Reset;  100- &gt; Reset Req." id="RSTCTL" resetval="0x00000000" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Input from PRCM. &quot;1&quot; indicates APP MCU is in reset." id="IRSTRELWIR" resetval="0x00000000" />
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="input from PRCM. &quot;1&quot; indicate that APPCPU (SYSRSTn) reset is extended." id="UNNATRST" resetval="0x00000000" />
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="Used to indicate power state of debug logic in the associated domain. 0 -&gt; Debug logic is off. 1 -&gt; Debug logic is powered." id="DBGPWR" resetval="0x00000000" />
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" id="RESERVED_3" resetval="0x00000000" />
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="Input from PRCM. Used by debug tools. A sticky bit Indicate that a power loss to HOST has happened since last time tools checked. Cleared on write  by the tool." id="PWRLOSS" resetval="0x00000000" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" description="Input from CPU-SS. Used by debug tools. A sticky bit Indicate that a reset to APP MCU has happened since last time tools checked. Cleared on write  by the tool." id="RSTOCC" resetval="0x00000000" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Used to indicate that the domain entered retention since the bit is cleared. Not supported in MX." id="RETENTION" resetval="0x00000000" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" id="RESERVED_4" resetval="0x00000000" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" id="RESERVED_5" resetval="0x00000000" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" id="RESERVED_6" resetval="0x00000000" />
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" id="RESERVED_7" resetval="0x00000000" />
+		<bitfield width="1" end="28" begin="28" rwaccess="RO" id="RESERVED_8" resetval="0x00000000" />
+		<bitfield width="1" end="29" begin="29" rwaccess="RO" id="RESERVED_9" resetval="0x00000000" />
+		<bitfield width="1" end="30" begin="30" rwaccess="RO" id="RESERVED_10" resetval="0x00000000" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" id="RESERVED_11" resetval="0x00000000" />
+	</register>
+	<register acronym="PWRAP_IDR" id="pwrap_idr" width="32" description="PWEAP Identification Register.    The AP identification register allows tools to determine the manufacturer and the type of AP." offset="0x1fc">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="The AP Type Register.  TI Subsystem Config APs have a type of 0001b" id="APTYPE" resetval="0x2e0002" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="AP Variant.  There is only one variant for this AP Type and it is 0." id="APVAR" resetval="0x2e0002" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Reserved." id="RESERVED" resetval="0x2e0002" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="AP Class.  0 indicates that this is AP is not a bridge to a memory interconnect (not a Memory Access Port)." id="APCLASS" resetval="0x2e0002" />
+		<bitfield width="11" end="17" begin="27" rwaccess="RO" description="Manufacturer JEP106 ID.  The concatenated JEP106 ID and continuation ID for TI. This is 00000010111b." id="JEPIDS" resetval="0x2e0002" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Component Revision.  Indicates the revision of this AP instance. Currently 0000b" id="REV" resetval="0x2e0002" />
+	</register>
+	<register acronym="SECAP_TXDATA" id="secap_txdata" width="32" description="Transmit Data Register.    This register is used to pass data to the system security logic." offset="0x200">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Transmit Data Register.  This register is used to pass data to the system security logic." id="VAL" resetval="0x0" />
+	</register>
+	<register acronym="SECAP_TXCTL" id="secap_txctl" width="32" description="Transmit Control Register.  This register provides the handshake for the TX Data Register and can also be used to pass control data to the system security logic." offset="0x204">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Transmit Data Available.  Set automatically when the TX data Register is written Cleared automatically when the system debug logic indicates it has accepted the TX data" id="DATAVAIL" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RW" description="Device specific control information from the system security logic" id="TXCTL" resetval="0x0" />
+	</register>
+	<register acronym="SECAP_RXDATA" id="secap_rxdata" width="32" description="Receive Data Register.  This register is used to pass data from the system security logic." offset="0x208">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Receive Data Register.  This register is used to pass data from the system security logic." id="VAL" resetval="0x0" />
+	</register>
+	<register acronym="SECAP_RXCTL" id="secap_rxctl" width="32" description="Receive Control Register.  This register provides the handshake for the RX Data Register and can also be used to pass control data from the system security logic." offset="0x20c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Set automatically when the system security logic indicates that RX Data Register is valid. Cleared automatically when the RX data Register is read." id="DATAVAIL" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RW" description="Device specific control information from the system security logic" id="RXCTL" resetval="0x0" />
+	</register>
+	<register acronym="SECAP_IDR" id="secap_idr" width="32" description="AP Identification Register.  The AP identification register allows tools to determine the manufacturer and the type of AP." offset="0x2fc">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="The AP Type Register." id="APTYPE" resetval="0x2e0000" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="AP Variant.  There is only one variant for this AP Type and it is 0." id="APVAR" resetval="0x2e0000" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="reserved." id="RESERVED" resetval="0x2e0000" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="AP Class.  0 indicates that this AP is not a bridge to a memory interconnect (not a Memory Access Port)." id="APCLASS" resetval="0x2e0000" />
+		<bitfield width="11" end="17" begin="27" rwaccess="RO" description="Manufacturer JEP106 ID.  The concatenated JEP106 ID and continuation ID for TI. This is 00000010111b." id="JEPIDS" resetval="0x2e0000" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Component Revision.  Indicates the revision of this AP instance." id="REVISION" resetval="0x2e0000" />
+	</register>
+	<register acronym="ETAP_REGSEL" id="etap_regsel" width="32" description="ETAP Register Selector.  Has a bit associated with each 32-bit  Status Bitfield in the status array. Bit 0 corresponds to Status Bitfield 0. At reset all available Status Bitfields are selected. After writing this bitfield STATREAD will return the value of the status bitfield with the lowest selected index." offset="0x300">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Has a bit associated with each 32-bit  Status Bitfield in the status array. Bit 0 corresponds to Status Bitfield 0. At reset all available Status Bitfields are selected. After writing this bitfield [ETAPSTARD.*] will return the value of the status bitfield with the lowest selected index.  Attempting to select an unimplemented register will not set the associated bit." id="VAL" resetval="0xff" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="RESERVED8" resetval="0xff" />
+	</register>
+	<register acronym="ETAP_CAPCTRL" id="etap_capctrl" width="32" description="ETAP Capability Control.  This register can be used to read out the capability parameters of EnergyTrace and allows controlling the function." offset="0x304">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Indicates the number of available 32bit register containing EnergyTrace data.  Actual registers is NUMREGS + 1." id="NUMREGS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x7'}" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="reserved" id="RESERVED" resetval="{'@spirit:resolve': 'immediate', '#text': '0x7'}" />
+	</register>
+	<register acronym="ETAP_STATREAD" id="etap_statread" width="32" description="ETAP Status Read.  Returns the value of the EnergyTrace++ status bitfields. After writing the [ETAPSEL.*] bitfield, this register will return the value of the first available status bitfield.  Subsequent reads will return the remaining bitfields as selected with [ETAPSEL.*]." offset="0x308">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Returns the value of the EnergyTrace++ status bitfields. After writing the [ETAPSEL.*] bitfield, this register will return the value of the first available status bitfield.  Subsequent reads will return the remaining bitfields as selected with [ETAPSEL.*]." id="FLAGS" resetval="0" />
+	</register>
+	<register acronym="ETAP_DMNCTRL" id="etap_dmnctrl" width="32" description="ETAP Domain Control.  Controls which async domains are included in the async handshake sequence for data capture." offset="0x30c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Each bit in this bitfield is associated with one of the 16 async domain controls (req/ack) supported by the ET-AP  0 = The domain is not included in the handshake request 1 = The domain is included in the handshake request  Osprey MDB, all 8 ET status buses are synchronous, this register will read all zeroes and writes will be ignored.  The mapping of domains to specific ET data sources is in device specific documentation" id="DMNINC" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="reserved" id="RESERVED" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}" />
+	</register>
+	<register acronym="ETAP_IDR" id="etap_idr" width="32" description="ETAP Identification Register.  AP Identification Register.  The AP identification register allows tools to determine the manufacturer and the type of AP." offset="0x3fc">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="The AP Type Register." id="APTYPE" resetval="0x2e0003" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="AP Variant.  There is only one variant for this AP Type and it is 0." id="APVAR" resetval="0x2e0003" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="reserved" id="RESERVED" resetval="0x2e0003" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="AP Class.  0 indicates that this is AP is not a bridge to a memory interconnect (not a Memory Access Port)." id="APCLASS" resetval="0x2e0003" />
+		<bitfield width="11" end="17" begin="27" rwaccess="RO" description="Manufacturer JEP106 ID.  The concatenated JEP106 ID and continuation ID for TI. This is 00000010111b." id="JEPIDS" resetval="0x2e0003" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Component Revision.  Indicates the revision of this AP instance. Currently 0000b" id="REVISION" resetval="0x2e0003" />
+	</register>
+</module>

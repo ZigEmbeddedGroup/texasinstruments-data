@@ -3,18 +3,18 @@
 
   <property Type="stringfield" Value="radar" id="AETT Platform" />
   <property Type="filepathfield" Value="../../emulation/analysis/dpk/devices/AWRL1432/AETT_database_radar_awrl1432.jsonc" id="AETT Database File"/>
-
+	<property Type="hiddenfield" Value="true" id="autoResetOnConnectByDefault" />
 	<!-- Filter to list device under in project wizard -->	
 	<property Type="stringfield" Value="mmWave Sensors" id="FilterString" /> 
 	<property Type="hiddenfield" Value="4" id="ufNumImageSelection" />
 	<property Type="hiddenfield" Value="Meta Image 1" id="ufImageType0" />
-	<property Type="hiddenfield" Value=".bin" id="supportedFileExtensions" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions" />
 	<property Type="hiddenfield" Value="Meta Image 2" id="ufImageType1" />
-	<property Type="hiddenfield" Value=".bin" id="supportedFileExtensions1" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions1" />
 	<property Type="hiddenfield" Value="Meta Image 3" id="ufImageType2" />
-	<property Type="hiddenfield" Value=".bin" id="supportedFileExtensions2" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions2" />
 	<property Type="hiddenfield" Value="Meta Image 4" id="ufImageType3" />
-	<property Type="hiddenfield" Value=".bin" id="supportedFileExtensions3" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions3" />
     <instance XML_version="1.2" desc="DEBUGSSM_0" href="routers/debugssm.xml" id="DEBUGSSM_0" xml="debugssm.xml" xmlpath="routers"/>
     <router HW_revision="1.0" XML_version="1.2" description="OneMCU DebugSS top level" id="DEBUGSSM_0" isa="DEBUGSSM">
         <subpath id="subpath_2">
@@ -28,6 +28,7 @@
                      <instance XML_version="1.2" desc="Cortex_M4_0" href="cpus/cortex_m4.xml" id="Cortex_M4_0" xml="cortex_m4.xml" xmlpath="cpus"/>
                      <cpu HW_revision="1.0" XML_version="1.2" desc="Cortex_M4_0" description="Cortex_M4 CPU" deviceSim="false" id="Cortex_M4_0" isa="Cortex_M4">
 					  	<!--  Project Wizard Settings -->
+						<property Type="filepathfield" Value="../../../emulation/gel/xwrl64xx.gel" id="GEL File"/>
 						<property Type="stringfield" Value="--silicon_version=7M4 --float_support=FPv4SPD16 --abi=eabi --enum_type=packed --elf" id="CompilerBuildOptions" />
 						<property Type="stringfield" Value="--little --heap_size=0x800 --stack_size=0x800" id="LinkerBuildOptions"/>
 						<property Type="stringfield" Value="4.9.5" id="MinCodegenVersion" />

@@ -4,7 +4,6 @@
 		<bitfield id="KEY" description="Key to Enable writes" begin="31" end="16" width="16" rwaccess="RW"/>
 	</register>
 	<register id="CONFIGLOCK" width="32" page="1" offset="0x5e" internal="0" description="Lock Register for all the config registers.">
-		<bitfield id="AGPIOFILTER" description="Locks AGPIOFILTER Register" begin="1" end="1" width="1" rwaccess="RW"/>
 		<bitfield id="AGPIOCTRL" description="Locks all AGPIOCTRL Register" begin="3" end="3" width="1" rwaccess="RW"/>
 		<bitfield id="GPIOINENACTRL" description="Locks all GPIOINENACTRL Register" begin="6" end="6" width="1" rwaccess="RW"/>
 	</register>
@@ -119,10 +118,6 @@
 		<bitfield id="ADCA" description="Generate synchronous SW trigger for ADCA" begin="0" end="0" width="1" rwaccess="RW"/>
 		<bitfield id="ADCB" description="Generate synchronous SW trigger for ADCB" begin="1" end="1" width="1" rwaccess="RW"/>
 		<bitfield id="ADCC" description="Generate synchronous SW trigger for ADCC" begin="2" end="2" width="1" rwaccess="RW"/>
-	</register>
-	<register id="AGPIOFILTER" width="16" page="1" offset="0x111" internal="0" description="AGPIO Filter Control Register">
-		<bitfield id="RIGHT" description="AGPIOFILTER Control for right side pins" begin="1" end="0" width="2" rwaccess="RW"/>
-		<bitfield id="BOTTOM" description="AGPIOFILTER Control for bottom side pins" begin="9" end="8" width="2" rwaccess="RW"/>
 	</register>
 	<register id="AGPIOCTRLG" width="32" page="1" offset="0x120" internal="0" description="AGPIO Control Register">
 		<bitfield id="GPIO198" description="AGPIOCTRL for GPIO198" begin="6" end="6" width="1" rwaccess="RW"/>

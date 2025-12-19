@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="UC61_UART" HW_revision="1.0">
+    <register id="UC61_UART_CLKDIV" width="32" offset="0x1000" description="Clock Divider">
+        <bitfield id="RATIO" description="Selects divide ratio of module clock
+Division factor
+0 : DIV_BY_1
+1 : DIV_BY_2
+....
+63: DIV_BY_64" begin="2" end="0" width="3" rwaccess="R/W">
+            <bitenum id="DIV_BY_1" value="0x0" description="Do not divide clock source"/>
+            <bitenum id="DIV_BY_2" value="0x1" description="Divide clock source by 2"/>
+            <bitenum id="DIV_BY_3" value="0x2" description="Divide clock source by 3"/>
+            <bitenum id="DIV_BY_4" value="0x3" description="Divide clock source by 4"/>
+            <bitenum id="DIV_BY_5" value="0x4" description="Divide clock source by 5"/>
+            <bitenum id="DIV_BY_6" value="0x5" description="Divide clock source by 6"/>
+            <bitenum id="DIV_BY_7" value="0x6" description="Divide clock source by 7"/>
+            <bitenum id="DIV_BY_8" value="0x7" description="Divide clock source by 8"/>
+            <bitenum id="DIV_BY_61" value="0x3C" description="Divide clock source by 61"/>
+            <bitenum id="DIV_BY_62" value="0x3D" description="Divide clock source by 62"/>
+            <bitenum id="DIV_BY_63" value="0x3E" description="Divide clock source by 63"/>
+            <bitenum id="DIV_BY_64" value="0x3F" description="Divide clock source by 64"/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_CLKSEL" width="32" offset="0x1008" description="Clock Select for Ultra Low Power peripherals">
+        <bitfield id="MFCLK_SEL" description="Selects MFCLK as clock source if enabled" begin="2" end="2" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Does not select this clock as a source"/>
+            <bitenum id="ENABLE" value="0x1" description="Select this clock as a source"/>
+        </bitfield>
+        <bitfield id="BUSCLK_SEL" description="Selects BUS CLK as clock source if enabled" begin="3" end="3" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Does not select this clock as a source"/>
+            <bitenum id="ENABLE" value="0x1" description="Select this clock as a source"/>
+        </bitfield>
+        <bitfield id="LFCLK_SEL" description="Selects LFCLK as clock source if enabled" begin="1" end="1" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Does not select this clock as a source"/>
+            <bitenum id="ENABLE" value="0x1" description="Select this clock as a source"/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_PDBGCTL" width="32" offset="0x1018" description="Peripheral Debug Control">
+        <bitfield id="FREE" description="Free run control" begin="0" end="0" width="1" rwaccess="R/W">
+            <bitenum id="STOP" value="0x0" description="The peripheral freezes functionality while the Core Halted input is asserted and resumes when it is deasserted."/>
+            <bitenum id="RUN" value="0x1" description="The peripheral ignores the state of the Core Halted input"/>
+        </bitfield>
+        <bitfield id="SOFT" description="Soft halt boundary control. This function is only available, if [FREE] is set to 'STOP'" begin="1" end="1" width="1" rwaccess="R/W">
+            <bitenum id="DEPRECATED" value="0x0" description="Not supported"/>
+            <bitenum id="DELAYED" value="0x1" description="The peripheral blocks the debug freeze until it has reached a boundary where it can resume without corruption"/>
+        </bitfield>
+    </register>
+    <group id="UC61_UART_CPU_INT" name="UC61_UART_CPU_INT" instances="1" offset="0x1020" instaddr="0x30" description="">
+        <register id="UC61_UART_IIDX" width="32" offset="0x0" description="Interrupt index">
+            <bitfield id="STAT" description="UART Module Interrupt Vector Value.  This register provides the highes priority interrupt index. A read clears the corresponding interrupt flag in RIS and MIS registers. 15h-1Fh = Reserved" begin="7" end="0" width="8" rwaccess="R">
+                <bitenum id="NO_INTR" value="0x0" description="No interrupt pending"/>
+                <bitenum id="RTFG" value="0x1" description="UART receive time-out interrupt; Interrupt Flag: RT; Interrupt Priority: Highest"/>
+                <bitenum id="FEFG" value="0x2" description="UART framing error interrupt; Interrupt Flag: FE"/>
+                <bitenum id="PEFG" value="0x3" description="UART parity error interrupt; Interrupt Flag: PE"/>
+                <bitenum id="BEFG" value="0x4" description="UART break error interrupt; Interrupt Flag: BE"/>
+                <bitenum id="OEFG" value="0x5" description="UART receive overrun error interrupt; Interrupt Flag: OE"/>
+                <bitenum id="RXNE" value="0x6" description="Negative edge on UARTxRXD interrupt; Interrupt Flag: RXNE"/>
+                <bitenum id="RXPE" value="0x7" description="Positive edge on UARTxRXD interrupt; Interrupt Flag: RXPE"/>
+                <bitenum id="LINC0" value="0x8" description="LIN capture 0 / match interrupt; Interrupt Flag: LINC0"/>
+                <bitenum id="LINC1" value="0x9" description="LIN capture 1 interrupt; Interrupt Flag: LINC1"/>
+                <bitenum id="LINOVF" value="0xA" description="LIN hardware counter overflow interrupt; Interrupt Flag: LINOVF"/>
+                <bitenum id="RXIFG" value="0xB" description="UART receive interrupt; Interrupt Flag: RX"/>
+                <bitenum id="TXIFG" value="0xC" description="UART transmit interrupt; Interrupt Flag: TX"/>
+                <bitenum id="EOT" value="0xD" description="UART end of transmission interrupt (transmit serializer empty); Interrupt Flag: EOT"/>
+                <bitenum id="ADDR_MATCH" value="0xE" description="9-bit mode address match interrupt; Interrupt Flag: ADDR_MATCH"/>
+                <bitenum id="CTS" value="0xF" description="UART Clear to Send Modem interrupt; Interrupt Flag: CTS"/>
+                <bitenum id="DMA_DONE_RX" value="0x10" description="DMA DONE on RX"/>
+                <bitenum id="DMA_DONE_TX" value="0x11" description="DMA DONE on TX"/>
+                <bitenum id="NERR_EVT" value="0x12" description="Noise Error Event"/>
+                <bitenum id="DMA_PREIRQ_RX" value="0x13" description="DMA PRE IRQ INTERRUPT"/>
+                <bitenum id="DMA_PREIRQ_TX" value="0x14" description="DMA PRE IRQ INTERRUPT"/>
+                <bitenum id="LTFG" value="0x15" description="UART line time-out interrupt; Interrupt Flag"/>
+            </bitfield>
+        </register>
+        <register id="UC61_UART_CPU_INT_IMASK" width="32" offset="0x8" description="Interrupt mask">
+            <bitfield id="FRMERR" description="Enable UART Framing Error Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="PARERR" description="Enable UART Parity Error Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="BRKERR" description="Enable UART Break Error Interrupt." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="OVRERR" description="Enable UART Receive Overrun Error Interrupt." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Enable UART Receive Interrupt." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Enable UART Transmit Interrupt." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="EOT" description="Enable UART End of Transmission Interrupt Indicates that the last bit of all transmitted data and flags has left the serializer and without any further Data in the TX Fifo or Buffer." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="NERR" description="Noise Error on triple voting. Asserted when the 3 samples of majority voting are not equal" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+        </register>
+        <register id="UC61_UART_CPU_INT_RIS" width="32" offset="0x10" description="Raw interrupt status">
+            <bitfield id="FRMERR" description="UART Framing Error Interrupt. 
+Framing error interrupt is raised when a &amp;quot;low&amp;quot; stop bit is detected." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="PARERR" description="UART Parity Error Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="BRKERR" description="UART Break Error Interrupt. 
+Break Error Interrupt is raised when all data bits, parity bit and stop bits are '0'" begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="OVRERR" description="UART Receive Overrun Error Interrupt. 
+UART Receive Overrun Error Interrupt is raised when the receive FIFO is flow and a new frame is received" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="RXINT" description="UART Receive Interrupt." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="TXINT" description="UART Transmit Interrupt." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="EOT" description="UART End of Transmission Interrupt Indicates that the last bit of all transmitted data and flags has left the serializer and without any further Data in the TX Fifo or Buffer." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="NERR" description="Noise Error on triple voting. Asserted when the 3 samples of majority voting are not equal" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+        </register>
+        <register id="UC61_UART_CPU_INT_MIS" width="32" offset="0x18" description="Masked interrupt status">
+            <bitfield id="FRMERR" description="Masked UART Framing Error Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="PARERR" description="Masked UART Parity Error Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="BRKERR" description="Masked UART Break Error Interrupt." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="OVRERR" description="Masked UART Receive Overrun Error Interrupt." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Masked UART Receive Interrupt." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Masked UART Transmit Interrupt." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="EOT" description="UART End of Transmission Interrupt Indicates that the last bit of all transmitted data and flags has left the serializer and without any further Data in the TX Fifo or Buffer." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="NERR" description="Noise Error on triple voting. Asserted when the 3 samples of majority voting are not equal" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+        </register>
+        <register id="UC61_UART_CPU_INT_ISET" width="32" offset="0x20" description="Interrupt set">
+            <bitfield id="FRMERR" description="Set UART Framing Error Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="PARERR" description="Set UART Parity Error Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="BRKERR" description="Set UART Break Error Interrupt." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="OVRERR" description="Set  UART Receive Overrun Error Interrupt." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Set UART Receive Interrupt." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Set UART Transmit Interrupt." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="EOT" description="Set UART End of Transmission Interrupt Indicates that the last bit of all transmitted data and flags has left the serializer and without any further Data in the TX Fifo or Buffer." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="NERR" description="Noise Error on triple voting. Asserted when the 3 samples of majority voting are not equal" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing this has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set the interrupt"/>
+            </bitfield>
+        </register>
+        <register id="UC61_UART_ICLR" width="32" offset="0x28" description="Interrupt clear">
+            <bitfield id="FRMERR" description="Clear UART Framing Error Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="PARERR" description="Clear UART Parity Error Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="BRKERR" description="Clear UART Break Error Interrupt." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="OVRERR" description="Clear UART Receive Overrun Error Interrupt." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Clear UART Receive Interrupt." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Clear UART Transmit Interrupt." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="EOT" description="Clear UART End of Transmission Interrupt Indicates that the last bit of all transmitted data and flags has left the serializer and without any further Data in the TX Fifo or Buffer." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="NERR" description="Noise Error on triple voting. Asserted when the 3 samples of majority voting are not equal" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+        </register>
+        </group>
+    <register id="UC61_UART_CTL0" width="32" offset="0x1100" description="UART Control Register 0">
+        <bitfield id="ENABLE" description="UART Module Enable.  If the UART is disabled in the middle of transmission or reception, it completes the current character before stopping. 
+If the ENABLE bit is not set, all registers can still be accessed and updated. It is recommended to setup and change the UART operation mode with having the ENABLE bit cleared to avoid unpredictable behavior during the setup or update.
+If disabled the UART module will not send or receive any data and the logic is held in reset state." begin="0" end="0" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Disable Module"/>
+            <bitenum id="ENABLE" value="0x1" description="Enable module"/>
+        </bitfield>
+        <bitfield id="HSE" description="High-Speed Bit Oversampling Enable   #b#NOTE:#/b# The bit oversampling influences the UART baud-rate configuration.  The state of this bit has no effect on clock generation in ISO7816 smart card mode (the SMART bit is set)." begin="16" end="15" width="2" rwaccess="R/W">
+            <bitenum id="OVS16" value="0x0" description="16x oversampling."/>
+            <bitenum id="OVS8" value="0x1" description="8x oversampling."/>
+            <bitenum id="OVS3" value="0x2" description="3x oversampling. IrDA, Manchester and DALI not supported when 3x oversampling is enabled."/>
+        </bitfield>
+        <bitfield id="LBE" description="UART Loop Back Enable" begin="2" end="2" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Normal operation."/>
+            <bitenum id="ENABLE" value="0x1" description="The UARTxTX path is fed through the UARTxRX path internally."/>
+        </bitfield>
+        <bitfield id="RXE" description="UART Receive Enable  If the UART is disabled in the middle of a receive, it completes the current character before stopping.   #b#NOTE:#/b# To enable reception, the UARTEN bit must be set." begin="3" end="3" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="The receive section of the UART is disabled."/>
+            <bitenum id="ENABLE" value="0x1" description="The receive section of the UART is enabled."/>
+        </bitfield>
+        <bitfield id="TXE" description="UART Transmit Enable  If the UART is disabled in the middle of a transmission, it completes the current character before stopping.   #b#NOTE:#/b# To enable transmission, the UARTEN bit must be set." begin="4" end="4" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="The transmit section of the UART is disabled. The UARTxTXD pin of the UART can be controlled by the TXD_CTL bit when enabled."/>
+            <bitenum id="ENABLE" value="0x1" description="The transmit section of the UART is enabled."/>
+        </bitfield>
+        <bitfield id="MODE" description="Set the communication mode and protocol used.
+(Not defined settings uses the default setting: 0)" begin="10" end="8" width="3" rwaccess="R/W">
+            <bitenum id="UART" value="0x0" description="Normal operation"/>
+            <bitenum id="RS485" value="0x1" description="RS485 mode: UART needs to be IDLE with receiving data for the in EXTDIR_HOLD set time. EXTDIR_SETUP defines the time the RTS line is set to high before sending. When the buffer is empty the RTS line is set low again. A transmit will be delayed as long the UART is receiving data."/>
+            <bitenum id="IDLELINE" value="0x2" description="The UART operates in IDLE Line Mode"/>
+            <bitenum id="ADDR9BIT" value="0x3" description="The UART operates in 9 Bit Address mode"/>
+            <bitenum id="SMART" value="0x4" description="ISO7816 Smart Card Support  The application must ensure that it sets 8-bit word length (WLEN set to 3h) and even parity (PEN set to 1, EPS set to 1, SPS set to 0) in UARTLCRH when using ISO7816 mode. The value of the STP2 bit in UARTLCRH is ignored and the number of stop bits is forced to 2."/>
+            <bitenum id="DALI" value="0x5" description="DALI Mode:"/>
+        </bitfield>
+        <bitfield id="TXD_OUT" description="TXD Pin Control Controls the TXD pin when TXD_OUT_EN = 1 and TXE = 0." begin="6" end="6" width="1" rwaccess="R/W">
+            <bitenum id="LOW" value="0x0" description="TXD pin is low"/>
+            <bitenum id="HIGH" value="0x1" description="TXD pin is high"/>
+        </bitfield>
+        <bitfield id="TXD_OUT_EN" description="TXD Pin Control Enable. When the transmit section of the UART is disabled (TXE = 0), the TXD pin can be controlled by the TXD_OUT bit." begin="5" end="5" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="TXD pin can not be controlled by TXD_OUT"/>
+            <bitenum id="ENABLE" value="0x1" description="TXD pin can be controlled by TXD_OUT"/>
+        </bitfield>
+        <bitfield id="MAJVOTE" description="Majority Vote Enable 
+When Majority Voting is enabled, the three center bits are used to determine received sample value. In case of error (i.e. all 3 bits are not the same), noise error is detected and bits RIS.NERR and register RXDATA.NERR are set.
+     Oversampling of 16 : bits 7, 8, 9 are used
+     Oversampling of 8 : bits 3, 4, 5 are used
+Disabled : Single sample value (center value) used" begin="18" end="18" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Majority voting is disabled"/>
+            <bitenum id="ENABLE" value="0x1" description="Majority voting is enabled"/>
+        </bitfield>
+        <bitfield id="MSBFIRST" description="Most Significant Bit First
+This bit has effect both on the way protocol byte is transmitted and received.
+Notes: User needs to match the protocol to the correct value of this bit to send MSb or LSb first. The hardware engine will send the byte entirely based on this bit." begin="19" end="19" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Least significant bit is sent first in the protocol packet"/>
+            <bitenum id="ENABLE" value="0x1" description="Most significant bit is sent first in the protocol packet"/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_LCRH" width="32" offset="0x1104" description="UART Line Control Register">
+        <bitfield id="PEN" description="UART Parity Enable" begin="1" end="1" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Parity is disabled and no parity bit is added to the data frame."/>
+            <bitenum id="ENABLE" value="0x1" description="Parity checking and generation is enabled."/>
+        </bitfield>
+        <bitfield id="EPS" description="UART Even Parity Select  This bit has no effect when parity is disabled by the PEN bit.  For 9-Bit UART Mode transmissions, this bit controls the address byte and data byte indication (9th bit). 0 = The transferred byte is a data byte 1 = The transferred byte is an address byte" begin="2" end="2" width="1" rwaccess="R/W">
+            <bitenum id="ODD" value="0x0" description="Odd parity is performed, which checks for an odd number of 1s."/>
+            <bitenum id="EVEN" value="0x1" description="Even parity generation and checking is performed during transmission and reception, which checks for an even number of 1s in data and parity bits."/>
+        </bitfield>
+        <bitfield id="STP2" description="UART Two Stop Bits Select     When in 7816 smart card mode (the SMART bit is set in the UARTCTL register), the number of stop bits is forced to 2." begin="3" end="3" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="One stop bit is transmitted at the end of a frame."/>
+            <bitenum id="ENABLE" value="0x1" description="Two stop bits are transmitted at the end of a frame. The receive logic checks for two stop bits being received and provide Frame Error if either is invalid."/>
+        </bitfield>
+        <bitfield id="WLEN" description="UART Word Length  The bits indicate the number of data bits transmitted or received in a frame as follows:" begin="5" end="4" width="2" rwaccess="R/W">
+            <bitenum id="DATABIT5" value="0x0" description="5 bits (default)"/>
+            <bitenum id="DATABIT6" value="0x1" description="6 bits"/>
+            <bitenum id="DATABIT7" value="0x2" description="7 bits"/>
+            <bitenum id="DATABIT8" value="0x3" description="8 bits"/>
+        </bitfield>
+        <bitfield id="SPS" description="UART Stick Parity Select
+The Stick Parity Select (SPS) bit is used to set either a permanent '1' or a permanent '0' as parity when transmitting or receiving data. Its purpose is to typically indicate the first byte of a package or to mark an address byte, for example in a multi-drop RS-485 network.
+When bits PEN, EPS, and SPS of UARTLCRH are set, the parity bit is transmitted and checked as a 0. 
+When bits PEN and SPS are set and EPS is cleared, the parity bit is transmitted and checked as a 1." begin="6" end="6" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Disable Stick Parity"/>
+            <bitenum id="ENABLE" value="0x1" description="Enable Stick Parity"/>
+        </bitfield>
+        <bitfield id="SUSPEND" description="Suspend external communication" begin="26" end="26" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Functional mode resumed"/>
+            <bitenum id="ENABLE" value="0x1" description="External communication suspended"/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_STAT" width="32" offset="0x1108" description="UART Status Register">
+        <bitfield id="BUSY" description="UART Busy
+			This bit is set as soon as the transmit FIFO/buffer becomes non-empty (regardless of whether UART is enabled) or if a receive data is currently ongoing (after the start edge have been detected until a complete byte, including all stop bits, has been received by the shift register).
+In IDLE_Line mode the Busy signal also stays set during the idle time generation." begin="0" end="0" width="1" rwaccess="R">
+            <bitenum id="CLEARED" value="0x0" description="The UART is not busy."/>
+            <bitenum id="SET" value="0x1" description="The UART is busy transmitting data. This bit remains set until the complete byte, including all stop bits, has been sent/received from/into the shift register."/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_IBRD" width="32" offset="0x1110" description="UART Integer Baud-Rate Divisor Register">
+        <bitfield id="DIVINT" description="Integer Baud-Rate Divisor" begin="15" end="0" width="16" rwaccess="R/W">
+            <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+            <bitenum id="MAXIMUM" value="0xFFFF" description="Highest possible value"/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_FBRD" width="32" offset="0x1114" description="UART Fractional Baud-Rate Divisor Register">
+        <bitfield id="DIVFRAC" description="Fractional Baud-Rate Divisor" begin="5" end="0" width="6" rwaccess="R/W">
+            <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+            <bitenum id="MAXIMUM" value="0x3F" description="Highest possible value"/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_TXDATA" width="32" offset="0x1120" description="UART Transmit Data Register">
+        <bitfield id="DATA" description="Data Transmitted or Received  Data that is to be transmitted via the UART is written to this field.  When read, this field contains the data that was received by the UART." begin="7" end="0" width="8" rwaccess="R/W">
+            <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+            <bitenum id="MAXIMUM" value="0xFF" description="Highest possible value"/>
+        </bitfield>
+    </register>
+    <register id="UC61_UART_RXDATA" width="32" offset="0x1124" description="UART Receive Data Register">
+        <bitfield id="DATA" description="Received Data.  When read, this field contains the data that was received by the UART." begin="7" end="0" width="8" rwaccess="R">
+            <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+            <bitenum id="MAXIMUM" value="0xFF" description="Highest possible value"/>
+        </bitfield>
+        <bitfield id="FRMERR" description="UART Framing Error  Writing to this bit has no effect. The flag is cleared by writing 1 to the FRMERR bit in the UART EVENT ICLR register. This error is associated with the character at the top of the FIFO." begin="8" end="8" width="1" rwaccess="R">
+            <bitenum id="CLR" value="0x0" description="No framing error has occurred"/>
+            <bitenum id="SET" value="0x1" description="The received character does not have a valid stop bit sequence, which is one or two stop bits depending on the UARTLCRH.STP2 setting (a valid stop bit is 1)."/>
+        </bitfield>
+        <bitfield id="PARERR" description="UART Parity Error   Writing to this bit has no effect. The flag is cleared by writing 1 to the PARERR bit in the UART EVENT ICLR register." begin="9" end="9" width="1" rwaccess="R">
+            <bitenum id="CLR" value="0x0" description="No parity error has occurred"/>
+            <bitenum id="SET" value="0x1" description="The parity of the received data character does not match the parity defined by bits 2 and 7 of the UARTLCRH register."/>
+        </bitfield>
+        <bitfield id="BRKERR" description="UART Break Error  Writing to this bit has no effect. The flag is cleared by writing 1 to the BRKERR bit in the UART EVENT ICLR register. This error is associated with the character at the top of the FIFO. When a break occurs, only one 0 character is loaded into the FIFO. The next character is only enabled after the receive data input goes to a 1 (marking state) and the next valid start bit is received." begin="10" end="10" width="1" rwaccess="R">
+            <bitenum id="CLR" value="0x0" description="No break condition has occurred"/>
+            <bitenum id="SET" value="0x1" description="A break condition has been detected, indicating that the receive data input was held low for longer than a full-word transmission time (defined as start, data, parity, and stop bits)."/>
+        </bitfield>
+        <bitfield id="NERR" description="Noise Error.
+Writing to this bit has no effect. The flag is cleared by writing 1 to the NERR bit in the UART EVENT ICLR register." begin="11" end="11" width="1" rwaccess="R">
+            <bitenum id="CLR" value="0x0" description="No noise error occurred"/>
+            <bitenum id="SET" value="0x1" description="Noise error occurred during majority voting"/>
+        </bitfield>
+    </register>
+
+</module>

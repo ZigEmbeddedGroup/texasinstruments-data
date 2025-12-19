@@ -3,37 +3,37 @@
 
 " xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setup_parser.xsd">
    <register acronym="DESC" width="32" description="Description Register. This register provides IP module ID, revision information, instance index and standard MMR registers offset." id="DESC" offset="0x0">
-      <bitfield range="" begin="31" width="16" end="16" rwaccess="RW" description="Module identifier used to uniquely identify this IP." id="MODID" resetval="0xd440">
+      <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Module identifier used to uniquely identify this IP." id="MODID" resetval="0xd440">
       </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RW" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
 
 0: Standard IP MMRs do not exist
 
 0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)" id="STDIPOFF" resetval="0x1">
       </bitfield>
-      <bitfield range="" begin="11" width="4" end="8" rwaccess="RW" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
+      <bitfield range="" begin="11" width="4" end="8" rwaccess="RO" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="4" end="4" rwaccess="RW" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
+      <bitfield range="" begin="7" width="4" end="4" rwaccess="RO" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
       </bitfield>
-      <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="DESCEX" width="32" description="Extended Description Register. This register provides configuration details of the IP to software drivers and end users." id="DESCEX" offset="0x4">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RW" description="Number of DTB IOs supported. Total DTB IOs supported is NUMDTBIO value +1." id="NUMDTBIO" resetval="0xf">
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Number of DTB IOs supported. Total DTB IOs supported is NUMDTBIO value +1." id="NUMDTBIO" resetval="0xf">
          <bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
          <bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
       </bitfield>
-      <bitfield range="" begin="11" width="5" end="7" rwaccess="RW" description="Number of high drive IOs supported. Total high drive IOs supported is NUMHDIO value +1." id="NUMHDIO" resetval="0x5">
+      <bitfield range="" begin="11" width="5" end="7" rwaccess="RO" description="Number of high drive IOs supported. Total high drive IOs supported is NUMHDIO value +1." id="NUMHDIO" resetval="0x5">
          <bitenum id="MAXIMUM" value="31" token="Highest possible value" description="Highest possible value"/>
          <bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="High drive IO supported by IOC." id="HDIO" resetval="0x1">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RO" description="High drive IO supported by IOC." id="HDIO" resetval="0x1">
          <bitenum id="PRESENT" value="1" token="HD IO supported by IOC" description="HD IO supported by IOC"/>
          <bitenum id="ABSENT" value="0" token="HD IO not supported by IOC" description="HD IO not supported by IOC"/>
       </bitfield>
-      <bitfield range="" begin="5" width="6" end="0" rwaccess="RW" description="Number of DIOs supported. Total DIOs supported is NUMDIO value +1." id="NUMDIO" resetval="0x1e">
+      <bitfield range="" begin="5" width="6" end="0" rwaccess="RO" description="Number of DIOs supported. Total DIOs supported is NUMDIO value +1." id="NUMDIO" resetval="0x1e">
          <bitenum id="MAXIMUM" value="63" token="Highest possible value" description="Highest possible value"/>
          <bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
       </bitfield>

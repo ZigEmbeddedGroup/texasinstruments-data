@@ -117,8 +117,8 @@
 		<bitfield id="TBPHSHRLOADE" description="TBPHSHR Load Enable " begin="2" end="2" width="1" rwaccess="RW"/>
 		<bitfield id="PWMSYNCSELX" description="EPWMSYNCPER Extended Source Select Bit: " begin="6" end="4" width="3" rwaccess="RW"/>
 	</register>
-	<register id="TRREM" width="16" page="1" offset="0x2e" internal="0" description="Translator High Resolution Remainder Register">
-		<bitfield id="TRREM" description="Translator Remainder Bits" begin="10" end="0" width="11" rwaccess="RW"/>
+	<register id="TRREM" width="16" page="1" offset="0x2e" internal="0" description="HRPWM High Resolution Remainder Register">
+		<bitfield id="TRREM" description="HRPWM Remainder Bits" begin="10" end="0" width="11" rwaccess="RW"/>
 	</register>
 	<register id="GLDCTL" width="16" page="1" offset="0x34" internal="0" description="Global PWM Load Control Register">
 		<bitfield id="GLD" description="Global Shadow to Active load event control" begin="0" end="0" width="1" rwaccess="RW"/>
@@ -228,7 +228,7 @@
 		<bitfield id="GFRCLD" description="Force reload event in one shot mode " begin="1" end="1" width="1" rwaccess="RW"/>
 	</register>
 	<register id="SWVDELVAL" width="16" page="1" offset="0x77" internal="0" description="Software Valley Mode Delay Register">
-		<bitfield id="SWVDELVAL" description="Software programmed Valley Delay Value" begin="15" end="0" width="16" rwaccess="R"/>
+		<bitfield id="SWVDELVAL" description="Software programmed Valley Delay Value" begin="15" end="0" width="16" rwaccess="RW"/>
 	</register>
 	<register id="TZSEL" width="16" page="1" offset="0x80" internal="0" description="Trip Zone Select Register ">
 		<bitfield id="CBC1" description="TZ1 CBC select" begin="0" end="0" width="1" rwaccess="RW"/>
@@ -426,28 +426,16 @@
 		<bitfield id="EVT1FRCSYNCSEL" description="DCAEVT1 Force Sync Signal" begin="1" end="1" width="1" rwaccess="RW"/>
 		<bitfield id="EVT1SOCE" description="DCAEVT1 SOC Enable" begin="2" end="2" width="1" rwaccess="RW"/>
 		<bitfield id="EVT1SYNCE" description="DCAEVT1 SYNC Enable" begin="3" end="3" width="1" rwaccess="RW"/>
-		<bitfield id="EVT1LATSEL" description="DCAEVT1 Latched signal select" begin="4" end="4" width="1" rwaccess="RW"/>
-		<bitfield id="EVT1LATCLRSEL" description="DCAEVT1 Latched clear source select" begin="6" end="5" width="2" rwaccess="RW"/>
-		<bitfield id="EVT1LAT" description="Indicates the status of DCAEVT1LAT signal." begin="7" end="7" width="1" rwaccess="R"/>
 		<bitfield id="EVT2SRCSEL" description="DCAEVT2 Source Signal" begin="8" end="8" width="1" rwaccess="RW"/>
 		<bitfield id="EVT2FRCSYNCSEL" description="DCAEVT2 Force Sync Signal" begin="9" end="9" width="1" rwaccess="RW"/>
-		<bitfield id="EVT2LATSEL" description="DCAEVT2 Latched signal select" begin="12" end="12" width="1" rwaccess="RW"/>
-		<bitfield id="EVT2LATCLRSEL" description="DCAEVT2 Latched clear source select" begin="14" end="13" width="2" rwaccess="RW"/>
-		<bitfield id="EVT2LAT" description="Indicates the status of DCAEVT2LAT signal." begin="15" end="15" width="1" rwaccess="R"/>
 	</register>
 	<register id="DCBCTL" width="16" page="1" offset="0xc4" internal="0" description="Digital Compare B Control Register">
 		<bitfield id="EVT1SRCSEL" description="DCBEVT1 Source Signal" begin="0" end="0" width="1" rwaccess="RW"/>
 		<bitfield id="EVT1FRCSYNCSEL" description="DCBEVT1 Force Sync Signal" begin="1" end="1" width="1" rwaccess="RW"/>
 		<bitfield id="EVT1SOCE" description="DCBEVT1 SOC Enable" begin="2" end="2" width="1" rwaccess="RW"/>
 		<bitfield id="EVT1SYNCE" description="DCBEVT1 SYNC Enable" begin="3" end="3" width="1" rwaccess="RW"/>
-		<bitfield id="EVT1LATSEL" description="DCBEVT1 Latched signal select" begin="4" end="4" width="1" rwaccess="RW"/>
-		<bitfield id="EVT1LATCLRSEL" description="DCBEVT1 Latched clear source select" begin="6" end="5" width="2" rwaccess="RW"/>
-		<bitfield id="EVT1LAT" description="Indicates the status of DCBEVT1LAT signal." begin="7" end="7" width="1" rwaccess="R"/>
 		<bitfield id="EVT2SRCSEL" description="DCBEVT2 Source Signal" begin="8" end="8" width="1" rwaccess="RW"/>
 		<bitfield id="EVT2FRCSYNCSEL" description="DCBEVT2 Force Sync Signal" begin="9" end="9" width="1" rwaccess="RW"/>
-		<bitfield id="EVT2LATSEL" description="DCBEVT2 Latched signal select" begin="12" end="12" width="1" rwaccess="RW"/>
-		<bitfield id="EVT2LATCLRSEL" description="DCBEVT2 Latched clear source select" begin="14" end="13" width="2" rwaccess="RW"/>
-		<bitfield id="EVT2LAT" description="Indicates the status of DCBEVT2LAT signal." begin="15" end="15" width="1" rwaccess="R"/>
 	</register>
 	<register id="DCFCTL" width="16" page="1" offset="0xc7" internal="0" description="Digital Compare Filter Control Register">
 		<bitfield id="SRCSEL" description="Filter Block Signal Source Select" begin="1" end="0" width="2" rwaccess="RW"/>

@@ -1,0 +1,147 @@
+<module id="hsm_secure" XML_version="4.0" description="">
+	<register acronym="AIC_POL_CTRL" id="aic_pol_ctrl" width="32" description="AIC Polarity Control Register" offset="0x3e00">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Individual polarity (high level/rising edge or low level/falling edge) control bits per interrupt input: 0b = Low level/falling edge 1b = High level/rising edge." id="CTL0" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Individual polarity (high level/rising edge or low level/falling edge) control bits per interrupt input: 0b = Low level/falling edge 1b = High level/rising edge." id="CTL1" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Individual polarity (high level/rising edge or low level/falling edge) control bits per interrupt input: 0b = Low level/falling edge 1b = High level/rising edge." id="CTL2" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Individual polarity (high level/rising edge or low level/falling edge) control bits per interrupt input: 0b = Low level/falling edge 1b = High level/rising edge." id="CTL3" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Individual polarity (high level/rising edge or low level/falling edge) control bits per interrupt input: 0b = Low level/falling edge 1b = High level/rising edge." id="CTL4" resetval="0x0" />
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="AIC_TYPE_CTRL" id="aic_type_ctrl" width="32" description="AIC Type Control Register" offset="0x3e04">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Signal type (level or edge) control bits for each interrupt input: 0b = level (the interrupt source level determines the raw status). 1b = edge (the interrupt source is connected to an edge detector and the edge detector output determines the raw status)." id="CTL0" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Signal type (level or edge) control bits for each interrupt input: 0b = level (the interrupt source level determines the raw status). 1b = edge (the interrupt source is connected to an edge detector and the edge detector output determines the raw status)." id="CTL1" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Signal type (level or edge) control bits for each interrupt input: 0b = level (the interrupt source level determines the raw status). 1b = edge (the interrupt source is connected to an edge detector and the edge detector output determines the raw status)." id="CTL2" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Signal type (level or edge) control bits for each interrupt input: 0b = level (the interrupt source level determines the raw status). 1b = edge (the interrupt source is connected to an edge detector and the edge detector output determines the raw status)." id="CTL3" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Signal type (level or edge) control bits for each interrupt input: 0b = level (the interrupt source level determines the raw status). 1b = edge (the interrupt source is connected to an edge detector and the edge detector output determines the raw status)." id="CTL4" resetval="0x0" />
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="AIC_ENABLE_CTRL" id="aic_enable_ctrl" width="32" description="AIC Enable Control Register" offset="0x3e08">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Individual enable control bits per interrupt input: 0b = Disabled. 1b = Enabled" id="CTL" resetval="0x0" />
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="AIC_RAW_STAT" id="aic_raw_stat" width="32" description="AIC Raw Source Status Register" offset="0x3e0c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Individual interrupt status bit before masking with enable_ctrl_r[0] (programmable, reset to 'low level' mode): 0b = Inactive, 1b = Pending." id="STA0" resetval="0xf" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Individual interrupt status bit before masking with enable_ctrl_r[1] (programmable, reset to 'low level' mode): 0b = Inactive, 1b = Pending." id="STA1" resetval="0xf" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Individual interrupt status bit before masking with enable_ctrl_r[2] (programmable, reset to 'low level' mode): 0b = Inactive, 1b = Pending." id="STA2" resetval="0xf" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Individual interrupt status bit before masking with enable_ctrl_r[3] (programmable, reset to 'low level' mode): 0b = Inactive, 1b = Pending." id="STA3" resetval="0xf" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Individual interrupt status bit before masking with enable_ctrl_r[4] (programmable, reset to 'low level' mode): 0b = Inactive, 1b = Pending." id="STA4" resetval="0xf" />
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0xf" />
+	</register>
+	<register acronym="AIC_ENABLED_STAT" id="aic_enabled_stat" width="32" description="AIC Enabled Status Register" offset="0x3e10">
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="These bits reflect the status of the interrupts after polarity control and optional edge detection, gated with bits in AIC_ENABLE_CTRL register: 0b = Inactive. 1b = Pending." id="STA" resetval="0x0" />
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="AIC_ENABLE_CLR" id="aic_enable_clr" width="32" description="AIC Enable Clear Register" offset="0x3e14">
+		<bitfield width="5" end="0" begin="4" rwaccess="WO" description="Individual interrupt disable bits per interrupt input: 0b = No effect. 1b = Clear the corresponding bit in the AIC_ENABLE_CTRL register, disabling the interrupt. After writing a 1b, there is no need to write a 0b." id="CLR" resetval="0x0" />
+		<bitfield width="27" end="5" begin="31" rwaccess="WO" description="Reserved field. Write with zero" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="AIC_OPTIONS" id="aic_options" width="32" description="AIC Options Register" offset="0x3e18">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="The number of interrupt request inputs." id="NUMOFIN" resetval="0x5" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x5" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Extended register map." id="EXTMAP" resetval="0x5" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Mini register map." id="MINIMAP" resetval="0x5" />
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_1" resetval="0x5" />
+	</register>
+	<register acronym="AIC_VERSION" id="aic_version" width="32" description="AIC Version Register" offset="0x3e1c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="These bits encode the Rambus EIP number." id="EIPNUM" resetval="0x14036c9" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="These bits simply contain the complement of bits [7:0], used by a driver to ascertain that this version register is indeed read." id="EIPNUMCOMP" resetval="0x14036c9" />
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" description="These bits encode the hardware patch level for the EIP-201 module, starting at value 0 on the first release." id="PATCHLVL" resetval="0x14036c9" />
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" description="These bits encode the minor version number for the EIP-201 module." id="MINORVER" resetval="0x14036c9" />
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="These bits encode the major version number for the EIP-201 module." id="MAJORVER" resetval="0x14036c9" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x14036c9" />
+	</register>
+	<register acronym="MAILBOX_STAT" id="mailbox_stat" width="32" description="Mailbox Status Register" offset="0x3f00">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="(set)-Input Mailbox contains a token that is handed over to Internal Controller, (Clear)-Input Mailbox is ready to rceive new token" id="INFULL1" resetval="0x88" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="(set)-Output Mailbox contains an output token, (Clear)-Output Mailbox is empty" id="OUTFULL1" resetval="0x88" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="(set)-This Host is linked to Mailbox, (Clear)-This Host is not linked to Mailbox" id="LINKED1" resetval="0x88" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="(set)-Input Mailbox is linked to a Host or is filled, (Clear)- Input Mailbox is available for linking by this Host" id="AVAIL1" resetval="0x88" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="(set)-Input Mailbox contains a token that is handed over to Internal Controller, (Clear)-Input Mailbox is ready to rceive new token" id="INFULL2" resetval="0x88" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="(set)-Output Mailbox contains an output token, (Clear)-Output Mailbox is empty" id="OUTFULL2" resetval="0x88" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="(set)-This Host is linked to Mailbox, (Clear)-This Host is not linked to Mailbox" id="LINKED2" resetval="0x88" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="(set)-Input Mailbox is linked to a Host or is filled, (Clear)- Input Mailbox is available for linking by this Host" id="AVAIL2" resetval="0x88" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x88" />
+	</register>
+	<register acronym="MAILBOX_RAWSTAT" id="mailbox_rawstat" width="32" description="Raw (unmasked) Mailbox Status Register" offset="0x3f04">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="(set)-Input Mailbox contains a token that is handed over to Internal Controller, (Clear)-Input Mailbox mbx%d is ready to rceive new token" id="INFULL1" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="(set)-Output Mailbox contains an output token, (Clear)-Output Mailbox mbx%d is empty" id="OUTFULL1" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="(set)-This Host is linked to Mailbox mbx%d , (Clear)-This Host is not linked to  Mailbox mbx%d" id="LINKED1" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="(set)-Input Mailbox contains a token that is handed over to Internal Controller, (Clear)-Input Mailbox mbx%d is ready to rceive new token" id="INFULL2" resetval="0x0" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="(set)-Output Mailbox contains an output token, (Clear)-Output Mailbox mbx%d is empty" id="OUTFULL2" resetval="0x0" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="(set)-This Host is linked to Mailbox mbx%d , (Clear)-This Host is not linked to  Mailbox mbx%d" id="LINKED2" resetval="0x0" />
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_1" resetval="0x0" />
+	</register>
+	<register acronym="MAILBOX_LINKID" id="mailbox_linkid" width="32" description="Mailbox Status - linked Host IDs Register" offset="0x3f08">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="Bits[1:0]Host cpu_id of the Host linked to the Mailbox, bit[2] Set - Mailbox is only accessible if Host uses protected access, Clear - Mailbox accessed with protected of non-protected access" id="LINKID1" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="0: Mailbox 1 can be accessed by the Host using protected or non-protected access. 1: Mailbox 1 is only accessible if the Host uses protected access." id="PROTACC1" resetval="0x0" />
+		<bitfield width="3" end="4" begin="6" rwaccess="RO" description="Bits[1:0]Host cpu_id of the Host linked to the Mailbox, bit[2] Set - Mailbox is only accessible if Host uses protected access, Clear - Mailbox accessed with protected of non-protected access" id="LINKID2" resetval="0x0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="0: Mailbox 2 can be accessed by the Host using protected or non-protected access. 1: Mailbox 2 is only accessible if the Host uses protected access." id="PORTACC2" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="MAILBOX_OUTID" id="mailbox_outid" width="32" description="Mailbox Status - output Host IDs Register" offset="0x3f0c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="Bit[1,0] Host cpu_id of the Host allowed to read a result from the Mailbox, bit[2] Set - Out Mailbox is only accessible if Host uses protected access, Clear - Output Mailbox accessed with protected of non-protected access" id="OUTID1" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="0: Output mailbox 1 can be accessed by the Host using protected or non-protected access. 1: Output mailbox 1 is only accessible if the Host uses protected access." id="PROTACC1" resetval="0x0" />
+		<bitfield width="3" end="4" begin="6" rwaccess="RO" description="Bit[1,0] Host cpu_id of the Host allowed to read a result from the Mailbox, bit[2] Set - Out Mailbox is only accessible if Host uses protected access, Clear - Output Mailbox accessed with protected of non-protected access" id="OUTID2" resetval="0x0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="0: Output mailbox 2 can be accessed by the Host using protected or non-protected access. 1: Output mailbox 2 is only accessible if the Host uses protected access." id="PORTACC2" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="MAILBOX_LOCKOUT" id="mailbox_lockout" width="32" description="Host/Mailbox1-4  lockout control Register" offset="0x3f10">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Bit map indicates which Hosts are blocked from accessing mailbox" id="LOCKOUT1" resetval="0xe0e" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Bit map indicates which Hosts are blocked from accessing mailbox" id="LOCKOUT2" resetval="0xe0e" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0xe0e" />
+	</register>
+	<register acronym="MODULE_STATUS" id="module_status" width="32" description="Module Status Register" offset="0x3fe0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Read-Only. Set if VaultIP is in FIPS mode" id="FIPSMOD" resetval="0x100" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Read-Only. Set if VaultIP is in non-FIPS mode" id="NFIPSMOD" resetval="0x100" />
+		<bitfield width="6" end="2" begin="7" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x100" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Read-Only. Set if CRC on ProgramROM is busy" id="CRCBUSY" resetval="0x100" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Read-Only. Set if CRC on ProgramROM is passes" id="CRCOK" resetval="0x100" />
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Read-Only. Set if CRC on ProgramROM is fails" id="CRCERR" resetval="0x100" />
+		<bitfield width="20" end="11" begin="30" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_1" resetval="0x100" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="Read-Only. Set if fatal error occured" id="FATALERR" resetval="0x100" />
+	</register>
+	<register acronym="EIP_OPTIONS2" id="eip_options2" width="32" description="VaultIP configured options(2)" offset="0x3ff4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Set - (3)DES/AES combination crypto core available" id="DESAES" resetval="0x20003c" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x20003c" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Set - SHA1/SHA2 combination core available" id="SHA" resetval="0x20003c" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Set - TRNG engine available" id="TRNG" resetval="0x20003c" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="CRC calculation available" id="CRC" resetval="0x20003c" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="PKCP Engine available" id="PKCP" resetval="0x20003c" />
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_1" resetval="0x20003c" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="C capable local cpu available" id="CCPU" resetval="0x20003c" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="1b = downloadable RAM based firmware program memory. 0b = ROM only firmware program memory." id="PRAM" resetval="0x20003c" />
+		<bitfield width="2" end="10" begin="11" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_2" resetval="0x20003c" />
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="Bus interface type, for both Master and Slave: 0b = 32-bit AHB, 1b = 32-bit AXI" id="BUSIF" resetval="0x20003c" />
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_3" resetval="0x20003c" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine1" id="ADDCE1" resetval="0x20003c" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine2" id="ADDCE2" resetval="0x20003c" />
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine3" id="ADDCE3" resetval="0x20003c" />
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine4" id="ADDCE4" resetval="0x20003c" />
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine5" id="ADDCE5" resetval="0x20003c" />
+		<bitfield width="1" end="21" begin="21" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine6" id="ADDCE6" resetval="0x20003c" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine7" id="ADDCE7" resetval="0x20003c" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine8" id="ADDCE8" resetval="0x20003c" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine9" id="ADDCE9" resetval="0x20003c" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="Set - an additional crypto engine is available in hardware as custom engine10" id="ADDCE10" resetval="0x20003c" />
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_4" resetval="0x20003c" />
+	</register>
+	<register acronym="EIP_OPTIONS" id="eip_options" width="32" description="VaultIP configured options(1)" offset="0x3ff8">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Number of Input/Output Mailbox pairs" id="NUMOFMBX" resetval="0x1800f12" />
+		<bitfield width="2" end="4" begin="5" rwaccess="RO" description="Implemented size of Mailbox pairs - 00b-128bytes, 01b-256bytes, 10b-512bytes, 11b-1Kbyte" id="MBXSIZE" resetval="0x1800f12" />
+		<bitfield width="2" end="6" begin="7" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x1800f12" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Bits to indicate which of the 8 possible cpu_id codes on the bus interface are active" id="HOSTID" resetval="0x1800f12" />
+		<bitfield width="3" end="16" begin="18" rwaccess="RO" description="Value of the cpu_id that designates the Master Host" id="MASID" resetval="0x1800f12" />
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_1" resetval="0x1800f12" />
+		<bitfield width="3" end="20" begin="22" rwaccess="RO" description="Slave &amp; Master interface support protection bit (secure/non-secure) accesses" id="MYID" resetval="0x1800f12" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Indicates the current protection bit values of the Host actually reading the register" id="MYIDSEC" resetval="0x1800f12" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="Bits to indicate which of the 8 possible cpu_id codes on the bus interface are active Hosts with secure access" id="HOSTIDSEC" resetval="0x1800f12" />
+	</register>
+	<register acronym="EIP_VERSION" id="eip_version" width="32" description="Standard EIP version register" offset="0x3ffc">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="RAMBUS EIP number - EIP130" id="EIPNUM" resetval="0x4007d82" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Bit by Bit compliment of EIP Number" id="EIPNUMCOMP" resetval="0x4007d82" />
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" description="Hardware Patch Level for this module" id="PATCHLVL" resetval="0x4007d82" />
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" description="Minor Version release number for this module" id="MINORVER" resetval="0x4007d82" />
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="Major Version release number for this module" id="MAJORVER" resetval="0x4007d82" />
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Reserved field. Write with zero and ignore on read" id="reserved_0" resetval="0x4007d82" />
+	</register>
+</module>

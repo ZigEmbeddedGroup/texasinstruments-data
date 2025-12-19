@@ -21,7 +21,7 @@ This register provides IP module ID, revision information, instance index and st
    <register acronym="MUNLOCK" width="32" description="Mutable section Unlock
 This register unlocks registers in mutable section
 " id="MUNLOCK" offset="0xc">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="WO" description="Write the unlock key 0xC5AF_6927 to temporarily unlock registers in mutable section. The lock is set automatically if no write accesses, to the mutable section, are detected for consecutive 32 CLKULL (24MHz) clock cycles. Writing any value other that the unlock key will immediately lock the mutable register space for write access." id="KEY" resetval="0x0">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="WO" description="Write the unlock key 0xC5AF6927 to temporarily unlock registers in mutable section. The lock is set automatically if no write accesses, to the mutable section, are detected for consecutive 32 CLKULL (24MHz) clock cycles. Writing any value other than that, the unlock key will immediately lock the mutable register space for write access." id="KEY" resetval="0x0">
          <bitenum id="UNLOCK" value="3316607271" token="Unlock registers in the mutable section" description="Unlock registers in the mutable section"/>
          <bitenum id="LOCK" value="0" token="Lock registers in the mutable section" description="Lock registers in the mutable section"/>
       </bitfield>
@@ -38,7 +38,7 @@ Read value of KEY is 0x0." id="KEY" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Selects supply for ATEST switches.
 " id="VSEL" resetval="0x0">
-         <bitenum id="VDDA" value="1" token="Selects VDDA" description="Selects VDDA"/>
+         <bitenum id="VDDS" value="1" token="Selects VDDS" description="Selects VDDS"/>
          <bitenum id="VDDBST" value="0" token="Selects VDDBOOST" description="Selects VDDBOOST"/>
       </bitfield>
       <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Enables isolation switch between VA_ATEST_A1 and VA_PAD_A1." id="VA2VA1" resetval="0x0">
@@ -77,9 +77,7 @@ Read value of KEY is 0x0." id="KEY" resetval="0x0">
    <register acronym="TSENSCFG" width="32" description="TSENSE Configuration
 This register is used to configure temperature sensor module. 
 " id="TSENSCFG" offset="0x108">
-      <bitfield range="" begin="31" width="6" end="26" rwaccess="RW" description="Spare bits " id="SPARE1" resetval="0x0">
-         <bitenum id="MAX" value="63" token="maximum value " description="maximum value "/>
-         <bitenum id="MIN" value="0" token="minimum value " description="minimum value "/>
+      <bitfield range="" begin="31" width="6" end="26" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED26" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="25" width="14" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved field. Writing any other value than the reset value may result in undefined behavior" id="RESERVED12" resetval="0x0">
       </bitfield>
@@ -87,9 +85,7 @@ This register is used to configure temperature sensor module.
          <bitenum id="EN" value="1" token="Second temperature sensor is enabled." description="Second temperature sensor is enabled."/>
          <bitenum id="DIS" value="0" token="Second temperature sensor is disabled." description="Second temperature sensor is disabled."/>
       </bitfield>
-      <bitfield range="" begin="10" width="3" end="8" rwaccess="RW" description="Spare bits " id="SPARE" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="7" width="6" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
+      <bitfield range="" begin="10" width="9" end="2" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="1" width="2" end="0" rwaccess="RW" description="Used to enable and configure temperature sensor module. Setting the value to 0x3 will disable the temperature sensor." id="SEL" resetval="0x0">
          <bitenum id="GND" value="2" token="20uA current is injected on VR_ATEST_A0 and ground measured on VR_ATEST_A1" description="20uA current is injected on VR_ATEST_A0 and ground measured on VR_ATEST_A1"/>
@@ -102,7 +98,9 @@ This register is used to configure and check the status of low-power comparator 
 " id="LPCMPCFG" offset="0x10c">
       <bitfield range="" begin="31" width="1" end="31" rwaccess="RO" description="Software should not rely on the value of a reserved field. Writing any other value than the reset value may result in undefined behavior" id="RESERVED31" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="Spare bit for LPCOMP" id="HYSPOL" resetval="0x0">
+      <bitfield range="" begin="30" width="1" end="30" rwaccess="RW" description="Hysteresis polarity" id="HYSPOL" resetval="0x0">
+         <bitenum id="INV" value="1" token="Inverted" description="Inverted"/>
+         <bitenum id="NOINV" value="0" token="Not inverted" description="Not inverted"/>
       </bitfield>
       <bitfield range="" begin="29" width="2" end="28" rwaccess="RW" description="Used to configure ATEST mux in comparator module and provides chosen output on VA_ATEST_A0.
 Note: This bit field is write-protected using global lock indicator on production device." id="ATESTMUX" resetval="0x0">
@@ -149,13 +147,13 @@ The event flag is set when the comparator output transition is qualified based o
       </bitfield>
       <bitfield range="" begin="14" width="3" end="12" rwaccess="RW" description="Negative input selection. Setting values 0x5-0x7 will open all the switches." id="NSEL" resetval="0x0">
          <bitenum id="VDDD" value="4" token="Selects VDDD" description="Selects VDDD"/>
-         <bitenum id="VDDA" value="3" token="Selects VDDA" description="Selects VDDA"/>
+         <bitenum id="VDDS" value="3" token="Selects VDDS" description="Selects VDDS"/>
          <bitenum id="VA_PAD_A3" value="2" token="Selects VA_PAD_A3" description="Selects VA_PAD_A3"/>
          <bitenum id="VA_PAD_A2" value="1" token="Selects VA_PAD_A2" description="Selects VA_PAD_A2"/>
          <bitenum id="OPEN" value="0" token="All switches are open" description="All switches are open"/>
       </bitfield>
       <bitfield range="" begin="11" width="4" end="8" rwaccess="RW" description="Positive input selection. Setting values 0x9-0xF will open all the switches." id="PSEL" resetval="0x0">
-         <bitenum id="VDDA" value="8" token="Selects VDDA" description="Selects VDDA"/>
+         <bitenum id="VDDS" value="8" token="Selects VDDS" description="Selects VDDS"/>
          <bitenum id="VA_ATEST_A1" value="7" token="Selects VA_ATEST_A1" description="Selects VA_ATEST_A1"/>
          <bitenum id="VA_ATEST_A0" value="6" token="Selects VA_ATEST_A0" description="Selects VA_ATEST_A0"/>
          <bitenum id="VR_ATEST_A1" value="5" token="Selects VR_ATEST_A1" description="Selects VR_ATEST_A1"/>
@@ -170,13 +168,13 @@ The event flag is set when the comparator output transition is qualified based o
 Hysteresis is disabled when HYSSEL = 0 and enabled for other values of HYSSEL from 1 to 7. Refer to device specific datasheet for individual hysteresis values.
 
 " id="HYSSEL" resetval="0x0">
-         <bitenum id="VAL7" value="7" token="Hysteresis value: TBD" description="Hysteresis value: TBD"/>
-         <bitenum id="VAL6" value="6" token="Hysteresis value: TBD" description="Hysteresis value: TBD"/>
-         <bitenum id="VAL5" value="5" token="Hysteresis value: TBD" description="Hysteresis value: TBD"/>
-         <bitenum id="VAL4" value="4" token="Hysteresis value: TBD" description="Hysteresis value: TBD"/>
-         <bitenum id="VAL3" value="3" token="Hysteresis value: TBD" description="Hysteresis value: TBD"/>
-         <bitenum id="VAL2" value="2" token="Hysteresis value: TBD" description="Hysteresis value: TBD"/>
-         <bitenum id="VAL1" value="1" token="Hysteresis value: TBD" description="Hysteresis value: TBD"/>
+         <bitenum id="VAL7" value="7" token="Hysteresis value 7" description="Hysteresis value 7"/>
+         <bitenum id="VAL6" value="6" token="Hysteresis value 6" description="Hysteresis value 6"/>
+         <bitenum id="VAL5" value="5" token="Hysteresis value 5 " description="Hysteresis value 5 "/>
+         <bitenum id="VAL4" value="4" token="Hysteresis value 4" description="Hysteresis value 4"/>
+         <bitenum id="VAL3" value="3" token="Hysteresis value 3" description="Hysteresis value 3"/>
+         <bitenum id="VAL2" value="2" token="Hysteresis value 2" description="Hysteresis value 2"/>
+         <bitenum id="VAL1" value="1" token="Hysteresis value 1" description="Hysteresis value 1"/>
          <bitenum id="VAL0" value="0" token="Hysteresis is disabled" description="Hysteresis is disabled"/>
       </bitfield>
       <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Used to select the path on which voltage divider is applied" id="DIVPATH" resetval="0x0">
@@ -201,11 +199,7 @@ Hysteresis is disabled when HYSSEL = 0 and enabled for other values of HYSSEL fr
 Write with any value other than 0x5A to KEY will be ignored and the register content is not updated.
 Read value of KEY is 0x0." id="KEY" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="23" width="4" end="20" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED20" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="19" width="4" end="16" rwaccess="RW" description="Spare bits " id="SPARE" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
+      <bitfield range="" begin="23" width="12" end="12" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="11" width="4" end="8" rwaccess="RW" description="These bits are used to generate VGM ATB mux selection control." id="ATBMUXSEL" resetval="0x0">
       </bitfield>
@@ -261,7 +255,8 @@ Note: This 32-bit register value is provided as output to DEBUGSS.
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Value 1 in this bit field means that a 32-bit scan register exists." id="ALWAYSONE" resetval="0x1">
       </bitfield>
    </register>
-   <register acronym="DBGAUTH" width="32" description="Debug Authentication. This register is used by ROM to store Debug Authnetication Status
+   <register acronym="DBGAUTH" width="32" description="Debug Authentication. 
+This register is used by ROM to store Debug Authnetication Status
 " id="DBGAUTH" offset="0x410">
       <bitfield range="" begin="31" width="14" end="18" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED18" resetval="0x0">
       </bitfield>
@@ -270,10 +265,10 @@ Note: This 32-bit register value is provided as output to DEBUGSS.
       <bitfield range="" begin="15" width="14" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="1" width="2" end="0" rwaccess="WO" description="Sets Authentication Status" id="SET" resetval="0x0">
-         <bitenum id="DBG_SEC" value="3" token="Secure Debug Authorized" description="Secure Debug Authorized"/>
-         <bitenum id="DBG_NON_SEC" value="2" token="Non-Secure Debug Authorized" description="Non-Secure Debug Authorized"/>
-         <bitenum id="DBG_NON_INV" value="1" token="Only Non-Invasive Debug Authorized" description="Only Non-Invasive Debug Authorized"/>
-         <bitenum id="DBG_UNAUTH" value="0" token="Debug Unauthorized" description="Debug Unauthorized"/>
+         <bitenum id="SEC" value="3" token="Secure Debug Authorized" description="Secure Debug Authorized"/>
+         <bitenum id="NONSEC" value="2" token="Non-Secure Debug Authorized" description="Non-Secure Debug Authorized"/>
+         <bitenum id="NONINV" value="1" token="Only Non-Invasive Debug Authorized" description="Only Non-Invasive Debug Authorized"/>
+         <bitenum id="UNAUTH" value="0" token="Debug Unauthorized" description="Debug Unauthorized"/>
       </bitfield>
    </register>
    <register acronym="PARTID" width="32" description="Part ID
@@ -296,6 +291,21 @@ This register is programmed by boot code with Part ID information. Note: This 32
 
 
 " id="PART" resetval="0x0">
+      </bitfield>
+   </register>
+   <register acronym="LIFECYC" width="32" description="This register is programmed by boot code with device life cycle information
+" id="LIFECYC" offset="0x7fc">
+      <bitfield range="" begin="31" width="24" end="8" rwaccess="RO" description="RESERVED" id="RESERVED8" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="7" width="8" end="0" rwaccess="RW" description="Device life cycle value." id="VAL" resetval="0x0">
+         <bitenum id="LCYCLE_ILLEGAL" value="255" token="Illegal" description="Illegal"/>
+         <bitenum id="LCYCLE_RETEST" value="6" token="Re-test" description="Re-test"/>
+         <bitenum id="LCYCLE_PRODDEV" value="5" token="Production device" description="Production device"/>
+         <bitenum id="LCYCLE_ENGRDEV" value="4" token="Engineering device" description="Engineering device"/>
+         <bitenum id="LCYCLE_TESTFT" value="3" token="Test Final Test" description="Test Final Test"/>
+         <bitenum id="LCYCLE_TESTPT" value="2" token="Test Production Test" description="Test Production Test"/>
+         <bitenum id="LCYCLE_1STBDAY" value="1" token="First birthday" description="First birthday"/>
+         <bitenum id="LCYCLE_POSSIBLE_1STBDAY" value="0" token="Possible first birthday" description="Possible first birthday"/>
       </bitfield>
    </register>
    <register acronym="TMUTE0" width="32" description="Internal. Only to be used through TI provided API." id="TMUTE0" offset="0x800">
@@ -351,10 +361,7 @@ This register is programmed by boot code with Part ID information. Note: This 32
       </bitfield>
       <bitfield range="" begin="12" width="2" end="11" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="DCDCLOAD" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="10" width="3" end="8" rwaccess="RW" description="DCDC: Set inductor peak current
-Min = 0x0
-Max = 0x7
-DCDC load support increases from 0x0 to 0x7" id="IPEAK" resetval="0x0">
+      <bitfield range="" begin="10" width="3" end="8" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="IPEAK" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="7" width="2" end="6" rwaccess="RW" description="Internal. Only to be used through TI provided API." id="DTIME" resetval="0x0">
       </bitfield>

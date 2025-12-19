@@ -1,10 +1,9 @@
 <module id="CLB_LOGIC_CONTROL_REGS" HW_revision="" description="CLB LOGIC CONTROL Registers">
-	<register id="CLB_LOAD_EN" width="16" page="1" offset="0x0" internal="0" description="Global enable and indirect load enable control">
+	<register id="CLB_LOAD_EN" width="16" page="1" offset="0x0" internal="0" description="Global enable and indirect load enable control, only Global Enable Bit is LOCK  protected">
 		<bitfield id="LOAD_EN" description="Load Enable" begin="0" end="0" width="1" rwaccess="RW"/>
 		<bitfield id="GLOBAL_EN" description="Global Enable" begin="1" end="1" width="1" rwaccess="RW"/>
 		<bitfield id="STOP" description="Debug stop control" begin="2" end="2" width="1" rwaccess="RW"/>
 		<bitfield id="NMI_EN" description="NMI output enable" begin="3" end="3" width="1" rwaccess="RW"/>
-		<bitfield id="PIPELINE_EN" description="Enable input pipelining" begin="4" end="4" width="1" rwaccess="RW"/>
 	</register>
 	<register id="CLB_LOAD_ADDR" width="32" page="1" offset="0x2" internal="0" description="Indirect address">
 		<bitfield id="ADDR" description="Indirect Address" begin="5" end="0" width="6" rwaccess="RW"/>
@@ -29,14 +28,6 @@
 		<bitfield id="SYNC5" description="Synchronizer control 5" begin="21" end="21" width="1" rwaccess="RW"/>
 		<bitfield id="SYNC6" description="Synchronizer control 6" begin="22" end="22" width="1" rwaccess="RW"/>
 		<bitfield id="SYNC7" description="Synchronizer control 7" begin="23" end="23" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE0" description="Enable pipeline 0" begin="24" end="24" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE1" description="Enable pipeline 1" begin="25" end="25" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE2" description="Enable pipeline 2" begin="26" end="26" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE3" description="Enable pipeline 3" begin="27" end="27" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE4" description="Enable pipeline 4" begin="28" end="28" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE5" description="Enable pipeline 5" begin="29" end="29" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE6" description="Enable pipeline 6" begin="30" end="30" width="1" rwaccess="RW"/>
-		<bitfield id="PIPE7" description="Enable pipeline 7" begin="31" end="31" width="1" rwaccess="RW"/>
 	</register>
 	<register id="CLB_IN_MUX_SEL_0" width="32" page="1" offset="0x8" internal="0" description="Input selection to decide between Signals and GP register">
 		<bitfield id="SEL_GP_IN_0" description="Select GP register 0" begin="0" end="0" width="1" rwaccess="RW"/>
@@ -47,42 +38,18 @@
 		<bitfield id="SEL_GP_IN_5" description="Select GP register 5" begin="5" end="5" width="1" rwaccess="RW"/>
 		<bitfield id="SEL_GP_IN_6" description="Select GP register 6" begin="6" end="6" width="1" rwaccess="RW"/>
 		<bitfield id="SEL_GP_IN_7" description="Select GP register 7" begin="7" end="7" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_0" description="Software release control 0" begin="16" end="16" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_1" description="Software release control 1" begin="17" end="17" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_2" description="Software release control 2" begin="18" end="18" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_3" description="Software release control 3" begin="19" end="19" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_4" description="Software release control 4" begin="20" end="20" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_5" description="Software release control 5" begin="21" end="21" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_6" description="Software release control 6" begin="22" end="22" width="1" rwaccess="RW"/>
-		<bitfield id="SW_RLS_CTRL_7" description="Software release control 7" begin="23" end="23" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_0" description="Software gating control 0" begin="24" end="24" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_1" description="Software gating control 1" begin="25" end="25" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_2" description="Software gating control 2" begin="26" end="26" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_3" description="Software gating control 3" begin="27" end="27" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_4" description="Software gating control 4" begin="28" end="28" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_5" description="Software gating control 5" begin="29" end="29" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_6" description="Software gating control 6" begin="30" end="30" width="1" rwaccess="RW"/>
-		<bitfield id="SW_GATING_CTRL_7" description="Software gating control 7" begin="31" end="31" width="1" rwaccess="RW"/>
 	</register>
 	<register id="CLB_LCL_MUX_SEL_1" width="32" page="1" offset="0xa" internal="0" description="Input Mux selection for local mux">
 		<bitfield id="LCL_MUX_SEL_IN_0" description="Local Mux select 0" begin="4" end="0" width="5" rwaccess="RW"/>
 		<bitfield id="LCL_MUX_SEL_IN_1" description="Local Mux select 1" begin="9" end="5" width="5" rwaccess="RW"/>
 		<bitfield id="LCL_MUX_SEL_IN_2" description="Local Mux select 2" begin="14" end="10" width="5" rwaccess="RW"/>
 		<bitfield id="LCL_MUX_SEL_IN_3" description="Local Mux select 3" begin="19" end="15" width="5" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_0" description="Select MISC_INPUT" begin="28" end="28" width="1" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_1" description="Select MISC_INPUT" begin="29" end="29" width="1" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_2" description="Select MISC_INPUT" begin="30" end="30" width="1" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_3" description="Select MISC_INPUT" begin="31" end="31" width="1" rwaccess="RW"/>
 	</register>
 	<register id="CLB_LCL_MUX_SEL_2" width="32" page="1" offset="0xc" internal="0" description="Input Mux selection for local mux">
 		<bitfield id="LCL_MUX_SEL_IN_4" description="Local Mux select 4" begin="4" end="0" width="5" rwaccess="RW"/>
 		<bitfield id="LCL_MUX_SEL_IN_5" description="Local Mux select 5" begin="9" end="5" width="5" rwaccess="RW"/>
 		<bitfield id="LCL_MUX_SEL_IN_6" description="Local Mux select 6" begin="14" end="10" width="5" rwaccess="RW"/>
 		<bitfield id="LCL_MUX_SEL_IN_7" description="Local Mux select 7" begin="19" end="15" width="5" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_4" description="Select MISC_INPUT" begin="28" end="28" width="1" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_5" description="Select MISC_INPUT" begin="29" end="29" width="1" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_6" description="Select MISC_INPUT" begin="30" end="30" width="1" rwaccess="RW"/>
-		<bitfield id="MISC_INPUT_SEL_7" description="Select MISC_INPUT" begin="31" end="31" width="1" rwaccess="RW"/>
 	</register>
 	<register id="CLB_BUF_PTR" width="32" page="1" offset="0xe" internal="0" description="PUSH and PULL pointers">
 		<bitfield id="PULL" description="Data pointer for pull" begin="7" end="0" width="8" rwaccess="RW"/>
@@ -90,9 +57,25 @@
 	</register>
 	<register id="CLB_GP_REG" width="32" page="1" offset="0x10" internal="0" description="General purpose register for CELL inputs">
 		<bitfield id="REG" description="General Purpose bit register" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_0" description="Software gating control 0" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_1" description="Software gating control 1" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_2" description="Software gating control 2" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_3" description="Software gating control 3" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_4" description="Software gating control 4" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_5" description="Software gating control 5" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_6" description="Software gating control 6" begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="SW_GATING_CTRL_7" description="Software gating control 7" begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_0" description="Software release control 0" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_1" description="Software release control 1" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_2" description="Software release control 2" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_3" description="Software release control 3" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_4" description="Software release control 4" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_5" description="Software release control 5" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_6" description="Software release control 6" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="SW_RLS_CTRL_7" description="Software release control 7" begin="31" end="31" width="1" rwaccess="RW"/>
 	</register>
 	<register id="CLB_OUT_EN" width="32" page="1" offset="0x12" internal="0" description="CELL output enable register">
-		<bitfield id="OUTEN" description="CLB output enable" begin="31" end="0" width="32" rwaccess="RW"/>
+		<bitfield id="OUTEN" description="CLB output enable" begin="23" end="0" width="24" rwaccess="RW"/>
 	</register>
 	<register id="CLB_GLBL_MUX_SEL_1" width="32" page="1" offset="0x14" internal="0" description="Global Mux select for CELL inputs">
 		<bitfield id="GLBL_MUX_SEL_IN_0" description="Global Mux select 0" begin="6" end="0" width="7" rwaccess="RW"/>
@@ -118,12 +101,6 @@
 	<register id="CLB_LOCK" width="32" page="1" offset="0x22" internal="0" description="Lock control register">
 		<bitfield id="LOCK" description="LOCK enable" begin="0" end="0" width="1" rwaccess="RW"/>
 		<bitfield id="KEY" description="Key for enabling write" begin="31" end="16" width="16" rwaccess="RW"/>
-	</register>
-	<register id="CLB_HLC_INSTR_READ_PTR" width="16" page="1" offset="0x24" internal="0" description="HLC instruction read pointer">
-		<bitfield id="READ_PTR" description="HLC instruction read pointer" begin="4" end="0" width="5" rwaccess="RW"/>
-	</register>
-	<register id="CLB_HLC_INSTR_VALUE" width="16" page="1" offset="0x26" internal="0" description="HLC instruction read value">
-		<bitfield id="INSTR" description="HLC instruction value" begin="11" end="0" width="12" rwaccess="R"/>
 	</register>
 	<register id="CLB_DBG_OUT_2" width="32" page="1" offset="0x2e" internal="0" description="Visibility for CLB inputs and final  asynchronous outputs">
 		<bitfield id="OUT" description="Outputs of CLB Async block" begin="7" end="0" width="8" rwaccess="RW"/>

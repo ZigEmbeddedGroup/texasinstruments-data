@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<module description="Top Module UCDLOOPMUX" id="LOOPMUX">
+  
+  
+  <register acronym="FECTRL0MUX" description="Front End Control 0 Mux Register " id="FECTRL0MUX" offset="0x0" width="32">
+    
+  <bitfield begin="13" description="Selects the PCMC module source for stop ramp signal in the event of peak current detection" end="12" id="SLOPE_COMP_RAMP_STOP" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="11" description="Enables DPWM Trigger from DPWM 3 Frame Sync to Front End Control" end="11" id="DPWM3_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 3 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Enables DPWM Trigger from DPWM 2 Frame Sync to Front End Control" end="10" id="DPWM2_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 2 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 2 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Enables DPWM Trigger from DPWM 1 Frame Sync to Front End Control" end="9" id="DPWM1_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 1 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 1 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Enables DPWM Trigger from DPWM 0 Frame Sync to Front End Control" end="8" id="DPWM0_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 0 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Enables DPWM Trigger from DPWM 3 PWM-B to Front End Contro" end="7" id="DPWM3_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 3 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Enables DPWM Trigger from DPWM 2 PWM-B to Front End Contro" end="6" id="DPWM2_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 2 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Enables DPWM Trigger from DPWM 1 PWM-B to Front End Contro" end="5" id="DPWM1_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 1 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Enables DPWM Trigger from DPWM 0 PWM-B to Front End Contro" end="4" id="DPWM0_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Enables DPWM Trigger from DPWM 3 PWM-A to Front End Contro" end="3" id="DPWM3_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 3 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Enables DPWM Trigger from DPWM 2 PWM-A to Front End Contro" end="2" id="DPWM2_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 2 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Enables DPWM Trigger from DPWM 1 PWM-A to Front End Contro" end="1" id="DPWM1_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 1 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enables DPWM Trigger from DPWM 0 PWM-A to Front End Contro" end="0" id="DPWM0_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="FECTRL1MUX" description="Front End Control 1 Mux Register " id="FECTRL1MUX" offset="0x4" width="32">
+    
+  <bitfield begin="13" description="Selects the PCMC module source for stop ramp signal in the event of peak current detection" end="12" id="SLOPE_COMP_RAMP_STOP" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="11" description="Enables DPWM Trigger from DPWM 3 Frame Sync to Front End Control" end="11" id="DPWM3_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 3 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Enables DPWM Trigger from DPWM 2 Frame Sync to Front End Control" end="10" id="DPWM2_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 2 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 2 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Enables DPWM Trigger from DPWM 1 Frame Sync to Front End Control" end="9" id="DPWM1_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 1 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 1 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Enables DPWM Trigger from DPWM 0 Frame Sync to Front End Control" end="8" id="DPWM0_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 0 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Enables DPWM Trigger from DPWM 3 PWM-B to Front End Contro" end="7" id="DPWM3_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 3 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Enables DPWM Trigger from DPWM 2 PWM-B to Front End Contro" end="6" id="DPWM2_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 2 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Enables DPWM Trigger from DPWM 1 PWM-B to Front End Contro" end="5" id="DPWM1_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 1 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Enables DPWM Trigger from DPWM 0 PWM-B to Front End Contro" end="4" id="DPWM0_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Enables DPWM Trigger from DPWM 3 PWM-A to Front End Contro" end="3" id="DPWM3_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 3 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Enables DPWM Trigger from DPWM 2 PWM-A to Front End Contro" end="2" id="DPWM2_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 2 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Enables DPWM Trigger from DPWM 1 PWM-A to Front End Contro" end="1" id="DPWM1_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 1 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enables DPWM Trigger from DPWM 0 PWM-A to Front End Contro" end="0" id="DPWM0_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="FECTRL2MUX" description="Front End Control 2 Mux Register " id="FECTRL2MUX" offset="0x8" width="32">
+    
+  <bitfield begin="13" description="Selects the PCMC module source for stop ramp signal in the event of peak current detection" end="12" id="SLOPE_COMP_RAMP_STOP" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="11" description="Enables DPWM Trigger from DPWM 3 Frame Sync to Front End Control" end="11" id="DPWM3_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 3 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Enables DPWM Trigger from DPWM 2 Frame Sync to Front End Control" end="10" id="DPWM2_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 2 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 2 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Enables DPWM Trigger from DPWM 1 Frame Sync to Front End Control" end="9" id="DPWM1_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 1 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 1 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Enables DPWM Trigger from DPWM 0 Frame Sync to Front End Control" end="8" id="DPWM0_FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 0 Frame Sync routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Frame Sync not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Enables DPWM Trigger from DPWM 3 PWM-B to Front End Contro" end="7" id="DPWM3_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 3 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Enables DPWM Trigger from DPWM 2 PWM-B to Front End Contro" end="6" id="DPWM2_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 2 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Enables DPWM Trigger from DPWM 1 PWM-B to Front End Contro" end="5" id="DPWM1_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 1 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Enables DPWM Trigger from DPWM 0 PWM-B to Front End Contro" end="4" id="DPWM0_B_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 PWM-B trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 PWM-B trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Enables DPWM Trigger from DPWM 3 PWM-A to Front End Contro" end="3" id="DPWM3_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 3 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Enables DPWM Trigger from DPWM 2 PWM-A to Front End Contro" end="2" id="DPWM2_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 2 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Enables DPWM Trigger from DPWM 1 PWM-A to Front End Contro" end="1" id="DPWM1_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 1 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enables DPWM Trigger from DPWM 0 PWM-A to Front End Contro" end="0" id="DPWM0_A_TRIG_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 PWM-A trigger routed to Front End Control" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 PWM-A trigger not routed to Front End Control (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SAMPTRIGCTRL" description="Sample Trigger Control Register " id="SAMPTRIGCTRL" offset="0xC" width="32">
+    
+  <bitfield begin="11" description="Enables Sample Trigger from DPWM 3 to Front End Control 2" end="11" id="FE2_TRIG_DPWM3_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 Sample Trigger routed to Front End Control 2" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Sample Trigger not routed to Front End Control 2 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Enables Sample Trigger from DPWM 2 to Front End Control 2" end="10" id="FE2_TRIG_DPWM2_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 Sample Trigger routed to Front End Control 2" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 2 Sample Trigger not routed to Front End Control 2 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Enables Sample Trigger from DPWM 1 to Front End Control 2" end="9" id="FE2_TRIG_DPWM1_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 Sample Trigger routed to Front End Control 2" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 1 Sample Trigger not routed to Front End Control 2 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Enables Sample Trigger from DPWM 0 to Front End Control 2" end="8" id="FE2_TRIG_DPWM0_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 Sample Trigger routed to Front End Control 2" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Sample Trigger not routed to Front End Control 2 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Enables Sample Trigger from DPWM 3 to Front End Control 1" end="7" id="FE1_TRIG_DPWM3_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 Sample Trigger routed to Front End Control 1" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Sample Trigger not routed to Front End Control 1 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Enables Sample Trigger from DPWM 2 to Front End Control 1" end="6" id="FE1_TRIG_DPWM2_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 Sample Trigger routed to Front End Control 1" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 2 Sample Trigger not routed to Front End Control 1 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Enables Sample Trigger from DPWM 1 to Front End Control 1" end="5" id="FE1_TRIG_DPWM1_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 Sample Trigger routed to Front End Control 1" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 1 Sample Trigger not routed to Front End Control 1 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Enables Sample Trigger from DPWM 0 to Front End Control 1" end="4" id="FE1_TRIG_DPWM0_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 Sample Trigger routed to Front End Control 1" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Sample Trigger not routed to Front End Control 1 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Enables Sample Trigger from DPWM 3 to Front End Control 0" end="3" id="FE0_TRIG_DPWM3_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 3 Sample Trigger routed to Front End Control 0" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Sample Trigger not routed to Front End Control 0 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Enables Sample Trigger from DPWM 2 to Front End Control 0" end="2" id="FE0_TRIG_DPWM2_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 2 Sample Trigger routed to Front End Control 0" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 2 Sample Trigger not routed to Front End Control 0 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Enables Sample Trigger from DPWM 1 to Front End Control 0" end="1" id="FE0_TRIG_DPWM1_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 1 Sample Trigger routed to Front End Control 0" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 1 Sample Trigger not routed to Front End Control 0 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enables Sample Trigger from DPWM 0 to Front End Control 0" end="0" id="FE0_TRIG_DPWM0_EN" rwaccess="RW" width="1">
+    <bitenum description=" DPWM 0 Sample Trigger routed to Front End Control 0" id="routed" token="routed" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Sample Trigger not routed to Front End Control 0 (Default)" id="not_routed" token="not_routed" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="EXTDACCTRL" description=" External DAC Control Register" id="EXTDACCTRL" offset="0x10" width="32">
+    
+  <bitfield begin="26" description="Configures DAC 2 setpoint in External DAC Mode" end="24" id="DAC2_SEL" rwaccess="RW" width="3">
+    <bitenum description=" Filter 2 Output Selected" id="FILTER_2" token="FILTER_2" value="0x6"></bitenum>
+    <bitenum description=" Filter 1 Output Selected" id="FILTER_1" token="FILTER_1" value="0x5"></bitenum>
+    <bitenum description=" Filter 0 Output Selected" id="FILTER_0" token="FILTER_0" value="0x4"></bitenum>
+    <bitenum description="Output of Constant Power Module Selected" id="CP" token="CP" value="0x3"></bitenum>
+    <bitenum description="DAC 1 Setpoint Selected" id="DAC_1" token="DAC_1" value="0x1"></bitenum>
+    <bitenum description="DAC 0 Setpoint Selected (Default)" id="DAC_0" token="DAC_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="23" description="Reserved" end="19" id="Reserved_3" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="18" description="Configures DAC 1 setpoint in External DAC Mode" end="16" id="DAC1_SEL" rwaccess="RW" width="3">
+    <bitenum description=" Filter 2 Output Selected" id="FILTER_2" token="FILTER_2" value="0x6"></bitenum>
+    <bitenum description=" Filter 1 Output Selected" id="FILTER_1" token="FILTER_1" value="0x5"></bitenum>
+    <bitenum description=" Filter 0 Output Selected" id="FILTER_0" token="FILTER_0" value="0x4"></bitenum>
+    <bitenum description="Output of Constant Power Module Selected" id="CP" token="CP" value="0x3"></bitenum>
+    <bitenum description="DAC 2 Setpoint Selected" id="DAC_2" token="DAC_2" value="0x2"></bitenum>
+    <bitenum description="DAC 0 Setpoint Selected (Default)" id="DAC_0" token="DAC_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="11" id="Reserved_1" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="10" description="Configures DAC 0 setpoint in External DAC Mode" end="8" id="DAC0_SEL" rwaccess="RW" width="3">
+    <bitenum description=" Filter 2 Output Selected" id="FILTER_2" token="FILTER_2" value="0x6"></bitenum>
+    <bitenum description=" Filter 1 Output Selected" id="FILTER_1" token="FILTER_1" value="0x5"></bitenum>
+    <bitenum description=" Filter 0 Output Selected" id="FILTER_0" token="FILTER_0" value="0x4"></bitenum>
+    <bitenum description="Output of Constant Power Module Selected" id="CP" token="CP" value="0x3"></bitenum>
+    <bitenum description="DAC 2 Setpoint Selected" id="DAC_2" token="DAC_2" value="0x2"></bitenum>
+    <bitenum description="DAC 1 Setpoint Selected (Default)" id="DAC_1" token="DAC_1" value="0x1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Reserved" end="3" id="Reserved_0" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="2" description="External DAC 1 Mode Enable" end="2" id="EXT_DAC2_EN" rwaccess="RW" width="1">
+    <bitenum description="External DAC Mode enabled, DAC 2 setpoint driven by DAC1_SEL configuration" id="enable" token="enable" value="0x1"></bitenum>
+    <bitenum description=" External DAC Mode disabled. DAC 2 setpoint driven from Front End Control Module (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="External DAC 1 Mode Enable" end="1" id="EXT_DAC1_EN" rwaccess="RW" width="1">
+    <bitenum description="External DAC Mode enabled, DAC 1 setpoint driven by DAC1_SEL configuration" id="enable" token="enable" value="0x1"></bitenum>
+    <bitenum description=" External DAC Mode disabled. DAC 1 setpoint driven from Front End Control Module (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="External DAC 1 Mode Enable" end="0" id="EXT_DAC0_EN" rwaccess="RW" width="1">
+    <bitenum description="External DAC Mode enabled, DAC 0 setpoint driven by DAC1_SEL configuration" id="enable" token="enable" value="0x1"></bitenum>
+    <bitenum description=" External DAC Mode disabled. DAC 0 setpoint driven from Front End Control Module (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="FILTERMUX" description=" Filter Mux Register" id="FILTERMUX" offset="0x14" width="32">
+    
+  <bitfield begin="29" description="Selects KComp value routed to Filter 2 Module" end="28" id="FILTER2_KCOMP_SEL" rwaccess="RW" width="2">
+    <bitenum description="  KComp 2 Value Selected" id="KCOMP_2" token="KCOMP_2" value="0x2"></bitenum>
+    <bitenum description="  KComp 1 Value Selected" id="KCOMP_1" token="KCOMP_1" value="0x1"></bitenum>
+    <bitenum description=" KComp 0 Value Selected (Default)" id="KCOMP_0" token="KCOMP_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="27" description="Selects KComp value routed to Filter 1 Module" end="26" id="FILTER1_KCOMP_SEL" rwaccess="RW" width="2">
+    <bitenum description="  KComp 2 Value Selected" id="KCOMP_2" token="KCOMP_2" value="0x2"></bitenum>
+    <bitenum description="  KComp 1 Value Selected" id="KCOMP_1" token="KCOMP_1" value="0x1"></bitenum>
+    <bitenum description=" KComp 0 Value Selected (Default)" id="KCOMP_0" token="KCOMP_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="25" description="Selects KComp value routed to Filter 0 Module" end="24" id="FILTER0_KCOMP_SEL" rwaccess="RW" width="2">
+    <bitenum description="  KComp 2 Value Selected" id="KCOMP_2" token="KCOMP_2" value="0x2"></bitenum>
+    <bitenum description="  KComp 1 Value Selected" id="KCOMP_1" token="KCOMP_1" value="0x1"></bitenum>
+    <bitenum description=" KComp 0 Value Selected (Default)" id="KCOMP_0" token="KCOMP_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="23" description="Reserved" end="19" id="Reserved_2" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="18" description="Configures Feedforward value routed to Filter 2 Module" end="18" id="FILTER2_FFWD_SEL" rwaccess="RW" width="1">
+    <bitenum description="  Filter 1 Value Selected" id="FILTER_1" token="FILTER_1" value="0x1"></bitenum>
+    <bitenum description=" Filter0 Value Selected (Default)" id="FILTER_0" token="FILTER_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Configures Feedforward value routed to Filter 1 Module" end="17" id="FILTER1_FFWD_SEL" rwaccess="RW" width="1">
+    <bitenum description="  Filter 2 Value Selected" id="FILTER_2" token="FILTER_2" value="0x1"></bitenum>
+    <bitenum description=" Filter0 Value Selected (Default)" id="FILTER_0" token="FILTER_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="Configures Feedforward value routed to Filter 0 Module" end="16" id="FILTER0_FFWD_SEL" rwaccess="RW" width="1">
+    <bitenum description="  Filter 2 Value Selected" id="FILTER_2" token="FILTER_2" value="0x1"></bitenum>
+    <bitenum description=" Filter 1 Value Selected (Default)" id="FILTER_1" token="FILTER_1" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="14" id="Reserved_1" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="13" description="Selects source of switching cycle period for Filter 2 Module" end="12" id="FILTER2_PER_SEL" rwaccess="RW" width="2">
+    <bitenum description=" DPWM 3 Switching Period" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description=" DPWM 2 Switching Period" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description=" DPWM 1 Switching Period" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 Switching Period (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Selects source of switching cycle period for Filter 1 Module" end="10" id="FILTER1_PER_SEL" rwaccess="RW" width="2">
+    <bitenum description=" DPWM 3 Switching Period" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description=" DPWM 2 Switching Period" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description=" DPWM 1 Switching Period" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 Switching Period (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Selects source of switching cycle period for Filter 0 Module" end="8" id="FILTER0_PER_SEL" rwaccess="RW" width="2">
+    <bitenum description=" DPWM 3 Switching Period" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description=" DPWM 2 Switching Period" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description=" DPWM 1 Switching Period" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 Switching Period (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Reserved" end="6" id="Reserved_0" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="5" description="Selects which Front End Module provides data for Filter 2 Module" end="4" id="FILTER2_FE_SEL" rwaccess="RW" width="2">
+    <bitenum description="   Front End Module 2 provides data to Filter(Default)" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="  Front End Module 1 provides data to Filter" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="  Front End Module 0 provides data to Filter" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Selects which Front End Module provides data for Filter 1 Module" end="2" id="FILTER1_FE_SEL" rwaccess="RW" width="2">
+    <bitenum description="   Front End Module 2 provides data to Filter" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="  Front End Module 1 provides data to Filter(Default)" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="  Front End Module 0 provides data to Filter" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Selects which Front End Module provides data for Filter 0 Module" end="0" id="FILTER0_FE_SEL" rwaccess="RW" width="2">
+    <bitenum description="   Front End Module 2 provides data to Filter" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="  Front End Module 1 provides data to Filter" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="  Front End Module 0 provides data to Filter(Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="FILTERKCOMPA" description=" Filter KComp A Register " id="FILTERKCOMPA" offset="0x18" width="32">
+    
+  <bitfield begin="29" description="14-bit value used in filter output calculations replacing the DPWM switching period value" end="16" id="KCOMP1" rwaccess="RW" width="14"></bitfield>
+    
+  <bitfield begin="15" description="14-bit value used in filter output calculations replacing the DPWM switching period value" end="14" id="Reserved" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="13" description="14-bit value used in filter output calculations replacing the DPWM switching period value" end="0" id="KCOMP0" rwaccess="RW" width="14"></bitfield>
+  </register>
+  
+  
+  <register acronym="FILTERKCOMPB" description=" Filter KComp B Register " id="FILTERKCOMPB" offset="0x1C" width="32">
+    
+  <bitfield begin="13" description="14-bit value used in filter output calculations replacing the DPWM switching period value" end="0" id="KCOMP2" rwaccess="RW" width="14"></bitfield>
+  </register>
+  
+  
+  <register acronym="DPWMMUX" description=" DPWM Mux Register" id="DPWMMUX" offset="0x20" width="32">
+    
+  <bitfield begin="31" description="Selects Ramp source for DPWM3 PWM-B SyncFET soft on/off" end="30" id="DPWM3_SYNC_FET_SEL" rwaccess="RW" width="2">
+    <bitenum description="  Front End 2 Ramp output selected" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="  Front End 1 Ramp output selected" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="  Front End 0 Ramp output selected (Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="29" description="Selects Ramp source for DPWM2 PWM-B SyncFET soft on/off" end="28" id="DPWM2_SYNC_FET_SEL" rwaccess="RW" width="2">
+    <bitenum description="  Front End 2 Ramp output selected" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="  Front End 1 Ramp output selected" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="  Front End 0 Ramp output selected (Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="27" description="Selects Ramp source for DPWM1 PWM-B SyncFET soft on/off" end="26" id="DPWM1_SYNC_FET_SEL" rwaccess="RW" width="2">
+    <bitenum description="  Front End 2 Ramp output selected" id="FE_2" token="FE_2" value="0x0"></bitenum>
+    <bitenum description="  Front End 1 Ramp output selected" id="FE_1" token="FE_1" value="0x0"></bitenum>
+    <bitenum description="  Front End 0 Ramp output selected (Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="25" description="Selects Ramp source for DPWM0 PWM-B SyncFET soft on/off" end="24" id="DPWM0_SYNC_FET_SEL" rwaccess="RW" width="2">
+    <bitenum description="  Front End 2 Ramp output selected" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="  Front End 1 Ramp output selected" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="  Front End 0 Ramp output selected (Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="23" description="Reserved" end="20" id="Reserved" rwaccess="R" width="4"></bitfield>
+    
+  <bitfield begin="19" description="Selects Master Sync for DPWM 3 when DPWM 3 configured in slave mode" end="18" id="DPWM3_SYNC_SEL" rwaccess="RW" width="2">
+    <bitenum description="DPWM 3 Sync" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description="DPWM 2 Sync" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description="DPWM 1 Sync" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Sync (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Selects Master Sync for DPWM 2 when DPWM 2 configured in slave mode" end="16" id="DPWM2_SYNC_SEL" rwaccess="RW" width="2">
+    <bitenum description="DPWM 3 Sync" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description="DPWM 2 Sync" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description="DPWM 1 Sync" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Sync (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Selects Master Sync for DPWM 1 when DPWM 1 configured in slave mode" end="14" id="DPWM1_SYNC_SEL" rwaccess="RW" width="2">
+    <bitenum description="DPWM 3 Sync" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description="DPWM 2 Sync" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description="DPWM 1 Sync" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Sync (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Selects Master Sync for DPWM 0 when DPWM 0 configured in slave mode" end="12" id="DPWM0_SYNC_SEL" rwaccess="RW" width="2">
+    <bitenum description="DPWM 3 Sync" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description="DPWM 2 Sync" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description="DPWM 1 Sync" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Sync (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Selects source of duty cycle/resonant period for DPWM Module 3" end="9" id="DPWM3_FILTER_SEL" rwaccess="" width="3">
+    <bitenum id="DPWM_ON_TIME" token="DPWM_ON_TIME" value="0x4"></bitenum>
+    <bitenum id="CPCC" token="CPCC" value="0x3"></bitenum>
+    <bitenum id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Selects source of duty cycle/resonant period for DPWM Module 2" end="6" id="DPWM2_FILTER_SEL" rwaccess="" width="3">
+    <bitenum id="DPWM_ON_TIME" token="DPWM_ON_TIME" value="0x4"></bitenum>
+    <bitenum id="CPCC" token="CPCC" value="0x3"></bitenum>
+    <bitenum id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Selects source of duty cycle/resonant period for DPWM Module 1" end="3" id="DPWM1_FILTER_SEL" rwaccess="" width="3">
+    <bitenum id="DPWM_ON_TIME" token="DPWM_ON_TIME" value="0x4"></bitenum>
+    <bitenum id="CPCC" token="CPCC" value="0x3"></bitenum>
+    <bitenum id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Selects source of duty cycle/resonant period for DPWM Module 0" end="0" id="DPWM0_FILTER_SEL" rwaccess="" width="3">
+    <bitenum id="DPWM_ON_TIME" token="DPWM_ON_TIME" value="0x4"></bitenum>
+    <bitenum id="CPCC" token="CPCC" value="0x3"></bitenum>
+    <bitenum id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="CPCTRL" description="Constant Power Control Register" id="CPCTRL" offset="0x24" width="32">
+    
+  <bitfield begin="16" description="Constant Power/Constant Current Interrupt Enable" end="16" id="CCPC_INT_EN" rwaccess="RW" width="1">
+    <bitenum description="Interrupt enabled on mode switches" id="enable" token="enable" value="0x1"></bitenum>
+    <bitenum description=" Interrupt disabled on mode switches (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Enables comparison of DAC Setpoint and quotient of Max Power/Sense Current in                      Loop Switching Mode. Minimum of DAC setpoint and calculated quotient sets voltage                      loop setpoint in Constant Voltage and Constant Power modes" end="15" id="DAC_COMP_EN" rwaccess="RW" width="1">
+    <bitenum description="Minimum of DAC setpoint and calculated quotient used as Voltage Loop DAC Setpoint" id="Min" token="Min" value="0x1"></bitenum>
+    <bitenum description=" Operating Mode controls Voltage Loop DAC Setpoint (Default)" id="Operating" token="Operating" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="Enables Firmware value for divisor in Constant Power calculations" end="14" id="FW_DIVISOR_EN" rwaccess="RW" width="1">
+    <bitenum description="Divisor driven by Firmware Current Register" id="Firmware" token="Firmware" value="0x1"></bitenum>
+    <bitenum description="Divisor selected by DIVISOR_SEL (Bits 7:6) (Default)" id="DIVISOR_SEL" token="DIVISOR_SEL" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Enables output of lowest duty from current or voltage loop when Constant Power Constant Current module controls loop output" end="13" id="LOWER_COMP_EN" rwaccess="RW" width="1">
+    <bitenum description=" Loop output controlled by lowest duty from voltage or current loops" id="lowest_duty" token="lowest_duty" value="0x1"></bitenum>
+    <bitenum description=" Loop output controlled by mode selection, voltage loop selected in constant                          voltage and constant power mode, current loop selected in constant current mode (Default)" id="DIVISOR_SEL" token="DIVISOR_SEL" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="Enables freezing of Voltage Loop Integrator when current loop selected in Loop Switching configuration" end="12" id="VLOOP_FREEZE_EN" rwaccess="RW" width="1">
+    <bitenum description="  Freezing of Voltage Loop Integrator enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Freezing of Voltage Loop Integrator disabled (Default)" id="Disabled" token="Disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Configures voltage loop for loop switching mode" end="10" id="VLOOP_SEL" rwaccess="RW" width="2">
+    <bitenum description=" Filter 2 Output Selected" id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum description=" Filter 1 Output Selected" id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum description=" Filter 0 Output Selected (Default)" id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Configures current loop for loop switching mode" end="8" id="CLOOP_SEL" rwaccess="RW" width="2">
+    <bitenum description=" Filter 2 Output Selected" id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum description=" Filter 1 Output Selected" id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum description=" Filter 0 Output Selected (Default)" id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Configures input threshold selected for use in Constant Power comparison" end="5" id="THRESH_SEL" rwaccess="RW" width="3">
+    <bitenum description="Front End 2 Absolute Value Data Selected" id="FE_2" token="FE_2" value="0x5"></bitenum>
+    <bitenum description="Front End 1 Absolute Value Data Selected" id="FE_1" token="FE_1" value="0x4"></bitenum>
+    <bitenum description="Front End 0 Absolute Value Data Selected" id="FE_0" token="FE_0" value="0x3"></bitenum>
+    <bitenum description=" Filter 2 Output Selected" id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum description=" Filter 1 Output Selected" id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum description=" Filter 0 Output Selected (Default)" id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Configures value used for divisor in Constant Power calculations" end="3" id="DIVISOR_SEL" rwaccess="RW" width="2">
+    <bitenum description="Front End 2 Absolute Value Data Selected" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="Front End 1 Absolute Value Data Selected" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="Front End 0 Absolute Value Data Selected(default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Controls Constant Power/Constant Current module configuration" end="1" id="CCPC_CONFIG" rwaccess="RW" width="2">
+    <bitenum description="Constant Power Module controls selection of voltage/current loop" id="constant_power" token="constant_power" value="0x1"></bitenum>
+    <bitenum description="Average Current Mode (Default)" id="average_current" token="average_current" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Constant Power Constant/Current Module Enable" end="0" id="CPCC_EN" rwaccess="RW" width="1">
+    <bitenum description="Constant Power/Constant Current Module enabled" id="enable" token="enable" value="0x1"></bitenum>
+    <bitenum description="Constant Power/Constant Current Module disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="CPNOM" description="Constant Power Nominal Threshold Register" id="CPNOM" offset="0x28" width="32">
+    
+  <bitfield begin="26" description="Configures INOM value used in Constant Power/Constant Current Calculations,                      when sensed value exceeds NOM_CURRENT_UPPER in Constant Voltage mode,                      setpoint will switch to Constant Power mode" end="16" id="NOM_CURRENT_UPPER" rwaccess="RW" width="11"></bitfield>
+    
+  <bitfield begin="15" description="reserved" end="11" id="Reserved" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="10" description="Configures INOM value used in Constant Power/Constant Current Calculations,                      when sensed value falls below NOM_CURRENT_LOWER in Constant Power mode,                      setpoint will switch to Constant Voltage mode" end="0" id="NOM_CURRENT_LOWER" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="CPMAX" description="Constant Power Max Threshold Register" id="CPMAX" offset="0x2C" width="32">
+    
+  <bitfield begin="26" description="Configures IMAX value used in Constant Power/Constant Current Calculations, when                      sensed value exceeds MAX_CURRENT_UPPER in Constant Power mode, setpoint                      will switch to Max Current mode" end="16" id="MAX_CURRENT_UPPER" rwaccess="RW" width="11"></bitfield>
+    
+  <bitfield begin="15" description="reserved" end="11" id="Reserved" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="10" description="Configures IMAX value used in Constant Power/Constant Current Calculations, when                          sensed value falls below MAX_CURRENT_LOWER in Max Current mode, setpoint                          will switch to Constant Power mode" end="0" id="MAX_CURRENT_LOWER" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="CPCONFIG" description="Constant Power Configuration Register" id="CPCONFIG" offset="0x30" width="32">
+    
+  <bitfield begin="26" description="Configures IMAX setpoint used in Constant Power/Constant Current Calculations in Max Current mode" end="16" id="MAX_CURRENT" rwaccess="RW" width="11"></bitfield>
+    
+  <bitfield begin="15" description="reserved" end="11" id="Reserved" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="10" description="Configures VNOM setpoint used in Constant Power/Constant Current Calculations in                          Constant Voltage mode (Loop Oring configuration selected)" end="0" id="NOM_VOLTAGE" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="CPMAXPWR" description="Constant Power Max Power Register" id="CPMAXPWR" offset="0x34" width="32">
+    
+  <bitfield begin="21" description="Configures PMAX value used in Constant Power/Constant Current calculations in Constant Power mode" end="0" id="MAX_POWER" rwaccess="RW" width="22"></bitfield>
+  </register>
+  
+  
+  <register acronym="CPINTTHRESH" description="Constant Power Integrator Threshold Register" id="CPINTTHRESH" offset="0x38" width="32">
+    
+  <bitfield begin="23" description="24-bit signed value added to Current Loop Duty value to determine when to freeze Current Loop Integrator" end="0" id="INT_THRESH" rwaccess="RW" width="24"></bitfield>
+  </register>
+  
+  
+  <register acronym="CPFWDIVISOR" description="Constant Power Firmware Divisor Register" id="CPFWDIVISOR" offset="0x3C" width="32">
+    
+  <bitfield begin="10" description="10-bit value used in Constant Power calculation when firmware value is selected in Bit 17 of Constant Power Control Register" end="0" id="FW_DIVISOR" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="CPSTAT" description="Constant Power Status Register" id="CPSTAT" offset="0x40" width="32">
+    
+  <bitfield begin="8" description="Constant Current Mode Indication" end="8" id="CONSTANT_CUR" rwaccess="R" width="1">
+    <bitenum description="Constant Current Mode enabled" id="enaabled" token="enaabled" value="0x1"></bitenum>
+    <bitenum description=" Constant Current Mode not enabled" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Constant Power Mode Indication" end="7" id="CONSTANT_PWR" rwaccess="R" width="1">
+    <bitenum description="Constant Power Mode enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" Constant Power Mode not enabled" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Constant Voltage Mode Indication" end="6" id="CONSTANT_VOLT" rwaccess="R" width="1">
+    <bitenum description="Constant Voltage Mode enabled" id="ensabled" token="ensabled" value="0x1"></bitenum>
+    <bitenum description=" Constant Voltage Mode not enabled" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Constant Current Mode to Constant Voltage Mode latched status, cleared on read" end="5" id="CC_TO_CV_INT" rwaccess="R" width="1">
+    <bitenum description="Transition from Constant Current to Constant Voltage detected" id="transition" token="transition" value="0x1"></bitenum>
+    <bitenum description="No transition from Constant Current to Constant Voltage detected" id="no_tarnsition" token="no_tarnsition" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Constant Voltage Mode to Constant Current Mode latched status, cleared on read" end="4" id="CV_TO_CC_INT" rwaccess="R" width="1">
+    <bitenum description="Transition from Constant Voltage to Constant Current detected" id="transition" token="transition" value="0x1"></bitenum>
+    <bitenum description="No transition from Constant Voltage to Constant Current detected" id="no_tarnsition" token="no_tarnsition" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Constant Current Mode to Constant Power Mode latched status, cleared on read" end="3" id="CC_TO_CP_INT" rwaccess="R" width="1">
+    <bitenum description="Transition from Constant Current to Constant Power detected" id="transition" token="transition" value="0x1"></bitenum>
+    <bitenum description="No transition from Constant Current to Constant Power detected" id="no_tarnsition" token="no_tarnsition" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Constant Power Mode to Constant Current Mode latched status, cleared on read" end="2" id="CP_TO_CC_INT" rwaccess="R" width="1">
+    <bitenum description="Transition from Constant Power to Constant Current detected" id="transition" token="transition" value="0x1"></bitenum>
+    <bitenum description=" No transition from Constant Power to Constant Current detected" id="no_tarnsition" token="no_tarnsition" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Constant Power Mode to Constant Voltage Mode latched status, cleared on read" end="1" id="CP_TO_CV_INT" rwaccess="R" width="1">
+    <bitenum description="Transition from Constant Power to Constant Voltage detected" id="transition" token="transition" value="0x1"></bitenum>
+    <bitenum description=" No transition from Constant Power to Constant Voltage detected" id="no_tarnsition" token="no_tarnsition" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Constant Voltage Mode to Constant Power Mode latched status, cleared on read" end="0" id="CV_TO_CP_INT" rwaccess="R" width="1">
+    <bitenum description="Transition from Constant Voltage to Constant Power detected" id="transition" token="transition" value="0x1"></bitenum>
+    <bitenum description=" No transition from Constant Voltage to Constant Power detected" id="no_tarnsition" token="no_tarnsition" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="CYCADJCTRL" description="Cycle Adjustment Control Register" id="CYCADJCTRL" offset="0x44" width="32">
+    
+  <bitfield begin="9" description="Configures gain of Cycle Adjustment calculation" end="7" id="CYC_ADJ_GAIN" rwaccess="RW" width="3">
+    <bitenum description="128x gain" id="x_128" token="x_128" value="0x7"></bitenum>
+    <bitenum description=" 64x gain" id="x_64" token="x_64" value="0x6"></bitenum>
+    <bitenum description="32x gain" id="x_32" token="x_32" value="0x5"></bitenum>
+    <bitenum description=" 16x gain" id="x_16" token="x_16" value="0x4"></bitenum>
+    <bitenum description="8x gain" id="x_8" token="x_8" value="0x3"></bitenum>
+    <bitenum description=" 4x gain" id="x_4" token="x_4" value="0x2"></bitenum>
+    <bitenum description="2x gain" id="x_2" token="x_2" value="0x1"></bitenum>
+    <bitenum description=" 1x gain (Default)" id="x_1" token="x_1" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Selects which DPWM A trigger synchronizes cycle adjustment calculation, first                          2 samples after receipt of DPWM A trigger will be used for Cycle Adjustment                          Calculation" end="5" id="CYC_ADJ_SYNC" rwaccess="RW" width="2">
+    <bitenum description="DPWM-4A trigger selected" id="DPWM_4_A" token="DPWM_4_A" value="0x3"></bitenum>
+    <bitenum description="DPWM-3A trigger selected" id="DPWM_3_A" token="DPWM_3_A" value="0x2"></bitenum>
+    <bitenum description="DPWM-2A trigger selected" id="DPWM_2_A" token="DPWM_2_A" value="0x1"></bitenum>
+    <bitenum description="DPWM-1A trigger selected (Default)" id="DPWM_1_A" token="DPWM_1_A" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Configures Front End Module Data used for Second Sample of Cycle Adjustment Calculation" end="3" id="SECOND_SAMPLE_SEL" rwaccess="RW" width="2">
+    <bitenum description=" Front End Module 2 Error Data selected" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="Front End Module 1 Error Data selected" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="Front End Module 0 Error Data selected (Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Configures Front End Module Data used for First Sample of Cycle Adjustment Calculation" end="1" id="FIRST_SAMPLE_SEL" rwaccess="RW" width="2">
+    <bitenum description=" Front End Module 2 Error Data selected" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="Front End Module 1 Error Data selected" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="Front End Module 0 Error Data selected (Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Cycle Adjustment Calculation Enable" end="0" id="CYC_ADJ_EN" rwaccess="RW" width="1">
+    <bitenum description="Cycle Adjustment Calculation enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Cycle Adjustment Calculation disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="CYCADJLIM" description="Constant Power Configuration Register" id="CYCADJLIM" offset="0x48" width="32">
+    
+  <bitfield begin="28" description="Cycle Adjustment Calculation signed upper limit value, output of Cycle Adjustment                  Calculation is clamped at the upper limit, if calculated result exceeds the upper limit.                  LSB resolution equals High Frequency Oscillator period/16" end="16" id="CYC_ADJ_UPPER_LIMIT" rwaccess="RW" width="13"></bitfield>
+    
+  <bitfield begin="15" description="reserved" end="13" id="Reserved" rwaccess="R" width="3"></bitfield>
+    
+  <bitfield begin="12" description="Cycle Adjustment Calculation signed lower limit value, output of Cycle Adjustment                  Calculation is clamped at the lower limit, if calculated result falls below the lower limit.                  LSB resolution equals High Frequency Oscillator period/16" end="0" id="CYC_ADJ_LOWER_LIM" rwaccess="RW" width="13"></bitfield>
+  </register>
+  
+  
+  <register acronym="CYCADJSTAT" description="Cycle Adjustment Status Register " id="CYCADJSTAT" offset="0x4C" width="32">
+    
+  <bitfield begin="28" description="13-bit signed value representing calculated Cycle Adjustment provided to DPWM                      module based on first 2 error samples" end="16" id="CYC_ADJ_CALC" rwaccess="R" width="13"></bitfield>
+    
+  <bitfield begin="15" description="reserved" end="10" id="Reserved" rwaccess="R" width="6"></bitfield>
+    
+  <bitfield begin="9" description="10-bit signed value representing calculated error of the first 2 error samples received" end="0" id="CYC_ADJ_ERROR" rwaccess="R" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="GLBEN" description="Global Enable Register" id="GLBEN" offset="0x50" width="32">
+    
+  <bitfield begin="10" description="Global Firmware Enable for Front End Control 2 Module" end="10" id="FE_CTRL2_EN" rwaccess="RW" width="1">
+    <bitenum description="Front End Control 2 Module Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Front End Control 2 Module Disabled (Default)" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Global Firmware Enable for Front End Control 1 Module" end="9" id="FE_CTRL1_EN" rwaccess="RW" width="1">
+    <bitenum description="Front End Control 1 Module Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Front End Control 1 Module Disabled (Default)" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Global Firmware Enable for Front End Control 0 Module" end="8" id="FE_CTRL0_EN" rwaccess="RW" width="1">
+    <bitenum description="Front End Control 0 Module Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Front End Control 0 Module Disabled (Default)" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="reserved" end="4" id="Reserved" rwaccess="R" width="4"></bitfield>
+    
+  <bitfield begin="3" description="Global Firmware Enable for DPWM 3 Module" end="3" id="DPWM3_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 3 Module Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Module Disabled (Default)" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Global Firmware Enable for DPWM 2 Module" end="2" id="DPWM2_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 3 Module Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="DPWM 3 Module Disabled (Default)" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Global Firmware Enable for DPWM 1 Module" end="1" id="DPWM1_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 1 Module Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="DPWM 1 Module Disabled (Default)" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Global Firmware Enable for DPWM 0 Module" end="0" id="DPWM0_EN" rwaccess="RW" width="1">
+    <bitenum description="DPWM 0 Module Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="DPWM 0 Module Disabled (Default)" id="not_enabled" token="not_enabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PWMGLBPRD" description="PWM Global Period Register" id="PWMGLBPRD" offset="0x54" width="32">
+    
+  <bitfield begin="17" description="Global PWM Period value, overriding DPWM Period settings when global PWM period is selected within each DPWM module" end="4" id="PRD" rwaccess="RW" width="14"></bitfield>
+    
+  <bitfield begin="3" description="reserved" end="0" id="Reserved" rwaccess="R" width="4"></bitfield>
+  </register>
+  
+  
+  <register acronym="SYNCCTRL" description="Sync Control  Register" id="SYNCCTRL" offset="0x58" width="32">
+    
+  <bitfield begin="5" description="Value of Sync pin" end="5" id="SYNC_IN" rwaccess="R" width="1">
+    <bitenum description=" Logic level high present on Sync pin" id="high" token="high" value="0x1"></bitenum>
+    <bitenum description=" Logic level low present on Sync pin" id="low" token="low" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Selects which module controls Sync pin output" end="2" id="SYNC_MUX_SEL" rwaccess="RW" width="3">
+    <bitenum description="Driven low" id="LOW_DRIVEN" token="LOW_DRIVEN" value="0x7"></bitenum>
+    <bitenum description=" Low-Frequency Oscillator Clock Output" id="LFO_CLK" token="LFO_CLK" value="0x6"></bitenum>
+    <bitenum description=" Value specified by CLKSR in CLKCNTL" id="CLKSR_CLKCNTL" token="CLKSR_CLKCNTL" value="0x5"></bitenum>
+    <bitenum description=" Value from SYNC_OUT (Bit 1)" id="SYNC_OUT" token="SYNC_OUT" value="0x4"></bitenum>
+    <bitenum description=" DPWM 3 Sync Output" id="DPWM_3" token="DPWM_3" value="0x3"></bitenum>
+    <bitenum description=" DPWM 2 Sync Output (Default)" id="DPWM_2" token="DPWM_2" value="0x2"></bitenum>
+    <bitenum description=" DPWM 1 Sync Output" id="DPWM_1" token="DPWM_1" value="0x1"></bitenum>
+    <bitenum description=" DPWM 0 Sync Output (Default)" id="DPWM_0" token="DPWM_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Configure output value for Sync pin, if used as an output" end="1" id="SYNC_OUT" rwaccess="RW" width="1">
+    <bitenum description="Sync pin driven high in output mode (Default)" id="high" token="high" value="0x1"></bitenum>
+    <bitenum description=" Sync pin driven low in output mode" id="low" token="low" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Configure direction of Sync pin" end="0" id="SYNC_DIR" rwaccess="RW" width="1">
+    <bitenum description=" Sync pin configured as an input pin (Default)" id="input" token="input" value="0x1"></bitenum>
+    <bitenum description=" Sync pin configured as an output pin" id="output" token="output" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="LLCTRL" description="Light Load Control Register" id="LLCTRL" offset="0x5C" width="32">
+    
+  <bitfield begin="25" description="DPWM pulse width used for EADC-based light load mode operation, when selected Filter data exceeds TURN_ON_THRESH value" end="8" id="DPWM_ON_TIME" rwaccess="RW" width="18"></bitfield>
+    
+  <bitfield begin="7" description="Reserved" end="4" id="Reserved" rwaccess="R" width="4"></bitfield>
+    
+  <bitfield begin="3" description="Enables Switching Cycle Counter for enabling constant pulse widths when configured in Light Load operation" end="3" id="CYCLE_CNT_EN" rwaccess="RW" width="1">
+    <bitenum description=" Switching Cycle Counter enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Switching Cycle Counter disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Configures source of filter data for Light Load comparisons" end="1" id="LL_FILTER_SEL" rwaccess="RW" width="2">
+    <bitenum description="Filter 2 data selected" id="FILTER_2" token="FILTER_2" value="0x1"></bitenum>
+    <bitenum description="Filter 1 data selected" id="FILTER_1" token="FILTER_1" value="0x1"></bitenum>
+    <bitenum description=" Filter 0 data selected (Default)" id="FILTER_0" token="FILTER_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="EADC-based Light Load Mode Enable" end="0" id="LL_EN" rwaccess="RW" width="1">
+    <bitenum description="Light Load Mode enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Light Load Mode disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="LLENTHRESH" description="Light Load Enable Threshold Register" id="LLENTHRESH" offset="0x60" width="32">
+    
+  <bitfield begin="31" description="Switching Cycle threshold where constant width DPWM pulses are enabled when                      number of switching cycles without pulses exceeds threshold" end="24" id="CYCLE_CNT_THRESH" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="23" description="Reserved" end="18" id="Reserved" rwaccess="R" width="6"></bitfield>
+    
+  <bitfield begin="17" description="Filter data threshold where constant width DPWM pulses are enabled when filter data                          exceeds threshold" end="0" id="TURN_ON_THRESH" rwaccess="RW" width="18"></bitfield>
+  </register>
+  
+  
+  <register acronym="LLDISTHRESH" description="Light Load Disable Threshold Register" id="LLDISTHRESH" offset="0x64" width="32">
+    
+  <bitfield begin="17" description="Filter data threshold where constant width DPWM pulses are disabled when filter                          data falls below threshold" end="0" id="TURN_OFF_THRESH" rwaccess="RW" width="18"></bitfield>
+  </register>
+  
+  
+  <register acronym="APCMCTRL0" description=" Analog Peak Current Mode Control 0 Register" id="APCMCTRL0" offset="0x68" width="32">
+    
+  <bitfield begin="12" description="Selects source of analog comparator output for APCMC" end="10" id="PCM_ACOMP_SEL" rwaccess="" width="3">
+    <bitenum description="ACOMP F" id="ACOMPF" token="ACOMPF" value="0x5"></bitenum>
+    <bitenum description="ACOMP E" id="ACOMPE" token="ACOMPE" value="0x4"></bitenum>
+    <bitenum description="ACOMP D" id="ACOMPD" token="ACOMPD" value="0x3"></bitenum>
+    <bitenum description="ACOMP C" id="ACOMPC" token="ACOMPC" value="0x2"></bitenum>
+    <bitenum description="ACOMP B" id="ACOMPB" token="ACOMPB" value="0x1"></bitenum>
+    <bitenum description="ACOMP A" id="ACOMPA" token="ACOMPA" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="DPWM source for blank signal" end="6" id="BLANK_SEL" rwaccess="RW" width="4">
+    <bitenum description="Blank signal from DPWM0" id="DPWM3" token="DPWM3" value="0x3"></bitenum>
+    <bitenum description="Blank signal from DPWM2" id="DPWM2" token="DPWM2" value="0x2"></bitenum>
+    <bitenum description="Blank signal from DPWM1" id="DPWM1" token="DPWM1" value="0x1"></bitenum>
+    <bitenum description="Blank signal from DPWM0" id="DPWM0" token="DPWM0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Selects source of Peak Current Slope Compensation Ramp Start" end="4" id="PCM_FILTER_SEL" rwaccess="RW" width="2">
+    <bitenum description="CPCC data selected" id="CPCC" token="CPCC" value="0x3"></bitenum>
+    <bitenum description="Filter 2 data selected" id="Filter_2" token="Filter_2" value="0x2"></bitenum>
+    <bitenum description="Filter 1 data selected" id="Filter_1" token="Filter_1" value="0x1"></bitenum>
+    <bitenum description="Filter 0 data selected" id="Filter_0" token="Filter_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Enables latching of Peak Current Flag to end of frame" end="3" id="PCM_LATCH_EN" rwaccess="RW" width="1">
+    <bitenum description="PCM Flag is  latched to end of PCM Frame" id="latched" token="latched" value="0x1"></bitenum>
+    <bitenum description="PCM Flag is not latched to end of PCM Frame (Default)" id="not_latched" token="not_latched" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Selects source of AFE comparator output for APCMC" end="1" id="PCM_FE_SEL" rwaccess="RW" width="2">
+    <bitenum description="analog comparator" id="ACOMP" token="ACOMP" value="0x3"></bitenum>
+    <bitenum description="Front end 2" id="AFE2" token="AFE2" value="0x2"></bitenum>
+    <bitenum description="Front end 1" id="AFE1" token="AFE1" value="0x1"></bitenum>
+    <bitenum description="Front end 0" id="AFE0" token="AFE0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Analog Peak Current Mode Control Module Enable" end="0" id="PCM_EN" rwaccess="RW" width="1">
+    <bitenum description=" Analog Peak Current Mode Control Module enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Analog Peak Current Mode Control Module disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="APCMCTRL1" description="Analog peak current mode control 1 register" id="APCMCTRL1" offset="0x6C" width="32">
+    
+  <bitfield begin="12" description="Selects source of analog comparator output for analog peak current mode control" end="10" id="PCM_ACOMP_SEL" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="9" description="DPWM source for blank signal " end="6" id="BLANK_SEL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="5" description="Selects source of peak current compensation ramp start" end="4" id="PCM_FILTER_SEL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="3" description="Enables latching of peak current control flag to end frame" end="3" id="PCM_LATCH_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="2" description="Selects source of FE comparator output for analog peak current control " end="1" id="PCM_FE_SEL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="0" description="Analog peak current mode control module enable" end="0" id="PCM_EN" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="APCMCTRL2" description="Analog peak current control 2 register" id="APCMCTRL2" offset="0x70" width="32">
+    
+  <bitfield begin="12" description="Selects source of analog comparator output for Analog Peak Current Mode Control" end="10" id="PCM_ACOMP_SEL" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="9" description="DPWM source for blank signal" end="6" id="BLANK_SEL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="5" description="Selects source of Peak Current Slope Compensation Ramp Start" end="4" id="PCM_FILTER_SEL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="3" description="Enables latching of Peak Current Flag to end of frame" end="3" id="PCM_LATCH_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="2" description="Selects source of Front-End Comparator output for Analog Peak Current Mode Control" end="1" id="PCM_FE_SEL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="0" description="Analog Peak Current Mode Control Module Enable" end="0" id="PCM_EN" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="DTCCTRL" description="DTC control register" id="DTCCTRL" offset="0x78" width="32">
+    
+  <bitfield begin="23" description="MSB of fault threshold" end="23" id="FLT_THRESH4" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="22" description="Enables interrupt generation when a fault flag condition has been met" end="22" id="FLT_INT_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="21" description="Sets the number of consecutive detected faults before a fault step is utilized" end="20" id="FLT_MAX" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="19" description="Sets the negative step size when a fault condition is detected that exceeds the fault max value" end="17" id="FLT_STEP" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="16" description="Fault threshold" end="13" id="FLT_THRESH" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="12" description="Selects the phase A negative edge reference to begin a measurement window" end="9" id="PWM_A_SEL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="8" description="Selects the phase B negative edge reference to begin a measurement window" end="5" id="PWM_B_SEL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="4" description="Signal polarity of the DTC input " end="4" id="A_POL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="3" description="Signal polarity of the DTC input " end="3" id="B_POL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="2" description="Sets the input method for the DTC module" end="2" id="INPUT_MODE" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="1" description="Sets mode control of the DTC phase accumulator value" end="1" id="MODE" rwaccess="" width="1"></bitfield>
+    
+  <bitfield begin="0" description="DTC enable" end="0" id="DTC_EN" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="DTCTARGET" description="DTC Target Register" id="DTCTARGET" offset="0x7C" width="32">
+    
+  <bitfield begin="26" description="Sets the target measurement window blanking length, in HFO clock increments" end="19" id="DETECT_BLANK" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="18" description="Sets the target measurement window length, in HFO clock increments" end="10" id="DETECT_LEN" rwaccess="RW" width="9"></bitfield>
+    
+  <bitfield begin="9" description="Target threshold offset" end="8" id="TARGET_OFFSET" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="7" description="Target lower threshold" end="0" id="TARGET_LOW" rwaccess="" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="DTCLIMIT" description="DTC Auto Control Limit Register" id="DTCLIMIT" offset="0x80" width="32">
+    
+  <bitfield begin="21" description="Sets the signed integer upper clamp for the accumulators." end="11" id="ADJ_MAX" rwaccess="RW" width="11"></bitfield>
+    
+  <bitfield begin="10" description="Sets the signed integer lower clamp for the accumulators." end="0" id="ADJ_MIN" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="DTCMANUAL" description="DTC Manual Control Register" id="DTCMANUAL" offset="0x84" width="32">
+    
+  <bitfield begin="21" description="Sets the signed A accumulator value when manual control is enabled." end="11" id="A_ADJ" rwaccess="RW" width="11"></bitfield>
+    
+  <bitfield begin="10" description="Sets the signed A accumulator value when manual control is enabled." end="0" id="B_ADJ" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="DTCMONITOR" description="DTC Monitor Register" id="DTCMONITOR" offset="0x88" width="32">
+    
+  <bitfield begin="21" description="Monitored accumulator A value from the DTC module" end="11" id="A_ADJ" rwaccess="R" width="11"></bitfield>
+    
+  <bitfield begin="10" description="Monitored accumulator B value from the DTC module" end="0" id="B_ADJ" rwaccess="R" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="DTCSTAT" description="DTC Status Register" id="DTCSTAT" offset="0x8C" width="32">
+    
+  <bitfield begin="16" description="Last measurement value for phase A input signal" end="9" id="A_CNT" rwaccess="R" width="8"></bitfield>
+    
+  <bitfield begin="8" description="Last measurement value for phase B input signal" end="1" id="B_CNT" rwaccess="R" width="8"></bitfield>
+    
+  <bitfield begin="0" description="Flag is set when the fault count exceeds the FLT MAX value programmed in the DTCCTRL register." end="0" id="FLAG" rwaccess="R" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="PULSECOUNTVALUE" description="Pulse count value register" id="PULSECOUNTVALUE" offset="0x90" width="32">
+    
+  <bitfield begin="26" description="Pulse count value B on DTC1 pin" end="16" id="COUNT_B" rwaccess="R" width="11"></bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="11" id="Reserved" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="10" description="Pulse count value A on DTC1 pin" end="0" id="COUNT_A" rwaccess="R" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="PULSECOMPTHRESH" description="Pulse compare threshold register" id="PULSECOMPTHRESH" offset="0x94" width="32">
+    
+  <bitfield begin="26" description="Pulse counter B compare threshold" end="16" id="CMP_THRESH_B" rwaccess="RW" width="11"></bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="11" id="Reserved" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="10" description="Pulse counter B compare threshold" end="0" id="CMP_THRESH_A" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="PULSECOUNTERCTRL" description="Pulse counter control register" id="PULSECOUNTERCTRL" offset="0x98" width="32">
+    
+  <bitfield begin="17" description="Counter B clear" end="17" id="COUNTER_B_CLR" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="16" description="Counter A clear" end="16" id="COUNTER_A_CLR" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="15" description="Enable reset of counter B on compare B event" end="15" id="RESET_ON_COMPARE_B" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="14" description="Enable reset of counter A on compare A event" end="14" id="RESET_ON_COMPARE_A" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="13" description="Enable interrupt on compare A or B match" end="13" id="CMP_INT_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="12" description="" end="12" id="OVF_INT_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="11" description="Compare B match flag. Clears on read" end="11" id="COMPARE_B_FLAG" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="10" description="Compare A match flag. Clears on read" end="10" id="COMPARE_A_FLAG" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="9" description="Enables compare B" end="9" id="COMPARE_B_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="8" description="Enables compare A" end="8" id="COMPARE_A_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="7" description="Selects the countting mode for counter B" end="6" id="COUNT_MODE_B" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="5" description="Seelects the counting mode for counter A" end="4" id="COUNT_MODE_A" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="3" description="Counter B overflow flag" end="3" id="COUNTER_B_OVF_FLAG" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="2" description="Counter A overflow flag" end="2" id="COUNTER_A_OVF_FLAG" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="1" description="Enables counter B" end="1" id="COUNTER_B_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="0" description="Enables counter A" end="0" id="COUNTER_A_EN" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="LOOPMUXTEST" description=" Loop Mux Test Register  (Test Use Only)" id="LOOPMUXTEST" offset="0x800" width="32">
+    
+  <bitfield begin="18" description="High-Speed Loop BIST Complete Status" end="18" id="BIST_COMP" rwaccess="R" width="1">
+    <bitenum description="High-Speed Loop BIST completed" id="complete" token="complete" value="0x1"></bitenum>
+    <bitenum description="High-Speed Loop BIST not complete" id="not_complete" token="not_complete" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="High-Speed Loop BIST Enable" end="17" id="BIST_EN" rwaccess="RW" width="1">
+    <bitenum description=" High-Speed Loop BIST enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="High-Speed Loop BIST disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="EADC Trim Test Mode Enable" end="16" id="EADC_TRIM_TEST_EN" rwaccess="RW" width="1">
+    <bitenum description=" EADC Trim Test Mode enabled, bits 15:0 provided to all 3 Analog Front End modules" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="EADC Trim Test Mode disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="0" id="RESERVED" rwaccess="R" width="16">
+    <bitenum description=" 8x Gain, 1mV/LSB" id="x_8" token="x_8" value="0x1"></bitenum>
+    <bitenum description="4x Gain, 1mV/LSB" id="x_4" token="x_4" value="0x0"></bitenum>
+    <bitenum description=" 2x Gain, 4mV/LSB" id="x_2" token="x_2" value="0x1"></bitenum>
+    <bitenum description="1x Gain, 8mV/LSB" id="x_1" token="x_1" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="EADC_TRIM_TEST" description="EADC trim test register" id="EADC_TRIM_TEST" offset="0x804" width="32">
+    
+  <bitfield begin="31" description="EADC test trim bits" end="0" id="EADC_TEST_TRIM" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFE_REG19" description="AFE register 19 for analog (For Factory Test Use Only)" id="AFE_REG19" offset="0x808" width="32">
+    
+  <bitfield begin="12" description="AFE TOP test mode enable" end="12" id="EN_ANATOP_TESTMODE" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="11" description="AFE TOP test mux enable" end="11" id="EN_AFETOP_TESTMUX" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="10" description="AFE TOP Mux enable" end="0" id="AFETOP_MUXEN" rwaccess="RW" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFE_REG20" description="AFE register 20 for analog (For Factory Test Use Only)" id="AFE_REG20" offset="0x80C" width="32">
+    
+  <bitfield begin="20" description="BG buffer test control bits" end="13" id="BG_BUFFER_TESTCTRL" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="12" description="Indicates trimming mode" end="10" id="AFE_PROG" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="9" description="Unused" end="8" id="Reserved" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="7" description="Trim bits for more accurate Vref buffer for EADC and EDAC" end="0" id="AFETOP_REFBUFFER_TRIM" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFE_LOOPMUX_SPARE" description="AFE_LOOPMUX spare register" id="AFE_LOOPMUX_SPARE" offset="0x810" width="32">
+    
+  <bitfield begin="31" description="" end="0" id="AFE_LOOPMUX_SPARE" rwaccess="RW" width="32"></bitfield>
+  </register>
+</module>

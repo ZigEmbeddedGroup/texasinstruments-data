@@ -1,0 +1,42 @@
+<module id="RTDMA_MPU_REGS" HW_revision="" description="RTDMA MPU Registers">
+	<group id="RTDMA_MPU_REGS_RegisterFile0" name="RTDMA_MPU_REGS_RegisterFile0" instances="16" offset="0x0" instaddr="32">
+		<register id="MPUR_CHMASK" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="MPU Region Configuration">
+			<bitfield id="CH1MASK" description="MPU region channel mask Channel 1" begin="0" end="0" width="1" rwaccess="RW"/>
+			<bitfield id="CH2MASK" description="MPU region channel mask Channel 2" begin="1" end="1" width="1" rwaccess="RW"/>
+			<bitfield id="CH3MASK" description="MPU region channel mask Channel 3" begin="2" end="2" width="1" rwaccess="RW"/>
+			<bitfield id="CH4MASK" description="MPU region channel mask Channel 4" begin="3" end="3" width="1" rwaccess="RW"/>
+			<bitfield id="CH5MASK" description="MPU region channel mask Channel 5" begin="4" end="4" width="1" rwaccess="RW"/>
+			<bitfield id="CH6MASK" description="MPU region channel mask Channel 6" begin="5" end="5" width="1" rwaccess="RW"/>
+			<bitfield id="CH7MASK" description="MPU region channel mask Channel 7" begin="6" end="6" width="1" rwaccess="RW"/>
+			<bitfield id="CH8MASK" description="MPU region channel mask Channel 8" begin="7" end="7" width="1" rwaccess="RW"/>
+			<bitfield id="CH9MASK" description="MPU region channel mask Channel 9" begin="8" end="8" width="1" rwaccess="RW"/>
+			<bitfield id="CH10MASK" description="MPU region channel mask Channel 10" begin="9" end="9" width="1" rwaccess="RW"/>
+		</register>
+		<register id="MPUR_START" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="MPU Region Start Address">
+			<bitfield id="ADDRL" description="Lower Start Address" begin="15" end="12" width="4" rwaccess="RW"/>
+			<bitfield id="ADDRH" description="Upper Start Address" begin="31" end="16" width="16" rwaccess="RW"/>
+		</register>
+		<register id="MPUR_END" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="MPU Region End Address">
+			<bitfield id="ADDRL" description="Lower End Address" begin="15" end="12" width="4" rwaccess="RW"/>
+			<bitfield id="ADDRH" description="Upper End Address" begin="31" end="16" width="16" rwaccess="RW"/>
+		</register>
+		<register id="MPUR_LOCK" width="32" page="0" offset="0xc" instances="1" instaddr="4" internal="0" description="MPU Temporary Lock">
+			<bitfield id="LOCK" description="Temporary Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+		</register>
+		<register id="MPUR_COMMIT" width="32" page="0" offset="0x10" instances="1" instaddr="4" internal="0" description="MPU Permanent Commit">
+			<bitfield id="COMMIT" description="Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+		</register>
+		<register id="MPUR_ACCESS" width="32" page="0" offset="0x14" instances="1" instaddr="4" internal="0" description="MPU Region R/W Access Permissions">
+			<bitfield id="ACCESS" description="Region Access Permissions" begin="1" end="0" width="2" rwaccess="RW"/>
+		</register>
+	</group>
+	<register id="MPUCTRL" width="32" page="0" offset="0x800" instances="1" instaddr="4" internal="0" description="MPU Control Register">
+		<bitfield id="MPUEN" description="Enable MPU function" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="MPUCFG_LOCK" width="32" page="0" offset="0x820" instances="1" instaddr="4" internal="0" description="Channel Configuration Temporary Lock">
+		<bitfield id="LOCK" description="Temporary Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="MPUCFG_COMMIT" width="32" page="0" offset="0x824" instances="1" instaddr="4" internal="0" description="Channel Configuration Permanent Commit">
+		<bitfield id="COMMIT" description="Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+</module>

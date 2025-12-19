@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="I2S1" HW_revision="1.0">
+    <group id="I2S1_GPRCM" name="I2S1_GPRCM" instances="1" offset="0x800" instaddr="0x100" description="">
+        <register id="I2S1_PWREN" width="32" offset="0x0" description="Power enable">
+            <bitfield id="ENABLE" description="Enable the power" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="Disable Power"/>
+                <bitenum id="ENABLE" value="0x1" description="Enable Power"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_RSTCTL" width="32" offset="0x4" description="Reset Control">
+            <bitfield id="RESETSTKYCLR" description="Clear the RESETSTKY bit in the STAT register" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NOP" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear reset sticky bit"/>
+            </bitfield>
+            <bitfield id="RESETASSERT" description="Assert reset to the peripheral" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NOP" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="ASSERT" value="0x1" description="Assert reset"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_CLKCFG" width="32" offset="0x8" description="Peripheral Clock Configuration Register">
+            <bitfield id="BLOCKASYNC" description="Async Clock Request is blocked from starting SYSOSC or forcing bus clock to 32MHz" begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="Not block async clock request"/>
+                <bitenum id="ENABLE" value="0x1" description="Block async clock request"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_GPRCM_STAT" width="32" offset="0x14" description="Status Register">
+            <bitfield id="RESETSTKY" description="This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register" begin="16" end="16" width="1" rwaccess="R">
+                <bitenum id="NORES" value="0x0" description="The peripheral has not been reset since this bit was last cleared by RESETSTKYCLR in the RSTCTL register"/>
+                <bitenum id="RESET" value="0x1" description="The peripheral was reset since the last bit clear"/>
+            </bitfield>
+        </register>
+        </group>
+    <register id="I2S1_PDBGCTL" width="32" offset="0x1008" description="Peripheral Debug Control">
+        <bitfield id="FREE" description="Free run control" begin="0" end="0" width="1" rwaccess="R/W">
+            <bitenum id="STOP" value="0x0" description="The peripheral freezes functionality while the Core Halted input is asserted and resumes when it is deasserted."/>
+            <bitenum id="RUN" value="0x1" description="The peripheral ignores the state of the Core Halted input"/>
+        </bitfield>
+        <bitfield id="SOFT" description="Soft halt boundary control. This function is only available, if [FREE] is set to 'STOP'" begin="1" end="1" width="1" rwaccess="R/W">
+            <bitenum id="IMMEDIATE" value="0x0" description="The peripheral will halt immediately, even if the resultant state will result in corruption if the system is restarted"/>
+            <bitenum id="DELAYED" value="0x1" description="The peripheral blocks the debug freeze until it has reached a boundary where it can resume without corruption"/>
+        </bitfield>
+    </register>
+    <group id="I2S1_CPU_INT" name="I2S1_CPU_INT" instances="1" offset="0x1020" instaddr="0x30" description="">
+        <register id="I2S1_IIDX" width="32" offset="0x0" description="Interrupt index">
+            <bitfield id="STAT" description="Module Interrupt Vector Value.  This register provides the highes priority interrupt index. A read clears the corresponding interrupt flag in RIS and MIS registers. 15h-1Fh = Reserved" begin="7" end="0" width="8" rwaccess="R">
+                <bitenum id="NO_INTR" value="0x0" description="No interrupt pending"/>
+                <bitenum id="WCLKERR" value="0x1" description="WCLK Error"/>
+                <bitenum id="RXIFG" value="0x2" description="Receive interrupt; Interrupt Flag: RX"/>
+                <bitenum id="TXIFG" value="0x3" description="Transmit interrupt; Interrupt Flag: TX"/>
+                <bitenum id="RXFIFO_OFV_EVT" value="0x4" description="RX FIFO Overflow Event/interrupt pending"/>
+                <bitenum id="TXFIFO_UNF_EVT" value="0x5" description="TX FIFO underflow interrupt"/>
+                <bitenum id="DMA_DONE_RX" value="0x10" description="DMA DONE on RX"/>
+                <bitenum id="DMA_DONE_TX" value="0x11" description="DMA DONE on TX"/>
+                <bitenum id="DMA_PREIRQ_RX" value="0x13" description="DMA PRE IRQ INTERRUPT"/>
+                <bitenum id="DMA_PREIRQ_TX" value="0x14" description="DMA PRE IRQ INTERRUPT"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_IMASK" width="32" offset="0x8" description="Interrupt Mask Register
+
+Selects mask states of the flags in [IRQFLAGS.*] that contribute to the **I2S_IRQ** event.">
+            <bitfield id="WCLKERR" description="WCLKERR interrupt mask" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="DIS" value="0x0" description="Disable the interrupt mask"/>
+                <bitenum id="EN" value="0x1" description="Enable the interrupt mask"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Enable Receive Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Enable Transmit Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="RXFIFO_OVF" description="RXFIFO overflow event mask." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+            <bitfield id="TXFIFO_UNF" description="TX FIFO underflow interrupt mask" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Clear Interrupt Mask"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt Mask"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_RIS" width="32" offset="0x10" description="This registers gives the raw interrupt status">
+            <bitfield id="WCLKERR" description="This interrupt is set when: 
+- An unexpected **WCLK** edge occurs during the data delay period of a phase.  Note unexpected **WCLK** edges during the word and idle periods of the phase are not detected.
+-  In dual-phase mode, when two **WCLK** edges are less than 4 **BCLK** cycles apart.
+-  In single-phase mode, when a **WCLK** pulse occurs before the last channel.
+This error requires a complete restart since word synchronization has been lost." begin="0" end="0" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Receive Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Transmit Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="RXFIFO_OVF" description="RXFIFO overflow event. This interrupt is set if an RX FIFO overflow has been detected." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="TXFIFO_UNF" description="TX FIFO Underflow Interrupt" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_MIS" width="32" offset="0x18" description="This registers gives the raw interrupt status">
+            <bitfield id="WCLKERR" description="This interrupt is set when: 
+- An unexpected **WCLK** edge occurs during the data delay period of a phase.  Note unexpected **WCLK** edges during the word and idle periods of the phase are not detected.
+-  In dual-phase mode, when two **WCLK** edges are less than 4 **BCLK** cycles apart.
+-  In single-phase mode, when a **WCLK** pulse occurs before the last channel.
+This error requires a complete restart since word synchronization has been lost." begin="0" end="0" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Masked Receive Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Masked Transmit Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="DMA_DONE_RX" description="Masked DMA Done on RX Event Channel Interrupt" begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="DMA_DONE_TX" description="Masked DMA Done on TX Event Channel Interrupt" begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occured"/>
+            </bitfield>
+            <bitfield id="RXFIFO_OVF" description="Masked RXFIFO overflow event. This interrupt is set if an RX FIFO overflow has been detected." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+            <bitfield id="TXFIFO_UNF" description="TX FIFO underflow interrupt" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt did not occur"/>
+                <bitenum id="SET" value="0x1" description="Interrupt occurred"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_ISET" width="32" offset="0x20" description="Interrupt Set Register. This register can be used by software for diagnostics and safety checking purposes.">
+            <bitfield id="WCLKERR" description="This field sets the interrupt WCLKERR" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NOEFF" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set interrupt"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Set Receive Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Set Transmit Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="RXFIFO_OVF" description="Set RXFIFO overflow event." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set Interrupt"/>
+            </bitfield>
+            <bitfield id="TXFIFO_UNF" description="Set TX FIFO Underflow Event" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing has no effect"/>
+                <bitenum id="SET" value="0x1" description="Set interrupt"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_ICLR" width="32" offset="0x28" description="Interrupt clear register. This register allows software to clear interrupts.">
+            <bitfield id="WCLKERR" description="This field clears the interrupt WCLKERR" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NOEFF" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear interrupt"/>
+            </bitfield>
+            <bitfield id="RXINT" description="Clear Receive Interrupt." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="TXINT" description="Clear Transmit Interrupt." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="RXFIFO_OVF" description="Clear RXFIFO overflow event." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear Interrupt"/>
+            </bitfield>
+            <bitfield id="TXFIFO_UNF" description="Clear TXFIFO underflow event" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Writing has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear interrupt"/>
+            </bitfield>
+        </register>
+        </group>
+    <group id="I2S1_SPGDMA" name="I2S1_SPGDMA" instances="1" offset="0x10B0" instaddr="0x20" description="">
+        <register id="I2S1_SPGDMARXSZ" width="32" offset="0x0" description="DMA Channel Size">
+            <bitfield id="SIZE" description="DMA Channel Size in number of transfers" begin="15" end="0" width="16" rwaccess="R/W">
+                <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+                <bitenum id="MAXIMUM" value="0xFFFF" description="Highest possible value"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_SPGDMARXDA" width="32" offset="0x4" description="DMA Channel Destination Address">
+            <bitfield id="ADDR" description="DMA Channel Destination Address" begin="31" end="0" width="32" rwaccess="R/W">
+                <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+                <bitenum id="MAXIMUM" value="0xFFFFFFFF" description="Highest possible value"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_SPGDMARXCTL" width="32" offset="0x8" description="DMA Channel Control">
+            <bitfield id="DMAEN" description="DMA enable" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="DMA channel disabled"/>
+                <bitenum id="ENABLE" value="0x1" description="DMA channel enabled"/>
+            </bitfield>
+            <bitfield id="DMAMEMINCR" description="DMA destination increment. This bit selects automatic incrementing or decrementing of the destination address DMADA for each transfer. The amount of change to the DMADA is based on the definitin in the DMADSTWDTH. For example an increment of 1 (+1) on a WORD transfer will increment the DMADA by 4." begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="INCREMENT" value="0x0" description="Incremented by 1 (+1 * DMADSTWDTH)"/>
+                <bitenum id="DECREMENT" value="0x1" description="Decremented by 1 (-1 * DMADSTWDTH)"/>
+            </bitfield>
+            <bitfield id="DMAPREIRQ" description="Enable an early IRQ event. This can help software to react quicker to and DMA done event or allows some additional configuration before the channel is complete. 
+
+Note: This register is only available in a FULL-channel configuration. Please consult the datasheet of the specific device to map which channel number has FULL or BASIC capability. In a BASIC configuration this register is a read only value and always reads as 0x0." begin="24" end="24" width="1" rwaccess="R/W">
+                <bitenum id="PREIRQ_DISABLE" value="0x0" description="Pre-IRQ event disabled."/>
+                <bitenum id="PREIRQ_HALF" value="0x1" description="Issure Pre-IRQ event when DMASZ reached the half size point of the original transfer size"/>
+            </bitfield>
+            <bitfield id="DMATM" description="DMA transfer mode register" begin="27" end="27" width="1" rwaccess="R/W">
+                <bitenum id="SINGLE" value="0x0" description="Single transfer. Each transfers requires a new trigger. When the DMASZ counts down to zero an event can be generated and the DMAEN is cleared."/>
+                <bitenum id="RPTSNGL" value="0x1" description="Repeated single transfer. Each transfers requires a new trigger. When the DMASZ counts down to zero an event can be generated. After the last transfer the DMASA, DMADA, DAMSZ registers are restored to its initial value and the DMAEN stays enabled."/>
+            </bitfield>
+            <bitfield id="DMADSTWDTH" description="DMA destination width. This bit selects the destination as a byte, half word, word or long word." begin="29" end="28" width="2" rwaccess="R/W">
+                <bitenum id="BYTE" value="0x0" description="Destination data width is BYTE (8-bit)"/>
+                <bitenum id="HALF" value="0x1" description="Destination data width is HALF-WORD (16-bit)"/>
+                <bitenum id="WORD" value="0x2" description="Destination data width is WORD (32-bit)"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_SPGDMATXSZ" width="32" offset="0x10" description="DMA Channel Size">
+            <bitfield id="SIZE" description="DMA Channel Size in number of transfers" begin="15" end="0" width="16" rwaccess="R/W">
+                <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+                <bitenum id="MAXIMUM" value="0xFFFF" description="Highest possible value"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_SPGDMATXSA" width="32" offset="0x14" description="DMA Channel Destination Address">
+            <bitfield id="ADDR" description="DMA Channel Destination Address" begin="31" end="0" width="32" rwaccess="R/W">
+                <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+                <bitenum id="MAXIMUM" value="0xFFFFFFFF" description="Highest possible value"/>
+            </bitfield>
+        </register>
+        <register id="I2S1_SPGDMATXCTL" width="32" offset="0x18" description="DMA Channel Control">
+            <bitfield id="DMAEN" description="DMA enable" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="DMA channel disabled"/>
+                <bitenum id="ENABLE" value="0x1" description="DMA channel enabled"/>
+            </bitfield>
+            <bitfield id="DMAMEMINCR" description="DMA destination increment. This bit selects automatic incrementing or decrementing of the destination address DMADA for each transfer. The amount of change to the DMADA is based on the definitin in the DMADSTWDTH. For example an increment of 1 (+1) on a WORD transfer will increment the DMADA by 4." begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="INCREMENT" value="0x0" description="Incremented by 1 (+1 * DMASRCWDTH)"/>
+                <bitenum id="DECREMENT" value="0x1" description="Decremented by 1 (-1 * DMASRCWDTH)"/>
+            </bitfield>
+            <bitfield id="DMAPREIRQ" description="Enable an early IRQ event. This can help software to react quicker to and DMA done event or allows some additional configuration before the channel is complete. 
+
+Note: This register is only available in a FULL-channel configuration. Please consult the datasheet of the specific device to map which channel number has FULL or BASIC capability. In a BASIC configuration this register is a read only value and always reads as 0x0." begin="24" end="24" width="1" rwaccess="R/W">
+                <bitenum id="PREIRQ_DISABLE" value="0x0" description="Pre-IRQ event disabled."/>
+                <bitenum id="PREIRQ_HALF" value="0x1" description="Issure Pre-IRQ event when DMASZ reached the half size point of the original transfer size"/>
+            </bitfield>
+            <bitfield id="DMATM" description="DMA transfer mode register
+
+Note: The repeat-single (2h) and repeat-block (3h) transfer are only available in a FULL-channel configuration. Please consult the datasheet of the specific device to map which channel number has FULL or BASIC capability. In a BASIC channel configuration only the values for single (0h) and block (1h) transfer can be set." begin="27" end="27" width="1" rwaccess="R/W">
+                <bitenum id="SINGLE" value="0x0" description="Single transfer. Each transfers requires a new trigger. When the DMASZ counts down to zero an event can be generated and the DMAEN is cleared."/>
+                <bitenum id="RPTSNGL" value="0x1" description="Repeated single transfer. Each transfers requires a new trigger. When the DMASZ counts down to zero an event can be generated. After the last transfer the DMASA, DMADA, DAMSZ registers are restored to its initial value and the DMAEN stays enabled."/>
+            </bitfield>
+            <bitfield id="DMASRCWDTH" description="DMA source width. This bit selects the source data width as a byte, half word, word or long word." begin="29" end="28" width="2" rwaccess="R/W">
+                <bitenum id="BYTE" value="0x0" description="Source data width is BYTE (8-bit)"/>
+                <bitenum id="HALF" value="0x1" description="Source data width is HALF-WORD (16-bit)"/>
+                <bitenum id="WORD" value="0x2" description="Source data width is WORD (32-bit)"/>
+            </bitfield>
+        </register>
+        </group>
+    <register id="I2S1_INTCTL" width="32" offset="0x10E4" description="Interrupt control register">
+        <bitfield id="INTEVAL" description="Writing a 1 to this field re-evaluates the interrupt sources." begin="0" end="0" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="The interrupt or event line is disabled."/>
+            <bitenum id="EVAL" value="0x1" description="The interrupt or event line is in software mode. Software must clear the RIS."/>
+        </bitfield>
+    </register>
+    <register id="I2S1_FMTCFG" width="32" offset="0x1100" description="This register configures the serial interface format">
+        <bitfield id="WORDLEN" description="Number of bits per word (8-32):
+In single-phase format, this is the exact number of bits per word. 
+In dual-phase format, this is the maximum number of bits per word.
+
+Values below 8 and above 32 give undefined behavior. Data written to memory is always aligned to 16 or 32 bits as defined by [MEMLEN32]. Bit widths that differ from this alignment will either be truncated or zero padded." begin="4" end="0" width="5" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="DUALPHASE" description="This field selects between dual-phase or single-phase format" begin="5" end="5" width="1" rwaccess="R/W">
+            <bitenum id="SINGLEPHASE" value="0x0" description="Single-phase: **DSP** format"/>
+            <bitenum id="DUALPHASE" value="0x1" description="Dual-phase: **I2S**, **LJF** and **RJF** formats"/>
+        </bitfield>
+        <bitfield id="SMPLEDGE" description="This field configures the sample edge/ transfer edge of data (and **WCLK**) on **BCLK**" begin="6" end="6" width="1" rwaccess="R/W">
+            <bitenum id="NEGEDGE" value="0x0" description="Data is sampled on the negative edge and clocked out on the positive edge."/>
+            <bitenum id="POSEDGE" value="0x1" description="Data is sampled on the positive edge and clocked out on the negative edge."/>
+        </bitfield>
+        <bitfield id="MEMLEN32" description="This register configures the size of each word stored to or loaded from memory" begin="7" end="7" width="1" rwaccess="R/W">
+            <bitenum id="16BIT" value="0x0" description="16-bit (one 16 bit access per sample)"/>
+            <bitenum id="32BIT" value="0x1" description="32-bit(one 32-bit access per sample)"/>
+        </bitfield>
+        <bitfield id="DATADLY" description="This field configures the number of **BCLK** periods between a **WCLK** edge and **MSB** of the first word in a phase
+
+Note: When 0, **MSB** of the next word will be output in the idle period between **LSB** of the previous word and the start of the next word. Otherwise logical 0 will be output until the data delay has expired." begin="15" end="8" width="8" rwaccess="R/W">
+            <bitenum id="ZERO" value="0x0" description="Zero **BCLK** periods - **LJF** and **DSP** formats"/>
+            <bitenum id="ONE" value="0x1" description="One **BCLK** periods - **I2S** and **DSP** formats"/>
+            <bitenum id="TWO" value="0x2" description="Two(Min) **BCLK** periods - **RJF** format"/>
+            <bitenum id="MAX" value="0xFF" description="Max(255) **BCLK** periods - **RJF** format"/>
+        </bitfield>
+        <bitfield id="SUSPEND" description="Suspend external communication" begin="24" end="24" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Functional mode resumed"/>
+            <bitenum id="ENABLE" value="0x1" description="External communication suspended"/>
+        </bitfield>
+        <bitfield id="ENABLE" description="I2S Module Enable.  
+    If the I2S is disabled in the middle of transmission or reception, it completes the current character before stopping. 
+    If ENABLE bit is not set, all registers can still be accessed and updated. It is recommended to setup and change I2S operation mode whhile ENABLE bit is cleared to avoid unpredictable behavior during setup or update.
+    If disabled,  I2S module will not send or receive any data." begin="31" end="31" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Disable Module"/>
+            <bitenum id="ENABLE" value="0x1" description="Enable module"/>
+        </bitfield>
+        <bitfield id="EMPTYSLOTOUTPUT" description="The field configures the **EMPTYSLOTOUTPUT** data pin direction" begin="17" end="16" width="2" rwaccess="R/W">
+            <bitenum id="zero" value="0x0" description="Send out zeroes in empty slots"/>
+            <bitenum id="one" value="0x1" description="send out ones in empty slot"/>
+            <bitenum id="Tristate" value="0x2" description="Tristate line during empty slot"/>
+            <bitenum id="RESERVED" value="0x3" description="Reserved"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_CLKCTL" width="32" offset="0x1104" description="This register controls internal audio clock">
+        <bitfield id="WBEN" description="This field configures **WCLK**/**BCLK** generation" begin="0" end="0" width="1" rwaccess="R/W">
+            <bitenum id="DIS" value="0x0" description="Disables the generation"/>
+            <bitenum id="EN" value="0x1" description="Enable the generation"/>
+        </bitfield>
+        <bitfield id="WCLKPHASE" description="The field configures how the WCLK division ratio is calculated and used to generate different duty cycles (See [WCLKDIV.WDIV])" begin="2" end="1" width="2" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="MEN" description="This field configures the **MCLK** generation" begin="3" end="3" width="1" rwaccess="R/W">
+            <bitenum id="DIS" value="0x0" description="Disable the generation"/>
+            <bitenum id="EN" value="0x1" description="Enable the generation"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_STAT" width="32" offset="0x1108" description="UART Status Register">
+        <bitfield id="TXFF" description="UART Transmit FIFO Full  The meaning of this bit depends on the state of the FEN bit in the CTL0 register." begin="6" end="6" width="1" rwaccess="R">
+            <bitenum id="CLEARED" value="0x0" description="The transmitter is not full."/>
+            <bitenum id="SET" value="0x1" description="If the FIFO is disabled (FEN is 0), the transmit holding register is full. If the FIFO is enabled (FEN is 1), the transmit FIFO is full."/>
+        </bitfield>
+        <bitfield id="RXFF" description="UART Receive FIFO Full  The meaning of this bit depends on the state of the FEN bit in the CTL0 register." begin="3" end="3" width="1" rwaccess="R">
+            <bitenum id="CLEARED" value="0x0" description="The receiver can receive data."/>
+            <bitenum id="SET" value="0x1" description="If the FIFO is disabled (FEN is 0), the receive holding register is full. If the FIFO is enabled (FEN is 1), the receive FIFO is full."/>
+        </bitfield>
+        <bitfield id="TXFE" description="UART Transmit FIFO Empty  The meaning of this bit depends on the state of the FEN bit in the CTL0 register." begin="5" end="5" width="1" rwaccess="R">
+            <bitenum id="CLEARED" value="0x0" description="The transmitter has data to transmit."/>
+            <bitenum id="SET" value="0x1" description="If the FIFO is disabled (FEN is 0), the transmit holding register is empty. If the FIFO is enabled (FEN is 1), the transmit FIFO is empty."/>
+        </bitfield>
+        <bitfield id="RXFE" description="UART Receive FIFO Empty  The meaning of this bit depends on the state of the FEN bit in the CTL0 register." begin="2" end="2" width="1" rwaccess="R">
+            <bitenum id="CLEARED" value="0x0" description="The receiver is not empty."/>
+            <bitenum id="SET" value="0x1" description="If the FIFO is disabled (FEN is 0), the receive holding register is empty. If the FIFO is enabled (FEN is 1), the receive FIFO is empty."/>
+        </bitfield>
+        <bitfield id="RXCLR" description="RX FIFO Clear Status" begin="4" end="4" width="1" rwaccess="R">
+            <bitenum id="CLEARED" value="0x0" description="FIFO is not cleared"/>
+            <bitenum id="SET" value="0x1" description="FIFO clear is complete"/>
+        </bitfield>
+        <bitfield id="TXCLR" description="TX FIFO Clear Status" begin="7" end="7" width="1" rwaccess="R">
+            <bitenum id="CLEARED" value="0x0" description="FIFO is not cleared"/>
+            <bitenum id="SET" value="0x1" description="FIFO clear is complete"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_IFLS" width="32" offset="0x110C" description="UART Interrupt FIFO Level Select Register">
+        <bitfield id="TXIFLSEL" description="FIFO Level Select for generating events (interrupt/dma). 
+Note: for undefined settings the default configuration is used." begin="2" end="0" width="3" rwaccess="R/W">
+            <bitenum id="LVL_3_4" value="0x1" description="TX FIFO &lt;= 3/4 empty"/>
+            <bitenum id="LVL_1_2" value="0x2" description="TX FIFO &lt;= 1/2 empty (default)"/>
+            <bitenum id="LVL_1_4" value="0x3" description="TX FIFO &lt;= 1/4 empty"/>
+            <bitenum id="LVL_EMPTY" value="0x5" description="TX FIFO is empty"/>
+            <bitenum id="LVL_ALMOST_EMPTY" value="0x6" description="TX FIFO &lt;= 1"/>
+            <bitenum id="LVL_ALMOST_FULL" value="0x7" description="TX_FIFO &gt;= (MAX_FIFO_LEN -1)"/>
+        </bitfield>
+        <bitfield id="RXIFLSEL" description="UART Receive Interrupt FIFO Level Select  The trigger points for the receive interrupt are as follows: 
+
+Note: 
+  In ULP domain the trigger levels are used for:
+  0: LVL_1_4
+  4: LVL_FULL
+  For undefined settings the default configuration is used." begin="6" end="4" width="3" rwaccess="R/W">
+            <bitenum id="LVL_1_4" value="0x1" description="RX FIFO &gt;= 1/4 full"/>
+            <bitenum id="LVL_1_2" value="0x2" description="RX FIFO &gt;= 1/2 full (default)"/>
+            <bitenum id="LVL_3_4" value="0x3" description="RX FIFO &gt;= 3/4 full"/>
+            <bitenum id="LVL_FULL" value="0x5" description="RX FIFO is full"/>
+            <bitenum id="LVL_ALMOST_FULL" value="0x6" description="RX_FIFO &gt;= (MAX_FIFO_LEN -1)"/>
+            <bitenum id="LVL_ALMOST_EMPTY" value="0x7" description="RX_FIFO &lt;= 1"/>
+        </bitfield>
+        <bitfield id="TXCLR" description="TX FIFO CLEAR. Setting this bit will clear the TX FIFO contents." begin="3" end="3" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Disable FIFO clear"/>
+            <bitenum id="ENABLE" value="0x1" description="Enable FIFO Clear"/>
+        </bitfield>
+        <bitfield id="RXCLR" description="RX FIFO CLEAR. Setting this bit will clear the RX FIFO contents." begin="7" end="7" width="1" rwaccess="R/W">
+            <bitenum id="DISABLE" value="0x0" description="Disable FIFO clear"/>
+            <bitenum id="ENABLE" value="0x1" description="Enable FIFO Clear"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_WCLKSRC" width="32" offset="0x1110" description="This register configures the **WCLK** Source">
+        <bitfield id="WBCLKSRC" description="This field selects **WCLK**/**BCLK** source for **I2S**." begin="1" end="0" width="2" rwaccess="R/W">
+            <bitenum id="NONE" value="0x0" description="None ('0')"/>
+            <bitenum id="EXT" value="0x1" description="External **WCLK** generator, from pad"/>
+            <bitenum id="INT" value="0x2" description="Internal **WCLK** generator, from module PRCM"/>
+            <bitenum id="RESERVED" value="0x3" description="Not supported. Will give same **WCLK** as 'NONE' ('00')"/>
+        </bitfield>
+        <bitfield id="WCLKINV" description="This field Inverts **WCLK** source (pad or internal)." begin="2" end="2" width="1" rwaccess="R/W">
+            <bitenum id="NOT_INTVERTED" value="0x0" description="Source is not intverted"/>
+            <bitenum id="INVERTED" value="0x1" description="Source is inverted"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_DIRCFG" width="32" offset="0x1118" description="This register configures the direction of data pins(**AD0**/**AD1**)">
+        <bitfield id="AD0" description="The field configures the **AD0** data pin direction" begin="1" end="0" width="2" rwaccess="R/W">
+            <bitenum id="DIS" value="0x0" description="Not in use (disabled)"/>
+            <bitenum id="IN" value="0x1" description="Input"/>
+            <bitenum id="OUT" value="0x2" description="Output"/>
+            <bitenum id="RESERVED" value="0x3" description="Reserved"/>
+        </bitfield>
+        <bitfield id="AD1" description="The field configures the **AD1** data pin direction" begin="5" end="4" width="2" rwaccess="R/W">
+            <bitenum id="DIS" value="0x0" description="Not in use (disabled)"/>
+            <bitenum id="IN" value="0x1" description="Input"/>
+            <bitenum id="OUT" value="0x2" description="Output"/>
+            <bitenum id="RESERVED" value="0x3" description="Reserved"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_TXDATA" width="32" offset="0x1120" description="UART Transmit Data Register">
+        <bitfield id="DATA" description="Data Transmitted or Received  Data that is to be transmitted via the UART is written to this field.  When read, this field contains the data that was received by the UART." begin="31" end="0" width="32" rwaccess="R/W">
+            <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+            <bitenum id="MAXIMUM" value="0xFFFFFFFF" description="Highest possible value"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_RXDATA" width="32" offset="0x1124" description="UART Receive Data Register">
+        <bitfield id="DATA" description="Received Data.  When read, this field contains the data that was received by the UART." begin="31" end="0" width="32" rwaccess="R">
+            <bitenum id="MINIMUM" value="0x0" description="Smallest value"/>
+            <bitenum id="MAXIMUM" value="0xFFFFFFFF" description="Highest possible value"/>
+        </bitfield>
+    </register>
+    <register id="I2S1_WMASK0" width="32" offset="0x1148" description="This register configures the word selection dit mask for data pin 0(**AD0**)">
+        <bitfield id="MASK" description="Bit-mask indicating valid channels in a frame on AD0.
+
+In single-phase mode, each bit represents one channel, starting with **LSB** for the first word in the frame. A frame can contain up to 8/16 channels based on SoC configuration.  Channels that are not included in the mask will not be sampled nor stored in memory; data clocked out in these slots is as per configured EMPTYSLOTOUTPUT.
+
+In dual-phase mode, only the two **LSB**s are considered. For a stereo configuration, set both bits. For a mono configuration, set bit 0 only. In mono mode, only channel 0 will be sampled and stored to memory, and channel 0 will be repeated when clocked out.
+
+In mono mode, only channel 0 will be sampled and stored to memory, and channel 0 will be repeated in the second phase when clocked out.
+
+If all bits are zero, no input words will be stored to memory, and the output data lines will be constant '0'. This can be utilized when **PWM** debug output is desired without any actively used output pins." begin="15" end="0" width="16" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="I2S1_WMASK1" width="32" offset="0x114C" description="This register configures the word selection dit mask for data pin 1(**AD1**)">
+        <bitfield id="MASK" description="Bit-mask indicating valid channels in a frame on AD1.
+
+In single-phase mode, each bit represents one channel, starting with **LSB** for the first word in the frame. A frame can contain up to 8/16 channels based on SoC configuration.  Channels that are not included in the mask will not be sampled nor stored in memory; data clocked out in these slots is as per configured EMPTYSLOTOUTPUT.
+
+In dual-phase mode, only the two **LSB**s are considered. For a stereo configuration, set both bits. For a mono configuration, set bit 0 only. In mono mode, only channel 0 will be sampled and stored to memory, and channel 0 will be repeated when clocked out.
+
+In mono mode, only channel 0 will be sampled and stored to memory, and channel 0 will be repeated in the second phase when clocked out.
+
+If all bits are zero, no input words will be stored to memory, and the output data lines will be constant '0'. This can be utilized when **PWM** debug output is desired without any actively used output pins." begin="15" end="0" width="16" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="I2S1_MCLKDIV" width="32" offset="0x1160" description="This field configures **MCLK** division ratio">
+        <bitfield id="MDIV" description="An unsigned factor of the division ratio used to generate **MCLK** [2-1024]:
+                                            **MCLK** = MCUCLK/MDIV[Hz] **MCUCLK** is upto 96MHz. 
+                                            A value of 0 is interpreted as 1024.
+                                            A value of 1 is invalid. 
+                                            If MDIV is odd the low phase of the clock is one **MCUCLK** period longer than the high phase." begin="9" end="0" width="10" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="I2S1_WCLKDIV" width="32" offset="0x1164" description="Configures WCLK division ratio">
+        <bitfield id="WDIV" description="If[CLKCTL.WCLKPHASE]= 0, Single phase. **WCLK**is high one**BCLK**period and low WDIV[9:0] (unsigned, [1-1023])**BCLK**periods. 
+                                           **WCLK**=**MCUCLK**/ BDIV*(WDIV[9:0] + 1) [Hz] **MCUCLK**upto 96MHz. 
+                                           If[CLKCTL.WCLKPHASE.*]= 1, Dual phase. Each phase on**WCLK**(50% duty cycle) is WDIV[9:0] (unsigned, [1-1023])**BCLK**periods. 
+                                           **WCLK**=**MCUCLK**/ BDIV*(2*WDIV[9:0]) [Hz] 
+                                           If[CLKCTL.WCLKPHASE.*] = 2, User defined. **WCLK**is high WDIV[7:0] (unsigned, [1-255])**BCLK**periods and low WDIV[15:8] (unsigned, [1-255])**BCLK**periods.
+                                           **WCLK**=**MCUCLK**/ (BDIV*(WDIV[7:0] + WDIV[15:8]) [Hz]" begin="15" end="0" width="16" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="I2S1_BCLKDIV" width="32" offset="0x1168" description="This field configures **BCLK** division ratio">
+        <bitfield id="BDIV" description="An unsigned factor of the division ratio used to generate **BCLK** [2-1024]:
+                                            **BCLK** = MCUCLK/BDIV[Hz] 
+                                            A value of 0 is interpreted as 1024.
+                                            A value of 1 is invalid. 
+                                            If BDIV is odd and [FMTCFG.SMPLEDGE] = 0, the low phase of the clock is one **MCUCLK** period longer than the high phase. 
+                                            If BDIV is odd and [FMTCFG.SMPLEDGE] = 1 , the high phase of the clock is one **MCUCLK** period longer than the low phase." begin="9" end="0" width="10" rwaccess="R/W">
+        </bitfield>
+    </register>
+
+</module>

@@ -1,0 +1,307 @@
+<?xml version="1.0" ?>
+<module id="BLE_TOP" XML_version="1.0" description="">
+	<register acronym="BLE_RFC_PWM_CLKEN" id="ble_rfc_pwm_clken" width="32" description="RF Core Power Management and Clock Enable" offset="0x0">
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Enable essential clocks for the RF Core interface - This includes:
+ - Interconnect
+ - Radio doorbell - DBELL command interface
+ - Power management (PWR) clock control module
+ - Bus clock (sclk) for the CPE
+To remove possibility of locking yourself out from the RF Core, this bit can not be cleared.
+If you need to disable all clocks to the RF Core, see the WLAN.WSOC register: ble_rfc_clken
+If you need to disable all clocks to the RF Core MDM, see the WLAN.WSOC register: ble_rfc_mdm_clken" id="MEM_RFC_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable processor clock (hclk) to the Command and Packet Engine (mem_cpe_clken)
+As part of RF Core initialization, set this bit together with mem_cperam_clken  to enable CPE to boot." id="MEM_CPE_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable clock to the Command and Packet Engine (CPE) RAM module.
+As part of RF Core initialization, set this bit together with CPE bit to enable CPE to boot." id="MEM_CPERAM_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable clock to the Modem (mem_mdm_clken) module." id="MEM_MDM_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable clock to the Modem RAM module (includes the MCE RAM)." id="MEM_MCERAM_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enable clock to the RF Engine (mem_rfe_clken) module." id="MEM_RFE_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enable clock to the Radio Timer (RAT) module." id="MEM_RAT_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable clock to the Packet Handling Accelerator (PHA) module." id="MEM_PHA_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enable clock to the RF Core Tracer (RFCTRC) module." id="MEM_RFCTRC_CLKEN" resetval="0xf004a"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved13" resetval="0xf004a"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="MAIN Enable of the CPE Subsystem" id="MEM_BLE_CPE_EN" resetval="0xf004a"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="MAIN Enable of the MDM Subsystem" id="MEM_BLE_MDM_EN" resetval="0xf004a"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="MAIN BLE-TOP Enable" id="MEM_BLE_TOP_EN" resetval="0xf004a"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="To force MOD_CLK to be exactly the same as MDM_CLK (as Agama Legacy) set this REG to '1'. 
+MDM Modulator Clock (MOD_CLK) source is MDM_CLK. (controled by mem_mdm_clken).
+For power saving MOD_CLK Enabled when Modulator is Enabled by MCE REG: MDMENABLE.modulator.
+This REG - Cancel MOD_CLK power saving option." id="MEM_BLE_MDM_MOD_CLK_FORCE_CLKEN" resetval="0xf004a"/>
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved25" resetval="0xf004a"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="To force DEM_CLK to be exactly the same as MDM_CLK (as Agama Legacy) set this REG to '1'. 
+MDM Demodulator Clock (DEM_CLK) source is MDM_CLK. (controled by mem_mdm_clken).
+For power saving DEM_CLK Enabled when Demodulator is Enabled by MCE REG: MDMENABLE.demodulator.
+This REG - Cancel DEM_CLK power saving option." id="MEM_BLE_MDM_DEM_CLK_FORCE_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="To force MCE REGBANK CLK to be exactly the same as MDM_CLK (as Agama Legacy) set this REG to '1'. 
+Otherwise - for power saving MCE REGBANK CLK  will be active only on WRITE Cycles.
+This REG - cancel MCE REGBANK CLK power saving option." id="MEM_BLE_MCE_REGBANK_CLK_FORCE_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="To force RFE REGBANK CLK to be exactly the same as MDM_CLK (as Agama Legacy) set this REG to '1'. 
+Otherwise - for power saving RFE REGBANK CLK  will be active only on WRITE Cycles.
+This REG - cancel RFE REGBANK CLK power saving option." id="MEM_BLE_RFE_REGBANK_CLK_FORCE_CLKEN" resetval="0xf004a"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="Disable AON Option to Force all CLKEN to '1' on power-up, by ble_aon_mem_clken_ovr (= ble_aon_general[0]).
+So CLK-EN will be directed controled by BLE_RFC_PWM_CLKEN Fields: MEM_*_CLKEN, as ecpected." id="MEM_BLE_AON_MEM_CLKEN_OVR_DISABLE" resetval="0xf004a"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved20" resetval="0xf004a"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enable clock to the TOP Debug-Port module.
+This module sample the debug-port after the mux out." id="MEM_TOPDP_CLKEN" resetval="0xf004a"/>
+	</register>
+	<register acronym="BLE_RFC_MAIN_CFG" id="ble_rfc_main_cfg" width="32" description="BLE RF-Core Main Configuration Register" offset="0x4">
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved1" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Force a RF-CORE SW Reset - When this signal set to '1' - it Force '0' on the main RFC Reset" id="MEM_BLE_RFC_SW_RESET" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Force option to take control of TOPsm execution from high section ram (lines 512-1023):
+   0: TOPsm execution from high section set by MCE MDMAPI.protocolmemalloc register.
+   1:  BLE_RFC_MAIN_CFG.mem_ble_topsm_exe_hi_set is controlling execution from high section." id="MEM_BLE_TOPSM_EXE_HI_SEL" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved1_2" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="When BLE_RFC_MAIN_CFG.mem_ble_topsm_exe_hi_sel is set to '1' , control option of TOPsm execution from high section ram (lines 512-1023):
+   0: MCE TOPsm execution from low section - ram lines 0-511.
+   1: MCE TOPsm execution from high section - ram lines 512-1023." id="MEM_BLE_TOPSM_EXE_HI_SET" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="BLE_TOP BTRL Spare Register for ECO" id="MEM_BLE_TOP_SPARE01" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="BLE_TOP BTRL Spare Register for ECO" id="MEM_BLE_TOP_SPARE00" resetval="0x0"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="BLE_TOP BTRL Spare Register for ECO" id="MEM_BLE_TOP_SPARE02" resetval="0x0"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RW" description="BLE_TOP BTRL Spare Register for ECO" id="MEM_BLE_TOP_SPARE4" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="BLE_TOP BTRL Spare Register for ECO" id="MEM_BLE_TOP_SPARE8" resetval="0x0"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="BLE_TOP BTRL Spare Register for ECO" id="MEM_BLE_TOP_SPARE03" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_RFC_CPE_CFG" id="ble_rfc_cpe_cfg" width="32" description="CPE Config register" offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="CPE Reset_N signal - control the CM0+ main reset: when '0' Reset is active." id="MEM_CPE_RESET_N" resetval="{'@spirit:resolve': 'immediate', '#text': '0x10'}"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x10'}"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="For protection and correct address space for execution - shift addr to 0x61." id="MEM_BLE_CPE_EXE_ALIAS_0x61" resetval="{'@spirit:resolve': 'immediate', '#text': '0x10'}"/>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" id="Reserved2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x10'}"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved5" resetval="{'@spirit:resolve': 'immediate', '#text': '0x10'}"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="For CPE General Configuratioins.
+(in Osprey Lx it was connected to BLE_RFC_MAIN_DFG.mem_ble_top_spare4)
+Bit 0 - Connected as Enable to CPE EDBGRQ.
+Bit 1 - Spare.
+Bit 2 - Spare.
+Bit 3 - Spare." id="MEM_BLE_CPE_GENERAL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x10'}"/>
+	</register>
+	<register acronym="BLE_RFC_CPE_IRQ_OVR" id="ble_rfc_cpe_irq_ovr" width="32" description="CPE IRQ Overide option" offset="0xc">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" description="CPE IRQ Overide Register." id="MEM_BLE_RFC_CPE_IRQ_OVR_WRCL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="BLE_RFC_RAT_CFG" id="ble_rfc_rat_cfg" width="32" description="BLE RAT Configuration settings" offset="0x10">
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="BLE RF-Core RAT External Input Event Enable bus" id="MEM_BLE_RAT_IEVENT_EN" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="BLE RF-Core RAT External Input Event Signal Polarity bus.
+When a bit is set - the correlated signal is inverted." id="MEM_BLE_RAT_IEVENT_POL" resetval="0x0"/>
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="BLE RF-Core RAT External Input Events for Timing synch and controls" id="MEM_BLE_RAT_IEVENT" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="BLE RF-Core RAT External Output Event Enable bus" id="MEM_BLE_RAT_OEVENT_EN" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_RFC_GPI_CFG" id="ble_rfc_gpi_cfg" width="32" description="BLE GPI Configuration settings" offset="0x14">
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="BLE RF-Core GPI Enable bus" id="MEM_BLE_RFC_GPI_EN" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="BLE RF-Core GPI Signal Polarity bus.
+When a bit is set - the correlated signal is inverted." id="MEM_BLE_RFC_GPI_POL" resetval="0x0"/>
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="BLE RF-Core GPI Overide by SW values" id="MEM_BLE_RFC_GPI" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="BLE Option to Control the CORE_IOMUX GPI.
+This control of external module requiered in order to connect additional BLE-GPI to main SoC IOMUX." id="MEM_BLE_CORE_IOMUX_GPI_CTRL" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_RFC_GPO_CFG0" id="ble_rfc_gpo_cfg0" width="32" description="BLE GPO Configuration settings" offset="0x18">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="BLE RF-Core GPO Overide by SW values" id="MEM_BLE_RFC_GPO" resetval="0xffff0000"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RW" description="BLE RF-Core GPO Enable bus
+When a bit is set - the correlated signal is Enabled for output I/F." id="MEM_BLE_RFC_GPO_EN" resetval="0xffff0000"/>
+	</register>
+	<register acronym="BLE_RFC_GPO_CFG1" id="ble_rfc_gpo_cfg1" width="32" description="BLE GPO Configuration settings" offset="0x1c">
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved24" resetval="0x0"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="BLE RF-Core GPO Signal Polarity bus.
+When a bit is set - the correlated signal is inverted for output I/F." id="MEM_BLE_RFC_GPO_POL" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Selects GPO4: '0' output rfc_gpo[4] , '1' output rfc_gpo[8]" id="MEM_BLE_RFC_GPO4_SEL" resetval="0x0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="Selects GPO4: '0' output rfc_gpo[5] , '1' output rfc_gpo[9]" id="MEM_BLE_RFC_GPO5_SEL" resetval="0x0"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="Selects GPO4: '0' output rfc_gpo[6] , '1' output rfc_gpo[10]" id="MEM_BLE_RFC_GPO6_SEL" resetval="0x0"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="Selects GPO4: '0' output rfc_gpo[7] , '1' output rfc_gpo[11]" id="MEM_BLE_RFC_GPO7_SEL" resetval="0x0"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RW" description="BLE Option to Control the CORE_IOMUX GPO.
+This control of external module requiered in order to connect additional BLE-GPO to main SoC IOMUX." id="MEM_BLE_CORE_IOMUX_GPO_CTRL" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_RFC_GENERIC_IEVENT_CFG" id="ble_rfc_generic_ievent_cfg" width="32" description="BLE GPI Configuration settings" offset="0x20">
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved19" resetval="0x80000"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="BLE RF-Core Generic External Input Events as RFC WU ACK Signal" id="MEM_BLE_GENERIC_IEVENT0_WU_ACK" resetval="0x80000"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="BLE RF-Core Generic External Input Events as RTC Update (Radio-Time-Control)" id="MEM_BLE_GENERIC_IEVENT1_RTC_UPDATE" resetval="0x80000"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="BLE RF-Core Generic External Input Events as RFC Generic Signal" id="MEM_BLE_GENERIC_IEVENT2_GENERIC" resetval="0x80000"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="BLE RF-Core Generic Input Event Enable bus" id="MEM_BLE_RFC_GENERIC_IEVENT_EN" resetval="0x80000"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="BLE RF-Core GENERIC IEVENT Polarity Signals.
+When a bit is set - the correlated signal is inverted." id="MEM_BLE_RFC_GENERIC_IEVENT_POL" resetval="0x80000"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="BLE RF-Core Generic External Input Event 03" id="MEM_BLE_GENERIC_IEVENT3" resetval="0x80000"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="BLE RF-Core Generic External Input Event 04" id="MEM_BLE_GENERIC_IEVENT4" resetval="0x80000"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="BLE RF-Core Generic External Input Event 05" id="MEM_BLE_GENERIC_IEVENT5" resetval="0x80000"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="BLE RF-Core Generic External Input Event 06" id="MEM_BLE_GENERIC_IEVENT6" resetval="0x80000"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="BLE RF-Core Generic External Input Event 07" id="MEM_BLE_GENERIC_IEVENT7" resetval="0x80000"/>
+	</register>
+	<register acronym="BLE_RFC_GENERIC_OEVENT_CFG" id="ble_rfc_generic_oevent_cfg" width="32" description="BLE GPI Configuration settings" offset="0x24">
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved24" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="BLE RF-Core Generic Output Events as RFC WU Signal" id="MEM_BLE_GENERIC_OEVENT0_WU" resetval="0x0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="BLE RF-Core Generic Output Event Enable bus" id="MEM_BLE_RFC_GENERIC_OEVENT_EN" resetval="0x0"/>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="BLE RF-Core GENERIC OEVENT Polarity Signals.
+When a bit is set - the correlated signal is inverted." id="MEM_BLE_RFC_GENERIC_OEVENT_POL" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="BLE RF-Core Generic Output Event 03" id="MEM_BLE_GENERIC_OEVENT3" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="BLE RF-Core Generic Output Event 03" id="MEM_BLE_GENERIC_OEVENT2" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="BLE RF-Core Generic Output Event 03" id="MEM_BLE_GENERIC_OEVENT1" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="BLE RF-Core Generic Output Event 03" id="MEM_BLE_GENERIC_OEVENT4" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="BLE RF-Core Generic Output Event 03" id="MEM_BLE_GENERIC_OEVENT5" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="BLE RF-Core Generic Output Event 03" id="MEM_BLE_GENERIC_OEVENT6" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="BLE RF-Core Generic Output Event 03" id="MEM_BLE_GENERIC_OEVENT7" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_RFC_STATE" id="ble_rfc_state" width="32" description="RF-Core State RO Register" offset="0x30">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="RF-Core State Register (Instead of RDBELL State register)" id="MEM_BLE_RFC_STATE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved10" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="RF-Core State BUSY indecation to GNS - Debug mode to force its value." id="MEM_BLE_RFC_STATE_BUSY_DEBUG_MODE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" id="Reserved4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="RF-Core State BUSY indecation to GNS - Debug Option to force its value." id="MEM_BLE_RFC_STATE_BUSY_DEBUG_FORCE" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="BLE_RFC_STATUS_RO" id="ble_rfc_status_ro" width="32" description="RF-Core Status RO Register" offset="0x34">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="RF-Core State BUSY RO Register" id="BLE_RFC_STATE_BUSY_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" id="Reserved15" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="RF-Core Modulator FS ENABLE RO Register for Status" id="BLE_RFC_MOD_FS_ENABLE_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="RF-Core De-Modulator CIC ENABLE RO Register for Status" id="BLE_RFC_DEM_CIC_ENABLE_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="AON to RF-Core Signal: 'ble_rfc_confidential_ovr' RO Register for Status." id="BLE_RFC_CONFIDENTIAL_OVR_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="2" end="10" begin="11" rwaccess="RO" id="Reserved10" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="3" end="17" begin="19" rwaccess="RO" description="AON to RF-Core Signal: 'ble_rfc_confidential_mode[2:0]' RO Register for Status." id="BLE_RFC_CONFIDENTIAL_MODE_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="20" begin="23" rwaccess="RO" description="AON to RF-Core Signal: 'ble_aon_general[3:4]' RO Register for Status." id="BLE_RFC_AON_GENERAL_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="Fuse to RF-Core Signal: 'ble_cpe_fuse_off' RO Register for Status." id="BLE_RFC_CPE_FUSE_OFF_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="Fuse to RF-Core Signal: 'ble_mdm_fuse_off' RO Register for Status." id="BLE_RFC_MDM_FUSE_OFF_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="BLE_TOP_CTRL Signal, which overide the CLK-EN: 'ble_aon_mem_clken_ovr' RO Register for Status." id="BLE_RFC_MEM_CLKEN_OVR_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="Input to RF-Core Signal: 'ble_rfc_gpi[7:0]' RO Register for Status." id="BLE_RFC_GPI_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="BLE_CLK_STATUS_RO" id="ble_clk_status_ro" width="32" description="RF-Core Clocks Status RO Register" offset="0x38">
+		<bitfield width="11" end="0" begin="10" rwaccess="RO" description="RF-Core Clocks MEM_RFCPWM_CLKEN Status Register." id="BLE_RFCPWM_CLKEN_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="Reserved4" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="BLE Debug-Ports CLK Status Register" id="BLE_DEBUG_PORT_CLKEN_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="4" end="11" begin="14" rwaccess="RO" id="Reserved1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="BLE CPE Domain CLKEN Status Register." id="BLE_RFC_CPE_CLKEN_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="BLE Modem Domain CLKEN Status Register." id="BLE_RFC_MDM_CLKEN_RO" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="BLE_COEX_CTRL" id="ble_coex_ctrl" width="32" description="BLE Coex Control" offset="0x100">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="BLE to COEX: BLE TX indication" id="MEM_BLE_COEX_TX" resetval="0x1000"/>
+		<bitfield width="5" end="5" begin="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved4" resetval="0x1000"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="BLE to COEX: BLE RX indication" id="MEM_BLE_COEX_RX" resetval="0x1000"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="BLE to COEX: BLE PTA Request" id="MEM_BLE_COEX_PTA_REQ" resetval="0x1000"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="BLE to COEX: BLE PTA Priority" id="MEM_BLE_COEX_PTA_PRIO" resetval="0x1000"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="COEX to BLE: PTA GRANT - RO Register" id="BLE_COEX_PTA_GRANT_RO" resetval="0x1000"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved18" resetval="0x1000"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="COEX to BLE: PTA GRANT - RO RegiBLE_GPADC_HW_LINE_MUTE_ROter" id="BLE_GPADC_HW_LINE_MUTE_RO" resetval="0x1000"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="BLE to COEX: BLE GPO Signals are DISCONNECTED from Coex Signals.
+In this mode the Coex may operated by BLE-TOP MMRs." id="MEM_BLE_COEX_GPO_DIS" resetval="0x1000"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved13" resetval="0x1000"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="BLE RF-Core Coex-Grant Polarity Signal.
+When it set to '1' - the Coex-Grant Input signal is inverted.
+By default - Active low, So default is '1'" id="MEM_BLE_COEX_GRANT_POL" resetval="0x1000"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="BLE RF-Core GPADC-MUTE Polarity Signal.
+When it set to '1' - the GPADC-MUTE Input signal is inverted." id="MEM_BLE_GPADC_MUTE_POL" resetval="0x1000"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="BLE to COEX: BLE GPI Signals are DISCONNECTED from Coex Signals.
+In this mode the Coex may operated by BLE-TOP MMRs." id="MEM_BLE_COEX_GPI_DIS" resetval="0x1000"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="BLE RF-Core Coex-Grant Enable Signal.
+When it set to '1' - the Coex-Grant Input signal is Enabled." id="MEM_BLE_COEX_GRANT_EN" resetval="0x1000"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="BLE RF-Core GPADC-MUTE Enable Signal.
+When it set to '1' - the GPADC-MUTE Input signal is Enabled." id="MEM_BLE_GPADC_MUTE_EN" resetval="0x1000"/>
+	</register>
+	<register acronym="BLE_ANT_SEL_CTRL" id="ble_ant_sel_ctrl" width="32" description="BLE Antena Select Logic Control" offset="0x104">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="BLE to Antena Select Logic: AoA Switch Select" id="MEM_BLE_AOA_SWITCH" resetval="0x0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved4" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="BLE to AoA Switch: BLE GPO Signals are DISCONNECTED from AoA Switch Signals.
+In this mode the A0A Switch may operated by BLE-TOP MMRs." id="MEM_BLE_AOA_SWITCH_GPO_DIS" resetval="0x0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved9" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_MAILBOX_MSG_TO_CPE" id="ble_mailbox_msg_to_cpe" width="32" description="BLE CRTX MAILBOX - Direction TO CPE" offset="0x120">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE CRTX MAILBOX From WL-PHY to CPE.
+When wraiting into this MAILBOX MSG MMR - An IQR is generated towards the CPE." id="MEM_BLE_MAILBOX_MSG_TO_CPE_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_MAILBOX_MSG_TO_WLPHY" id="ble_mailbox_msg_to_wlphy" width="32" description="BLE CRTX MAILBOX - Direction TO WLPHY" offset="0x124">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE CRTX MAILBOX From CPE to WL-PHY.
+When wraiting into this MAILBOX MSG MMR - An IQR is generated towards the WL-PHY WMZ." id="MEM_BLE_MAILBOX_MSG_TO_WLPHY_WROPT" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_MAILBOX_CFG" id="ble_mailbox_cfg" width="32" description="BLE CRTX MAILBOX - Direction TO CPE" offset="0x128">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Writing to this bit - CLEAR the MAILBOX MSG From WL-PHY to CPE. No IQR is generated." id="MEM_BLE_MAILBOX_MSG_TO_CPE_CLR_WRCL" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Writing to this bit - CLEAR the MAILBOX MSG From CPE to WL-PHY. No IQR is generated." id="MEM_BLE_MAILBOX_MSG_TO_WLPHY_CLR_WRCL" resetval="0x0"/>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved1" resetval="0x0"/>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved5" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_IN_SET" id="ble_event_in_set" width="32" description="BLE Input Events for Timing synch and controls." offset="0x200">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" description="BLE TOP Generic Input Events Set option for Timing synch and control" id="MEM_BLE_EVENT_IN_SET_WRCL" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_IN_CLR" id="ble_event_in_clr" width="32" description="BLE Input Events for Timing synch and controls." offset="0x204">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" description="BLE TOP Generic Input Events Clear option - Each bit clears its correlated event.
+Events better be cleared only after event source was cleared (e.g. GPI was de-asserted)" id="MEM_BLE_EVENT_IN_CLR_WRCL" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_IN_MASK" id="ble_event_in_mask" width="32" description="BLE Input Events Mask-Enable." offset="0x208">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE Input Events Mask-Enable: mask is active when set to '1'
+(Mask active means - Event is blocked)" id="MEM_BLE_EVENT_IN_MASK" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_IN_SEL" id="ble_event_in_sel" width="32" description="BLE Input Events SEL -  when active select IRQ-0 when set to '0' and select IRQ-1 when set to '1'" offset="0x20c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE Input Events SEL -  when active select IRQ-0 when set to '0' and select IRQ-1 when set to '1'" id="MEM_BLE_EVENT_IN_SEL" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_IN_STATUS_RO" id="ble_event_in_status_ro" width="32" description="BLE Input Events for Timing synch and controls." offset="0x210">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="BLE TOP Input Events STATUS Register (RO Register)" id="BLE_EVENT_IN_STATUS_RO" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_OUT_SET" id="ble_event_out_set" width="32" description="BLE Output Events for Timing synch and controls." offset="0x220">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" description="BLE TOP Generic OUT Events SET option for Timing synch and control" id="MEM_BLE_EVENT_OUT_SET_WRCL" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_OUT_CLR" id="ble_event_out_clr" width="32" description="BLE Output Events for Timing synch and controls." offset="0x224">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" description="BLE TOP Generic OUT Events Clear option - Each bit clears its correlated event.
+Events better be cleared only after event source was cleared (e.g. GPO was de-asserted)" id="MEM_BLE_EVENT_OUT_CLR_WRCL" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_OUT_MASK" id="ble_event_out_mask" width="32" description="BLE Output Events Mask-Enable." offset="0x228">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE Output Events Mask-Enable: mask is active when set to '1'. 
+(Mask active means - Event is blocked)" id="MEM_BLE_EVENT_OUT_MASK" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_OUT_SEL" id="ble_event_out_sel" width="32" description="BLE OUT Events SEL -  when active select IRQ-0 when set to '0' and select IRQ-1 when set to '1'" offset="0x22c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE OUT Events SEL -  when active select IRQ-0 when set to '0' and select IRQ-1 when set to '1'" id="MEM_BLE_EVENT_OUT_SEL" resetval="0xffffffff"/>
+	</register>
+	<register acronym="BLE_EVENT_OUT_STATUS_RO" id="ble_event_out_status_ro" width="32" description="BLE Input Events for Timing synch and controls." offset="0x230">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="BLE TOP Output Events STATUS Register (RO Register)" id="BLE_EVENT_OUT_STATUS_RO" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_EVENT_MAIN_CFG" id="ble_event_main_cfg" width="32" description="BLE GENERAL EVENT Controls (G1/G2)" offset="0x240">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="BLE GENERAL EVENT (G1/G2) Enable Control - Enable the Events capture mechanism." id="MEM_BLE_EVENT_EN" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="BLE GENERAL EVENT (G1/G2) INIT Control. Pulse Signal.
+It Reset all the Events (total 64) at once." id="MEM_BLE_EVENT_INIT_WRCL" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved3" resetval="0x0"/>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved5" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="BLE GENERAL EVENT 0 - OUT Enable Control." id="MEM_BLE_EVENT_0_OUT_EN" resetval="0x1"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="BLE GENERAL EVENT 1 - OUT Enable Control." id="MEM_BLE_EVENT_1_OUT_EN" resetval="0x1"/>
+	</register>
+	<register acronym="BLE_MODISF_CFG" id="ble_modisf_cfg" width="32" description="BLE RFEXT MOD-ISF Module CFG Registers.
+Note: MOD-ISF is known as Tx-Shaper." offset="0x400">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="BLE RFEXT  - MOD-ISF Module - ENABLE." id="MEM_MODISF_ENABLE" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="BLE RFEXT  - MOD-ISF Module - INIT - PULSE." id="MEM_MODISF_INIT_WRCL" resetval="0x0"/>
+		<bitfield width="12" end="8" begin="19" rwaccess="RW" description="BLE RFEXT  - MOD-ISF Module - Frequency Offset (offset from base-band)." id="MEM_MODISF_FREQ_OFFSET" resetval="0x2B9"/>
+		<bitfield width="2" end="2" begin="3" rwaccess="RW" description="BLE RFEXT  - MOD-ISF Module - Interpolation Factor" id="MEM_MODISF_INTP_FACTOR" resetval="0x1"/>
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="BLE RFEXT  - MOD-ISF Module - Shape Gain" id="MEM_MODISF_SHAPE_GAIN" resetval="0x0"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RW" description="BLE RFEXT  - MOD-ISF Module - Mode od Operation (Protocol)" id="MEM_MODISF_MODE" resetval="0x0"/>
+		<bitfield width="3" end="20" begin="22" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved20" resetval="0x0"/>
+		<bitfield width="1" end="24" begin="24" rwaccess="WO" description="BLE MODISF ENR (Exp-And-Ramp) START - Ramp-Up Control option. Pulse Signal" id="MEM_MODISF_ENR_START_WRCL" resetval="0x0"/>
+		<bitfield width="1" end="28" begin="28" rwaccess="WO" description="BLE MODISF ENR (Exp-And-Ramp) STOP - Ramp-Down Control option. Pulse Signal" id="MEM_MODISF_ENR_STOP_WRCL" resetval="0x0"/>
+		<bitfield width="3" end="25" begin="27" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved26" resetval="0x0"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved29" resetval="0x0"/>
+		<bitfield width="1" end="23" begin="23" rwaccess="RW" description="BLE MODISF ENR (Exp-And-Ramp) DEBUG OPTION to BYPASS Ramp-Up/Down function.
+Only EXP function (I/Q convertion) is active." id="MEM_MODISF_ENR_DBG_BYPASS" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_MODISF_SHAPE0" id="ble_modisf_shape0" width="32" description="BLE rfext modisf SHAPING settings mmr - TBD: add additional description" offset="0x404">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE rfext modisf cfg mmr - TBD: add additional description" id="MEM_MODISF_SHAPE0" resetval="0x00000000"/>
+	</register>
+	<register acronym="BLE_MODISF_SHAPE1" id="ble_modisf_shape1" width="32" description="BLE rfext modisf SHAPING settings mmr - TBD: add additional description" offset="0x408">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE rfext modisf cfg mmr - TBD: add additional description" id="MEM_MODISF_SHAPE1" resetval="0x05030101"/>
+	</register>
+	<register acronym="BLE_MODISF_SHAPE2" id="ble_modisf_shape2" width="32" description="BLE rfext modisf SHAPING settings mmr - TBD: add additional description" offset="0x40c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE rfext modisf cfg mmr - TBD: add additional description" id="MEM_MODISF_SHAPE2" resetval="0x1D140D08"/>
+	</register>
+	<register acronym="BLE_MODISF_SHAPE3" id="ble_modisf_shape3" width="32" description="BLE rfext modisf SHAPING settings mmr - TBD: add additional description" offset="0x410">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE rfext modisf cfg mmr - TBD: add additional description" id="MEM_MODISF_SHAPE3" resetval="0x5D4A392A"/>
+	</register>
+	<register acronym="BLE_MODISF_SHAPE4" id="ble_modisf_shape4" width="32" description="BLE rfext modisf SHAPING settings mmr - TBD: add additional description" offset="0x414">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE rfext modisf cfg mmr - TBD: add additional description" id="MEM_MODISF_SHAPE4" resetval="0xA2938270"/>
+	</register>
+	<register acronym="BLE_MODISF_SHAPE5" id="ble_modisf_shape5" width="32" description="BLE rfext modisf SHAPING settings mmr - TBD: add additional description" offset="0x418">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="BLE rfext modisf cfg mmr - TBD: add additional description" id="MEM_MODISF_SHAPE5" resetval="0xC0BDB7AE"/>
+	</register>
+	<register acronym="BLE_RFEXT_INV_VCODIVIDER" id="ble_rfext_inv_vcodivider" width="32" description="BLE rfext INV divider cfg mmr - TBD: add additional description" offset="0x420">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="BLE rfext modisf cfg mmr - TBD: add additional description" id="MEM_INV_VCODIVIDER" resetval="0x0000"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved16" resetval="0x0"/>
+	</register>
+	<register acronym="BLE_CIC_CFG" id="ble_cic_cfg" width="32" description="BLE CIC Controls - Enable and INIT Option." offset="0x440">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="BLE CIC Enable Control." id="MEM_BLE_CIC_EN" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="BLE CIC INIT Control. Pulse Signal" id="MEM_BLE_CIC_INIT_WRCL" resetval="0x0"/>
+		<bitfield width="3" end="1" begin="3" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved1" resetval="0x0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved13" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="BLE CIC START Control option. Pulse Signal" id="MEM_BLE_CIC_START_WRCL" resetval="0x0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="BLE CIC STOP Control option. Pulse Signal" id="MEM_BLE_CIC_STOP_WRCL" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved5" resetval="0x0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved9" resetval="0x0"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="Reserved17" resetval="0x0"/>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="BLE CIC Enable MCE Control." id="MEM_BLE_CIC_MCE_CTRL_EN" resetval="0x0"/>
+	</register>
+</module>

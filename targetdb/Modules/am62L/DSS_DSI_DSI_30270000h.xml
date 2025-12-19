@@ -1,0 +1,24 @@
+<module name="dsi" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="dsi_revision" acronym="dsi_revision" offset="0" width="32" description="The REVISION register contains the DSI revision number and PID">
+		<bitfield id="MODID" width="16" begin="31" end="16" resetval="0x25610" description="Module ID Field   Reset Source: rstn" range="31:16" rwaccess="R"/>
+	<bitfield id="REVRTL" width="5" begin="15" end="11" resetval="0x2" description="RTL Revision   Reset Source: rstn" range="15:11" rwaccess="R"/>
+	<bitfield id="REVMAJOR" width="3" begin="10" end="8" resetval="0x1" description="Major Revision   Reset Source: rstn" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom   Reset Source: rstn" range="7:6" rwaccess="R"/>
+	<bitfield id="REVMIN" width="6" begin="5" end="0" resetval="0x1" description="Minor Revision   Reset Source: rstn" range="5:0" rwaccess="R"/>
+	</register><register id="dsi_DPI_CONTROL" acronym="dsi_DPI_CONTROL" offset="4" width="32" description="Controls the DPI Video Input ports of the DSI Wrapper">
+		<bitfield id="DSI2_MUX_SEL" width="1" begin="4" end="4" resetval="0x0" description="Select between DPI-1 and DPI-2 to drive the DPI input of DSITX2 0      DPI-1 is selected1      DPI-2 is selected" range="4" rwaccess="R/W"/>
+	<bitfield id="DPI_0_EN" width="1" begin="0" end="0" resetval="0x0" description="Enable for DPI-0 input 0      DPI-0 is disabled1      DPI-0 is enabled" range="0" rwaccess="R/W"/>
+	</register><register id="dsi_DSC_CONTROL" acronym="dsi_DSC_CONTROL" offset="8" width="32" description="Controls the DSC Encoder for DSI">
+		</register><register id="dsi_DPI_SECURE" acronym="dsi_DPI_SECURE" offset="12" width="32" description="Controls the DPI Video Input ports SECURE settings">
+		<bitfield id="DPI_0_SECURE_VIOLATION" width="1" begin="1" end="1" resetval="0x0" description="SECURE VIOLATION status for DPI-0 input. Write-1 to clear the status 0      DPI-0 secure settings are ok1      DPI-0 secure settings are not ok, data is       discarded" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="DPI_0_SECURE" width="1" begin="0" end="0" resetval="0x0" description="SECURE bit for DPI-0 input 0      DPI-0 is non-secure1      DPI-0 is secure" range="0" rwaccess="R/W"/>
+	</register><register id="dsi_DSI_0_ASF_STATUS" acronym="dsi_DSI_0_ASF_STATUS" offset="16" width="32" description="ASF Status">
+		<bitfield id="INTEGRITY_ERR" width="1" begin="6" end="6" resetval="0x0" description="INTEGRITY_ERR     Reset Source: rstn" range="6" rwaccess="R"/>
+	<bitfield id="PROTOCOL_ERR" width="1" begin="5" end="5" resetval="0x0" description="PROTOCOL_ERR      Reset Source: rstn" range="5" rwaccess="R"/>
+	<bitfield id="TRANS_TO_ERR" width="1" begin="4" end="4" resetval="0x0" description="TRANS_TO_ERR      Reset Source: rstn" range="4" rwaccess="R"/>
+	<bitfield id="CSR_ERR" width="1" begin="3" end="3" resetval="0x0" description="CSR_ERR           Reset Source: rstn" range="3" rwaccess="R"/>
+	<bitfield id="DAP_ERR" width="1" begin="2" end="2" resetval="0x0" description="DAP_ERR           Reset Source: rstn" range="2" rwaccess="R"/>
+	<bitfield id="SRAM_UNCORR_ERR" width="1" begin="1" end="1" resetval="0x0" description="SRAM_UNCORR_ERR   Reset Source: rstn" range="1" rwaccess="R"/>
+	<bitfield id="SRAM_CORR_ERR" width="1" begin="0" end="0" resetval="0x0" description="SRAM_CORR_ERR     Reset Source: rstn" range="0" rwaccess="R"/>
+	</register>
+</module>
