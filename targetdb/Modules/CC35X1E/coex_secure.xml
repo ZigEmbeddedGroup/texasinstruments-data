@@ -1,0 +1,219 @@
+<module id="coex_secure" XML_version="1.0" description="">
+	<register acronym="GEN_COEX_CONF" id="gen_coex_conf" width="32" description="General COEX Configurations.   This register is a static configuration." offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This bit configuration is available to enable or disable COEX. Enable --&gt; 1; Disable --&gt; 0." id="EN" resetval="0x0" />
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="def grant when coex disabled: This bit configuration is available to select the entity which has the grant when COEX is disabled. 00 --&gt; Wifi; 01 --&gt; BLE, 10 --&gt; SOC, 11 --&gt; invalid configuration." id="DEFGRNTDIS" resetval="0x2" />
+		<bitfield width="2" end="3" begin="4" rwaccess="RW" description="def grant when no req: This bit configuration is available to select the entity which has the grant when there is no request from any entity.00 --&gt; Wifi; 01 --&gt; BLE, 10 --&gt; SOC, 11 --&gt; Wifi." id="defgrtnreq" resetval="0x3" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="debug reporting enable: This bit configuration is available to enable or disable the debug reporting.0 --&gt; No IRQ is generated; 1 --&gt; Debug Mode enable. IRQ is generated whenever there is change in grant state." id="debrepen" resetval="0x0" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="This bit configuration is available to select the freq. at which COEX is operating. 1 --&gt; 80 MHz; 0 --&gt; 40 MHz." id="freq40n80" resetval="0x0" />
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" id="reserved" resetval="0x0" />
+	</register>
+	<register acronym="WIFI_CONF" id="wifi_conf" width="32" description="Wifi Configuration.  This register is available is to program Wifi related general configuration. This register is static configuration." offset="0x4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This bit configuration is available to indicate if Wifi is enabled in the design or not. 0 --&gt; Wifi disabled; 1 --&gt; Wifi enabled.." id="wifien" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="This bit configuration is available to select Wifi Grant Polarity. 1 --&gt; Default Polarity/Active Low; 0 --&gt; Reverse Polarity/Active High." id="wifigrtpol" resetval="0x1" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="wifi alt band input bypass: This bit configuration is available to bypass Wifi alt band input. 1 --&gt; Bypass wifi alt band input; 0 --&gt; Do not bypass wifi alt band input." id="altbndbyp" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="wifi rx only input bypass: This bit configuration is available to bypass Wifi RX only input. 1 --&gt; Bypass wifi rx only input; 0 --&gt; Do not bypass wifi rx only input." id="rxbyp" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="wifi alt band input bypass val: This bit configuration is available to configure Wifi_alt_band value." id="altbndbypv" resetval="0x0" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="wifi rx only input bypass val: This bit configuration is available to bypass Wifi_RX_only value." id="rxbypv" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="BLE_CONF" id="ble_conf" width="32" description="BLE Configuration.  This register is available is to program BLE related general configuration. This register is static configuration." offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This bit configuration is available to indicate if BLE is enabled in the design or not. 0 --&gt; BLE disabled; 1 --&gt; BLE enabled.." id="bleen" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="This bit configuration is available to select BLE Grant Polarity. 1 --&gt; Default Polarity/Active Low; 0 --&gt; Reverse Polarity/Active High." id="blegrntpol" resetval="0x1" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="ble pta signalling mode: This bit configuration is available to select if BLE_TX and BLE_RX are to be bypassed. 1 --&gt; Bypass BLE_TX and BLE_RX; 0 --&gt; Do not bypass BLE_TX and BLE_RX input." id="ptasgnlm" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="ble tx bypass val: This bit configuration is available to configure BLE_TX value. This bit takes effect when mem_ble_pta_signalling_mode is set to 1." id="txbypv" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="ble rx bypass val: This bit configuration is available to configure BLE_RX value. This bit takes effect when mem_ble_pta_signalling_mode is set to 1." id="rxbypv" resetval="0x0" />
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="reserved_1" resetval="0x0" />
+	</register>
+	<register acronym="EXT_SOC_CONF" id="ext_soc_conf" width="32" description="SOC Configuration.  This register is available is to program EXT SOC related general configuration. This register is a static configuration." offset="0xc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This bit configuration is available to indicate if SOC is enabled in the design or not. 0 --&gt; SOC disabled; 1 --&gt; SOC enabled.." id="socen" resetval="0x0" />
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="soc pta signalling mode: This bit configuration is available to select the Ext SOC PTA signalling mode. 00 --&gt; Reserved; 01 --&gt; 1-wire, 10 --&gt; 2-wires, 11 --&gt; 3-wires." id="ptasgnlm" resetval="0x3" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="This bit configuration is available to select Ext SOC Request Polarity. 1 --&gt; Default Polarity/Active High; 0 --&gt; Reverse Polarity/Active Low." id="reqpol" resetval="0x1" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="This bit configuration is available to select Ext SOC Priority Polarity. 1 --&gt; Default Polarity/Active High; 0 --&gt; Reverse Polarity/Active Low." id="pripol" resetval="0x1" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="This bit configuration is available to select SOC Grant Polarity. 1 --&gt; Default Polarity/Active Low; 0 --&gt; Reverse Polarity/Active High." id="grntpol" resetval="0x1" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="soc grant renew bypass: This bit configuration is available to bypass need to renew soc grant. 1 --&gt; Bypass SOC grant renew; 0 --&gt; SOC needs to renew grant." id="grntrebyp" resetval="0x0" />
+		<bitfield width="2" end="7" begin="8" rwaccess="RW" description="This bit configuration is available to select detection mechanism for SOC request. 00 --&gt; Rise edge detection (L -&gt; H)  ; 01 --&gt; Fall edge detection (H -&gt; L)  ; 10 --&gt; Level detection (active high)  ; 11 -&gt;  level detection (active low)." id="reqsigdet" resetval="0x0" />
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="BLE_HIGH_PRIO_RX" id="ble_high_prio_rx" width="32" description="BLE High Priority Rx.  This Priority register selected when BLE Priority is high and BLE_RX is asserted. This register value should not be changed when BLE request is asserted." offset="0x10">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Priority levels can be 1 to 15. 0 level indicates no request from BLE." id="blehiprirx" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="BLE_LOW_PRIO_RX" id="ble_low_prio_rx" width="32" description="BLE Low Priority Rx.  This Priority register selected when BLE Priority is low and BLE_RX is asserted. This register value should not be changed when BLE request is asserted." offset="0x14">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Priority levels can be 1 to 15. 0 level indicates no request from BLE." id="bleloprirx" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="reserved_4" resetval="0x0" />
+	</register>
+	<register acronym="BLE_HIGH_PRIO_TX" id="ble_high_prio_tx" width="32" description="BLE High Priority Tx.  This Priority register selected when BLE Priority is high and BLE_TX is asserted. This register value should not be changed when BLE request is asserted." offset="0x18">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Priority levels can be 1 to 15. 0 level indicates no request from BLE." id="blehipritx" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="reserved_5" resetval="0x0" />
+	</register>
+	<register acronym="BLE_LOW_PRIO_TX" id="ble_low_prio_tx" width="32" description="BLE Low Priority Tx.  This Priority register selected when BLE Priority is low and BLE_TX is asserted. This register value should not be changed when BLE request is asserted." offset="0x1c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Priority levels can be 1 to 15. 0 level indicates no request from BLE." id="blelopritx" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="reserved_6" resetval="0x0" />
+	</register>
+	<register acronym="SOC_HIGH_PRIO" id="soc_high_prio" width="32" description="SOC High Priority.  This Priority register selected when SOC Priority is high. This register value should not be changed when SOC request is asserted." offset="0x20">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Priority levels can be 1 to 15. 0 level indicates no request from SOC." id="sochipri" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="reserved_7" resetval="0x0" />
+	</register>
+	<register acronym="SOC_LOW_PRIO" id="soc_low_prio" width="32" description="SOC Low Priority.  This Priority register selected when SOC Priority is low. This register value should not be changed when SOC request is asserted." offset="0x24">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Priority levels can be 1 to 15. 0 level indicates no request from SOC." id="soclopri" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="reserved_8" resetval="0x0" />
+	</register>
+	<register acronym="TIE_BREAKER" id="tie_breaker" width="32" description="Tie Breaker.  This register is available is to program entity priority which comes into effect when there is a tie between contesting entities. This register is a static configuration. The values in all the three fields need to be unique." offset="0x28">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" description="Priority value for Wifi." id="wifi" resetval="0x2" />
+		<bitfield width="2" end="2" begin="3" rwaccess="RW" description="Priority value for BLE." id="ble" resetval="0x1" />
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="Priority value for SOC." id="soc" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="reserved_9" resetval="0x0" />
+	</register>
+	<register acronym="WIFI_MIN_GRANT_TIME" id="wifi_min_grant_time" width="32" description="WIFI MIN GRANT TIME: This register is available is to program wifi minimum grant time. This register is static configuration." offset="0x2c">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Wifi min grant time." id="VAL" resetval="0x0" />
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="reserved_wifi_min" resetval="0x0" />
+	</register>
+	<register acronym="BLE_MIN_GRANT_TIME" id="ble_min_grant_time" width="32" description="BLE MIN GRANT TIME: This register is available is to program ble minimum grant time. This register is static configuration." offset="0x30">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="BLE min grant time." id="VAL" resetval="0x0" />
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="reserved_ble_min" resetval="0x0" />
+	</register>
+	<register acronym="SOC_MIN_GRANT_TIME" id="soc_min_grant_time" width="32" description="SOC MIN GRANT TIME: This register is available is to program soc minimum grant time. This register is static configuration." offset="0x34">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="SOC min grant time." id="VAL" resetval="0x0" />
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="reserved_soc_min" resetval="0x0" />
+	</register>
+	<register acronym="SW_GRANT_OVERRIDE" id="sw_grant_override" width="32" description="SW Grant Override.  This register is available to override the grant via SW." offset="0x38">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="wifi grant override control." id="wifictl" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="wifi grant override value" id="wifival" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="soc grant override control." id="socctl" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="soc grant override value." id="socval" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="BLE grant override control." id="blectl" resetval="0x0" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="BLE grant override value." id="bleval" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" description="reserved" id="reserved" resetval="0x0" />
+	</register>
+	<register acronym="BLE_MAX_GRANT_TIME" id="ble_max_grant_time" width="32" description="BLE Max Grant Time.  This register is available is to program ble maximum grant time. This register is static configuration." offset="0x3c">
+		<bitfield width="14" end="0" begin="13" rwaccess="RW" description="BLE max grant time." id="VAL" resetval="0x0" />
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="reserved_ble_max" resetval="0x0" />
+	</register>
+	<register acronym="SOC_MAX_GRANT_TIME" id="soc_max_grant_time" width="32" description="SOC Max Grant Time.  This register is available is to program soc maximum grant time. This register is static configuration." offset="0x40">
+		<bitfield width="14" end="0" begin="13" rwaccess="RW" description="SOC max grant time." id="VAL" resetval="0x0" />
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="reserved_soc_max" resetval="0x0" />
+	</register>
+	<register acronym="BLE_T2_TIME" id="ble_t2_time" width="32" description="BLE T2 Time.  This register is available is to program ble T2 time. This register is static configuration." offset="0x44">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="BLE T2 time." id="VAL" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="reserved_ble_t2" resetval="0x0" />
+	</register>
+	<register acronym="SOC_T2_TIME" id="soc_t2_time" width="32" description="SOC T2 Time.  This register is available is to program soc T2 time. This register is static configuration." offset="0x48">
+		<bitfield width="6" end="0" begin="5" rwaccess="RW" description="SOC T2 time." id="VAL" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="reserved_soc_t2" resetval="0x0" />
+	</register>
+	<register acronym="WIFI_to_BLE_GRANT_DELAY" id="wifi_to_ble_grant_delay" width="32" description="WIFI to BLE Grant Delay.  This register is available is to program wifi to ble grant delay time. This register is static configuration." offset="0x4c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="WIFI to BLE grant delay time." id="VAL" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="reserved_wifi_to_ble" resetval="0x0" />
+	</register>
+	<register acronym="WIFI_to_SOC_GRANT_DELAY" id="wifi_to_soc_grant_delay" width="32" description="WIFI to SOC Grant Delay.  This register is available is to program wifi to soc grant delay time. This register is static configuration." offset="0x50">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="WIFI to SOC grant delay time." id="VAL" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="reserved_wifi_to_soc" resetval="0x0" />
+	</register>
+	<register acronym="BLE_to_SOC_GRANT_DELAY" id="ble_to_soc_grant_delay" width="32" description="BLE to SOC Grant Delay.  This register is available is to program ble to soc grant delay time. This register is static configuration." offset="0x54">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="BLE to SOC grant delay time." id="VAL" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="reserved_ble_to_soc" resetval="0x0" />
+	</register>
+	<register acronym="BLE_to_WIFI_GRANT_DELAY" id="ble_to_wifi_grant_delay" width="32" description="BLE to WIFI Grant Delay.  This register is available is to program ble to wifi grant delay time. This register is static configuration." offset="0x58">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="BLE to WIFI grant delay time." id="VAL" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="reserved_ble_to_wifi" resetval="0x0" />
+	</register>
+	<register acronym="SOC_to_WIFI_GRANT_DELAY" id="soc_to_wifi_grant_delay" width="32" description="SOC to WIFI Grant Delay.  This register is available is to program soc to wifi grant delay time. This register is static configuration." offset="0x5c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="SOC to WIFI grant delay time." id="VAL" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="reserved_soc_to_wifi" resetval="0x0" />
+	</register>
+	<register acronym="SOC_to_BLE_GRANT_DELAY" id="soc_to_ble_grant_delay" width="32" description="SOC to BLE Grant Delay.  This register is available is to program soc to ble grant delay time. This register is static configuration." offset="0x60">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="SOC to BLE grant delay time." id="VAL" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="reserved_soc_to_ble" resetval="0x0" />
+	</register>
+	<register acronym="DEBUG_REPORT_REGISTER" id="debug_report_register" width="32" description="Debug Report Register.  This register captures state of COEX." offset="0x64">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="This field of the register captures the wifi_prio_lvl." id="wifiprilvl" resetval="0x0" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="This field of the register captures the ble_prio_lvl." id="bleprilvl" resetval="0x0" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="This field of the register captures the soc_prio_lvl." id="socprilvl" resetval="0x0" />
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="This field of the register captures the wifi_grant_m." id="wifigrntm" resetval="0x0" />
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="This field of the register captures the ble_grant_m." id="blegrntm" resetval="0x0" />
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="This field of the register captures the soc_grant_m." id="socgrntm" resetval="0x0" />
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="This field of the register captures the wifi_grant." id="wifigrnt" resetval="0x0" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="This field of the register captures the ble_grant." id="blegrnt" resetval="0x0" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="This field of the register captures the soc_grant." id="socgrnt" resetval="0x0" />
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="reserved_debug_report" resetval="0x0" />
+	</register>
+	<register acronym="WIFI_REQ_AND_GRANT_LOG_REGISTER" id="wifi_req_and_grant_log_register" width="32" description="WIFI Request and Grant Log Register.  This register keeps a log of wifi request and grant." offset="0x68">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="This field of the register captures the number of times the wifi request was asserted since last reset." id="reqasrt" resetval="0x0" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="This field of the register captures the number of times the wifi request was dropped/deasserted since last reset." id="reqdeasrt" resetval="0x0" />
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="This field of the register captures the number of times the wifi grant was asserted since last reset." id="grntasrt" resetval="0x0" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="This field of the register captures the number of times the wifi grant was deasserted since last reset." id="grntdeasrt" resetval="0x0" />
+	</register>
+	<register acronym="BLE_REQ_AND_GRANT_LOG_REGISTER" id="ble_req_and_grant_log_register" width="32" description="BLE Request and Grant Log Register.  This register keeps a log of ble request and grant." offset="0x6c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="This field of the register captures the number of times the ble request was asserted since last reset." id="reqasrt" resetval="0x0" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="This field of the register captures the number of times the ble request was dropped/deasserted since last reset." id="reqdeasrt" resetval="0x0" />
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="This field of the register captures the number of times the ble grant was asserted since last reset." id="grntasrt" resetval="0x0" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="This field of the register captures the number of times the ble grant was deasserted since last reset." id="grntdeasrt" resetval="0x0" />
+	</register>
+	<register acronym="SOC_REQ_AND_GRANT_LOG_REGISTER" id="soc_req_and_grant_log_register" width="32" description="SOC Request and Grant Log Register.  This register keeps a log of soc request and grant." offset="0x70">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="This field of the register captures the number of times the soc request was asserted since last reset." id="reqasrt" resetval="0x0" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="This field of the register captures the number of times the soc request was dropped/deasserted since last reset." id="reqdeasrt" resetval="0x0" />
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="This field of the register captures the number of times the soc grant was asserted since last reset." id="grntasrt" resetval="0x0" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="This field of the register captures the number of times the soc grant was deasserted since last reset." id="grntdeasrt" resetval="0x0" />
+	</register>
+	<register acronym="WIFI_PRIO_REJECT_LOG_REGISTER" id="wifi_prio_reject_log_register" width="32" description="WIFI Priority Reject Log Register.  This register keeps a log of number of times wifi prio was rejected." offset="0x78">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="This field of the register captures the number of times the soc request was asserted since last reset." id="logval" resetval="0x0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="reserved." id="reserved_wiif_prio_reject" resetval="0x0" />
+	</register>
+	<register acronym="SOC_PRIO_REJECT_LOG_REGISTER" id="soc_prio_reject_log_register" width="32" description="SOC Priority Reject Log Register.  This register keeps a log of number of times soc prio was rejected." offset="0x7c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="This field of the register captures the number of times the soc high priority was rejected since last reset." id="hilogval" resetval="0x0" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="This field of the register captures the number of times the soc low priority was rejected since last reset." id="lologval" resetval="0x0" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="reserved." id="reserved_soc_prio_reject" resetval="0x0" />
+	</register>
+	<register acronym="BLE_PRIO_REJECT_LOG_REGISTER" id="ble_prio_reject_log_register" width="32" description="BLE Priority Reject Log Register.  This register keeps a log of number of times ble prio was rejected." offset="0x80">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="This field of the register captures the number of times the ble tx high priority was rejected since last reset." id="txhilog" resetval="0x0" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="This field of the register captures the number of times the ble tx low priority was rejected since last reset." id="txlolog" resetval="0x0" />
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="This field of the register captures the number of times the ble rx high priority was rejected since last reset." id="rxhilog" resetval="0x0" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="This field of the register captures the number of times the ble rx low priority was rejected since last reset." id="rxlolog" resetval="0x0" />
+	</register>
+	<register acronym="TIMESTAMP_REGISTER" id="timestamp_register" width="32" description="Timestamp Register.  This register captures the timestamp (from TSF counter) when the coex_irq was generated." offset="0x84">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="This register captures the timestamp (from TSF counter) when the coex_irq was generated since last reset." id="ts" resetval="0x0" />
+	</register>
+	<register acronym="WIFI_GRANT_DURING_DUAL_ANT_LOG_REGISTER" id="wifi_grant_during_dual_ant_log_register" width="32" description="WIFI Grant During Dual Antenna Log Register.  This register keeps a log of number of times ble prio was rejected." offset="0x88">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="This field of the register captures the number of times the wifi grant was deasserted during rx_only or alt_band mode since last reset." id="dalog" resetval="0x0" />
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="This field of the register captures the number of times the wifi grant was deasserted during rx_only or alt_band mode since last reset." id="alog" resetval="0x0" />
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="reserved" id="reserved_dual_ant" resetval="0x0" />
+	</register>
+	<register acronym="IRQ_EVENT_MASKING_REGISTER" id="irq_event_masking_register" width="32" description="IRQ Event Masking.  This register can be configured to mask the IRQ event." offset="0x8c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This field of the register is used to mask the interrupt generation caused due to changes in wifi_grant_m. 1--&gt; mask the IRQ; 0 --&gt; Unmask the IRQ" id="wifigrntm" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="This field of the register is used to mask the interrupt generation caused due to changes in ble_grant_m. 1--&gt; mask the IRQ; 0 --&gt; Unmask the IRQ" id="blegrntm" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="This field of the register is used to mask the interrupt generation caused due to changes in soc_grant_m. 1--&gt; mask the IRQ; 0 --&gt; Unmask the IRQ" id="socgrntm" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="This field of the register is used to mask the interrupt generation caused due to changes in wifi_grant. 1--&gt; mask the IRQ; 0 --&gt; Unmask the IRQ" id="wifigrnt" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="This field of the register is used to mask the interrupt generation caused due to changes in ble_grant. 1--&gt; mask the IRQ; 0 --&gt; Unmask the IRQ" id="blegrnt" resetval="0x0" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="This field of the register is used to mask the interrupt generation caused due to changes in soc_grant. 1--&gt; mask the IRQ; 0 --&gt; Unmask the IRQ" id="socgrnt" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" description="reserved" id="reserved_interrupt_mask" resetval="0x0" />
+	</register>
+	<register acronym="COEX_ANT_CONTROL_CFG_01" id="coex_ant_control_cfg_01" width="32" description="Antenna Control Configuration 1." offset="0xc0">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="0- External enable 1- BLE only enable 2- WiFi only enable" id="grantov" resetval="0x0" />
+		<bitfield width="3" end="4" begin="6" rwaccess="RW" description="0- External mask mode 1- BLE Only        2- WiFi Only" id="swengrnt" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="reserved." id="reserved_0" resetval="0x0" />
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="antenna control Mux override      &lt;2&gt;" id="antctlov" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="SW Enable register     &lt;4&gt;" id="swantctl" resetval="0x0" />
+		<bitfield width="2" end="16" begin="17" rwaccess="RW" description="Bit 0 - SW index value Bit 1 - SW index override" id="swidx" resetval="0x0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="reserved." id="reserved_1" resetval="0x0" />
+		<bitfield width="2" end="10" begin="11" rwaccess="RO" description="reserved." id="reserved_0_3" resetval="0x0" />
+		<bitfield width="2" end="18" begin="19" rwaccess="RO" description="reserved." id="reserved_0_4" resetval="0x0" />
+		<bitfield width="2" end="20" begin="21" rwaccess="RW" description="FW padding for Wifi Core inputs for output mux" id="gpiowifiex" resetval="0x0" />
+		<bitfield width="10" end="22" begin="31" rwaccess="RO" description="reserved." id="reserved_5" resetval="0x0" />
+	</register>
+	<register acronym="COEX_ANT_CONTROL_CFG_02" id="coex_ant_control_cfg_02" width="32" description="Antenna Control Configuration 2." offset="0xc4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="index 0 - GPIO ANT Polarity 6x4. Mem is statically set on init" id="antidx0" resetval="0x0" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="index 1 - GPIO ANT Polarity 6x4. Mem is statically set on init" id="antidx1" resetval="0x0" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="index 2 - GPIO ANT Polarity 6x4. Mem is statically set on init" id="antidx2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="index 3 - GPIO ANT Polarity 6x4. Mem is statically set on init" id="antidx3" resetval="0x0" />
+		<bitfield width="4" end="16" begin="19" rwaccess="RW" description="index 4 - GPIO ANT Polarity 6x4. Mem is statically set on init" id="antidx4" resetval="0x0" />
+		<bitfield width="4" end="20" begin="23" rwaccess="RW" description="index 5 - GPIO ANT Polarity 6x4. Mem is statically set on init" id="antidx5" resetval="0x0" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" description="reserved." id="reserved_0" resetval="0x0" />
+	</register>
+	<register acronym="ANT_CTRL_STATUS_REG" id="ant_ctrl_status_reg" width="32" description="Antenna Control Status." offset="0xc8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Captures the ant_sel_0 bit." id="antsel0" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Captures the ant_sel_1 bit." id="antsel1" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Captures the ant_sel_2 bit ." id="antsel2" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Captures the ant_sel_3 bit." id="antsel3" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="reserved." id="reserved_ant_sel_gpio_status" resetval="0x0" />
+	</register>
+</module>

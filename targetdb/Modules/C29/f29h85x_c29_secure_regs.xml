@@ -1,0 +1,56 @@
+<module id="C29_SECURE_REGS" HW_revision="" description="C29 SECURE Registers">
+	<register id="SECSP0" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 0">
+		<bitfield id="SP0" description="Stack pointer 0" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SECSP1" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 1">
+		<bitfield id="SP1" description="Stack pointer 1" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SECSP2" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 2">
+		<bitfield id="SP2" description="Stack pointer 2" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SECSP3" width="32" page="0" offset="0xc" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 3">
+		<bitfield id="SP3" description="Stack pointer 3" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SECSP4" width="32" page="0" offset="0x10" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 4">
+		<bitfield id="SP4" description="Stack pointer 4" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SECSP5" width="32" page="0" offset="0x14" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 5">
+		<bitfield id="SP5" description="Stack pointer 5" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SECSP6" width="32" page="0" offset="0x18" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 6">
+		<bitfield id="SP6" description="Stack pointer 6" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SECSP7" width="32" page="0" offset="0x1c" instances="1" instaddr="4" internal="0" description="Secure Stackpointer 7">
+		<bitfield id="SP7" description="Stack pointer 7" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="PSP" width="32" page="0" offset="0x80" instances="1" instaddr="4" internal="0" description="Protected call stack pointer">
+		<bitfield id="PSP" description="Protected call stack pointer" begin="11" end="0" width="12" rwaccess="R"/>
+	</register>
+	<register id="WARNPSP" width="32" page="0" offset="0x84" instances="1" instaddr="4" internal="0" description="Warning level register for protected call stack pointer">
+		<bitfield id="WARNPSP" description="Warning level for protected call stack pointer" begin="11" end="0" width="12" rwaccess="RW"/>
+	</register>
+	<register id="MAXPSP" width="32" page="0" offset="0x88" instances="1" instaddr="4" internal="0" description="Maximum levels of protected calls supported by the HW">
+		<bitfield id="MAXPSP" description="Maximum levels of protected calls supported by the HW" begin="11" end="0" width="12" rwaccess="R"/>
+	</register>
+	<register id="REVISION" width="32" page="0" offset="0x8c" instances="1" instaddr="4" internal="0" description="IP revision id register">
+		<bitfield id="MINREV" description="Minor Revision Number" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="MAJREV_Revision" description="Major Revision Number" begin="10" end="8" width="3" rwaccess="R"/>
+		<bitfield id="MAJREV_FPU64_PRESENT" description="FPU64 Present" begin="11" end="11" width="1" rwaccess="R"/>
+		<bitfield id="MAJREV_TMU64_PRESENT" description="TMU64 Present" begin="12" end="12" width="1" rwaccess="R"/>
+		<bitfield id="MAJREV_CPUCONFIG" description="CPU configuration" begin="15" end="13" width="3" rwaccess="R"/>
+	</register>
+	<register id="C29_REGS_LOCK" width="32" page="0" offset="0x90" instances="1" instaddr="4" internal="0" description="Lock register">
+		<bitfield id="C29_RTINT_STACK" description="C29 RTINT stack registers Lock" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="C29_SECCALL_STACK" description="C29 SECCALL stack registers Lock" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="C29_SECURE_REGS" description="C29 SECURE registers Lock" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="C29_DIAG_REGS" description="C29 DIAG registers Lock" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="C29_SELFTEST_REGS" description="C29 Selftest registers Lock" begin="5" end="5" width="1" rwaccess="RW"/>
+	</register>
+	<register id="C29_REGS_COMMIT" width="32" page="0" offset="0x94" instances="1" instaddr="4" internal="0" description="Commit register">
+		<bitfield id="C29_RTINT_STACK" description="C29 RTINT stack registers Commit" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="C29_SECCALL_STACK" description="C29 SECCALL stack registers Commit" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="C29_SECURE_REGS" description="C29 SECURE registers Commit" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="C29_DIAG_REGS" description="C29 DIAG registers Commit" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="C29_SELFTEST_REGS" description="C29 Selftest registers Commit" begin="5" end="5" width="1" rwaccess="RW"/>
+	</register>
+</module>

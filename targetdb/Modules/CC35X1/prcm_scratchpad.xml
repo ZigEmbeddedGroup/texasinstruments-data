@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<module id="PRCM_SCRATCHPAD" XML_version="1.0" description="">
+	<register acronym="PRCM_SCPAD1" id="prcm_scpad1" width="32" description="PRCM SCRATCHPAD
+
+m3 messages which should survive AON Reset and provide additional info on reset cause:
+
+Critical error types + indication if reset applied for this error-  number of bits? 
+Max number of failures for reset apply - one common value for all errors with reset apply set
+Counter" offset="0x0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="VALUE LINE 1
+
+Scratch pad line 1" id="VAL" resetval="0x0"/>
+	</register>
+	<register acronym="PRCM_RESET_CAUSE" id="prcm_reset_cause" width="32" description="RESET CAUSE
+
+OSPREY PRCM AON scratch pad, this register bank is not deleted in SOC AON RESET and kept through reset/low power and brownout events" offset="0x4">
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" description="CLEAR
+
+write clear
+
+Reset cause clear on write - first initiate relevant source reset clear
+RVM - RVMTRIMCTL.RVMRSTCAUSCLR
+BOD - BODCTL.RSTCAUSECLR
+DEBUGSS - PMURSTCLR.DBGSSCAUS
+WDT - PMURSTCLR.WDTCAUS" id="CLR" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="RVM low detect of fault injection  ; applicable only when protection RVML is disabled" id="RVML" resetval="0x0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="RVM high detect of fault injection ; applicable only when protection RVMH is disabled" id="RVMH" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="SOC AON
+
+Device self reset (SOC AON by CORE )" id="SOCAON" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="DEBUGSS REQUEST
+
+Debug req reset" id="DBGSS" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="SOC AON by HOST" id="SOCAONH" resetval="0x0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="OUT OF SLEEP
+
+Exit sleep on wakeup event only" id="OOFSLP" resetval="0x0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="M33 CORE SL START
+
+Core CONN STOP (M33 driven)" id="M33CRSLSTA" resetval="0x0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="BOD;  applicable only when protection BOD  is disabled" id="BOD" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="M33 WATCH DOG" id="M33WD" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="spare" id="Reserved_2_2" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="POR" id="POR" resetval="0x0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Reset line" id="RSTLINE" resetval="0x0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="M3 Watch Dog" id="M3WD" resetval="0x0"/>
+		<bitfield width="15" end="17" begin="31" rwaccess="RW" description="spare" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="PRCM_SCPAD0" id="prcm_scpad0" width="32" description="OSPREY PRCM AON scratch pad, this register bank is not deleted in SOC AON RESET and kept through reset/low power and brownout events 
+
+keep approved authenticated debug requests locked to allow OTA debug 
+
+allow write only during M3 boot - M3 Privilege mode (before soc_boot_done)
+
+Allow read by M3/M33 according to configuration/firewall" offset="0x8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="VALUE LINE 0
+
+Scratch pad line 0" id="VAL" resetval="0x0"/>
+	</register>
+	<register acronym="PRCM_SCPAD_LOCK" id="prcm_scpad_lock" width="32" description="OSPREY PRCM AON scratch pad, this register bank is not deleted in SOC AON RESET and kept through reset/low power and brownout events 
+Lock is released on power on reset 
+
+allow write only during M3 boot - M3 Privilege mode (before soc_boot_done)" offset="0xc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="SCRATCHPAD LOCK" id="SPLOCK" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RW" description="spare" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="PRCM_SCPAD2" id="prcm_scpad2" width="32" description="PRCM SCRATCHPAD 2
+
+m33 messages which should survive AON Reset:
+
+OTA info -number of bits?
+Critical error types + indication if reset applied for this error-  number of bits?" offset="0x1000">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="VALUE LINE 2
+
+Scratch pad line 2" id="VAL" resetval="0x0"/>
+	</register>
+</module>

@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="GSC" HW_revision="0.1">
+    <register id="GSC_SPC_ATTRIBVIOLS_CONFIG" width="32" offset="0x1000" description="SRAM Secure Access Attribute Violation Configuration Register">
+        <bitfield id="SECVIOL" description="Controls the behavior of secure access to non-secure SRAM #br#0: Access is allowed #br#1: Access generates bus-fault and NMI" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_ATTRIBVIOLP_CONFIG" width="32" offset="0x1004" description="SRAM Privilege Access Attribute Violation Configuration Register">
+        <bitfield id="PRIVVIOL" description="Controls the behavior of privilege access to non-privilege SRAM #br#0: Access is allowed #br#1: Access generates bus-fault and NMI" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_ATTRIBVIOLS_CONFIG" width="32" offset="0x1010" description="Peripheral Secure Access Attribute Violation Configuration Register">
+        <bitfield id="SECVIOL" description="Controls the behavior of secure access to non-secure peripheral #br#0: Access is allowed #br#1: Access generates bus-fault and NMI" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_ATTRIBVIOLP_CONFIG" width="32" offset="0x1014" description="Peripheral Privilege Access Attribute Violation Configuration Register">
+        <bitfield id="PRIVVIOL" description="Controls the behavior of privilege access to non-privilege peripherals #br#0: Access is allowed #br#1: Access generates bus-fault and NMI" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ATTRIBVIOLS_CONFIG" width="32" offset="0x1020" description="Flash Secure Access Attribute Violation Configuration Register">
+        <bitfield id="SECVIOL" description="Controls the behavior of secure access to non-secure Flash #br#0: Access is allowed #br#1: Access generates bus-fault and NMI" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ATTRIBVIOLP_CONFIG" width="32" offset="0x1024" description="Flash Privilege Access Attribute Violation Configuration Register">
+        <bitfield id="PRIVVIOL" description="Controls the behavior of privilege access to non-privilege Flash #br#0: Access is allowed #br#1: Access generates bus-fault and NMI" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_HDPPROT0_CONFIG" width="32" offset="0x1040" description="Flash Hide Protection for Bank0 Configuration Register">
+        <bitfield id="HDPEND" description="Sector number where hide protection ends" begin="7" end="0" width="8" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPSTART" description="Sector number where hide protection starts" begin="23" end="16" width="8" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_HDPPROT1_CONFIG" width="32" offset="0x1044" description="Flash Hide Protection for Bank1 Configuration Register">
+        <bitfield id="HDPEND" description="Sector number where hide protection ends" begin="7" end="0" width="8" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPSTART" description="Sector number where hide protection starts" begin="23" end="16" width="8" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_HDPPROT_CONTROL" width="32" offset="0x104C" description="Flash Hide Protection Control Register">
+        <bitfield id="HDPPROT0ACCDIS" description="Enables the FPC_HDPPROT0_CONFIG to take effect. #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPPROT1ACCDIS" description="Enables the FPC_HDPPROT1_CONFIG to take effect. #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_HDPEN_CONTROL" width="32" offset="0x1050" description="Flash Hide Protection Enable Control Register">
+        <bitfield id="HDPEN" description="HDP mode enable. This bit is set in the OTP during provisioning.  #br#0: HDP mode is not used #br#1: HDP mode is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN0_HDPPROT_CONTROL" width="32" offset="0x1054" description="Flash NONMAIN Bank0 Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to NONMAIN region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN1_HDPPROT_CONTROL" width="32" offset="0x1058" description="Flash NONMAIN Bank1 Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to NONMAIN region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_TRIM0_HDPPROT_CONTROL" width="32" offset="0x105C" description="Flash TRIM Bank0 Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to TRIM region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPROTACCDIS1" description="No functionality implemented for this bit" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_TRIM1_HDPPROT_CONTROL" width="32" offset="0x1060" description="Flash TRIM Bank1 Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to TRIM region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPROTACCDIS1" description="No functionality implemented for this bit" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR0_HDPPROT_CONTROL" width="32" offset="0x1064" description="Flash ENGR Bank0 Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to ENGR region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPROTACCDIS1" description="No functionality implemented for this bit" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR1_HDPPROT_CONTROL" width="32" offset="0x1068" description="Flash ENGR Bank1 Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to ENGR region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPROTACCDIS1" description="No functionality implemented for this bit" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_HDPPROT_DBANK_CONFIG" width="32" offset="0x1080" description="Data Flash Hide Protection Configuration Register">
+        <bitfield id="HDPEND" description="Sector number where hide protection ends" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPSTART" description="Sector number where hide protection starts" begin="19" end="16" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_HDPPROT_DBANK_CONTROL" width="32" offset="0x1084" description="Data Flash Hide Protection Control Register">
+        <bitfield id="HDPPROTACCDIS" description="Enables the HDP register to take effect for Databank #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_HDPEN_DBANK_CONTROL" width="32" offset="0x1088" description="Data Flash Hide Protection Enable Control Register">
+        <bitfield id="HDPEN" description="HDP mode enable. This bit is set in the OTP during provisioning and copied from the OTP memory during boot by BOOTROM.  #br#0: HDP mode is not used #br#1: HDP mode is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN_HDPPROT_DBANK_CONTROL" width="32" offset="0x108C" description="Data Flash NONMAIN Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to NONMAIN region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_TRIM_HDPPROT_DBANK_CONTROL" width="32" offset="0x1090" description="Data Flash TRIM Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to TRIM region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR_HDPPROT_DBANK_CONTROL" width="32" offset="0x1094" description="Data Flash ENGR Hide Protection Control Register">
+        <bitfield id="HDPROTACCDIS" description="Enable HDP access to ENGR region #br#0: HDP region access is enabled #br#1: HDP region access is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="HDPROTACCDIS1" description="No functionality implemented for this bit" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_ADC" width="32" offset="0x1100" description="Peripheral Secure Access ADC">
+        <bitfield id="SEC_ADC0" description="Secure access enabled to ADC0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_ADC1" description="Secure access enabled to ADC1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_TIMER" width="32" offset="0x1108" description="Peripheral Secure Access Timer">
+        <bitfield id="SEC_TIMA0_0" description="Secure access enabled to TIMA0_0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMA0_1" description="Secure access enabled to TIMA0_1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMG4_0" description="Secure access enabled to TIMG4_0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMG4_1" description="Secure access enabled to TIMG4_1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMG4_2" description="Secure access enabled to TIMG4_2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMG4_3" description="Secure access enabled to TIMG4_3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMG12_0" description="Secure access enabled to TIMG12_0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMG8_0" description="Secure access enabled to TIMG8_0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_TIMG8_1" description="Secure access enabled to TIMG8_1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_UNICOMM" width="32" offset="0x1110" description="Peripheral Secure Access UniComm">
+        <bitfield id="SEC_S0U1" description="Secure access enabled to UniComm S0U1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S0U2" description="Secure access enabled to UniComm S0U2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S1U0" description="Secure access enabled to UniComm S1U0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S1U2" description="Secure access enabled to UniComm S1U2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S1U3" description="Secure access enabled to UniComm S1U3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S1U4" description="Secure access enabled to UniComm S1U4 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S1U5" description="Secure access enabled to UniComm S1U5 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S2U0" description="Secure access enabled to UniComm S2U0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="7" end="7" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S2U1" description="Secure access enabled to UniComm S2U1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S2U2" description="Secure access enabled to UniComm S2U2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_S2U3" description="Secure access enabled to UniComm S2U3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_GPIO" width="32" offset="0x1118" description="Peripheral Secure Access GPIO">
+        <bitfield id="SEC_GPIOA" description="Secure access enabled to GPIO A #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_GPIOB" description="Secure access enabled to GPIO B #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_GPIOC" description="Secure access enabled to GPIO C #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_MCAN" width="32" offset="0x1120" description="Peripheral Secure Access CAN">
+        <bitfield id="SEC_MCAN0" description="Secure access enabled to MCAN 0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_MCAN1" description="Secure access enabled to MCAN 1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_I2S" width="32" offset="0x1128" description="Peripheral Secure Access I2S">
+        <bitfield id="SEC_I2S0" description="Secure access enabled to I2S 0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_I2S1" description="Secure access enabled to I2S 1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_ACOMP" width="32" offset="0x1130" description="Peripheral Secure Access Analog Comp">
+        <bitfield id="SEC_ACOMP0" description="Secure access enabled to Comparator 0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_ACOMP1" description="Secure access enabled to Comparator 1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_WDT" width="32" offset="0x1138" description="Peripheral Secure Access Watchdog">
+        <bitfield id="SEC_WWDT" description="Secure access enabled to Windowed Watchdog #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_LFSS" width="32" offset="0x1140" description="Peripheral Secure Access LFSS">
+        <bitfield id="SEC_LFSS" description="Secure access enabled to LFSS (including peripherals inside LFSS e.g. IWDT) #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_CRC" width="32" offset="0x1148" description="Peripheral Secure Access CRC">
+        <bitfield id="SEC_CRC" description="Secure access enabled to CRC #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_AES" width="32" offset="0x1150" description="Peripheral Secure Access AES">
+        <bitfield id="SEC_AES" description="Secure access enabled to AES #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_SHA" width="32" offset="0x1158" description="Peripheral Secure Access SHA">
+        <bitfield id="SEC_SHA" description="Secure access enabled to SHA #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_PKA" width="32" offset="0x1160" description="Peripheral Secure Access PKA">
+        <bitfield id="SEC_PKA" description="Secure access enabled to PKA #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_IOMUX" width="32" offset="0x1168" description="Peripheral Secure Access IOMUX">
+        <bitfield id="SEC_IOMUX" description="Secure access enabled to IOMUX #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_QSPI" width="32" offset="0x1170" description="Peripheral Secure Access QSPI">
+        <bitfield id="SEC_QSPI" description="Secure access enabled to QSPI #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_TRNG" width="32" offset="0x1178" description="Peripheral Secure Access TRNG">
+        <bitfield id="SEC_TRNG" description="Secure access enabled to TRNG #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_DEBUGSS" width="32" offset="0x1180" description="Peripheral Secure Access DEBUGSS">
+        <bitfield id="SEC_DEBUGSS" description="Secure access enabled to DEBUGSS #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_VREF" width="32" offset="0x1188" description="Peripheral Secure Access VREF">
+        <bitfield id="SEC_VREF" description="Secure access enabled to VREF #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_KEYSTORECTL" width="32" offset="0x1190" description="Peripheral Secure Access KEYSTORECTL">
+        <bitfield id="SEC_KEYSTORECTL" description="Secure access enabled to KEYSTORECTL #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_EAM" width="32" offset="0x1198" description="Peripheral Secure Access EAM">
+        <bitfield id="SEC_EAM" description="Secure access enabled to EAM #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_WUC" width="32" offset="0x11A0" description="Peripheral Secure Access WUC">
+        <bitfield id="SEC_WUC" description="Secure access enabled to WUC #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_FRIREGS" width="32" offset="0x11A8" description="Peripheral Secure Access FRIREGS">
+        <bitfield id="SEC_FRIREGS" description="Secure access enabled to FRIREGS #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_MEMCFG" width="32" offset="0x11B0" description="Peripheral Secure Access MEMCFG">
+        <bitfield id="SEC_MEMCFG" description="Secure access enabled to MEMCFG #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_SYSCTL" width="32" offset="0x1208" description="Peripheral Secure Access System Control">
+        <bitfield id="SEC_SYSCTL" description="Secure access enabled to SYSCTL #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_PRIVATTRIB_SYSCTL" width="32" offset="0x120C" description="Peripheral Privilege Access System Control">
+        <bitfield id="PRIV_SYSCTL" description="Privilege access enabled to SYSCTL #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_DMA" width="32" offset="0x1210" description="Peripheral Secure Access DMA">
+        <bitfield id="SEC_DMA0" description="Secure access enabled to DMA0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SEC_DMA1" description="Secure access enabled to DMA1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_PRIVATTRIB_DMA" width="32" offset="0x1214" description="Peripheral Privilege Access DMA">
+        <bitfield id="PRIV_DMA0" description="Privilege access enabled to DMA0 #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="PRIV_DMA1" description="Privilege access enabled to DMA1 #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SECATTRIB_GSC" width="32" offset="0x1218" description="Peripheral Secure Access GSC">
+        <bitfield id="SEC_GSC" description="Secure access enabled to GSC #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_PRIVATTRIB_GSC" width="32" offset="0x121C" description="Peripheral Privilege Access GSC">
+        <bitfield id="PRIV_GSC" description="Privilege access enabled to GSC #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SPARERW_GSC" width="32" offset="0x1220" description="Peripheral Spare RW Register">
+        <bitfield id="ZERO_PKASRAM" description="Controls the zeroization of PKA SRAM #br#0: PKA SRAM zeroization is enabled #br#1: PKA SRAM zeroization is disabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_PPC_SPARERW1S_GSC" width="32" offset="0x1224" description="Peripheral Spare RW1S Register">
+    </register>
+    <register id="GSC_SPC_SECATTRIB0" width="32" offset="0x1280" description="SRAM Secure Attribute-0 Register">
+        <bitfield id="C0B0_512B" description="Secure access enabled to 1st 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="Secure access enabled to 1KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="Secure access enabled to 2KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="Secure access enabled to 1st 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="Secure access enabled to 1st 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="Secure access enabled to 1KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="Secure access enabled to 2KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="Secure access enabled to 1st 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="Secure access enabled to 1st 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="Secure access enabled to 1KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="Secure access enabled to 2KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="Secure access enabled to 1st 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="Secure access enabled to 1st 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="Secure access enabled to 1KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="Secure access enabled to 2KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="Secure access enabled to 1st 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_SECATTRIB1" width="32" offset="0x1284" description="SRAM Secure Attribute-1 Register">
+        <bitfield id="C0B0_512B" description="Secure access enabled to 1st 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="Secure access enabled to 1KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="Secure access enabled to 2KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="Secure access enabled to 1st 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="Secure access enabled to 1st 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="Secure access enabled to 1KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="Secure access enabled to 2KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="Secure access enabled to 1st 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="Secure access enabled to 1st 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="Secure access enabled to 1KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="Secure access enabled to 2KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="Secure access enabled to 1st 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="Secure access enabled to 1st 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="Secure access enabled to 1KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="Secure access enabled to 2KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="Secure access enabled to 1st 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_SECATTRIB2" width="32" offset="0x1288" description="SRAM Secure Attribute-2 Register">
+        <bitfield id="C0B0_512B" description="Secure access enabled to 1st 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="Secure access enabled to 1KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="Secure access enabled to 2KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="Secure access enabled to 1st 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="Secure access enabled to 1st 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="Secure access enabled to 1KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="Secure access enabled to 2KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="Secure access enabled to 1st 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="Secure access enabled to 1st 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="Secure access enabled to 1KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="Secure access enabled to 2KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="Secure access enabled to 1st 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="Secure access enabled to 1st 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="Secure access enabled to 1KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="Secure access enabled to 2KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="Secure access enabled to 1st 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_SECATTRIB3" width="32" offset="0x128C" description="SRAM Secure Attribute-3 Register">
+        <bitfield id="C0B0_512B" description="Secure access enabled to 1st 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="Secure access enabled to 1KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="Secure access enabled to 2KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="Secure access enabled to 1st 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-0 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="Secure access enabled to 1st 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="Secure access enabled to 1KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="Secure access enabled to 2KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="Secure access enabled to 1st 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-1 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="Secure access enabled to 1st 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="Secure access enabled to 1KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="Secure access enabled to 2KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="Secure access enabled to 1st 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-2 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="Secure access enabled to 1st 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="Secure access enabled to 2nd 512 byte in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="Secure access enabled to 1KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="Secure access enabled to 2KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="Secure access enabled to 1st 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="Secure access enabled to 2nd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="Secure access enabled to 3rd 4KB in chunk-3 #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_PRIVATTRIB0" width="32" offset="0x12C0" description="SRAM Privilege Attribute-0 Register">
+        <bitfield id="C0B0_512B" description="privilege access enabled to 1st 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="privilege access enabled to 1KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="privilege access enabled to 2KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="privilege access enabled to 1st 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="privilege access enabled to 1st 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="privilege access enabled to 1KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="privilege access enabled to 2KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="privilege access enabled to 1st 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="privilege access enabled to 1st 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="privilege access enabled to 1KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="privilege access enabled to 2KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="privilege access enabled to 1st 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="privilege access enabled to 1st 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="privilege access enabled to 1KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="privilege access enabled to 2KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="privilege access enabled to 1st 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_PRIVATTRIB1" width="32" offset="0x12C4" description="SRAM Privilege Attribute-1 Register">
+        <bitfield id="C0B0_512B" description="privilege access enabled to 1st 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="privilege access enabled to 1KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="privilege access enabled to 2KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="privilege access enabled to 1st 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="privilege access enabled to 1st 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="privilege access enabled to 1KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="privilege access enabled to 2KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="privilege access enabled to 1st 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="privilege access enabled to 1st 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="privilege access enabled to 1KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="privilege access enabled to 2KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="privilege access enabled to 1st 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="privilege access enabled to 1st 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="privilege access enabled to 1KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="privilege access enabled to 2KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="privilege access enabled to 1st 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_PRIVATTRIB2" width="32" offset="0x12C8" description="SRAM Privilege Attribute-2 Register">
+        <bitfield id="C0B0_512B" description="privilege access enabled to 1st 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="privilege access enabled to 1KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="privilege access enabled to 2KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="privilege access enabled to 1st 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="privilege access enabled to 1st 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="privilege access enabled to 1KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="privilege access enabled to 2KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="privilege access enabled to 1st 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="privilege access enabled to 1st 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="privilege access enabled to 1KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="privilege access enabled to 2KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="privilege access enabled to 1st 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="privilege access enabled to 1st 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="privilege access enabled to 1KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="privilege access enabled to 2KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="privilege access enabled to 1st 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_SPC_PRIVATTRIB3" width="32" offset="0x12CC" description="SRAM Privilege Attribute-3 Register">
+        <bitfield id="C0B0_512B" description="privilege access enabled to 1st 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_1KB" description="privilege access enabled to 1KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_2KB" description="privilege access enabled to 2KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B0_4KB" description="privilege access enabled to 1st 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="4" end="4" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C0B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-0 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_512B" description="privilege access enabled to 1st 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="8" end="8" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="9" end="9" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_1KB" description="privilege access enabled to 1KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="10" end="10" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_2KB" description="privilege access enabled to 2KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="11" end="11" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B0_4KB" description="privilege access enabled to 1st 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="12" end="12" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="13" end="13" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C1B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-1 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="14" end="14" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_512B" description="privilege access enabled to 1st 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="16" end="16" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="17" end="17" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_1KB" description="privilege access enabled to 1KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="18" end="18" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_2KB" description="privilege access enabled to 2KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="19" end="19" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B0_4KB" description="privilege access enabled to 1st 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="20" end="20" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="21" end="21" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C2B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-2 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="22" end="22" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_512B" description="privilege access enabled to 1st 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="24" end="24" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_512B" description="privilege access enabled to 2nd 512 byte in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="25" end="25" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_1KB" description="privilege access enabled to 1KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="26" end="26" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_2KB" description="privilege access enabled to 2KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="27" end="27" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B0_4KB" description="privilege access enabled to 1st 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="28" end="28" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B1_4KB" description="privilege access enabled to 2nd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="29" end="29" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="C3B2_4KB" description="privilege access enabled to 3rd 4KB in chunk-3 #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="30" end="30" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_SECATTRIBA0" width="32" offset="0x1300" description="Flash Secure Attribute Register A0">
+    </register>
+    <register id="GSC_FPC_SECATTRIBA1" width="32" offset="0x1304" description="Flash Secure Attribute Register A1">
+    </register>
+    <register id="GSC_FPC_SECATTRIBB0" width="32" offset="0x1308" description="Flash Secure Attribute Register B0">
+        <bitfield id="SEC_PAGE" description="Secure access enable for 64KB-512KB flash with each bit representing 8 sectors of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="31" end="4" width="28" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_SECATTRIBB1" width="32" offset="0x130C" description="Flash Secure Attribute Register B1">
+        <bitfield id="SEC_PAGE" description="Secure access enable for 64KB-512KB flash with each bit representing 8 sectors of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="31" end="4" width="28" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN_SECATTRIB0" width="32" offset="0x1310" description="Flash Non-Main Secure Attribute Register 0">
+        <bitfield id="SEC_PAGE" description="Secure access enable for first 4 sectors of flash with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN_SECATTRIB1" width="32" offset="0x1314" description="Flash Non-Main Secure Attribute Register 1">
+        <bitfield id="SEC_PAGE" description="Secure access enable for first 4 sectors of flash with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_TRIM_SECATTRIB0" width="32" offset="0x1318" description="Flash Trim Secure Attribute Register 0">
+        <bitfield id="SEC_PAGE" description="Secure access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_TRIM_SECATTRIB1" width="32" offset="0x131C" description="Flash Trim Secure Attribute Register 1">
+        <bitfield id="SEC_PAGE" description="Secure access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR_SECATTRIB0" width="32" offset="0x1320" description="Flash Engr Secure Attribute Register 0">
+        <bitfield id="SEC_PAGE" description="Secure access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR_SECATTRIB1" width="32" offset="0x1324" description="Flash Engr Secure Attribute Register 1">
+        <bitfield id="SEC_PAGE" description="Secure access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_SECATTRIBA_DFLASH" width="32" offset="0x1380" description="Data Flash Secure Attribute Register A">
+        <bitfield id="SEC_PAGE_DFLASH" description="Secure access enable for first 16 sectors data flash page with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="15" end="0" width="16" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR_SECATTRIB_DFLASH" width="32" offset="0x1384" description="Data Flash ENGR Secure Attribute Register">
+        <bitfield id="SEC_PAGE_DFLASH" description="Secure access enable for 1 sector of 2KB  #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN_SECATTRIB_DFLASH" width="32" offset="0x1388" description="Data Flash Non-Main Secure Attribute Register">
+        <bitfield id="SEC_PAGE_DFLASH" description="Secure access enable for 4 sector  with each bit representing 1 sector of 2KB #br#0: Non-secure access is enabled #br#1: Secure access is enabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_PRIVATTRIBA0" width="32" offset="0x1400" description="Flash Privilege Attribute Register A0">
+    </register>
+    <register id="GSC_FPC_PRIVATTRIBA1" width="32" offset="0x1404" description="Flash Privilege Attribute Register A1">
+    </register>
+    <register id="GSC_FPC_PRIVATTRIBB0" width="32" offset="0x1408" description="Flash Privilege Attribute Register B0">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for 64KB-512KB flash with each bit representing 8 sectors of 2KB #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="31" end="4" width="28" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_PRIVATTRIBB1" width="32" offset="0x140C" description="Flash Privilege Attribute Register B1">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for 64KB-512KB flash with each bit representing 8 sectors of 2KB #br#0: Non-privilege access is enabled #br#1: privilege access is enabled" begin="31" end="4" width="28" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN_PRIVATTRIB0" width="32" offset="0x1410" description="Flash Non-Main Privilege Attribute Register B0">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for first 4 sectors of flash with each bit representing 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN_PRIVATTRIB1" width="32" offset="0x1414" description="Flash Non-Main Privilege Attribute Register B1">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for first 4 sectors of flash with each bit representing 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_TRIM_PRIVATTRIB0" width="32" offset="0x1418" description="Flash Trim Privilege Attribute Register B0">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_TRIM_PRIVATTRIB1" width="32" offset="0x141C" description="Flash Trim Privilege Attribute Register B1">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR_PRIVATTRIB0" width="32" offset="0x1420" description="Flash Engr Privilege Attribute Register B0">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR_PRIVATTRIB1" width="32" offset="0x1424" description="Flash Engr Privilege Attribute Register B1">
+        <bitfield id="PRIV_PAGE" description="Privilege access enable for the flash with each bit representing 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_PRIVATTRIBA_DFLASH" width="32" offset="0x1480" description="Data Flash Privilege Attribute Register">
+        <bitfield id="PRIV_PAGE_DFLASH" description="Privilege access enable for first 16 sectors data flash page with each bit representing 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="15" end="0" width="16" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_NONMAIN_PRIVATTRIB_DFLASH" width="32" offset="0x1484" description="Data Flash NONMAIN Privilege Attribute Register">
+        <bitfield id="PRIV_PAGE_DFLASH" description="Privilege access enable for 4 sectors each of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_ENGR_PRIVATTRIB_DFLASH" width="32" offset="0x1488" description="Data Flash ENGR Privilege Attribute Register">
+        <bitfield id="PRIV_PAGE_DFLASH" description="Privilege access enable for 1 sector of 2KB #br#0: Non-Privilege access is enabled #br#1: Privilege access is enabled" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROTA0" width="32" offset="0x1600" description="Flash Write Protect Attribute Register A0">
+    </register>
+    <register id="GSC_FPC_WEPROTA1" width="32" offset="0x1604" description="Flash Write Protect Attribute Register A1">
+    </register>
+    <register id="GSC_FPC_WEPROTB0" width="32" offset="0x1608" description="Flash Write Protect Attribute Register B0">
+    </register>
+    <register id="GSC_FPC_WEPROTB1" width="32" offset="0x160C" description="Flash Write Protect Attribute Register B1">
+    </register>
+    <register id="GSC_FPC_WEPROTNONMAIN0" width="32" offset="0x1610" description="Flash Non-Main Write Protect Attribute Register B0">
+        <bitfield id="WEPROT_PAGE" description="Write protection enable for first 4 sectors of flash with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROTNONMAIN1" width="32" offset="0x1614" description="Flash Non-Main Write Protect Attribute Register B1">
+        <bitfield id="WEPROT_PAGE" description="Write protection enable for first 4 sectors of flash with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROTTRIM0" width="32" offset="0x1618" description="Flash Trim Write Protect Attribute Register B0">
+        <bitfield id="WEPROT_PAGE" description="Write protection enable for first 2 sectors of flash with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROTTRIM1" width="32" offset="0x161C" description="Flash Trim Write Protect Attribute Register B1">
+        <bitfield id="WEPROT_PAGE" description="Write protection enable for first 2 sectors of flash with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROTENGR0" width="32" offset="0x1620" description="Flash Engr Write Protect Attribute Register B0">
+        <bitfield id="WEPROT_PAGE" description="Write protection enable for first 2 sectors of flash with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROTENGR1" width="32" offset="0x1624" description="Flash Engr Write Protect Attribute Register B1">
+        <bitfield id="WEPROT_PAGE" description="Write protection enable for first 2 sectors of flash with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROTA_DFLASH" width="32" offset="0x1700" description="Data Flash Write Protect Attribute Register A">
+        <bitfield id="WEPROT_PAGE_DFLASH" description="Write protection enable for first 16 sectors data flash page with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="15" end="0" width="16" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="WEPROT_PAGE_DFLASH_RSVD" description="No functionality implemented for these bits" begin="31" end="16" width="16" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROT_NONMAIN_DFLASH" width="32" offset="0x1704" description="DATA Flash Non- Main Write Protect Attribute Register">
+        <bitfield id="WEPROT_PAGE_DFLASH" description="Write protection enable for NONMAIN sectors data flash page with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_WEPROT_ENGR_DFLASH" width="32" offset="0x1708" description="DATA Flash ENGR Write Protect Attribute Register">
+        <bitfield id="WEPROT_PAGE_DFLASH" description="Write protection enable for ENGR data flash page with each bit representing 1 sector of 2KB #br#0: Page is not erase/program protected #br#1: Page is erase/program protected" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_FLSEMREQ" width="32" offset="0x1800" description="Flash semaphore request register">
+        <bitfield id="REQ" description="If the FLSEMSTAT.ASSIGNED bit is cleared, writing a '1' to this bit  causes: #br#  1) Load the SECURE attribute  of the code performing the write into the FLSEMSTAT.SEC bit field, and #br#  2) Load the Privilage attribute of the code performing the write into the FLSEMSTAT.PRIV bit field, and #br# 3) Set the FLSEMSTAT.ASSIGNED bit. #br#If the FLSEMSTAT.ASSIGNED is already set when a write to this bit occurs, the write will be ignored.  #br# #br#If the above conditions are not met during the write, the write will be ignored with no error indicator. It is advised that the writing code perform a read of the FLSEMSTAT register  to ensure it was set after writing to this bit." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_FLSEMCLR" width="32" offset="0x1804" description="Flash semaphore release register">
+        <bitfield id="CLR" description="If the following conditions are met, a write of '1' to this bit causes the FLSEMSTAT register to its reset state: #br#  1) The FLSEMSTAT.SEC  of the code performing the write is 0x1 and FLSEMSTAT.PRIV of the code performing the write is 0x1 (i.e. secure privilage code can force relinquishing of the semaphore) or #br#  2) FLSEMSTAT.ASSIGNED bit is set, and #br#      a) FLSEMSTAT.SEC  matches security attribute of the code performing the write, and #br#      b) FLSEMSTAT.PRIV  matches privilege attribute code performing the write. #br# #br#If the above conditions are not met during the write, the write will be ignored with no error indicated. It is advised that the writing code perform a read of the FLSEMSTAT register  to ensure it was cleared after writing to this bit." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_FPC_FLSEMSTAT" width="32" offset="0x1808" description="Flash semaphore statys registers">
+        <bitfield id="SEC" description="Defines the flash controller semaphore owners security attribute #br#  0x0 : non-secure #br#  0x1 :secure" begin="0" end="0" width="1" rwaccess="R">
+        </bitfield>
+        <bitfield id="PRIV" description="Defines the flash controller semaphore owners privilage attribute #br#  0x0 : non-privilage #br#  0x1 :prvilage" begin="8" end="8" width="1" rwaccess="R">
+        </bitfield>
+        <bitfield id="DBGACC" description="Defines the flash controller semaphore owners debug access indication #br#  0x0 : functional access #br#  0x1 :Debug access" begin="16" end="16" width="1" rwaccess="R">
+        </bitfield>
+        <bitfield id="MATCH" description="On a read, this bit will reflect whether the reader's SEC and PRIV matches the ownership of the flash controller. #br#  0 : Code performing read does not own the flash controller semaphore #br#  1 : Code performing read owns the flash controller semphore. #br#This avoids code from being required to know whether the current code segment owns the flash  controller configuration." begin="30" end="30" width="1" rwaccess="R">
+        </bitfield>
+        <bitfield id="ASSIGNED" description="SEC  and PRIV fields are valid when this bit is set. #br#  0 : SEC  and PRIV are unassigned and flash controller is not accessible #br#  1 : SEC and PRIV values are valid and the flash controller is currently assigned to them" begin="31" end="31" width="1" rwaccess="R">
+        </bitfield>
+    </register>
+    <register id="GSC_DMA_TRIG_SEL" width="32" offset="0x1A80" description="DMA Trigger Selection register">
+        <bitfield id="SEL_TRIG" description="Select signal for DMA triggers to be routed to DMA0/DMA1 #br#0: DMA0 will be selected #br#1: DMA1 will be selected #br#Note: SEL_TRIG[9:6] is not used. #br#If a specific DMA is selected, the triggers should only go to that DMA" begin="27" end="0" width="28" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_DMA_FIX_TRIG_SEL" width="32" offset="0x1A84" description="DMA Fixed Trigger Selection register">
+        <bitfield id="SEL_TRIG" description="Select signal for Fixed DMA triggers to be routed to DMA0/DMA1 #br#0: DMA0 will be selected #br#1: DMA1 will be selected #br# #br#If a specific DMA is selected, the triggers should only go to that DMA" begin="10" end="0" width="11" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_VTOR_S" width="32" offset="0x1B80" description="Secure Vector Table Offset Register">
+    </register>
+    <register id="GSC_VTOR_NS" width="32" offset="0x1B84" description="Non - Secure Vector Table Offset Register">
+    </register>
+    <register id="GSC_DTB_MUXSEL" width="32" offset="0x1C80" description="Digital Test Bus MUX Selection">
+        <bitfield id="DTB_MUX_SEL_CPU" description="DTB Mux Sel for CPU signals to be brought out on DTB. Refer to implementaion spec for mux selection table." begin="2" end="0" width="3" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="DTB_MUX_SEL_WUC" description="DTB Mux Sel for WUC signals to be brought out on DTB. Refer to implementaion spec for mux selection table." begin="9" end="5" width="5" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_DICE_CHECKSUM0" width="32" offset="0x1D00" description="DICE checksum data register-0">
+    </register>
+    <register id="GSC_DICE_CHECKSUM1" width="32" offset="0x1D04" description="DICE checksum data register-1">
+    </register>
+    <register id="GSC_DICE_CHECKSUM2" width="32" offset="0x1D08" description="DICE checksum data register-2">
+    </register>
+    <register id="GSC_DICE_CHECKSUM3" width="32" offset="0x1D0C" description="DICE checksum data register-3">
+    </register>
+    <register id="GSC_DICE_CHECKSUM4" width="32" offset="0x1D10" description="DICE checksum data register-4">
+    </register>
+    <register id="GSC_DICE_CHECKSUM5" width="32" offset="0x1D14" description="DICE checksum data register-5">
+    </register>
+    <register id="GSC_DICE_CHECKSUM6" width="32" offset="0x1D18" description="DICE checksum data register-6">
+    </register>
+    <register id="GSC_DICE_CHECKSUM7" width="32" offset="0x1D1C" description="DICE checksum data register-7">
+    </register>
+    <register id="GSC_GSC_LOCK" width="32" offset="0x1D80" description="GSC Lock configuration register">
+        <bitfield id="ATTRIBVIOL_CONFIG" description="Configuration impacts registers SPC_ATTRIBVIOLS_CONFIG, SPC_ATTRIBVIOLP_CONFIG, PPC_ATTRIBVIOLS_CONFIG, PPC_ATTRIBVIOLP_CONFIG, FPC_ATTRIBVIOLS_CONFIG, FPC_ATTRIBVIOLP_CONFIG	 #br#0: Register configuration is not locked. #br#1: Register configuration is locked. #br# #br#Once register is locked - reads give the MMR data and writes are ignored" begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="PPC_AATRIB" description="Configuration impacts registers PPC_SECATTRIB_* and PPC_PRIVATTRIB_* #br#0: Register configuration is not locked. #br#1: Register configuration is locked. #br# #br#Once register is locked - reads give the MMR data and writes are ignored" begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SPC_AATRIB" description="Configuration impacts registers SPC_SECATTRIB_* and SPC_PRIVATTRIB_* #br#0: Register configuration is not locked. #br#1: Register configuration is locked. #br# #br#Once register is locked - reads give the MMR data and writes are ignored" begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="FPPC_AATRIB" description="Configuration impacts registers FPC_SECATTRIB_* and FPC_PRIVATTRIB_* #br#0: Register configuration is not locked. #br#1: Register configuration is locked. #br# #br#Once register is locked - reads give the MMR data and writes are ignored" begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="VTOR" description="Configuration impacts registers VTOR_* #br#0: Register configuration is not locked. #br#1: Register configuration is locked. #br# #br#Once register is locked - reads give the MMR data and writes are ignored" begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="DMA_TRIG_SEL" description="Configuration impacts registers DMA_TRIG_SEL* #br#0: Register configuration is not locked. #br#1: Register configuration is locked. #br# #br#Once register is locked - reads give the MMR data and writes are ignored" begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="DTB_MUXSEL" description="Configuration impacts registers DTB_MUX_SEL #br#0: Register configuration is not locked. #br#1: Register configuration is locked. #br# #br#Once register is locked - reads give the MMR data and writes are ignored" begin="7" end="7" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_GSC_COMMIT" width="32" offset="0x1D84" description="GSC commit configuration register">
+        <bitfield id="ATTRIBVIOL_CONFIG" description="0: Register lock configuration is not committed. #br#1: Register configuration is committed. #br#Commit configuration blocks the writes going to the lock register. Once configuration is committed, only reset can change the configuration." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="PPC_AATRIB" description="0: Register lock configuration is not committed. #br#1: Register configuration is committed. #br#Commit configuration blocks the writes going to the lock register. Once configuration is committed, only reset can change the configuration." begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="SPC_AATRIB" description="0: Register lock configuration is not committed. #br#1: Register configuration is committed. #br#Commit configuration blocks the writes going to the lock register. Once configuration is committed, only reset can change the configuration." begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="FPPC_AATRIB" description="0: Register lock configuration is not committed. #br#1: Register configuration is committed. #br#Commit configuration blocks the writes going to the lock register. Once configuration is committed, only reset can change the configuration." begin="3" end="3" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="VTOR" description="0: Register lock configuration is not committed. #br#1: Register configuration is committed. #br#Commit configuration blocks the writes going to the lock register. Once configuration is committed, only reset can change the configuration." begin="5" end="5" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="DMA_TRIG_SEL" description="0: Register lock configuration is not committed. #br#1: Register configuration is committed. #br#Commit configuration blocks the writes going to the lock register. Once configuration is committed, only reset can change the configuration." begin="6" end="6" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="DTB_MUXSEL" description="0: Register lock configuration is not committed. #br#1: Register configuration is committed. #br#Once configuration is committed, only reset can change the configuration." begin="7" end="7" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="GSC_GSC_REVISION" width="32" offset="0x1FFC" description="GSC Revision register">
+        <bitfield id="MINREV" description="This hardcoded field defines the minor revision of the IP." begin="7" end="0" width="8" rwaccess="R">
+        </bitfield>
+        <bitfield id="MAJREV" description="This hardcoded field defines the major revision of the IP." begin="15" end="8" width="8" rwaccess="R">
+        </bitfield>
+    </register>
+
+</module>

@@ -68,7 +68,7 @@ Note: When 0, MSB of the next word will be output in the idle period between LSB
 In single-phase format, this is the exact number of bits per word. 
 In dual-phase format, this is the maximum number of bits per word.
 
-Values below 8 and above 24 give undefined behavior. Data written to memory is always aligned to 16 or 24 bits as defined by MEMLEN24. Bit widths that differ from this alignment will either be truncated or zero padded.
+Values below 8 and above 24 give undefined behavior. Data written to memory is always aligned to 16 or 24 bits as defined by MEMLEN32. Bit widths that differ from this alignment will either be truncated or zero padded.
 " id="WORDLEN" resetval="0x10">
       </bitfield>
    </register>
@@ -146,7 +146,7 @@ When cleared, all samplestamp generator counters and capture values are cleared.
    <register acronym="STMPXCNTCAPT0" width="32" description="This register gives the captured XOSC counter value, capture channel 0" id="STMPXCNTCAPT0" offset="0x38">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="The value of the samplestamp XOSC counter (STMPXCNT.CURRVALUE) last time an event was pulsed (event source selected in [EVENT.I2SSTMPSEL0.EV] for channel 0). This number corresponds to the number of 24 MHz clock cycles since the last positive edge of the selected WCLK.
+      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="The value of the samplestamp XOSC counter (STMPXCNT.CURRVALUE) last time an event was pulsed. This number corresponds to the number of 24 MHz clock cycles since the last positive edge of the selected WCLK.
 The value is cleared when STMPCTL.STMPEN = 0.
 Note: Due to buffering and synchronization, WCLK is delayed by a small number of BCLK periods and clk periods.
 Note: When calculating the fractional part of the sample stamp, STMPXPER may be less than this bit field.
@@ -164,7 +164,7 @@ The value is cleared when STMPCTL.STMPEN = 0.
    <register acronym="STMPWCNTCAPT0" width="32" description="This register gives the captured WCLK counter value, capture channel 0" id="STMPWCNTCAPT0" offset="0x40">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="The value of the samplestamp WCLK counter (STMPWCNT.CURRVALUE) last time an event was pulsed (event source selected in EVENT:I2SSTMPSEL0.EV for channel 0). This number corresponds to the number of positive WCLK edges since the samplestamp generator was enabled (not taking modification through STMPWADD/STMPWSET into account).
+      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="The value of the samplestamp WCLK counter (STMPWCNT.CURRVALUE) last time an event was pulsed. This number corresponds to the number of positive WCLK edges since the samplestamp generator was enabled (not taking modification through STMPWADD/STMPWSET into account).
 The value is cleared when STMPCTL.STMPEN = 0.
 " id="CAPT_VALUE" resetval="0x0">
       </bitfield>
@@ -403,14 +403,14 @@ This error requires a complete restart since word synchronization has been lost.
                                             BCLK = MCUCLK/BDIV[Hz] MCUCLK can be upto 96MHz. 
                                             A value of 0 is interpreted as 1024.
                                             A value of 1 is invalid. 
-                                            If BDIV is odd and [CLKCTL.SMPLONPOSEDGE.*] = 0, the low phase of the clock is one MCUCLK period longer than the high phase. 
-                                            If BDIV is odd and [AIFCLKCTL.SMPL_ON_POSEDGE.*] = 1 , the high phase of the clock is one MCUCLK period longer than the low phase." id="BDIV" resetval="0x0">
+                                            If BDIV is odd and FMTCFG.SMPLEDGE = 0, the low phase of the clock is one MCUCLK period longer than the high phase. 
+                                            If BDIV is odd and FMTCFG.SMPLEDGE = 1 , the high phase of the clock is one MCUCLK period longer than the low phase." id="BDIV" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="WCLKDIV" width="32" description="This field configures WCLK division ratio" id="WCLKDIV" offset="0x88">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="16" end="0" rwaccess="RW" description="   If [CLKCTL.WCLKPHASE.*] = 0, Single phase. WCLK is high one BCLK period and low WDIV[9:0] (unsigned, [1-1023]) BCLK periods. 
+      <bitfield range="" begin="15" width="16" end="0" rwaccess="RW" description="   If CLKCTL.WCLKPHASE = 0, Single phase. WCLK is high one BCLK period and low WDIV[9:0] (unsigned, [1-1023]) BCLK periods. 
                                            WCLK = MCUCLK / BDIV*(WDIV[9:0] + 1) [Hz] MCUCLK upto 96MHz. 
                                            If [CLKCTL.WCLKPHASE.*] = 1, Dual phase. Each phase on WCLK (50% duty cycle) is WDIV[9:0] (unsigned, [1-1023]) BCLK periods. 
                                            **WCLK **= **MCUCLK **/ BDIV*(2*WDIV[9:0]) [Hz] 
@@ -425,7 +425,7 @@ This error requires a complete restart since word synchronization has been lost.
          <bitenum id="EN" value="1" token="Enable the generation" description="Enable the generation"/>
          <bitenum id="DIS" value="0" token="Disable the generation" description="Disable the generation"/>
       </bitfield>
-      <bitfield range="" begin="2" width="2" end="1" rwaccess="RW" description="The field configures how the WCLK division ratio is calculated and used to generate different duty cycles (See [WCLKDIV.WDIV.*])" id="WCLKPHASE" resetval="0x0">
+      <bitfield range="" begin="2" width="2" end="1" rwaccess="RW" description="The field configures how the WCLK division ratio is calculated and used to generate different duty cycles (See WCLKDIV.WDIV)" id="WCLKPHASE" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="This field configures WCLK/BCLK generation " id="WBEN" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable the generation" description="Enable the generation"/>

@@ -110,8 +110,12 @@
 	</register>
 	<register id="SOFTPRES21" width="32" page="1" offset="0xac" internal="0" description="Peripheral Software Reset register">
 	</register>
+	<register id="SOFTPRES40" width="32" page="1" offset="0xd2" internal="0" description="Peripheral Software Reset register">
+		<bitfield id="JTAG_nTRST" description="Multi Bit JTAG nTRST " begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="JTAG_nTRST_Key" description="JTAG nTRST Key" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
 	<register id="TAP_STATUS" width="32" page="1" offset="0x130" internal="0" description="Status of JTAG State machine and Debugger Connect">
-		<bitfield id="TAP_STATE" description="Present TAP State" begin="15" end="0" width="16" rwaccess="R"/>
+		<bitfield id="TAP_STATE" description="Present JTAG TAP State" begin="15" end="0" width="16" rwaccess="R"/>
 		<bitfield id="DCON" description="Debugger Connect Indication" begin="31" end="31" width="1" rwaccess="R"/>
 	</register>
 </module>

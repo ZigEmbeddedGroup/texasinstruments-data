@@ -1,0 +1,316 @@
+<module name="fss_fsas_otfa_regs" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="fss_fsas_otfa_regs_revid" acronym="fss_fsas_otfa_regs_revid" offset="0" width="32" description="">
+		<bitfield id="REVID" width="32" begin="31" end="0" resetval="0x1196425472" description="REVID   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="fss_fsas_otfa_regs_scfg" acronym="fss_fsas_otfa_regs_scfg" offset="4" width="32" description="">
+		<bitfield id="IDLE_MODE" width="2" begin="1" end="0" resetval="0x2" description="IDLE MODE   Reset Source: rst_modg_rst_n" range="1:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_isr" acronym="fss_fsas_otfa_regs_isr" offset="8" width="32" description="">
+		<bitfield id="MAC_ERR" width="4" begin="15" end="12" resetval="0x0" description="MAC error   Reset Source: rst_modg_rst_n" range="15:12" rwaccess="R/W"/>
+	<bitfield id="WRT_ERR" width="4" begin="11" end="8" resetval="0x0" description="Write error   Reset Source: rst_modg_rst_n" range="11:8" rwaccess="R/W"/>
+	<bitfield id="REGION_BV" width="4" begin="7" end="4" resetval="0x0" description="Region overflow boundary event caused by a burst transaction crossed a start or end of a region   Reset Source: rst_modg_rst_n" range="7:4" rwaccess="R/W"/>
+	<bitfield id="CTR_WKV" width="4" begin="3" end="0" resetval="0x0" description="AES mode 0 enabled region violated Wrt Once Per Wrt Key rule    Reset Source: rst_modg_rst_n" range="3:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_is" acronym="fss_fsas_otfa_regs_is" offset="12" width="32" description="">
+		<bitfield id="MAC_ERR" width="4" begin="15" end="12" resetval="0x0" description="MAC error   Reset Source: rst_modg_rst_n" range="15:12" rwaccess="R/W"/>
+	<bitfield id="WRT_ERR" width="4" begin="11" end="8" resetval="0x0" description="Write error    Reset Source: rst_modg_rst_n" range="11:8" rwaccess="R/W"/>
+	<bitfield id="REGION_BV" width="4" begin="7" end="4" resetval="0x0" description="Region overflow boundary event caused by a burst transaction crossed a start or end of a region   Reset Source: rst_modg_rst_n" range="7:4" rwaccess="R/W"/>
+	<bitfield id="CTR_WKV" width="4" begin="3" end="0" resetval="0x0" description="AES mode 0 enabled region violated Wrt Once Per Wrt Key rule    Reset Source: rst_modg_rst_n" range="3:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_ies" acronym="fss_fsas_otfa_regs_ies" offset="16" width="32" description="">
+		<bitfield id="MAC_ERR" width="4" begin="15" end="12" resetval="0x0" description="MAC error   Reset Source: rst_modg_rst_n" range="15:12" rwaccess="R/W"/>
+	<bitfield id="WRT_ERR" width="4" begin="11" end="8" resetval="0x0" description="Write error   Reset Source: rst_modg_rst_n" range="11:8" rwaccess="R/W"/>
+	<bitfield id="REGION_BV" width="4" begin="7" end="4" resetval="0x0" description="Region overflow boundary event caused by a burst transaction crossed a start or end of a region   Reset Source: rst_modg_rst_n" range="7:4" rwaccess="R/W"/>
+	<bitfield id="CTR_WKV" width="4" begin="3" end="0" resetval="0x0" description="AES mode 0 enabled region violated Wrt Once Per Wrt Key rule    Reset Source: rst_modg_rst_n" range="3:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_iec" acronym="fss_fsas_otfa_regs_iec" offset="20" width="32" description="">
+		<bitfield id="MAC_ERR" width="4" begin="15" end="12" resetval="0x0" description="MAC error   Reset Source: rst_modg_rst_n" range="15:12" rwaccess="R/W"/>
+	<bitfield id="WRT_ERR" width="4" begin="11" end="8" resetval="0x0" description="Write error   Reset Source: rst_modg_rst_n" range="11:8" rwaccess="R/W"/>
+	<bitfield id="REGION_BV" width="4" begin="7" end="4" resetval="0x0" description="Region overflow boundary event caused by a burst transaction crossed a start or end of a region   Reset Source: rst_modg_rst_n" range="7:4" rwaccess="R/W"/>
+	<bitfield id="CTR_WKV" width="4" begin="3" end="0" resetval="0x0" description="AES mode 0 enabled region violated Wrt Once Per Wrt Key rule    Reset Source: rst_modg_rst_n" range="3:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_ccfg" acronym="fss_fsas_otfa_regs_ccfg" offset="24" width="32" description="">
+		<bitfield id="MASTER_EN_RD" width="1" begin="31" end="31" resetval="0x0" description="This register controls the enabling the functionality of this IP Disabled and Bypass mode active   Reset Source: rst_modg_rst_n" range="31" rwaccess="R/W"/>
+	<bitfield id="ERROR_RESP_EN" width="1" begin="9" end="9" resetval="0x0" description="This register controls the enabling the the ocp error response for mac errors    Reset Source: rst_modg_rst_n" range="9" rwaccess="R/W"/>
+	<bitfield id="OTFA_WAIT" width="1" begin="8" end="8" resetval="0x0" description="This register allows the ability to stop accepting any new transactions from getting accepted and allow the current transactions to complete   Reset Source: rst_modg_rst_n" range="8" rwaccess="R/W"/>
+	<bitfield id="CACHE_ENABLE" width="1" begin="6" end="6" resetval="0x0" description="MAC cache enable   Reset Source: rst_modg_rst_n" range="6" rwaccess="R/W"/>
+	<bitfield id="CACHE_EVICT_MODE" width="1" begin="5" end="5" resetval="0x0" description="cache evict mode   Reset Source: rst_modg_rst_n" range="5" rwaccess="R/W"/>
+	<bitfield id="KEY_SIZE" width="1" begin="4" end="4" resetval="0x0" description="Key Size, 0 128 Bit 1 256 Bit   Reset Source: rst_modg_rst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="RD_WRT_OPT" width="4" begin="3" end="0" resetval="0x0" description="This register defines the static allocation of the AES cores to read transactions. The remainder will be allocated to write transactions   Reset Source: rst_modg_rst_n" range="3:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_cstatus" acronym="fss_fsas_otfa_regs_cstatus" offset="28" width="32" description="">
+		<bitfield id="BUSY" width="1" begin="31" end="31" resetval="0x0" description="0 No transactions are active, crypto or none crypto   1 One or more transactions are active, crypto or none crypto    Reset Source: rst_modg_rst_n" range="31" rwaccess="R"/>
+	<bitfield id="CRYPTO_BUSY" width="1" begin="30" end="30" resetval="0x0" description="0 No transactions are active, crypto or none crypto  1 One or more transactions are active, crypto or none crypto    Reset Source: rst_modg_rst_n" range="30" rwaccess="R"/>
+	<bitfield id="RD_STALL_EVENT_CNT" width="14" begin="29" end="16" resetval="0x0" description="rd stall event do to lack of eng   Reset Source: rst_modg_rst_n" range="29:16" rwaccess="R/W1TC"/>
+	<bitfield id="WRT_STALL_EVENT_CNT" width="14" begin="13" end="0" resetval="0x0" description="wrt stall event do to lack of eng   Reset Source: rst_modg_rst_n" range="13:0" rwaccess="R/W1TC"/>
+	</register><register id="fss_fsas_otfa_regs_rgcfg0" acronym="fss_fsas_otfa_regs_rgcfg0" offset="32" width="32" description="">
+		<bitfield id="WRT_PROTECT0" width="1" begin="4" end="4" resetval="0x0" description="WRT protect   Reset Source: rst_modg_rst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="MAC_MODE0" width="2" begin="3" end="2" resetval="0x0" description="MAC mode   Reset Source: rst_modg_rst_n" range="3:2" rwaccess="R/W"/>
+	<bitfield id="AES_MODE0" width="2" begin="1" end="0" resetval="0x0" description="AES mode   Reset Source: rst_modg_rst_n" range="1:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgmacst0" acronym="fss_fsas_otfa_regs_rgmacst0" offset="36" width="32" description="">
+		<bitfield id="M_START0" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the mac buffer in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgst0" acronym="fss_fsas_otfa_regs_rgst0" offset="40" width="32" description="">
+		<bitfield id="R_START0" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgsi0" acronym="fss_fsas_otfa_regs_rgsi0" offset="44" width="32" description="">
+		<bitfield id="R_SIZE0" width="20" begin="19" end="0" resetval="0x0" description="This defines the size of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye00" acronym="fss_fsas_otfa_regs_rkeye00" offset="48" width="32" description="">
+		<bitfield id="R_KEY_E00" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye01" acronym="fss_fsas_otfa_regs_rkeye01" offset="52" width="32" description="">
+		<bitfield id="R_KEY_E01" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye02" acronym="fss_fsas_otfa_regs_rkeye02" offset="56" width="32" description="">
+		<bitfield id="R_KEY_E02" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye03" acronym="fss_fsas_otfa_regs_rkeye03" offset="60" width="32" description="">
+		<bitfield id="R_KEY_E03" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye04" acronym="fss_fsas_otfa_regs_rkeye04" offset="64" width="32" description="">
+		<bitfield id="R_KEY_E04" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye05" acronym="fss_fsas_otfa_regs_rkeye05" offset="68" width="32" description="">
+		<bitfield id="R_KEY_E05" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye06" acronym="fss_fsas_otfa_regs_rkeye06" offset="72" width="32" description="">
+		<bitfield id="R_KEY_E06" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye07" acronym="fss_fsas_otfa_regs_rkeye07" offset="76" width="32" description="">
+		<bitfield id="R_KEY_E07" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep00" acronym="fss_fsas_otfa_regs_rkeyep00" offset="80" width="32" description="">
+		<bitfield id="R_KEY_EP00" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep01" acronym="fss_fsas_otfa_regs_rkeyep01" offset="84" width="32" description="">
+		<bitfield id="R_KEY_EP01" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep02" acronym="fss_fsas_otfa_regs_rkeyep02" offset="88" width="32" description="">
+		<bitfield id="R_KEY_EP02" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep03" acronym="fss_fsas_otfa_regs_rkeyep03" offset="92" width="32" description="">
+		<bitfield id="R_KEY_EP03" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep04" acronym="fss_fsas_otfa_regs_rkeyep04" offset="96" width="32" description="">
+		<bitfield id="R_KEY_EP04" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep05" acronym="fss_fsas_otfa_regs_rkeyep05" offset="100" width="32" description="">
+		<bitfield id="R_KEY_EP05" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep06" acronym="fss_fsas_otfa_regs_rkeyep06" offset="104" width="32" description="">
+		<bitfield id="R_KEY_EP06" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep07" acronym="fss_fsas_otfa_regs_rkeyep07" offset="108" width="32" description="">
+		<bitfield id="R_KEY_EP07" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya00" acronym="fss_fsas_otfa_regs_rkeya00" offset="112" width="32" description="">
+		<bitfield id="R_KEY_A00" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya01" acronym="fss_fsas_otfa_regs_rkeya01" offset="116" width="32" description="">
+		<bitfield id="R_KEY_A01" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya02" acronym="fss_fsas_otfa_regs_rkeya02" offset="120" width="32" description="">
+		<bitfield id="R_KEY_A02" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya03" acronym="fss_fsas_otfa_regs_rkeya03" offset="124" width="32" description="">
+		<bitfield id="R_KEY_A03" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap00" acronym="fss_fsas_otfa_regs_rkeyap00" offset="128" width="32" description="">
+		<bitfield id="R_KEY_AP00" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap01" acronym="fss_fsas_otfa_regs_rkeyap01" offset="132" width="32" description="">
+		<bitfield id="R_KEY_AP01" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap02" acronym="fss_fsas_otfa_regs_rkeyap02" offset="136" width="32" description="">
+		<bitfield id="R_KEY_AP02" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap03" acronym="fss_fsas_otfa_regs_rkeyap03" offset="140" width="32" description="">
+		<bitfield id="R_KEY_AP03" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv00" acronym="fss_fsas_otfa_regs_riv00" offset="144" width="32" description="">
+		<bitfield id="R_IV00" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv01" acronym="fss_fsas_otfa_regs_riv01" offset="148" width="32" description="">
+		<bitfield id="R_IV01" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv02" acronym="fss_fsas_otfa_regs_riv02" offset="152" width="32" description="">
+		<bitfield id="R_IV02" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv03" acronym="fss_fsas_otfa_regs_riv03" offset="156" width="32" description="">
+		<bitfield id="R_IV03" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgcfg1" acronym="fss_fsas_otfa_regs_rgcfg1" offset="160" width="32" description="">
+		<bitfield id="WRT_PROTECT1" width="1" begin="4" end="4" resetval="0x0" description="WRT protect   Reset Source: rst_modg_rst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="MAC_MODE1" width="2" begin="3" end="2" resetval="0x0" description="MAC mode   Reset Source: rst_modg_rst_n" range="3:2" rwaccess="R/W"/>
+	<bitfield id="AES_MODE1" width="2" begin="1" end="0" resetval="0x0" description="AES mode   Reset Source: rst_modg_rst_n" range="1:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgmacst1" acronym="fss_fsas_otfa_regs_rgmacst1" offset="164" width="32" description="">
+		<bitfield id="M_START1" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the mac buffer in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgst1" acronym="fss_fsas_otfa_regs_rgst1" offset="168" width="32" description="">
+		<bitfield id="R_START1" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgsi1" acronym="fss_fsas_otfa_regs_rgsi1" offset="172" width="32" description="">
+		<bitfield id="R_SIZE1" width="20" begin="19" end="0" resetval="0x0" description="This defines the size of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye10" acronym="fss_fsas_otfa_regs_rkeye10" offset="176" width="32" description="">
+		<bitfield id="R_KEY_E10" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye11" acronym="fss_fsas_otfa_regs_rkeye11" offset="180" width="32" description="">
+		<bitfield id="R_KEY_E11" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye12" acronym="fss_fsas_otfa_regs_rkeye12" offset="184" width="32" description="">
+		<bitfield id="R_KEY_E12" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye13" acronym="fss_fsas_otfa_regs_rkeye13" offset="188" width="32" description="">
+		<bitfield id="R_KEY_E13" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye14" acronym="fss_fsas_otfa_regs_rkeye14" offset="192" width="32" description="">
+		<bitfield id="R_KEY_E14" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye15" acronym="fss_fsas_otfa_regs_rkeye15" offset="196" width="32" description="">
+		<bitfield id="R_KEY_E15" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye16" acronym="fss_fsas_otfa_regs_rkeye16" offset="200" width="32" description="">
+		<bitfield id="R_KEY_E16" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye17" acronym="fss_fsas_otfa_regs_rkeye17" offset="204" width="32" description="">
+		<bitfield id="R_KEY_E17" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep10" acronym="fss_fsas_otfa_regs_rkeyep10" offset="208" width="32" description="">
+		<bitfield id="R_KEY_EP10" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep11" acronym="fss_fsas_otfa_regs_rkeyep11" offset="212" width="32" description="">
+		<bitfield id="R_KEY_EP11" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep12" acronym="fss_fsas_otfa_regs_rkeyep12" offset="216" width="32" description="">
+		<bitfield id="R_KEY_EP12" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep13" acronym="fss_fsas_otfa_regs_rkeyep13" offset="220" width="32" description="">
+		<bitfield id="R_KEY_EP13" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep14" acronym="fss_fsas_otfa_regs_rkeyep14" offset="224" width="32" description="">
+		<bitfield id="R_KEY_EP14" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep15" acronym="fss_fsas_otfa_regs_rkeyep15" offset="228" width="32" description="">
+		<bitfield id="R_KEY_EP15" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep16" acronym="fss_fsas_otfa_regs_rkeyep16" offset="232" width="32" description="">
+		<bitfield id="R_KEY_EP16" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep17" acronym="fss_fsas_otfa_regs_rkeyep17" offset="236" width="32" description="">
+		<bitfield id="R_KEY_EP17" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya10" acronym="fss_fsas_otfa_regs_rkeya10" offset="240" width="32" description="">
+		<bitfield id="R_KEY_A10" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya11" acronym="fss_fsas_otfa_regs_rkeya11" offset="244" width="32" description="">
+		<bitfield id="R_KEY_A11" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya12" acronym="fss_fsas_otfa_regs_rkeya12" offset="248" width="32" description="">
+		<bitfield id="R_KEY_A12" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya13" acronym="fss_fsas_otfa_regs_rkeya13" offset="252" width="32" description="">
+		<bitfield id="R_KEY_A13" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap10" acronym="fss_fsas_otfa_regs_rkeyap10" offset="256" width="32" description="">
+		<bitfield id="R_KEY_AP10" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap11" acronym="fss_fsas_otfa_regs_rkeyap11" offset="260" width="32" description="">
+		<bitfield id="R_KEY_AP11" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap12" acronym="fss_fsas_otfa_regs_rkeyap12" offset="264" width="32" description="">
+		<bitfield id="R_KEY_AP12" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap13" acronym="fss_fsas_otfa_regs_rkeyap13" offset="268" width="32" description="">
+		<bitfield id="R_KEY_AP13" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv10" acronym="fss_fsas_otfa_regs_riv10" offset="272" width="32" description="">
+		<bitfield id="R_IV10" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv11" acronym="fss_fsas_otfa_regs_riv11" offset="276" width="32" description="">
+		<bitfield id="R_IV11" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv12" acronym="fss_fsas_otfa_regs_riv12" offset="280" width="32" description="">
+		<bitfield id="R_IV12" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv13" acronym="fss_fsas_otfa_regs_riv13" offset="284" width="32" description="">
+		<bitfield id="R_IV13" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgcfg2" acronym="fss_fsas_otfa_regs_rgcfg2" offset="288" width="32" description="">
+		<bitfield id="WRT_PROTECT2" width="1" begin="4" end="4" resetval="0x0" description="WRT protect   Reset Source: rst_modg_rst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="MAC_MODE2" width="2" begin="3" end="2" resetval="0x0" description="MAC mode   Reset Source: rst_modg_rst_n" range="3:2" rwaccess="R/W"/>
+	<bitfield id="AES_MODE2" width="2" begin="1" end="0" resetval="0x0" description="AES mode   Reset Source: rst_modg_rst_n" range="1:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgmacst2" acronym="fss_fsas_otfa_regs_rgmacst2" offset="292" width="32" description="">
+		<bitfield id="M_START2" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the mac buffer in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgst2" acronym="fss_fsas_otfa_regs_rgst2" offset="296" width="32" description="">
+		<bitfield id="R_START2" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgsi2" acronym="fss_fsas_otfa_regs_rgsi2" offset="300" width="32" description="">
+		<bitfield id="R_SIZE2" width="20" begin="19" end="0" resetval="0x0" description="This defines the size of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye20" acronym="fss_fsas_otfa_regs_rkeye20" offset="304" width="32" description="">
+		<bitfield id="R_KEY_E20" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye21" acronym="fss_fsas_otfa_regs_rkeye21" offset="308" width="32" description="">
+		<bitfield id="R_KEY_E21" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye22" acronym="fss_fsas_otfa_regs_rkeye22" offset="312" width="32" description="">
+		<bitfield id="R_KEY_E22" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye23" acronym="fss_fsas_otfa_regs_rkeye23" offset="316" width="32" description="">
+		<bitfield id="R_KEY_E23" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye24" acronym="fss_fsas_otfa_regs_rkeye24" offset="320" width="32" description="">
+		<bitfield id="R_KEY_E24" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye25" acronym="fss_fsas_otfa_regs_rkeye25" offset="324" width="32" description="">
+		<bitfield id="R_KEY_E25" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye26" acronym="fss_fsas_otfa_regs_rkeye26" offset="328" width="32" description="">
+		<bitfield id="R_KEY_E26" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye27" acronym="fss_fsas_otfa_regs_rkeye27" offset="332" width="32" description="">
+		<bitfield id="R_KEY_E27" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep20" acronym="fss_fsas_otfa_regs_rkeyep20" offset="336" width="32" description="">
+		<bitfield id="R_KEY_EP20" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep21" acronym="fss_fsas_otfa_regs_rkeyep21" offset="340" width="32" description="">
+		<bitfield id="R_KEY_EP21" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep22" acronym="fss_fsas_otfa_regs_rkeyep22" offset="344" width="32" description="">
+		<bitfield id="R_KEY_EP22" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep23" acronym="fss_fsas_otfa_regs_rkeyep23" offset="348" width="32" description="">
+		<bitfield id="R_KEY_EP23" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep24" acronym="fss_fsas_otfa_regs_rkeyep24" offset="352" width="32" description="">
+		<bitfield id="R_KEY_EP24" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep25" acronym="fss_fsas_otfa_regs_rkeyep25" offset="356" width="32" description="">
+		<bitfield id="R_KEY_EP25" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep26" acronym="fss_fsas_otfa_regs_rkeyep26" offset="360" width="32" description="">
+		<bitfield id="R_KEY_EP26" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep27" acronym="fss_fsas_otfa_regs_rkeyep27" offset="364" width="32" description="">
+		<bitfield id="R_KEY_EP27" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya20" acronym="fss_fsas_otfa_regs_rkeya20" offset="368" width="32" description="">
+		<bitfield id="R_KEY_A20" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya21" acronym="fss_fsas_otfa_regs_rkeya21" offset="372" width="32" description="">
+		<bitfield id="R_KEY_A21" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya22" acronym="fss_fsas_otfa_regs_rkeya22" offset="376" width="32" description="">
+		<bitfield id="R_KEY_A22" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya23" acronym="fss_fsas_otfa_regs_rkeya23" offset="380" width="32" description="">
+		<bitfield id="R_KEY_A23" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap20" acronym="fss_fsas_otfa_regs_rkeyap20" offset="384" width="32" description="">
+		<bitfield id="R_KEY_AP20" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap21" acronym="fss_fsas_otfa_regs_rkeyap21" offset="388" width="32" description="">
+		<bitfield id="R_KEY_AP21" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap22" acronym="fss_fsas_otfa_regs_rkeyap22" offset="392" width="32" description="">
+		<bitfield id="R_KEY_AP22" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap23" acronym="fss_fsas_otfa_regs_rkeyap23" offset="396" width="32" description="">
+		<bitfield id="R_KEY_AP23" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv20" acronym="fss_fsas_otfa_regs_riv20" offset="400" width="32" description="">
+		<bitfield id="R_IV20" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv21" acronym="fss_fsas_otfa_regs_riv21" offset="404" width="32" description="">
+		<bitfield id="R_IV21" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv22" acronym="fss_fsas_otfa_regs_riv22" offset="408" width="32" description="">
+		<bitfield id="R_IV22" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv23" acronym="fss_fsas_otfa_regs_riv23" offset="412" width="32" description="">
+		<bitfield id="R_IV23" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgcfg3" acronym="fss_fsas_otfa_regs_rgcfg3" offset="416" width="32" description="">
+		<bitfield id="WRT_PROTECT3" width="1" begin="4" end="4" resetval="0x0" description="WRT protect   Reset Source: rst_modg_rst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="MAC_MODE3" width="2" begin="3" end="2" resetval="0x0" description="MAC mode   Reset Source: rst_modg_rst_n" range="3:2" rwaccess="R/W"/>
+	<bitfield id="AES_MODE3" width="2" begin="1" end="0" resetval="0x0" description="AES mode   Reset Source: rst_modg_rst_n" range="1:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgmacst3" acronym="fss_fsas_otfa_regs_rgmacst3" offset="420" width="32" description="">
+		<bitfield id="M_START3" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the mac buffer in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgst3" acronym="fss_fsas_otfa_regs_rgst3" offset="424" width="32" description="">
+		<bitfield id="R_START3" width="20" begin="19" end="0" resetval="0x0" description="This defines the start of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rgsi3" acronym="fss_fsas_otfa_regs_rgsi3" offset="428" width="32" description="">
+		<bitfield id="R_SIZE3" width="20" begin="19" end="0" resetval="0x0" description="This defines the size of the crypto region in 4KBytes steps   Reset Source: rst_modg_rst_n" range="19:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye30" acronym="fss_fsas_otfa_regs_rkeye30" offset="432" width="32" description="">
+		<bitfield id="R_KEY_E30" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye31" acronym="fss_fsas_otfa_regs_rkeye31" offset="436" width="32" description="">
+		<bitfield id="R_KEY_E31" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye32" acronym="fss_fsas_otfa_regs_rkeye32" offset="440" width="32" description="">
+		<bitfield id="R_KEY_E32" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye33" acronym="fss_fsas_otfa_regs_rkeye33" offset="444" width="32" description="">
+		<bitfield id="R_KEY_E33" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye34" acronym="fss_fsas_otfa_regs_rkeye34" offset="448" width="32" description="">
+		<bitfield id="R_KEY_E34" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye35" acronym="fss_fsas_otfa_regs_rkeye35" offset="452" width="32" description="">
+		<bitfield id="R_KEY_E35" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye36" acronym="fss_fsas_otfa_regs_rkeye36" offset="456" width="32" description="">
+		<bitfield id="R_KEY_E36" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeye37" acronym="fss_fsas_otfa_regs_rkeye37" offset="460" width="32" description="">
+		<bitfield id="R_KEY_E37" width="32" begin="31" end="0" resetval="0x0" description="Key E   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep30" acronym="fss_fsas_otfa_regs_rkeyep30" offset="464" width="32" description="">
+		<bitfield id="R_KEY_EP30" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep31" acronym="fss_fsas_otfa_regs_rkeyep31" offset="468" width="32" description="">
+		<bitfield id="R_KEY_EP31" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep32" acronym="fss_fsas_otfa_regs_rkeyep32" offset="472" width="32" description="">
+		<bitfield id="R_KEY_EP32" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep33" acronym="fss_fsas_otfa_regs_rkeyep33" offset="476" width="32" description="">
+		<bitfield id="R_KEY_EP33" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep34" acronym="fss_fsas_otfa_regs_rkeyep34" offset="480" width="32" description="">
+		<bitfield id="R_KEY_EP34" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep35" acronym="fss_fsas_otfa_regs_rkeyep35" offset="484" width="32" description="">
+		<bitfield id="R_KEY_EP35" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep36" acronym="fss_fsas_otfa_regs_rkeyep36" offset="488" width="32" description="">
+		<bitfield id="R_KEY_EP36" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyep37" acronym="fss_fsas_otfa_regs_rkeyep37" offset="492" width="32" description="">
+		<bitfield id="R_KEY_EP37" width="32" begin="31" end="0" resetval="0x0" description="Key EP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya30" acronym="fss_fsas_otfa_regs_rkeya30" offset="496" width="32" description="">
+		<bitfield id="R_KEY_A30" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya31" acronym="fss_fsas_otfa_regs_rkeya31" offset="500" width="32" description="">
+		<bitfield id="R_KEY_A31" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya32" acronym="fss_fsas_otfa_regs_rkeya32" offset="504" width="32" description="">
+		<bitfield id="R_KEY_A32" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeya33" acronym="fss_fsas_otfa_regs_rkeya33" offset="508" width="32" description="">
+		<bitfield id="R_KEY_A33" width="32" begin="31" end="0" resetval="0x0" description="Key A   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap30" acronym="fss_fsas_otfa_regs_rkeyap30" offset="512" width="32" description="">
+		<bitfield id="R_KEY_AP30" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap31" acronym="fss_fsas_otfa_regs_rkeyap31" offset="516" width="32" description="">
+		<bitfield id="R_KEY_AP31" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap32" acronym="fss_fsas_otfa_regs_rkeyap32" offset="520" width="32" description="">
+		<bitfield id="R_KEY_AP32" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_rkeyap33" acronym="fss_fsas_otfa_regs_rkeyap33" offset="524" width="32" description="">
+		<bitfield id="R_KEY_AP33" width="32" begin="31" end="0" resetval="0x0" description="Key AP   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv30" acronym="fss_fsas_otfa_regs_riv30" offset="528" width="32" description="">
+		<bitfield id="R_IV30" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv31" acronym="fss_fsas_otfa_regs_riv31" offset="532" width="32" description="">
+		<bitfield id="R_IV31" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv32" acronym="fss_fsas_otfa_regs_riv32" offset="536" width="32" description="">
+		<bitfield id="R_IV32" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_riv33" acronym="fss_fsas_otfa_regs_riv33" offset="540" width="32" description="">
+		<bitfield id="R_IV33" width="32" begin="31" end="0" resetval="0x0" description="IV   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="fss_fsas_otfa_regs_irqaddinfo0" acronym="fss_fsas_otfa_regs_irqaddinfo0" offset="544" width="32" description="">
+		<bitfield id="IRQ_MADDR" width="32" begin="31" end="0" resetval="0x0" description="Master Address which caused the event   Reset Source: rst_modg_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="fss_fsas_otfa_regs_irqaddinfo1" acronym="fss_fsas_otfa_regs_irqaddinfo1" offset="548" width="32" description="">
+		<bitfield id="IRQ_MLEN" width="4" begin="17" end="14" resetval="0x0" description="Master LENGTH  which caused the event   Reset Source: rst_modg_rst_n" range="17:14" rwaccess="R"/>
+	<bitfield id="IRQ_MSEQ" width="3" begin="13" end="11" resetval="0x0" description="Master SEQ  which caused the event   Reset Source: rst_modg_rst_n" range="13:11" rwaccess="R"/>
+	<bitfield id="IRQ_MCMD" width="3" begin="10" end="8" resetval="0x0" description="Master CMD  which caused the event   Reset Source: rst_modg_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="IRQ_MID" width="8" begin="7" end="0" resetval="0x0" description="Master TAG ID  which caused the event   Reset Source: rst_modg_rst_n" range="7:0" rwaccess="R"/>
+	</register><register id="fss_fsas_otfa_regs_maccacheinfo" acronym="fss_fsas_otfa_regs_maccacheinfo" offset="552" width="32" description="">
+		<bitfield id="CACHE_MISS_EVENT_CNT" width="16" begin="15" end="0" resetval="0x0" description="MAC Cache Miss event cnt   Reset Source: rst_modg_rst_n" range="15:0" rwaccess="R"/>
+	</register><register id="fss_fsas_otfa_regs_rmwrmcnt" acronym="fss_fsas_otfa_regs_rmwrmcnt" offset="556" width="32" description="">
+		<bitfield id="RM_EVENT_CNT" width="16" begin="31" end="16" resetval="0x0" description="RM event cnt   Reset Source: rst_modg_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="RMW_EVENT_CNT" width="16" begin="15" end="0" resetval="0x0" description="RMW event cnt   Reset Source: rst_modg_rst_n" range="15:0" rwaccess="R"/>
+	</register>
+</module>

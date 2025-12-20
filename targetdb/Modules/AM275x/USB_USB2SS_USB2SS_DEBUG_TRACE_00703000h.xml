@@ -1,0 +1,93 @@
+<module name="USB2SS_USB2SS_DEBUG_TRACE" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="USB2SS_USB2SS_DEBUG_TRACE_TRACE_CTRL" acronym="USB2SS_USB2SS_DEBUG_TRACE_TRACE_CTRL" offset="128" width="32" description="Debug trace control register">
+		<bitfield id="RSVD" width="28" begin="31" end="4" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="31:4" rwaccess="R"/>
+	<bitfield id="EN_OUT_EP14" width="1" begin="3" end="3" resetval="0x0" description="Debug trace enable for OUT Endpoint 14   Reset Source: cfg_srst_n" range="3" rwaccess="R/W"/>
+	<bitfield id="EN_OUT_EP15" width="1" begin="2" end="2" resetval="0x0" description="Debug trace enable for OUT Endpoint 15   Reset Source: cfg_srst_n" range="2" rwaccess="R/W"/>
+	<bitfield id="EN_IN_EP14" width="1" begin="1" end="1" resetval="0x0" description="Debug trace enable for IN Endpoint 14   Reset Source: cfg_srst_n" range="1" rwaccess="R/W"/>
+	<bitfield id="EN_IN_EP15" width="1" begin="0" end="0" resetval="0x0" description="Debug trace enable for IN Endpoint 15   Reset Source: cfg_srst_n" range="0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W0_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W0_j" offset="0" width="32" description="TRB0 Word 0. ">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="31:30" rwaccess="R/W"/>
+	<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number   Reset Source: cfg_srst_n" range="29:14" rwaccess="R/W"/>
+	<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="13:12" rwaccess="R/W"/>
+	<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete   Reset Source: cfg_srst_n" range="11" rwaccess="R/W"/>
+	<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC   Reset Source: cfg_srst_n" range="10" rwaccess="R/W"/>
+	<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB   Reset Source: cfg_srst_n" range="9:4" rwaccess="R/W"/>
+	<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet   Reset Source: cfg_srst_n" range="3" rwaccess="R/W"/>
+	<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers   Reset Source: cfg_srst_n" range="2" rwaccess="R/W"/>
+	<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list   Reset Source: cfg_srst_n" range="1" rwaccess="R/W"/>
+	<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor   Reset Source: cfg_srst_n" range="0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W1_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W1_j" offset="4" width="32" description="TRB0 Word 1. ">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="31:28" rwaccess="R/W"/>
+	<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="27" rwaccess="R/W"/>
+	<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits   Reset Source: cfg_srst_n" range="26" rwaccess="R/W"/>
+	<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="25:24" rwaccess="R/W"/>
+	<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size   Reset Source: cfg_srst_n" range="22:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W2_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W2_j" offset="8" width="32" description="TRB0 Word 2. ">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W3_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB0_W3_j" offset="12" width="32" description="TRB0 Word 3. ">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W0_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W0_j" offset="16" width="32" description="TRB1 Word 0. ">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="31:30" rwaccess="R/W"/>
+	<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number   Reset Source: cfg_srst_n" range="29:14" rwaccess="R/W"/>
+	<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="13:12" rwaccess="R/W"/>
+	<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete   Reset Source: cfg_srst_n" range="11" rwaccess="R/W"/>
+	<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC   Reset Source: cfg_srst_n" range="10" rwaccess="R/W"/>
+	<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB   Reset Source: cfg_srst_n" range="9:4" rwaccess="R/W"/>
+	<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet   Reset Source: cfg_srst_n" range="3" rwaccess="R/W"/>
+	<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers   Reset Source: cfg_srst_n" range="2" rwaccess="R/W"/>
+	<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list   Reset Source: cfg_srst_n" range="1" rwaccess="R/W"/>
+	<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor   Reset Source: cfg_srst_n" range="0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W1_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W1_j" offset="20" width="32" description="TRB1 Word 1. ">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="31:28" rwaccess="R/W"/>
+	<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="27" rwaccess="R/W"/>
+	<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits   Reset Source: cfg_srst_n" range="26" rwaccess="R/W"/>
+	<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="25:24" rwaccess="R/W"/>
+	<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size   Reset Source: cfg_srst_n" range="22:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W2_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W2_j" offset="24" width="32" description="TRB1 Word 2. ">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W3_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB1_W3_j" offset="28" width="32" description="TRB1 Word 3. ">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W0_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W0_j" offset="32" width="32" description="TRB2 Word 0. ">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="31:30" rwaccess="R/W"/>
+	<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number   Reset Source: cfg_srst_n" range="29:14" rwaccess="R/W"/>
+	<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="13:12" rwaccess="R/W"/>
+	<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete   Reset Source: cfg_srst_n" range="11" rwaccess="R/W"/>
+	<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC   Reset Source: cfg_srst_n" range="10" rwaccess="R/W"/>
+	<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB   Reset Source: cfg_srst_n" range="9:4" rwaccess="R/W"/>
+	<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet   Reset Source: cfg_srst_n" range="3" rwaccess="R/W"/>
+	<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers   Reset Source: cfg_srst_n" range="2" rwaccess="R/W"/>
+	<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list   Reset Source: cfg_srst_n" range="1" rwaccess="R/W"/>
+	<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor   Reset Source: cfg_srst_n" range="0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W1_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W1_j" offset="36" width="32" description="TRB2 Word 1. ">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="31:28" rwaccess="R/W"/>
+	<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="27" rwaccess="R/W"/>
+	<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits   Reset Source: cfg_srst_n" range="26" rwaccess="R/W"/>
+	<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="25:24" rwaccess="R/W"/>
+	<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size   Reset Source: cfg_srst_n" range="22:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W2_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W2_j" offset="40" width="32" description="TRB2 Word 2. ">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W3_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB2_W3_j" offset="44" width="32" description="TRB2 Word 3. ">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W0_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W0_j" offset="48" width="32" description="TRB3 Word 0. ">
+		<bitfield id="RSVD2" width="2" begin="31" end="30" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="31:30" rwaccess="R/W"/>
+	<bitfield id="SID" width="16" begin="29" end="14" resetval="0x0" description="Stream ID / SOF Number   Reset Source: cfg_srst_n" range="29:14" rwaccess="R/W"/>
+	<bitfield id="RSVD1" width="2" begin="13" end="12" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="13:12" rwaccess="R/W"/>
+	<bitfield id="IOC" width="1" begin="11" end="11" resetval="0x0" description="Interrupt on Complete   Reset Source: cfg_srst_n" range="11" rwaccess="R/W"/>
+	<bitfield id="ISP_IMI" width="1" begin="10" end="10" resetval="0x0" description="Interrupt on Short Packet / Interrupt on Missed ISOC   Reset Source: cfg_srst_n" range="10" rwaccess="R/W"/>
+	<bitfield id="TRBCTL" width="6" begin="9" end="4" resetval="0x0" description="Indicates the type of TRB   Reset Source: cfg_srst_n" range="9:4" rwaccess="R/W"/>
+	<bitfield id="CSP" width="1" begin="3" end="3" resetval="0x0" description="Continue on Short Packet   Reset Source: cfg_srst_n" range="3" rwaccess="R/W"/>
+	<bitfield id="CHN" width="1" begin="2" end="2" resetval="0x0" description="Chain buffers   Reset Source: cfg_srst_n" range="2" rwaccess="R/W"/>
+	<bitfield id="LST" width="1" begin="1" end="1" resetval="0x0" description="Indicates this is the last TRB in a list   Reset Source: cfg_srst_n" range="1" rwaccess="R/W"/>
+	<bitfield id="HWO" width="1" begin="0" end="0" resetval="0x0" description="Hardware Owner of Descriptor   Reset Source: cfg_srst_n" range="0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W1_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W1_j" offset="52" width="32" description="TRB3 Word 1. ">
+		<bitfield id="TRBSTS" width="4" begin="31" end="28" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="31:28" rwaccess="R/W"/>
+	<bitfield id="RSVD2" width="1" begin="27" end="27" resetval="0x0" description="Reserved bits   Reset Source: cfg_srst_n" range="27" rwaccess="R/W"/>
+	<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x0" description="Short packet received/Reserved bits   Reset Source: cfg_srst_n" range="26" rwaccess="R/W"/>
+	<bitfield id="PCM1" width="2" begin="25" end="24" resetval="0x0" description="Packet Count M1   Reset Source: cfg_srst_n" range="25:24" rwaccess="R/W"/>
+	<bitfield id="BUFSIZ" width="23" begin="22" end="0" resetval="0x0" description="Buffer Size   Reset Source: cfg_srst_n" range="22:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W2_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W2_j" offset="56" width="32" description="TRB3 Word 2. ">
+		<bitfield id="BPTRH" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer High   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W3_j" acronym="USB2SS_USB2SS_DEBUG_TRACE_EP_TRB3_W3_j" offset="60" width="32" description="TRB3 Word 3. ">
+		<bitfield id="BPTRL" width="32" begin="31" end="0" resetval="0x0" description="Buffer Pointer Low   Reset Source: cfg_srst_n" range="31:0" rwaccess="R/W"/>
+	</register>
+</module>

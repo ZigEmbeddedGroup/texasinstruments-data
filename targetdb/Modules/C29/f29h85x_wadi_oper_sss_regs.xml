@@ -1,0 +1,343 @@
+<module id="WADI_OPER_SSS_REGS" HW_revision="" description="WADI OPER SSS Registers">
+	<register id="BASETIMERLOW" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="Read only value for lower word of the base timer. ">
+		<bitfield id="LOWWORD" description="Timer value of 31:0 of the base timer. " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="BASETIMERHIGH" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="Upper word of the base timer and trigger to start the timer.">
+		<bitfield id="HIGHWORD" description="Upper word of the base timer" begin="27" end="0" width="28" rwaccess="R"/>
+		<bitfield id="ENBASETIMER" description="Start base timer trigger" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="INTSTS" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="Gives the block wise aggregated raw error status that shall trigger the interrupt. ">
+		<bitfield id="BLK1INT" description="Interrupt status by ORing all WADI block errors" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="BLK2INT" description="Interrupt status by ORing all WADI block errors" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="BLK3INT" description="Interrupt status by ORing all WADI block errors" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="BLK4INT" description="Interrupt status by ORing all WADI block errors" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="SIGBLKSINT" description="ORed int status of measurement error for all WADI blocks" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="SIGTOSIG_BLKSINT" description="ORed int status of mismatch error for all WADI blocks" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="INTSTSMASK" width="32" page="0" offset="0xc" instances="1" instaddr="4" internal="0" description="Provides mask for application to suppress or allow a particular block related errors to cause interrupt or not">
+		<bitfield id="BLKSMASK" description="Line wise mask to propagate interrupt or not" begin="15" end="0" width="16" rwaccess="RW"/>
+		<bitfield id="SIGBLKSMASK" description="Line wise mask to propagate interrupt or not" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="SIGTOSIG_BLKSMASK" description="Line wise mask to propagate interrupt or not" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="BLKSMASKSTS" width="32" page="0" offset="0x10" instances="1" instaddr="4" internal="0" description="This is AND combination of active high indication of block-wise status asserting an interrupt. ">
+		<bitfield id="BLKSMASK" description="This is AND of INTSTS and INTSTSMASK" begin="15" end="0" width="16" rwaccess="R"/>
+		<bitfield id="SIGBLKS" description="This is AND of INTSTS and INTSTSMASK" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="SIGTOSIGBLKS" description="This is AND of INTSTS and INTSTSMASK" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="INTSTSCLR" width="32" page="0" offset="0x14" instances="1" instaddr="4" internal="0" description="Provides way for application to clear the interrupt status.">
+		<bitfield id="BLK1INT" description="Clears the status of the INTSTS of Block 1" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="BLK2INT" description="Clears the status of the INTSTS of Block 2" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="BLK3INT" description="Clears the status of the INTSTS of Block 3" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="BLK4INT" description="Clears the status of the INTSTS of Block 4" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="SIGBLKSINT" description="Clears the status of all block's INTSTS[SIGBLKSINT]" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="SIGTOSIG_BLKSINT" description="Clears the status of all block's INTSTS[SIGTOSIG_BLKSINT]" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="INTSTSFRC" width="32" page="0" offset="0x18" instances="1" instaddr="4" internal="0" description="Allows emulation of the RIS to raise interrupt in software">
+		<bitfield id="BLK1INT" description="Allows software force of WADI Block interrupt" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="BLK2INT" description="Allows software force of WADI Block interrupt" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="BLK3INT" description="Allows software force of WADI Block interrupt" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="BLK4INT" description="Allows software force of WADI Block interrupt" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="SIGBLKSINT" description="Allows software force of WADI Block interrupt" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="SIGTOSIG_BLKSINT" description="Allows software force of WADI Block interrupt" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SIGSYNCFILTCFG" width="32" page="0" offset="0x1c" instances="1" instaddr="4" internal="0" description="Each input SIG to be connected through synchroniser or not">
+		<bitfield id="BLKS_SIGS_SYNCFILT" description="Selects SIG is synchronised and filtered or not" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="TRIGSYNCFILTCFG" width="32" page="0" offset="0x20" instances="1" instaddr="4" internal="0" description="Each trigger to be connected through synchroniser or not">
+		<bitfield id="BLKS_TRIG_SYNCFILT" description="Selects Trigger input is synchronised and filtered or not" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="REVISION" width="32" page="0" offset="0x3c" instances="1" instaddr="4" internal="0" description="IP Revision">
+		<bitfield id="MINOR" description="Minor Revision Number" begin="5" end="0" width="6" rwaccess="R"/>
+		<bitfield id="CUSTOM" description="Custom Module Number" begin="7" end="6" width="2" rwaccess="R"/>
+		<bitfield id="MAJOR" description="Major Revision Number" begin="10" end="8" width="3" rwaccess="R"/>
+		<bitfield id="RTL" description="Design Release Number" begin="15" end="11" width="5" rwaccess="R"/>
+		<bitfield id="FUNC" description="Functional Release Number" begin="27" end="16" width="12" rwaccess="R"/>
+		<bitfield id="SCHEME" description="Defines Scheme for Module" begin="31" end="30" width="2" rwaccess="R"/>
+	</register>
+	<register id="DMATRIGSTS" width="32" page="0" offset="0x40" instances="1" instaddr="4" internal="0" description="Status of the DMA triggers active">
+		<bitfield id="BLK1_DMAEVT" description="Indicates the WADI Block event for DMA trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="BLK2_DMAEVT" description="Indicates the WADI Block event for DMA trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="BLK3_DMAEVT" description="Indicates the WADI Block event for DMA trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="BLK4_DMAEVT" description="Indicates the WADI Block event for DMA trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT1" description="Indicates the SSS Event event for DMA trigger" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT2" description="Indicates the SSS Event for DMA trigger" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT3" description="Indicates the SSS Event for DMA trigger" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT4" description="Indicates the SSS Event for DMA trigger" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT5" description="Indicates the SSS Event for DMA trigger" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT6" description="Indicates the SSS Event for DMA trigger" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT7" description="Indicates the SSS Event for DMA trigger" begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_EVT8" description="Indicates the SSS Event for DMA trigger" begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT1" description="Indicates the SSS output event for DMA trigger" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT2" description="Indicates the SSS output event for DMA trigger" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT3" description="Indicates the SSS output event for DMA trigger" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT4" description="Indicates the SSS output event for DMA trigger" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT5" description="Indicates the SSS output event for DMA trigger" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT6" description="Indicates the SSS output event for DMA trigger" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT7" description="Indicates the SSS output event for DMA trigger" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT8" description="Indicates the SSS output event for DMA trigger" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="DMATRIGEN" width="32" page="0" offset="0x44" instances="1" instaddr="4" internal="0" description="Mask to enable individual trigger cause">
+		<bitfield id="BLKSDMAEVT" description="WADI Block event enables for DMA request trigger" begin="15" end="0" width="16" rwaccess="RW"/>
+		<bitfield id="SSS_EVT1_4DMA" description="SSS Event word Set-1 enables for DMA request Trigger" begin="19" end="16" width="4" rwaccess="RW"/>
+		<bitfield id="SSS_EVT5_8DMA" description="SSS Event word Set-2 enables for DMA request Trigger" begin="23" end="20" width="4" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT1_4DMA" description="SSS output event 1 to 4 enables for DMA request Trigger" begin="27" end="24" width="4" rwaccess="RW"/>
+		<bitfield id="SSS_OUTEVT5_8DMA" description="SSS output event 5 to 8 enables for DMA request Trigger" begin="31" end="28" width="4" rwaccess="RW"/>
+	</register>
+	<register id="DMASTSUPDATE" width="32" page="0" offset="0x48" instances="1" instaddr="4" internal="0" description="Indicates the register set updated post DMA write">
+		<bitfield id="WRSTSBLK1" description="Status of DMA update for register set of WADI Block" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSBLK2" description="Status of DMA update for register set of WADI Block" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSBLK3" description="Status of DMA update for register set of WADI Block" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSBLK4" description="Status of DMA update for register set of WADI Block" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT1" description="DMA MMR write status of  SSS Event word" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT2" description="DMA MMR write status of  SSS Event word" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT3" description="DMA MMR write status of  SSS Event word" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT4" description="DMA MMR write status of  SSS Event word" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT5" description="DMA MMR write status of  SSS Event word" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT6" description="DMA MMR write status of  SSS Event word" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT7" description="DMA MMR write status of  SSS Event word" begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSEVT8" description="DMA MMR write status of  SSS Event word" begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT1" description="DMA MMR write status of  SSS OUTEVT1" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT2" description="DMA MMR write status of  SSS OUTEVT2" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT3" description="DMA MMR write status of  SSS OUTEVT3" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT4" description="DMA MMR write status of  SSS OUTEVT4" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT5" description="DMA MMR write status of  SSS OUTEVT5" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT6" description="DMA MMR write status of  SSS OUTEVT6" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT7" description="DMA MMR write status of  SSS OUTEVT7" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="WRSTSOUT8" description="DMA MMR write status of  SSS OUTEVT8" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="DMAFILTWRCFG" width="32" page="0" offset="0x4c" instances="1" instaddr="4" internal="0" description="DMA writes Filter enable for each of WADI and SSS blocks">
+		<bitfield id="BLKSWREN" description="Enable for filtered DMA write for WADI Block" begin="15" end="0" width="16" rwaccess="RW"/>
+		<bitfield id="EVT1_4WREN" description="Enable for filtered DMA write for SSS Event 1 to 4" begin="19" end="16" width="4" rwaccess="RW"/>
+		<bitfield id="EVT5_8WREN" description="Enable for filtered DMA write for SSS Event 5 to 8" begin="23" end="20" width="4" rwaccess="RW"/>
+		<bitfield id="OUTEVT1_4WREN" description="Enable for filtered DMA write for SSS output Events 1-4" begin="27" end="24" width="4" rwaccess="RW"/>
+		<bitfield id="OUTEVT5_8WREN" description="Enable for filtered DMA write for SSS output Events 5-8" begin="31" end="28" width="4" rwaccess="RW"/>
+	</register>
+	<register id="CFGREGLOCK" width="32" page="0" offset="0xa4" instances="1" instaddr="4" internal="0" description="Configuration Register Lock">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CFGREGCOMMIT" width="32" page="0" offset="0xa8" instances="1" instaddr="4" internal="0" description="Configuration Register Commit">
+		<bitfield id="COMMIT" description="CONFIG_REG_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="OPERREGLOCK" width="32" page="0" offset="0xac" instances="1" instaddr="4" internal="0" description="Operating Register Lock">
+		<bitfield id="LOCK" description="Register Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="OPERREGCOMMIT" width="32" page="0" offset="0xb0" instances="1" instaddr="4" internal="0" description="Operating Register Commit">
+		<bitfield id="COMMIT" description="OPER_REG_LOCK Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVTTRIG" width="32" page="0" offset="0xb8" instances="1" instaddr="4" internal="0" description="Event trigger word output by WADI instance for SSS">
+		<bitfield id="EVTTRIG" description="SSS start if event trigger matches one of defined EVT1-8 " begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVTSTS" width="32" page="0" offset="0xbc" instances="1" instaddr="4" internal="0" description="Status of the active event">
+		<bitfield id="OUTEVT1_4" description="Active seq word status for first set" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="OUTEVT5_8" description="Active seq word status for Second set" begin="7" end="4" width="4" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLK1_2OUTSEL" width="32" page="0" offset="0xc0" instances="1" instaddr="4" internal="0" description="Mux select word for outputs 0-3">
+		<bitfield id="BLK1SIG1" description="Maps the  OUTEVTn associated with BLK0:SIG1" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="BLK1SIG2" description="Maps the OUTEVTn associated with BLK0:SIG2" begin="15" end="8" width="8" rwaccess="RW"/>
+		<bitfield id="BLK2SIG1" description="Maps the OUTEVTn associated with BLK1:SIG1" begin="23" end="16" width="8" rwaccess="RW"/>
+		<bitfield id="BLK2SIG2" description="Maps the OUTEVTn associated with BLK1:SIG2" begin="31" end="24" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLK3_4OUTSEL" width="32" page="0" offset="0xc4" instances="1" instaddr="4" internal="0" description="Mux select word for outputs 4-7">
+		<bitfield id="BLK3SIG1" description="Maps the  OUTEVTn associated with BLK2:SIG1" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="BLK3SIG2" description="Maps the OUTEVTn associated with BLK2:SIG2" begin="15" end="8" width="8" rwaccess="RW"/>
+		<bitfield id="BLK4SIG1" description="Maps the OUTEVTn associated with BLK3:SIG1" begin="23" end="16" width="8" rwaccess="RW"/>
+		<bitfield id="BLK4SIG2" description="Maps the OUTEVTn associated with BLK3:SIG2" begin="31" end="24" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT1LINKCFG" width="32" page="0" offset="0xe0" instances="1" instaddr="4" internal="0" description="Output event1 Link configuration">
+		<bitfield id="OUTEVT1LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT2LINKCFG" width="32" page="0" offset="0xe4" instances="1" instaddr="4" internal="0" description="Output event2 link configuration">
+		<bitfield id="OUTEVT2LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT3LINKCFG" width="32" page="0" offset="0xe8" instances="1" instaddr="4" internal="0" description="Output event3 link configuration">
+		<bitfield id="OUTEVT3LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT4LINKCFG" width="32" page="0" offset="0xec" instances="1" instaddr="4" internal="0" description="Output event4 link configuration">
+		<bitfield id="OUTEVT4LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT5LINKCFG" width="32" page="0" offset="0xf0" instances="1" instaddr="4" internal="0" description="Output event5 link configuration">
+		<bitfield id="OUTEVT5LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT6LINKCFG" width="32" page="0" offset="0xf4" instances="1" instaddr="4" internal="0" description="Output event6 link configuration">
+		<bitfield id="OUTEVT6LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT7LINKCFG" width="32" page="0" offset="0xf8" instances="1" instaddr="4" internal="0" description="Output event7 link configuration">
+		<bitfield id="OUTEVT7LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT8LINKCFG" width="32" page="0" offset="0xfc" instances="1" instaddr="4" internal="0" description="Output event8 link configuration">
+		<bitfield id="OUT8LINK" description="Links output events (OUTEVTs) as per one hot encoding" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT1CFG" width="32" page="0" offset="0x100" instances="1" instaddr="4" internal="0" description="Event1 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT1" description="First event compare configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT2CFG" width="32" page="0" offset="0x104" instances="1" instaddr="4" internal="0" description="Event2 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT2" description="Second word compare value configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT3CFG" width="32" page="0" offset="0x108" instances="1" instaddr="4" internal="0" description="Event3 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT3" description="Third word compare value configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="EVT3_BLK5_TO_16" description="Third word compare value configuration" begin="31" end="8" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT4CFG" width="32" page="0" offset="0x10c" instances="1" instaddr="4" internal="0" description="Event4 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT4" description="Fourth word compare value configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="EVT4_BLK5_TO_16" description="Fourth word compare value configuration" begin="31" end="8" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_TRIGEVT1_4CFG" width="32" page="0" offset="0x110" instances="1" instaddr="4" internal="0" description="Configuration for using trigger word in specific manner">
+		<bitfield id="TRIG_EVT1CFG" description="Selects action associated with event 1" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="TRIG_EVT2CFG" description="Selects action associated with event 2" begin="11" end="8" width="4" rwaccess="RW"/>
+		<bitfield id="TRIG_EVT3CFG" description="Selects action associated with event 3" begin="19" end="16" width="4" rwaccess="RW"/>
+		<bitfield id="TRIG_EVT4CFG" description="Selects action associated with event 4" begin="27" end="24" width="4" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT1CFG" width="32" page="0" offset="0x180" instances="1" instaddr="4" internal="0" description="Output event1 to be applied for output ">
+		<bitfield id="OUTEVT1" description="Output configuration on event 1" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT2CFG" width="32" page="0" offset="0x184" instances="1" instaddr="4" internal="0" description="Output event2 to be applied for output ">
+		<bitfield id="OUTEVT2" description="Output configuration on event 2" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT3CFG" width="32" page="0" offset="0x188" instances="1" instaddr="4" internal="0" description="Output event3 to be applied for output ">
+		<bitfield id="OUTEVT3" description="Output configuration on event 3" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT4CFG" width="32" page="0" offset="0x18c" instances="1" instaddr="4" internal="0" description="Output event4 to be applied for output ">
+		<bitfield id="OUTEVT4" description="Output configuration on event 4" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT1TRIGCFG" width="32" page="0" offset="0x190" instances="1" instaddr="4" internal="0" description="Output event1 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT1 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT1 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT1 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT1 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT1 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT1 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT1 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT1 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT2TRIGCFG" width="32" page="0" offset="0x194" instances="1" instaddr="4" internal="0" description="Output event2 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT2 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT2 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT2 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT2 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT2 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT2 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT2 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT2 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT3TRIGCFG" width="32" page="0" offset="0x198" instances="1" instaddr="4" internal="0" description="Output event3 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT3 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT3 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT3 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT3 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT3 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT3 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT3 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT3 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT4TRIGCFG" width="32" page="0" offset="0x19c" instances="1" instaddr="4" internal="0" description="Output event4 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT4 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT4 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT4 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT4 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT4 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT4 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT4 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT4 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT1DUR" width="32" page="0" offset="0x1a0" instances="1" instaddr="4" internal="0" description="Output event1 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT1" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT2DUR" width="32" page="0" offset="0x1a4" instances="1" instaddr="4" internal="0" description="Output event2 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT2" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT3DUR" width="32" page="0" offset="0x1a8" instances="1" instaddr="4" internal="0" description="Output event3 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT3" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT4DUR" width="32" page="0" offset="0x1ac" instances="1" instaddr="4" internal="0" description="Output event4 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT4" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT5CFG" width="32" page="0" offset="0x200" instances="1" instaddr="4" internal="0" description="Event5 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT5" description="Fifth word compare value configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="EVT5_BLK5_TO_16" description="Fifth word compare value configuration" begin="31" end="8" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT6CFG" width="32" page="0" offset="0x204" instances="1" instaddr="4" internal="0" description="Event6 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT6" description="Sixth word compare value configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="EVT6_BLK5_TO_16" description="Sixth word compare value configuration" begin="31" end="8" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT7CFG" width="32" page="0" offset="0x208" instances="1" instaddr="4" internal="0" description="Event7 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT7" description="Seventh word compare value configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="EVT7_BLK5_TO_16" description="Seventh word compare value configuration" begin="31" end="8" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_EVT8CFG" width="32" page="0" offset="0x20c" instances="1" instaddr="4" internal="0" description="Event8 that compares to trigger word SSS_EVTTRIG">
+		<bitfield id="EVT8" description="Eighth word compare value configuration" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="EVT8_BLK5_TO_16" description="Eighth word compare value configuration" begin="31" end="8" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_TRIGEVT5_8CFG" width="32" page="0" offset="0x210" instances="1" instaddr="4" internal="0" description="Configuration for using trigger word in specific manner">
+		<bitfield id="TRIG_EVT5CFG" description="Selects action associated with event 5" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="TRIG_EVT6CFG" description="Selects action associated with event 6" begin="11" end="8" width="4" rwaccess="RW"/>
+		<bitfield id="TRIG_EVT7CFG" description="Selects action associated with event 7" begin="19" end="16" width="4" rwaccess="RW"/>
+		<bitfield id="TRIG_EVT8CFG" description="Selects action associated with event 8" begin="27" end="24" width="4" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT5CFG" width="32" page="0" offset="0x280" instances="1" instaddr="4" internal="0" description="Output event5 to be applied for output ">
+		<bitfield id="OUTEVT5" description="Output configuration on event 5" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT6CFG" width="32" page="0" offset="0x284" instances="1" instaddr="4" internal="0" description="Output event6 to be applied for output ">
+		<bitfield id="OUTEVT6" description="Output configuration on event 6" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT7CFG" width="32" page="0" offset="0x288" instances="1" instaddr="4" internal="0" description="Output event7 to be applied for output ">
+		<bitfield id="OUTEVT7" description="Output configuration on event 7" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_BLKSOUTEVT8CFG" width="32" page="0" offset="0x28c" instances="1" instaddr="4" internal="0" description="Output event8 to be applied for output ">
+		<bitfield id="OUTEVT8" description="Output configuration on event 8" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT5TRIGCFG" width="32" page="0" offset="0x290" instances="1" instaddr="4" internal="0" description="Output event5 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT5 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT5 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT5 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT5 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT5 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT5 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT5 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT5 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT6TRIGCFG" width="32" page="0" offset="0x294" instances="1" instaddr="4" internal="0" description="Output event6 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT6 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT6 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT6 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT6 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT6 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT6 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT6 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT6 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT7TRIGCFG" width="32" page="0" offset="0x298" instances="1" instaddr="4" internal="0" description="Output event7 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT7 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT7 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT7 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT7 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT7 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT7 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT7 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT7 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT8TRIGCFG" width="32" page="0" offset="0x29c" instances="1" instaddr="4" internal="0" description="Output event8 configuration for triggers, link">
+		<bitfield id="EVT1TRIG" description="Sets OUTEVT8 based on Event 1 Trigger" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="EVT2TRIG" description="Sets OUTEVT8 based on Event 2 Trigger" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="EVT3TRIG" description="Sets OUTEVT8 based on Event 3 Trigger" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="EVT4TRIG" description="Sets OUTEVT8 based on Event 4 Trigger" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="EVT5TRIG" description="Sets OUTEVT8 based on Event 5 Trigger" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="EVT6TRIG" description="Sets OUTEVT8 based on Event 6 Trigger" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="EVT7TRIG" description="Sets OUTEVT8 based on Event 7 Trigger" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="EVT8TRIG" description="Sets OUTEVT8 based on Event 8 Trigger" begin="7" end="7" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT5DUR" width="32" page="0" offset="0x2a0" instances="1" instaddr="4" internal="0" description="Output event5 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT5" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT6DUR" width="32" page="0" offset="0x2a4" instances="1" instaddr="4" internal="0" description="Output event6 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT6" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT7DUR" width="32" page="0" offset="0x2a8" instances="1" instaddr="4" internal="0" description="Output event7 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT7" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="SSS_OUTEVT8DUR" width="32" page="0" offset="0x2ac" instances="1" instaddr="4" internal="0" description="Output event8 configuration of delays">
+		<bitfield id="TIME" description="Duration time for application of OUTEVT8" begin="23" end="0" width="24" rwaccess="RW"/>
+	</register>
+	<register id="PARTEST" width="32" page="0" offset="0x2c8" instances="1" instaddr="4" internal="0" description="Enables parity test">
+		<bitfield id="TESTEN" description="Parity test enable configuration" begin="3" end="0" width="4" rwaccess="RW"/>
+	</register>
+</module>

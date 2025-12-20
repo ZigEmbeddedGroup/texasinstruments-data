@@ -109,7 +109,10 @@ This register shows SVT IP availability, HW features and memory size configurati
          <bitenum id="SZ1" value="1" token="SRAM size set to level 1" description="SRAM size set to level 1"/>
          <bitenum id="SZ0" value="0" token="SRAM size set to level 0 (Min size)" description="SRAM size set to level 0 (Min size)"/>
       </bitfield>
-      <bitfield range="" begin="27" width="9" end="19" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED19" resetval="0x0">
+      <bitfield range="" begin="27" width="7" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="20" width="2" end="19" rwaccess="RO" description="HSM IP feature availability." id="HSMOPT" resetval="0x3">
+         <bitenum id="MAX" value="3" token="All features available" description="All features available"/>
       </bitfield>
       <bitfield range="" begin="18" width="2" end="17" rwaccess="RO" description="CAN IP feature availability" id="CANOPT" resetval="0x3">
          <bitenum id="MAX" value="3" token="All features available" description="All features available"/>
@@ -125,7 +128,7 @@ This register shows SVT IP availability, HW features and memory size configurati
          <bitenum id="IP_AVAIL" value="1" token="IP is available" description="IP is available"/>
          <bitenum id="IP_UNAVAIL" value="0" token="IP is unavailable" description="IP is unavailable"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="IP status on device" id="VCE" resetval="0x1">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="IP status on device" id="APU" resetval="0x1">
          <bitenum id="IP_AVAIL" value="1" token="IP is available" description="IP is available"/>
          <bitenum id="IP_UNAVAIL" value="0" token="IP is unavailable" description="IP is unavailable"/>
       </bitfield>
@@ -224,7 +227,7 @@ The configuration is updated through CLKENSET1 and CLKENCLR1." id="CLKCFG1" offs
          <bitenum id="CLK_EN" value="1" token="Clock is enabled" description="Clock is enabled"/>
          <bitenum id="CLK_DIS" value="0" token="Clock is disabled" description="Clock is disabled"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="IP clock configuration" id="VCE" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="IP clock configuration" id="APU" resetval="0x0">
          <bitenum id="CLK_EN" value="1" token="Clock is enabled" description="Clock is enabled"/>
          <bitenum id="CLK_DIS" value="0" token="Clock is disabled" description="Clock is disabled"/>
       </bitfield>
@@ -322,7 +325,7 @@ Used to set the corresponding fields in CLKCFG1 to 1." id="CLKENSET1" offset="0x
          <bitenum id="CLK_SET" value="1" token="Set IP clock enable" description="Set IP clock enable"/>
          <bitenum id="CLK_UNCHGD" value="0" token="IP clock enable is unchanged" description="IP clock enable is unchanged"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Configure IP clock enable" id="VCE" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Configure IP clock enable" id="APU" resetval="0x0">
          <bitenum id="CLK_SET" value="1" token="Set IP clock enable" description="Set IP clock enable"/>
          <bitenum id="CLK_UNCHGD" value="0" token="IP clock enable is unchanged" description="IP clock enable is unchanged"/>
       </bitfield>
@@ -420,7 +423,7 @@ Used to clear the corresponding fields in CLKCFG1 to 0." id="CLKENCLR1" offset="
          <bitenum id="CLK_CLR" value="1" token="Clear IP clock enable" description="Clear IP clock enable"/>
          <bitenum id="CLK_UNCHGD" value="0" token="IP clock enable is unchanged" description="IP clock enable is unchanged"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Configure IP clock enable" id="VCE" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Configure IP clock enable" id="APU" resetval="0x0">
          <bitenum id="CLK_CLR" value="1" token="Clear IP clock enable" description="Clear IP clock enable"/>
          <bitenum id="CLK_UNCHGD" value="0" token="IP clock enable is unchanged" description="IP clock enable is unchanged"/>
       </bitfield>

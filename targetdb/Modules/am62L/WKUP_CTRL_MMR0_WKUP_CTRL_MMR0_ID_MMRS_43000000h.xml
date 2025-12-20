@@ -1,0 +1,81 @@
+<module name="WKUP_CTRL_MMR0_ID_MMRS" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="WKUP_CTRL_MMR0_ID_MMRS_PID" acronym="WKUP_CTRL_MMR0_ID_MMRS_PID" offset="0" width="32" description="">
+		<bitfield id="PID_MSB16" width="16" begin="31" end="16" resetval="0x24960" description="   Reset Source: mod_g_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="PID_MISC" width="5" begin="15" end="11" resetval="0x0" description="   Reset Source: mod_g_rst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="PID_MAJOR" width="3" begin="10" end="8" resetval="0x2" description="   Reset Source: mod_g_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="PID_CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="   Reset Source: mod_g_rst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="PID_MINOR" width="6" begin="5" end="0" resetval="0x21" description="   Reset Source: mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_MMR_CFG1" acronym="WKUP_CTRL_MMR0_ID_MMRS_MMR_CFG1" offset="8" width="32" description="Indicates the MMR configuration">
+		<bitfield id="MMR_CFG1_PROXY_EN" width="1" begin="31" end="31" resetval="0x0" description="No Proxy Addressing   Reset Source: mod_por_rst_n" range="31" rwaccess="R"/>
+	<bitfield id="MMR_CFG1_PARTITIONS" width="8" begin="7" end="0" resetval="0x0" description="No Partitions Implemented   Reset Source: mod_por_rst_n" range="7:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_JTAGID" acronym="WKUP_CTRL_MMR0_ID_MMRS_JTAGID" offset="20" width="32" description="The JTAGID register must be readable by the configuration bus so that this can be accessed via the JTAG and CPU. This ID is also readable through Boundary Scan">
+		<bitfield id="JTAGID_VARIANT" width="4" begin="31" end="28" resetval="0x0" description="Used to indicate new PGs   Reset Source: mod_por_rst_n" range="31:28" rwaccess="R"/>
+	<bitfield id="JTAGID_PARTNO" width="16" begin="27" end="12" resetval="0x48039" description="Part number for boundary scan   Reset Source: mod_por_rst_n" range="27:12" rwaccess="R"/>
+	<bitfield id="JTAGID_MFG" width="11" begin="11" end="1" resetval="0x23" description="Indicates manufacturer   Reset Source: mod_por_rst_n" range="11:1" rwaccess="R"/>
+	<bitfield id="JTAGID_LSB" width="1" begin="0" end="0" resetval="0x1" description="Always 1   Reset Source: mod_por_rst_n" range="0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_JTAG_USER_ID" acronym="WKUP_CTRL_MMR0_ID_MMRS_JTAG_USER_ID" offset="24" width="32" description="Additional fuse programmable device identifying information.">
+		<bitfield id="JTAG_USER_ID_USERCODE" width="32" begin="31" end="0" resetval="0x0" description="Device information   Reset Source: mod_por_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_DEVICE_FEATURE0" acronym="WKUP_CTRL_MMR0_ID_MMRS_DEVICE_FEATURE0" offset="96" width="32" description="Indicates presence of features on device">
+		<bitfield id="DEVICE_FEATURE0_PRU" width="1" begin="21" end="21" resetval="0x0" description="PRU / ICSS Availability 0      NOT_AVAILABLE1      AVAILABLE" range="21" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_GPU" width="1" begin="18" end="18" resetval="0x0" description="GPU Availability 0      NOT_AVAILABLE1      AVAILABLE" range="18" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_VDEC" width="1" begin="17" end="17" resetval="0x0" description="Video Decoder Availability 0      NOT_AVAILABLE1      AVAILABLE" range="17" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_VENC" width="1" begin="16" end="16" resetval="0x0" description="Video Encoder Availability 0      NOT_AVAILABLE1      AVAILABLE" range="16" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_ISP" width="1" begin="15" end="15" resetval="0x0" description="ISP Availability 0      NOT_AVAILABLE1      AVAILABLE" range="15" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_DSP" width="1" begin="14" end="14" resetval="0x0" description="DSP Availability 0      NOT_AVAILABLE1      AVAILABLE" range="14" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_DLA" width="1" begin="13" end="13" resetval="0x0" description="Deep Learning Accelerator Availability 0      NOT_AVAILABLE1      AVAILABLE" range="13" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_MCUSS" width="1" begin="8" end="8" resetval="0x0" description="MCU Availability 0      NOT_AVAILABLE1      AVAILABLE" range="8" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_MPU_CLUSTER0_CORE3" width="1" begin="3" end="3" resetval="0x0" description="MPU Cluster0 Core 3 Availability 0      NOT_AVAILABLE1      AVAILABLE" range="3" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_MPU_CLUSTER0_CORE2" width="1" begin="2" end="2" resetval="0x0" description="MPU Cluster0 Core 2 Availability 0      NOT_AVAILABLE1      AVAILABLE" range="2" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_MPU_CLUSTER0_CORE1" width="1" begin="1" end="1" resetval="0x0" description="MPU Cluster0 Core 1 Availability 0      NOT_AVAILABLE1      AVAILABLE" range="1" rwaccess="R"/>
+	<bitfield id="DEVICE_FEATURE0_MPU_CLUSTER0_CORE0" width="1" begin="0" end="0" resetval="0x0" description="MPU Cluster0 Core 0 Availability 0      NOT_AVAILABLE1      AVAILABLE" range="0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_intr_raw_status" acronym="WKUP_CTRL_MMR0_ID_MMRS_intr_raw_status" offset="4112" width="32" description="">
+		<bitfield id="PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TS"/>
+	<bitfield id="KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_intr_enabled_status_clear" acronym="WKUP_CTRL_MMR0_ID_MMRS_intr_enabled_status_clear" offset="4116" width="32" description="">
+		<bitfield id="ENABLED_PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLED_PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_intr_enable" acronym="WKUP_CTRL_MMR0_ID_MMRS_intr_enable" offset="4120" width="32" description="">
+		<bitfield id="PROXY_ERR_EN" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TS"/>
+	<bitfield id="KICK_ERR_EN" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ADDR_ERR_EN" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="PROT_ERR_EN" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable. Write a 1 to set the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_intr_enable_clear" acronym="WKUP_CTRL_MMR0_ID_MMRS_intr_enable_clear" offset="4124" width="32" description="">
+		<bitfield id="PROXY_ERR_EN_CLR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="3" rwaccess="R/W1TC"/>
+	<bitfield id="KICK_ERR_EN_CLR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ADDR_ERR_EN_CLR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="PROT_ERR_EN_CLR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_eoi" acronym="WKUP_CTRL_MMR0_ID_MMRS_eoi" offset="4128" width="32" description="">
+		<bitfield id="EOI_VECTOR" width="8" begin="7" end="0" resetval="0x0" description="EOI vector value. Write this with interrupt distribution value in the chip.   Reset Source: mod_g_rst_n" range="7:0" rwaccess="R/W"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_fault_address" acronym="WKUP_CTRL_MMR0_ID_MMRS_fault_address" offset="4132" width="32" description="">
+		<bitfield id="FAULT_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Fault Address.   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_fault_type_status" acronym="WKUP_CTRL_MMR0_ID_MMRS_fault_type_status" offset="4136" width="32" description="">
+		<bitfield id="FAULT_NS" width="1" begin="6" end="6" resetval="0x0" description="Non-secure access.   Reset Source: mod_g_rst_n" range="6" rwaccess="R"/>
+	<bitfield id="FAULT_TYPE" width="6" begin="5" end="0" resetval="0x0" description="Fault Type  10_0000 = Supervisor read  fault  - priv = 1 dir = 1 dtype != 1   01_0000 = Supervisor write fault  - priv = 1 dir = 0  00_1000 = Supervisor execute fault - priv = 1 dir = 1 dtype = 1  00_0100 = User read  fault - priv = 0 dir = 1 dtype = 1  00_0010 = User write fault - priv = 0 dir = 0  00_0001 = User execute fault - priv = 0 dir = 1 dtype = 1  00_0000 = No fault   Reset Source: mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_fault_attr_status" acronym="WKUP_CTRL_MMR0_ID_MMRS_fault_attr_status" offset="4140" width="32" description="">
+		<bitfield id="FAULT_XID" width="12" begin="31" end="20" resetval="0x0" description="XID.   Reset Source: mod_g_rst_n" range="31:20" rwaccess="R"/>
+	<bitfield id="FAULT_ROUTEID" width="12" begin="19" end="8" resetval="0x0" description="Route ID.   Reset Source: mod_g_rst_n" range="19:8" rwaccess="R"/>
+	<bitfield id="FAULT_PRIVID" width="8" begin="7" end="0" resetval="0x0" description="Privilege ID.   Reset Source: mod_g_rst_n" range="7:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_fault_clear" acronym="WKUP_CTRL_MMR0_ID_MMRS_fault_clear" offset="4144" width="32" description="">
+		<bitfield id="FAULT_CLR" width="1" begin="0" end="0" resetval="0x0" description="Fault clear. Writing a 1 clears the current fault. Writing a 0 has no effect.   Reset Source: mod_g_rst_n" range="0" rwaccess="W"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_MAC_ID0" acronym="WKUP_CTRL_MMR0_ID_MMRS_MAC_ID0" offset="8192" width="32" description="Ethernet MAC address lower 32-bits">
+		<bitfield id="MAC_ID0_MACID_LO" width="32" begin="31" end="0" resetval="0x0" description="32 lsbs of MAC address   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_MAC_ID1" acronym="WKUP_CTRL_MMR0_ID_MMRS_MAC_ID1" offset="8196" width="32" description="Ethernet MAC address upper 16-bits">
+		<bitfield id="MAC_ID1_MACID_HI" width="16" begin="15" end="0" resetval="0x0" description="16 msbs of MAC address   Reset Source: mod_g_rst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_USB_DEVICE_ID0" acronym="WKUP_CTRL_MMR0_ID_MMRS_USB_DEVICE_ID0" offset="16384" width="32" description="USB device and vendor ID register 0 (ROM Writes)">
+		<bitfield id="USB_DEVICE_ID0_ID0" width="32" begin="31" end="0" resetval="0x1634010193" description="ROM writes 32-bit Value from Customer OTP to Here   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_USB_DEVICE_ID1" acronym="WKUP_CTRL_MMR0_ID_MMRS_USB_DEVICE_ID1" offset="16388" width="32" description="USB device and vendor ID register 1 (ROM Writes)">
+		<bitfield id="USB_DEVICE_ID1_ID1" width="32" begin="31" end="0" resetval="0x1634010193" description="ROM writes 32-bit Value from Customer OTP to Here   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_GP_SW0" acronym="WKUP_CTRL_MMR0_ID_MMRS_GP_SW0" offset="20480" width="32" description="Allocated for customer use - Ex. Storage of PID/VID, Model #, Etc.">
+		<bitfield id="GP_SW0_VAL" width="32" begin="31" end="0" resetval="0x0" description="general purpose value   Reset Source: mod_por_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_GP_SW1" acronym="WKUP_CTRL_MMR0_ID_MMRS_GP_SW1" offset="20484" width="32" description="Allocated for customer use - Ex. Storage of PID/VID, Model #, Etc.">
+		<bitfield id="GP_SW1_VAL" width="32" begin="31" end="0" resetval="0x0" description="general purpose value   Reset Source: mod_por_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_GP_SW2" acronym="WKUP_CTRL_MMR0_ID_MMRS_GP_SW2" offset="20488" width="32" description="Allocated for customer use - Ex. Storage of PID/VID, Model #, Etc.">
+		<bitfield id="GP_SW2_VAL" width="32" begin="31" end="0" resetval="0x0" description="general purpose value   Reset Source: mod_por_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="WKUP_CTRL_MMR0_ID_MMRS_GP_SW3" acronym="WKUP_CTRL_MMR0_ID_MMRS_GP_SW3" offset="20492" width="32" description="Allocated for customer use - Ex. Storage of PID/VID, Model #, Etc.">
+		<bitfield id="GP_SW3_VAL" width="4" begin="3" end="0" resetval="0x0" description="general purpose value   Reset Source: mod_por_rst_n" range="3:0" rwaccess="R"/>
+	</register>
+</module>

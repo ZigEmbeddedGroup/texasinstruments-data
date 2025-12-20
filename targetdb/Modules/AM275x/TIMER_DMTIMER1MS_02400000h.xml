@@ -1,0 +1,87 @@
+<module name="dmtimer1ms" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="DMTIMER1MS_TIDR" acronym="DMTIMER1MS_TIDR" offset="0" width="32" description="">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="PID register scheme   Reset Source: mod_g_rst_n" range="31:30" rwaccess="R"/>
+	<bitfield id="BU" width="2" begin="29" end="28" resetval="0x1" description="Business Unit 1      Wireless BU2      Processors BU" range="29:28" rwaccess="R"/>
+	<bitfield id="MODULE_ID" width="12" begin="27" end="16" resetval="0x0" description="Module ID   Reset Source: mod_g_rst_n" range="27:16" rwaccess="R"/>
+	<bitfield id="RTL" width="5" begin="15" end="11" resetval="0x7" description="RTL revision. Will vary depending on release.   Reset Source: mod_g_rst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="MAJOR" width="3" begin="10" end="8" resetval="0x1" description="Major revision   Reset Source: mod_g_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom   Reset Source: mod_g_rst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="MINOR" width="6" begin="5" end="0" resetval="0x0" description="Minor revision   Reset Source: mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="DMTIMER1MS_TIOCP_CFG" acronym="DMTIMER1MS_TIOCP_CFG" offset="16" width="32" description="This register controls the various parameters of the OCP interface ">
+		<bitfield id="IDLEMODE" width="2" begin="3" end="2" resetval="0x2" description="Idle Mode 0      local target's idle state follows       (acknowledges) the system's idle reuquests       unconditionaly, i.e. regardless of the IP       module's internal requirments. Back mode,       for debug only.1      local target never enteres idle state. Back       mode, for debug only.2      local target's idle state eventually       follows (acknowledges) the systems' idle       requests, depending on the IP module's       internal requirments. IP module shall not       generate (IRQ- or DMA-request-releated)       wakuep events.3      local target's idle state eventually       follows (acknowledges) the system's idle       requests, depending on the IP module's       internal requirents. IP module may generate       (IRQ- or DMA-request-related) wakeup events       when in idle state. Mode is only relevant       if the appropriate IP module 'swakeup'       output(s) is (are) impolemented." range="3:2" rwaccess="R/W"/>
+	<bitfield id="EMUFREE" width="1" begin="1" end="1" resetval="0x0" description="Emulation Mode 0      The timer is frozen in emulation mode       (PI_SUSPEND signal active)1      The timer runs free, regardless of       PI_SUSPEND value" range="1" rwaccess="R/W"/>
+	<bitfield id="SOFTRESET" width="1" begin="0" end="0" resetval="0x0" description="Software reset 0      Read: Reset Done, no pending action Write:       no action1      Read: Reset ongoing Write: initiate       software reset" range="0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_IRQ_EOI" acronym="DMTIMER1MS_IRQ_EOI" offset="32" width="32" description="Allows the generation of further pulses on the interrupt line, if an new interrupt event is pending, when using the pulsed output. Unused when using the level interrupt line">
+		<bitfield id="LINE_NUMBER" width="1" begin="0" end="0" resetval="0x0" description="Idle Mode 0      End of interrupt" range="0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_IRQSTATUS_RAW" acronym="DMTIMER1MS_IRQSTATUS_RAW" offset="36" width="32" description="Component interrupt request status.Check the corresponding secondary status register. Raw status is set even if event is not enabled. Write 1 to set the (raw) status, mostly for debug">
+		<bitfield id="TCAR_IT_FLAG" width="1" begin="2" end="2" resetval="0x0" description="Capture Interrupt   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="OVF_IT_FLAG" width="1" begin="1" end="1" resetval="0x0" description="Overflow Interrupt   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="MAT_IT_FLAG" width="1" begin="0" end="0" resetval="0x0" description="Match Interrupt   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="DMTIMER1MS_IRQSTATUS" acronym="DMTIMER1MS_IRQSTATUS" offset="40" width="32" description="Component  interrupt request status.Check the corresponding secondary status register.Enabled status isn't set unless event is enabled.Write 1 to clear the status after interrupt has been serviced;raw status gets cleared, i.e. even if not enabled">
+		<bitfield id="TCAR_IT_FLAG" width="1" begin="2" end="2" resetval="0x0" description="Capture Interrupt   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="OVF_IT_FLAG" width="1" begin="1" end="1" resetval="0x0" description="Overflow Interrupt   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="MAT_IT_FLAG" width="1" begin="0" end="0" resetval="0x0" description="Match Interrupt   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="DMTIMER1MS_IRQSTATUS_SET" acronym="DMTIMER1MS_IRQSTATUS_SET" offset="44" width="32" description="Component interrupt request enableWrite 1 to set;enable interrupt. Readout equal to corresponding _CLR register.">
+		<bitfield id="TCAR_IT_FLAG" width="1" begin="2" end="2" resetval="0x0" description="Capture Interrupt   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="OVF_IT_FLAG" width="1" begin="1" end="1" resetval="0x0" description="Overflow Interrupt   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="MAT_IT_FLAG" width="1" begin="0" end="0" resetval="0x0" description="Match Interrupt   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="DMTIMER1MS_IRQSTATUS_CLR" acronym="DMTIMER1MS_IRQSTATUS_CLR" offset="48" width="32" description=" Component interrupt request enable.Write 1 to clear; disable interrupt.Readout equal to corresponding _SET register">
+		<bitfield id="TCAR_IT_FLAG" width="1" begin="2" end="2" resetval="0x0" description="Capture Interrupt   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="OVF_IT_FLAG" width="1" begin="1" end="1" resetval="0x0" description="Overflow Interrupt   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="MAT_IT_FLAG" width="1" begin="0" end="0" resetval="0x0" description="Match Interrupt   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="DMTIMER1MS_IRQWAKEEN" acronym="DMTIMER1MS_IRQWAKEEN" offset="52" width="32" description="Wakeup-enabled events taking place when module is idle shall generate an asynchronous wakeup">
+		<bitfield id="MAT_WUP_ENA" width="1" begin="2" end="2" resetval="0x0" description="Match Wakeup Enable   Reset Source: mod_g_rst_n" range="2" rwaccess="R/W"/>
+	<bitfield id="OVF_WUP_ENA" width="1" begin="1" end="1" resetval="0x0" description="Overflow Wakeup Enable   Reset Source: mod_g_rst_n" range="1" rwaccess="R/W"/>
+	<bitfield id="TCAR_WUP_ENA" width="1" begin="0" end="0" resetval="0x0" description="Capture Wakeup Enable   Reset Source: mod_g_rst_n" range="0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TCLR" acronym="DMTIMER1MS_TCLR" offset="56" width="32" description="This register controls optional features specific to the timer functionality">
+		<bitfield id="GPO_CFG" width="1" begin="14" end="14" resetval="0x0" description="This field drives directly the timer_gpocfg port   Reset Source: mod_g_rst_n" range="14" rwaccess="R/W"/>
+	<bitfield id="CAPT_MODE" width="1" begin="13" end="13" resetval="0x0" description="Capture mode select bit; First/second 0      Capture first enabled capture event in       TCAR11      Capture first enabled capture event in       TCAR2" range="13" rwaccess="R/W"/>
+	<bitfield id="PT" width="1" begin="12" end="12" resetval="0x0" description="Pulse or Toggle select bit 0      Pulse modulation0      Toggle modulation" range="12" rwaccess="R/W"/>
+	<bitfield id="TRG" width="2" begin="11" end="10" resetval="0x0" description="Trigger Output Mode 0      No Trigger1      Overflow Trigger2      Overflow and match Trigger" range="11:10" rwaccess="R/W"/>
+	<bitfield id="TCM" width="2" begin="9" end="8" resetval="0x0" description="Transition Capture Mode 0      No capture1      Capture on rising edges of PI_EVNETCAPT2      Capture on falling edges of PI_EVENTCAPT3      Capture on both edges of PI_EVNENTCAPT" range="9:8" rwaccess="R/W"/>
+	<bitfield id="SCPWM" width="1" begin="7" end="7" resetval="0x0" description="Pulse Width Modulation output pin default value   Reset Source: mod_g_rst_n" range="7" rwaccess="R/W"/>
+	<bitfield id="CE" width="1" begin="6" end="6" resetval="0x0" description="Compare Enable 0      compare disabled1      compare enabled" range="6" rwaccess="R/W"/>
+	<bitfield id="PRE" width="1" begin="5" end="5" resetval="0x0" description="Prescaler Enable 0      Prescaler disabeld1      Prescaler Enabled" range="5" rwaccess="R/W"/>
+	<bitfield id="PTV" width="3" begin="4" end="2" resetval="0x0" description="Trigger Output Mode.The timer counter is prescaled with the value: 2^PTV   Reset Source: mod_g_rst_n" range="4:2" rwaccess="R/W"/>
+	<bitfield id="AR" width="1" begin="1" end="1" resetval="0x0" description="Auto-reload mode 0      One shot mode overflow1      Auto-reload mode overflow" range="1" rwaccess="R/W"/>
+	<bitfield id="ST" width="1" begin="0" end="0" resetval="0x0" description="Start/Stop timer control 0      Stop the timer1      Start the timer" range="0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TCRR" acronym="DMTIMER1MS_TCRR" offset="60" width="32" description="This register holds the value of the internal counter">
+		<bitfield id="TIMER_COUNTER" width="32" begin="31" end="0" resetval="0x0" description="Timer Counter   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TLDR" acronym="DMTIMER1MS_TLDR" offset="64" width="32" description="This register holds the timer's load value">
+		<bitfield id="LOAD_VALUE" width="32" begin="31" end="0" resetval="0x0" description="Timer Counter   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TTGR" acronym="DMTIMER1MS_TTGR" offset="68" width="32" description="This register triggers a counter reload of timer by writing any value in it">
+		<bitfield id="TTRG_VLAUE" width="32" begin="31" end="0" resetval="0x0" description="The value of the trigger register. During reads, it always return 0xFFFF_FFFF   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TWPS" acronym="DMTIMER1MS_TWPS" offset="72" width="32" description="This register contains the write posting bits for all writ-able functional registers">
+		<bitfield id="W_PEND_TOWR" width="1" begin="9" end="9" resetval="0x0" description="Write pending for register TOWR   Reset Source: mod_g_rst_n" range="9" rwaccess="R"/>
+	<bitfield id="W_PEND_TOCR" width="1" begin="8" end="8" resetval="0x0" description="Write pending for register TOCR   Reset Source: mod_g_rst_n" range="8" rwaccess="R"/>
+	<bitfield id="W_PEND_TCVR" width="1" begin="7" end="7" resetval="0x0" description="Write pending for register TCVR   Reset Source: mod_g_rst_n" range="7" rwaccess="R"/>
+	<bitfield id="W_PEND_TNIR" width="1" begin="6" end="6" resetval="0x0" description="Write pending for register TNIR   Reset Source: mod_g_rst_n" range="6" rwaccess="R"/>
+	<bitfield id="W_PEND_TPIR" width="1" begin="5" end="5" resetval="0x0" description="Write pending for register TPIR   Reset Source: mod_g_rst_n" range="5" rwaccess="R"/>
+	<bitfield id="W_PEND_TMAR" width="1" begin="4" end="4" resetval="0x0" description="Write pending for register TMAR   Reset Source: mod_g_rst_n" range="4" rwaccess="R"/>
+	<bitfield id="W_PEND_TTGR" width="1" begin="3" end="3" resetval="0x0" description="Write pending for register TTGR   Reset Source: mod_g_rst_n" range="3" rwaccess="R"/>
+	<bitfield id="W_PEND_TLDR" width="1" begin="2" end="2" resetval="0x0" description="Write pending for register TLDR   Reset Source: mod_g_rst_n" range="2" rwaccess="R"/>
+	<bitfield id="W_PEND_TCRR" width="1" begin="1" end="1" resetval="0x0" description="Write pending for register TCRR   Reset Source: mod_g_rst_n" range="1" rwaccess="R"/>
+	<bitfield id="W_PEND_TCLR" width="1" begin="0" end="0" resetval="0x0" description="Write pending for register TCLR   Reset Source: mod_g_rst_n" range="0" rwaccess="R"/>
+	</register><register id="DMTIMER1MS_TMAR" acronym="DMTIMER1MS_TMAR" offset="76" width="32" description="This register holds the match value to be compared with the counter's value">
+		<bitfield id="COMPARE_VLAUE" width="32" begin="31" end="0" resetval="0x0" description="The value of the match register   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TCAR1" acronym="DMTIMER1MS_TCAR1" offset="80" width="32" description="This register holds the value of the first counter register capture">
+		<bitfield id="CAPTURE_VALUE1" width="32" begin="31" end="0" resetval="0x0" description="The value of first captured counter register   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="DMTIMER1MS_TSICR" acronym="DMTIMER1MS_TSICR" offset="84" width="32" description="Timer Synchronous Interface Control Register">
+		<bitfield id="READ_AFTER_IDLE" width="1" begin="4" end="4" resetval="0x0" description="Select if the synchronization mechanism used for first TCRR read operation after IDLE state is active 0      The synchronization mechanism is enabled1      The synchronization mechanism is disabled" range="4" rwaccess="W"/>
+	<bitfield id="READ_MODE" width="1" begin="3" end="3" resetval="0x0" description="Select posted/non-posted mode for read operation.This bit is not used when configured in posted mode 0      When the module is configurated in non-       posted mode the read operation is executed       as posted read1      When the module is configured in non-posted       mode the read operation is executed as read       non-posted" range="3" rwaccess="W"/>
+	<bitfield id="POSTED" width="1" begin="2" end="2" resetval="0x0" description="Reset value of POSTED depends on hardware integration module at design time.Software must read POSTED field to get the hardwar module configuration 0      Posted mode inactive: will delay the       command accept output signal1      Posted mode active" range="2" rwaccess="R/W"/>
+	<bitfield id="SFT" width="1" begin="1" end="1" resetval="0x0" description="This bit reset all the functional part of teh module 0      Software reset is disabled1      Software reset is enabled" range="1" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TCAR2" acronym="DMTIMER1MS_TCAR2" offset="88" width="32" description="This register holds the value of the second counter register capture">
+		<bitfield id="CAPTURE_VALUE2" width="32" begin="31" end="0" resetval="0x0" description="The value of second captured counter register   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="DMTIMER1MS_TPIR" acronym="DMTIMER1MS_TPIR" offset="92" width="32" description=" This register is used for 1ms tick generation.The TPIR register holds the value of the positive increment. The value of this register is added with the value of the TCVR to define whether next value loaded in TCRR will be the sub-period  value or the over-period value">
+		<bitfield id="POSITIVE_INC_VALUE" width="32" begin="31" end="0" resetval="0x0" description="The value of the positive increment   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TNIR" acronym="DMTIMER1MS_TNIR" offset="96" width="32" description="This register is used for 1ms tick generation.  The TNIR register holds the value of the negative increment. The value of this register is added with the value of the TCVR to define whether next value loaded in TCRR will be the sub-period  value or the over-period value">
+		<bitfield id="NEGATIVE_INC_VALUE" width="32" begin="31" end="0" resetval="0x0" description="The value of the negative increment   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TCVR" acronym="DMTIMER1MS_TCVR" offset="100" width="32" description=" This register is used for 1ms tick generation.The TCVR register defines whether next value loaded in TCRR will be the sub-period  value or the over-period value">
+		<bitfield id="COUNTER_VALUE" width="32" begin="31" end="0" resetval="0x0" description="The value of CVR counter   Reset Source: mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TOCR" acronym="DMTIMER1MS_TOCR" offset="104" width="32" description="This register is used to mask the tick interrupt for a selected number of ticks">
+		<bitfield id="OVF_COUNTER_VALUE" width="24" begin="23" end="0" resetval="0x0" description="The number of overflow events   Reset Source: mod_g_rst_n" range="23:0" rwaccess="R/W"/>
+	</register><register id="DMTIMER1MS_TOWR" acronym="DMTIMER1MS_TOWR" offset="108" width="32" description="This register holds the number of masked overflow interrupts">
+		<bitfield id="OVF_WRAPPING_VALUE" width="24" begin="23" end="0" resetval="0x0" description="The number of masked interrupts   Reset Source: mod_g_rst_n" range="23:0" rwaccess="R/W"/>
+	</register>
+</module>

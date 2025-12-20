@@ -1,0 +1,69 @@
+
+
+
+<module description="This is top module of SRAM Controller for UCD" id="SRAMCTRL">
+  
+  
+  <register acronym="DESC" description=" This register identifies the peripheral " id="DESC" offset="0x0" width="32">
+    
+  <bitfield begin="31" description="Module identifier" end="16" id="MODID" rwaccess="R" width="16"></bitfield>
+    
+  <bitfield begin="15" description="64 B Standard IP MMR block&lt;br>0: STDIP MMRs do not exist&lt;br>1:15: These MMRs begin at offset 64*STDIPOFF from IP base address" end="12" id="STDIPOFF" rwaccess="R" width="4"></bitfield>
+    
+  <bitfield begin="11" description="IP Instance number" end="8" id="INSTIDX" rwaccess="R" width="4"></bitfield>
+    
+  <bitfield begin="7" description="Major revision" end="4" id="MAJREV" rwaccess="R" width="4"></bitfield>
+    
+  <bitfield begin="3" description="Minor revision" end="0" id="MIVREV" rwaccess="R" width="4"></bitfield>
+  </register>
+  
+  
+  <register acronym="DTB" description=" This bit field is used to select DTB mux digital inputs " id="DTB" offset="0x64" width="32">
+    
+  <bitfield begin="1" description="DTB Selection" end="0" id="SEL" rwaccess="RW" width="2"></bitfield>
+  </register>
+  
+  
+  <register acronym="CFG" description=" Configuration Register " id="CFG" offset="0x100" width="32">
+    
+  <bitfield begin="8" description="SRAM Parity Debug Enable." end="8" id="PARDBGEN" rwaccess="RW" width="1">
+    <bitenum description="Disable Parity Debug. Normal operation" id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum description="Enable Parity Debug. An address offset can be written to [PARDBG.ADDR] and parity errors will be generated on reads from within this offset" id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="SRAM Parity Enable." end="0" id="PAREN" rwaccess="RW" width="1">
+    <bitenum description="Disable Parity" id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum description="Enable Parity" id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="INITSEL" description=" Initilizataion Select Register. " id="INITSEL" offset="0x104" width="32">
+    
+  <bitfield begin="0" description="Bank Select" end="0" id="SEL" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="INITTRIG" description=" Initilizataion Trigger Register. " id="INITTRIG" offset="0x108" width="32">
+    
+  <bitfield begin="0" description="Trigger Initilization. This bit will auto clear once initlization is complete" end="0" id="TRIG" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="INITSTAT" description=" Initilizataion Status " id="INITSTAT" offset="0x10C" width="32">
+    
+  <bitfield begin="0" description="Indicate that bank is getting initialzed" end="0" id="BUSY" rwaccess="R" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="PARDBG" description=" Parity error check debug address setting " id="PARDBG" offset="0x110" width="32">
+    
+  <bitfield begin="19" description="Debug Parity Error Address Offset. When [CFG.PARDBGEN] is 1, this field is used to set a parity debug address offset. Writes within this address offset will force incorrect parity bits to be stored together with the data written. The following reads within this same address offset will thus result in parity errors to be generated." end="2" id="ADDR" rwaccess="RW" width="18"></bitfield>
+  </register>
+  
+  
+  <register acronym="PARERR" description=" Parity error " id="PARERR" offset="0x114" width="32">
+    
+  <bitfield begin="31" description="Parity Error Address Offset. This holds the address offset that first generated the parity error and an interrupt is generated. This register is 'Clear-On-Read'" end="0" id="PARERR" rwaccess="R" width="32"></bitfield>
+  </register>
+</module>

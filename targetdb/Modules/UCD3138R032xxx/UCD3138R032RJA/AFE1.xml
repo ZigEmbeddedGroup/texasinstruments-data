@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<module description="Top Module of AFE" id="AFE1">
+  
+  
+  <register acronym="RAMPCTRL" description="Ramp Control Register" id="RAMPCTRL" offset="0x0" width="32">
+    
+  <bitfield begin="30" description="Provides the starting value for the SyncFET Ramp with a resolution of High Frequency Oscillator Period/bit" end="16" id="SYNC_FET_RAMP_START" rwaccess="RW" width="15"></bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="13" id="Reserved" rwaccess="R" width="3"></bitfield>
+    
+  <bitfield begin="12" description="Enables addition or subtraction of DAC Saturation Step when EADC is in saturation" end="12" id="RAMP_SAT_EN" rwaccess="RW" width="1">
+    <bitenum description=" DAC Saturation Step logic is enabled, DAC incremented/decremented by value stored in DAC Saturation Step register when EADC is in saturation" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" DAC Saturation Step logic is disabled, DAC incremented/decremented by value calculated by Ramp logic when EADC is in saturation (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Enables Ramp I/F Interrupt when soft-start/power-down ramp procedure is complete" end="11" id="RAMP_COMP_INT_EN" rwaccess="RW" width="1">
+    <bitenum description="Soft-start/Power-Down Ramp Complete Interrupt is enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" Soft-start/Power-Down Ramp Complete Interrupt is disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Enables Ramp I/F Interrupt when ramp delay procedure is complete" end="10" id="RAMP_DLY_INT_EN" rwaccess="RW" width="1">
+    <bitenum description="Soft-start/Power-Down Ramp Delay Complete Interrupt is enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" Soft-start/Power-Down Ramp Delay Complete Interrupt is disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Enables Ramp I/F Interrupt when Pre-Bias procedure is completed" end="9" id="PREBIAS_INT_EN" rwaccess="RW" width="1">
+    <bitenum description=" Pre-bias Complete Interrupt is enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" Pre-bias Complete Interrupt is disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Peak Current Mode Ramp Start Value Select" end="8" id="PCM_START_SEL" rwaccess="RW" width="1">
+    <bitenum description="Ramp starts from filter output selected by PCM_FILTER_SEL bits in Loop Mux register PCMCTR" id="PCM_FILTER_SEL" token="PCM_FILTER_SEL" value="0x1"></bitenum>
+    <bitenum description=" Ramp starts from value programmed in DAC_VALUE bits in EADC_DAC_VALUE Register (Default)" id="DAC_VALUE" token="DAC_VALUE" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Enables SyncFET Ramp Operation" end="7" id="SYNC_FET_EN" rwaccess="RW" width="1">
+    <bitenum description="SyncFET Ramp Operation enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="SyncFET Ramp Operation disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Selects Master Ramp I/F in slave mode" end="5" id="MASTER_SEL" rwaccess="RW" width="2">
+    <bitenum description="Front End Control 2 acts as master" id="FE_2" token="FE_2" value="0x2"></bitenum>
+    <bitenum description="Front End Control 1 acts as master" id="FE_1" token="FE_1" value="0x1"></bitenum>
+    <bitenum description="Front End Control 0 acts as master (Default)" id="FE_0" token="FE_0" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Enables syncing of ramp start to Master Ramp I/F Complete pulse" end="4" id="SLAVE_COMP_EN" rwaccess="RW" width="1">
+    <bitenum description="Ramp initiated by Master Ramp Complete pulse enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Ramp initiated by Master Ramp Complete pulse disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Enables syncing of ramp start to Master Ramp I/F Delay Complete pulse" end="3" id="SLAVE_DELAY_EN" rwaccess="RW" width="1">
+    <bitenum description="Ramp initiated by Master Ramp Delay Complete pulse enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Ramp initiated by Master Ramp Delay Complete pulse disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Enables PMBus Control line to initiate ramp" end="2" id="CONTROL_EN" rwaccess="RW" width="1">
+    <bitenum description="PMBus Control initiates ramp" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="PMBus Control does not initiate ramp (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Ramp start bit, self-clearing by ramp logic" end="1" id="FIRMWARE_START" rwaccess="RW" width="1">
+    <bitenum description=" Ramp sequence initiated by firmware" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="No ramp sequence initiated by firmware (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enable Ramp Logic (Pre-biasing should be disabled before asserting ramp, bit 16 of Pre-Bias Control Register)" end="0" id="RAMP_EN" rwaccess="RW" width="1">
+    <bitenum description="  Enables hardware control of soft start or power-down ramp" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="No soft start or power-down ramp controlled by hardware (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="RAMPSTAT" description="Ramp Status Register" id="RAMPSTAT" offset="0x4" width="32">
+    
+  <bitfield begin="11" description="EADC Conversion Done Raw Status" end="11" id="EADC_DONE_RAW" rwaccess="R" width="1">
+    <bitenum description="EADC Conversion has completed" id="COMPLETED" token="COMPLETED" value="0x1"></bitenum>
+    <bitenum description="EADC Conversion has not completed" id="NOT_COMPLETED" token="NOT_COMPLETED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="EADC Conversion Done Raw Status" end="10" id="RAMP_COMP_INT_STATUS" rwaccess="R" width="1">
+    <bitenum description="Ramp Delay Complete has been declared" id="COMPLETED" token="COMPLETED" value="0x1"></bitenum>
+    <bitenum description="No Ramp Delay Complete has been declared" id="NOT_COMPLETED" token="NOT_COMPLETED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Ramp Delay Complete latched status" end="9" id="RAMP_DLY_INT_STATUS" rwaccess="R" width="1">
+    <bitenum description="Ramp Delay Complete has been declared" id="DECLARED" token="DECLARED" value="0x1"></bitenum>
+    <bitenum description="No Ramp Delay Complete has been declared" id="NOT_DECLARED" token="NOT_DECLARED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Pre-Bias Complete latched status" end="8" id="PREBIAS_INT_STATUS" rwaccess="R" width="1">
+    <bitenum description=" Pre-Bias Complete has been declared" id="DECLARED" token="DECLARED" value="0x1"></bitenum>
+    <bitenum description="No Pre-Bias Complete has been declared" id="NOT_DECLARED" token="NOT_DECLARED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="EADC Saturation High Indicator" end="7" id="EADC_SAT_HIGH" rwaccess="R" width="1">
+    <bitenum description=" EADC output is saturated at high limit" id="SATURATED" token="SATURATED" value="0x1"></bitenum>
+    <bitenum description="EADC output is not saturated at high limit" id="NOT_SATURATED" token="NOT_SATURATED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="EADC Saturation Low Indicator" end="6" id="EADC_SAT_LOW" rwaccess="R" width="1">
+    <bitenum description=" EADC output is saturated at low limit" id="SATURATED" token="SATURATED" value="0x1"></bitenum>
+    <bitenum description="EADC output is not saturated at low limit" id="NOT_SATURATED" token="NOT_SATURATED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Indicates EADC end of conversion" end="5" id="EADC_EOC" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="4" description="Pre-Bias Busy" end="4" id="PREBIAS_BUSY" rwaccess="R" width="1">
+    <bitenum description=" Pre-Bias in progress" id="IN_PROGRESS" token="IN_PROGRESS" value="0x1"></bitenum>
+    <bitenum description="Pre-Bias is not in progress" id="NO_PROGRESS" token="NO_PROGRESS" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="ramp Busy" end="3" id="RAMP_BUSY" rwaccess="R" width="1">
+    <bitenum description="Soft-Start/Power-Down Ramp is in progress" id="IN_PROGRESS" token="IN_PROGRESS" value="0x1"></bitenum>
+    <bitenum description="Soft-Start/Power-Down Ramp is not in progress" id="NO_PROGRESS" token="NO_PROGRESS" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Ramp Complete, Raw Status" end="2" id="RAMP_COMP_STATUS" rwaccess="R" width="1">
+    <bitenum description="Ramp procedure is complete" id="COMPLETED" token="COMPLETED" value="0x1"></bitenum>
+    <bitenum description=" Ramp procedure is not complete" id="NOT_COMPLETED" token="NOT_COMPLETED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Ramp Delay Complete, Raw Status" end="1" id="RAMP_DLY_STATUS" rwaccess="R" width="1">
+    <bitenum description="Ramp delay procedure is complete" id="COMPLETED" token="COMPLETED" value="0x1"></bitenum>
+    <bitenum description="Ramp delay procedure is not complete" id="NOT_COMPLETED" token="NOT_COMPLETED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Pre-Bias Complete, Raw Status" end="0" id="PREBIAS_STATUS" rwaccess="R" width="1">
+    <bitenum description="Pre-Bias is completed" id="COMPLETED" token="COMPLETED" value="0x1"></bitenum>
+    <bitenum description="Pre-Bias is not completed" id="NOT_COMPLETED" token="NOT_COMPLETED" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="RAMPCYCLE" description="Ramp Cycle Register" id="RAMPCYCLE" offset="0x8" width="32">
+    
+  <bitfield begin="25" description="Selects the clock for slope compensation ramp in PCMC mode" end="25" id="PCMC_RAMP_CLK_SEL" rwaccess="RW" width="1">
+    <bitenum description="50MHz clock" id="ICLK" token="ICLK" value="0x1"></bitenum>
+    <bitenum description="25MHz clock" id="ICLK_BY_2" token="ICLK_BY_2" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="24" description="Reserved" end="24" id="Reserved_1" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="23" description="Configures the number of delay cycles before an initiation of ramp sequence. Each delay cycle consists of n switching cycles, as specified by SWITCH_CYC_PER_STEP (Bits 6-0). Number of delay cycles can vary from 0 to 65535" end="8" id="DELAY_CYCLES" rwaccess="RW" width="16">
+    <bitenum description="Ramp starts after (2*SWITCH_CYC_PER_STEP) switching cycles" id="two" token="two" value="0x2"></bitenum>
+    <bitenum description="Ramp starts after (1*SWITCH_CYC_PER_STEP) switching cycles" id="one" token="one" value="0x1"></bitenum>
+    <bitenum description=" Ramp starts without delay (Default)" id="NO_DELAY" token="NO_DELAY" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Reserved" end="7" id="Reserved_0" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="6" description="Selects number of switching cycles per DAC step. Number of subcycles can vary from 1 to 128" end="0" id="SWITCH_CYC_PER_STEP" rwaccess="RW" width="7">
+    <bitenum description="3 subcycles per cycle" id="two" token="two" value="0x2"></bitenum>
+    <bitenum description="2 subcycles per cycle" id="one" token="one" value="0x1"></bitenum>
+    <bitenum description="1 switching cycle per step (Default)" id="NO_DELAY" token="NO_DELAY" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="EADCDAC" description="EADC DAC Value Register" id="EADCDAC" offset="0xC" width="32">
+    
+  <bitfield begin="21" description="DAC_VALUE in DACSTAT latched at every peak current detect instant if EADC_MODE set to Peak current mode. Valid only for Peak current mode." end="21" id="PCMC_DAC_VALUE_LATCH" rwaccess="RW" width="1">
+    <bitenum description="DAC_VALUE latched at peak current detection" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" DAC_VALUE not latched at peak current detection (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="DAC output filter bandwidth adjustment bits. Valid only if DAC_OUTPUT_FILTER_EN=1" end="19" id="DAC_OUTPUT_FILTER_BW_ADJ" rwaccess="RW" width="2">
+    <bitenum description=" DAC output filter bandwidth is 10KHz" id="DAC_OUT_FILTER_10_KHZ" token="DAC_OUT_FILTER_10_KHZ" value="0x3"></bitenum>
+    <bitenum description=" DAC output filter bandwidth is 1KHz" id="DAC_OUT_FILTER_1_KHZ" token="DAC_OUT_FILTER_1_KHZ" value="0x2"></bitenum>
+    <bitenum description=" DAC output filter bandwidth is iclk by 320" id="DAC_OUT_FILTER_ICLK_BY_320" token="DAC_OUT_FILTER_ICLK_BY_320" value="0x1"></bitenum>
+    <bitenum description=" DAC output filter bandwidth is iclk by 160(Default)" id="DAC_OUT_FILTER_ICLK_BY_160" token="DAC_OUT_FILTER_ICLK_BY_160" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="DAC output filter Enable" end="18" id="DAC_OUTPUT_FILTER_EN" rwaccess="RW" width="1">
+    <bitenum description=" DAC output filter enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" DAC output filter disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="DAC Dithering on based on Sample Trigger" end="16" id="DAC_DITHER_ON_SAMPLE" rwaccess="RW" width="2">
+    <bitenum description=" DAC Dithering enabled at iclk/32" id="DAC_DITHER_ON_ICLK_BY_32" token="DAC_DITHER_ON_ICLK_BY_32" value="0x3"></bitenum>
+    <bitenum description=" DAC Dithering enabled at iclk/16" id="DAC_DITHER_ON_ICLK_BY_16" token="DAC_DITHER_ON_ICLK_BY_16" value="0x2"></bitenum>
+    <bitenum description=" DAC Dithering enabled on input sample trigger" id="DAC_DITHER_ON_SAMPLE_ENABLE" token="DAC_DITHER_ON_SAMPLE_ENABLE" value="0x1"></bitenum>
+    <bitenum description=" DAC Dithering disabled on input sample trigger(Default)" id="DAC_DITHER_ON_SAMPLE_DISABLE" token="DAC_DITHER_ON_SAMPLE_DISABLE" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="DAC Dithering Enable" end="15" id="DAC_DITHER_EN" rwaccess="RW" width="1">
+    <bitenum description=" DAC Dithering enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" DAC Dithering disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="Programmable DAC Value, effective LSB equals 0.09765625mV" end="0" id="DAC_VALUE" rwaccess="RW" width="15"></bitfield>
+  </register>
+  
+  
+  <register acronym="RAMPDACEND" description="Ramp DAC Ending Value Register" id="RAMPDACEND" offset="0x10" width="32">
+    
+  <bitfield begin="14" description="Programmable DAC Value, effective LSB equals 0.09765625mV" end="0" id="RAMP_DAC_VALUE" rwaccess="RW" width="15"></bitfield>
+  </register>
+  
+  
+  <register acronym="DACSTEP" description="DAC Step Register" id="DACSTEP" offset="0x14" width="32">
+    
+  <bitfield begin="18" description="Programmable 19-bit unsigned DAC Step. Bits 18:10 represent the real portion of the DAC Step (0-511 DAC counts at bit resolution of 0.0625mV). Bits 9:0 represent the fractional portion of the DAC Step" end="0" id="DAC_STEP" rwaccess="RW" width="19"></bitfield>
+  </register>
+  
+  
+  <register acronym="DACSATSTEP" description="DAC Saturation Step Register" id="DACSATSTEP" offset="0x18" width="32">
+    
+  <bitfield begin="14" description="Programmable DAC Saturation Step, LSB equals 0.0625mV" end="0" id="DAC_SAT_STEP" rwaccess="RW" width="15">
+    <bitenum description="DAC adjusted by 2 DAC count on EADC saturation during ramp" id="two" token="two" value="0x2"></bitenum>
+    <bitenum description="DAC adjusted by 1 DAC count on EADC saturation during ramp" id="one" token="one" value="0x1"></bitenum>
+    <bitenum description="DAC not adjusted on EADC saturation during ramp (Default)" id="NO_ADJUST" token="NO_ADJUST" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="EADCCTRL" description="EADC Control Register" id="EADCCTRL" offset="0x20" width="32">
+    
+  <bitfield begin="31" description="error sensing resolution of eADC output " end="30" id="EADC_RESOLUTION" rwaccess="RW" width="2">
+    <bitenum description="8 mV resolution" id="mV_8" token="mV_8" value="0x3"></bitenum>
+    <bitenum description="4 mV resolution" id="mV_4" token="mV_4" value="0x2"></bitenum>
+    <bitenum description="2 mV resolution" id="mV_2" token="mV_2" value="0x1"></bitenum>
+    <bitenum description="1 mV resolution (default)" id="mV_1" token="mV_1" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="29" description="Enables rounding of MSbs before dropping bits for lower resolution" end="29" id="ROUNDING_EN" rwaccess="RW" width="1">
+    <bitenum description="rounding enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="rounding disabled" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="28" description="Analog Front End Ramp Comparator Enable" end="28" id="D2S_COMP_EN" rwaccess="RW" width="1">
+    <bitenum description="Analog Front End Ramp Comparator enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Analog Front End Ramp Comparator disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="27" description="Increase comparator trip point by ~70mV" end="27" id="EN_HYST_HIGH" rwaccess="RW" width="1">
+    <bitenum description="Enables increase of ramp comparator trip point" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables increase of ramp comparator trip point (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="26" description="Decrease comparator trip point by ~70mV" end="26" id="EN_HYST_LOW" rwaccess="RW" width="1">
+    <bitenum description="Enables decrease of ramp comparator trip point" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables decrease of ramp comparator trip point (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="25" description="Provides capability to mask incoming sample triggers to Front End Control" end="22" id="SAMP_TRIG_SCALE" rwaccess="RW" width="4">
+    <bitenum description=" EADC conversion initiated once every 3 received sample triggers" id="three" token="three" value="0x2"></bitenum>
+    <bitenum description=" EADC conversion initiated once every 2 received sample triggers" id="two" token="two" value="0x1"></bitenum>
+    <bitenum description="EADC conversion initiated on every received sample trigger (Default)" id="once" token="once" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="21" description="Enable synchronization of switched cap front end counter to Switching Cycle Frame boundary" end="21" id="FRAME_SYNC_EN" rwaccess="RW" width="1">
+    <bitenum description="Switch Cap Front End Counter synchronized to frame boundary" id="SYNCHRONIZED" token="SYNCHRONIZED" value="0x1"></bitenum>
+    <bitenum description="Switch Cap Front End Counter not synchronized to frame (Default)" id="NOT_SYNCHRONIZED" token="NOT_SYNCHRONIZED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="Force reset of Switched Cap Front End Counter" end="20" id="SCFE_CNT_RST" rwaccess="RW" width="1">
+    <bitenum description=" Switch Cap Front End Counter reset" id="RESET" token="RESET" value="0x1"></bitenum>
+    <bitenum description="Switch Cap Front End Counter operational (Default)" id="OPERATIONAL" token="OPERATIONAL" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="Configures initial Switched Cap Front End Counter value out of reset or at start of switching cycle in Peak Current mode" end="16" id="SCFE_CNT_INT" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="15" description="Enables EADC Data Inversion on data to filter module" end="15" id="EADC_INV" rwaccess="RW" width="1">
+    <bitenum description="EADC Data Inverted" id="INVERTED" token="INVERTED" value="0x1"></bitenum>
+    <bitenum description="EADC Data is not inverted (Default)" id="NOT_INVERTED" token="NOT_INVERTED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="Enables 50MSPS sampling rate" end="14" id="HI_SAMP_RATE_EN" rwaccess="RW" width="1">
+    <bitenum description="50MSPS sampling rate" id="MSPS_50" token="MSPS_50" value="0x1"></bitenum>
+    <bitenum description="25MSPS sampling rate" id="MSPS_25" token="MSPS_25" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Enables or disables output clamping of EADC output" end="13" id="EADC_CLAMP_EN" rwaccess="RW" width="1">
+    <bitenum description="Enable clamp" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disable clamp (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="Enables weighted averaging in EADC averaging mode, only applicable in 4x and 8x averaging mode. For 4x averaging, two oldest samples are each weighted by 1/8, the next oldest sample has a weight of ¼ and the newest sample is weighted by ½. For                      8x averaging, the four oldest samples are each weighted by 1/16, the next 2 oldest                      samples are weighted by 1/8, and the two newest samples are weighted by 1/4" end="12" id="AVG_WEIGHT_EN" rwaccess="RW" width="1">
+    <bitenum description="Weighted averaging enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Weighted averaging disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Enables spatial mode in EADC averaging mode" end="11" id="AVG_SPATIAL_EN" rwaccess="RW" width="1">
+    <bitenum description="EADC samples averaged based on received sample triggers from DPWM                          modules. 2 sample triggers required for a single averaged sample to filter. 4 sample                          triggers required for a single averaged sample to filter module" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description=" Consecutive EADC samples averaged based on every received sample trigger                          from DPWM modules (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Averaging Mode Configuration" end="9" id="AVG_MODE_SEL" rwaccess="RW" width="2">
+    <bitenum description="8x Averaging" id="x_8" token="x_8" value="0x2"></bitenum>
+    <bitenum description="4x Averaging" id="x_4" token="x_4" value="0x1"></bitenum>
+    <bitenum description="2x Averaging (Default)" id="x_2" token="x_2" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Selects EADC Mode Operation" end="6" id="EADC_MODE" rwaccess="RW" width="3">
+    <bitenum description=" Constant Power/Constant Current Control 2 Mode (CPCC module controls                          switching between Standard mode and Continuous SAR Mode)" id="CPCC_2" token="CPCC_2" value="0x7"></bitenum>
+    <bitenum description="= Constant Power/Constant Current Control Mode (CPCC module controls                          switching between Standard Mode and Non-Continuous SAR Mode)" id="CPCC" token="CPCC" value="0x6"></bitenum>
+    <bitenum description="Peak Current Mode" id="Peak_Current" token="Peak_Current" value="0x5"></bitenum>
+    <bitenum description="Reserved" id="Reserved" token="Reserved" value="0x4"></bitenum>
+    <bitenum description="Continuous SAR Mode" id="con_sar" token="con_sar" value="0x3"></bitenum>
+    <bitenum description="Non-continuous SAR Mode" id="non_con_sar" token="non_con_sar" value="0x2"></bitenum>
+    <bitenum description="Averaging Mode, configured by AVG_MODE_SEL" id="x_2" token="x_2" value="0x1"></bitenum>
+    <bitenum description="Standard mode, EADC samples based on sample triggers from DPWM module                          (Default)" id="sample" token="sample" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="AFE Front End Gain Setting" end="4" id="AFE_GAIN" rwaccess="RW" width="2">
+    <bitenum description="4x Gain, 1mV/LSB" id="x__4" token="x__4" value="0x3"></bitenum>
+    <bitenum description="4x Gain, 1mV/LSB" id="x_4" token="x_4" value="0x2"></bitenum>
+    <bitenum description="1x Gain, 4mV/LSB" id="x__1" token="x__1" value="0x1"></bitenum>
+    <bitenum description="1x Gain, 4mV/LSB" id="x_1" token="x_1" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Switched Cap Noise Filter Enable" end="3" id="SCFE_GAIN_FILTER_SEL" rwaccess="RW" width="1">
+    <bitenum description="Enables Switch Cap Noise Filter (Default)" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables Switch Cap Noise Filter" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Switched Cap Front End Clock Divider Select" end="2" id="SCFE_CLK_DIV_2" rwaccess="RW" width="1">
+    <bitenum description="Switch Cap Period divide by 1 (Default 64 ns nominal sample period)" id="divide_1" token="divide_1" value="0x1"></bitenum>
+    <bitenum description=" Switch Cap Period divide by 2 (128 ns nominal sample period)" id="divide_2" token="divide_2" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Switch Cap Front Enable" end="1" id="SCFE_ENA" rwaccess="RW" width="1">
+    <bitenum description="Enables Switch Cap Noise Filter (Default)" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables Switch Cap Noise Filter" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="EADC Enable" end="0" id="EADC_ENA" rwaccess="RW" width="1">
+    <bitenum description="Enables EADC (Default)" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables EADC" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PREBIASCTRL0" description="Pre-Bias Control Register 0" id="PREBIASCTRL0" offset="0x28" width="32">
+    
+  <bitfield begin="17" description="Configures polarity of received error voltage" end="17" id="PRE_BIAS_POL" rwaccess="RW" width="1">
+    <bitenum description="Error equals Vin-Vref" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Error equals Vref-Vin (Default)" id="default" token="default" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="Enable Pre-Biasing of Error ADC (Ramp should be disabled during pre-biasing, bit 0                      of Ramp Control Register)" end="16" id="PRE_BIAS_EN" rwaccess="RW" width="1">
+    <bitenum description="Pre-Biasing by hardware has been enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Pre-Biasing has not been initiated (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Sets the acceptable range around the zero error point. If Error ADC value                      stays in range for number of samples specified by PRE_BIAS_LIMIT (Bits 7:0),                      PREBIAS_STATUS (Bit 0 of Ramp Status Register) is enabled. Range will be +/-                      PRE_BIAS_RANGE around zero error point" end="8" id="PRE_BIAS_RANGE" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="7" description="Sets the acceptable number of samples in which the Error ADC value stays in range                      before asserting PREBIAS_STATUS (Bit 0 of Ramp Status Register). Counter limit                      ranges from 0 to 255. If PREBIAS_STATUS is set, it will take PRE_BIAS_LIMIT                      samples outside of acceptable range before clearing PREBIAS_STATUS" end="0" id="PRE_BIAS_LIMIT" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="PREBIASCTRL1" description="Pre-Bias Control Register 1" id="PREBIASCTRL1" offset="0x2C" width="32">
+    
+  <bitfield begin="23" description="Configures the number of EADC samples between Pre-Bias DAC setpoint adjustments.DAC Setpoint adjustment after n+1 EADC sample" end="16" id="SAMPLES_PER_ADJ" rwaccess="RW" width="8">
+    <bitenum description="DAC Setpoint adjustment after 3 EADC samples" id="enabled_3" token="enabled_3" value="0x2"></bitenum>
+    <bitenum description="DAC Setpoint adjustment after2 EADC sample" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="DAC Setpoint adjustment on each EADC sample" id="default" token="default" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="15" id="Reserved" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="14" description="Configures the maximum DAC setpoint adjustment step" end="0" id="MAX_DAC_ADJ" rwaccess="RW" width="15"></bitfield>
+  </register>
+  
+  
+  <register acronym="SARCTRL" description="SAR Control Register" id="SARCTRL" offset="0x30" width="32">
+    
+  <bitfield begin="15" description="Configures acceptable range of error values before declaring SAR completion" end="8" id="SAR_RANGE" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="7" description="Reserved" end="0" id="Reserved" rwaccess="R" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="SARTIMING" description="SAR Control Register" id="SARTIMING" offset="0x34" width="32">
+    
+  <bitfield begin="10" description="Configures timing for Bits 10:8 of DAC setpoint for SAR Algorithm" end="8" id="SAR_TIMING_UPPER" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="7" description="Reserved" end="7" id="Reserved_1" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="6" description="Configures timing for Bits 7:6 of DAC setpoint for SAR Algorithm" end="4" id="SAR_TIMING_MID" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="3" description="Reserved" end="3" id="Reserved_0" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="2" description="Configures timing for Bits 5:0 of DAC setpoint for SAR Algorithm" end="0" id="SAR_TIMING_LOWER" rwaccess="RW" width="3"></bitfield>
+  </register>
+  
+  
+  <register acronym="EADCVALUE" description="EADC Value Register" id="EADCVALUE" offset="0x38" width="32">
+    
+  <bitfield begin="26" description="10-bit Absolute Value calculated by Front End Control Module with a resolution of 1.5625mV/bit" end="16" id="ABS_VALUE" rwaccess="R" width="11"></bitfield>
+    
+  <bitfield begin="15" description="EADC Saturation High Indicator" end="15" id="EADC_SAT_HIGH" rwaccess="R" width="1">
+    <bitenum description="EADC output is saturated at high limit" id="SATURATED" token="SATURATED" value="0x1"></bitenum>
+    <bitenum description="EADC output is not saturated at high limit" id="NOT_SATURATED" token="NOT_SATURATED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="EADC Saturation low Indicator" end="14" id="EADC_SAT_LOW" rwaccess="R" width="1">
+    <bitenum description="EADC output is saturated at low limit" id="SATURATED" token="SATURATED" value="0x1"></bitenum>
+    <bitenum description="EADC output is not saturated at low limit" id="NOT_SATURATED" token="NOT_SATURATED" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Reserved" end="9" id="Reserved" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="8" description="Signed 9-bit Error value measured by Front End Control Module with a resolution of 1mV/bit" end="0" id="ERROR_VALUE" rwaccess="R" width="9"></bitfield>
+  </register>
+  
+  
+  <register acronym="EADCRAWVALUE" description="EADC Raw Value Register" id="EADCRAWVALUE" offset="0x3C" width="32">
+    
+  <bitfield begin="8" description="Signed 9-bit Error value measured by Front End Control Module with a resolution of 1mV/bit. Value is raw EADC data before averaging." end="0" id="RAW_ERROR_VALUE" rwaccess="R" width="9"></bitfield>
+  </register>
+  
+  
+  <register acronym="DACSTAT" description="DAC Status Register" id="DACSTAT" offset="0x40" width="32">
+    
+  <bitfield begin="10" description="Current 10-bit Value sent to DAC" end="0" id="DAC_VALUE" rwaccess="R" width="11"></bitfield>
+  </register>
+  
+  
+  <register acronym="EADCCTRL2" description="EADC Control Register 2" id="EADCCTRL2" offset="0x44" width="32">
+    
+  <bitfield begin="30" description="Default choice for EANx pin" end="30" id="EAN_SEL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="29" description="EADC clamp low interrupt enable" end="29" id="EADC_CLAMPLO_INT_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="28" description="Enables Spatial and Consecutive mode in EADC averaging mode" end="28" id="AVG_SPATIAL_CONSEC_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="27" description="Spatial Consecutive Averaging mode configuration" end="26" id="AVG_SPATIAL_CONSEC_MODE_SEL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="25" description="Unused" end="25" id="Reserved_2" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="24" description="Low Clamp for 9bit eADC output (signed)" end="16" id="CLAMPLO" rwaccess="RW" width="9"></bitfield>
+    
+  <bitfield begin="15" description="EADC end of conversion select" end="15" id="EADC_EOC_SEL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="14" description="EADC hibernate enable" end="14" id="EADC_HIBERNATE_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="13" description="EADC clamp high interrupt enable" end="13" id="EADC_CLAMPHI_INT_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="12" description="Unused" end="12" id="Reserved_1" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="11" description="Unused" end="9" id="Reserved" rwaccess="R" width="3"></bitfield>
+    
+  <bitfield begin="8" description="High Clamp for 9bit eADC output (signed)" end="0" id="CLAMPHI" rwaccess="RW" width="9"></bitfield>
+  </register>
+  
+  
+  <register acronym="EADCCLAMP" description="EADC CLAMP register" id="EADCCLAMP" offset="0x48" width="32">
+    
+  <bitfield begin="12" description="EADC Clamp low status" end="12" id="EADC_CLAMPLO_STATUS" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="11" description="EADC Clamp low interrupt status" end="11" id="EADC_CLAMPLO_INT_STATUS" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="10" description="EADC Clamp high status" end="10" id="EADC_CLAMPHI_STATUS" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="9" description="EADC Clamp high interrupt status" end="9" id="EADC_CLAMPHI_INT_STATUS" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="8" description="Error value measured by Front End Control Module before clamping and inversion but after averaging and resolution control" end="0" id="ERROR_VALUE" rwaccess="R" width="9"></bitfield>
+  </register>
+  
+  
+  <register acronym="VINFFCTRL" description="VINFF Control register" id="VINFFCTRL" offset="0x4C" width="32">
+    
+  <bitfield begin="20" description="Programmable capacitor selections" end="19" id="CAP_SEL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="18" description="Selects blanking source as either of the PCMC modules" end="17" id="PCM_BLANK_SEL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="16" description="Enable DPWM3B for tracking the input signal" end="16" id="TRK_DPWM_3B_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="15" description="Enable DPWM3A for tracking the input signal" end="15" id="TRK_DPWM_3A_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="14" description="Enable DPWM2B for tracking the input signal" end="14" id="TRK_DPWM_2B_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="13" description="Enable DPWM2A for tracking the input signal" end="13" id="TRK_DPWM_2A_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="12" description="Enable DPWM1B for tracking the input signal" end="12" id="TRK_DPWM_1B_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="11" description="Enable DPWM1A for tracking the input signal" end="11" id="TRK_DPWM_1A_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="10" description="Enable DPWM0B for tracking the input signal" end="10" id="TRK_DPWM_0B_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="9" description="Enable DPWM0A for tracking the input signal" end="9" id="TRK_DPWM_0A_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="8" description="Bypass VinFF block and conect input directly to output" end="8" id="VIN_BYPASS_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="7" description="Enable 2x current branch" end="7" id="F2x_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="6" description="Enable 1x current branch" end="6" id="F1x_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="5" description="Enable 0.5x current branch" end="5" id="F0P5x_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="4" description="Enable 0.25x current branch" end="4" id="F0P25x_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="3" description="Forcefully discharge ramp irrespective of anything else" end="3" id="FW_CAP_RST" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="2" description="Control the delay of ramp start" end="1" id="ADV_RAMP_EN" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="0" description="Enable VINFF Module" end="0" id="ENABLE" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="TESTCTRL" description="Test Control Register (For Factory Test Use Only)" id="TESTCTRL" offset="0x800" width="32">
+    
+  <bitfield begin="8" description="Default eadc sampling signal pulse width for 12.5Msps" end="6" id="SAMPLE_WIDTH_12MSPS" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="5" description="Default eadc sampling signal pulse width for 25Msps" end="3" id="SAMPLE_WIDTH_25MSPS" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="2" description="Default eadc sampling signal pulse width for 50Msps" end="0" id="SAMPLE_WIDTH_50MSPS" rwaccess="RW" width="3"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFEDTB" description="AFE DTB Configuration register (For Factory Test Use Only)" id="AFEDTB" offset="0x804" width="32">
+    
+  <bitfield begin="2" description="AFE DTB mux select Bits" end="0" id="SEL" rwaccess="RW" width="3"></bitfield>
+  </register>
+  
+  
+  <register acronym="EADCTRIM" description="EADC Trim Register (For Factory Test Use Only)" id="EADCTRIM" offset="0x808" width="32">
+    
+  <bitfield begin="31" description="Register will be programmed during test and should not be overwritten by firmware" end="0" id="TRIM" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFEREG1" description="AFE register 1 for analog (For Factory Test Use Only)" id="AFEREG1" offset="0x80C" width="32">
+    
+  <bitfield begin="31" description="Register will be programmed during test and should not be overwritten by firmware" end="20" id="REG1_5" rwaccess="RW" width="12"></bitfield>
+    
+  <bitfield begin="19" description="Reserved" end="19" id="Reserved_5" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="18" description="Register will be programmed during test and should not be overwritten by firmware" end="18" id="REG1_4" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="17" description="Reserved" end="17" id="Reserved_4" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="16" description="Register will be programmed during test and should not be overwritten by firmware" end="16" id="REG1_3" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="15" description="Reserved" end="13" id="Reserved_3" rwaccess="R" width="3"></bitfield>
+    
+  <bitfield begin="12" description="Register will be programmed during test and should not be overwritten by firmware" end="10" id="REG1_2" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="9" description="Reserved" end="8" id="Reserved_2" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="7" description="Register will be programmed during test and should not be overwritten by firmware" end="7" id="REG1_1" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="6" description="Reserved" end="5" id="Reserved_1" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="4" description="Register will be programmed during test and should not be overwritten by firmware" end="2" id="REG1" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="1" description="Reserved" end="0" id="Reserved" rwaccess="R" width="2"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFEREG2" description="AFE register 2 for analog (For Factory Test Use Only)" id="AFEREG2" offset="0x810" width="32">
+    
+  <bitfield begin="31" description="Register will be programmed during test and should not be overwritten by firmware" end="5" id="REG2_1" rwaccess="RW" width="27"></bitfield>
+    
+  <bitfield begin="4" description="Reserved" end="4" id="Reserved" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="3" description="Register will be programmed during test and should not be overwritten by firmware" end="0" id="REG2" rwaccess="RW" width="4"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFEREG3" description="AFE register 3 for analog (For Factory Test Use Only)" id="AFEREG3" offset="0x814" width="32">
+    
+  <bitfield begin="31" description="Register will be programmed during test and should not be overwritten by firmware" end="0" id="REG3" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFEREG4" description="AFE register 4 for analog (For Factory Test Use Only)" id="AFEREG4" offset="0x818" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="30" id="Reserved_1" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="29" description="Register will be programmed during test and should not be overwritten by firmware" end="29" id="REG4_1" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="28" description="Reserved" end="21" id="Reserved" rwaccess="R" width="8"></bitfield>
+    
+  <bitfield begin="20" description="Register will be programmed during test and should not be overwritten by firmware" end="0" id="REG4" rwaccess="RW" width="21"></bitfield>
+  </register>
+  
+  
+  <register acronym="AFEREG5" description="AFE register 5 for analog (For Factory Test Use Only)" id="AFEREG5" offset="0x81C" width="32">
+    
+  <bitfield begin="31" description="Register will be programmed during test and should not be overwritten by firmware" end="0" id="REG5" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="SPAREREG" description="Spare register for analog (For Factory Test Use Only)" id="SPAREREG" offset="0x820" width="32">
+    
+  <bitfield begin="31" description="Register will be programmed during test and should not be overwritten by firmware" end="0" id="SPARE" rwaccess="RW" width="32"></bitfield>
+  </register>
+</module>

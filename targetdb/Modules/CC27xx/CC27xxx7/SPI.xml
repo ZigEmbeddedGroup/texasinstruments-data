@@ -3,19 +3,19 @@
 
 " xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setup_parser.xsd">
    <register acronym="DESC" width="32" description="Description Register. This register provides IP module ID, revision information, instance index and standard MMR registers offset." id="DESC" offset="0x0">
-      <bitfield range="" begin="31" width="16" end="16" rwaccess="RW" description="Module identifier used to uniquely identify this IP." id="MODID" resetval="0x604d">
+      <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Module identifier used to uniquely identify this IP." id="MODID" resetval="0x604d">
       </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RW" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
 
 0: Standard IP MMRs do not exist
 
 0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)" id="STDIPOFF" resetval="0x1">
       </bitfield>
-      <bitfield range="" begin="11" width="4" end="8" rwaccess="RW" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
+      <bitfield range="" begin="11" width="4" end="8" rwaccess="RO" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="4" end="4" rwaccess="RW" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
+      <bitfield range="" begin="7" width="4" end="4" rwaccess="RO" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
       </bitfield>
-      <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="IMASK" width="32" description="Interrupt mask. This register selects interrupt sources which are allowed to pass from RIS to MIS when the corresponding bit-fields are set to 1." id="IMASK" offset="0x44">
@@ -61,39 +61,39 @@
    <register acronym="RIS" width="32" description="Raw interrupt status. This register reflects the state of all pending interrupts, regardless of masking. This register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="RIS" offset="0x48">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="DMA Done event for TX. This interrupt is set if the TX DMA channel sends the DONE signal. This allows the handling of the TX DMA event inside SPI." id="DMATX" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="DMA Done event for TX. This interrupt is set if the TX DMA channel sends the DONE signal. This allows the handling of the TX DMA event inside SPI." id="DMATX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="DMA Done event for RX. This interrupt is set if the RX DMA channel sends the DONE signal. This allows handling of the DMA RX event inside SPI." id="DMARX" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="RO" description="DMA Done event for RX. This interrupt is set if the RX DMA channel sends the DONE signal. This allows handling of the DMA RX event inside SPI." id="DMARX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="SPI has completed transfers and moved to IDLE mode. This bit is set when STA.BUSY goes low." id="IDLE" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RO" description="SPI has completed transfers and moved to IDLE mode. This bit is set when STA.BUSY goes low." id="IDLE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Transmit FIFO Empty interrupt mask. This interrupt is set when all data in the Transmit FIFO has been moved to the shift register." id="TXEMPTY" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Transmit FIFO Empty interrupt mask. This interrupt is set when all data in the Transmit FIFO has been moved to the shift register." id="TXEMPTY" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Transmit FIFO event. This interrupt is set if the selected Transmit FIFO level has been reached." id="TX" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RO" description="Transmit FIFO event. This interrupt is set if the selected Transmit FIFO level has been reached." id="TX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Receive FIFO event. This interrupt is set if the selected Receive FIFO level has been reached" id="RX" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Receive FIFO event. This interrupt is set if the selected Receive FIFO level has been reached" id="RX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="SPI Receive Time-Out event. This interrupt is set if no activity is detected on the input clock line within the time period dictated by CTL1.RTOUT value. This is applicable only in peripheral mode." id="RTOUT" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="SPI Receive Time-Out event. This interrupt is set if no activity is detected on the input clock line within the time period dictated by CTL1.RTOUT value. This is applicable only in peripheral mode." id="RTOUT" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Parity error event. This bit is set if a Parity error has been detected" id="PER" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Parity error event. This bit is set if a Parity error has been detected" id="PER" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="RXFIFO overflow event. This interrupt is set if an RX FIFO overflow has been detected." id="RXOVF" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="RXFIFO overflow event. This interrupt is set if an RX FIFO overflow has been detected." id="RXOVF" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -101,40 +101,40 @@
    <register acronym="MIS" width="32" description="Masked interrupt status. This register is simply a bitwise AND of the contents of IMASK and RIS registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="MIS" offset="0x4c">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Masked DMA Done event for TX." id="DMATX" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Masked DMA Done event for TX." id="DMATX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Masked DMA Done event for RX." id="DMARX" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="RO" description="Masked DMA Done event for RX." id="DMARX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Masked SPI IDLE event.
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RO" description="Masked SPI IDLE event.
 " id="IDLE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Masked Transmit FIFO Empty event." id="TXEMPTY" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Masked Transmit FIFO Empty event." id="TXEMPTY" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Masked Transmit FIFO event. " id="TX" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RO" description="Masked Transmit FIFO event. " id="TX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Masked Receive FIFO event." id="RX" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Masked Receive FIFO event." id="RX" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Masked SPI Receive Time-Out event. " id="RTOUT" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Masked SPI Receive Time-Out event. " id="RTOUT" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Masked Parity error event." id="PER" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Masked Parity error event." id="PER" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Masked RXFIFO overflow event. " id="RXOVF" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Masked RXFIFO overflow event. " id="RXOVF" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occurred" description="Interrupt occurred"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -142,40 +142,40 @@
    <register acronym="ISET" width="32" description="Interrupt set register. This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set." id="ISET" offset="0x50">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Set DMA Done event for TX." id="DMATX" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Set DMA Done event for TX." id="DMATX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Set DMA Done event for RX." id="DMARX" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="Set DMA Done event for RX." id="DMARX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Set SPI IDLE event.
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Set SPI IDLE event.
 " id="IDLE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Set Transmit FIFO Empty event." id="TXEMPTY" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Set Transmit FIFO Empty event." id="TXEMPTY" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Set Transmit FIFO event." id="TX" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Set Transmit FIFO event." id="TX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Set Receive FIFO event." id="RX" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Set Receive FIFO event." id="RX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Set SPI Receive Time-Out Event." id="RTOUT" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Set SPI Receive Time-Out Event." id="RTOUT" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt Mask" description="Set Interrupt Mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Set Parity error event." id="PER" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Set Parity error event." id="PER" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Set RXFIFO overflow event." id="RXOVF" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Set RXFIFO overflow event." id="RXOVF" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -183,39 +183,39 @@
    <register acronym="ICLR" width="32" description="Interrupt clear register. This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared." id="ICLR" offset="0x54">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Clear DMA Done event for TX." id="DMATX" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Clear DMA Done event for TX." id="DMATX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Clear DMA Done event for RX." id="DMARX" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="Clear DMA Done event for RX." id="DMARX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Clear SPI IDLE event." id="IDLE" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Clear SPI IDLE event." id="IDLE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Clear Transmit FIFO Empty event." id="TXEMPTY" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Clear Transmit FIFO Empty event." id="TXEMPTY" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Clear Transmit FIFO event." id="TX" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Clear Transmit FIFO event." id="TX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Clear Receive FIFO event." id="RX" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Clear Receive FIFO event." id="RX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Clear SPI Receive Time-Out Event." id="RTOUT" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Clear SPI Receive Time-Out Event." id="RTOUT" resetval="0x0">
          <bitenum id="CLR" value="1" token="Set Interrupt Mask" description="Set Interrupt Mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Clear Parity error event." id="PER" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Clear Parity error event." id="PER" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Clear RXFIFO overflow event." id="RXOVF" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Clear RXFIFO overflow event." id="RXOVF" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -223,40 +223,40 @@
    <register acronym="IMSET" width="32" description="Interrupt mask set register. Writing a 1 to a bit in this register will set the corresponding IMASK bit." id="IMSET" offset="0x58">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Set DMA Done for TX event mask" id="DMATX" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Set DMA Done for TX event mask" id="DMATX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Set DMA Done for RX event mask" id="DMARX" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="Set DMA Done for RX event mask" id="DMARX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Set SPI IDLE event mask
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Set SPI IDLE event mask
 " id="IDLE" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Set Transmit FIFO Empty event mask" id="TXEMPTY" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Set Transmit FIFO Empty event mask" id="TXEMPTY" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Set Transmit FIFO event mask" id="TX" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Set Transmit FIFO event mask" id="TX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Set Receive FIFO event mask" id="RX" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Set Receive FIFO event mask" id="RX" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Set SPI Receive Time-Out event mask" id="RTOUT" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Set SPI Receive Time-Out event mask" id="RTOUT" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Set Parity error event mask" id="PER" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Set Parity error event mask" id="PER" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Set RXFIFO overflow event mask" id="RXOVF" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Set RXFIFO overflow event mask" id="RXOVF" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -264,39 +264,39 @@
    <register acronym="IMCLR" width="32" description="Interrupt mask clear register. Writing a 1 to a bit in this register will clear the corresponding IMASK bit." id="IMCLR" offset="0x5c">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Clear DMA Done for TX event mask" id="DMATX" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Clear DMA Done for TX event mask" id="DMATX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Clear DMA Done for RX event mask" id="DMARX" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="Clear DMA Done for RX event mask" id="DMARX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Clear SPI IDLE event mask" id="IDLE" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Clear SPI IDLE event mask" id="IDLE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Clear Transmit FIFO Empty event mask" id="TXEMPTY" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Clear Transmit FIFO Empty event mask" id="TXEMPTY" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Clear Transmit FIFO event mask" id="TX" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Clear Transmit FIFO event mask" id="TX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Clear Receive FIFO event mask" id="RX" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Clear Receive FIFO event mask" id="RX" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Clear SPI Receive Time-Out event mask" id="RTOUT" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Clear SPI Receive Time-Out event mask" id="RTOUT" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Clear Parity error event mask" id="PER" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Clear Parity error event mask" id="PER" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Clear RXFIFO overflow event mask" id="RXOVF" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Clear RXFIFO overflow event mask" id="RXOVF" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>

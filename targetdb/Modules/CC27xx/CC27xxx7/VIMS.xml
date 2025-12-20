@@ -364,14 +364,4 @@ Control Register.
          <bitenum id="NOSWAP" value="0" token="Bank is not swapped" description="Bank is not swapped"/>
       </bitfield>
    </register>
-   <register acronym="DTB" width="32" description="
-Digital test bus control register. This register can be used to bring out IP internal signals to the pads for observation. 16 signals can be observed per select value.
-" id="DTB" offset="0x800">
-      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Digital test bus selection mux control.
-Non-zero select values output a 16 bit selected group of signals per value." id="SEL" resetval="0x0">
-         <bitenum id="DIS" value="0" token="DTB output from peripheral is 0x0" description="DTB output from peripheral is 0x0"/>
-      </bitfield>
-   </register>
 </module>

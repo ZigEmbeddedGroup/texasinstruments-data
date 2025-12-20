@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+
+<module description="UART0" id="UART0">
+  
+  
+  <register acronym="UARTCCR" description="UARTCCR defines the character format, protocol, and communications mode used by the UART." id="UARTCCR" offset="0x0" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="8" id="Reserved_1" rwaccess="R" width="24"></bitfield>
+    
+  <bitfield begin="7" description="UART number of stop bits.  #br#This bit specifies the number of stop bits transmitted. The receiver checks for only one stop bit." end="7" id="STOPBITS" rwaccess="RW" width="1">
+    <bitenum description="One stop bit" id="STOPBITS_ONE" token="STOPBITS_ONE" value="0"></bitenum>
+    <bitenum description="Two stop bits" id="STOPBITS_TWO" token="STOPBITS_TWO" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="UART parity odd/even selection.  #br#If the PARITY ENABLE bit (UARTCCR, bit 5) is set, PARITY (bit 6) designates odd or even parity (odd or even number of bits with the value of 1 in both transmitted and received characters)." end="6" id="PARITY" rwaccess="RW" width="1">
+    <bitenum description="Odd parity" id="PARITY_ODD" token="PARITY_ODD" value="0"></bitenum>
+    <bitenum description="Even parity" id="PARITY_EVEN" token="PARITY_EVEN" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="UART parity enable.  #br#This bit enables or disables the parity function. If the UART is in the addressbit multiprocessor mode (set using bit 3 of this register), the address bit is included in the parity calculation (if parity is enabled). For characters of less than eight bits, the remaining unused bits should be masked out of the parity calculation." end="5" id="PARITYENA" rwaccess="RW" width="1">
+    <bitenum description="Parity disabled; no parity bit is generated during transmission or is expected during reception" id="PARITYENA_DISABLE" token="PARITYENA_DISABLE" value="0"></bitenum>
+    <bitenum description="Parity is enabled" id="PARITYENA_ENABLE" token="PARITYENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Loop Back test mode enable.  #br#This bit enables the Loop Back test mode where the Tx pin is internally connected to the Rx pin." end="4" id="LOOPBKENA" rwaccess="RW" width="1">
+    <bitenum description="Loop Back test mode disabled" id="LOOPBKENA_DISABLE" token="LOOPBKENA_DISABLE" value="0"></bitenum>
+    <bitenum description="Loop Back test mode enabled" id="LOOPBKENA_ENABLE" token="LOOPBKENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="UART multiprocessor mode control bit.  #br# #br#This bit selects one of the multiprocessor protocols.Multiprocessor communication is different from the other communication modes because it uses SLEEP and TXWAKE functions (bits UARTCTL1, bit 2 and UARTCTL1, bit 3, respectively). The idle-line mode is usually used for normal communications because the address-bit mode #br#adds an extra bit to the frame. The idle-line mode does not add this extra bit and is compatible with RS-232 type communications." end="3" id="ADDRIDLE_MODE" rwaccess="RW" width="1">
+    <bitenum description="Idle-line mode protocol selected" id="ADDRIDLE_MODE_IDLE" token="ADDRIDLE_MODE_IDLE" value="0"></bitenum>
+    <bitenum description="Address-bit mode protocol selected" id="ADDRIDLE_MODE_ADDRBIT" token="ADDRIDLE_MODE_ADDRBIT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Character-length control bits 2-0. #br# #br#These bits select the UART character length from one to eight bits. Characters of less than eight bits are right-justified in UARTRXBUF and UARTRXEMU and are padded with leading zeros in UARTRXBUF. UARTTXBUF doesn't need to be padded with leading zeros." end="0" id="UARTCHAR" rwaccess="RW" width="3">
+    <bitenum description="UARTCHAR_LENGTH_1" id="UARTCHAR_LENGTH_1" token="UARTCHAR_LENGTH_1" value="0"></bitenum>
+    <bitenum description="UARTCHAR_LENGTH_2" id="UARTCHAR_LENGTH_2" token="UARTCHAR_LENGTH_2" value="1"></bitenum>
+    <bitenum description="UARTCHAR_LENGTH_3" id="UARTCHAR_LENGTH_3" token="UARTCHAR_LENGTH_3" value="2"></bitenum>
+    <bitenum description="UARTCHAR_LENGTH_4" id="UARTCHAR_LENGTH_4" token="UARTCHAR_LENGTH_4" value="3"></bitenum>
+    <bitenum description="UARTCHAR_LENGTH_5" id="UARTCHAR_LENGTH_5" token="UARTCHAR_LENGTH_5" value="4"></bitenum>
+    <bitenum description="UARTCHAR_LENGTH_6" id="UARTCHAR_LENGTH_6" token="UARTCHAR_LENGTH_6" value="5"></bitenum>
+    <bitenum description="UARTCHAR_LENGTH_7" id="UARTCHAR_LENGTH_7" token="UARTCHAR_LENGTH_7" value="6"></bitenum>
+    <bitenum description="UARTCHAR_LENGTH_8" id="UARTCHAR_LENGTH_8" token="UARTCHAR_LENGTH_8" value="7"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="UARTCTL1" description="UARTCTL1 controls the receiver/transmitter enable, TXWAKE and SLEEP functions, and the UART software reset." id="UARTCTL1" offset="0x4" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="7" id="Reserved_2" rwaccess="R" width="25"></bitfield>
+    
+  <bitfield begin="6" description="UART receive error interrupt enable.  #br#Setting this bit enables an interrupt if the RX ERROR bit (UARTRXST, bit 7) becomes set because of errors occurring." end="6" id="RXERRINTENA" rwaccess="RW" width="1">
+    <bitenum description="Receive error interrupt disabled" id="RXERRINTENA_DISABLE" token="RXERRINTENA_DISABLE" value="0"></bitenum>
+    <bitenum description="Receive error interrupt enabled" id="RXERRINTENA_ENABLE" token="RXERRINTENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="UART software reset (active low).  #br#Writing a 0 to this bit initializes the UART state machines and operating flags (registers UARTCTL2 and UARTRXST) to the reset condition. This reset will not reset the FIFO pointers or flush out the data in TX/RX FIFO. If you need to clear the FIFO then perform SWRESET + TXFFINT + RXFFINT or refer to a channel reset UARTFFTX[UARTRST]. #br# #br#The SW RESET bit does not affect any of the configuration bits. All affected logic is held in the specified reset state until a 1 is written to SW RESET (the bit values following a reset are shown beneath each register diagram in this section). Thus, after a system reset, re-enable the UART by writing a 1 to this bit. Clear this bit after a receiver break detect (BRKDT flag, bit UARTRXST, bit 5). #br# #br#SW RESET affects the operating flags of the UART, but it neither affects the configuration bits nor restores the reset values. Once SW RESET is asserted, the flags are frozen until the bit is deasserted. #br#The affected flags are as follows: #br# #br#Value After SW      UART Flag         Register Bit #br#RESET #br#1                             TXRDY           UARTCTL2, bit 7 #br#1                           TX EMPTY        UARTCTL2, bit 6 #br#0                           RXWAKE          UARTRXST, bit 1 #br#0                                 PE              UARTRXST, bit 2 #br#0                                 OE              UARTRXST, bit 3 #br#0                                 FE              UARTRXST, bit 4 #br#0                              BRKDT          UARTRXST, bit 5 #br#0                              RXRDY         UARTRXST, bit 6 #br#0                            RX ERROR      UARTRXST, bit 7" end="5" id="SWRESET" rwaccess="RW" width="1">
+    <bitenum description="Writing a 0 to this bit initializes the UART state machines and operating flags (registers UARTCTL2 and UARTRXST) to the reset condition." id="SWRESET_RESET" token="SWRESET_RESET" value="0"></bitenum>
+    <bitenum description="After a system reset, re-enable the UART by writing a 1 to this bit. There is no time requirement to meet before writing a one to this bit after writing a zero." id="SWRESET_REEN" token="SWRESET_REEN" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Reserved" end="4" id="Reserved_1" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="3" description="UART transmitter wake-up method select.  #br# #br#The TXWAKE bit controls selection of the data-transmit feature, depending on which transmit mode (idle-line or address-bit) is specified at the ADDR/IDLE MODE bit (UARTCCR, bit 3)" end="3" id="TXWAKE" rwaccess="RW" width="1">
+    <bitenum description="Transmit feature is not selected. In idle-line mode: write a 1 to TXWAKE, then write data to register UARTTXBUF to generate an idle period of 11 data bits In address-bit mode: write a 1 to TXWAKE, then write data to UARTTXBUF to set the address bit for that frame to 1" id="TXWAKE_NOSELECT" token="TXWAKE_NOSELECT" value="0"></bitenum>
+    <bitenum description="Transmit feature selected is dependent on the mode, idle-line or address-bit: TXWAKE is not cleared by the SW RESET bit (UARTCTL1, bit 5); it is cleared by a system reset or the transfer of TXWAKE to the WUT flag." id="TXWAKE_SELECT" token="TXWAKE_SELECT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="UART sleep.  #br#The TXWAKE bit controls selection of the data-transmit feature, depending on which transmit mode (idle-line or address-bit) is specified at the ADDR/IDLE MODE bit (UARTCCR, bit 3). In a multiprocessor configuration, this bit controls the receiver sleep function. Clearing this bit brings the UART out of the sleep mode. #br# #br#The receiver still operates when the SLEEP bit is set; however, operation does not update the receiver buffer ready bit (UARTRXST, bit 6, RXRDY) or the error status bits (UARTRXST, bit 5-2: BRKDT, FE, OE, and PE) unless the address byte is detected. SLEEP is not cleared when the address byte is detected." end="2" id="SLEEP" rwaccess="RW" width="1">
+    <bitenum description="Sleep mode disabled" id="SLEEP_DISABLE" token="SLEEP_DISABLE" value="0"></bitenum>
+    <bitenum description="Sleep mode enabled" id="SLEEP_ENABLE" token="SLEEP_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="UART transmitter enable.  #br#Data is transmitted through the UARTTXD pin only when TXENA is set. If reset, transmission is halted but only after all data previously written to UARTTXBUF has been sent. Data written into UARTTXBUF when TXENA is disabled will not be transmitted even if the TXENA is enabled later. " end="1" id="TXENA" rwaccess="RW" width="1">
+    <bitenum description="Transmitter disabled" id="TXENA_DISABLE" token="TXENA_DISABLE" value="0"></bitenum>
+    <bitenum description="Transmitter enabled" id="TXENA_ENABLE" token="TXENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="UART receiver enable.  #br#Data is received on the UARTRXD pin and is sent to the receiver shift register and then the receiver buffers. This bit enables or disables the receiver (transfer to the buffers).  #br#Clearing RXENA stops received characters from being transferred to the two receiver buffers and also stops the generation of receiver interrupts. However, this will not stop RX errors from triggering interrupts. To disable interrupts from RX errors use the RXERRINTENA bit. To stop propagation of the BRKDT interrupt use the RXBKINTENA bit. #br# #br#The receiver shift register can continue to assemble characters even while RXENA is cleared. Thus, if RXENA is set during the reception of a character, the complete character will be transferred into the receiver buffer registers, UARTRXEMU and UARTRXBUF." end="0" id="RXENA" rwaccess="RW" width="1">
+    <bitenum description="Prevent received characters from transfer into the UARTRXEMU and UARTRXBUF receiver buffers" id="RXENA_DISABLE" token="RXENA_DISABLE" value="0"></bitenum>
+    <bitenum description="Send received characters to UARTRXEMU and UARTRXBUF" id="RXENA_ENABLE" token="RXENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="UARTHBAUD" description="The values in UARTHBAUD and UARTLBAUD specify the baud rate for the UART." id="UARTHBAUD" offset="0x8" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="8" id="Reserved_1" rwaccess="R" width="24"></bitfield>
+    
+  <bitfield begin="7" description="UART 16-bit baud selection Registers UARTHBAUD (MSbyte). #br# #br#The internally-generated serial clock is determined by the low speed peripheral clock (LSPCLK) signal and the two baud-select registers. The UART uses the 16-bit value of these registers to select one of 64K serial clock rates for the communication modes. #br# #br#BRR = (UARTHBAUD &lt;&lt; 8) + (UARTLBAUD) #br# #br#The UART baud rate is calculated using the following equation: #br# #br#UART Asynchronous Baud = LSPCLK / ((BRR + 1) *8) #br# #br#Alternatively, #br# #br#BRR = LSPCLK / (UART Asynchronous Baud * 8) - 1 #br# #br#Note that the above formulas are applicable only when 0 &lt; BRR &lt; 65536. If BRR = 0, then #br# #br#UART Asynchronous Baud = LSPCLK / 16 #br# #br#Where: BRR = the 16-bit value (in decimal) in the baud-select registers" end="0" id="BAUD" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTLBAUD" description="The values in UARTHBAUD and UARTLBAUD specify the baud rate for the UART." id="UARTLBAUD" offset="0xC" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="8" id="Reserved_1" rwaccess="R" width="24"></bitfield>
+    
+  <bitfield begin="7" description="See UARTHBAUD Detailed Description" end="0" id="BAUD" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTCTL2" description="UARTCTL2 enables the receive-ready, break-detect, and transmit-ready interrupts as well as transmitter-ready and -empty flags." id="UARTCTL2" offset="0x10" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="8" id="Reserved_2" rwaccess="R" width="24"></bitfield>
+    
+  <bitfield begin="7" description="Transmitter buffer register ready flag.  #br#When set, this bit indicates that the transmit data buffer register, UARTTXBUF, is ready to receive another character. Writing data to the UARTTXBUF automatically clears this bit. When set, this flag asserts a transmitter interrupt request if the interrupt-enable bit, TX INT ENA (UARTCTL2.0), is also set. TXRDY is set to 1 by enabling the SW RESET bit (UARTCTL1.5) or by a system reset." end="7" id="TXRDY" rwaccess="R" width="1">
+    <bitenum description="UARTTXBUF is full" id="TXRDY_FULL" token="TXRDY_FULL" value="0"></bitenum>
+    <bitenum description="UARTTXBUF is ready to receive the next character" id="TXRDY_READY" token="TXRDY_READY" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Transmitter empty flag.  #br#This flag's value indicates the contents of the transmitter's buffer register (UARTTXBUF) and shift register (TXSHF). An active SW RESET (UARTCTL1.5), or a system reset, sets this bit. This bit does not cause an interrupt request." end="6" id="TXEMPTY" rwaccess="R" width="1">
+    <bitenum description="Transmitter buffer or shift register or both are loaded with data" id="TXEMPTY_LOAD" token="TXEMPTY_LOAD" value="0"></bitenum>
+    <bitenum description="Transmitter buffer and shift registers are both empty" id="TXEMPTY_EMPTY" token="TXEMPTY_EMPTY" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Reserved" end="2" id="Reserved_1" rwaccess="R" width="4"></bitfield>
+    
+  <bitfield begin="1" description="Receiver-buffer/break interrupt enable.  #br#This bit controls the interrupt request caused by either the RXRDY flag or the BRKDT flag (bits UARTRXST.6 and .5) being set. However, RX/BK INT ENA does not prevent the setting of these flags." end="1" id="RXBKINTENA" rwaccess="RW" width="1">
+    <bitenum description="Disable RXRDY/BRKDT interrupt" id="RXBKINTENA_DISABLE" token="RXBKINTENA_DISABLE" value="0"></bitenum>
+    <bitenum description="Enable RXRDY/BRKDT interrupt" id="RXBKINTENA_ENABLE" token="RXBKINTENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="UARTTXBUF-register interrupt enable. #br#This bit controls the interrupt request caused by the setting of TXRDY flag bit (UARTCTL2.7). However, it does not prevent the TXRDY flag from being set (which indicates UARTTXBUF is ready to receive another character).  #br# #br#0 Disable TXRDY interrupt  #br#1 Enable TXRDY interrupt.   #br# #br#In non-FIFO mode, a dummy (or a valid) data has to be written to UARTTXBUF for the first transmit interrupt to occur.  This is the case when you enable the transmit interrupt for the first time and also when you re-enable (disable and then enable) the transmit interrupt.  If TXINTENA is enabled after writing the data to UARTTXBUF, it will not generate an interrupt. " end="0" id="TXINTENA" rwaccess="RW" width="1">
+    <bitenum description="Disable TXRDY interrupt" id="TXINTENA_DISABLE" token="TXINTENA_DISABLE" value="0"></bitenum>
+    <bitenum description="Enable TXRDY interrupt" id="TXINTENA_ENABLE" token="TXINTENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="UARTRXST" description="UARTRXST contains seven bits that are receiver status flags (two of which can generate interrupt requests). Each time a complete character is transferred to the receiver buffers (UARTRXEMU and UARTRXBUF), the status flags are updated." id="UARTRXST" offset="0x14" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="8" id="Reserved_2" rwaccess="R" width="24"></bitfield>
+    
+  <bitfield begin="7" description="UART receiver error flag.  #br#The RX ERROR flag indicates that one of the error flags in the receiver status register is set. RX ERROR is a logical OR of the break detect, framing error, overrun, and parity error enable flags (bits 5-2: BRKDT, FE, OE, and PE). #br#A 1 on this bit will cause an interrupt if the RX ERR INT ENA bit (UARTCTL1.6) is set. This bit can be used for fast error-condition checking during the interrupt service routine. This error flag cannot be cleared directly; it is cleared by an active SW RESET, channel reset (UARTRST), or by a system reset. #br# #br#Note: UART Module Interrupt Reaction Time - Occasional BRKDT or other errors such as FE/PE being triggered could occur if there are tight timings occurring in the application.  #br# #br#Interrupts are not triggered until approximately 7/8 of the stop bit has been detected (~0.875 bit time). Actual value of this delay before ISR entry is: ((7*BAUD_CLK_PERIOD)/8+3*SYSCLK_PERIOD).  #br# #br#The UART will not begin reading additional bits/characters until the RX ISR completes so it is critical to complete the ISR before the next byte's start bit begins. This leaves approximately 1/8 bit time (~0.125 bit time) to complete the entire ISR, regardless of interrupt cause. #br# #br#If the ISR is not completed before the beginning of the next start bit (before the RX line goes low again), the UART module will begin reading the start bit late in the wrong location and therefore may read all bits incorrectly until the next correctly aligned start bit (when ISR has sufficient time to process before a start bit again). #br# #br#Recommended methods for avoiding errors (to accommodate for the 0.875 bit time required for ISR to begin): #br#1. Keep the RX ISR short. The RX ISR should only be used to move data in the FIFO/buffer into memory where it can be processed in another, less time-critical function. #br#2. Avoid excessive nesting of other interrupts within the UART RX ISR. Do not allow the nesting to delay UART RX ISR completion past the ~0.125 bit time window allowed. #br#3. If additional time (more than the ~0.125 bit time) is required, delay can be added in the other device's firmware before transmitting additional data to the C2000 device's UART RX pin. Delays can be added to the other device as follows: #br#   A. Sending bytes with 2 stop bits to the C2000 device provides ~1.125 bit time of processing time for C2000 RX ISR to complete. #br#   B. Adding manual delay in the firmware of the other device transmitting to the C2000 device after every BYTE transmitted will provide (delay + ~0.125 bit time) processing time for the C2000 RX ISR to complete.  #br#   C. Adding manual delay in the firmware of the other device transmitting to the C2000 device after every C2000 RX INTERRUPT occurs will provide (delay + ~0.125 bit time) processing time for the C2000 RX ISR to complete. This is more difficult to implement as it requires the other device to predict when its transmitted data will trigger an RX interrupt on the C2000 device. Examples of things that can trigger an RX interrupt are RX-FIFO level being reached, BRKDT being sent, RXERROR occurring, etc." end="7" id="RXERROR" rwaccess="R" width="1">
+    <bitenum description="No error flags set" id="RXERROR_NO_ERR" token="RXERROR_NO_ERR" value="0"></bitenum>
+    <bitenum description="Error flag(s) set" id="RXERROR_SET_ERR" token="RXERROR_SET_ERR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="UART receiver-ready flag.  #br#When a new character is ready to be read from the UARTRXBUF register, the receiver sets this bit, and a receiver interrupt is generated if the RX/BK INT ENA bit (UARTCTL2.1) is a 1. RXRDY is cleared by a reading of the UARTRXBUF register, by an active SW RESET, channel reset (UARTRST), or by a system reset." end="6" id="RXRDY" rwaccess="R" width="1">
+    <bitenum description="No new character in UARTRXBUF" id="RXRDY_NO_CHAR" token="RXRDY_NO_CHAR" value="0"></bitenum>
+    <bitenum description="Character ready to be read from UARTRXBUF" id="RXRDY_READY" token="RXRDY_READY" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="UART break-detect flag.  #br#The UART sets this bit when a break condition occurs. A break condition occurs when the UART receiver data line (UARTRXD) remains continuously low for at least 9.625 bits, beginning after a missing first stop bit. If the UARTRX line goes high at any point during the 9.625 bits then the UART will not flag a break detect. In order to trigger the first stop bit missed, the typical method is to hold the RX line low for 1 start bit, 8 data bits, 1 optional address bit, 1 optional parity bit, 1 stop bit, and 9.625 bits of additional time held low. This is a total of 19.625 (no parity/address bit), 20.625 (either parity or address bit), or 21.625 (both parity and address bit) bit times. #br# #br#To instead detect a &quot;break seq&quot; or &quot;break sequence&quot; of 11 bits of low voltage level (0), ISR code can use the following combination of flags and received data: FE==1 &amp;&amp; PE==1 &amp;&amp; UARTRXBUF.SAR (received character)==0x00. This assumes parity enabled and odd parity set. With even parity, PE==0 instead. The detection of 11 bits of low/0 can be reduced to 10 bits of low if no parity bit is used (then PE flag does not matter to detect the sequence). #br# #br#The occurrence of a break causes a receiver interrupt to be generated if the RX/BK INT ENA bit is a 1, but it does not cause the receiver buffer to be loaded.  #br# #br#A BRKDT interrupt can occur even if the receiver SLEEP bit is set to 1.  #br# #br#BRKDT is cleared by an active SW RESET, UARTRST bit, or by a system reset. It is not cleared by receipt of a character after the break is detected.  #br# #br#If Break Detect (BRKDT) is set, then RXRDY won't be set and there will be no further interrupts after the first interrupt where there is an error detected if a SW reset, channel reset, or system reset is not performed. In order to receive more characters, the UART must be reset by toggling the SW RESET bit, channel reset (UARTRST), or by a system reset. #br# #br#NOTE: If your system is susceptible to break detects, ensure that you have a pull-up resistor on the UART-RX pin to provide proper return-to-high signal behavior and noise immunity. #br# #br#NOTE: To monitor a break detect, place an oscilloscope on the C2000 UART-RX line and monitor for a low-signal greater than 9.625 bits wide. If this is found and a break is not expected, please correct the software in the other device that is transmitting to this C2000 device. There should never be a low-signal greater than 9.625 bits wide on the UART-RX line of the C2000 device unless a break detect is being transmitted purposely." end="5" id="BRKDT" rwaccess="R" width="1">
+    <bitenum description="No break condition" id="BRKDT_NO_CODT" token="BRKDT_NO_CODT" value="0"></bitenum>
+    <bitenum description="Break condition occurred" id="BRKDT_CODT" token="BRKDT_CODT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="UART framing-error flag.  #br#The UART sets this bit when an expected stop bit is not found. Only the first stop bit is checked. The missing stop bit indicates that synchronization with the start bit has been lost and that the character is incorrectly framed. The FE bit is reset by a clearing of the SW RESET bit, channel reset (UARTRST), or by a system reset. NOTE: FE will be flagged prior to BRKDT, except when RX is in sleep mode. In sleep mode, when there is no RX WAKEUP and RXD line is low for greater than 10 bits, BRKDT will be flagged while FE will not be flagged." end="4" id="FE" rwaccess="R" width="1">
+    <bitenum description="No framing error detected" id="FE_NO_DETCT" token="FE_NO_DETCT" value="0"></bitenum>
+    <bitenum description="Framing error detected" id="FE_ERR_DETCT" token="FE_ERR_DETCT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="UART overrun-error flag.  #br#The UART sets this bit when a character is transferred into registers UARTRXEMU and UARTRXBUF before the previous character is fully read by the CPU or DMAC. The previous character is overwritten and lost. The OE flag bit is reset by an active SW RESET, channel reset (UARTRST), or a system reset." end="3" id="OE" rwaccess="R" width="1">
+    <bitenum description="No overrun error detected" id="OE_NO_DETCT" token="OE_NO_DETCT" value="0"></bitenum>
+    <bitenum description="Overrun error detected" id="OE_ERR_DETCT" token="OE_ERR_DETCT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="UART parity-error flag.  #br#This flag bit is set when a character is received with a mismatch between the number of 1s and its parity bit. The address bit is included in the calculation. If parity generation and detection is not enabled, the PE flag is disabled and read as 0. The PE bit is reset by an active SW RESET, channel reset (UARTRST), or a system reset." end="2" id="PE" rwaccess="R" width="1">
+    <bitenum description="No parity error or parity is disabled" id="PE_NO_ERR" token="PE_NO_ERR" value="0"></bitenum>
+    <bitenum description="Parity error is detected" id="PE_ERR_DETCT" token="PE_ERR_DETCT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Receiver wake-up-detect flag" end="1" id="RXWAKE" rwaccess="R" width="1">
+    <bitenum description="No detection of a receiver wake-up condition" id="REWAKE_NO_DETCT" token="REWAKE_NO_DETCT" value="0"></bitenum>
+    <bitenum description="A value of 1 in this bit indicates detection of a receiver wake-up condition. In the address-bit multiprocessor mode (UARTCCR.3 = 1), RXWAKE reflects the value of the address bit for the character contained in UARTRXBUF. In the idle-line multiprocessor mode, RXWAKE is set if the UARTRXD data line is detected as idle. RXWAKE is a read-only flag, cleared by one of the following: #br# #br#- The transfer of the first byte after the address byte to UARTRXBUF (only in non-FIFO mode) #br#- The reading of UARTRXBUF #br#- An active SW RESET #br#- Channel reset (UARTRST) #br#- A system reset" id="REWAKE_DETCT" token="REWAKE_DETCT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Reserved" end="0" id="Reserved_1" rwaccess="R" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTRXEMU" description="Normal UART data-receive operations read the data received from the UARTRXBUF register. The UARTRXEMU register is used principally by the emulator (EMU) because it can continuously read the data received for screen updates without clearing the RXRDY flag. UARTRXEMU is cleared by a system reset. This is the register that should be used in an emulator watch window to view the contents of the UARTRXBUF register. UARTRXEMU is not physically implemented; it is just a different address location to access the UARTRXBUF register without clearing the RXRDY flag." id="UARTRXEMU" offset="0x18" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="8" id="Reserved_1" rwaccess="R" width="24"></bitfield>
+    
+  <bitfield begin="7" description="Receive emulation buffer data" end="0" id="ERXDT" rwaccess="R" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTRXBUF" description="When the current data received is shifted from RXSHF to the receiver buffer, flag bit RXRDY is set and the data is ready to be read. If the RXBKINTENA bit (UARTCTL2.1) is set, this shift also causes an interrupt. When UARTRXBUF is read, the RXRDY flag is reset. UARTRXBUF is cleared by a system reset." id="UARTRXBUF" offset="0x1C" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="16" id="Reserved_2" rwaccess="R" width="16"></bitfield>
+    
+  <bitfield begin="15" description="UARTFFFE. UART FIFO Framing error flag bit (applicable only if the FIFO is enabled) #br# #br#Note: 'UARTFFFE' is meant to serve as a flag for the specific set of data being received/read in the UARTRXBUF register. Each set of data received into the FIFO will have this information. The 'FE' bit within the UARTRXST register can be thought off as high level error flag where the flag will get set if any data that has been received has a framing error." end="15" id="UARTFFFE" rwaccess="R" width="1">
+    <bitenum description="No frame error occurred while receiving the character, in bits 7-0. This bit is associated with the character on the top of the FIFO." id="UARTFFPE_NO_ERR" token="UARTFFPE_NO_ERR" value="0"></bitenum>
+    <bitenum description="A frame error occurred while receiving the character in bits 7-0. This bit is associated with the character on the top of the FIFO." id="UARTFFPE_ERR_OCCR" token="UARTFFPE_ERR_OCCR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="UARTFFPE. UART FIFO parity error flag bit (applicable only if the FIFO is enabled) #br# #br#Note: 'UARTFFPE' is meant to serve as a flag for the specific set of data being received/read in the UARTRXBUF register. Each set of data received into the FIFO will have this information. The 'PE' bit within the UARTRXST register can be thought off as high level error flag where the flag will get set if any data that has been received has a parity error. #br# #br#Note: If the parity is changed in the middle of data reception, the UART module will not reinterpret the data with the new parity or other settings that may have changed. Therefore, changing the parameter, the FIFO should be cleared or the user should acknowledge that there will most likely be errors in the data caused by the change.   #br#  #br#Note: If RX parity errors are occurring intermittently this could be due to the length of the UART ISR. To help prevent this, ensure that interrupt nesting is limited, increase the UART interrupt priority, and move as much of the processing as possible out of the ISR (to reduce ISR time to the absolute minimum). " end="14" id="UARTFFPE" rwaccess="R" width="1">
+    <bitenum description="No parity error occurred while receiving the character, in bits 7-0. This bit is associated with the character on the top of the FIFO." id="UARTFFFE_NO_ERR" token="UARTFFFE_NO_ERR" value="0"></bitenum>
+    <bitenum description="A parity error occurred while receiving the character in bits 7-0. This bit is associated with the character on the top of the FIFO." id="UARTFFFE_ERR_OCCR" token="UARTFFFE_ERR_OCCR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Reserved" end="8" id="Reserved_1" rwaccess="R" width="6"></bitfield>
+    
+  <bitfield begin="7" description="Receive Character bits" end="0" id="SAR" rwaccess="R" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTTXBUF" description="Data bits to be transmitted are written to UARTTXBUF. These bits must be rightjustified because the leftmost bits are ignored for characters less than eight bits long. The transfer of data from this register to the TXSHF transmitter shift register sets the TXRDY flag (UARTCTL2.7), indicating that UARTTXBUF is ready to receive another set of data. If bit TXINTENA (UARTCTL2.0) is set, this data transfer also causes an interrupt." id="UARTTXBUF" offset="0x24" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="8" id="Reserved_1" rwaccess="R" width="24"></bitfield>
+    
+  <bitfield begin="7" description="Transmit data buffer" end="0" id="TXDT" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTFFTX_FIFO4" description="UARTFFTX controls the transmit FIFO interrupt, FIFO enhancements, and reset for the UART transmit and receive channels." id="UARTFFTX_FIFO4" offset="0x28" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="16" id="Reserved_1" rwaccess="R" width="16"></bitfield>
+    
+  <bitfield begin="15" description="UART Reset #br#0  A write of 0 will cause a SW RESET + a RESET of TXFFINT and RXFFINT, essentially clearing TX/RX FIFO content. The UART will be held in reset until a write of 1. Additionally it resets the RXFFOVF, PE, OE, FE, RXERROR, BRKDET, RXRDY, and RXWAKE flags. It will also set TXRDY and TXEMPTY bits as 1. #br#1  UART FIFO can resume transmit or receive. UARTRST should be 1 even for Autobaud logic to work." end="15" id="UARTRST" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="14" description="UART FIFO enable" end="14" id="UARTFFENA" rwaccess="RW" width="1">
+    <bitenum description="UART FIFO enhancements are disabled" id="UARTFFENA_DISABLE" token="UARTFFENA_DISABLE" value="0"></bitenum>
+    <bitenum description="UART FIFO enhancements are enabled" id="UARTFFENA_ENABLE" token="UARTFFENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Transmit FIFO reset" end="13" id="TXFIFORESET" rwaccess="RW" width="1">
+    <bitenum description="Reset the FIFO pointer to zero and hold in reset" id="TXFIFOXRESET_RESET" token="TXFIFOXRESET_RESET" value="0"></bitenum>
+    <bitenum description="Re-enable transmit FIFO operation" id="TXFIFOXRESET_REEN" token="TXFIFOXRESET_REEN" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="FIFO status " end="8" id="TXFFST" rwaccess="R" width="5">
+    <bitenum description="Transmit FIFO is empty" id="TXFFST_EMPTY" token="TXFFST_EMPTY" value="0"></bitenum>
+    <bitenum description="Transmit FIFO has 1 words" id="TXFFST_WORD1" token="TXFFST_WORD1" value="1"></bitenum>
+    <bitenum description="Transmit FIFO has 2 words" id="TXFFST_WORD2" token="TXFFST_WORD2" value="2"></bitenum>
+    <bitenum description="Transmit FIFO has 3 words" id="TXFFST_WORD3" token="TXFFST_WORD3" value="3"></bitenum>
+    <bitenum description="Transmit FIFO has 4 words" id="TXFFST_WORD4" token="TXFFST_WORD4" value="4"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Transmit FIFO interrupt" end="7" id="TXFFINT" rwaccess="R" width="1">
+    <bitenum description="TXFIFO interrupt has not occurred, read-only bit" id="TXFFINT_NO_OCCR" token="TXFFINT_NO_OCCR" value="0"></bitenum>
+    <bitenum description="TXFIFO interrupt has occurred, read-only bit" id="TXFFINT_OCCR" token="TXFFINT_OCCR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Transmit FIFO clear" end="6" id="TXFFINTCLR" rwaccess="RW" width="1">
+    <bitenum description="Write 0 has no effect on TXFIFINT flag bit, Bit reads back a zero" id="TXFFINTCLR_NO_EFFECT" token="TXFFINTCLR_NO_EFFECT" value="0"></bitenum>
+    <bitenum description="Write 1 to clear TXFFINT flag in bit 7" id="TXFFINTCLR_CLR" token="TXFFINTCLR_CLR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Transmit FIFO interrrupt enable" end="5" id="TXFFIENA" rwaccess="RW" width="1">
+    <bitenum description="TX FIFO interrupt is disabled" id="TXFFIENA_DISABLE" token="TXFFIENA_DISABLE" value="0"></bitenum>
+    <bitenum description="TX FIFO interrupt is enabled. This interrupt is triggered whenever the transmit FIFO status (TXFFST) bits match (equal to or less than) the interrupt trigger level bits TXFFIL (bits 4-0). " id="TXFFIENA_ENABLE" token="TXFFIENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="TXFFIL4-0 Transmit FIFO interrupt level bits.  #br# #br#The transmit FIFO generates an interrupt whenever the FIFO status bits (TXFFST4-0) are less than or equal to the FIFO level bits (TXFFIL4-0). The maximum value that can be assigned to these bits to generate an interrupt cannot be more than the depth of the TX FIFO. The default value of these bits after reset is 00000b. Users should set TXFFIL to best fit their application needs by weighing between the CPU overhead to service the ISR and the best possible usage of UART bus bandwidth." end="0" id="TXFFIL" rwaccess="RW" width="5"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTFFRX_FIFO4" description="UARTFFRX controls the receive FIFO interrupt, receive FIFO reset, and status of the receive FIFO overflow." id="UARTFFRX_FIFO4" offset="0x2C" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="16" id="Reserved_1" rwaccess="R" width="16"></bitfield>
+    
+  <bitfield begin="15" description="Receive FIFO overflow.  #br#This will function as flag, but cannot generate interrupt by itself. This condition will occur while receive interrupt is active. Receive interrupts should service this flag condition." end="15" id="RXFFOVF" rwaccess="R" width="1">
+    <bitenum description="Receive FIFO has not overflowed, read-only bit" id="RXFFOVF_NO_OVF" token="RXFFOVF_NO_OVF" value="0"></bitenum>
+    <bitenum description="Receive FIFO has overflowed, read-only bit. More than 16 words have been received in to the FIFO, and the first received word is lost" id="RXFFOVF_OVF" token="RXFFOVF_OVF" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="RXFFOVF clear #br#Note: Both RXFFIL and RXFFOVF flags are ORed together, so they need to be cleared at the same time (RXFFINTCLR &amp; RXFFOVRCLR) during overflow scenarios else it will prevent further interrupts from occurring." end="14" id="RXFFOVRCLR" rwaccess="RW" width="1">
+    <bitenum description="Write 0 has no effect on RXFFOVF flag bit, Bit reads back a zero" id="RXFFOVRCLR_NO_EFFECT" token="RXFFOVRCLR_NO_EFFECT" value="0"></bitenum>
+    <bitenum description="Write 1 to clear RXFFOVF flag in bit 15" id="RXFFOVRCLR_CLR" token="RXFFOVRCLR_CLR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Receive FIFO reset" end="13" id="RXFIFORESET" rwaccess="RW" width="1">
+    <bitenum description="Write 0 to reset the FIFO pointer to zero, and hold in reset." id="RXFIFORESET_RESET" token="RXFIFORESET_RESET" value="0"></bitenum>
+    <bitenum description="Re-enable receive FIFO operation" id="RXFIFORESET_REEN" token="RXFIFORESET_REEN" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="FIFO status " end="8" id="RXFFST" rwaccess="R" width="5">
+    <bitenum description="Receive FIFO is empty" id="RXFFST_EMPTY" token="RXFFST_EMPTY" value="0"></bitenum>
+    <bitenum description="Receive FIFO has 1 words" id="RXFFST_WORD1" token="RXFFST_WORD1" value="1"></bitenum>
+    <bitenum description="Receive FIFO has 2 words" id="RXFFST_WORD2" token="RXFFST_WORD2" value="2"></bitenum>
+    <bitenum description="Receive FIFO has 3 words" id="RXFFST_WORD3" token="RXFFST_WORD3" value="3"></bitenum>
+    <bitenum description="Receive FIFO has 4 words" id="RXFFST_WORD4" token="RXFFST_WORD4" value="4"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Receive FIFO interrupt" end="7" id="RXFFINT" rwaccess="R" width="1">
+    <bitenum description="RXFIFO interrupt has not occurred, read-only bit" id="RXFFINT_NO_OCCR" token="RXFFINT_NO_OCCR" value="0"></bitenum>
+    <bitenum description="RXFIFO interrupt has occurred, read-only bit" id="RXFFINT_OCCR" token="RXFFINT_OCCR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Receive FIFO interrupt clear #br#Note: Both RXFFIL and RXFFOVF flags are ORed together, so they need to be cleared at the same time (RXFFINTCLR &amp; RXFFOVRCLR) during overflow scenarios else it will prevent further interrupts from occurring." end="6" id="RXFFINTCLR" rwaccess="W" width="1">
+    <bitenum description="Write 0 has no effect on RXFIFINT flag bit. Bit reads back a zero." id="RXFFINTCLR_NO_EFFECT" token="RXFFINTCLR_NO_EFFECT" value="0"></bitenum>
+    <bitenum description="Write 1 to clear RXFFINT flag in bit 7" id="RXFFINTCLR_CLR" token="RXFFINTCLR_CLR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Receive FIFO interrupt enable" end="5" id="RXFFIENA" rwaccess="RW" width="1">
+    <bitenum description="RX FIFO interrupt is disabled " id="RXFFIENA_DISABLE" token="RXFFIENA_DISABLE" value="0"></bitenum>
+    <bitenum description="RX FIFO interrupt is enabled. This interrupt is triggered whenever the receive FIFO status (RXFFST) bits match (equal to or greater than) the interrupt trigger level bits RXFFIL (bits 4-0). " id="RXFFIENA_ENABLE" token="RXFFIENA_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Receive FIFO interrupt level bits #br# #br#The receive FIFO generates an interrupt whenever the FIFO status bits (RXFFST4-0) are greater than or equal to the FIFO level bits (RXFFIL4-0).  The maximum value that can be assigned to these bits to generate an interrupt cannot be more than the depth of the RX FIFO. The default value of these bits after reset is 11111b. Users should set RXFFIL to best fit their application needs by weighing between the CPU overhead to service the ISR and the best possible usage of received UART data. " end="0" id="RXFFIL" rwaccess="RW" width="5"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTFFCT" description="UARTFFCT contains the status of auto-baud detect, clears the auto-baud flag, and calibrate for A-detect bit." id="UARTFFCT" offset="0x30" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="16" id="Reserved_2" rwaccess="R" width="16"></bitfield>
+    
+  <bitfield begin="15" description="Auto-baud detect (ABD) bit" end="15" id="ABD" rwaccess="R" width="1">
+    <bitenum description="Auto-baud detection is not complete. &quot;A&quot;,&quot;a&quot; character has not been received successfully." id="ADB_NO_COMPLT" token="ADB_NO_COMPLT" value="0"></bitenum>
+    <bitenum description="Auto-baud hardware has detected &quot;A&quot; or &quot;a&quot; character on the UART receive register. Auto-detect is #br#complete." id="ADB_COMPLT" token="ADB_COMPLT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="ABD-clear bit" end="14" id="ABDCLR" rwaccess="W" width="1">
+    <bitenum description="Write 0 has no effect on ABD flag bit. Bit reads back a zero." id="ABDCLR_NO_EFFECT" token="ABDCLR_NO_EFFECT" value="0"></bitenum>
+    <bitenum description="Write 1 to clear ABD flag in bit 15." id="ABDCLR_CLR" token="ABDCLR_CLR" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="CDC calibrate A-detect bit" end="13" id="CDC" rwaccess="RW" width="1">
+    <bitenum description="Disables auto-baud alignment" id="CDC_DISABLE" token="CDC_DISABLE" value="0"></bitenum>
+    <bitenum description="Enables auto-baud alignment" id="CDC_ENABLE" token="CDC_ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="Reserved" end="8" id="Reserved_1" rwaccess="R" width="5"></bitfield>
+    
+  <bitfield begin="7" description="FIFO transfer delay. These bits define the delay between every transfer from FIFO transmit bufferto transmit shift register. The delay is defined in the number of UART serial baud clock cycles. The 8 bit register could define a minimum delay of 0 baud clock cycles and a maximum of 256 baud clock cycles #br# #br#In FIFO mode, the buffer (TXBUF) between the shift register and the FIFO should be filled only after the shift register has completed shifting of the last bit. This is required to pass on the delay between transfers to the data stream. In FIFO mode, TXBUF should not be treated as one additional level of buffer. The delayed transmit feature will help to create an auto-flow scheme without RTS/CTS controls as in standard UARTS. #br# #br#When UART is configured for one stop-bit, delay introduced by FFTXDLY between one frame and the next frame is equal to number of baud clock cycles that FFTXDLY is set to. #br# #br#When UART is configured for two stop-bits, delay introduced by FFTXDLY between one frame and the next frame is equal to number of baud clock cycles that FFTXDLY is set to minus 1." end="0" id="FFTXDLY" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="UARTPRI" description="UARTPRI determines what happens when an emulation suspend event occurs." id="UARTPRI" offset="0x3C" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="7" id="Reserved_3" rwaccess="R" width="25"></bitfield>
+    
+  <bitfield begin="6" description="Reserved" end="5" id="RegReserved_2" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="4" description="These bits determine what occurs when an emulation suspend event occurs (for example, when the debugger hits a breakpoint). The peripheral can continue whatever it is doing (free-run mode), or if in stop mode, it can either stop immediately or stop when the current operation (the current receive/transmit sequence) is complete." end="3" id="FREESOFT" rwaccess="RW" width="2">
+    <bitenum description="Immediate stop on suspend" id="FREE_SOFT_HARDSTOP" token="FREE_SOFT_HARDSTOP" value="0"></bitenum>
+    <bitenum description="Complete current receive/transmit sequence before stopping" id="FREE_SOFT_SOFTSTOP" token="FREE_SOFT_SOFTSTOP" value="1"></bitenum>
+    <bitenum description="Free run" id="FREE_SOFT_FREERUN1" token="FREE_SOFT_FREERUN1" value="2"></bitenum>
+    <bitenum description="Free run" id="FREE_SOFT_FREERUN2" token="FREE_SOFT_FREERUN2" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Reserved" end="0" id="Reserved_1" rwaccess="R" width="3"></bitfield>
+  </register>
+  
+  
+  <register acronym="LOSPCP" description="Low Speed Clock Source Prescalar" id="LOSPCP" offset="0x40" width="32">
+    
+  <bitfield begin="31" description="Reserved" end="3" id="Reserved_1" rwaccess="R" width="29"></bitfield>
+    
+  <bitfield begin="2" description="These bits configure the low-speed peripheral clock (LSPCLK) rate." end="0" id="LSPCLKDIV" rwaccess="RW" width="3">
+    <bitenum description="LSPCLK = / 1 " id="DIV_by_1" token="DIV_by_1" value="0"></bitenum>
+    <bitenum description="LSPCLK = / 2" id="DIV_by_2" token="DIV_by_2" value="1"></bitenum>
+    <bitenum description="LSPCLK = / 4 (default on reset) " id="DIV_by_4" token="DIV_by_4" value="2"></bitenum>
+    <bitenum description="LSPCLK = / 6 " id="DIV_by_6" token="DIV_by_6" value="3"></bitenum>
+    <bitenum description="LSPCLK = / 8 " id="DIV_by_8" token="DIV_by_8" value="4"></bitenum>
+    <bitenum description="LSPCLK = / 10 " id="DIV_by_10" token="DIV_by_10" value="5"></bitenum>
+    <bitenum description="LSPCLK = / 12 " id="DIV_by_12" token="DIV_by_12" value="6"></bitenum>
+    <bitenum description="LSPCLK = / 14 " id="DIV_by_14" token="DIV_by_14" value="7"></bitenum>
+  </bitfield>
+  </register>
+</module>

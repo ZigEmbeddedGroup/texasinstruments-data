@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<device id="AWRL68xx" partnum="AWRL68xx" HW_revision="1" XML_version="1" desc="AWRL68xx" description="AWRL68xx Radar">
+    <property Type="stringfield" Value="radar" id="AETT Platform"/>
+    <property Type="filepathfield" Value="../../emulation/analysis/dpk/devices/AWRL68xx/AETT_database_radar_awrl68xx.jsonc" id="AETT Database File"/>
+    <property Type="stringfield" Value="mmWave Sensors" id="FilterString" /> 
+	<property Type="hiddenfield" Value="4" id="ufNumImageSelection" />
+	<property Type="hiddenfield" Value="Meta Image 1" id="ufImageType0" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions" />
+	<property Type="hiddenfield" Value="Meta Image 2" id="ufImageType1" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions1" />
+	<property Type="hiddenfield" Value="Meta Image 3" id="ufImageType2" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions2" />
+	<property Type="hiddenfield" Value="Meta Image 4" id="ufImageType3" />
+	<property Type="hiddenfield" Value=".appimage, .bin" id="supportedFileExtensions3" />
+    <instance XML_version="1.2" desc="DEBUGSSM_0" href="routers/debugssm.xml" id="DEBUGSSM_0" xml="debugssm.xml" xmlpath="routers"/>
+    <router HW_revision="1.0" XML_version="1.2" description="OneMCU DebugSS top level" id="DEBUGSSM_0" isa="DEBUGSSM">
+        <subpath id="subpath_2">
+            <instance XML_version="1.2" desc="CS_DAP_0" href="routers/cs_dap.xml" id="CS_DAP_0" xml="cs_dap.xml" xmlpath="routers"/>
+            <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+                <property Type="numericfield" Value="0x00000602" id="DAP AP Configuration"/>
+                <instance href="../Modules/AP/CFGAP.xml" id="" xml="CFGAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="CFGAP" baseaddr="0x00020400" endaddr="0x000204FC" size="0x100" accessnumbytes="4" permissions="p" /> 
+                <instance href="../Modules/AP/PWRAP.xml" id="" xml="PWRAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="PWRAP" baseaddr="0x00020700" endaddr="0x000207FC" size="0x100" accessnumbytes="4" permissions="p" /> 
+                <instance href="../Modules/AP/SECAP.xml" id="" xml="SECAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="SECAP" baseaddr="0x00020800" endaddr="0x000208FC" size="0x100" accessnumbytes="4" permissions="p" /> 
+                    <subpath id="subpath_3">
+                        <instance XML_version="1.2" desc="Cortex_R5_0" href="cpus/cortex_r5.xml" id="Cortex_R5_0" xml="cortex_r5.xml" xmlpath="cpus"/>
+                        <property Type="choicelist" Value="0" id="Type"/>
+                        <cpu HW_revision="1.0" XML_version="1.2" description="Cortex_R5 CPU" deviceSim="false" id="Cortex_R5_0" isa="Cortex_R5">
+                            <property Type="numericfield" Value="0x02000506" id="Access Port Designator"/>
+                            <property Type="numericfield" Value="0x80030000" id="Address"/>
+                            <property Type="numericfield" Value="0x1" id="TraceDeviceId"/>
+                            <!-- Registers -->
+                            <!--APPSS SPI-A  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_SPI.xml" id="APP_SPIA" xml="APP_SPI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SPI-A Module Registers" baseaddr="0x53F7F400" endaddr="0x53F7F5A0" size="420" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS SPI-B  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_SPI.xml" id="APP_SPIB" xml="APP_SPI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SPI-B Module Registers" baseaddr="0x57F7F400" endaddr="0x57F7F5A0" size="420" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS VIM  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_VIM_R5A.xml" id="APP_VIM_R5A" xml="APP_VIM_R5A.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS VIM Module Registers" baseaddr="0x560C0000" endaddr="0x560C21FC" size="8192" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN-A  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANCFG.xml" id="APP_CANA_CFG" xml="APP_CANCFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN-A Module Registers" baseaddr="0x53F7F800" endaddr="0x53F7FAFC" size="768" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN-B  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANCFG.xml" id="APP_CANB_CFG" xml="APP_CANCFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN-B Module Registers" baseaddr="0x57F79000" endaddr="0x57F792FC" size="768" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN A ECC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANECC.xml" id="APP_CANA_ECC" xml="APP_CANECC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN -A ECC Module Registers" baseaddr="0x53F7FC00" endaddr="0x560C21FC" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN B ECC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANECC.xml" id="APP_CANB_ECC" xml="APP_CANECC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN -B ECC Module Registers" baseaddr="0x57F79400" endaddr="0x57F792FC" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CCMR  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CCMR5.xml" id="APP_CCMR5" xml="APP_CCMR5.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CCMR Module Registers" baseaddr="0x56F7AC00" endaddr="0x56F7AC18" size="28" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS APP_CR5_ECC_AGGR  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CR5_ECC_AGGR.xml" id="APP_CR5_ECC_AGGR" xml="APP_CR5_ECC_AGGR.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CR5 ECC AGGR Module Registers" baseaddr="0x56F7BC00" endaddr="0x56F7BE0C" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CTRL.xml" id="APP_CTRL" xml="APP_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CTRL Module Registers" baseaddr="0x56060000" endaddr="0x56061030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS ECC AGG  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_ECC_AGG.xml" id="APP_ECC_AGG" xml="APP_ECC_AGG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS ECC AGG Module Registers" baseaddr="0x56F7EC00" endaddr="	0x56F7EE0C" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS ESM  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_ESM.xml" id="APP_ESM" xml="APP_ESM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS ESM Module Registers" baseaddr="0x56F7FC00" endaddr="0x56F7FCD8" size="220" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS I2C  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_I2C.xml" id="APP_I2C" xml="APP_I2C.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS I2C Module Registers" baseaddr="0x57F7F800" endaddr="0x57F7F860" size="100" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS LIN  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_LIN.xml" id="APP_LIN" xml="APP_LIN.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS LIN Module Registers" baseaddr="0x53000000" endaddr="0x53000090" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS LSTC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_LSTC.xml" id="APP_LSTC" xml="APP_LSTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS LSTC Module Registers" baseaddr="0x560A0000" endaddr="0x560A1030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS MCRC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_MCRC.xml" id="APP_MCRC" xml="APP_MCRC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS MCRC Module Registers" baseaddr="0x54020000" endaddr="0x54020144" size="328" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS QSPI CFG  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_QSPI_CFG.xml" id="APP_QSPI_CFG" xml="APP_QSPI_CFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS QSPI CFG Module Registers" baseaddr="0x78000000" endaddr="0x78000070" size="116" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS RCM  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_RCM.xml" id="APP_RCM" xml="APP_RCM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS RCM Module Registers" baseaddr="0x56040000" endaddr="0x56041030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS RTI  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_RTI.xml" id="APP_RTI" xml="APP_RTI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS RTI Module Registers" baseaddr="0x56F7F000" endaddr="0x56F7F0BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS SCI A -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_SCI.xml" id="APP_SCIA" xml="APP_SCI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SCI-A Module Registers" baseaddr="0x53F7F000" endaddr="0x53F7F090" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS SCI B  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_SCI.xml" id="APP_SCIB" xml="APP_SCI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SCI-B Module Registers" baseaddr="0x57F7F000" endaddr="0x57F7F090" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS WD  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_WD.xml" id="APP_WD" xml="APP_WD.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS WD Module Registers" baseaddr="0x56F7F400" endaddr="0x56F7F4BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--DSS CBUFF  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_CBUFF.xml" id="DSS_CBUFF" xml="DSS_CBUFF.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS CBUFF Module Registers" baseaddr="0x550C0000" endaddr="0x550C0230" size="564" accessnumbytes="4" permissions="p"/>
+                            <!--DSS CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_CTRL.xml" id="DSS_CTRL" xml="DSS_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS CTRL Module Registers" baseaddr="0x55020000" endaddr="0x55020FF4" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--DSS ESM  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_ESM.xml" id="DSS_ESM" xml="DSS_ESM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS ESM Module Registers" baseaddr="0x55F7FC00" endaddr="0x55F7FCD8" size="220" accessnumbytes="4" permissions="p"/>
+                            <!--DSS HWA CFG  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_HWA_CFG.xml" id="DSS_HWA_CFG" xml="DSS_HWA_CFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS HWA CFG Module Registers" baseaddr="0x55100000" endaddr="0x551003D4" size="984" accessnumbytes="4" permissions="p"/>
+                            <!--DSS LSTC  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_LSTC.xml" id="DSS_LSTC" xml="DSS_LSTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS LSTC Module Registers" baseaddr="0x55140000" endaddr="0x55141030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--DSS MCRC  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_MCRC.xml" id="DSS_MCRC" xml="DSS_MCRC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS MCRC Module Registers" baseaddr="0x83300000" endaddr="0x83300144" size="328" accessnumbytes="4" permissions="p"/>
+                            <!--DSS RCM  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_RCM.xml" id="DSS_RCM" xml="DSS_RCM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS RCM Module Registers" baseaddr="0x55000000" endaddr="0x55001030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--DSS RTIA  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_RTI.xml" id="DSS_RTI" xml="DSS_RTI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS RTIA Module Registers" baseaddr="0x55F7F000" endaddr="0x55F7F0BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--DSS SCI  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_SCI.xml" id="DSS_SCI" xml="DSS_SCI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS SCI-A Module Registers" baseaddr="0x55F7F800" endaddr="0x55F7F890" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--DSS DSS_TPCC_A  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_TPCC_A.xml" id="DSS_TPCC_A" xml="DSS_TPCC_A.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPCC A Module Registers" baseaddr="0x55080000" endaddr="0x5508401C" size="16384" accessnumbytes="4" permissions="p"/>
+                            <!--DSS DSS_TPCC_B  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_TPCC_B.xml" id="DSS_TPCC_B" xml="DSS_TPCC_B.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPCC B Module Registers" baseaddr="0x550A0000" endaddr="0x550A401C" size="16384" accessnumbytes="4" permissions="p"/>
+                            <!--DSS WD  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_WD.xml" id="DSS_WD" xml="DSS_WD.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS WD Module Registers" baseaddr="0x55F7F400" endaddr="0x55F7F4BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--FEC CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/FEC_CTRL.xml" id="FEC_CTRL" xml="FEC_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="FECSS CTRL Module Registers" baseaddr="0x52000000" endaddr="0x52001030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--FEC LSTC  -->
+                            <instance href="../Modules/radar/xwrl68xx/FEC_LSTC.xml" id="FEC_LSTC" xml="FEC_LSTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="FECSS LSTC Module Registers" baseaddr="0x52040000" endaddr="0x52041030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--FEC RCM  -->
+                            <instance href="../Modules/radar/xwrl68xx/FEC_RCM.xml" id="FEC_RCM" xml="FEC_RCM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="FECSS RCM Module Registers" baseaddr="0x52020000" endaddr="0x52021030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--MPU CR5 AXIS  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU CR5 AXIS Module Registers" baseaddr="0x40060000" endaddr="0x40060308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU MPU_DSS_L3_BANKA  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU DSS L3 Module Registers" baseaddr="0x40080000" endaddr="0x40080308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU MPU_DSS_L3_BANKA  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU DSS L3-B Module Registers" baseaddr="0x400A0000" endaddr="0x400A0308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU DSS  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU DSS Module Registers" baseaddr="0x400C0000" endaddr="0x400C0308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU FEC  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU FEC Module Registers" baseaddr="0x400E0000" endaddr="0x400E0308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU QSPI  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU QSPI Module Registers" baseaddr="0x40120000" endaddr="0x40120308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU TOPSS  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU TOPSS Module Registers" baseaddr="0x40140000" endaddr="0x40140308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--TOP PBIST  -->
+                            <instance href="../Modules/radar/xwrl68xx/PBIST.xml" id="PBIST" xml="PBIST.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP PBIST Module Registers" baseaddr="0x5C020100" endaddr="0x5C0201CC" size="464" accessnumbytes="4" permissions="p"/>
+                            <!--DSS PBIST  -->
+                            <instance href="../Modules/radar/xwrl68xx/PBIST.xml" id="PBIST" xml="PBIST.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS PBIST Module Registers" baseaddr="0x55F7E900" endaddr="0x55F7E9CC" size="462" accessnumbytes="4" permissions="p"/>
+                            <!--TOP DCC-A  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_DCC.xml" id="TOP_DCC" xml="TOP_DCC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP DCC-A Module Registers" baseaddr="0x5BF7F800" endaddr="0x5BF7F838" size="60" accessnumbytes="4" permissions="p"/>
+                            <!--TOP DCC-B  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_DCC.xml" id="TOP_DCC" xml="TOP_DCC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP DCC-B Module Registers" baseaddr="0x5BF7F400" endaddr="0x5BF7F438" size="60" accessnumbytes="4" permissions="p"/>
+                            <!--TOP GIO  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_GIO.xml" id="TOP_GIO" xml="TOP_GIO.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP GIO Module Registers" baseaddr="0x5AF7FC00" endaddr="0x5AF7FD50" size="340" accessnumbytes="4" permissions="p"/>
+                            <!--TOP IOMUX  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_IOMUX.xml" id="TOP_IOMUX" xml="TOP_IOMUX.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP IOMUX Module Registers" baseaddr="0x5A000000" endaddr="0x5A00008C" size="144" accessnumbytes="4" permissions="p"/>
+                            <!--TOPSS CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOPSS_CTRL.xml" id="TOPSS_CTRL" xml="TOPSS_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOPSS CTRL Module Registers" baseaddr="0x5B020000" endaddr="0x5B021030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS TPCC  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPCC.xml" id="TPCC" xml="TPCC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS TPCC Module Registers" baseaddr="0x56000000" endaddr="0x5600401C" size="16384" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-A0  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC A0 Module Registers" baseaddr="0x55040000" endaddr="0x55040358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-A1  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC A1 Module Registers" baseaddr="0x55041000" endaddr="0x55041358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-A2  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC A2 Module Registers" baseaddr="0x55042000" endaddr="0x55042358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-B0  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC B0 Module Registers" baseaddr="0x55060000" endaddr="0x55060358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS TPTC-A0  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC_A0.xml" id="TPTC_A0" xml="TPTC_A0.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS TPTC A0 Module Registers" baseaddr="0x56021000" endaddr="0x55061358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS TPTC-A1  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC_A1.xml" id="TPTC_A1" xml="TPTC_A1.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS TPTC A1 Module Registers" baseaddr="0x56022000" endaddr="0x55062358" size="860" accessnumbytes="4" permissions="p"/>
+                        </cpu>
+                    </subpath>
+            </router>
+            <property Type="numericfield" Value="0x0" desc="Port Number_1" id="Port Number"/>
+        </subpath>
+        <subpath id="subpath_0">
+            <instance XML_version="1.2" desc="IcePick_M_0" href="routers/icepick_m.xml" id="IcePick_M_0" xml="icepick_m.xml" xmlpath="routers"/>
+            <router HW_revision="1.0" XML_version="1.2" description="ICEPick_M Router" id="IcePick_M_0" isa="ICEPICK_M">
+                <subpath id="subpath_1">
+                    <instance XML_version="1.2" desc="C66xx_DSP" href="cpus/c66xx.xml" id="C66xx_DSP" xml="c66xx.xml" xmlpath="cpus"/>
+                    <cpu HW_revision="1.0" XML_version="1.2" desc="C66xx_DSP" description="C66xx CGEM+FP CPU" deviceSim="false" id="C66xx_DSP" isa="TMS320C66XX">
+				    <property Type="stringfield" Value="Auto" id="Domain Power Loss Mode"/>	
+						<!-- Project Wizard Settings -->
+						<property Type="stringfield" Value="little" id="Endianness" />
+						<property Type="stringfield" Value="true" id="IsElfDefault" />
+						<property Type="stringfield" Value="--silicon_version=6600" id="CompilerBuildOptions" />
+						<property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+						<property Type="stringfield" Value="awr2944_C66xx.cmd" id="LinkerCmd" />
+						<!-- End project wizard settigns -->
+						<property Type="numericfield" Value="0x2" id="TraceDeviceId"/>
+						<property Type="numericfield" Value="1" id="SyncRunOrder"/>	
+                        <!-- Registers -->
+                            <!--APPSS SPI-A  -->				    
+                            <instance href="../Modules/radar/xwrl68xx/APP_SPI.xml" id="APP_SPIA" xml="APP_SPI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SPI-A Module Registers" baseaddr="0x53F7F400" endaddr="0x53F7F5A0" size="420" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS SPI-B  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_SPI.xml" id="APP_SPIB" xml="APP_SPI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SPI-B Module Registers" baseaddr="0x57F7F400" endaddr="0x57F7F5A0" size="420" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS VIM  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_VIM_R5A.xml" id="APP_VIM_R5A" xml="APP_VIM_R5A.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS VIM Module Registers" baseaddr="0x560C0000" endaddr="0x560C21FC" size="8192" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN-A  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANCFG.xml" id="APP_CANA_CFG" xml="APP_CANCFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN-A Module Registers" baseaddr="0x53F7F800" endaddr="0x53F7FAFC" size="768" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN-B  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANCFG.xml" id="APP_CANB_CFG" xml="APP_CANCFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN-B Module Registers" baseaddr="0x57F79000" endaddr="0x57F792FC" size="768" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN A ECC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANECC.xml" id="APP_CANA_ECC" xml="APP_CANECC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN -A ECC Module Registers" baseaddr="0x53F7FC00" endaddr="0x560C21FC" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CAN B ECC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CANECC.xml" id="APP_CANB_ECC" xml="APP_CANECC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CAN -B ECC Module Registers" baseaddr="0x57F79400" endaddr="0x57F792FC" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CCMR  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CCMR5.xml" id="APP_CCMR5" xml="APP_CCMR5.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CCMR Module Registers" baseaddr="0x56F7AC00" endaddr="0x56F7AC18" size="28" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS APP_CR5_ECC_AGGR  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CR5_ECC_AGGR.xml" id="APP_CR5_ECC_AGGR" xml="APP_CR5_ECC_AGGR.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CR5 ECC AGGR Module Registers" baseaddr="0x56F7BC00" endaddr="0x56F7BE0C" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_CTRL.xml" id="APP_CTRL" xml="APP_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS CTRL Module Registers" baseaddr="0x56060000" endaddr="0x56061030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS ECC AGG  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_ECC_AGG.xml" id="APP_ECC_AGG" xml="APP_ECC_AGG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS ECC AGG Module Registers" baseaddr="0x56F7EC00" endaddr="	0x56F7EE0C" size="528" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS ESM  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_ESM.xml" id="APP_ESM" xml="APP_ESM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS ESM Module Registers" baseaddr="0x56F7FC00" endaddr="0x56F7FCD8" size="220" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS I2C  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_I2C.xml" id="APP_I2C" xml="APP_I2C.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS I2C Module Registers" baseaddr="0x57F7F800" endaddr="0x57F7F860" size="100" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS LIN  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_LIN.xml" id="APP_LIN" xml="APP_LIN.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS LIN Module Registers" baseaddr="0x53000000" endaddr="0x53000090" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS LSTC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_LSTC.xml" id="APP_LSTC" xml="APP_LSTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS LSTC Module Registers" baseaddr="0x560A0000" endaddr="0x560A1030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS MCRC  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_MCRC.xml" id="APP_MCRC" xml="APP_MCRC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS MCRC Module Registers" baseaddr="0x54020000" endaddr="0x54020144" size="328" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS QSPI CFG  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_QSPI_CFG.xml" id="APP_QSPI_CFG" xml="APP_QSPI_CFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS QSPI CFG Module Registers" baseaddr="0x78000000" endaddr="0x78000070" size="116" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS RCM  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_RCM.xml" id="APP_RCM" xml="APP_RCM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS RCM Module Registers" baseaddr="0x56040000" endaddr="0x56041030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS RTI  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_RTI.xml" id="APP_RTI" xml="APP_RTI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS RTI Module Registers" baseaddr="0x56F7F000" endaddr="0x56F7F0BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS SCI A -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_SCI.xml" id="APP_SCIA" xml="APP_SCI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SCI-A Module Registers" baseaddr="0x53F7F000" endaddr="0x53F7F090" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS SCI B  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_SCI.xml" id="APP_SCIB" xml="APP_SCI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS SCI-B Module Registers" baseaddr="0x57F7F000" endaddr="0x57F7F090" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS WD  -->
+                            <instance href="../Modules/radar/xwrl68xx/APP_WD.xml" id="APP_WD" xml="APP_WD.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS WD Module Registers" baseaddr="0x56F7F400" endaddr="0x56F7F4BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--DSS CBUFF  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_CBUFF.xml" id="DSS_CBUFF" xml="DSS_CBUFF.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS CBUFF Module Registers" baseaddr="0x550C0000" endaddr="0x550C0230" size="564" accessnumbytes="4" permissions="p"/>
+                            <!--DSS CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_CTRL.xml" id="DSS_CTRL" xml="DSS_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS CTRL Module Registers" baseaddr="0x55020000" endaddr="0x55020FF4" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--DSS ESM  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_ESM.xml" id="DSS_ESM" xml="DSS_ESM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS ESM Module Registers" baseaddr="0x55F7FC00" endaddr="0x55F7FCD8" size="220" accessnumbytes="4" permissions="p"/>
+                            <!--DSS HWA CFG  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_HWA_CFG.xml" id="DSS_HWA_CFG" xml="DSS_HWA_CFG.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS HWA CFG Module Registers" baseaddr="0x55100000" endaddr="0x551003D4" size="984" accessnumbytes="4" permissions="p"/>
+                            <!--DSS LSTC  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_LSTC.xml" id="DSS_LSTC" xml="DSS_LSTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS LSTC Module Registers" baseaddr="0x55140000" endaddr="0x55141030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--DSS MCRC  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_MCRC.xml" id="DSS_MCRC" xml="DSS_MCRC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS MCRC Module Registers" baseaddr="0x83300000" endaddr="0x83300144" size="328" accessnumbytes="4" permissions="p"/>
+                            <!--DSS RCM  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_RCM.xml" id="DSS_RCM" xml="DSS_RCM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS RCM Module Registers" baseaddr="0x55000000" endaddr="0x55001030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--DSS RTIA  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_RTI.xml" id="DSS_RTI" xml="DSS_RTI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS RTIA Module Registers" baseaddr="0x55F7F000" endaddr="0x55F7F0BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--DSS SCI  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_SCI.xml" id="DSS_SCI" xml="DSS_SCI.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS SCI-A Module Registers" baseaddr="0x55F7F800" endaddr="0x55F7F890" size="148" accessnumbytes="4" permissions="p"/>
+                            <!--DSS DSS_TPCC_A  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_TPCC_A.xml" id="DSS_TPCC_A" xml="DSS_TPCC_A.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPCC A Module Registers" baseaddr="0x55080000" endaddr="0x5508401C" size="16384" accessnumbytes="4" permissions="p"/>
+                            <!--DSS DSS_TPCC_B  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_TPCC_B.xml" id="DSS_TPCC_B" xml="DSS_TPCC_B.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPCC B Module Registers" baseaddr="0x550A0000" endaddr="0x550A401C" size="16384" accessnumbytes="4" permissions="p"/>
+                            <!--DSS WD  -->
+                            <instance href="../Modules/radar/xwrl68xx/DSS_WD.xml" id="DSS_WD" xml="DSS_WD.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS WD Module Registers" baseaddr="0x55F7F400" endaddr="0x55F7F4BC" size="192" accessnumbytes="4" permissions="p"/>
+                            <!--FEC CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/FEC_CTRL.xml" id="FEC_CTRL" xml="FEC_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="FECSS CTRL Module Registers" baseaddr="0x52000000" endaddr="0x52001030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--FEC LSTC  -->
+                            <instance href="../Modules/radar/xwrl68xx/FEC_LSTC.xml" id="FEC_LSTC" xml="FEC_LSTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="FECSS LSTC Module Registers" baseaddr="0x52040000" endaddr="0x52041030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--FEC RCM  -->
+                            <instance href="../Modules/radar/xwrl68xx/FEC_RCM.xml" id="FEC_RCM" xml="FEC_RCM.xml" xmlpath="../Modules/radar/xwrl68xx/" description="FECSS RCM Module Registers" baseaddr="0x52020000" endaddr="0x52021030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--MPU CR5 AXIS  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU CR5 AXIS Module Registers" baseaddr="0x40060000" endaddr="0x40060308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU MPU_DSS_L3_BANKA  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU DSS L3 Module Registers" baseaddr="0x40080000" endaddr="0x40080308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU MPU_DSS_L3_BANKA  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU DSS L3-B Module Registers" baseaddr="0x400A0000" endaddr="0x400A0308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU DSS  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU DSS Module Registers" baseaddr="0x400C0000" endaddr="0x400C0308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU FEC  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU FEC Module Registers" baseaddr="0x400E0000" endaddr="0x400E0308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU QSPI  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU QSPI Module Registers" baseaddr="0x40120000" endaddr="0x40120308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--MPU TOPSS  -->
+                            <instance href="../Modules/radar/xwrl68xx/MPU.xml" id="MPU" xml="MPU.xml" xmlpath="../Modules/radar/xwrl68xx/" description="MPU TOPSS Module Registers" baseaddr="0x40140000" endaddr="0x40140308" size="780" accessnumbytes="4" permissions="p"/>
+                            <!--TOP PBIST  -->
+                            <instance href="../Modules/radar/xwrl68xx/PBIST.xml" id="PBIST" xml="PBIST.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP PBIST Module Registers" baseaddr="0x5C020100" endaddr="0x5C0201CC" size="464" accessnumbytes="4" permissions="p"/>
+                            <!--DSS PBIST  -->
+                            <instance href="../Modules/radar/xwrl68xx/PBIST.xml" id="PBIST" xml="PBIST.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS PBIST Module Registers" baseaddr="0x55F7E900" endaddr="0x55F7E9CC" size="462" accessnumbytes="4" permissions="p"/>
+                            <!--TOP DCC-A  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_DCC.xml" id="TOP_DCC" xml="TOP_DCC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP DCC-A Module Registers" baseaddr="0x5BF7F800" endaddr="0x5BF7F838" size="60" accessnumbytes="4" permissions="p"/>
+                            <!--TOP DCC-B  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_DCC.xml" id="TOP_DCC" xml="TOP_DCC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP DCC-B Module Registers" baseaddr="0x5BF7F400" endaddr="0x5BF7F438" size="60" accessnumbytes="4" permissions="p"/>
+                            <!--TOP GIO  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_GIO.xml" id="TOP_GIO" xml="TOP_GIO.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP GIO Module Registers" baseaddr="0x5AF7FC00" endaddr="0x5AF7FD50" size="340" accessnumbytes="4" permissions="p"/>
+                            <!--TOP IOMUX  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOP_IOMUX.xml" id="TOP_IOMUX" xml="TOP_IOMUX.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOP IOMUX Module Registers" baseaddr="0x5A000000" endaddr="0x5A00008C" size="144" accessnumbytes="4" permissions="p"/>
+                            <!--TOPSS CTRL  -->
+                            <instance href="../Modules/radar/xwrl68xx/TOPSS_CTRL.xml" id="TOPSS_CTRL" xml="TOPSS_CTRL.xml" xmlpath="../Modules/radar/xwrl68xx/" description="TOPSS CTRL Module Registers" baseaddr="0x5B020000" endaddr="0x5B021030" size="4096" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS TPCC  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPCC.xml" id="TPCC" xml="TPCC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS TPCC Module Registers" baseaddr="0x56000000" endaddr="0x5600401C" size="16384" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-A0  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC A0 Module Registers" baseaddr="0x55040000" endaddr="0x55040358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-A1  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC A1 Module Registers" baseaddr="0x55041000" endaddr="0x55041358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-A2  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC A2 Module Registers" baseaddr="0x55042000" endaddr="0x55042358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--DSS TPTC-B0  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC.xml" id="TPTC" xml="TPTC.xml" xmlpath="../Modules/radar/xwrl68xx/" description="DSS TPTC B0 Module Registers" baseaddr="0x55060000" endaddr="0x55060358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS TPTC-A0  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC_A0.xml" id="TPTC_A0" xml="TPTC_A0.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS TPTC A0 Module Registers" baseaddr="0x56021000" endaddr="0x55061358" size="860" accessnumbytes="4" permissions="p"/>
+                            <!--APPSS TPTC-A1  -->
+                            <instance href="../Modules/radar/xwrl68xx/TPTC_A1.xml" id="TPTC_A1" xml="TPTC_A1.xml" xmlpath="../Modules/radar/xwrl68xx/" description="APPSS TPTC A1 Module Registers" baseaddr="0x56022000" endaddr="0x55062358" size="860" accessnumbytes="4" permissions="p"/>
+					</cpu>
+                </subpath>
+            </router>
+            <property Type="numericfield" Value="0x1" id="Port Number"/>
+        </subpath>            
+    </router>
+</device>

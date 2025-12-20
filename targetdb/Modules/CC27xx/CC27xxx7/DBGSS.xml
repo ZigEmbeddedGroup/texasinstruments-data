@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module id="DBGSS" HW_revision="" XML_version="1.0" description="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setup_parser.xsd">
    <register acronym="DESC" width="32" description="Description Register. This register provides IP module ID, revision information, instance index and standard MMR registers offset." id="DESC" offset="0x0">
-      <bitfield range="" begin="31" width="16" end="16" rwaccess="RW" description="Module identifier used to uniquely identify this IP." id="MODULEID" resetval="0xb24d">
+      <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Module identifier used to uniquely identify this IP." id="MODULEID" resetval="0xb24d">
          <bitenum id="MAX" value="65535" token="Maximum possible value" description="Maximum possible value"/>
          <bitenum id="MIN" value="0" token="Minimum value" description="Minimum value"/>
       </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RW" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
 
 0: Standard IP MMRs do not exist
 
@@ -16,15 +16,15 @@
          <bitenum id="MAX" value="15" token="Maximum possible value" description="Maximum possible value"/>
          <bitenum id="MIN" value="0" token="Minimum Value" description="Minimum Value"/>
       </bitfield>
-      <bitfield range="" begin="11" width="4" end="8" rwaccess="RW" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
+      <bitfield range="" begin="11" width="4" end="8" rwaccess="RO" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
          <bitenum id="MAX" value="15" token="Maximum possible value" description="Maximum possible value"/>
          <bitenum id="MIN" value="0" token="Minimum Value" description="Minimum Value"/>
       </bitfield>
-      <bitfield range="" begin="7" width="4" end="4" rwaccess="RW" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
+      <bitfield range="" begin="7" width="4" end="4" rwaccess="RO" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
          <bitenum id="MAX" value="15" token="Maximum possible value" description="Maximum possible value"/>
          <bitenum id="MIN" value="0" token="Minimum Value" description="Minimum Value"/>
       </bitfield>
-      <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
          <bitenum id="MAX" value="15" token="Maximum possible value" description="Maximum possible value"/>
          <bitenum id="MIN" value="0" token="Minimum Value" description="Minimum Value"/>
       </bitfield>
@@ -53,19 +53,19 @@
 " id="RIS" offset="0x4c">
       <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Raw interrupt status for PWRDWNIFG" id="PWRDWNIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Raw interrupt status for PWRDWNIFG" id="PWRDWNIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="PWRDWNIFG occurred" description="PWRDWNIFG occurred"/>
          <bitenum id="CLR" value="0" token="PWRDWNIFG did not occur" description="PWRDWNIFG did not occur"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Raw interrupt status for PWRUPIFG" id="PWRUPIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Raw interrupt status for PWRUPIFG" id="PWRUPIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="PWRUPIFG occurred" description="PWRUPIFG occurred"/>
          <bitenum id="CLR" value="0" token="PWRUPIFG did not occur" description="PWRUPIFG did not occur"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Raw interrupt status for RXIFG" id="RXIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Raw interrupt status for RXIFG" id="RXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="RXIFG occurred" description="RXIFG occurred"/>
          <bitenum id="CLR" value="0" token="RXIFG did not occur" description="RXIFG did not occur"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Raw interrupt status for TXIFG" id="TXIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Raw interrupt status for TXIFG" id="TXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="TXIFG occurred" description="TXIFG occurred"/>
          <bitenum id="CLR" value="0" token="TXIFG did not occur" description="TXIFG did not occur"/>
       </bitfield>
@@ -73,19 +73,19 @@
    <register acronym="MIS" width="32" description="Masked interrupt status. This register is simply a bitwise AND of the contents of IMASK and RIS registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="MIS" offset="0x54">
       <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Masked interrupt status for PWRDWNIFG" id="PWRDWNIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Masked interrupt status for PWRDWNIFG" id="PWRDWNIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="PWRDWNIFG requests an interrupt service routine" description="PWRDWNIFG requests an interrupt service routine"/>
          <bitenum id="CLR" value="0" token="PWRDWNIFG did not request an interrupt service routine" description="PWRDWNIFG did not request an interrupt service routine"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Masked interrupt status for PWRUPIFG" id="PWRUPIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Masked interrupt status for PWRUPIFG" id="PWRUPIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="PWRUPIFG requests an interrupt service routine" description="PWRUPIFG requests an interrupt service routine"/>
          <bitenum id="CLR" value="0" token="PWRUPIFG did not request an interrupt service routine" description="PWRUPIFG did not request an interrupt service routine"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Masked interrupt status for RXIFG" id="RXIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Masked interrupt status for RXIFG" id="RXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="RXIFG requests an interrupt service routine" description="RXIFG requests an interrupt service routine"/>
          <bitenum id="CLR" value="0" token="RXIFG did not request an interrupt service routine" description="RXIFG did not request an interrupt service routine"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Masked interrupt status for TXIFG" id="TXIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Masked interrupt status for TXIFG" id="TXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="TXIFG requests an interrupt service routine" description="TXIFG requests an interrupt service routine"/>
          <bitenum id="CLR" value="0" token="TXIFG did not request an interrupt service routine" description="TXIFG did not request an interrupt service routine"/>
       </bitfield>
@@ -93,19 +93,19 @@
    <register acronym="ISET" width="32" description="Interrupt set register. This register can be used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set." id="ISET" offset="0x5c">
       <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Sets PWRDWNIFG in RIS register" id="PWRDWNIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Sets PWRDWNIFG in RIS register" id="PWRDWNIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt" description="Set interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Sets PWRUPIFG in RIS register" id="PWRUPIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Sets PWRUPIFG in RIS register" id="PWRUPIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt" description="Set interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Sets RXIFG in RIS register" id="RXIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Sets RXIFG in RIS register" id="RXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt" description="Set interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Sets TXIFG in RIS register" id="TXIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Sets TXIFG in RIS register" id="TXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt" description="Set interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
@@ -113,19 +113,19 @@
    <register acronym="ICLR" width="32" description="Interrupt clear register. This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared." id="ICLR" offset="0x64">
       <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Clears PWRDWNIFG interrupt" id="PWRDWNIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Clears PWRDWNIFG interrupt" id="PWRDWNIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt" description="Clear interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Clears PWRUPIFG interrupt" id="PWRUPIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Clears PWRUPIFG interrupt" id="PWRUPIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt" description="Clear interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Clears RXIFG interrupt" id="RXIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Clears RXIFG interrupt" id="RXIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt" description="Clear interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Clears TXIFG interrupt" id="TXIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Clears TXIFG interrupt" id="TXIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt" description="Clear interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
@@ -134,23 +134,23 @@
 	" id="IMSET" offset="0x6c">
       <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Set PWRDWNIFG interrupt mask" id="PWRDWNIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Set PWRDWNIFG interrupt mask" id="PWRDWNIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask
 " description="Set interrupt mask
 "/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Set PWRUPIFG interrupt mask" id="PWRUPIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Set PWRUPIFG interrupt mask" id="PWRUPIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask
 " description="Set interrupt mask
 "/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Set RXIFG interrupt mask" id="RXIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Set RXIFG interrupt mask" id="RXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Set TXIFG interrupt mask" id="TXIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Set TXIFG interrupt mask" id="TXIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask
 " description="Set interrupt mask
 "/>
@@ -160,19 +160,19 @@
    <register acronym="IMCLR" width="32" description="Interrupt mask clear register. Writing a 1 to a bit in this register will clear the corresponding IMASK bit." id="IMCLR" offset="0x74">
       <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Clears PWRDWNIFG interrupt mask" id="PWRDWNIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Clears PWRDWNIFG interrupt mask" id="PWRDWNIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="IMASK bit corresponding to PWRDWNIFG is cleared" description="IMASK bit corresponding to PWRDWNIFG is cleared"/>
          <bitenum id="NO_EFFECT" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Clears PWRUPIFG interrupt mask" id="PWRUPIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Clears PWRUPIFG interrupt mask" id="PWRUPIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="IMASK bit corresponding to PWRUPIFG is cleared" description="IMASK bit corresponding to PWRUPIFG is cleared"/>
          <bitenum id="NO_EFFECT" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Clears RXIFG interrupt mask" id="RXIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Clears RXIFG interrupt mask" id="RXIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="IMASK bit corresponding to RXIFG is cleared" description="IMASK bit corresponding to RXIFG is cleared"/>
          <bitenum id="NO_EFFECT" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Clears TXIFG interrupt mask" id="TXIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Clears TXIFG interrupt mask" id="TXIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="IMASK bit corresponding to TXIFG is cleared" description="IMASK bit corresponding to TXIFG is cleared"/>
          <bitenum id="NO_EFFECT" value="0" token="Writing a 0 has no effect" description="Writing a 0 has no effect"/>
       </bitfield>
@@ -337,7 +337,17 @@ This register is configured and locked during device boot." id="SPECIAL_AUTH_CLR
    </register>
    <register acronym="APP_AUTH" width="32" description="This register indicates the debug privileges of ARM Cortex CPU.
 " id="APP_AUTH" offset="0x210">
-      <bitfield range="" begin="31" width="30" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
+      <bitfield range="" begin="31" width="28" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Controls Secure non-invasive debug enable.
+" id="SPNIDEN" resetval="0x0">
+         <bitenum id="EN" value="1" token="Secure non-invasive debug enabled" description="Secure non-invasive debug enabled"/>
+         <bitenum id="DIS" value="0" token="Secure non-invasive debug disabled" description="Secure non-invasive debug disabled"/>
+      </bitfield>
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Controls Secure invasive debug enable.
+" id="SPIDEN" resetval="0x0">
+         <bitenum id="EN" value="1" token="Secure invasive debug enabled" description="Secure invasive debug enabled"/>
+         <bitenum id="DIS" value="0" token="Secure invasive debug disabled" description="Secure invasive debug disabled"/>
       </bitfield>
       <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Controls non-invasive debug enable." id="NIDEN" resetval="0x0">
          <bitenum id="EN" value="1" token="Non-invasive debug enabled" description="Non-invasive debug enabled"/>
@@ -355,7 +365,17 @@ This register is configured and locked during device boot." id="APP_AUTH_SET" of
       <bitfield range="" begin="31" width="8" end="24" rwaccess="WO" description="This field must be configured with 0x39 in order to access this register." id="KEY" resetval="0x0">
          <bitenum id="_to_unlock_w_" value="57" token="Write this value 0x39 to unlock writing to the APP_AUTH_SET register" description="Write this value 0x39 to unlock writing to the APP_AUTH_SET register"/>
       </bitfield>
-      <bitfield range="" begin="23" width="22" end="2" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
+      <bitfield range="" begin="23" width="20" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Sets SPNIDEN bit in APP_AUTH register.
+" id="SPNIDEN" resetval="0x0">
+         <bitenum id="SET" value="1" token="Sets SPNIDEN" description="Sets SPNIDEN"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+      </bitfield>
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Sets SPIDEN bit in APP_AUTH register.
+" id="SPIDEN" resetval="0x0">
+         <bitenum id="SET" value="1" token="Sets SPIDEN" description="Sets SPIDEN"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
       <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Sets NIDEN bit in [APP_AUTH ]register.
 " id="NIDEN" resetval="0x0">
@@ -373,7 +393,17 @@ This register is configured and locked during device boot." id="APP_AUTH_CLR" of
       <bitfield range="" begin="31" width="8" end="24" rwaccess="WO" description="This field must be configured with 0x7D in order to access this register." id="KEY" resetval="0x0">
          <bitenum id="_to_unlock_w_" value="125" token="Write this value 0x7D to unlock writing to the APP_AUTH_CLR register" description="Write this value 0x7D to unlock writing to the APP_AUTH_CLR register"/>
       </bitfield>
-      <bitfield range="" begin="23" width="22" end="2" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
+      <bitfield range="" begin="23" width="20" end="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Clears SPNIDEN bit in APP_AUTH register.
+" id="SPNIDEN" resetval="0x0">
+         <bitenum id="CLR" value="1" token="Clears SPIDEN" description="Clears SPIDEN"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+      </bitfield>
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Sets SPIDEN bit in APP_AUTH register.
+" id="SPIDEN" resetval="0x0">
+         <bitenum id="CLR" value="1" token="Clear SPIDEN" description="Clear SPIDEN"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
       <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Clears NIDEN bit in APP_AUTH register.
 " id="NIDEN" resetval="0x0">

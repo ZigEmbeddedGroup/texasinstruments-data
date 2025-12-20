@@ -1,0 +1,40 @@
+<module id="wsoc_uart_secure" XML_version="Unknown" description="">
+	<register acronym="UART_STS" id="uart_sts" width="32" description="UART_STATUS (UART_STS)" offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Set when the FIFO is empty" id="FIFO_EMPTY" resetval="3" />
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Reserved" id="RESERVED" resetval="3" />
+		<bitfield width="10" end="2" begin="11" rwaccess="RO" description="Number of bytes at TX FIFO. Each write adds 4 bytes. Do not write more than 252 bytes (it will make the fifo empty)." id="FIFO_LENGTH" resetval="3" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="1: The FIFO is empty And the last byte from the TX shift register is not being transmitted now. Clocks of the UART can be shut off. 0: The UART module is still transmitting the byte(s). (When FIFO_empty indicates that the FIFO is empty the last byte might still be transmitted shutting off the clock while this bit is &quot;0&quot; will cause a garbage data at the TXD line." id="TRANSMISSION_FINISHED" resetval="3" />
+	</register>
+	<register acronym="UART_CLK_DIV" id="uart_clk_div" width="32" description="UART_CLK_DIV" offset="0xc">
+		<bitfield width="11" end="0" begin="10" rwaccess="RW" description="Divide ratio of UART input clock. 0: no divide is needed (baud rate equal to UART input clock). 1: no divide is needed (baud rate equal to UART input clock). 2: divide UART clock by 2. 3: divide UART clock by 3. 2047: divide UART clock by 2047. This is the maximum number of the divider.  Notice that the baud rate will be changed only after a full cycle of the old baud rate is completed." id="DIVIDER" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa'}" />
+		<bitfield width="21" end="11" begin="31" rwaccess="RO" description="Reserved" id="BIT31_11" resetval="{'@spirit:resolve': 'immediate', '#text': '0xa'}" />
+	</register>
+	<register acronym="UART_SPR" id="uart_spr" width="32" description="UART_SPR" offset="0x10">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Sets the value of Swallowing Period Register. Uses in order to get the best accuracy at the baud rate of the UART_debug. When the value is 0 the Clock Swallowing Machine will be disabled. Notice that the baud rate will be changed only after a full cycle of the old baud rate is completed." id="SPR" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3'}" />
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" description="Reserved" id="BIT31_7" resetval="{'@spirit:resolve': 'immediate', '#text': '0x3'}" />
+	</register>
+	<register acronym="UART_CFG" id="uart_cfg" width="32" description="UART_CFG" offset="0x4">
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Reserved" id="BIT31_2" resetval="3" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="uart enable 0: UART TXD signal is disabled (from SW point of view the UART will be still working, just TXD signal on the output of the UART debug is disabled) 1: Enable TXD signal on the output of the UART debug. If enable command will be executed while the UART still has bytes to transmit, then the bytes will appear on the TXD line as soon as the command is executed." id="UART_ENABLE" resetval="3" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="soft disable 0: UART_TXD signal will be disabled immediately whenever uart_enable is cleared. 1: UART_TXD signal will be disabled only after stop bit whenever uart_enable is cleared. Note - when soft disable is 0 the Tx byte will be corupted when uart_enable is cleared. this mode is not recomanded." id="UART_TXD_SOFT_DISABLE" resetval="3" />
+	</register>
+	<register acronym="UART_FIFO" id="uart_fifo" width="32" description="UART_FIFO" offset="0x0">
+		<bitfield width="32" end="0" begin="31" rwaccess="WO" description="UART TX buffer 8 bit data" id="UART_DATA" resetval="0" />
+	</register>
+	<register acronym="UART_WR_PTR_SET" id="uart_wr_ptr_set" width="32" description="wr ptr set value. will update the write pointer of the fifo." offset="0x14">
+		<bitfield width="8" end="0" begin="7" rwaccess="WO" description="write pointer set value" id="WR_PTR_SET_REG" resetval="0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="WO" id="RESERVED" resetval="0" />
+	</register>
+	<register acronym="UART_RD_PTR_SET" id="uart_rd_ptr_set" width="32" description="rd ptr set value. will update the read pointer of the fifo." offset="0x18">
+		<bitfield width="8" end="0" begin="7" rwaccess="WO" description="read pointer set value" id="RD_PTR_SET_REG" resetval="0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="WO" id="RESERVED" resetval="0" />
+	</register>
+	<register acronym="UART_WR_PTR_VAL" id="uart_wr_ptr_val" width="32" description="read value of current write pointer." offset="0x1c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="write pointer current value" id="WR_PTR" resetval="0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="RESERVED" resetval="0" />
+	</register>
+	<register acronym="UART_RD_PTR_VAL" id="uart_rd_ptr_val" width="32" description="read value of current read pointer." offset="0x20">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="read pointer current value" id="RD_PTR" resetval="0" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="RESERVED" resetval="0" />
+	</register>
+</module>

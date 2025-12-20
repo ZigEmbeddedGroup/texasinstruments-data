@@ -1,0 +1,1037 @@
+<module id="ERROR_AGGREGATOR_CONFIG_REGS" HW_revision="" description="ERROR AGGREGATOR CONFIG Registers">
+	<register id="CPU1_PR_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="CPU1 PR Error aggregator High Priority Error address register">
+		<bitfield id="CPU1_PR_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_PR_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="CPU1 PR Error aggregator Low Priority Error address register">
+		<bitfield id="CPU1_PR_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_PR_ERROR_TYPE" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="CPU1 PR Error aggregator Error Type Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation." begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error." begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error" begin="10" end="10" width="1" rwaccess="R"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error" begin="11" end="11" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU1_PR_ERROR_TYPE_FRC" width="32" page="0" offset="0xc" instances="1" instaddr="4" internal="0" description="CPU1 PR Error aggregator Error Type Force Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation force." begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error force." begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error force" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error force" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error force" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="Force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_PR_ERROR_TYPE_CLR" width="32" page="0" offset="0x10" instances="1" instaddr="4" internal="0" description="CPU1 PR Error aggregator Error Type Clear Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation clear." begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error clear." begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error clear" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error clear" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error clear" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_PR_PC" width="32" page="0" offset="0x14" instances="1" instaddr="4" internal="0" description="CPU1 PR Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU1_PR_PC" description="CPU1  PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR1_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x40" instances="1" instaddr="4" internal="0" description="CPU1 DR1 Error aggregator High Priority Error address register">
+		<bitfield id="CPU1_DR1_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR1_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x44" instances="1" instaddr="4" internal="0" description="CPU1 DR1 Error aggregator Low Priority Error address register">
+		<bitfield id="CPU1_DR1_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR1_ERROR_TYPE" width="32" page="0" offset="0x48" instances="1" instaddr="4" internal="0" description="CPU1 DR1 Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR1_ERROR_TYPE_FRC" width="32" page="0" offset="0x4c" instances="1" instaddr="4" internal="0" description="CPU1 DR1 Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_DR1_ERROR_TYPE_CLR" width="32" page="0" offset="0x50" instances="1" instaddr="4" internal="0" description="CPU1 DR1 Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_DR1_PC" width="32" page="0" offset="0x54" instances="1" instaddr="4" internal="0" description="CPU1 DR1 Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU1_DR1_PC" description="CPU1 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR2_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x80" instances="1" instaddr="4" internal="0" description="CPU1 DR2 Error aggregator High Priority Error address register">
+		<bitfield id="CPU1_DR2_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR2_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x84" instances="1" instaddr="4" internal="0" description="CPU1 DR2 Error aggregator Low Priority Error address register">
+		<bitfield id="CPU1_DR2_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR2_ERROR_TYPE" width="32" page="0" offset="0x88" instances="1" instaddr="4" internal="0" description="CPU1 DR2 Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DR2_ERROR_TYPE_FRC" width="32" page="0" offset="0x8c" instances="1" instaddr="4" internal="0" description="CPU1 DR2 Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_DR2_ERROR_TYPE_CLR" width="32" page="0" offset="0x90" instances="1" instaddr="4" internal="0" description="CPU1 DR2 Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_DR2_PC" width="32" page="0" offset="0x94" instances="1" instaddr="4" internal="0" description="CPU1 DR2 Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU1_DR2_PC" description="CPU1 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DW_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0xc0" instances="1" instaddr="4" internal="0" description="CPU1 DW Error aggregator High Priority Error address register">
+		<bitfield id="CPU1_DW_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DW_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0xc4" instances="1" instaddr="4" internal="0" description="CPU1 DW Error aggregator Low Priority Error address register">
+		<bitfield id="CPU1_DW_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DW_ERROR_TYPE" width="32" page="0" offset="0xc8" instances="1" instaddr="4" internal="0" description="CPU1 DW Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU1_DW_ERROR_TYPE_FRC" width="32" page="0" offset="0xcc" instances="1" instaddr="4" internal="0" description="CPU1 DW Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_DW_ERROR_TYPE_CLR" width="32" page="0" offset="0xd0" instances="1" instaddr="4" internal="0" description="CPU1 DW Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_DW_PC" width="32" page="0" offset="0xd4" instances="1" instaddr="4" internal="0" description="CPU1 DW Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU1_DW_PC" description="CPU1 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_INT_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x100" instances="1" instaddr="4" internal="0" description="CPU1 INT Error aggregator High Priority Error address register">
+		<bitfield id="CPU1_INT_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_INT_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x104" instances="1" instaddr="4" internal="0" description="CPU1 INT Error aggregator Low Priority Error address register">
+		<bitfield id="CPU1_INT_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU1_INT_ERROR_TYPE" width="32" page="0" offset="0x108" instances="1" instaddr="4" internal="0" description="CPU1 INT Error aggregator Error Type Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error" begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error" begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error" begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error" begin="10" end="10" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error" begin="11" end="11" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error" begin="12" end="12" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error" begin="13" end="13" width="1" rwaccess="R"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error" begin="15" end="15" width="1" rwaccess="R"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error" begin="16" end="16" width="1" rwaccess="R"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error" begin="17" end="17" width="1" rwaccess="R"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error" begin="18" end="18" width="1" rwaccess="R"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error" begin="19" end="19" width="1" rwaccess="R"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error" begin="20" end="20" width="1" rwaccess="R"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error" begin="21" end="21" width="1" rwaccess="R"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error " begin="22" end="22" width="1" rwaccess="R"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error " begin="23" end="23" width="1" rwaccess="R"/>
+		<bitfield id="WARNISP" description="warnisp" begin="24" end="24" width="1" rwaccess="R"/>
+		<bitfield id="MAXISP" description="maxisp" begin="25" end="25" width="1" rwaccess="R"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation " begin="26" end="26" width="1" rwaccess="R"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error" begin="27" end="27" width="1" rwaccess="R"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error" begin="28" end="28" width="1" rwaccess="R"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock/key error " begin="29" end="29" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU1_INT_ERROR_TYPE_FRC" width="32" page="0" offset="0x10c" instances="1" instaddr="4" internal="0" description="CPU1 INT Error aggregator Error Type Force Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error force" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error force" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error force" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error force" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error force" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error force" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error force" begin="15" end="15" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error force" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error force" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error force" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error force" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error force" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error force" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error force " begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error force " begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="WARNISP" description="warnisp force" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="MAXISP" description="maxisp force" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation force" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error force" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error force" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock key error force" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_INT_ERROR_TYPE_CLR" width="32" page="0" offset="0x110" instances="1" instaddr="4" internal="0" description="CPU1 INT Error aggregator Error Type Clear Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error clear" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error clear" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error clear" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error clear" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error clear" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error clear" begin="15" end="15" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error clear" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error clear" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error clear" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error clear" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error clear" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error clear" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error clear " begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error clear " begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="WARNISP" description="warnisp clear" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="MAXISP" description="maxisp clear" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation clear" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error clear" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error clear" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock key error clear" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU1_INT_PC" width="32" page="0" offset="0x114" instances="1" instaddr="4" internal="0" description="CPU1 INT Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU1_INT_PC" description="CPU1 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_PR_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x140" instances="1" instaddr="4" internal="0" description="CPU2 PR Error aggregator High Priority Error address register">
+		<bitfield id="CPU2_PR_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_PR_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x144" instances="1" instaddr="4" internal="0" description="CPU2 PR Error aggregator Low Priority Error address register">
+		<bitfield id="CPU2_PR_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_PR_ERROR_TYPE" width="32" page="0" offset="0x148" instances="1" instaddr="4" internal="0" description="CPU2 PR Error aggregator Error Type Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation." begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error." begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error" begin="10" end="10" width="1" rwaccess="R"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error" begin="11" end="11" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU2_PR_ERROR_TYPE_FRC" width="32" page="0" offset="0x14c" instances="1" instaddr="4" internal="0" description="CPU2 PR Error aggregator Error Type Force Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation force." begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error force." begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error force" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error force" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error force" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="Force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_PR_ERROR_TYPE_CLR" width="32" page="0" offset="0x150" instances="1" instaddr="4" internal="0" description="CPU2 PR Error aggregator Error Type Clear Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation clear." begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error clear." begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error clear" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error clear" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error clear" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_PR_PC" width="32" page="0" offset="0x154" instances="1" instaddr="4" internal="0" description="CPU2 PR Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU2_PR_PC" description="CPU2  PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR1_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x180" instances="1" instaddr="4" internal="0" description="CPU2 DR1 Error aggregator High Priority Error address register">
+		<bitfield id="CPU2_DR1_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR1_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x184" instances="1" instaddr="4" internal="0" description="CPU2 DR1 Error aggregator Low Priority Error address register">
+		<bitfield id="CPU2_DR1_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR1_ERROR_TYPE" width="32" page="0" offset="0x188" instances="1" instaddr="4" internal="0" description="CPU2 DR1 Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR1_ERROR_TYPE_FRC" width="32" page="0" offset="0x18c" instances="1" instaddr="4" internal="0" description="CPU2 DR1 Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_DR1_ERROR_TYPE_CLR" width="32" page="0" offset="0x190" instances="1" instaddr="4" internal="0" description="CPU2 DR1 Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_DR1_PC" width="32" page="0" offset="0x194" instances="1" instaddr="4" internal="0" description="CPU2 DR1 Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU2_DR1_PC" description="CPU2 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR2_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x1c0" instances="1" instaddr="4" internal="0" description="CPU2 DR2 Error aggregator High Priority Error address register">
+		<bitfield id="CPU2_DR2_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR2_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x1c4" instances="1" instaddr="4" internal="0" description="CPU2 DR2 Error aggregator Low Priority Error address register">
+		<bitfield id="CPU2_DR2_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR2_ERROR_TYPE" width="32" page="0" offset="0x1c8" instances="1" instaddr="4" internal="0" description="CPU2 DR2 Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DR2_ERROR_TYPE_FRC" width="32" page="0" offset="0x1cc" instances="1" instaddr="4" internal="0" description="CPU2 DR2 Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_DR2_ERROR_TYPE_CLR" width="32" page="0" offset="0x1d0" instances="1" instaddr="4" internal="0" description="CPU2 DR2 Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_DR2_PC" width="32" page="0" offset="0x1d4" instances="1" instaddr="4" internal="0" description="CPU2 DR2 Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU2_DR2_PC" description="CPU2 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DW_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x200" instances="1" instaddr="4" internal="0" description="CPU2 DW Error aggregator High Priority Error address register">
+		<bitfield id="CPU2_DW_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DW_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x204" instances="1" instaddr="4" internal="0" description="CPU2 DW Error aggregator Low Priority Error address register">
+		<bitfield id="CPU2_DW_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DW_ERROR_TYPE" width="32" page="0" offset="0x208" instances="1" instaddr="4" internal="0" description="CPU2 DW Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU2_DW_ERROR_TYPE_FRC" width="32" page="0" offset="0x20c" instances="1" instaddr="4" internal="0" description="CPU2 DW Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_DW_ERROR_TYPE_CLR" width="32" page="0" offset="0x210" instances="1" instaddr="4" internal="0" description="CPU2 DW Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_DW_PC" width="32" page="0" offset="0x214" instances="1" instaddr="4" internal="0" description="CPU2 DW Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU2_DW_PC" description="CPU2 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_INT_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x240" instances="1" instaddr="4" internal="0" description="CPU2 INT Error aggregator High Priority Error address register">
+		<bitfield id="CPU2_INT_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_INT_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x244" instances="1" instaddr="4" internal="0" description="CPU2 INT Error aggregator Low Priority Error address register">
+		<bitfield id="CPU2_INT_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU2_INT_ERROR_TYPE" width="32" page="0" offset="0x248" instances="1" instaddr="4" internal="0" description="CPU2 INT Error aggregator Error Type Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error" begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error" begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error" begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error" begin="10" end="10" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error" begin="11" end="11" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error" begin="12" end="12" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error" begin="13" end="13" width="1" rwaccess="R"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error" begin="15" end="15" width="1" rwaccess="R"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error" begin="16" end="16" width="1" rwaccess="R"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error" begin="17" end="17" width="1" rwaccess="R"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error" begin="18" end="18" width="1" rwaccess="R"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error" begin="19" end="19" width="1" rwaccess="R"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error" begin="20" end="20" width="1" rwaccess="R"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error" begin="21" end="21" width="1" rwaccess="R"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error " begin="22" end="22" width="1" rwaccess="R"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error " begin="23" end="23" width="1" rwaccess="R"/>
+		<bitfield id="WARNISP" description="warnisp" begin="24" end="24" width="1" rwaccess="R"/>
+		<bitfield id="MAXISP" description="maxisp" begin="25" end="25" width="1" rwaccess="R"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation " begin="26" end="26" width="1" rwaccess="R"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error" begin="27" end="27" width="1" rwaccess="R"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error" begin="28" end="28" width="1" rwaccess="R"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock/key error " begin="29" end="29" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU2_INT_ERROR_TYPE_FRC" width="32" page="0" offset="0x24c" instances="1" instaddr="4" internal="0" description="CPU2 INT Error aggregator Error Type Force Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error force" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error force" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error force" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error force" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error force" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error force" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error force" begin="15" end="15" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error force" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error force" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error force" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error force" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error force" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error force" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error force " begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error force " begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="WARNISP" description="warnisp force" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="MAXISP" description="maxisp force" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation force" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error force" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error force" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock key error force" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_INT_ERROR_TYPE_CLR" width="32" page="0" offset="0x250" instances="1" instaddr="4" internal="0" description="CPU2 INT Error aggregator Error Type Clear Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error clear" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error clear" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error clear" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error clear" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error clear" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error clear" begin="15" end="15" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error clear" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error clear" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error clear" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error clear" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error clear" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error clear" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error clear " begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error clear " begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="WARNISP" description="warnisp clear" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="MAXISP" description="maxisp clear" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation clear" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error clear" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error clear" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock key error clear" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU2_INT_PC" width="32" page="0" offset="0x254" instances="1" instaddr="4" internal="0" description="CPU2 INT Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU2_INT_PC" description="CPU2 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_PR_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x280" instances="1" instaddr="4" internal="0" description="CPU3 PR Error aggregator High Priority Error address register">
+		<bitfield id="CPU3_PR_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_PR_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x284" instances="1" instaddr="4" internal="0" description="CPU3 PR Error aggregator Low Priority Error address register">
+		<bitfield id="CPU3_PR_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_PR_ERROR_TYPE" width="32" page="0" offset="0x288" instances="1" instaddr="4" internal="0" description="CPU3 PR Error aggregator Error Type Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation." begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error." begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error" begin="10" end="10" width="1" rwaccess="R"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error" begin="11" end="11" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU3_PR_ERROR_TYPE_FRC" width="32" page="0" offset="0x28c" instances="1" instaddr="4" internal="0" description="CPU3 PR Error aggregator Error Type Force Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation force." begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error force." begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error force" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error force" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error force" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="Force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_PR_ERROR_TYPE_CLR" width="32" page="0" offset="0x290" instances="1" instaddr="4" internal="0" description="CPU3 PR Error aggregator Error Type Clear Register">
+		<bitfield id="INSTR_SECURITY_VIO" description="Instruction packet security violation clear." begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_ENTRY_VIO" description="Secure entry and linear code crossing error clear." begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="SEC_EXIT_VIO" description="Secure exit error clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAX_PSP_ERR" description=" MAX PSP error clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description=" Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description=" Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="WARN_PSP_ERR" description="Warn PSP error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="SW_BREAKPOINT_ERR" description="Software brakepoint error clear" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="ILLEGAL_INSTRUCTION" description="Illegal instruction error clear" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="INSTRUCTION_TIMEOUT" description="Instruction timeout error clear" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_PR_PC" width="32" page="0" offset="0x294" instances="1" instaddr="4" internal="0" description="CPU3 PR Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU3_PR_PC" description="CPU3  PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR1_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x2c0" instances="1" instaddr="4" internal="0" description="CPU3 DR1 Error aggregator High Priority Error address register">
+		<bitfield id="CPU3_DR1_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR1_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x2c4" instances="1" instaddr="4" internal="0" description="CPU3 DR1 Error aggregator Low Priority Error address register">
+		<bitfield id="CPU3_DR1_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR1_ERROR_TYPE" width="32" page="0" offset="0x2c8" instances="1" instaddr="4" internal="0" description="CPU3 DR1 Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR1_ERROR_TYPE_FRC" width="32" page="0" offset="0x2cc" instances="1" instaddr="4" internal="0" description="CPU3 DR1 Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_DR1_ERROR_TYPE_CLR" width="32" page="0" offset="0x2d0" instances="1" instaddr="4" internal="0" description="CPU3 DR1 Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_DR1_PC" width="32" page="0" offset="0x2d4" instances="1" instaddr="4" internal="0" description="CPU3 DR1 Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU3_DR1_PC" description="CPU3 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR2_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x300" instances="1" instaddr="4" internal="0" description="CPU3 DR2 Error aggregator High Priority Error address register">
+		<bitfield id="CPU3_DR2_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR2_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x304" instances="1" instaddr="4" internal="0" description="CPU3 DR2 Error aggregator Low Priority Error address register">
+		<bitfield id="CPU3_DR2_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR2_ERROR_TYPE" width="32" page="0" offset="0x308" instances="1" instaddr="4" internal="0" description="CPU3 DR2 Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DR2_ERROR_TYPE_FRC" width="32" page="0" offset="0x30c" instances="1" instaddr="4" internal="0" description="CPU3 DR2 Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_DR2_ERROR_TYPE_CLR" width="32" page="0" offset="0x310" instances="1" instaddr="4" internal="0" description="CPU3 DR2 Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_DR2_PC" width="32" page="0" offset="0x314" instances="1" instaddr="4" internal="0" description="CPU3 DR2 Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU3_DR2_PC" description="CPU3 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DW_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x340" instances="1" instaddr="4" internal="0" description="CPU3 DW Error aggregator High Priority Error address register">
+		<bitfield id="CPU3_DW_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DW_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x344" instances="1" instaddr="4" internal="0" description="CPU3 DW Error aggregator Low Priority Error address register">
+		<bitfield id="CPU3_DW_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DW_ERROR_TYPE" width="32" page="0" offset="0x348" instances="1" instaddr="4" internal="0" description="CPU3 DW Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU3_DW_ERROR_TYPE_FRC" width="32" page="0" offset="0x34c" instances="1" instaddr="4" internal="0" description="CPU3 DW Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_DW_ERROR_TYPE_CLR" width="32" page="0" offset="0x350" instances="1" instaddr="4" internal="0" description="CPU3 DW Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="UNALIGNED_ADDR_ERR" description="Unaligned address error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_DW_PC" width="32" page="0" offset="0x354" instances="1" instaddr="4" internal="0" description="CPU3 DW Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU3_DW_PC" description="CPU3 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_INT_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x380" instances="1" instaddr="4" internal="0" description="CPU3 INT Error aggregator High Priority Error address register">
+		<bitfield id="CPU3_INT_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_INT_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x384" instances="1" instaddr="4" internal="0" description="CPU3 INT Error aggregator Low Priority Error address register">
+		<bitfield id="CPU3_INT_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="CPU3_INT_ERROR_TYPE" width="32" page="0" offset="0x388" instances="1" instaddr="4" internal="0" description="CPU3 INT Error aggregator Error Type Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error" begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error" begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error" begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error" begin="10" end="10" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error" begin="11" end="11" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error" begin="12" end="12" width="1" rwaccess="R"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error" begin="13" end="13" width="1" rwaccess="R"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error" begin="15" end="15" width="1" rwaccess="R"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error" begin="16" end="16" width="1" rwaccess="R"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error" begin="17" end="17" width="1" rwaccess="R"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error" begin="18" end="18" width="1" rwaccess="R"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error" begin="19" end="19" width="1" rwaccess="R"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error" begin="20" end="20" width="1" rwaccess="R"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error" begin="21" end="21" width="1" rwaccess="R"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error " begin="22" end="22" width="1" rwaccess="R"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error " begin="23" end="23" width="1" rwaccess="R"/>
+		<bitfield id="WARNISP" description="warnisp" begin="24" end="24" width="1" rwaccess="R"/>
+		<bitfield id="MAXISP" description="maxisp" begin="25" end="25" width="1" rwaccess="R"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation " begin="26" end="26" width="1" rwaccess="R"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error" begin="27" end="27" width="1" rwaccess="R"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error" begin="28" end="28" width="1" rwaccess="R"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock/key error " begin="29" end="29" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="CPU3_INT_ERROR_TYPE_FRC" width="32" page="0" offset="0x38c" instances="1" instaddr="4" internal="0" description="CPU3 INT Error aggregator Error Type Force Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error force" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error force" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error force" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error force" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error force" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error force" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error force" begin="15" end="15" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error force" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error force" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error force" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error force" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error force" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error force" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error force " begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error force " begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="WARNISP" description="warnisp force" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="MAXISP" description="maxisp force" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation force" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error force" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error force" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock key error force" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_INT_ERROR_TYPE_CLR" width="32" page="0" offset="0x390" instances="1" instaddr="4" internal="0" description="CPU3 INT Error aggregator Error Type Clear Register">
+		<bitfield id="MAIN_ISR_ENTRY_ERR" description="Main ISR entry error clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_CERR" description="Main Correctable vector error clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_VECT_UNCERR" description="Main Uncorrectable vector error clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MAIN_INTERRUPT_RETURN_ERR" description="Main Interrupt return error clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="INT_ISR_ENTRY_ERR" description="INT ISR entry error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_CERR" description="INT Correctable vector error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="INT_VECT_UNCERR" description="INT Uncorrectable vector error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="INT_INTERRUPT_RETURN_ERR" description="INT INTerrupt return error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_ISR_ENTRY_ERR" description="RTINT ISR entry error clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_CERR" description="RTINT Correctable vector error clear" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_VECT_UNCERR" description="RTINT Uncorrectable vector error clear" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_INTERRUPT_RETURN_ERR" description="RTINT Interrupt return error clear" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_CERR" description="RTINT Context restore Correctable vector error clear" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="RTINT_CONTEXT_RESTORE_VECT_UNCERR" description="RTINT Context restore Uncorrectable vector error clear" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_MAXISP_ERR" description="NMI MAXISP error clear" begin="15" end="15" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_ISR_ENTRY_ERR" description="NMI ISR entry error clear" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_CERR" description="NMI Correctable vector error clear" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_VECT_UNCERR" description="NMI Uncorrectable vector error clear" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_INTERRUPT_RETURN_ERR" description="NMI Interrupt return error clear" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_CERR" description="NMI Context restore Correctable vector error clear" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="NMI_CONTEXT_RESTORE_VECT_UNCERR" description="NMI Context restore Uncorrectable vector error clear" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_CERR" description="Vector Correctable error clear " begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_UNCERR" description="Vector Uncorrectable error clear " begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="WARNISP" description="warnisp clear" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="MAXISP" description="maxisp clear" begin="25" end="25" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_SECURITY_VIO" description="PIPE security violation clear" begin="26" end="26" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_ERR" description="PIPE Reg parity error clear" begin="27" end="27" width="1" rwaccess="RW"/>
+		<bitfield id="REG_PARITY_DIAG_ERR" description="PIPE Register parity diag error clear" begin="28" end="28" width="1" rwaccess="RW"/>
+		<bitfield id="PIPE_LOCK_KEY_ERR" description="PIPE Lock key error clear" begin="29" end="29" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CPU3_INT_PC" width="32" page="0" offset="0x394" instances="1" instaddr="4" internal="0" description="CPU3 INT Error aggregator Register to store PC value at the first High priority error event">
+		<bitfield id="CPU3_INT_PC" description="CPU3 PC at which first High priority error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA1_DR_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x780" instances="1" instaddr="4" internal="0" description="RTDMA1 DR Error aggregator High Priority Error address register">
+		<bitfield id="RTDMA1_DR_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA1_DR_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x784" instances="1" instaddr="4" internal="0" description="RTDMA1 DR Error aggregator Low Priority Error address register">
+		<bitfield id="RTDMA1_DR_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA1_DR_ERROR_TYPE" width="32" page="0" offset="0x788" instances="1" instaddr="4" internal="0" description="RTDMA1 DR Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low priority software error" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="RTDMA1_DR_ERROR_TYPE_FRC" width="32" page="0" offset="0x78c" instances="1" instaddr="4" internal="0" description="RTDMA1 DR Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTDMA1_DR_ERROR_TYPE_CLR" width="32" page="0" offset="0x790" instances="1" instaddr="4" internal="0" description="RTDMA1 DR Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTDMA1_DW_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x7c0" instances="1" instaddr="4" internal="0" description="RTDMA1 DW Error aggregator High Priority Error address register">
+		<bitfield id="RTDMA1_DW_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA1_DW_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x7c4" instances="1" instaddr="4" internal="0" description="RTDMA1 DW Error aggregator Low Priority Error address register">
+		<bitfield id="RTDMA1_DW_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA1_DW_ERROR_TYPE" width="32" page="0" offset="0x7c8" instances="1" instaddr="4" internal="0" description="RTDMA1 DW Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="RTDMA1_DW_ERROR_TYPE_FRC" width="32" page="0" offset="0x7cc" instances="1" instaddr="4" internal="0" description="RTDMA1 DW Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTDMA1_DW_ERROR_TYPE_CLR" width="32" page="0" offset="0x7d0" instances="1" instaddr="4" internal="0" description="RTDMA1 DW Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTDMA2_DR_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x800" instances="1" instaddr="4" internal="0" description="RTDMA2 DR Error aggregator High Priority Error address register">
+		<bitfield id="RTDMA2_DR_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA2_DR_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x804" instances="1" instaddr="4" internal="0" description="RTDMA2 DR Error aggregator Low Priority Error address register">
+		<bitfield id="RTDMA2_DR_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA2_DR_ERROR_TYPE" width="32" page="0" offset="0x808" instances="1" instaddr="4" internal="0" description="RTDMA2 DR Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low priority software error" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="RTDMA2_DR_ERROR_TYPE_FRC" width="32" page="0" offset="0x80c" instances="1" instaddr="4" internal="0" description="RTDMA2 DR Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTDMA2_DR_ERROR_TYPE_CLR" width="32" page="0" offset="0x810" instances="1" instaddr="4" internal="0" description="RTDMA2 DR Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTDMA2_DW_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x840" instances="1" instaddr="4" internal="0" description="RTDMA2 DW Error aggregator High Priority Error address register">
+		<bitfield id="RTDMA2_DW_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA2_DW_LOWPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x844" instances="1" instaddr="4" internal="0" description="RTDMA2 DW Error aggregator Low Priority Error address register">
+		<bitfield id="RTDMA2_DW_LOWPRIO_ERROR_ADDRESS" description="Address at which first Low priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RTDMA2_DW_ERROR_TYPE" width="32" page="0" offset="0x848" instances="1" instaddr="4" internal="0" description="RTDMA2 DW Error aggregator Error Type Register">
+		<bitfield id="SECURITY_VIO" description="Security violation" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error " begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error " begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="CERR" description="Correctable error " begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Low Priority error set by software" begin="30" end="30" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="RTDMA2_DW_ERROR_TYPE_FRC" width="32" page="0" offset="0x84c" instances="1" instaddr="4" internal="0" description="RTDMA2 DW Error aggregator Error Type Force Register">
+		<bitfield id="SECURITY_VIO" description="Security violation force" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error force" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="Force low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTDMA2_DW_ERROR_TYPE_CLR" width="32" page="0" offset="0x850" instances="1" instaddr="4" internal="0" description="RTDMA2 DW Error aggregator Error Type Clear Register">
+		<bitfield id="SECURITY_VIO" description="Security violation clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_TIMEOUT_ERR" description="Access timeout error clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="ACC_ACK_ERR" description="Access ACK error clear" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CERR" description="Correctable error clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LP_SOFTWARE_ERR" description="clear low priority software error" begin="30" end="30" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSU_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x880" instances="1" instaddr="4" internal="0" description="SSU Error aggregator High Priority Error address register">
+		<bitfield id="SSU_HIGHPRIO_ERROR_ADDRESS" description="Address at which first high priority SSU error occurred " begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="SSU_ERROR_TYPE" width="32" page="0" offset="0x888" instances="1" instaddr="4" internal="0" description="SSU Error aggregator Error Type Register">
+		<bitfield id="CPU1_SSU_MMR_ACCESS_ERROR" description="CPU1_SSU_MMR_ACCESS_ERROR" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="CPU2_SSU_MMR_ACCESS_ERROR" description="CPU2_SSU_MMR_ACCESS_ERROR" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="CPU3_SSU_MMR_ACCESS_ERROR" description="CPU3_SSU_MMR_ACCESS_ERROR" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="MODE_INVALID" description="BANKMAP, SECVALID, BANKMODE, SSUMODE invalid" begin="7" end="7" width="1" rwaccess="R"/>
+		<bitfield id="FLC1_ERROR_STS" description="FLC1_ERROR_STS " begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="FLC1_ERROR_TYPE" description="FLC1_ERROR_TYPE" begin="11" end="9" width="3" rwaccess="R"/>
+		<bitfield id="FLC1_MMR_ACCESS_ERROR" description="FLC1_MMR_ACCESS_ERROR" begin="12" end="12" width="1" rwaccess="R"/>
+		<bitfield id="FLC2_ERROR_STS" description="FLC2_ ERROR_STS" begin="13" end="13" width="1" rwaccess="R"/>
+		<bitfield id="FLC2_ERROR_TYPE" description="FLC2_ERROR_TYPE" begin="16" end="14" width="3" rwaccess="R"/>
+		<bitfield id="FLC2_MMR_ACCESS_ERROR" description="FLC2_MMR_ACCESS_ERROR" begin="17" end="17" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="SSU_ERROR_TYPE_FRC" width="32" page="0" offset="0x88c" instances="1" instaddr="4" internal="0" description="SSU Error aggregator Error Type Force Register">
+		<bitfield id="CPU1_SSU_MMR_ACCESS_ERROR" description="CPU1_SSU_MMR_ACCESS_ERROR force" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CPU2_SSU_MMR_ACCESS_ERROR" description="CPU2_SSU_MMR_ACCESS_ERROR force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="CPU3_SSU_MMR_ACCESS_ERROR" description="CPU3_SSU_MMR_ACCESS_ERROR force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="MODE_INVALID" description="BANKMAP, SECVALID, BANKMODE, SSUMODE invalid  force" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="FLC1_ERROR_STS" description="FLC1_ERROR_STS  force" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="FLC1_ERROR_TYPE" description="FLC1_ERROR_TYPE force" begin="11" end="9" width="3" rwaccess="RW"/>
+		<bitfield id="FLC1_MMR_ACCESS_ERROR" description="FLC1_MMR_ACCESS_ERROR force" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="FLC2_ERROR_STS" description="FLC2_ ERROR_STS force" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="FLC2_ERROR_TYPE" description="FLC2_ERROR_TYPE force" begin="16" end="14" width="3" rwaccess="RW"/>
+		<bitfield id="FLC2_MMR_ACCESS_ERROR" description="FLC2_MMR_ACCESS_ERROR force" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SSU_ERROR_TYPE_CLR" width="32" page="0" offset="0x890" instances="1" instaddr="4" internal="0" description="SSU Error aggregator Error Type Clear Register">
+		<bitfield id="CPU1_SSU_MMR_ACCESS_ERROR" description="CPU1_SSU_MMR_ACCESS_ERROR Clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CPU2_SSU_MMR_ACCESS_ERROR" description="CPU2_SSU_MMR_ACCESS_ERROR Clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="CPU3_SSU_MMR_ACCESS_ERROR" description="CPU3_SSU_MMR_ACCESS_ERROR Clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="MODE_INVALID" description="BANKMAP, SECVALID, BANKMODE, SSUMODE invalid  Clear" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="FLC1_ERROR_STS" description="FLC1_ERROR_STS  Clear" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="FLC1_ERROR_TYPE" description="FLC1_ERROR_TYPE Clear" begin="11" end="9" width="3" rwaccess="RW"/>
+		<bitfield id="FLC1_MMR_ACCESS_ERROR" description="FLC1_MMR_ACCESS_ERROR Clear" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="FLC2_ERROR_STS" description="FLC2_ ERROR_STS Clear" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="FLC2_ERROR_TYPE" description="FLC2_ERROR_TYPE Clear" begin="16" end="14" width="3" rwaccess="RW"/>
+		<bitfield id="FLC2_MMR_ACCESS_ERROR" description="FLC2_MMR_ACCESS_ERROR Clear" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="ETHERCAT_HIGHPRIO_ERROR_ADDRESS" width="32" page="0" offset="0x8c0" instances="1" instaddr="4" internal="0" description="ETHERCAT Error aggregator High Priority Error address register">
+		<bitfield id="ETHERCAT_HIGHPRIO_ERROR_ADDRESS" description="Address at which first High priority error occurred" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="ETHERCAT_ERROR_TYPE" width="32" page="0" offset="0x8c8" instances="1" instaddr="4" internal="0" description="ETHERCAT Error aggregator Error Type Register">
+		<bitfield id="UNCERR" description="Uncorrectable error " begin="6" end="6" width="1" rwaccess="R"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="high priority error set by software" begin="31" end="31" width="1" rwaccess="R"/>
+	</register>
+	<register id="ETHERCAT_ERROR_TYPE_FRC" width="32" page="0" offset="0x8cc" instances="1" instaddr="4" internal="0" description="ETHERCAT Error aggregator Error Type Force Register">
+		<bitfield id="UNCERR" description="Uncorrectable error force" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="force high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="ETHERCAT_ERROR_TYPE_CLR" width="32" page="0" offset="0x8d0" instances="1" instaddr="4" internal="0" description="ETHERCAT Error aggregator Error Type Clear Register">
+		<bitfield id="UNCERR" description="Uncorrectable error clear" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="HP_SOFTWARE_ERR" description="clear high priority software error" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+</module>

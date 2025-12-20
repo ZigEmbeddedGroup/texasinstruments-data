@@ -5,7 +5,23 @@
   <property Type="filepathfield" Value="../../emulation/analysis/dpk/devices/f28p55x/AETT_database_c2000_f28p55x.jsonc" id="AETT Database File"/>
   <property Type="stringfield" Value="AJSM" id="Authentication Scheme"/>
   <property Type="stringfield" Value="JLM" id="Authentication TAP Name"/>
-
+ <!-- Debug probe settings -->
+  <jtag>
+        <!-- XDS100 Settings -->
+        <!-- xds100v2 does not support cJTAG, thus default JTAG is used -->
+        <!-- XDS110 Settings -->
+        <property Type="choicelist" Value="3" id="SWD Mode Settings">
+            <choice Name="cJTAG (1149.7) 2-pin advanced modes">
+                <property Type="choicelist" Value="1" id="XDS110 Aux Port" />
+            </choice>
+        </property>
+        <!-- XDS200 Settings -->
+        <property Type="choicelist" Value="1" id="The cJTAG / SWD Features">
+            <choice Name="cJTAG (1149.7) 2-pin advanced modes">
+                <property Type="choicelist" Value="5" id="The Target Scan Format"/>
+            </choice>
+        </property>
+  </jtag>
   <!-- Filter to list device under in project wizard -->
   <property Type="stringfield" Value="f28p55x" id="FilterString" />
   <instance XML_version="1.0" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers" />
@@ -151,7 +167,7 @@
       </cpu>
    </subpath>
     <subpath id="Subpath_1">
-    <property Type="numericfield" Value="0x11" id="Port Number"/>
+    <property Type="numericfield" Value="0x13" id="Port Number"/>
 		<instance XML_version="1.0" desc="JLM" href="cpus/ajsm.xml" id="JLM" xml="ajsm.xml" xmlpath="cpus"/>
 		<cpu HW_revision="1.0" XML_version="1.0" description="JLM" deviceSim="false" id="JLM" isa="AJSM">
 			<property Name="Unlock Key bits 31:00" Type="numericfield" Value="0x00000000" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" ID="device.unlock_key_w0"/>

@@ -1,0 +1,154 @@
+<module id="FLASH_CMD_REGS_FLC1" HW_revision="" description="FLASH CMD Registers">
+	<group id="IPSTANDARD" name="IPSTANDARD" instances="1" offset="0x0" instaddr="0x100">
+		<register id="IIDX" width="32" page="0" offset="0x20" internal="0" description="Interrupt Index Register">
+			<bitfield id="STAT" description="" begin="0" end="0" width="1" rwaccess="R"/>
+			<bitfield id="RESERVED_31_1" description="" begin="31" end="1" width="31" rwaccess="R"/>
+		</register>
+		<register id="EVT_MODE" width="32" page="0" offset="0xe0" internal="0" description="Event Mode">
+			<bitfield id="INT0_CFG" description="" begin="1" end="0" width="2" rwaccess="R"/>
+			<bitfield id="RESERVED_31_2" description="" begin="31" end="2" width="30" rwaccess="R"/>
+		</register>
+	</group>
+	<group id="LMGMT_DFT_ATONLY" name="LMGMT_DFT_ATONLY" instances="1" offset="0x500" instaddr="0x200">
+		<register id="DFTEN" width="32" page="0" offset="0x0" internal="0" description="DFT Enable Register">
+			<bitfield id="ENABLE" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_1" description="" begin="31" end="1" width="31" rwaccess="RW"/>
+		</register>
+		<register id="DFTCMDCTL" width="32" page="0" offset="0x4" internal="0" description="DFT Command Control Register">
+			<bitfield id="AMX2TDIS" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+			<bitfield id="REDMATCHDIS" description="" begin="4" end="4" width="1" rwaccess="RW"/>
+			<bitfield id="REDMATCHFORCE" description="" begin="5" end="5" width="1" rwaccess="RW"/>
+			<bitfield id="DTBMUXSEL" description="" begin="31" end="28" width="4" rwaccess="RW"/>
+			<bitfield id="ADDRCNTLDDIS" description="" begin="8" end="8" width="1" rwaccess="RW"/>
+			<bitfield id="PULSECNTLDDIS" description="" begin="9" end="9" width="1" rwaccess="RW"/>
+			<bitfield id="FORCE1TEN" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+			<bitfield id="FORCE2TEN" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+			<bitfield id="DATAPATEN" description="" begin="12" end="12" width="1" rwaccess="RW"/>
+			<bitfield id="DATAPATSEL" description="" begin="15" end="13" width="3" rwaccess="RW"/>
+			<bitfield id="ALWAYSINVDATA" description="" begin="16" end="16" width="1" rwaccess="RW"/>
+			<bitfield id="ODDWORDINVDATA" description="" begin="17" end="17" width="1" rwaccess="RW"/>
+			<bitfield id="ODDROWINVDATA" description="" begin="18" end="18" width="1" rwaccess="RW"/>
+			<bitfield id="STOPVERONFAIL" description="" begin="20" end="20" width="1" rwaccess="RW"/>
+			<bitfield id="DTB8MUXSEL" description="" begin="26" end="26" width="1" rwaccess="RW"/>
+			<bitfield id="PREVEREN" description="" begin="21" end="21" width="1" rwaccess="RW"/>
+			<bitfield id="POSTVEREN" description="" begin="22" end="22" width="1" rwaccess="RW"/>
+			<bitfield id="PROGMASKDIS" description="" begin="23" end="23" width="1" rwaccess="RW"/>
+			<bitfield id="ERASEMASKDIS" description="" begin="24" end="24" width="1" rwaccess="RW"/>
+			<bitfield id="DTB16MUXSEL" description="" begin="27" end="27" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_3" description="" begin="3" end="3" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_7_6" description="" begin="7" end="6" width="2" rwaccess="RW"/>
+			<bitfield id="RESERVED_11_10" description="" begin="11" end="10" width="2" rwaccess="RW"/>
+			<bitfield id="RESERVED_19" description="" begin="19" end="19" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_25" description="" begin="25" end="25" width="1" rwaccess="RW"/>
+		</register>
+		<register id="DFTTIMERCTL" width="32" page="0" offset="0x8" internal="0" description="DFT Timer Control Register">
+			<bitfield id="PESETUPTIME" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+			<bitfield id="PVHVSETUPTIME" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+			<bitfield id="PPVWORDLINETIME" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+			<bitfield id="PEHOLDTIME" description="" begin="3" end="3" width="1" rwaccess="RW"/>
+			<bitfield id="PEVSETUPTIME" description="" begin="5" end="5" width="1" rwaccess="RW"/>
+			<bitfield id="PEVMODETIME" description="" begin="4" end="4" width="1" rwaccess="RW"/>
+			<bitfield id="PEVHOLDTIME" description="" begin="6" end="6" width="1" rwaccess="RW"/>
+			<bitfield id="READMODETIME" description="" begin="7" end="7" width="1" rwaccess="RW"/>
+			<bitfield id="PEPULSETIMEOVR" description="" begin="8" end="8" width="1" rwaccess="RW"/>
+			<bitfield id="PEPULSETIMEVAL" description="" begin="27" end="12" width="16" rwaccess="RW"/>
+			<bitfield id="RESERVED_31" description="" begin="31" end="31" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_11_9" description="" begin="11" end="9" width="3" rwaccess="RW"/>
+			<bitfield id="TIMERCLOCKOVR" description="" begin="30" end="28" width="3" rwaccess="RW"/>
+		</register>
+		<register id="DFTEXECZCTL" width="32" page="0" offset="0xc" internal="0" description="Flash Wrapper State EXECUTEZ Control Register">
+			<bitfield id="EXEZOVREN" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+			<bitfield id="EXEZ_OVR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_2" description="" begin="31" end="2" width="30" rwaccess="RW"/>
+		</register>
+		<register id="DFTPCLKTESTCTL" width="32" page="0" offset="0x10" internal="0" description="DFT Pump Clock Test Control Register">
+			<bitfield id="ENABLE" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_1" description="" begin="31" end="1" width="31" rwaccess="RW"/>
+		</register>
+		<register id="DFTPCLKTESTSTAT" width="32" page="0" offset="0x14" internal="0" description="DFT Pump Clock Test Status Register">
+			<bitfield id="BUSY" description="" begin="0" end="0" width="1" rwaccess="R"/>
+			<bitfield id="CLOCKCNT" description="" begin="15" end="4" width="12" rwaccess="R"/>
+			<bitfield id="RESERVED_31_16" description="" begin="31" end="16" width="16" rwaccess="R"/>
+			<bitfield id="RESERVED_3_1" description="" begin="3" end="1" width="3" rwaccess="R"/>
+		</register>
+		<register id="DFTDATARED0" width="32" page="0" offset="0x40" internal="0" description="DFT Data Register Redundant 0">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTDATARED1" width="32" page="0" offset="0x44" internal="0" description="DFT Data Register Redundant 1">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTDATARED2" width="32" page="0" offset="0x48" internal="0" description="DFT Data Register Redundant 2">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTDATARED3" width="32" page="0" offset="0x4c" internal="0" description="DFT Data Register Redundant 3">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTDATARED4" width="32" page="0" offset="0x50" internal="0" description="DFT Data Register Redundant 4">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTDATARED5" width="32" page="0" offset="0x54" internal="0" description="DFT Data Register Redundant 5">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTDATARED6" width="32" page="0" offset="0x58" internal="0" description="DFT Data Register Redundant 6">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTDATARED7" width="32" page="0" offset="0x5c" internal="0" description="DFT Data Register Redundant 7">
+			<bitfield id="VAL" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_4" description="" begin="31" end="4" width="28" rwaccess="RW"/>
+		</register>
+		<register id="DFTPUMPCTL" width="32" page="0" offset="0x60" internal="0" description="DFT Pump Control Register">
+			<bitfield id="PUMPCLKEN" description="" begin="8" end="8" width="1" rwaccess="RW"/>
+			<bitfield id="CONFIGPMP" description="" begin="15" end="12" width="4" rwaccess="RW"/>
+			<bitfield id="SSEN" description="" begin="9" end="9" width="1" rwaccess="RW"/>
+			<bitfield id="IREFEVCTL" description="" begin="18" end="16" width="3" rwaccess="RW"/>
+			<bitfield id="TCR" description="" begin="6" end="0" width="7" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_19" description="" begin="31" end="19" width="13" rwaccess="RW"/>
+			<bitfield id="RESERVED_7" description="" begin="7" end="7" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_11_10" description="" begin="11" end="10" width="2" rwaccess="RW"/>
+		</register>
+		<register id="DFTBANKCTL" width="32" page="0" offset="0x64" internal="0" description="DFT Bank Control Register">
+			<bitfield id="TCR" description="" begin="6" end="0" width="7" rwaccess="RW"/>
+			<bitfield id="TEZ" description="" begin="8" end="8" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_7" description="" begin="7" end="7" width="1" rwaccess="RW"/>
+			<bitfield id="RESERVED_31_10" description="" begin="31" end="10" width="22" rwaccess="RW"/>
+			<bitfield id="TPIREFSEL" description="" begin="9" end="9" width="1" rwaccess="RW"/>
+		</register>
+	</group>
+	<group id="IPSPECIFIC" name="IPSPECIFIC" instances="1" offset="0x100" instaddr="0x400">
+		<register id="CMDWEPROTA" width="32" page="0" offset="0xd0" internal="0" description="Command Write Erase Protect A Register">
+			<bitfield id="VAL" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+		</register>
+		<register id="CMDWEPROTB" width="32" page="0" offset="0xd4" internal="0" description="Command Write Erase Protect B Register">
+			<bitfield id="VAL" description="" begin="27" end="0" width="28" rwaccess="RW"/>
+		</register>
+		<register id="CMDWEPROTNM" width="32" page="0" offset="0x110" internal="0" description="Command Write Erase Protect Non-Main Register">
+			<bitfield id="VAL" description="" begin="1" end="0" width="2" rwaccess="RW"/>
+		</register>
+		<register id="STATCMD" width="32" page="0" offset="0x2d0" internal="0" description="Command Status Register">
+			<bitfield id="CMDDONE" description="" begin="0" end="0" width="1" rwaccess="R"/>
+			<bitfield id="CMDPASS" description="" begin="1" end="1" width="1" rwaccess="R"/>
+			<bitfield id="CMDINPROGRESS" description="" begin="2" end="2" width="1" rwaccess="R"/>
+			<bitfield id="FAILWEPROT" description="" begin="4" end="4" width="1" rwaccess="R"/>
+			<bitfield id="FAILVERIFY" description="" begin="5" end="5" width="1" rwaccess="R"/>
+			<bitfield id="FAILMISC" description="" begin="12" end="12" width="1" rwaccess="R"/>
+			<bitfield id="FAILILLADDR" description="" begin="6" end="6" width="1" rwaccess="R"/>
+			<bitfield id="FAILMODE" description="" begin="7" end="7" width="1" rwaccess="R"/>
+			<bitfield id="FAILINVDATA" description="" begin="8" end="8" width="1" rwaccess="R"/>
+			<bitfield id="RESERVED_3" description="" begin="3" end="3" width="1" rwaccess="R"/>
+			<bitfield id="RESERVED_11_9" description="" begin="11" end="9" width="3" rwaccess="R"/>
+			<bitfield id="RESERVED_31_13" description="" begin="31" end="13" width="19" rwaccess="R"/>
+		</register>
+	</group>
+	<group id="EXT_EVT" name="EXT_EVT" instances="1" offset="0x400" instaddr="0x100">
+		<register id="CPU_CONNECT_0" width="32" page="0" offset="0x80" internal="0" description="CPU Connect">
+			<bitfield id="CPUSS0_CONN" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		</register>
+	</group>
+</module>

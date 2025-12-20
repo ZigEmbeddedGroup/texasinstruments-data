@@ -22,9 +22,13 @@ This register identifies the peripheral and its exact version. " id="DESC" offse
    <register acronym="IMASK" width="32" description="Interrupt mask. 
 
 This register selects interrupt sources which are allowed to pass from RIS to MIS when the corresponding bit-fields are set to 1." id="IMASK" offset="0x44">
-      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Systimer counter overflow event interrupt mask." id="OVFL" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Systimer counter overflow event interrupt mask." id="OVFL" resetval="0x0">
+         <bitenum id="EN" value="1" token="Enable Interrrupt Mask" description="Enable Interrrupt Mask"/>
+         <bitenum id="DIS" value="0" token="Disable Interrupt Mask" description="Disable Interrupt Mask"/>
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Systimer channel 5 event interrupt mask." id="EV5" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable Interrrupt Mask" description="Enable Interrrupt Mask"/>
          <bitenum id="DIS" value="0" token="Disable Interrupt Mask" description="Disable Interrupt Mask"/>
       </bitfield>
@@ -52,10 +56,15 @@ This register selects interrupt sources which are allowed to pass from RIS to MI
    <register acronym="RIS" width="32" description="Raw interrupt status. 
 
 This register reflects the state of all pending interrupts, regardless of masking. This register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="RIS" offset="0x48">
-      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Raw interrupt status for Systimer counter overflow event.
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RO" description="Raw interrupt status for Systimer counter overflow event.
 This bit is set to 1 when an event is received on SysTimer Overflow occurs." id="OVFL" resetval="0x0">
+         <bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+         <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Raw interrupt status for channel 5 event.
+This bit is set to 1 when a CAPTURE or COMPARE event is received on channel 5." id="EV5" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -88,9 +97,13 @@ This bit is set to 1 when a CAPTURE or COMPARE event is received on channel 0." 
    <register acronym="MIS" width="32" description="Masked interrupt status. 
 
 This register is simply a bitwise AND of the contents of IMASK and RIS.*] registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="MIS" offset="0x4c">
-      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Mask Interrupt status for Systimer counter overflow Event in MIS register. " id="OVFL" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RO" description="Mask Interrupt status for Systimer counter overflow Event in MIS register. " id="OVFL" resetval="0x0">
+         <bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+         <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Mask interrupt status for channel 5 event." id="EV5" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
          <bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
       </bitfield>
@@ -118,9 +131,13 @@ This register is simply a bitwise AND of the contents of IMASK and RIS.*] regist
    <register acronym="ISET" width="32" description="Interrupt set.
  
 This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set." id="ISET" offset="0x50">
-      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Sets Systimer counter overflow  interrupt." id="OVFL" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Sets Systimer counter overflow  interrupt." id="OVFL" resetval="0x0">
+         <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Sets channel 5 interrupt." id="EV5" resetval="0x0">
          <bitenum id="SET" value="1" token="Set Interrupt" description="Set Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -148,9 +165,13 @@ This register can used by software for diagnostics and safety checking purposes.
    <register acronym="ICLR" width="32" description="Interrupt clear.
 
 &#39;This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared." id="ICLR" offset="0x54">
-      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Clears Systimer counter overflow  interrupt." id="OVFL" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Clears Systimer counter overflow  interrupt." id="OVFL" resetval="0x0">
+         <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Clears channel 5 interrupt." id="EV5" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -178,9 +199,13 @@ This register can used by software for diagnostics and safety checking purposes.
    <register acronym="IMSET" width="32" description="Interrupt mask set. 
 
 Writing a 1 to a bit in this register will set the corresponding IMASK bit." id="IMSET" offset="0x58">
-      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Sets Timer Overflow Event Interrupt Mask." id="OVFL" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Sets Timer Overflow Event Interrupt Mask." id="OVFL" resetval="0x0">
+         <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Sets channel5 Event Interrupt mask" id="EV5" resetval="0x0">
          <bitenum id="SET" value="1" token="Set interrupt mask" description="Set interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -208,9 +233,13 @@ Writing a 1 to a bit in this register will set the corresponding IMASK bit." id=
    <register acronym="IMCLR" width="32" description="Interrupt mask clear. 
 
 Writing a 1 to a bit in this register will clear the corresponding IMASK bit." id="IMCLR" offset="0x5c">
-      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Clears Timer Overflow Event Interrupt Mask." id="OVFL" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Clears Timer Overflow Event Interrupt Mask." id="OVFL" resetval="0x0">
+         <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
+         <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Clears channel5 Event Interrupt Mask." id="EV5" resetval="0x0">
          <bitenum id="CLR" value="1" token="Clear interrupt mask" description="Clear interrupt mask"/>
          <bitenum id="NOEFF" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
@@ -258,25 +287,29 @@ This 32-bit value reads out bits[33:2] of the systimer counter. The counter is 3
       </bitfield>
    </register>
    <register acronym="OUT" width="32" description="Systimer&#39;s channel Output Event Values" id="OUT" offset="0x108">
-      <bitfield range="" begin="31" width="27" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
+      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Output Value of channel 4." id="OUT4" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Output Value of channel 5." id="OUT5" resetval="0x0">
          <bitenum id="SET" value="1" token="Event occured" description="Event occured"/>
          <bitenum id="CLR" value="0" token="Event did not occur." description="Event did not occur."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Output Value of channel 3." id="OUT3" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RO" description="Output Value of channel 4." id="OUT4" resetval="0x0">
          <bitenum id="SET" value="1" token="Event occured" description="Event occured"/>
          <bitenum id="CLR" value="0" token="Event did not occur." description="Event did not occur."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Output Value of channel 2." id="OUT2" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Output Value of channel 3." id="OUT3" resetval="0x0">
          <bitenum id="SET" value="1" token="Event occured" description="Event occured"/>
          <bitenum id="CLR" value="0" token="Event did not occur." description="Event did not occur."/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Output Value of channel 1." id="OUT1" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Output Value of channel 2." id="OUT2" resetval="0x0">
          <bitenum id="SET" value="1" token="Event occured" description="Event occured"/>
          <bitenum id="CLR" value="0" token="Event did not occur." description="Event did not occur."/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Output Value of channel 0." id="OUT0" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Output Value of channel 1." id="OUT1" resetval="0x0">
+         <bitenum id="SET" value="1" token="Event occured" description="Event occured"/>
+         <bitenum id="CLR" value="0" token="Event did not occur." description="Event did not occur."/>
+      </bitfield>
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Output Value of channel 0." id="OUT0" resetval="0x0">
          <bitenum id="SET" value="1" token="Event occured" description="Event occured"/>
          <bitenum id="CLR" value="0" token="Event did not occur." description="Event did not occur."/>
       </bitfield>
@@ -439,31 +472,31 @@ This channel works in 250ns based capture and compare operations." id="CH4CFG" o
    </register>
    <register acronym="CH0CC" width="32" description="System Timer channel 0 Capture/Compare register. 
 
-This register when written with any compare value will arm the channel to work in compare mode." id="CH0CC" offset="0x120">
+This register when written with any compare value will arm the channel to work in compare mode. Reads to this register will clear the Corresponding RIS.EV0 bit." id="CH0CC" offset="0x120">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CH1CC" width="32" description="System Timer channel 1 Capture/Compare register. 
 
-This register when written with any compare value will arm the channel to work in compare mode. " id="CH1CC" offset="0x124">
+This register when written with any compare value will arm the channel to work in compare mode. Reads to this register will clear the Corresponding RIS.EV1 bit." id="CH1CC" offset="0x124">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CH2CC" width="32" description="System Timer channel 2 Capture/Compare register. 
 
-This register when written with any compare value will arm the channel to work in compare mode. " id="CH2CC" offset="0x128">
+This register when written with any compare value will arm the channel to work in compare mode. Reads to this register will clear the Corresponding RIS.EV2 bit." id="CH2CC" offset="0x128">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CH3CC" width="32" description="System Timer channel 3 Capture/Compare register. 
 
-This register when written with any compare value will arm the channel to work in compare mode. " id="CH3CC" offset="0x12c">
+This register when written with any compare value will arm the channel to work in compare mode. Reads to this register will clear the Corresponding RIS.EV3 bit." id="CH3CC" offset="0x12c">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CH4CC" width="32" description="System Timer channel 4 Capture/Compare register. 
 
-This register when written with any compare value will arm the channel to work in compare mode. " id="CH4CC" offset="0x130">
+This register when written with any compare value will arm the channel to work in compare mode. Reads to this register will clear the Corresponding RIS.EV4 bit." id="CH4CC" offset="0x130">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
@@ -516,7 +549,11 @@ A write to ARMSET has for each channel the following effect -
  If ARMSTA[x]==1 and channel x is in CAPTURE state then no effect on the channel
  Else, set channel in COMPARE mode using existing CHxVAL value
 " id="ARMSET" offset="0x144">
-      <bitfield range="" begin="31" width="27" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
+      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Arming channel 5 for either compare or capture operation." id="CH5" resetval="0x0">
+         <bitenum id="SET" value="1" token="if channel 5 is in CAPTURE state then no effect on the channel else it can set channel in COMPARE mode using existing CH4CC.VAL value." description="if channel 5 is in CAPTURE state then no effect on the channel else it can set channel in COMPARE mode using existing CH4CC.VAL value."/>
+         <bitenum id="NOEFF" value="0" token="No effect on the channel" description="No effect on the channel"/>
       </bitfield>
       <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Arming channel 4 for either compare or capture operation." id="CH4" resetval="0x0">
          <bitenum id="SET" value="1" token="if channel 4 is in CAPTURE state then no effect on the channel else it can set channel in COMPARE mode using existing CH4CC.VAL value." description="if channel 4 is in CAPTURE state then no effect on the channel else it can set channel in COMPARE mode using existing CH4CC.VAL value."/>
@@ -549,7 +586,11 @@ A write to ARMCLR has for each channel the following effect -
  Else, set channel in UNARMED state without triggering event unless a compare/capture event happens in the same cycle
 
 " id="ARMCLR" offset="0x148">
-      <bitfield range="" begin="31" width="27" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
+      <bitfield range="" begin="31" width="26" end="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Disarming channel 5" id="CH5" resetval="0x0">
+         <bitenum id="CLR" value="1" token="Set channel in UNARMED state without triggering event unless a compare/capture event happens in the same cycle" description="Set channel in UNARMED state without triggering event unless a compare/capture event happens in the same cycle"/>
+         <bitenum id="NOEFF" value="0" token="No effect on the channel" description="No effect on the channel"/>
       </bitfield>
       <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Disarming channel 4" id="CH4" resetval="0x0">
          <bitenum id="CLR" value="1" token="Set channel in UNARMED state without triggering event unless a compare/capture event happens in the same cycle" description="Set channel in UNARMED state without triggering event unless a compare/capture event happens in the same cycle"/>
@@ -572,38 +613,85 @@ A write to ARMCLR has for each channel the following effect -
          <bitenum id="NOEFF" value="0" token="No effect on the channel" description="No effect on the channel"/>
       </bitfield>
    </register>
-   <register acronym="CH0CCSR" width="32" description="Save/restore alias register for channel 0. 
-
-A read to this register behaves exactly as a read to CH0CC.
+   <register acronym="CH0CCSR" width="32" description="Save/restore alias register for channel 0.
+ 
+A read to this register, will give out the value of register CH0CC. Moreover, reads to this register will not have any effects on RIS.EV0 or configuration of the channel.
 Write to CH0CCSR sets CH0CC.VAL value of register without affecting channel state or configuration" id="CH0CCSR" offset="0x14c">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="CH1CCSR" width="32" description="Save/restore alias registers channel 1. 
-
-A read to CH1CCSR behaves exactly as a read to CH1VAL.
-Write to this register sets CH1CC.VAL without affecting channel state or configuration." id="CH1CCSR" offset="0x150">
+   <register acronym="CH1CCSR" width="32" description="Save/restore alias register for channel 1.
+ 
+A read to this register, will give out the value of register CH1CC. Moreover, reads to this register will not have any effects on RIS.EV1 or configuration of the channel.
+Write to CH1CCSR sets CH1CC.VAL value of register without affecting channel state or configuration." id="CH1CCSR" offset="0x150">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="CH2CCSR" width="32" description="Save/restore alias registers channel 2. 
-
-A read to CH2CCSR behaves exactly as a read to CH2CC
-Write to CH2CCSR sets CH2CC.VAL value of register without affecting channel state or configuration" id="CH2CCSR" offset="0x154">
+   <register acronym="CH2CCSR" width="32" description="Save/restore alias register for channel 2.
+ 
+A read to this register, will give out the value of register CH2CC. Moreover, reads to this register will not have any effects on RIS.EV2 or configuration of the channel.
+Write to CH2CCSR sets CH2CC.VAL value of register without affecting channel state or configuration." id="CH2CCSR" offset="0x154">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="CH3CCSR" width="32" description="Save/restore alias registers channel 3. 
-
-A read to CH3CCSR behaves exactly as a read to CH3CC
+   <register acronym="CH3CCSR" width="32" description="Save/restore alias register for channel 3.
+ 
+A read to this register, will give out the value of register CH3CC. Moreover, reads to this register will not have any effects on RIS.EV3 or configuration of the channel.
 Write to CH3CCSR sets CH3CC.VAL value of register without affecting channel state or configuration." id="CH3CCSR" offset="0x158">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="CH4CCSR" width="32" description="Save/restore alias registers channel 4. 
-
-A read to CH4CCSR behaves exactly as a read to CH4CC
+   <register acronym="CH4CCSR" width="32" description="Save/restore alias register for channel 4.
+ 
+A read to this register, will give out the value of register CH4CC. Moreover, reads to this register will not have any effects on RIS.EV4 or configuration of the channel.
 Write to CH4CCSR sets CH4CC.VAL value of register without affecting channel state or configuration." id="CH4CCSR" offset="0x15c">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
+      </bitfield>
+   </register>
+   <register acronym="CH5CCSR" width="32" description="Save/restore alias register for channel 5.
+ 
+A read to this register, will give out the value of register CH5CC. Moreover, reads to this register will not have any effects on RIS.EV5 or configuration of the channel.
+Write to CH5CCSR sets CH5CC.VAL value of register without affecting channel state or configuration." id="CH5CCSR" offset="0x160">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
+      </bitfield>
+   </register>
+   <register acronym="CH5CFG" width="32" description="Systimer channel 5 configuration. 
+
+This channel has configurability for 250ns and 1us based capture and compare operations.
+" id="CH5CFG" offset="0x164">
+      <bitfield range="" begin="31" width="27" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="This bit decides the RESOLUTION of the channel that will be used." id="RES" resetval="0x0">
+         <bitenum id="NS" value="1" token="channel Works in Timer&#39;s 250ns resolution" description="channel Works in Timer&#39;s 250ns resolution"/>
+         <bitenum id="US" value="0" token="channel Works in Timer&#39;s 1us Resolution." description="channel Works in Timer&#39;s 1us Resolution."/>
+      </bitfield>
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="When Rearm is enabled the channel remains in continous capture mode. Otherwise it&#39;ll be in one shot capture mode. Rearm is only valid for capture mode." id="REARM" resetval="0x0">
+         <bitenum id="EN" value="1" token="Re arm is enabled" description="Re arm is enabled"/>
+         <bitenum id="DIS" value="0" token="Re Arm is disabled" description="Re Arm is disabled"/>
+      </bitfield>
+      <bitfield range="" begin="2" width="2" end="1" rwaccess="RW" description="Decides the channel input signal&#39;s mode. Setting the Value as 2&#39;b11 selects the Rise Function." id="INP" resetval="0x0">
+         <bitenum id="BOTH" value="2" token="Capture on both Edge
+" description="Capture on both Edge
+"/>
+         <bitenum id="FALL" value="1" token="Capture on Falling Edge
+" description="Capture on Falling Edge
+"/>
+         <bitenum id="RISE" value="0" token="Capture on rising edge
+" description="Capture on rising edge
+"/>
+      </bitfield>
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Decides the channel mode. " id="MODE" resetval="0x0">
+         <bitenum id="CAPT" value="1" token="channel is in capture mode
+" description="channel is in capture mode
+"/>
+         <bitenum id="DIS" value="0" token="channel is disabled
+" description="channel is disabled
+"/>
+      </bitfield>
+   </register>
+   <register acronym="CH5CC" width="32" description="System Timer channel 5 Capture/Compare register. 
+
+This register when written with any compare value will arm the channel to work in compare mode. Reads to this register will clear the Corresponding RIS.EV5 bit." id="CH5CC" offset="0x168">
       <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Capture/compare value" id="VAL" resetval="0x0">
       </bitfield>
    </register>

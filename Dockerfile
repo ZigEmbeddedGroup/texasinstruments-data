@@ -48,6 +48,8 @@ RUN apt-get install -y libpython2.7
 RUN apt-get install -y build-essential
 RUN apt-get install -y wget
 RUN apt-get install -y tree
+RUN apt-get install -y zip
+RUN apt-get install -y udev
 
 # Clear APT cache to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -61,13 +63,18 @@ ARG PATCH_VER
 ARG BUILD_VER
 
 # Download and extract CCS installation package
-RUN wget -q https://software-dl.ti.com/ccs/esd/CCSv${MAJOR_VER}/CCS_${MAJOR_VER}_${MINOR_VER}_${PATCH_VER}/exports/CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.tar.gz
-RUN tar -zxvf CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64.tar.gz
+RUN wget -q https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-J1VdearkvK/${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux.zip
+RUN unzip CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux.zip
 
 ARG COMPONENTS
 
+RUN ls /ccs_install
+
+# Help in case we need it
+RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --help
+
 # Install CCS in unattended mode
-RUN /ccs_install/CCS${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux-x64/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --enable-components ${COMPONENTS} --prefix /opt/ti --install-BlackHawk false --install-Segger false
+RUN /ccs_install/CCS_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}_linux/ccs_setup_${MAJOR_VER}.${MINOR_VER}.${PATCH_VER}.${BUILD_VER}.run --mode unattended --enable-components ${COMPONENTS} --prefix /opt/ti 
 
 # Clean up installation directory
 RUN rm -r /ccs_install

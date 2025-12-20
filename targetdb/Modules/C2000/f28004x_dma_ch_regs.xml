@@ -38,7 +38,7 @@
 		<bitfield id="TRANSFERSIZE" description="These bits specify the number of bursts to transfer:" begin="15" end="0" width="16" rwaccess="RW"/>
 	</register>
 	<register id="TRANSFER_COUNT" width="16" page="1" offset="0x7" internal="0" description="Transfer Count Register">
-		<bitfield id="TRANSFERCOUNT" description="These bits specify the current transfer counter value:" begin="15" end="0" width="16" rwaccess="RW"/>
+		<bitfield id="TRANSFERCOUNT" description="These bits specify the current transfer counter value:" begin="15" end="0" width="16" rwaccess="R"/>
 	</register>
 	<register id="SRC_TRANSFER_STEP" width="16" page="1" offset="0x8" internal="0" description="Source Transfer Step Register">
 		<bitfield id="SRCTRANSFERSTEP" description="Source post-increment/decrement step size of a transfer" begin="15" end="0" width="16" rwaccess="RW"/>
@@ -50,7 +50,7 @@
 		<bitfield id="WRAPSIZE" description="Number of bursts to transfer before wrapping" begin="15" end="0" width="16" rwaccess="RW"/>
 	</register>
 	<register id="SRC_WRAP_COUNT" width="16" page="1" offset="0xb" internal="0" description="Source Wrap Count Register">
-		<bitfield id="WRAPSIZE" description="These bits indicate the current wrap counter value:" begin="15" end="0" width="16" rwaccess="RW"/>
+		<bitfield id="WRAPSIZE" description="These bits indicate the current wrap counter value:" begin="15" end="0" width="16" rwaccess="R"/>
 	</register>
 	<register id="SRC_WRAP_STEP" width="16" page="1" offset="0xc" internal="0" description="Source Wrap Step Register">
 		<bitfield id="WRAPSTEP" description="Source post-increment/decrement step size for a wrap" begin="15" end="0" width="16" rwaccess="RW"/>
@@ -59,7 +59,7 @@
 		<bitfield id="WRAPSIZE" description="Number of bursts to transfer before wrapping" begin="15" end="0" width="16" rwaccess="RW"/>
 	</register>
 	<register id="DST_WRAP_COUNT" width="16" page="1" offset="0xe" internal="0" description="Destination Wrap Count Register">
-		<bitfield id="WRAPSIZE" description="These bits indicate the current wrap counter value:" begin="15" end="0" width="16" rwaccess="RW"/>
+		<bitfield id="WRAPSIZE" description="These bits indicate the current wrap counter value:" begin="15" end="0" width="16" rwaccess="R"/>
 	</register>
 	<register id="DST_WRAP_STEP" width="16" page="1" offset="0xf" internal="0" description="Destination Wrap Step Register">
 		<bitfield id="WRAPSTEP" description="Destination post-increment/decrement step size for a wrap" begin="15" end="0" width="16" rwaccess="RW"/>
@@ -71,10 +71,10 @@
 		<bitfield id="ADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="RW"/>
 	</register>
 	<register id="SRC_BEG_ADDR_ACTIVE" width="32" page="1" offset="0x14" internal="0" description="Source Begin Address Active Register">
-		<bitfield id="BEGADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="RW"/>
+		<bitfield id="BEGADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="R"/>
 	</register>
 	<register id="SRC_ADDR_ACTIVE" width="32" page="1" offset="0x16" internal="0" description="Source Address Active Register">
-		<bitfield id="ADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="RW"/>
+		<bitfield id="ADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="R"/>
 	</register>
 	<register id="DST_BEG_ADDR_SHADOW" width="32" page="1" offset="0x18" internal="0" description="Destination Begin Address Shadow Register">
 		<bitfield id="BEGADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="RW"/>
@@ -83,9 +83,9 @@
 		<bitfield id="ADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="RW"/>
 	</register>
 	<register id="DST_BEG_ADDR_ACTIVE" width="32" page="1" offset="0x1c" internal="0" description="Destination Begin Address Active Register">
-		<bitfield id="BEGADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="RW"/>
+		<bitfield id="BEGADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="R"/>
 	</register>
 	<register id="DST_ADDR_ACTIVE" width="32" page="1" offset="0x1e" internal="0" description="Destination Address Active Register">
-		<bitfield id="ADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="RW"/>
+		<bitfield id="ADDR" description="32-bit address value" begin="31" end="0" width="32" rwaccess="R"/>
 	</register>
 </module>

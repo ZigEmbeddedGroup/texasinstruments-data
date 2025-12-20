@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <module id="Hidden" HW_revision="1" XML_version="1" description="">
+	<register id="CFGAP_DEVICEID" offset="0x0000" width="32" page="121" acronym="CFGAP_DEVICEID">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="" id="CFGAP_ALWAYSONE" resetval="0"/>
+		<bitfield width="11" end="1" begin="11" rwaccess="RO" description="" id="CFGAP_MANUFACTURER" resetval="0"/>
+		<bitfield width="16" end="12" begin="27" rwaccess="RO" description="" id="CFGAP_PARTNUM" resetval="0xBB96"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="" id="CFGAP_VERSION" resetval="0x1"/>
+	</register>
+	<register id="CFGAP_DEVICEUSERCODE" offset="0x0004" width="32" page="121" acronym="CFGAP_DEVICEUSERCODE">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="" id="Ext_Info_Valid" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="" id="SOP" resetval="0"/>
+		<bitfield width="2" end="2" begin="3" rwaccess="RO" description="" id="Ext_Flash_Info" resetval="0"/>
+		<bitfield width="3" end="4" begin="6" rwaccess="RO" description="" id="ROM_Entry_Point" resetval="0"/>
+		<bitfield width="3" end="7" begin="9" rwaccess="RO" description="" id="DSSM_Request" resetval="0"/>
+		<bitfield width="3" end="10" begin="12" rwaccess="RO" description="" id="Stage" resetval="0"/>
+		<bitfield width="5" end="13" begin="17" rwaccess="RO" description="" id="Step" resetval="0"/>
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" description="" id="FW_Debug" resetval="0"/>
+	</register>
+	<register id="CFGAP_DEBUGSSVERSION" offset="0x0008" width="32" page="121" acronym="CFGAP_DEBUGSSVERSION">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="" id="CFGAP_TRACE" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="" id="CFGAP_TRIGGER" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="" id="CFGAP_ICEPICKM" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="" id="CFGAP_ETAP" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="" id="CFGAP_SECUREAP" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="" id="CFGAP_APBAP" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="" id="CFGAP_SYSTEMAP" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="" id="CFGAP_POWERAP" resetval="0"/>
+		<bitfield width="16" end="8" begin="23" rwaccess="RO" description="" id="RESERVED_DBGSSVER" resetval="0"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="" id="CFGAP_REVMIN" resetval="0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="" id="CFGAP_REVMAJ" resetval="0"/>
+	</register>
+	<register id="CFGAP_SYSSTATCTRL" offset="0x000C" width="32" page="121" acronym="CFGAP_SYSSTATCTRL">
+	</register>
+	<register id="CFGAP_BOOTDIAG" offset="0x00000010" width="32" page="121" acronym="CFGAP_BOOTDIAG">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="" id="PG_Version" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RO" description="" id="Metal_Version" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RO" description="" id="Memory_Stacking" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RO" description="" id="Package_type" resetval="0"/>
+		<bitfield width="2" end="12" begin="13" rwaccess="RO" description="" id="Temperature" resetval="0"/>
+		<bitfield width="4" end="14" begin="17" rwaccess="RO" description="" id="Device_Part_Number" resetval="0"/>
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="" id="Disable_5GHz" resetval="0"/>
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="" id="Disable_6GHz" resetval="0"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="" id="Disable_BLE" resetval="0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RO" description="" id="Disable_BLE_M0_Plus" resetval="0"/>
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" description="" id="Disable_CAN_FD" resetval="0"/>
+		<bitfield width="3" end="23" begin="25" rwaccess="RO" description="" id="Boot_ROM_Version" resetval="0"/>
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" description="" id="Launchpad_Mode" resetval="0"/>
+		<bitfield width="2" end="27" begin="28" rwaccess="RO" description="" id="SDIO_Product_ID" resetval="0"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" description="" id="TI_Fuse_ROM_Structure_Version" resetval="0"/>
+	</register>
+	<register id="CFGAP_LIFECYCLESTATE" offset="0x00000014" width="32" page="121" acronym="CFGAP_LIFECYCLESTATE">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="" id="Life_Cycle_State_HW_Coded" resetval="0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="" id="Life_Cycle_State_SW" resetval="0"/>
+		<bitfield width="9" end="8" begin="16" rwaccess="RO" description="" id="Reserved" resetval="0"/>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="" id="Execution_Busy" resetval="0"/>
+		<bitfield width="2" end="18" begin="19" rwaccess="RO" description="" id="Flash_Status" resetval="0"/>
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="" id="Flash_Exists" resetval="0"/>
+		<bitfield width="1" end="21" begin="21" rwaccess="RO" description="" id="Valid_Boot_Sector" resetval="0"/>
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" description="" id="Flash_Q_O_SPI" resetval="0"/>
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="" id="Flash_Reset_Type" resetval="0"/>
+		<bitfield width="4" end="24" begin="27" rwaccess="RO" description="" id="Life_Cycle_State_SW_Coded" resetval="0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="" id="DSSM_Status" resetval="0"/>
+	</register>
+	<register id="DFT_EN" offset="0x00000018" width="32" page="121" acronym="DFT_EN">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="" id="MEM_DFT_EN" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="" id="RESERVED" resetval="0"/>
+	</register>
+	<register id="RESET_REQ" offset="0x0000001C" width="32" page="121" acronym="RESET_REQ">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="" id="Reset_Req" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="" id="RESERVED" resetval="0"/>
+	</register>
+	<register id="CFGAP_UNIQUE_DEVICEID0" offset="0x00000028" width="32" page="121" acronym="CFGAP_UNIQUE_DEVICEID0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="" id="CFGAP_UNIQUE_DEVICEID_VALUE_LOW" resetval="0"/>
+	</register>
+	<register id="CFGAP_UNIQUE_DEVICEID1" offset="0x0000002C" width="32" page="121" acronym="CFGAP_UNIQUE_DEVICEID0">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="" id="CFGAP_UNIQUE_DEVICEID_VALUE_HIGH" resetval="0"/>
+	</register>
+</module>
+            

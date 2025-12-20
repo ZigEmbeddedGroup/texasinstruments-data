@@ -1,0 +1,194 @@
+<module name="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_ICSS_G_CFG" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_ICSS_G_CFG" offset="0" width="32" description="ICSS_G Ethernet Cfg.">
+		<bitfield id="RX_SFD_TX_SOF_EN" width="1" begin="10" end="10" resetval="0x0" description="Enable the remaping of tx_sof to rx_sfd if auto fwd is enable" range="10" rwaccess="R/W"/>
+	<bitfield id="MII1_MODE" width="2" begin="6" end="5" resetval="0x0" description="MII1 MODE 0:MII1:RGMII2:SGMII" range="6:5" rwaccess="R/W"/>
+	<bitfield id="MII0_MODE" width="2" begin="4" end="3" resetval="0x0" description="MII0 MODE 0:MII1:RGMII2:SGMII" range="4:3" rwaccess="R/W"/>
+	<bitfield id="RX_L2_G_EN" width="1" begin="2" end="2" resetval="0x0" description="Enable the RX L2 G features of filter frags of size TBD and backpressure RX L20:Disabled1:Enabled" range="2" rwaccess="R/W"/>
+	<bitfield id="TX_L2_EN" width="1" begin="1" end="1" resetval="0x0" description="Enable the TX L2 Fifo0:Disabled1:Enabled" range="1" rwaccess="R/W"/>
+	<bitfield id="TX_L1_EN" width="1" begin="0" end="0" resetval="0x1" description="Enable the TX L1 Fifo0:Disabled1:Enabled" range="0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_PREEMPT_CFG" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_PREEMPT_CFG" offset="4" width="32" description="">
+		<bitfield id="SMD_R" width="8" begin="31" end="24" resetval="0x25" description="Response frame TAG " range="31:24" rwaccess="R/W"/>
+	<bitfield id="SMD_V" width="8" begin="23" end="16" resetval="0x7" description="Verification frame TAG" range="23:16" rwaccess="R/W"/>
+	<bitfield id="EXP_SMD" width="8" begin="15" end="8" resetval="0x213" description="None preemptable frame start, or express frame  " range="15:8" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_SMDT1S_CFG" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_SMDT1S_CFG" offset="8" width="32" description="">
+		<bitfield id="SMDT1S_3" width="8" begin="31" end="24" resetval="0x179" description="SMDT1S3 pattern" range="31:24" rwaccess="R/W"/>
+	<bitfield id="SMDT1S_2" width="8" begin="23" end="16" resetval="0x127" description="SMDT1S2 pattern" range="23:16" rwaccess="R/W"/>
+	<bitfield id="SMDT1S_1" width="8" begin="15" end="8" resetval="0x76" description="SMDT1S1 pattern" range="15:8" rwaccess="R/W"/>
+	<bitfield id="SMDT1S_0" width="8" begin="7" end="0" resetval="0x230" description="SMDT1S0 pattern" range="7:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_SMDT1C_CFG" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_SMDT1C_CFG" offset="12" width="32" description="">
+		<bitfield id="SMDT1C_3" width="8" begin="31" end="24" resetval="0x42" description="SMDT1C3 pattern" range="31:24" rwaccess="R/W"/>
+	<bitfield id="SMDT1C_2" width="8" begin="23" end="16" resetval="0x158" description="SMDT1C2 pattern" range="23:16" rwaccess="R/W"/>
+	<bitfield id="SMDT1C_1" width="8" begin="15" end="8" resetval="0x82" description="SMDT1C1 pattern" range="15:8" rwaccess="R/W"/>
+	<bitfield id="SMDT1C_0" width="8" begin="7" end="0" resetval="0x97" description="SMDT1C0 pattern" range="7:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_POOL_PTR_CFG" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_POOL_PTR_CFG" offset="16" width="32" description="">
+		<bitfield id="MAX_PKT_SIZE" width="16" begin="15" end="0" resetval="0x2048" description="Max Pkt Size, used in pool ptr logic for wrap around" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_TX_EARLY_EOF" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_TX_EARLY_EOF" offset="20" width="32" description="">
+		</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_FRAG_CNT_CFG" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_FRAG_CNT_CFG" offset="24" width="32" description="">
+		<bitfield id="FRAG_CNT_3" width="8" begin="31" end="24" resetval="0x179" description="FRAG Cnt3 pattern" range="31:24" rwaccess="R/W"/>
+	<bitfield id="FRAG_CNT_2" width="8" begin="23" end="16" resetval="0x127" description="FRAG Cnt2 pattern" range="23:16" rwaccess="R/W"/>
+	<bitfield id="FRAG_CNT_1" width="8" begin="15" end="8" resetval="0x76" description="FRAG Cnt1 pattern" range="15:8" rwaccess="R/W"/>
+	<bitfield id="FRAG_CNT_0" width="8" begin="7" end="0" resetval="0x230" description="FRAG Cnt0 pattern" range="7:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE0" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE0" offset="3328" width="32" description="">
+		<bitfield id="QUEUE_H_PTR0" width="16" begin="15" end="0" resetval="0x0" description="Queue 0" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE1" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE1" offset="3332" width="32" description="">
+		<bitfield id="QUEUE_H_PTR1" width="16" begin="15" end="0" resetval="0x0" description="Queue 1" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE2" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE2" offset="3336" width="32" description="">
+		<bitfield id="QUEUE_H_PTR2" width="16" begin="15" end="0" resetval="0x0" description="Queue 2" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE3" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE3" offset="3340" width="32" description="">
+		<bitfield id="QUEUE_H_PTR3" width="16" begin="15" end="0" resetval="0x0" description="Queue 3" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE4" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE4" offset="3344" width="32" description="">
+		<bitfield id="QUEUE_H_PTR4" width="16" begin="15" end="0" resetval="0x0" description="Queue 4" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE5" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE5" offset="3348" width="32" description="">
+		<bitfield id="QUEUE_H_PTR5" width="16" begin="15" end="0" resetval="0x0" description="Queue 5" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE6" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE6" offset="3352" width="32" description="">
+		<bitfield id="QUEUE_H_PTR6" width="16" begin="15" end="0" resetval="0x0" description="Queue 6" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE7" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE7" offset="3356" width="32" description="">
+		<bitfield id="QUEUE_H_PTR7" width="16" begin="15" end="0" resetval="0x0" description="Queue 7" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE8" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE8" offset="3360" width="32" description="">
+		<bitfield id="QUEUE_H_PTR8" width="16" begin="15" end="0" resetval="0x0" description="Queue 8" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE9" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE9" offset="3364" width="32" description="">
+		<bitfield id="QUEUE_H_PTR9" width="16" begin="15" end="0" resetval="0x0" description="Queue 9" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE10" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE10" offset="3368" width="32" description="">
+		<bitfield id="QUEUE_H_PTR10" width="16" begin="15" end="0" resetval="0x0" description="Queue 10" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE11" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE11" offset="3372" width="32" description="">
+		<bitfield id="QUEUE_H_PTR11" width="16" begin="15" end="0" resetval="0x0" description="Queue 11" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE12" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE12" offset="3376" width="32" description="">
+		<bitfield id="QUEUE_H_PTR12" width="16" begin="15" end="0" resetval="0x0" description="Queue 12" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE13" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE13" offset="3380" width="32" description="">
+		<bitfield id="QUEUE_H_PTR13" width="16" begin="15" end="0" resetval="0x0" description="Queue 13" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE14" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE14" offset="3384" width="32" description="">
+		<bitfield id="QUEUE_H_PTR14" width="16" begin="15" end="0" resetval="0x0" description="Queue 14" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE15" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE15" offset="3388" width="32" description="">
+		<bitfield id="QUEUE_H_PTR15" width="16" begin="15" end="0" resetval="0x0" description="Queue 15" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE16" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE16" offset="3392" width="32" description="">
+		<bitfield id="QUEUE_H_PTR16" width="16" begin="15" end="0" resetval="0x0" description="Queue 16" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE17" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE17" offset="3396" width="32" description="">
+		<bitfield id="QUEUE_H_PTR17" width="16" begin="15" end="0" resetval="0x0" description="Queue 17" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE18" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE18" offset="3400" width="32" description="">
+		<bitfield id="QUEUE_H_PTR18" width="16" begin="15" end="0" resetval="0x0" description="Queue 18" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE19" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE19" offset="3404" width="32" description="">
+		<bitfield id="QUEUE_H_PTR19" width="16" begin="15" end="0" resetval="0x0" description="Queue 19" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE20" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE20" offset="3408" width="32" description="">
+		<bitfield id="QUEUE_H_PTR20" width="16" begin="15" end="0" resetval="0x0" description="Queue 20" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE21" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE21" offset="3412" width="32" description="">
+		<bitfield id="QUEUE_H_PTR21" width="16" begin="15" end="0" resetval="0x0" description="Queue 21" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE22" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE22" offset="3416" width="32" description="">
+		<bitfield id="QUEUE_H_PTR22" width="16" begin="15" end="0" resetval="0x0" description="Queue 22" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE23" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE23" offset="3420" width="32" description="">
+		<bitfield id="QUEUE_H_PTR23" width="16" begin="15" end="0" resetval="0x0" description="Queue 23" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE24" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE24" offset="3424" width="32" description="">
+		<bitfield id="QUEUE_H_PTR24" width="16" begin="15" end="0" resetval="0x0" description="Queue 24" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE25" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE25" offset="3428" width="32" description="">
+		<bitfield id="QUEUE_H_PTR25" width="16" begin="15" end="0" resetval="0x0" description="Queue 25" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE26" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE26" offset="3432" width="32" description="">
+		<bitfield id="QUEUE_H_PTR26" width="16" begin="15" end="0" resetval="0x0" description="Queue 26" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE27" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE27" offset="3436" width="32" description="">
+		<bitfield id="QUEUE_H_PTR27" width="16" begin="15" end="0" resetval="0x0" description="Queue 27" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE28" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE28" offset="3440" width="32" description="">
+		<bitfield id="QUEUE_H_PTR28" width="16" begin="15" end="0" resetval="0x0" description="Queue 28" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE29" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE29" offset="3444" width="32" description="">
+		<bitfield id="QUEUE_H_PTR29" width="16" begin="15" end="0" resetval="0x0" description="Queue 29" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE30" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE30" offset="3448" width="32" description="">
+		<bitfield id="QUEUE_H_PTR30" width="16" begin="15" end="0" resetval="0x0" description="Queue 30" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE31" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE31" offset="3452" width="32" description="">
+		<bitfield id="QUEUE_H_PTR31" width="16" begin="15" end="0" resetval="0x0" description="Queue 31" range="15:0" rwaccess="R/W"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK0" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK0" offset="3584" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR0" width="16" begin="15" end="0" resetval="0x0" description="Queue 0 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK1" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK1" offset="3588" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR1" width="16" begin="15" end="0" resetval="0x0" description="Queue 1 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK2" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK2" offset="3592" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR2" width="16" begin="15" end="0" resetval="0x0" description="Queue 2 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK3" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK3" offset="3596" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR3" width="16" begin="15" end="0" resetval="0x0" description="Queue 3 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK4" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK4" offset="3600" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR4" width="16" begin="15" end="0" resetval="0x0" description="Queue 4 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK5" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK5" offset="3604" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR5" width="16" begin="15" end="0" resetval="0x0" description="Queue 5 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK6" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK6" offset="3608" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR6" width="16" begin="15" end="0" resetval="0x0" description="Queue 6 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK7" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK7" offset="3612" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR7" width="16" begin="15" end="0" resetval="0x0" description="Queue 7 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK8" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK8" offset="3616" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR8" width="16" begin="15" end="0" resetval="0x0" description="Queue 8 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK9" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK9" offset="3620" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR9" width="16" begin="15" end="0" resetval="0x0" description="Queue 9 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK10" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK10" offset="3624" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR10" width="16" begin="15" end="0" resetval="0x0" description="Queue 10 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK11" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK11" offset="3628" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR11" width="16" begin="15" end="0" resetval="0x0" description="Queue 11 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK12" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK12" offset="3632" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR12" width="16" begin="15" end="0" resetval="0x0" description="Queue 12 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK13" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK13" offset="3636" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR13" width="16" begin="15" end="0" resetval="0x0" description="Queue 13 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK14" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK14" offset="3640" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR14" width="16" begin="15" end="0" resetval="0x0" description="Queue 14 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK15" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_PEEK15" offset="3644" width="32" description="">
+		<bitfield id="QUEUE_H_PEEK_PTR15" width="16" begin="15" end="0" resetval="0x0" description="Queue 15 Peek portal" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT0" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT0" offset="3648" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_0" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count0" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT1" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT1" offset="3652" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_1" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count1" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT2" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT2" offset="3656" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_2" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count2" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT3" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT3" offset="3660" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_3" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count3" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT4" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT4" offset="3664" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_4" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count4" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT5" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT5" offset="3668" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_5" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count5" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT6" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT6" offset="3672" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_6" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count6" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT7" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT7" offset="3676" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_7" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count7" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT8" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT8" offset="3680" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_8" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count8" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT9" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT9" offset="3684" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_9" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count9" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT10" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT10" offset="3688" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_10" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count10" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT11" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT11" offset="3692" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_11" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count11" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT12" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT12" offset="3696" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_12" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count12" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT13" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT13" offset="3700" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_13" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count13" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT14" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT14" offset="3704" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_14" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count14" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT15" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT15" offset="3708" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_15" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count15" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT16" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT16" offset="3712" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_16" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count16" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT17" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT17" offset="3716" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_17" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count17" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT18" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT18" offset="3720" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_18" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count18" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT19" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT19" offset="3724" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_19" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count19" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT20" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT20" offset="3728" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_20" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count20" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT21" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT21" offset="3732" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_21" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count21" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT22" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT22" offset="3736" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_22" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count22" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT23" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT23" offset="3740" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_23" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count23" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT24" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT24" offset="3744" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_24" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count24" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT25" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT25" offset="3748" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_25" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count25" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT26" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT26" offset="3752" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_26" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count26" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT27" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT27" offset="3756" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_27" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count27" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT28" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT28" offset="3760" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_28" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count28" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT29" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT29" offset="3764" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_29" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count29" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT30" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT30" offset="3768" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_30" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count30" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT31" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_CNT31" offset="3772" width="32" description="">
+		<bitfield id="QUEUE_CNT_ENTRIES_31" width="16" begin="15" end="0" resetval="0x0" description="Queue Entry Count31" range="15:0" rwaccess="R"/>
+	</register><register id="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_RESET" acronym="ICSSM_PR1_MII_RT_PR1_MII_RT_G_CFG_REGS_G_QUEUE_RESET" offset="3904" width="32" description="">
+		<bitfield id="RESET_QUEUE_ID" width="6" begin="5" end="0" resetval="0x0" description="Reset Queue ID" range="5:0" rwaccess="R/W"/>
+	</register>
+</module>

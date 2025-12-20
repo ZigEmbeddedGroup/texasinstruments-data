@@ -1,0 +1,1416 @@
+<?xml version="1.0" ?>
+<module id="ble_rfcore_mdm" XML_version="regs" description="">
+	<register acronym="MDMENABLE" id="mdmenable" width="32" description="Modem Enable Register" offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enables the TOPsm (MCE)" id="TOPSM" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enables the TX/RX FIFO" id="TXRXFIFO" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enables the Modem Timebase" id="TIMEBASE" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enables the Modulator" id="MODULATOR" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enables the Demodulator" id="DEMODULATOR" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enables the Serial Modem Interface" id="SMI" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enables the BLE Tx-Shaper (module location is in ble_top/ble_rfext/...)" id="TXSHAPER" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enables the BLE CIC (module location is in ble_top/ble_rfext/...)" id="BLECIC" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enables the BLE ENR - Exp And Ramp (module location is in ble_top/ble_rfext/...)" id="BLEENR" resetval="0"/>
+	</register>
+	<register acronym="MDMINIT" id="mdminit" width="32" description="Modem Initialize Register - Each bit Initialize a specific MDM module
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x4">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Synch reset TOPsm (MCE)" id="TOPSM" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Synch reset TX/RX FIFO" id="TXRXFIFO" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Synch reset Modem Timebase" id="TIMEBASE" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Synch reset Modulator" id="MODULATOR" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Synch reset Demodulator" id="DEMODULATOR" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Synch reset Serial Modem Interface" id="SMI" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Synch reset for the BLE Tx-Shaper (module location is in ble_top/ble_rfext/...)" id="TXSHAPER" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Synch reset of the BLE CIC (module location is in ble_top/ble_rfext/...)" id="BLECIC" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Synch reset of the BLE ENR - Exp And Ramp (module location is in ble_top/ble_rfext/...)" id="BLEENR" resetval="0"/>
+	</register>
+	<register acronym="MDMPDREQ" id="mdmpdreq" width="32" description="Modem Power Down Request Register" offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Requests power-down for TOPsm core. If the TOPsm has an ongoing memory access, the hardware will safely gate the clock after the transaction has completed." id="TOPSMPDREQ" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMENABLE0" id="demenable0" width="32" description="Demodulator Enable Register 0" offset="0xc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enables the Hilbert filter" id="HILB" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enables the N/1024 complex mixer" id="CMIX" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enables the 1/4 complex mixer" id="CMI4" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enables the coarse DC estimator" id="CODC" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enables the magnitude estimator engine #1" id="MGE1" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enables the magnitude estimator engine #2" id="MGE2" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enables the IQ mismatch compensation" id="IQMC" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enables the cascaded dec-by-2 stages (bde1 and bde2)" id="BDEC" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enables the channel filter" id="CHFI" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enables the fine DC estimator" id="FIDC" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enables the fractional resampler" id="FRAC" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enables the DEC-S2R module" id="DS2R" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMENABLE1" id="demenable1" width="32" description="Demodulator Enable Register 1" offset="0x10">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enables the dynamic sample buffer" id="DSBU" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enables the symbol timing tracker" id="STIM" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enables the clock-domain crossing fifo" id="F4BA" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enables the LQI engine" id="LQIE" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enables the correlation 1-bit engine" id="C1BE" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enables the fec5 module" id="FEC5" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enables the fecp module" id="FECP" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enables the cart 2 polar conversion" id="CA2P" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enables the phase differentiation" id="PDIF" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enables the fine frequency offset estimator" id="FIFE" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enables the matched filter" id="MAFI" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enables the manual frequency compensation module" id="MAFC" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enables the sync word qualifier" id="SWQU" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Enables the soft decision module" id="SOFD" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="Enables the MLSE module" id="MLSE" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="Enables the Viterbi module" id="VITE" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMINIT0" id="deminit0" width="32" description="Demodulator Initialize Register 0 - Each bit Initialize a specific Demodulator module.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x14">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Synch reset Hilbert filter" id="HILB" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Synch reset N/1024 complex mixer" id="CMIX" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Synch reset 1/4 complex mixer" id="CMI4" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Synch reset coarse DC estimator" id="CODC" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Synch reset magnitude estimator engine #1" id="MGE1" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Synch reset magnitude estimator engine #2" id="MGE2" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Synch reset IQ mismatch compensation" id="IQMC" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Synch reset cascaded dec-by-2 stages (bde1 and bde2)" id="BDEC" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Synch reset channel filter" id="CHFI" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Synch reset fine DC estimator" id="FIDC" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Synch reset fractional resampler" id="FRAC" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Synch reset DEC-S2R module" id="DS2R" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMINIT1" id="deminit1" width="32" description="Demodulator Initialize Register 1 - Each bit Initialize a specific Demodulator module.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x18">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Synch reset dynamic sample buffer" id="DSBU" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Synch reset symbol timing tracker" id="STIM" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Synch reset clock-domain crossing fifo" id="F4BA" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Synch reset LQI engine" id="LQIE" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Synch reset correlation 1-bit engine" id="C1BE" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Synch reset fec5 module" id="FEC5" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Synch reset fecp module" id="FECP" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Synch reset cart 2 polar conversion" id="CA2P" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Synch reset phase differentiation" id="PDIF" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Synch reset fine frequency offset estimator" id="FIFE" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Synch reset matched filter" id="MAFI" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Synch reset manual frequency compensation module" id="MAFC" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Synch reset sync word qualifyer" id="SWQU" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Synch reset soft decision module" id="SOFD" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Synch reset MLSE module" id="MLSE" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Synch reset Viterbi Module" id="VITE" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCESTROBES0" id="mcestrobes0" width="32" description="Modem Command Engine (MCE) Strobe Register 0 - Each bit Strob a specific event.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x1c">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Signal command done to CPE" id="CMDDONE" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Dem-S2R Trigger Event" id="DEMS2REVENT" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Restart DSBU" id="DSBURESTART" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Align the 1baud to the next 4baud event" id="MCETIMBALIGN" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Firmware defined MDM RAT 0 event" id="MDMRAT0" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Terminate MLSE unit" id="MLSETERM" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Firmware defined MDM RAT 1 event" id="MDMRAT1" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Firmware defined MDM RAT 2 event" id="MDMRAT2" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Firmware defined MDM RAT 4 event" id="MDMRAT4" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Firmware defined MDM RAT 5 event" id="MDMRAT5" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Firmware defined MDM RAT 6 event" id="MDMRAT6" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Firmware defined MDM RAT 7 event" id="MDMRAT7" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Firmware defined MDM RAT 3 event" id="MDMRAT3" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Firmware defined MDM IRQ 3 event" id="MDMIRQ3" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Firmware defined MDM IRQ 4 event" id="MDMIRQ4" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Firmware defined MDM IRQ 5 event" id="MDMIRQ5" resetval="0"/>
+	</register>
+	<register acronym="MCESTROBES1" id="mcestrobes1" width="32" description="Modem Command Engine (MCE) Strobe Register 1 - Each bit Strob a specific event.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x20">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Copy contents of shift reg A into shift reg B" id="C1BECOPYCMD" resetval="0"/>
+		<bitfield width="2" end="2" begin="3" rwaccess="WO" description="Correlator rotate command to shift reg B" id="C1BEROTCMD" resetval="0">
+			<bitenum id="ROT0" value="0" token="No additional rotation (normal shift-right mode)" description="No additional rotation (normal shift-right mode)"/>
+			<bitenum id="ROT1R" value="1" token="Rotate 1 sample to the right" description="Rotate 1 sample to the right"/>
+			<bitenum id="ROT1L" value="2" token="Rotate 1 sample to the left" description="Rotate 1 sample to the left"/>
+			<bitenum id="ROT16R" value="3" token="Rotate 16 samples to the right" description="Rotate 16 samples to the right"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Slow down correlator autocopy with one sample" id="C1BESTALLCMD" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Speed up correlator autocopy with one sample" id="C1BEADVANCECMD" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Restart C1BE peak A search (32 symbols = 128 samples)" id="C1BEPEAKACMD" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Restart C1BE peak B search (32 symbols = 128 samples)" id="C1BEPEAKBCMD" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Restart C1BE peak C search (corr C is corr A+B combined = 64 symbols = 256 samples)" id="C1BEPEAKCCMD" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Restart C1BE peak A and B search" id="C1BEPEAKABCMD" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Trigger BLE CIC Start" id="BLECICSTART" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Trigger BLE CIC Stop" id="BLECICSTOP" resetval="0"/>
+		<bitfield width="2" end="10" begin="11" rwaccess="RO" id="Reserved10" resetval="0x0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Trigger BLE ENR (Exp And Ramp) Start - Ramp-Up" id="BLEENRSTART" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Trigger BLE ENR (Exp And Ramp) Stop - Ramp-Down" id="BLEENRSTOP" resetval="0"/>
+	</register>
+	<register acronym="MCEEVENT0" id="mceevent0" width="32" description="MCE Event Flag Register 0" offset="0x24">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="New command from CPE has been written in MDMAPI register" id="MDMAPI_WR" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Timer period expired in local timer" id="TIMER_IRQ" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Clock enable event at 4 times baud rate" id="CLKEN_4BAUD" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Modem FIFO underflow error event" id="FIFO_ERR_UNDERFLOW" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Modem FIFO overflow error event" id="FIFO_ERR_OVERFLOW" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="New command from RFE received in RFERCEV register" id="RFECMD_IRQ" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Counter value reached in local timer" id="COUNTER_IRQ" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="A write to the modem FIFO (via MDMFIFOWR register), probably by CPE" id="MDMFIFO_WR" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Firmware defined event 0 from CPE" id="CPEFWEVENT0" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Firmware defined event 1 from CPE" id="CPEFWEVENT1" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="BDEC output enable event" id="BDEC_EN" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="External input event line RFC_GPI_2 from IOC." id="MDMGPI2" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="SMI serdes data word transmit done" id="DL_TX_DONE" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="SMI serdes command word transmit done" id="CL_TX_DONE" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="SMI serdes data word receive done" id="DL_RX_IRQ" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="SMI serdes command word receive done" id="CL_RX_IRQ" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENT1" id="mceevent1" width="32" description="MCE Event Flag Register 1" offset="0x28">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Preamble done interrupt from modulator" id="PREAMBLE_DONE" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Clock enable event at baud rate" id="CLKEN_BAUD" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Modem FIFO is ready for more data so a new word can be written to it, via MDMFIFOWR register" id="FIFOWR_READY" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Modem FIFO has valid data so a new word can be read from it, via MDMFIFORD" id="FIFORD_VALID" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="A write to MDMCMDPAR0 register, probably by CPE" id="MDMCMDPAR0_WR" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="A write to MDMCMDPAR1 register, probably by CPE" id="MDMCMDPAR1_WR" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Clock enable event at flushed baud rate" id="CLKEN_BAUD_F" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Radio timer event 0" id="RAT_EVENT0" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Radio timer event 1" id="RAT_EVENT1" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="Radio timer event 2" id="RAT_EVENT2" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="Radio timer event 3" id="RAT_EVENT3" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="Radio timer event 4" id="RAT_EVENT4" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="Radio timer event 5" id="RAT_EVENT5" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="Radio timer event 6" id="RAT_EVENT6" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="Radio timer event 7" id="RAT_EVENT7" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Sync word qualifier rejected sync due to bit errors (happens if a correlator event was due to noise)" id="SWQU_FALSE_SYNC_IRQ" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENT2" id="mceevent2" width="32" description="MCE Event Flag Register 2" offset="0x2c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="C1BE correlator A, positive peak detect: corr A &gt; thr A. Event occurs one sample after actual peak." id="C1BE_A_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="C1BE correlator A, negative peak detect: corr A &lt; -thr A. Event occurs one sample after actual peak." id="C1BE_A_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="C1BE correlator A, any peak detect: abs(corr A) &gt; thr A. Event occurs one sample after actual peak." id="C1BE_A_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="C1BE correlator B, positive peak detect: corr B &gt; threshold B. Event occurs one sample after actual peak." id="C1BE_B_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="C1BE correlator B, negative peak detect: corr B &lt; -threshold B. Event occurs one sample after actual peak." id="C1BE_B_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="C1BE correlator B, any peak detect: abs(corr B) &gt; thr B. Event occurs one sample after actual peak." id="C1BE_B_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="C1BE correlator C, positive peak detect: corr C &gt; thr C. Event occurs one sample after actual peak." id="C1BE_C_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="C1BE correlator C, negative peak detect: corr C &lt; -thr C. Event occurs one sample after actual peak." id="C1BE_C_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="C1BE correlator C, any peak detect: abs(corr C) &gt; thr C. Event occurs one sample after actual peak." id="C1BE_C_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="C1BE correlator AB combined, positive peak detect: (corr A &gt; thr A) and (corr B &gt; thr B). Event occurs one sample after actual peak." id="C1BE_CMB_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RO" description="C1BE correlator AB combined, negative peak detect: (corr A &lt; -thr A) and (corr B &lt; -thr B). Event occurs one sample after actual peak." id="C1BE_CMB_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RO" description="C1BE correlator AB combined, any peak detect: (abs(corr A) &gt; thr A) and (abs(corr B) &gt; thr B). Event occurs one sample after actual peak." id="C1BE_CMB_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RO" description="C1BE correlator B loaded (by auto-copy function)." id="C1BE_B_LOADED" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RO" description="Sync word qualifier detected sync word." id="SWQU_SYNCED_IRQ" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RO" description="External input event line RFC_GPI0 from IOC. (Also, when loopback mode is enabled in DEMDEBUG.LOOPBACKMODE, this input line represents the symbols fed to the demodulator's decode stage)." id="MDMGPI0" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="External input event line RFC_GPI1 from IOC." id="MDMGPI1" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENTMSK0" id="mceeventmsk0" width="32" description="MCE Event Mask Register 0" offset="0x30">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable mask for event [MCEEVENT0.mdmapi_wr]." id="MDMAPI_WR" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enable mask for event [MCEEVENT0.timer_irq]." id="TIMER_IRQ" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enable mask for event [MCEEVENT0.clken_4baud]." id="CLKEN_4BAUD" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable mask for event [MCEEVENT0.fifo_err_underflow]." id="FIFO_ERR_UNDERFLOW" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable mask for event [MCEEVENT0.fifo_err_overflow]." id="FIFO_ERR_OVERFLOW" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable mask for event [MCEEVENT0.rfecmd_irq]." id="RFECMD_IRQ" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enable mask for event [MCEEVENT0.counter_irq]." id="COUNTER_IRQ" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable mask for event [MCEEVENT0.mdmfifo_wr]." id="MDMFIFO_WR" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable mask for event [MCEEVENT0.cpefwevent0]." id="CPEFWEVENT0" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable mask for event [MCEEVENT0.cpefwevent1]." id="CPEFWEVENT1" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enable mask for event [MCEEVENT0.bdec_en]." id="BDEC_EN" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enable mask for event [MCEEVENT0.mdmgpi2]." id="MDMGPI2" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enable mask for event [MCEEVENT0.dl_tx_done]." id="DL_TX_DONE" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Enable mask for event [MCEEVENT0.cl_tx_done]." id="CL_TX_DONE" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="Enable mask for event [MCEEVENT0.dl_rx_irq]." id="DL_RX_IRQ" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="Enable mask for event [MCEEVENT0.cl_rx_irq]." id="CL_RX_IRQ" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENTMSK1" id="mceeventmsk1" width="32" description="MCE Event Mask Register 1" offset="0x34">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable mask for event [MCEEVENT1.preamble_done]." id="PREAMBLE_DONE" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enable mask for event [MCEEVENT1.clken_baud]." id="CLKEN_BAUD" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enable mask for event [MCEEVENT1.fifowr_valid]." id="FIFOWR_READY" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable mask for event [MCEEVENT1.fiford_valid]." id="FIFORD_VALID" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable mask for event [MCEEVENT1.mdmcmdpar0_wr]." id="MDMCMDPAR0_WR" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enable mask for event [MCEEVENT1.mdmcmdpar1_wr]." id="MDMCMDPAR1_WR" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable mask for event [MCEEVENT1.clken_baud_f]." id="CLKEN_BAUD_F" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event0]." id="RAT_EVENT0" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event1]." id="RAT_EVENT1" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event2]." id="RAT_EVENT2" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event3]." id="RAT_EVENT3" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event4]." id="RAT_EVENT4" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event5]." id="RAT_EVENT5" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event6]." id="RAT_EVENT6" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="Enable mask for event [MCEEVENT1.rat_event7]." id="RAT_EVENT7" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable mask for event [MCEEVENT1.swqu_false_sync_irq]." id="SWQU_FALSE_SYNC_IRQ" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENTMSK2" id="mceeventmsk2" width="32" description="MCE Event Mask Register 2" offset="0x38">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_a_pos_peak]." id="C1BE_A_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_a_neg_peak]." id="C1BE_A_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_a_any_peak]." id="C1BE_A_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_b_pos_peak]." id="C1BE_B_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_b_neg_peak]." id="C1BE_B_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_b_any_peak]." id="C1BE_B_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_c_pos_peak]." id="C1BE_C_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_c_neg_peak]." id="C1BE_C_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_c_any_peak]." id="C1BE_C_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_cmd_pos_peak]." id="C1BE_CMB_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_cmd_neg_peak]." id="C1BE_CMB_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_cmd_any_peak]." id="C1BE_CMB_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Enable mask for event [MCEEVENT2.c1be_b_loaded]." id="C1BE_B_LOADED" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Enable mask for event [MCEEVENT2.swqu_synced_irq]." id="SWQU_SYNCED_IRQ" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="Enable mask for event [MCEEVENT2.mdmgpi0]." id="MDMGPI0" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="Enable mask for event [MCEEVENT2.mdmgpi1]." id="MDMGPI1" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENTCLR0" id="mceeventclr0" width="32" description="MCE Event Clear Register 0 - Each bit Clear to '0' a specific event.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x3c">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Clear event [MCEEVENT0.mdmapi_wr]." id="MDMAPI_WR" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Clear event [MCEEVENT0.timer_irq]." id="TIMER_IRQ" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Clear event [MCEEVENT0.clken_4baud]." id="CLKEN_4BAUD" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Clear event [MCEEVENT0.fifo_err_underflow]." id="FIFO_ERR_UNDERFLOW" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Clear event [MCEEVENT0.fifo_err_overflow]." id="FIFO_ERR_OVERFLOW" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Clear event [MCEEVENT0.rfecmd_irq]." id="RFECMD_IRQ" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Clear event [MCEEVENT0.counter_irq]." id="COUNTER_IRQ" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Clear event [MCEEVENT0.mdmfifo_wr]." id="MDMFIFO_WR" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Clear event [MCEEVENT0.cpefwevent0]." id="CPEFWEVENT0" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Clear event [MCEEVENT0.cpefwevent1]." id="CPEFWEVENT1" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Clear event [MCEEVENT0.bdec_en]." id="BDEC_EN" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Clear event [MCEEVENT0.mdmgpi2]." id="MDMGPI2" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Clear event [MCEEVENT0.dl_tx_done]." id="DL_TX_DONE" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Clear event [MCEEVENT0.cl_tx_done]." id="CL_TX_DONE" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Clear event [MCEEVENT0.dl_rx_irq]." id="DL_RX_IRQ" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Clear event [MCEEVENT0.cl_rx_irq]." id="CL_RX_IRQ" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENTCLR1" id="mceeventclr1" width="32" description="MCE Event Clear Register 1 - Each bit Clear to '0' a specific event.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x40">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Clear event [MCEEVENT1.preamble_done]." id="PREAMBLE_DONE" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Clear event [MCEEVENT1.clken_baud]." id="CLKEN_BAUD" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Clear event [MCEEVENT1.fifowr_valid]." id="FIFOWR_READY" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Clear event [MCEEVENT1.fiford_valid]." id="FIFORD_VALID" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Clear event [MCEEVENT1.mdmcmdpar0_wr]." id="MDMCMDPAR0_WR" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Clear event [MCEEVENT1.mdmcmdpar1_wr]." id="MDMCMDPAR1_WR" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Clear event [MCEEVENT1.clken_baud_f]." id="CLKEN_BAUD_F" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event0]." id="RAT_EVENT0" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event1]." id="RAT_EVENT1" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event2]." id="RAT_EVENT2" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event3]." id="RAT_EVENT3" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event4]." id="RAT_EVENT4" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event5]." id="RAT_EVENT5" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event6]." id="RAT_EVENT6" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Clear event [MCEEVENT1.rat_event7]." id="RAT_EVENT7" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Clear event [MCEEVENT1.swqu_false_sync_irq]." id="SWQU_FALSE_SYNC_IRQ" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MCEEVENTCLR2" id="mceeventclr2" width="32" description="MCE Event Clear Register 2 - Each bit Clear to '0' a specific event.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x44">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_a_pos_peak]." id="C1BE_A_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_a_neg_peak]." id="C1BE_A_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_a_any_peak]." id="C1BE_A_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_b_pos_peak]." id="C1BE_B_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_b_neg_peak]." id="C1BE_B_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_b_any_peak]." id="C1BE_B_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_c_pos_peak]." id="C1BE_C_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_c_neg_peak]." id="C1BE_C_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_c_any_peak]." id="C1BE_C_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_cmd_pos_peak]." id="C1BE_CMB_POS_PEAK" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_cmd_neg_peak]." id="C1BE_CMB_NEG_PEAK" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_cmd_any_peak]." id="C1BE_CMB_ANY_PEAK" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Clear event [MCEEVENT2.c1be_b_loaded]." id="C1BE_B_LOADED" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Clear event [MCEEVENT2.swqu_synced_irq]." id="SWQU_SYNCED_IRQ" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Clear event [MCEEVENT2.mdmgpi0]." id="MDMGPI0" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Clear event [MCEEVENT2.mdmgpi1]." id="MDMGPI1" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMAPI" id="mdmapi" width="32" description="Modem API Command Register" offset="0x48">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Modem command" id="MDMCMD" resetval="0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Protocol ID" id="PROTOCOLID" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="Protocol Memory Allocation.
+ 0000 : For Default MCE Execution - mem allocation of addr lines 0-511 (lower 2k bank).
+ 0001 : For MCE Execution with mem allocation of addr lines 512-1023 (higher 2k bank).
+(NOTE - NEW Osprey Field. In legacy projects was PROTOCOLID[7:4] which Never used.)" id="PROTOCOLMEMALLOC" resetval="0"/>
+	</register>
+	<register acronym="MDMCMDPAR0" id="mdmcmdpar0" width="32" description="Modem API Command Parameter 0" offset="0x4c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Parameter 0. Software defined function." id="PAR0" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMCMDPAR1" id="mdmcmdpar1" width="32" description="Modem API Command Parameter 1" offset="0x50">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Parameter 1. Software defined function." id="PAR1" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMCMDPAR2" id="mdmcmdpar2" width="32" description="Modem API Command Parameter 2" offset="0x54">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Parameter 2. Software defined function." id="PAR" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMRFCHANNEL" id="mdmrfchannel" width="32" description="Modem RF Channel Register" offset="0x58">
+		<bitfield width="12" end="0" begin="11" rwaccess="RW" description="RF channel in MHz (i.e. 2432). This register is only software defined for signalling RF channel." id="VALUE" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMSTATUS" id="mdmstatus" width="32" description="Modem Command Status Register" offset="0x5c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Diverse status, error, report bits from MCE. Controlled by software." id="VALUE" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMFIFOWR" id="mdmfifowr" width="32" description="Modem FIFO Write Register" offset="0x60">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="FIFO write port. The actual port size is configurable in MDMFIFOWRCTRL.FIFOWRCTRL." id="PAYLOADIN" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMFIFORD" id="mdmfiford" width="32" description="Modem FIFO Read Register" offset="0x64">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="FIFO read port. The actual port size is configurable in MDMFIFORDCTRL.FIFORDCTRL." id="PAYLOADOUT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMFIFOWRCTRL" id="mdmfifowrctrl" width="32" description="Modem FIFO Write Configuration" offset="0x68">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Actual bits in every word write access" id="WORDSZWR" resetval="0">
+			<bitenum id="BITS1" value="0" token="1 bit" description="1 bit"/>
+			<bitenum id="BITS2" value="1" token="2 bits" description="2 bits"/>
+			<bitenum id="BITS11" value="10" token="11 bits" description="11 bits"/>
+			<bitenum id="BITS12" value="11" token="12 bits" description="12 bits"/>
+			<bitenum id="BITS13" value="12" token="13 bits" description="13 bits"/>
+			<bitenum id="BITS14" value="13" token="14 bits" description="14 bits"/>
+			<bitenum id="BITS15" value="14" token="15 bits" description="15 bits"/>
+			<bitenum id="BITS16" value="15" token="16 bits" description="16 bits"/>
+			<bitenum id="BITS3" value="2" token="3 bits" description="3 bits"/>
+			<bitenum id="BITS4" value="3" token="4 bits" description="4 bits"/>
+			<bitenum id="BITS5" value="4" token="5 bits" description="5 bits"/>
+			<bitenum id="BITS6" value="5" token="6 bits" description="6 bits"/>
+			<bitenum id="BITS7" value="6" token="7 bits" description="7 bits"/>
+			<bitenum id="BITS8" value="7" token="8 bits" description="8 bits"/>
+			<bitenum id="BITS9" value="8" token="9 bits" description="9 bits"/>
+			<bitenum id="BITS10" value="9" token="10 bits" description="10 bits"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="FIFO write port mapping" id="FIFOWRPORT" resetval="0">
+			<bitenum id="MDMFIFOWR" value="0" token="The MDMFIFOWR register is used for write access" description="The MDMFIFOWR register is used for write access"/>
+			<bitenum id="MODEM" value="1" token="Modem has write access" description="Modem has write access"/>
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMFIFORDCTRL" id="mdmfifordctrl" width="32" description="Modem FIFO Read Configuration" offset="0x6c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Actual bits in every word read access" id="WORDSZRD" resetval="0">
+			<bitenum id="BITS1" value="0" token="1 bit" description="1 bit"/>
+			<bitenum id="BITS2" value="1" token="2 bits" description="2 bits"/>
+			<bitenum id="BITS11" value="10" token="11 bits" description="11 bits"/>
+			<bitenum id="BITS12" value="11" token="12 bits" description="12 bits"/>
+			<bitenum id="BITS13" value="12" token="13 bits" description="13 bits"/>
+			<bitenum id="BITS14" value="13" token="14 bits" description="14 bits"/>
+			<bitenum id="BITS15" value="14" token="15 bits" description="15 bits"/>
+			<bitenum id="BITS16" value="15" token="16 bits" description="16 bits"/>
+			<bitenum id="BITS3" value="2" token="3 bits" description="3 bits"/>
+			<bitenum id="BITS4" value="3" token="4 bits" description="4 bits"/>
+			<bitenum id="BITS5" value="4" token="5 bits" description="5 bits"/>
+			<bitenum id="BITS6" value="5" token="6 bits" description="6 bits"/>
+			<bitenum id="BITS7" value="6" token="7 bits" description="7 bits"/>
+			<bitenum id="BITS8" value="7" token="8 bits" description="8 bits"/>
+			<bitenum id="BITS9" value="8" token="9 bits" description="9 bits"/>
+			<bitenum id="BITS10" value="9" token="10 bits" description="10 bits"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="FIFO read port mapping" id="FIFORDPORT" resetval="0">
+			<bitenum id="MDMFIFORD" value="0" token="The MDMFIFORD register is used for read access" description="The MDMFIFORD register is used for read access"/>
+			<bitenum id="MODEM" value="1" token="Modem has read access" description="Modem has read access"/>
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMFIFOCFG" id="mdmfifocfg" width="32" description="Modem FIFO Configuration for watermark thresholds" offset="0x70">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Almost empty threshold in bits. This threshold affects the MDMFIFOSTA.ALMOSTEMPTY and MDMFIFOSTA.RXVALID status bits. The FIFO can hold up to 64 bits." id="AEMPTYTHR" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Almost full threshold value in bits. This threshold affects the MDMFIFOSTA.ALMOSTFULL and MDMFIFOSTA.TXREADY status bits. The FIFO can hold up to 64 bits." id="AFULLTHR" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMFIFOSTA" id="mdmfifosta" width="32" description="Modem FIFO Status Flags" offset="0x74">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="The MDMTXFIFO register write port is ready to receive a data word." id="TXREADY" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="A full data word is valid and can be read in MDMRXFIFO register read port." id="RXVALID" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="FIFO underflow error. If this flag is asserted the modem FIFO must be re-initialized with MDMINIT.TXRXFIFO to clear it." id="UNDERFLOW" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="FIFO is almost empty. Asserts when the FIFO fill level is below the almost empty threshold." id="ALMOSTEMPTY" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="FIFO is almost full. Asserts when the FIFO fill level is above the almost full threshold." id="ALMOSTFULL" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="FIFO overflow error. If this flag is asserted the modem FIFO must be re-initialized with MDMINIT.TXRXFIFO to clear it. Note that re-initializing will flush the FIFO." id="OVERFLOW" resetval="0"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="CPEFWEVENT" id="cpefwevent" width="32" description="CPE-to-MCE Firmware Triggered Events - Each bit Trigger a specific event.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x78">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Generic FW CPE-driven event to MCE. Software defined meaning." id="EVENT0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Generic FW CPE-driven event to MCE. Software defined meaning." id="EVENT1" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Generic FW CPE-driven event to MCE. Software defined meaning." id="EVENT2" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Generic FW CPE-driven event to MCE. Software defined meaning." id="EVENT3" resetval="0"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFESEND" id="rfesend" width="32" description="MCE-to-RFE Send Command Register" offset="0x7c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Command to send to RFE. Writing to this register will trigger an event in the RFE, and the command value written here will be readable in RFC_RFE:MCERCEV register." id="MCECMD" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="RFERCEV" id="rfercev" width="32" description="RFE-to-MCE Receive Command Register" offset="0x80">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Command received from RFE" id="RFECMD" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SMICONF" id="smiconf" width="32" description="Serial Modem Interface Configuration" offset="0x84">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Configures the Message Length" id="MLENGTH" resetval="0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="Configures the SMI rate" id="PRESCALER" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enables the SMI interface" id="SMIENABLE" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SMIDLOUTG" id="smidloutg" width="32" description="Serial Modem Interface Data Output Register" offset="0x88">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Outgoing data link message" id="DL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SMICLOUTG" id="smicloutg" width="32" description="Serial Modem Interface Control Output Register" offset="0x8c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Outgoing command link message" id="CL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SMIDLINC" id="smidlinc" width="32" description="Serial Modem Interface Data Input Register" offset="0x90">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Incoming data link message" id="DL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SMICLINC" id="smiclinc" width="32" description="Serial Modem Interface Control Input Register" offset="0x94">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Incoming command link message" id="CL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="SMISTA" id="smista" width="32" description="Serial Modem Interface Status Register" offset="0x98">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Incoming data link has errors" id="INCDLERROR" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Incoming command link has errors" id="INCCLERROR" resetval="0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MODPRECTRL" id="modprectrl" width="32" description="Modulator Preamble Control" offset="0x9c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Preamble pattern size in bits" id="SIZE" resetval="0">
+			<bitenum id="BITS16" value="15" token="16 bits" description="16 bits"/>
+			<bitenum id="BITS4" value="3" token="4 bits" description="4 bits"/>
+			<bitenum id="BITS8" value="7" token="8 bits" description="8 bits"/>
+		</bitfield>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="Number of preamble repetitions of preamble pattern" id="REPS" resetval="0">
+			<bitenum id="REPS1" value="0" token="1 repetition (i.e. only once)" description="1 repetition (i.e. only once)"/>
+			<bitenum id="REPS2" value="1" token="2 repetitions" description="2 repetitions"/>
+			<bitenum id="REPS11" value="10" token="11 repetitions" description="11 repetitions"/>
+			<bitenum id="REPS12" value="11" token="12 repetitions" description="12 repetitions"/>
+			<bitenum id="REPS13" value="12" token="13 repetitions" description="13 repetitions"/>
+			<bitenum id="REPS14" value="13" token="14 repetitions" description="14 repetitions"/>
+			<bitenum id="REPS15" value="14" token="15 repetitions" description="15 repetitions"/>
+			<bitenum id="REPS16" value="15" token="16 repetitions" description="16 repetitions"/>
+			<bitenum id="REPS3" value="2" token="3 repetitions" description="3 repetitions"/>
+			<bitenum id="REPS4" value="3" token="4 repetitions" description="4 repetitions"/>
+			<bitenum id="REPS5" value="4" token="5 repetitions" description="5 repetitions"/>
+			<bitenum id="REPS6" value="5" token="6 repetitions" description="6 repetitions"/>
+			<bitenum id="REPS7" value="6" token="7 repetitions" description="7 repetitions"/>
+			<bitenum id="REPS8" value="7" token="8 repetitions" description="8 repetitions"/>
+			<bitenum id="REPS9" value="8" token="9 repetitions" description="9 repetitions"/>
+			<bitenum id="REPS10" value="9" token="10 repetitions" description="10 repetitions"/>
+		</bitfield>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MODSYMMAP0" id="modsymmap0" width="32" description="Modulator Symbol Mapping Register 0" offset="0xa0">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Decimal value for bit '0'" id="SYM0" resetval="0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="Decimal value for bit '1'" id="SYM1" resetval="0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Decimal value for bits '01'" id="SYM2" resetval="0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="Decimal value for bits '11'" id="SYM3" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MODSYMMAP1" id="modsymmap1" width="32" description="Modulator Symbol Mapping Register 1" offset="0xa4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Decimal value for bits '100'" id="SYM4" resetval="0"/>
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" description="Decimal value for bits '101'" id="SYM5" resetval="0"/>
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="Decimal value for bits '110'" id="SYM6" resetval="0"/>
+		<bitfield width="4" end="12" begin="15" rwaccess="RW" description="Decimal value for bits '111'" id="SYM7" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MODSOFTTX" id="modsofttx" width="32" description="Modulator Soft Symbol Transmit" offset="0xa8">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Soft symbol {-7..+7} used when MODCTRL.SOFTTXENABLE is enabled" id="SOFTSYMBOL" resetval="0"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMBAUD" id="mdmbaud" width="32" description="Modem Baud Rate Control" offset="0xac">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Rate word (bits [20:5]). The 5 LSBs of the 21-bit rate word are defined in MDMBAUDPRE.EXTRATEWORD register." id="RATEWORD" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMBAUDPRE" id="mdmbaudpre" width="32" description="Modem Baud Rate Prescaler Control" offset="0xb0">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Prescaler value, range 1 to 255" id="PRESCALER" resetval="0"/>
+		<bitfield width="5" end="8" begin="12" rwaccess="RW" description="Extended Rate Word (bits [4:0]). These are the 5 LSBs extending the 16 MSBs configured in MDMBAUD.RATEWORD to form a 21 bit rate word." id="EXTRATEWORD" resetval="0"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RW" description="Align value for timebase after sync" id="ALIGNVALUE" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MODMAIN" id="modmain" width="32" description="Modulator Main Config Register" offset="0xb4">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" description="Number of modulation levels" id="MODLEVELS" resetval="0">
+			<bitenum id="LVL2" value="0" token="2 levels" description="2 levels"/>
+			<bitenum id="LVL4" value="1" token="4 levels" description="4 levels"/>
+			<bitenum id="LVL8" value="2" token="8 levels" description="8 levels"/>
+		</bitfield>
+		<bitfield width="4" end="2" begin="5" rwaccess="RW" description="Forward Error Correction Selection. Used for some signal-wiring in modulator and demodulator." id="FECSELECT" resetval="0">
+			<bitenum id="NOSEL" value="0" token="No FEC encoding selected" description="No FEC encoding selected"/>
+			<bitenum id="IEEE15_4" value="1" token="IEEE 802.15.4" description="IEEE 802.15.4"/>
+			<bitenum id="CC85XX" value="2" token="CC85xx compatible FEC" description="CC85xx compatible FEC"/>
+			<bitenum id="BLR" value="3" token="Bluetooth LE coded long range compatible FEC" description="Bluetooth LE coded long range compatible FEC"/>
+			<bitenum id="SPREAD" value="4" token="Spread" description="Spread"/>
+			<bitenum id="FEC13" value="5" token="1/3 repetition code" description="1/3 repetition code"/>
+			<bitenum id="FEC23" value="6" token="10/15 BT BR FEC 2/3 Mode" description="10/15 BT BR FEC 2/3 Mode"/>
+			<bitenum id="MLSE4" value="7" token="MLSE4" description="MLSE4"/>
+			<bitenum id="IEEE15_4G_NOREC" value="8" token="IEEE 802.15.4g non-recursive code" description="IEEE 802.15.4g non-recursive code"/>
+			<bitenum id="IEEE15_4G_REC" value="9" token="IEEE 802.15.4g recursive code" description="IEEE 802.15.4g recursive code"/>
+		</bitfield>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMMISC2" id="demmisc2" width="32" description="Demodulator Config Register 2" offset="0xb8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Limit range on maximal PDIF output, i.e. instantaneous frequency sample" id="PDIFLIMITRANGE" resetval="0">
+			<bitenum id="DIS" value="0" token="Allow full 8-bit range, i.e. +/- 128" description="Allow full 8-bit range, i.e. +/- 128"/>
+			<bitenum id="EN" value="1" token="Limit the range to 7-bit, i.e. +/- 64" description="Limit the range to 7-bit, i.e. +/- 64"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Conjugate the complex I/Q signal in PDIF" id="PDIFIQCONJEN" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Enable despeckler in PDIF at CORDIC output" id="PDIFDESPECKLEREN" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable linear predictor in PDIF at CORDIC output" id="PDIFLINPREDEN" resetval="0"/>
+		<bitfield width="3" end="4" begin="6" rwaccess="RW" description="Symbol timing error accumulator gain in STIM" id="STIMTEAGAIN" resetval="0">
+			<bitenum id="DIV512" value="0" token="Gain is 1/512" description="Gain is 1/512"/>
+			<bitenum id="DIV256" value="1" token="Gain is 1/256" description="Gain is 1/256"/>
+			<bitenum id="DIV128" value="2" token="Gain is 1/128" description="Gain is 1/128"/>
+			<bitenum id="DIV64" value="3" token="Gain is 1/64" description="Gain is 1/64"/>
+			<bitenum id="DIV32" value="4" token="Gain is 1/32" description="Gain is 1/32"/>
+			<bitenum id="DIV16" value="5" token="Gain is 1/16" description="Gain is 1/16"/>
+			<bitenum id="DIV8" value="6" token="Gain is 1/8" description="Gain is 1/8"/>
+			<bitenum id="DIV4" value="7" token="Gain is 1/4" description="Gain is 1/4"/>
+		</bitfield>
+		<bitfield width="3" end="7" begin="9" rwaccess="RW" description="Symbol timing error accumulator period (4 to 128 symbols) in STIM" id="STIMTEAPERIOD" resetval="0">
+			<bitenum id="SYM4" value="0" token="4 symbols" description="4 symbols"/>
+			<bitenum id="SYM8" value="1" token="8 symbols" description="8 symbols"/>
+			<bitenum id="SYM16" value="2" token="16 symbols" description="16 symbols"/>
+			<bitenum id="SYM32" value="3" token="32 symbols" description="32 symbols"/>
+			<bitenum id="SYM64" value="4" token="64 symbols" description="64 symbols"/>
+			<bitenum id="SYM128" value="5" token="128 symbols" description="128 symbols"/>
+		</bitfield>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Only perform symbol timing error estimation in STIM, without doing timing correction" id="STIMESTONLY" resetval="0">
+			<bitenum id="DIS" value="0" token="Perform both estimation and correct timing" description="Perform both estimation and correct timing"/>
+			<bitenum id="EN" value="1" token="Perform estimation only (no timing correction)" description="Perform estimation only (no timing correction)"/>
+		</bitfield>
+		<bitfield width="2" end="11" begin="12" rwaccess="RW" description="Set gain in MAFC. Multiplies symbols with 2^N before symbol recovery stage" id="MAFCGAIN" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Enable maximum likelihood sequence estimation (MLSE) desicions" id="MLSERUN" resetval="0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMMISC3" id="demmisc3" width="32" description="Demodulator Config Register 3" offset="0xbc">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="BDE2 decimation filter setting" id="BDECNUMSTAGES" resetval="0">
+			<bitenum id="DIV1" value="0" token="Decimate by 1 (no decimation)" description="Decimate by 1 (no decimation)"/>
+			<bitenum id="DIV2" value="1" token="Decimate by 2" description="Decimate by 2"/>
+			<bitenum id="DIV4" value="2" token="Decimate by 4" description="Decimate by 4"/>
+			<bitenum id="DIV8" value="3" token="Decimate by 8" description="Decimate by 8"/>
+			<bitenum id="DIV16" value="4" token="Decimate by 16" description="Decimate by 16"/>
+			<bitenum id="DIV32" value="5" token="Decimate by 32" description="Decimate by 32"/>
+		</bitfield>
+		<bitfield width="2" end="3" begin="4" rwaccess="RW" description="Additional decimation in PDIF" id="PDIFDECIM" resetval="0">
+			<bitenum id="DIV1" value="0" token="No decimation" description="No decimation"/>
+			<bitenum id="DIV2" value="1" token="Decimate by 2" description="Decimate by 2"/>
+			<bitenum id="DIV4" value="2" token="Decimate by 4" description="Decimate by 4"/>
+		</bitfield>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="DVGA settings for BDE2. The DVGA control for BDE2 is shared with the RFE in its RFC_RFE:GAINCTRL.BDE2DVGA register. Software should determine who uses them. Please note that if both processors attempt to control it, the resulting setting will be the two settings ORed together." id="BDE2DVGA" resetval="0">
+			<bitenum id="GAIN1" value="0" token="Gain 1" description="Gain 1"/>
+			<bitenum id="GAIN2" value="1" token="Gain 2" description="Gain 2"/>
+			<bitenum id="GAIN4" value="2" token="Gain 4" description="Gain 4"/>
+			<bitenum id="GAIN8" value="3" token="Gain 8" description="Gain 8"/>
+		</bitfield>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved10" resetval="0x0"/>
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved5" resetval="0x0"/>
+	</register>
+	<register acronym="DEMDSBU" id="demdsbu" width="32" description="Dynamic Sample Buffer Config Register" offset="0xc0">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Output delay from sample buffer, as offset between write and read pointers. The buffer can hold up to 256 samples. Delay of 0 means maximum." id="DSBUDELAY" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMDSBU2" id="demdsbu2" width="32" description="Dynamic Sample Buffer Config Register" offset="0xc4">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Length for moving average of the newest DSBU samples. The buffer can hold up to 256 samples. Length of 511 is maximum." id="DSBUAVGLENGTH" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMFIDC0" id="demfidc0" width="32" description="Demodulator Fine DC Offset Estimator Register 0" offset="0xc8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable accumulator based estimator inside FIDC" id="ACCEN" resetval="0">
+			<bitenum id="DIS" value="0" token="Disable accumulator estimator" description="Disable accumulator estimator"/>
+			<bitenum id="EN" value="1" token="Enable accumulator estimator" description="Enable accumulator estimator"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Accumulator estimator mode" id="ACCCONTMODE" resetval="0">
+			<bitenum id="SINGLE" value="0" token="Generate a single DC estimate only, then stop" description="Generate a single DC estimate only, then stop"/>
+			<bitenum id="CONT" value="1" token="Generate new DC estimates continuously" description="Generate new DC estimates continuously"/>
+		</bitfield>
+		<bitfield width="2" end="2" begin="3" rwaccess="RW" description="Integration period for accumulator estimator" id="ACCPERIOD" resetval="0">
+			<bitenum id="SMPL8" value="0" token="8 samples" description="8 samples"/>
+			<bitenum id="SMPL32" value="1" token="32 samples" description="32 samples"/>
+			<bitenum id="SMPL128" value="2" token="128 samples" description="128 samples"/>
+			<bitenum id="SMPL512" value="3" token="512 samples" description="512 samples"/>
+		</bitfield>
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="Select estimator to use for fine DC offset compensation" id="COMPSEL" resetval="0">
+			<bitenum id="MANUAL" value="0" token="Use manually programmable values from DEMFIDC1 and DEMFIDC2 registers" description="Use manually programmable values from DEMFIDC1 and DEMFIDC2 registers"/>
+			<bitenum id="ACC" value="2" token="Compensate with latest accumulator estimate" description="Compensate with latest accumulator estimate"/>
+		</bitfield>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMDSXB0" id="demdsxb0" width="32" description="Demodulator Decode Stage Crossbar Register 0" offset="0xcc">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" description="Source select for FIFE (XBAR block #1)" id="B1SRCSEL" resetval="0">
+			<bitenum id="INPUT" value="0" token="Source is crossbar main input" description="Source is crossbar main input"/>
+			<bitenum id="MAFI" value="1" token="Source is matched filter (MAFI)" description="Source is matched filter (MAFI)"/>
+			<bitenum id="C1BE" value="2" token="Source is 1-bit correlation engine (C1BE)" description="Source is 1-bit correlation engine (C1BE)"/>
+		</bitfield>
+		<bitfield width="2" end="2" begin="3" rwaccess="RW" description="Source select for MAFI (XBAR block #2)" id="B2SRCSEL" resetval="0">
+			<bitenum id="INPUT" value="0" token="Source is crossbar main input" description="Source is crossbar main input"/>
+			<bitenum id="FIFE" value="1" token="Source is fine frequency offset estimator (FIFE)" description="Source is fine frequency offset estimator (FIFE)"/>
+			<bitenum id="C1BE" value="2" token="Source is 1-bit correlation engine (C1BE)" description="Source is 1-bit correlation engine (C1BE)"/>
+		</bitfield>
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="Source select for C1BE (XBAR block #3)" id="B3SRCSEL" resetval="0">
+			<bitenum id="INPUT" value="0" token="Source is crossbar main input" description="Source is crossbar main input"/>
+			<bitenum id="FIFE" value="1" token="Source is fine frequency offset estimator (FIFE)" description="Source is fine frequency offset estimator (FIFE)"/>
+			<bitenum id="MAFI" value="2" token="Source is matched filter (MAFI)" description="Source is matched filter (MAFI)"/>
+		</bitfield>
+		<bitfield width="2" end="6" begin="7" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="Source select for XBAR output, branch 2 (flushed branch)" id="OUTSRCSEL1" resetval="0">
+			<bitenum id="FIFE" value="0" token="Source is fine frequency offset estimator (FIFE)" description="Source is fine frequency offset estimator (FIFE)"/>
+			<bitenum id="MAFI" value="1" token="Source is matched filter (MAFI)" description="Source is matched filter (MAFI)"/>
+			<bitenum id="C1BE" value="2" token="Source is 1-bit correlation engine (C1BE)" description="Source is 1-bit correlation engine (C1BE)"/>
+		</bitfield>
+		<bitfield width="2" end="10" begin="11" rwaccess="RW" description="Source select XBAR output, branch 1 (baud branch)" id="OUTSRCSEL2" resetval="0">
+			<bitenum id="FIFE" value="0" token="Source is fine frequency offset estimator (FIFE)" description="Source is fine frequency offset estimator (FIFE)"/>
+			<bitenum id="MAFI" value="1" token="Source is matched filter (MAFI)" description="Source is matched filter (MAFI)"/>
+			<bitenum id="C1BE" value="2" token="Source is 1-bit correlation engine (C1BE)" description="Source is 1-bit correlation engine (C1BE)"/>
+		</bitfield>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Crossbar output #1 is direct passthrough of the crossbar input" id="OUT1PASSTHROUGH" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="Crossbar output #2 is direct passthrough of the crossbar input" id="OUT2PASSTHROUGH" resetval="0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMD2XB0" id="demd2xb0" width="32" description="Demodulator Decode Stage Second Crossbar Register 0" offset="0xd0">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" description="Source select for MAFC (XBAR block #1)" id="B1SRCSEL" resetval="0">
+			<bitenum id="INPUT" value="0" token="Source is crossbar main input" description="Source is crossbar main input"/>
+			<bitenum id="STIM" value="1" token="Source is symbol timing (STIM)" description="Source is symbol timing (STIM)"/>
+			<bitenum id="PDIF2" value="2" token="Source is secondary PDIF module (PDIF2)" description="Source is secondary PDIF module (PDIF2)"/>
+		</bitfield>
+		<bitfield width="2" end="2" begin="3" rwaccess="RW" description="Source select for STIM (XBAR block #2)" id="B2SRCSEL" resetval="0">
+			<bitenum id="INPUT" value="0" token="Source is crossbar main input" description="Source is crossbar main input"/>
+			<bitenum id="MAFC" value="1" token="Source is manual frequency compensation (MAFC)" description="Source is manual frequency compensation (MAFC)"/>
+			<bitenum id="PDIF2" value="2" token="Source is secondary PDIF module (PDIF2)" description="Source is secondary PDIF module (PDIF2)"/>
+		</bitfield>
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="Source select for XBAR output, branch 2 (towards SOFD)" id="OUTSRCSEL1" resetval="0">
+			<bitenum id="MAFC" value="0" token="Source is manual frequency compensation (MAFC)" description="Source is manual frequency compensation (MAFC)"/>
+			<bitenum id="STIM" value="1" token="Source is symbol timing (STIM)" description="Source is symbol timing (STIM)"/>
+			<bitenum id="PDIF2" value="2" token="Source is secondary PDIF module (PDIF2)" description="Source is secondary PDIF module (PDIF2)"/>
+		</bitfield>
+		<bitfield width="2" end="6" begin="7" rwaccess="RW" description="Source select XBAR output, branch 1 (towards MLSE)" id="OUTSRCSEL2" resetval="0">
+			<bitenum id="MAFC" value="0" token="Source is manual frequency compensation (MAFC)" description="Source is manual frequency compensation (MAFC)"/>
+			<bitenum id="STIM" value="1" token="Source is symbol timing (STIM)" description="Source is symbol timing (STIM)"/>
+			<bitenum id="PDIF2" value="2" token="Source is secondary PDIF module (PDIF2)" description="Source is secondary PDIF module (PDIF2)"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Crossbar output #1 is direct passthrough of the crossbar input" id="OUT1PASSTHROUGH" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Crossbar output #2 is direct passthrough of the crossbar input" id="OUT2PASSTHROUGH" resetval="0"/>
+		<bitfield width="2" end="10" begin="11" rwaccess="RW" description="Source select for PDIF2 (XBAR block #3)" id="B3SRCSEL" resetval="0">
+			<bitenum id="INPUT" value="0" token="Source is crossbar main input" description="Source is crossbar main input"/>
+			<bitenum id="MAFC" value="1" token="Source is manual frequency compensation (MAFC)" description="Source is manual frequency compensation (MAFC)"/>
+			<bitenum id="STIM" value="2" token="Source is symbol timing (STIM)" description="Source is symbol timing (STIM)"/>
+		</bitfield>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMFIFE0" id="demfife0" width="32" description="Demodulator Fine Frequency Offset Estimator Register 0" offset="0xd4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable first-order IIR filter based freq offset estimator inside FIFE" id="IIREN" resetval="0">
+			<bitenum id="DIS" value="0" token="Disable IIR estimator" description="Disable IIR estimator"/>
+			<bitenum id="EN" value="1" token="Enable IIR estimator" description="Enable IIR estimator"/>
+		</bitfield>
+		<bitfield width="3" end="1" begin="3" rwaccess="RW" description="Adjust first-order IIR filter adaptation which controls filter bandwidth" id="IIRGAIN" resetval="0">
+			<bitenum id="OFF" value="0" token="Filter disabled" description="Filter disabled"/>
+			<bitenum id="DIV16" value="1" token="Use 1/16 IIR adaptation" description="Use 1/16 IIR adaptation"/>
+			<bitenum id="DIV32" value="2" token="Use 1/32 IIR adaptation" description="Use 1/32 IIR adaptation"/>
+			<bitenum id="DIV64" value="3" token="Use 1/64 IIR adaptation" description="Use 1/64 IIR adaptation"/>
+			<bitenum id="DIV128" value="4" token="Use 1/128 IIR adaptation" description="Use 1/128 IIR adaptation"/>
+			<bitenum id="DIV256" value="5" token="Use 1/256 IIR adaptation" description="Use 1/256 IIR adaptation"/>
+			<bitenum id="DIV512" value="6" token="Use 1/512 IIR adaptation" description="Use 1/512 IIR adaptation"/>
+			<bitenum id="DIV1024" value="7" token="Use 1/1024 IIR adaptation" description="Use 1/1024 IIR adaptation"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="When enabled, a configurable value is loaded to initialize IIR filter when FIFE estimator is re-initialized." id="IIRUSEINITIAL" resetval="0">
+			<bitenum id="DIS" value="0" token="Initialize IIR filter with value zero" description="Initialize IIR filter with value zero"/>
+			<bitenum id="EN" value="1" token="Use the manual compensation value in DEMFIFE1 for initialization" description="Use the manual compensation value in DEMFIFE1 for initialization"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable accumulator based frequency offset estimator inside FIFE" id="ACCEN" resetval="0">
+			<bitenum id="DIS" value="0" token="Disable accumulator estimator" description="Disable accumulator estimator"/>
+			<bitenum id="EN" value="1" token="Enable accumulator estimator" description="Enable accumulator estimator"/>
+		</bitfield>
+		<bitfield width="2" end="6" begin="7" rwaccess="RW" description="Integration period for accumulator" id="ACCPERIOD" resetval="0">
+			<bitenum id="PER64" value="0" token="64 samples" description="64 samples"/>
+			<bitenum id="PER128" value="1" token="128 samples" description="128 samples"/>
+			<bitenum id="PER256" value="2" token="256 samples" description="256 samples"/>
+			<bitenum id="PER512" value="3" token="512 samples" description="512 samples"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Accumulator estimator mode" id="ACCCNTMODE" resetval="0">
+			<bitenum id="SINGLE" value="0" token="Generate a single frequency offset estimate only, then stop" description="Generate a single frequency offset estimate only, then stop"/>
+			<bitenum id="CONT" value="1" token="Generate new frequency offset estimates continuously" description="Generate new frequency offset estimates continuously"/>
+		</bitfield>
+		<bitfield width="2" end="9" begin="10" rwaccess="RW" description="Select which estimate source to be used in feed-forward compensation point" id="FOCFFSEL" resetval="0">
+			<bitenum id="IIR" value="0" token="Compensate with latest IIR estimate" description="Compensate with latest IIR estimate"/>
+			<bitenum id="ACC" value="1" token="Compensate with latest accumulator estimate" description="Compensate with latest accumulator estimate"/>
+			<bitenum id="MANUAL" value="2" token="Use programmable manual value from register bank. (Note: an input register is not implemented, so the manual compensation value is tied to '0')" description="Use programmable manual value from register bank. (Note: an input register is not implemented, so the manual compensation value is tied to '0')"/>
+		</bitfield>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Select which estimator to show as readable output" id="FINEFOESEL" resetval="0">
+			<bitenum id="IIR" value="0" token="Latest IIR estimate" description="Latest IIR estimate"/>
+			<bitenum id="ACC" value="1" token="Latest accumulator estimate" description="Latest accumulator estimate"/>
+		</bitfield>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMMAFI0" id="demmafi0" width="32" description="Demodulator Matched Filter Register 0" offset="0xd8">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient c0 (and c8)" id="C0C8" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient c1 (and c7)" id="C1C7" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMMAFI1" id="demmafi1" width="32" description="Demodulator Matched Filter Register 1" offset="0xdc">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Filter coefficient c2 (and c6)" id="C2C6" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Filter coefficient c3 (and c5)" id="C3C5" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMMAFI2" id="demmafi2" width="32" description="Demodulator Matched Filter Register 2" offset="0xe0">
+		<bitfield width="9" end="0" begin="8" rwaccess="RW" description="Filter coefficient c4. The matched filter will have unity gain when the sum of all coefficients c0 to c8 equals 512." id="C4" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMMAFI3" id="demmafi3" width="32" description="Demodulator Matched Filter Register 3" offset="0xe4">
+		<bitfield width="9" end="0" begin="8" rwaccess="RW" description="Output level adjustment. Adjusting LSB of k will adjust LSB of matched filter output accordingly." id="K" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BE0" id="demc1be0" width="32" description="Demodulator Correlator 1-bit Engine Register 0" offset="0xe8">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Control auto copy of contents from corr A to corr B" id="COPYCONF" resetval="0"/>
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="Correlator cascade configuration" id="CASCCONF" resetval="0">
+			<bitenum id="SINGLE" value="0" token="Correlator B not used" description="Correlator B not used"/>
+			<bitenum id="SERIAL" value="1" token="Connect correlators in series (A -&gt; B)" description="Connect correlators in series (A -&gt; B)"/>
+			<bitenum id="PARALLEL" value="2" token="Connect correlators in parallel" description="Connect correlators in parallel"/>
+		</bitfield>
+		<bitfield width="5" end="6" begin="10" rwaccess="RW" description="Mask for correlator A to select the correlator length to use. The number specifies number of nibbles (i.e. 4-bit block, which typically corresponds to one symbol) of the correlator holding the oldest samples that will be ignored in computations. When set to zero, the full 128 sample (=32 symbol) correlator length will be used." id="MASKA" resetval="0"/>
+		<bitfield width="5" end="11" begin="15" rwaccess="RW" description="Mask for correlator B to select the correlator length to use. The number specifies number of nibbles (i.e. 4-bit block, which typically corresponds to one symbol) of the correlator holding the oldest samples that will be ignored in computations. When set to zero, the full 128 sample (=32 symbol) correlator length will be used." id="MASKB" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BE1" id="demc1be1" width="32" description="Demodulator Correlator 1-bit Engine Register 1" offset="0xec">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Correlation threshold value for correlator A" id="THRESHOLDA" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Correlation threshold value for correlator B" id="THRESHOLDB" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BE2" id="demc1be2" width="32" description="Demodulator Correlator 1-bit Engine Register 2" offset="0xf0">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Correlation threshold value for correlator C (corr C is A+B concatenated)" id="THRESHOLDC" resetval="0"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="Configuration to control peak event generation (applies to correlators A, B, D, E)" id="PEAKCONF" resetval="0">
+			<bitenum id="THRESH" value="0" token="Trigger peak event on all peaks above threshold" description="Trigger peak event on all peaks above threshold"/>
+			<bitenum id="BEST" value="1" token="Trigger peak event only if peak is highest in correlator since search start" description="Trigger peak event only if peak is highest in correlator since search start"/>
+			<bitenum id="BESTAB" value="2" token="Trigger peak event for combined highest peak search for corr &quot;A and B&quot; and &quot;D and E&quot; in pairs" description="Trigger peak event for combined highest peak search for corr &quot;A and B&quot; and &quot;D and E&quot; in pairs"/>
+		</bitfield>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BE10" id="demc1be10" width="32" description="Demodulator Correlator 1-bit Engine Control" offset="0xf4">
+		<bitfield width="2" end="13" begin="14" rwaccess="RW" description="Configuration to control peak event generation for correlator C" id="PEAKCONF_C" resetval="0">
+			<bitenum id="THRESH" value="0" token="Trigger peak event on all peaks above threshold" description="Trigger peak event on all peaks above threshold"/>
+			<bitenum id="BEST" value="1" token="Trigger peak event only if peak is highest in correlator since search start" description="Trigger peak event only if peak is highest in correlator since search start"/>
+			<bitenum id="BESTAB" value="2" token="Trigger peak event for combined highest peak search for corr C and F" description="Trigger peak event for combined highest peak search for corr C and F"/>
+		</bitfield>
+		<bitfield width="17" end="15" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED0" resetval="0x0"/>
+	</register>
+	<register acronym="MDMSYNC0" id="mdmsync0" width="32" description="Modem Sync Word Register 0" offset="0xf8">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Sync word A bits 15:0. Sync words shorter than 32 bits must be stored as most signicant bits of sync word A. The sync word is expected to be transmitted/received in lsb to msb order." id="SWA15C0" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMSYNC1" id="mdmsync1" width="32" description="Modem Sync Word Register 1" offset="0xfc">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Sync word A bits 31:16. Sync words shorter than 32 bits must be stored as most significant bits of sync word A. The sync word is expected to be transmitted/received in lsb to msb order." id="SWA31C16" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMSYNC2" id="mdmsync2" width="32" description="Modem Sync Word Register 2" offset="0x100">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Sync word B bits 15:0. Sync words shorter than 32 bits must be stored as most significant bits of sync word B. The sync word is expected to be transmitted/received in lsb to msb order." id="SWB15C0" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MDMSYNC3" id="mdmsync3" width="32" description="Modem Sync Word Register 3" offset="0x104">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Sync word B bits 31:16. Sync words shorter than 32 bits must be stored as most significant bits of sync word B. The sync word is expected to be transmitted/received in lsb to msb order." id="SWB31C16" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMSWQU0" id="demswqu0" width="32" description="Demodulator Sync Word Qualifier Register 0" offset="0x108">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="Bit length of sync word qualifier reference vector, constituted by (reflen + 1) most significant bits of sync word A and/or B." id="REFLEN" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Start/stop sync word qualifier" id="RUN" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Let sync word qualifier automatically control the manual frequency offset compensation (MAFC) block when it is running" id="AUTOMAFC" resetval="0">
+			<bitenum id="DIS" value="0" token="Keep manual control over MAFC" description="Keep manual control over MAFC"/>
+			<bitenum id="EN" value="1" token="Give control to sync word qualifier" description="Give control to sync word qualifier"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="0: Search for A and B in parallell" id="SYNC_MODE" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BEREF0" id="demc1beref0" width="32" description="Correlator reference register 0" offset="0x10c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Corr A reference bits 15:0." id="CAR15C0" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BEREF1" id="demc1beref1" width="32" description="Correlator reference register 1" offset="0x110">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Corr A reference bits 31:16" id="CAR31C16" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BEREF2" id="demc1beref2" width="32" description="Correlator reference register 2" offset="0x114">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Corr B reference bits 15:0." id="CBR15C0" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMC1BEREF3" id="demc1beref3" width="32" description="Correlator reference register 3" offset="0x118">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Corr B reference bits 31:16" id="CBR31C16" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MODCTRL" id="modctrl" width="32" description="Dynamic Modem Control Signals from MCE" offset="0x11c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Inserts preamble" id="PREAMBLEINSERT" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Inserts a tone" id="TONEINSERT" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Goes into termination mode in 5Mbps TX FEC" id="FEC5TERMINATE" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Global FEC modes enable" id="FECENABLE" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Enable SOFT TX mode, controlled via MODSOFTTX" id="SOFTTXENABLE" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Enable Soft PDIFF mode for RX" id="SOFTPDIFFMODE" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Set the C1BE in special early/late mode" id="EARLYLATE" resetval="0"/>
+		<bitfield width="2" end="7" begin="8" rwaccess="RW" description="Controls STIM module for early/late modes" id="STIMEARLYLATE" resetval="0">
+			<bitenum id="NORMAL" value="0" token="Normal Mode" description="Normal Mode"/>
+			<bitenum id="LATE" value="1" token="STIM starts late" description="STIM starts late"/>
+			<bitenum id="EARLY" value="2" token="STIM starts early" description="STIM starts early"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable Parallel Bit Qualifier (read DEMC1BEA)" id="PARBITQUALEN" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="RW" description="Enable Hilbert discriminator mode for data descicion" id="HDISMODE" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Select DSBU input source" id="DSBUSEL" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="Collision restart for CDC FIFO" id="CDC_COL_RESTART" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="MODPREAMBLE" id="modpreamble" width="32" description="Dynamic Modulator Preamble Register" offset="0x120">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="16 bit preamble word pattern. The LSB is transmitted first." id="WORD" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMFIDC1" id="demfidc1" width="32" description="Demodulator Fine DC Offset Estimator Register 1" offset="0x124">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Compensation value for I path" id="COMPIVAL" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMFIDC2" id="demfidc2" width="32" description="Demodulator Fine DC Offset Estimator Register 2" offset="0x128">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Compensation value for Q path" id="COMPQVAL" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMFIFE1" id="demfife1" width="32" description="Demodulator Fine Frequency Offset Estimator Register 1" offset="0x12c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Value for feed-back compensation point (signed)" id="FOCFBREGVAL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>
+	</register>
+	<register acronym="DEMMAFC0" id="demmafc0" width="32" description="Demodulator Manual Frequency Compensation Register 0" offset="0x130">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Value for manual compensation (signed)" id="COMPVAL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMMAFI4" id="demmafi4" width="32" description="Demodulator Matched Filter Register 4" offset="0x134">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Input value to terminate matched filter with. Writing to this register triggers the termination." id="TERM_VAL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMSWIMBAL" id="demswimbal" width="32" description="Demodulator Sync Word DC Imbalance Register" offset="0x138">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="DC imbalance in sync word A, applied via SWQU upon C1BE correlator B peak event" id="IMBALA" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="DC imbalance in sync word B, applied via SWQU upon C1BE correlator A peak event" id="IMBALB" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="DEMSOFTPDIFF" id="demsoftpdiff" width="32" description="Demodulator Soft PDIFF Value Register" offset="0x13c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Replaces PDIFF output when in Soft PDIFF Mode. Can be used for manually feeding samples (e.g. on-off-keying (OOK) samples from RFE) into the demodulator decode stage." id="SOFTPDIFF" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMDEBUG" id="demdebug" width="32" description="Demodulator Debug Register" offset="0x140">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enables loopback mode" id="LOOPBACKMODE" resetval="0"/>
+		<bitfield width="4" end="1" begin="4" rwaccess="RW" description="Selects which front-end stage signal source to dump for AoA via DEM-S2R module.
+The front-end stage samples are signed 16-bit samples from both I and Q signal path, packed together into 32-bit words with the I sample as the 16 MSB and Q sample as the 16 LSB.
+   0000 : NOSEL   : No source selected
+   0001 : BDE2     : Dump BDE2 output samples
+   0010 : CHFI       : Dump CHFI output samples
+   0011 : FIDC       : Dump FIDC output samples" id="FRONTENDDEBUG" resetval="0">
+			<bitenum id="NOSEL" value="0" token="No source selected" description="No source selected"/>
+			<bitenum id="FELP" value="1" token="Dump FELP output samples" description="Dump FELP output samples"/>
+			<bitenum id="IQMC" value="2" token="Dump IQMC output samples" description="Dump IQMC output samples"/>
+			<bitenum id="BDE1" value="3" token="Dump BDE1 output samples" description="Dump BDE1 output samples"/>
+			<bitenum id="FEXB2" value="4" token="Dump FEXB output #2 samples, as selected by DEMFEXB0.OUT2SRCSEL register" description="Dump FEXB output #2 samples, as selected by DEMFEXB0.OUT2SRCSEL register"/>
+			<bitenum id="BDE2" value="5" token="Dump BDE2 output samples" description="Dump BDE2 output samples"/>
+			<bitenum id="CHFI" value="6" token="Dump CHFI output samples" description="Dump CHFI output samples"/>
+			<bitenum id="FRAC" value="7" token="Dump FRAC output samples" description="Dump FRAC output samples"/>
+			<bitenum id="TRIGGER" value="8" token="The most significant bit is used as manual event trigger to start a new sample capture via S2R module when RFC_S2R:S2RCFG.TRIGGERMODE is set to trigger-on-event and the S2R module has been armed via RFC_S2R:S2RCFG.TRIGGER bit." description="The most significant bit is used as manual event trigger to start a new sample capture via S2R module when RFC_S2R:S2RCFG.TRIGGERMODE is set to trigger-on-event and the S2R module has been armed via RFC_S2R:S2RCFG.TRIGGER bit."/>
+		</bitfield>
+		<bitfield width="4" end="5" begin="8" rwaccess="RW" description="Selects which decode stage signal source to dump for debugging via S2R module. The decode stage samples are signed 8-bit samples, packed into 32-bit words with the oldest sample as the most significant byte." id="DECSTAGEDEBUG" resetval="0">
+			<bitenum id="NOSEL" value="0" token="No source selected" description="No source selected"/>
+			<bitenum id="PDIF" value="1" token="Dump PDIF output samples" description="Dump PDIF output samples"/>
+			<bitenum id="MAFI" value="2" token="Dump MAFI output samples" description="Dump MAFI output samples"/>
+			<bitenum id="STIM" value="3" token="Dump STIM output samples" description="Dump STIM output samples"/>
+			<bitenum id="MAFC" value="4" token="Dump MAFC output samples" description="Dump MAFC output samples"/>
+			<bitenum id="C1BE" value="5" token="Dump C1BE correlator A value (truncated to 8 LSBs only, may overflow if correlator value is +128)." description="Dump C1BE correlator A value (truncated to 8 LSBs only, may overflow if correlator value is +128)."/>
+			<bitenum id="SOFD" value="6" token="Dump SOFD output samples" description="Dump SOFD output samples"/>
+			<bitenum id="TRIGGER" value="8" token="The most significant bit is used as manual event trigger to start a new sample capture via S2R module when RFC_S2R:S2RCFG.TRIGGERMODE is set to trigger-on-event and the S2R module has been armed via RFC_S2R:S2RCFG.TRIGGER bit." description="The most significant bit is used as manual event trigger to start a new sample capture via S2R module when RFC_S2R:S2RCFG.TRIGGERMODE is set to trigger-on-event and the S2R module has been armed via RFC_S2R:S2RCFG.TRIGGER bit."/>
+		</bitfield>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0"/>
+	</register>
+	<register acronym="VITCTRL" id="vitctrl" width="32" description="Viterbi Control Register" offset="0x144">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable Soft Metrics" id="SOFTMETRICS" resetval="0">
+			<bitenum id="HW" value="0" token="Use HW metrics as defined by [VITCTRL.metrsel] bits" description="Use HW metrics as defined by [VITCTRL.metrsel] bits"/>
+			<bitenum id="SOFT" value="1" token="Use soft Metrics (register based)" description="Use soft Metrics (register based)"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Number of iterations per ACS element" id="ACSITERATIONS" resetval="0">
+			<bitenum id="CODE12" value="0" token="2 iterations per ACS (2 branches, 1/2 codes)" description="2 iterations per ACS (2 branches, 1/2 codes)"/>
+			<bitenum id="CODE23" value="1" token="4 iterations per ACS (4 branches, 2/3 codes)" description="4 iterations per ACS (4 branches, 2/3 codes)"/>
+		</bitfield>
+		<bitfield width="4" end="2" begin="5" rwaccess="RW" description="Selects the APM to read back via VITAPMRDBACK register" id="APMRDBACKSEL" resetval="0">
+			<bitenum id="NOSEL" value="0" token="No selection" description="No selection"/>
+			<bitenum id="APM2" value="10" token="View APM 2" description="View APM 2"/>
+			<bitenum id="APM3" value="11" token="View APM 3" description="View APM 3"/>
+			<bitenum id="APM4" value="12" token="View APM 4" description="View APM 4"/>
+			<bitenum id="APM5" value="13" token="View APM 5" description="View APM 5"/>
+			<bitenum id="APM6" value="14" token="View APM 6" description="View APM 6"/>
+			<bitenum id="APM7" value="15" token="View APM 7" description="View APM 7"/>
+			<bitenum id="APM0" value="8" token="View APM 0" description="View APM 0"/>
+			<bitenum id="APM1" value="9" token="View APM 1" description="View APM 1"/>
+		</bitfield>
+		<bitfield width="4" end="6" begin="9" rwaccess="RW" description="Depth of the REA algorithm" id="READEPTH" resetval="0"/>
+		<bitfield width="2" end="10" begin="11" rwaccess="RW" description="Selects which HW module is connected to viterbi decoder" id="METRSEL" resetval="0">
+			<bitenum id="MET5M" value="0" token="Use 5Mbps Metrics" description="Use 5Mbps Metrics"/>
+			<bitenum id="PHAC" value="1" token="Use PHAC Metrics" description="Use PHAC Metrics"/>
+			<bitenum id="SOFD" value="2" token="Use SOFD Metrics" description="Use SOFD Metrics"/>
+			<bitenum id="MLSE" value="3" token="Use MLSE Metrics" description="Use MLSE Metrics"/>
+		</bitfield>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITCOMPUTE" id="vitcompute" width="32" description="Viterbi Compute Register
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x148">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Initiates a compute cycle" id="COMPUTE" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="VITAPMRDBACK" id="vitapmrdback" width="32" description="Viterbi APM Readback Register" offset="0x14c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="APM for element i (selected in VITCTRL register)" id="VALUE" resetval="0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0"/>
+	</register>
+	<register acronym="VITSTATE" id="vitstate" width="32" description="Viterbi State Register" offset="0x150">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="Current Winning State" id="VALUE" resetval="0"/>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0"/>
+	</register>
+	<register acronym="VITBRMETRIC10" id="vitbrmetric10" width="32" description="Viterbi Branch Metric 1 and 0 Register" offset="0x154">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Branch Metric 0" id="MET0" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Branch Metric 1" id="MET1" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="VITBRMETRIC32" id="vitbrmetric32" width="32" description="Viterbi Branch Metric 3 and 2 Register" offset="0x158">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Branch Metric 2" id="MET2" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Branch Metric 3" id="MET3" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="VITBRMETRIC54" id="vitbrmetric54" width="32" description="Viterbi Branch Metric 5 and 4 Register" offset="0x15c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Branch Metric 4" id="MET4" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Branch Metric 5" id="MET5" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="VITBRMETRIC76" id="vitbrmetric76" width="32" description="Viterbi Branch Metric 7 and 6 Register" offset="0x160">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Branch Metric 6" id="MET6" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Branch Metric 7" id="MET7" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL0" id="vitbrsel0" width="32" description="Viterbi Branch Select Register 0" offset="0x164">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 0, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 0, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 0, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 0, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL0" id="vitapmsel0" width="32" description="Viterbi APM Select Register 0" offset="0x168">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 0, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 0, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 0, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 0, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL1" id="vitbrsel1" width="32" description="Viterbi Branch Select Register 1" offset="0x16c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 1, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 1, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 1, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 1, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL1" id="vitapmsel1" width="32" description="Viterbi APM Select Register 1" offset="0x170">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 1, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 1, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 1, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 1, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL2" id="vitbrsel2" width="32" description="Viterbi Branch Select Register 2" offset="0x174">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 2, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 2, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 2, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 2, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL2" id="vitapmsel2" width="32" description="Viterbi APM Select Register 2" offset="0x178">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 2, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 2, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 2, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 2, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL3" id="vitbrsel3" width="32" description="Viterbi Branch Select Register 3" offset="0x17c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 3, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 3, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 3, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 3, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL3" id="vitapmsel3" width="32" description="Viterbi APM Select Register 3" offset="0x180">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 3, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 3, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 3, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 3, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL4" id="vitbrsel4" width="32" description="Viterbi Branch Select Register 4" offset="0x184">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 4, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 4, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 4, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 4, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL4" id="vitapmsel4" width="32" description="Viterbi APM Select Register 4" offset="0x188">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 4, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 4, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 4, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 4, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL5" id="vitbrsel5" width="32" description="Viterbi Branch Select Register 5" offset="0x18c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 5, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 5, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 5, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 5, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL5" id="vitapmsel5" width="32" description="Viterbi APM Select Register 5" offset="0x190">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 5, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 5, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 5, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 5, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL6" id="vitbrsel6" width="32" description="Viterbi Branch Select Register 6" offset="0x194">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 6, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 6, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 6, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 6, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL6" id="vitapmsel6" width="32" description="Viterbi APM Select Register 6" offset="0x198">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 6, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 6, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 6, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 6, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITBRSEL7" id="vitbrsel7" width="32" description="Viterbi Branch Select Register 7" offset="0x19c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 7, Branch Metric Mux 0" id="BR0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 7, Branch Metric Mux 1" id="BR1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 7, Branch Metric Mux 2" id="BR2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 7, Branch Metric Mux 3" id="BR3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="VITAPMSEL7" id="vitapmsel7" width="32" description="Viterbi APM Select Register 7" offset="0x1a0">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="ACS Element 7, Accumulated Path Metric Mux 0" id="APM0MUX" resetval="0"/>
+		<bitfield width="3" end="3" begin="5" rwaccess="RW" description="ACS Element 7, Accumulated Path Metric Mux 1" id="APM1MUX" resetval="0"/>
+		<bitfield width="3" end="6" begin="8" rwaccess="RW" description="ACS Element 7, Accumulated Path Metric Mux 2" id="APM2MUX" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="ACS Element 7, Accumulated Path Metric Mux 3" id="APM3MUX" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="TIMCTRL" id="timctrl" width="32" description="Modem Timer and Counter Control Register" offset="0x1a4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Enable 16-bit timer. It will generate a timer interrupt after TIMPERIOD timer ticks. Note that the internal timer value is not readable from the MCE. If this is needed the counter should be used instead of the timer." id="ENABLETIMER" resetval="0">
+			<bitenum id="DIS" value="0" token="Will disable timer and clear internal timer value" description="Will disable timer and clear internal timer value"/>
+			<bitenum id="EN" value="1" token="Will enable timer" description="Will enable timer"/>
+		</bitfield>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="Select timer tick source for timer" id="TIMERSOURCE" resetval="0">
+			<bitenum id="CLK" value="0" token="Clock" description="Clock"/>
+			<bitenum id="CLKBAUD" value="1" token="Baud" description="Baud"/>
+			<bitenum id="CLK4BAUD" value="2" token="4xBaud" description="4xBaud"/>
+			<bitenum id="CLK4BAUDF" value="3" token="4xBaud flushed" description="4xBaud flushed"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Enable 16-bit counter when set to 1. The counter will continue from its current value." id="ENABLECOUNTER" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Clear counter value in TIMCOUNTER to zero when this bit is set to 1." id="CLEARCOUNTER" resetval="0"/>
+		<bitfield width="2" end="5" begin="6" rwaccess="RW" description="Select event source for counter" id="COUNTERSOURCE" resetval="0">
+			<bitenum id="CLK" value="0" token="Use clock" description="Use clock"/>
+			<bitenum id="CLKBAUD" value="1" token="Use baud event" description="Use baud event"/>
+			<bitenum id="CLK4BAUD" value="2" token="Use 4xBaud event" description="Use 4xBaud event"/>
+			<bitenum id="CLK4BAUDF" value="3" token="Use 4xBaud flushed event" description="Use 4xBaud flushed event"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Enable counter capture on event.  Upon a capture event, the counter value will be captured in TIMCAPT register." id="ENABLECAPTURE" resetval="0">
+			<bitenum id="DIS" value="0" token="Disable capture mode for counter" description="Disable capture mode for counter"/>
+			<bitenum id="EN" value="1" token="Enable capture mode for counter" description="Enable capture mode for counter"/>
+		</bitfield>
+		<bitfield width="6" end="8" begin="13" rwaccess="RW" description="Selects bit number from event bus for a counter capture. Event number in range 0 to 63." id="CAPTURESOURCE" resetval="0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED14" resetval="0"/>
+	</register>
+	<register acronym="TIMINC" id="timinc" width="32" description="Modem Counter Increment Configuration" offset="0x1a8">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Programmable counter increment. For each counter event: TIMCOUNTER = TIMCOUNTER + (TIMINC.INCUNIT + 1)." id="INCUNIT" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="TIMPERIOD" id="timperiod" width="32" description="Modem Timer/Counter Period Configuration" offset="0x1ac">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Configurable 16 bit period that can be used for either the timer or the counter. In timer context, when timer value reach the timer period (i.e. it expires) a TIMER_IRQ event will occur, and the timer will restart from zero (until the timer is manually disabled). In counter context, a COUNTER_IRQ event will occur when the counter is equal to or higher than the period value." id="PERIOD" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="TIMCOUNTER" id="timcounter" width="32" description="Modem Counter Value" offset="0x1b0">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="16 bit counter value that can be read by the MCE." id="VALUE" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="TIMCAPT" id="timcapt" width="32" description="Modem Counter Capture Value" offset="0x1b4">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Captured value of counter" id="VALUE" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="TIMEBASE" id="timebase" width="32" description="Modem Timebase Control Register
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x1b8">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Starts a flushing process" id="FLUSH" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="COUNT1IN" id="count1in" width="32" description="Local Count Ones Input Register" offset="0x1bc">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Input data, which we shall find the number of 1's in" id="VAL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="COUNT1RES" id="count1res" width="32" description="Local Count Ones Result Register" offset="0x1c0">
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Number of 1's in the COUNT1IN register" id="COUNT" resetval="0"/>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0"/>
+	</register>
+	<register acronym="BRMACC0" id="brmacc0" width="32" description="Local Branch Metric Accelerator Register 0" offset="0x1c4">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Symbol 2nd (last, right one). Soft input symbol for calculating branch metrics of 1/2 rate codes. A saturated value of +/- 60 will be used in the calculations if the soft symbol exceeds this range." id="SYM2ND" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RW" description="Symbol 1st (first, left one). Soft input symbol for calculating branch metrics of 1/2 rate codes. A saturated value of +/- 60 will be used in the calculations if the soft symbol exceeds this range." id="SYM1ST" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="BRMACC1" id="brmacc1" width="32" description="Local Branch Metric Accelerator Module Register 1" offset="0x1c8">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Metric to 00 (-1 -1) symbol. Immediately calculated when BRMACC0 register is written." id="METRIC00" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Metric to 01 (-1 +1) symbol. Immediately calculated when BRMACC0 register is written." id="METRIC01" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="BRMACC2" id="brmacc2" width="32" description="Local Branch Metric Accelerator Module Register 2" offset="0x1cc">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Metric to 10 (+1 -1) symbol. Immediately calculated when BRMACC0 register is written." id="METRIC10" resetval="0"/>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Metric to 11 (+1 +1) symbol. Immediately calculated when BRMACC0 register is written." id="METRIC11" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="MCETRCSEND" id="mcetrcsend" width="32" description="MCE Tracer Send Trigger Register
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x1d0">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Sends a command to the tracer" id="SEND" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="MCETRCBUSY" id="mcetrcbusy" width="32" description="MCE Tracer Status Register" offset="0x1d4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Checks if the tracer is busy" id="BUSY" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="MCETRCCMD" id="mcetrccmd" width="32" description="MCE Tracer Command Register" offset="0x1d8">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Packet header" id="PKTHDR" resetval="0"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="Number of parameters" id="PARCNT" resetval="0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0"/>
+	</register>
+	<register acronym="MCETRCPAR0" id="mcetrcpar0" width="32" description="MCE Tracer Command Parameter Register 0" offset="0x1dc">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Parameter 0" id="PAR0" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="MCETRCPAR1" id="mcetrcpar1" width="32" description="MCE Tracer Command Parameter Register 1" offset="0x1e0">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Parameter 1" id="PAR1" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="RDCAPT0" id="rdcapt0" width="32" description="Modem Readback Capture Register - Each bit Capture a specific signal.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x1e4">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Capture read value into DEMCODC3 RC register" id="DEMCODC3" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Capture read value into DEMCODC4 RC register" id="DEMCODC4" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Capture read value into DEMDSBU0 RC register" id="DEMDSBU0" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Capture read value into DEMMGEX1 RC register" id="DEMMGEX1" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Capture read value into DEMMGEX2 RC register" id="DEMMGEX2" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Capture read value into DEMFIDC3 RC register" id="DEMFIDC3" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Capture read value into DEMFIDC4 RC register" id="DEMFIDC4" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Capture read value into DEMCA2P0 RC register" id="DEMCA2P0" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Capture read value into DEMPDIF0 RC register" id="DEMPDIF0" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Capture read value into DEMFIFE2 RC register" id="DEMFIFE2" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Capture read value into DEMSTIM0 RC register" id="DEMSTIM0" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Capture read value into DEMSTIM1 RC register" id="DEMSTIM1" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Capture read value into DEMLQIE0 RC register" id="DEMLQIE0" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Capture read value into DEMSOFD0 RC register" id="DEMSOFD0" resetval="0"/>
+		<bitfield width="1" end="14" begin="14" rwaccess="WO" description="Capture read values into DEMC1BE3, DEMC1BE4, DEMC1BE5, DEMC1BE6, DEMC1BE7, DEMC1BE8, DEMC1BE9, and DEMC1BEA RC registers" id="DEMC1BEX" resetval="0"/>
+		<bitfield width="1" end="15" begin="15" rwaccess="WO" description="Capture read value into DEMDSBU1 RC register" id="DEMDSBU1" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="DEMMGEX1" id="demmgex1" width="32" description="Demodulator Magnitude Estimator #1" offset="0x1e8">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="Magnitude estimate from estimator 1" id="MGE1ESTOUT" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMFIDC3" id="demfidc3" width="32" description="Demodulator Fine DC Estimator Register 3" offset="0x1ec">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="Fine DC estimate I channel" id="ESTOUTI" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMFIDC4" id="demfidc4" width="32" description="Demodulator Fine DC Estimator Register 4" offset="0x1f0">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="Fine DC estimate Q channel" id="ESTOUTQ" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMCA2P0" id="demca2p0" width="32" description="Demodulator Cartesian To Polar Register 0" offset="0x1f4">
+		<bitfield width="9" end="0" begin="8" rwaccess="RO" description="Phase of current sample" id="PHASE" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0"/>
+	</register>
+	<register acronym="DEMPDIF0" id="dempdif0" width="32" description="Demodulator Phase Differentiator Register 0" offset="0x1f8">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Instfreq of current samples" id="PDIFF" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BE3" id="demc1be3" width="32" description="Demodulator Correlator 1-bit Engine Register 3" offset="0x1fc">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Correlation calue correlator A" id="CORRVALUEA" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BE4" id="demc1be4" width="32" description="Demodulator Correlator 1-bit Engine Register 4" offset="0x200">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Correlation value correlator B" id="CORRVALUEB" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BE5" id="demc1be5" width="32" description="Demodulator Correlator 1-bit Engine Register 5" offset="0x204">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Correlation value combined correlator (corr C is corr A+B combined)" id="CORRVALUEC" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="DEMFIFE2" id="demfife2" width="32" description="Demodulator Fine Frequency Offset Estimator Register 2" offset="0x208">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Frequency offset estimate fine foc" id="FINEFOCEST" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMDSBU0" id="demdsbu0" width="32" description="Demodulator Dynamic Sample Buffer Register 0" offset="0x20c">
+		<bitfield width="9" end="0" begin="8" rwaccess="RO" description="Current read pointer of DSBU" id="RDPOUT" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0"/>
+	</register>
+	<register acronym="DEMDSBU1" id="demdsbu1" width="32" description="Demodulator Dynamic Sample Buffer Register 1" offset="0x210">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Current sum of samples between write and read pointers" id="AVGVAL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="DEMSTIM0" id="demstim0" width="32" description="Demodulator Symbol Timing Register 0" offset="0x214">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="Number of stall/advance events occured" id="EVENTS" resetval="0"/>
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0"/>
+	</register>
+	<register acronym="DEMSTIM1" id="demstim1" width="32" description="Demodulator Symbol Timing Register 1" offset="0x218">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Current fractional delay" id="DELTA" resetval="0"/>
+		<bitfield width="10" end="4" begin="13" rwaccess="RO" description="Timing error" id="GARDNERERROR" resetval="0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED14" resetval="0"/>
+	</register>
+	<register acronym="DEMSWQU1" id="demswqu1" width="32" description="Demodulator Sync Word Qualifier Register 1" offset="0x21c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Reads as '1' when the sync word specified by SWSEL has passed qualification, otherwise '0'. Note that the sync word qualification is only performed on MSB portion of the reference vector, as specified in DEMSWQU0.REFLEN register." id="SYNCED" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Shows which sync word had a peak event and was selected for sync word qualification test. This is to tell which sync word was detected when radio operates in receive mode with dual sync word search." id="SWSEL" resetval="0">
+			<bitenum id="A" value="0" token="The C1BE emitted a correlator A peak event and SWQU selected sync word A for qualification test (or no SWQU sync word test has been performed yet)" description="The C1BE emitted a correlator A peak event and SWQU selected sync word A for qualification test (or no SWQU sync word test has been performed yet)"/>
+			<bitenum id="B" value="1" token="The C1BE emitted a correlator B peak event and SWQU selected sync word B for qualification test" description="The C1BE emitted a correlator B peak event and SWQU selected sync word B for qualification test"/>
+		</bitfield>
+		<bitfield width="8" end="2" begin="9" rwaccess="RO" description="Frequency Offset value computed by SWQU" id="MAFCCOMPVAL" resetval="0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0"/>
+	</register>
+	<register acronym="DEMSOFD0" id="demsofd0" width="32" description="Demodulator Soft Decision Register 0" offset="0x220">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Soft symbol value" id="SOFTSYMBOL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="RDCAPT1" id="rdcapt1" width="32" description="Modem Readback Capture Register 2 - Each bit Capture a specific signal.
+Register type is WI (&quot;Write Impulse&quot;): Write generate 1-clock cycle pulse, Read 0." offset="0x224">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Capture read value into DEMFRAC5 RC register" id="DEMFRAC5" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Capture read value into DEMFRAC4 RC register" id="DEMFRAC4" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Capture read value into DEMCHFI1 RC register" id="DEMCHFI1" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="Capture read value into DEMCHFI0 RC register" id="DEMCHFI0" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="Capture read value into DEMBDEC1 RC register" id="DEMBDEC1" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="Capture read value into DEMBDEC0 RC register" id="DEMBDEC0" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Capture read value into DEMTHRD4 RC register" id="DEMTHRD4" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="Capture read value into DEMMLSEBIT RC register" id="DEMMLSEBIT" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Capture read value into DEMFIDC5 RC register" id="DEMFIDC5" resetval="0"/>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Capture read value into DEMMLSE4BITS RC register" id="DEMMLSE4BITS" resetval="0"/>
+		<bitfield width="1" end="10" begin="10" rwaccess="WO" description="Capture read value into DEMAFI5 RC register" id="DEMMAFI5" resetval="0"/>
+		<bitfield width="1" end="11" begin="11" rwaccess="WO" description="Capture read value into DEMPHAC8 and DEMPHAC9 registers" id="DEMPHAC" resetval="0"/>
+		<bitfield width="1" end="12" begin="12" rwaccess="WO" description="Capture read value into DEMFB2P2 registers" id="DEMFB2P2" resetval="0"/>
+		<bitfield width="1" end="13" begin="13" rwaccess="WO" description="Capture read value into DEMHDIS0 register" id="DEMHDIS0" resetval="0"/>
+		<bitfield width="18" end="14" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED14" resetval="0"/>
+	</register>
+	<register acronym="DEMMLSEBIT" id="demmlsebit" width="32" description="Demodulator Maximum Likelihood Sequence Estimation Register" offset="0x228">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="MLSE decoded output bit" id="MLSEBIT" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0"/>
+	</register>
+	<register acronym="DEMBDEC0" id="dembdec0" width="32" description="I signal after the BDEC module" offset="0x22c">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="13-bit I value" id="IVAL" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMBDEC1" id="dembdec1" width="32" description="Q signal after the BDEC module" offset="0x230">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="13-bit Q value" id="QVAL" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMCHFI0" id="demchfi0" width="32" description="I signal after the CHFI module" offset="0x234">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="13-bit I value" id="IVAL" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMCHFI1" id="demchfi1" width="32" description="Q signal after the CHFI module" offset="0x238">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="13-bit Q value" id="QVAL" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMFIDC5" id="demfidc5" width="32" description="Output of Fine DC (FIDC) Filter module" offset="0x23c">
+		<bitfield width="13" end="0" begin="12" rwaccess="RO" description="13-bit I value" id="IVAL" resetval="0"/>
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+	</register>
+	<register acronym="DEMMAFI5" id="demmafi5" width="32" description="Output of Matched Filter (MAFI)" offset="0x240">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="8-bit signed value" id="MAFIOUT" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BE6" id="demc1be6" width="32" description="Demodulator Correlator 1-bit Engine Register 6" offset="0x244">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="A Correlation Peak x[n-1] Sample" id="VAL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BE7" id="demc1be7" width="32" description="Demodulator Correlator 1-bit Engine Register 7" offset="0x248">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="A Correlation Peak x[n+1] Sample" id="VAL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BE8" id="demc1be8" width="32" description="Demodulator Correlator 1-bit Engine Register 8" offset="0x24c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="B Correlation Peak x[n-1] Sample" id="VAL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BE9" id="demc1be9" width="32" description="Demodulator Correlator 1-bit Engine Register 9" offset="0x250">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="B Correlation Peak x[n+1] Sample" id="VAL" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMC1BEA" id="demc1bea" width="32" description="Demodulator Correlator 1-bit Engine Register A" offset="0x254">
+		<bitfield width="6" end="0" begin="5" rwaccess="RO" description="Parallel Bit Qualifier for Correlator A" id="QUALA" resetval="0"/>
+		<bitfield width="6" end="6" begin="11" rwaccess="RO" description="Parallel Bit Qualifier for Correlator B" id="QUALB" resetval="0"/>
+		<bitfield width="20" end="12" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0"/>
+	</register>
+	<register acronym="MDMSPAR0" id="mdmspar0" width="32" description="Modem Spare 0" offset="0x258">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware" id="VAL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="MDMSPAR1" id="mdmspar1" width="32" description="Modem Spare 1" offset="0x25c">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware" id="VAL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="MDMSPAR2" id="mdmspar2" width="32" description="Modem Spare 2" offset="0x260">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware" id="VAL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="MDMSPAR3" id="mdmspar3" width="32" description="Modem Spare 3" offset="0x264">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Spare register for use by firmware" id="VAL" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0"/>
+	</register>
+	<register acronym="DEMSOFD1" id="demsofd1" width="32" description="Soft Decision 4x Samples" offset="0x268">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Soft x[0] (newest sample)" id="SOFTX0" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMSOFD2" id="demsofd2" width="32" description="Soft Decision 4x Samples" offset="0x26c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Soft x[1] (center left sample)" id="SOFTX1" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMSOFD3" id="demsofd3" width="32" description="Soft Decision 4x Samples" offset="0x270">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Soft x[2] (center right sample)" id="SOFTX2" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMSOFD4" id="demsofd4" width="32" description="Soft Decision 4x Samples" offset="0x274">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Soft x[3] (oldest sample)" id="SOFTX3" resetval="0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0"/>
+	</register>
+	<register acronym="DEMDSBU3" id="demdsbu3" width="32" description="Demodulator Dynamic Sample Buffer Register 0" offset="0x278">
+		<bitfield width="9" end="0" begin="8" rwaccess="RO" description="Current write pointer of DSBU" id="WRPOUT" resetval="0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0"/>
+	</register>
+	<register acronym="DEMS2RCFG" id="dems2rcfg" width="32" description="DEC-S2R Main CFG Register" offset="0x27c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="DEMS2R module enable (Connect to the RAM-Sel Mux in destination)." id="ENABLED" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="DEC-S2R - Enable for IRQ when ADDR  Counter Is on SPECIFIC ADDR (dems2raddrirq)" id="ADDRIRQENABLE" resetval="0"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0x0"/>
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="DEC-S2R Trigger mode:
+   00 : ONESHOT  : One shot mode, i.e. fill memory area once, from start to stop address, upon a manual trigger.
+   01 : PERIODIC : Periodic mode, i.e. fill memory area periodically, continuing at the start address after reaching the stop address, upon a manual trigger.
+   10 : ONEVENT  : Trigger on event, i.e. fill memory area once, but wait for an event from the selected sample source.
+   11 : RESERVED : Reserved" id="TRIGGERMODE" resetval="0x0"/>
+	</register>
+	<register acronym="DEMS2RTRIGGER" id="dems2rtrigger" width="32" description="DEC-S2R Trigger Register" offset="0x280">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="TDEC-S2R Trigger a new sample capture.
+(or arm it if the trigger mode is trigger on event)" id="TRIGGER" resetval="0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0x0"/>
+	</register>
+	<register acronym="DEMS2RADDRSTART" id="dems2raddrstart" width="32" description="DEC-S2R Start Addr Register" offset="0x284">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="DEC-S2R - Memory start address for where to dump the samples." id="ADDRSTART" resetval="0x0000"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="DEMS2RADDRSTOP" id="dems2raddrstop" width="32" description="DEC-S2R Stop Addr Register" offset="0x288">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="DEC-S2R - Memory stop address for where to dump the samples." id="ADDRSTOP" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="DEMS2RADDRIRQ" id="dems2raddrirq" width="32" description="DEC-S2R Addr IRQ Register" offset="0x28c">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0"/>
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="DEC-S2R - ADDR Pointer for generate IRQ when the ADDR  Counter Is on This SPECIFIC ADDR (when dems2raddrirqenable)" id="ADDRIRQ" resetval="0x0000"/>
+	</register>
+	<register acronym="DEMS2RSTAT" id="dems2rstat" width="32" description="DEC-S2R Status Register" offset="0x290">
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="DEMS2R - ADDR Counter Is Now on ADDR IRQ (send Event to MCE/CPE)" id="ISADDRIRQ" resetval="0"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="DEC-S2R running status" id="RUNNING" resetval="0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0x0"/>
+	</register>
+	<register acronym="DEMS2RADDRCNT" id="dems2raddrcnt" width="32" description="DEC-S2R Addr CNT Status Register" offset="0x294">
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="DEMS2R Current address counter value" id="ADDRCNT" resetval="0xffff"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0"/>
+	</register>
+	<register acronym="MCEGPO0" id="mcegpo0" width="32" description="Control of the MCE GPO signals" offset="0x298">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Direct control of MCE_GPO(0) when [MCEGPO0.fwctrl] = 1, otherwise Modulator Output Symbol Sign" id="GPO0" resetval="0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Direct control of MCE_GPO(1) when [MCEGPO0.fwctrl] = 1, otherwise Demodulator Transparent Output bit" id="GPO1" resetval="0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Direct control of MCE_GPO(2) when [MCEGPO0.fwctrl] = 1, otherwise Demodulator Output Word bit" id="GPO2" resetval="0"/>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Direct control of MCE_GPO(3) when [MCEGPO0.fwctrl] = 1, otherwise Demodulator Output Word pulse" id="GPO3" resetval="0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable firmware control of MCE_GPO signals." id="FWCTRL" resetval="0"/>
+		<bitfield width="3" end="9" begin="11" rwaccess="RW" description="Configure clock mux" id="HWCLKMUX" resetval="0"/>
+		<bitfield width="2" end="12" begin="13" rwaccess="RW" description="Configure clock stretch" id="HWCLKSTRETCH" resetval="0"/>
+		<bitfield width="2" end="14" begin="15" rwaccess="RW" description="Configure data mux" id="HWDATAMUX" resetval="0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED13" resetval="0"/>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Direct FW/MCE control of MCE_GPO(4)" id="GPO4" resetval="0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Direct MCE/FW control of MCE_GPO(5)" id="GPO5" resetval="0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Direct MCE/FW control of MCE_GPO(6)" id="GPO6" resetval="0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Direct MCE/FW control of MCE_GPO(7)" id="GPO7" resetval="0"/>
+	</register>
+	<register acronym="MCEPCSTAT" id="mcepcstat" width="32" description="MCE TOPSM_PC Status Register" offset="0x29c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RO" description="Current MCE TOP-SM PC address value" id="TOPSM_PC_STAT" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0"/>
+	</register>
+</module>

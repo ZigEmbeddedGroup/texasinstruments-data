@@ -27,13 +27,7 @@ Control Register
          <bitenum id="ROMID" value="1" token="Assert" description="Assert"/>
          <bitenum id="APPID" value="0" token="Dassert" description="Dassert"/>
       </bitfield>
-      <bitfield range="" begin="29" width="20" end="10" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Force Reset.Asserts reset. This bit is not self clearing" id="FRST" resetval="0x0">
-         <bitenum id="ASRT" value="1" token="Assert" description="Assert"/>
-         <bitenum id="DASRT" value="0" token="Dassert" description="Dassert"/>
-      </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x0">
+      <bitfield range="" begin="29" width="22" end="8" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Refresher Marker. Trigger writting refresh marker. This bit is auto cleared when programming is done" id="REFMARK" resetval="0x0">
          <bitenum id="TRG" value="1" token="Trigger/Busy" description="Trigger/Busy"/>
@@ -59,11 +53,7 @@ Control Register
       <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="PKA Abort. Writing 1 to this bit requests PKA Abort, writing 0 has no effect" id="PKABORT" resetval="0x0">
          <bitenum id="REQ" value="1" token="Request PKA Abort" description="Request PKA Abort"/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Soft Reset Request. Writing 1 to this bit requests soft reset, writing 0 has no effect. This bit autoclears once softreset is done" id="SWRST" resetval="0x0">
-         <bitenum id="REQ" value="1" token="Request Reset" description="Request Reset"/>
-         <bitenum id="DONE" value="0" token="Reset Done" description="Reset Done"/>
+      <bitfield range="" begin="1" width="2" end="0" rwaccess="RW" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED0" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CHARCTL" width="32" description="
@@ -86,6 +76,22 @@ Characterization Controls for FRO
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Enables` characterization" id="EN" resetval="0x0">
          <bitenum id="EN" value="1" token="Enabled" description="Enabled"/>
          <bitenum id="DIS" value="0" token="Disabled" description="Disabled"/>
+      </bitfield>
+   </register>
+   <register acronym="BIST" width="32" description="
+BIST Controls and Status for CRNG
+" id="BIST" offset="0xc">
+      <bitfield range="" begin="31" width="13" end="19" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED19" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="18" width="1" end="18" rwaccess="RO" description="CRNG BIST ready. When 1, BIST and health checks are complete" id="RDY" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="17" width="1" end="17" rwaccess="RO" description="CRNG BIST Complete. When 1, BIST checks are done" id="CMPLT" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="16" width="1" end="16" rwaccess="RO" description="CRNG BIST Error. When 1, BIST failed" id="ERR" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="15" width="15" end="1" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="CRNG BIST Restart. When 1, starts BIST sequence. Ignored when BIST.RDY = 0" id="RSTRT" resetval="0x0">
       </bitfield>
    </register>
 </module>

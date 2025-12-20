@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="BTIM0" HW_revision="1.0">
+    <register id="BTIM0_FSUB_0" width="32" offset="0x400" description="Subscriber Configuration Register.">
+        <bitfield id="CHANID" description="0 = disconnected.
+1-15 = connected to channelID = CHANID." begin="3" end="0" width="4" rwaccess="R/W">
+            <bitenum id="MNIMUM" value="0x0" description="0 is an allowed value, signifying that the event is unconnected"/>
+            <bitenum id="UNCONNECTED" value="0x0" description="A value of 0 specifies that the event is not connected"/>
+            <bitenum id="MAXIMUM" value="0xF" description="Consult your device datasheet as the actual allowed maximum may be less than 255."/>
+        </bitfield>
+    </register>
+    <register id="BTIM0_FPUB_0" width="32" offset="0x444" description="Publisher Port 0">
+        <bitfield id="CHANID" description="0 = disconnected.
+1-15 = connected to channelID = CHANID." begin="3" end="0" width="4" rwaccess="R/W">
+            <bitenum id="MNIMUM" value="0x0" description="0 is an allowed value, signifying that the event is unconnected"/>
+            <bitenum id="UNCONNECTED" value="0x0" description="A value of 0 specifies that the event is not connected"/>
+            <bitenum id="MAXIMUM" value="0xF" description="Consult your device datasheet as the actual allowed maximum may be less than 15."/>
+        </bitfield>
+    </register>
+    <group id="BTIM0_GPRCM" name="BTIM0_GPRCM" instances="1" offset="0x800" instaddr="0x100" description="">
+        <register id="BTIM0_PWREN" width="32" offset="0x0" description="Power enable">
+            <bitfield id="ENABLE" description="Enable the power" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="Disable Power"/>
+                <bitenum id="ENABLE" value="0x1" description="Enable Power"/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_RSTCTL" width="32" offset="0x4" description="Reset Control">
+            <bitfield id="RESETSTKYCLR" description="Clear the RESETSTKY bit in the STAT register" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NOP" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear reset sticky bit"/>
+            </bitfield>
+            <bitfield id="RESETASSERT" description="Assert reset to the peripheral" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NOP" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="ASSERT" value="0x1" description="Assert reset"/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_STAT" width="32" offset="0x14" description="Status Register">
+            <bitfield id="RESETSTKY" description="This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register" begin="16" end="16" width="1" rwaccess="R">
+                <bitenum id="NORES" value="0x0" description="The peripheral has not been reset since this bit was last cleared by RESETSTKYCLR in the RSTCTL register"/>
+                <bitenum id="RESET" value="0x1" description="The peripheral was reset since the last bit clear"/>
+            </bitfield>
+        </register>
+        </group>
+    <register id="BTIM0_PDBGCTL" width="32" offset="0x1018" description="Peripheral Debug Control">
+        <bitfield id="FREE" description="Free run control" begin="0" end="0" width="1" rwaccess="R/W">
+            <bitenum id="STOP" value="0x0" description="The peripheral freezes functionality while the Core Halted input is asserted and resumes when it is deasserted."/>
+            <bitenum id="RUN" value="0x1" description="The peripheral ignores the state of the Core Halted input"/>
+        </bitfield>
+        <bitfield id="SOFT" description="Soft halt boundary control. This function is only available, if [FREE] is set to 'STOP'" begin="1" end="1" width="1" rwaccess="R/W">
+            <bitenum id="IMMEDIATE" value="0x0" description="The peripheral will halt immediately, even if the resultant state will result in corruption if the system is restarted"/>
+            <bitenum id="DELAYED" value="0x1" description="The peripheral blocks the debug freeze until it has reached a boundary where it can resume without corruption"/>
+        </bitfield>
+    </register>
+    <group id="BTIM0_CPU_INT" name="BTIM0_CPU_INT" instances="1" offset="0x1020" instaddr="0x30" description="">
+        <register id="BTIM0_CPU_INT_IIDX" width="32" offset="0x0" description="Interrupt index">
+            <bitfield id="STAT" description="Interrupt index status" begin="9" end="0" width="10" rwaccess="R">
+                <bitenum id="NO_INTR" value="0x0" description="No bit is set means there is no pending interrupt request"/>
+                <bitenum id="CNT0OVF" value="0x1" description="Counter0 period match  interrupt"/>
+                <bitenum id="CNT0STRT" value="0x2" description="Counter 0 start"/>
+                <bitenum id="CNT0STOP" value="0x3" description="Counter0 stop"/>
+                <bitenum id="CNT1OVF" value="0x4" description="Counter1 period match  interrupt"/>
+                <bitenum id="CNT1STRT" value="0x5" description="Counter 1 start"/>
+                <bitenum id="CNT1STOP" value="0x6" description="Counter1 stop"/>
+                <bitenum id="CNT2OVF" value="0x7" description="Counter2 period match  interrupt"/>
+                <bitenum id="CNT2STRT" value="0x8" description="Counter 2 start"/>
+                <bitenum id="CNT2STOP" value="0x9" description="Counter2 stop"/>
+                <bitenum id="CNT3OVF" value="0xA" description="Counter3 period match  interrupt"/>
+                <bitenum id="CNT3STRT" value="0xB" description="Counter 3 start"/>
+                <bitenum id="CNT3STOP" value="0xC" description="Counter3 stop"/>
+                <bitenum id="CNT4OVF" value="0xD" description="Counter4 period match  interrupt"/>
+                <bitenum id="CNT4STRT" value="0xE" description="Counter 4 start"/>
+                <bitenum id="CNT4STOP" value="0xF" description="Counter4 stop"/>
+                <bitenum id="CNT5OVF" value="0x10" description="Counter5 period match  interrupt"/>
+                <bitenum id="CNT5STRT" value="0x11" description="Counter 5 start"/>
+                <bitenum id="CNT5STOP" value="0x12" description="Counter5 stop"/>
+                <bitenum id="CNT6OVF" value="0x13" description="Counter6 period match  interrupt"/>
+                <bitenum id="CNT6STRT" value="0x14" description="Counter 6 start"/>
+                <bitenum id="CNT6STOP" value="0x15" description="Counter6 stop"/>
+                <bitenum id="CNT7OVF" value="0x16" description="Counter7 period match  interrupt"/>
+                <bitenum id="CNT7STRT" value="0x17" description="Counter 7 start"/>
+                <bitenum id="CNT7STOP" value="0x18" description="Counter7 stop"/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_CPU_INT_IMASK" width="32" offset="0x8" description="Interrupt Mask. If a bit is set, then corresponding interrupt is un-masked. Un-masking the interrupt causes the raw interrupt to be visible in IIDX, as well as MIS.">
+            <bitfield id="CNT0OVF" description="CNT0OVF Interrupt enable bit" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="CNT0STRT Interrupt enable bit" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="CNT0STOP Interrupt enable bit" begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="CNT1OVF Interrupt enable bit" begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="CNT1STRT Interrupt enable bit" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="CNT1STOP Interrupt enable bit" begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="CNT2OVF Interrupt enable bit" begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="CNT2STRT Interrupt enable bit" begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="CNT2STOP Interrupt enable bit" begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="CNT3OVF Interrupt enable bit" begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="CNT3STRT Interrupt enable bit" begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="CNT3STOP Interrupt enable bit" begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="CNT4OVF Interrupt enable bit" begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="CNT4STRT Interrupt enable bit" begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="CNT4STOP Interrupt enable bit" begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="CNT5OVF Interrupt enable bit" begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="CNT5STRT Interrupt enable bit" begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="CNT5STOP Interrupt enable bit" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="CNT6OVF Interrupt enable bit" begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="CNT6STRT Interrupt enable bit" begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="CNT6STOP Interrupt enable bit" begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="CNT7OVF Interrupt enable bit" begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="CNT7STRT Interrupt enable bit" begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="CNT7STOP Interrupt enable bit" begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_CPU_INT_RIS" width="32" offset="0x10" description="Raw interrupt status. Reflects all pending interrupts, regardless of masking. The RIS register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the ICLR register bit even if the corresponding IMASK bit is not enabled.">
+            <bitfield id="CNT0OVF" description="Counter 0 Period match flag" begin="0" end="0" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Counter 0 start event flag" begin="1" end="1" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Counter 0 stop event flag" begin="2" end="2" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Counter 1 Period match flag" begin="3" end="3" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Counter 1 start event flag" begin="4" end="4" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Counter 1 stop event flag" begin="5" end="5" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Counter 2 Period match flag" begin="6" end="6" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Counter 2 start event flag" begin="7" end="7" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Counter 2 stop event flag" begin="8" end="8" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Counter 3 Period match flag" begin="9" end="9" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Counter 3 start event flag" begin="10" end="10" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Counter 3 stop event flag" begin="11" end="11" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Counter 4 Period match flag" begin="12" end="12" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Counter 4 start event flag" begin="13" end="13" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Counter 4 stop event flag" begin="14" end="14" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Counter 5 Period match flag" begin="15" end="15" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Counter 5 start event flag" begin="16" end="16" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Counter 5 stop event flag" begin="17" end="17" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Counter 6 Period match flag" begin="18" end="18" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Counter 6 start event flag" begin="19" end="19" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Counter 6 stop event flag" begin="20" end="20" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Counter 7 Period match flag" begin="21" end="21" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Counter 7 start event flag" begin="22" end="22" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Counter 7 stop event flag" begin="23" end="23" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_CPU_INT_MIS" width="32" offset="0x18" description="Masked interrupt status. This is an AND of the IMASK and RIS registers.">
+            <bitfield id="CNT0OVF" description="Counter 0 period match flag." begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Counter 0 start event flag." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Counter 0 stop event flag." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Counter 1 period match flag." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Counter 1 start event flag." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Counter 1 stop event flag." begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Counter 2 period match flag." begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Counter 2 start event flag." begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Counter 2 stop event flag." begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Counter 3 period match flag." begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Counter 3 start event flag." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Counter 3 stop event flag." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Counter 4 period match flag." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Counter 4 start event flag." begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Counter 4 stop event flag." begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Counter 5 period match flag." begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Counter 5 start event flag." begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Counter 5 stop event flag." begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Counter 6 period match flag." begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Counter 6 start event flag." begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Counter 6 stop event flag." begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Counter 7 period match flag." begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Counter 7 start event flag." begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Counter 7 stop event flag." begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_CPU_INT_ISET" width="32" offset="0x20" description="Interrupt set. Allows interrupts to be set by software (useful in diagnostics and safety checks). Writing a 1 to a bit in ISET will set the event and therefore the related RIS bit also gets set. If the interrupt is enabled through the mask, then the corresponding MIS bit is also set.">
+            <bitfield id="CNT0OVF" description="Set Counter 0 period match flag" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Set Counter 0 start event flag" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Set Counter 0 stop event flag" begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Set Counter 1 period match flag" begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Set Counter 1 start event flag" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Set Counter 1 stop event flag" begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Set Counter 2 period match flag" begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Set Counter 2 start event flag" begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Set Counter 2 stop event flag" begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Set Counter 3 period match flag" begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Set Counter 3 start event flag" begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Set Counter 3 stop event flag" begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Set Counter 4 period match flag" begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Set Counter 4 start event flag" begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Set Counter 4 stop event flag" begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Set Counter 5 period match flag" begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Set Counter 5 start event flag" begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Set Counter 5 stop event flag" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Set Counter 6 period match flag" begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Set Counter 6 start event flag" begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Set Counter 6 stop event flag" begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Set Counter 7 period match flag" begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Set Counter 7 start event flag" begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Set Counter 7 stop event flag" begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_CPU_INT_ICLR" width="32" offset="0x28" description="Interrupt clear. Write a 1 to clear corresponding Interrupt.">
+            <bitfield id="CNT0OVF" description="Clear Counter 0 period match flag." begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Clear Counter 0 start event flag." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Clear Counter 0 stop event flag." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Clear Counter 1 period match flag." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Clear Counter 1 start event flag." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Clear Counter 1 stop event flag." begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Clear Counter 2 period match flag." begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Clear Counter 2 start event flag." begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Clear Counter 2 stop event flag." begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Clear Counter 3 period match flag." begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Clear Counter 3 start event flag." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Clear Counter 3 stop event flag." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Clear Counter 4 period match flag." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Clear Counter 4 start event flag." begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Clear Counter 4 stop event flag." begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Clear Counter 5 period match flag." begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Clear Counter 5 start event flag." begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Clear Counter 5 stop event flag." begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Clear Counter 6 period match flag." begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Clear Counter 6 start event flag." begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Clear Counter 6 stop event flag." begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Clear Counter 7 period match flag." begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Clear Counter 7 start event flag." begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Clear Counter 7 stop event flag." begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        </group>
+    <group id="BTIM0_GEN_EVENT" name="BTIM0_GEN_EVENT" instances="1" offset="0x1050" instaddr="0x30" description="">
+        <register id="BTIM0_GEN_EVENT_IIDX" width="32" offset="0x0" description="Interrupt index">
+            <bitfield id="STAT" description="Interrupt index status" begin="9" end="0" width="10" rwaccess="R">
+                <bitenum id="NO_INTR" value="0x0" description="No bit is set means there is no pending interrupt request"/>
+                <bitenum id="CNT0OVF" value="0x1" description="Counter0 period match  interrupt"/>
+                <bitenum id="CNT0STRT" value="0x2" description="Counter 0 start"/>
+                <bitenum id="CNT0STOP" value="0x3" description="Counter0 stop"/>
+                <bitenum id="CNT1OVF" value="0x4" description="Counter1 period match  interrupt"/>
+                <bitenum id="CNT1STRT" value="0x5" description="Counter 1 start"/>
+                <bitenum id="CNT1STOP" value="0x6" description="Counter1 stop"/>
+                <bitenum id="CNT2OVF" value="0x7" description="Counter2 period match  interrupt"/>
+                <bitenum id="CNT2STRT" value="0x8" description="Counter 2 start"/>
+                <bitenum id="CNT2STOP" value="0x9" description="Counter2 stop"/>
+                <bitenum id="CNT3OVF" value="0xA" description="Counter3 period match  interrupt"/>
+                <bitenum id="CNT3STRT" value="0xB" description="Counter 3 start"/>
+                <bitenum id="CNT3STOP" value="0xC" description="Counter3 stop"/>
+                <bitenum id="CNT4OVF" value="0xD" description="Counter4 period match  interrupt"/>
+                <bitenum id="CNT4STRT" value="0xE" description="Counter 4 start"/>
+                <bitenum id="CNT4STOP" value="0xF" description="Counter4 stop"/>
+                <bitenum id="CNT5OVF" value="0x10" description="Counter5 period match  interrupt"/>
+                <bitenum id="CNT5STRT" value="0x11" description="Counter 5 start"/>
+                <bitenum id="CNT5STOP" value="0x12" description="Counter5 stop"/>
+                <bitenum id="CNT6OVF" value="0x13" description="Counter6 period match  interrupt"/>
+                <bitenum id="CNT6STRT" value="0x14" description="Counter 6 start"/>
+                <bitenum id="CNT6STOP" value="0x15" description="Counter6 stop"/>
+                <bitenum id="CNT7OVF" value="0x16" description="Counter7 period match  interrupt"/>
+                <bitenum id="CNT7STRT" value="0x17" description="Counter 7 start"/>
+                <bitenum id="CNT7STOP" value="0x18" description="Counter7 stop"/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_GEN_EVENT_IMASK" width="32" offset="0x8" description="Interrupt Mask. If a bit is set, then corresponding interrupt is un-masked. Un-masking the interrupt causes the raw interrupt to be visible in IIDX, as well as MIS.">
+            <bitfield id="CNT0OVF" description="CNT0OVF Interrupt enable bit" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="CNT0STRT Interrupt enable bit" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="CNT0STOP Interrupt enable bit" begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="CNT1OVF Interrupt enable bit" begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="CNT1STRT Interrupt enable bit" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="CNT1STOP Interrupt enable bit" begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="CNT2OVF Interrupt enable bit" begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="CNT2STRT Interrupt enable bit" begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="CNT2STOP Interrupt enable bit" begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="CNT3OVF Interrupt enable bit" begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="CNT3STRT Interrupt enable bit" begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="CNT3STOP Interrupt enable bit" begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="CNT4OVF Interrupt enable bit" begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="CNT4STRT Interrupt enable bit" begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="CNT4STOP Interrupt enable bit" begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="CNT5OVF Interrupt enable bit" begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="CNT5STRT Interrupt enable bit" begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="CNT5STOP Interrupt enable bit" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="CNT6OVF Interrupt enable bit" begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="CNT6STRT Interrupt enable bit" begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="CNT6STOP Interrupt enable bit" begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="CNT7OVF Interrupt enable bit" begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="CNT7STRT Interrupt enable bit" begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="CNT7STOP Interrupt enable bit" begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_GEN_EVENT_RIS" width="32" offset="0x10" description="Raw interrupt status. Reflects all pending interrupts, regardless of masking. The RIS register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the ICLR register bit even if the corresponding IMASK bit is not enabled.">
+            <bitfield id="CNT0OVF" description="Counter 0 Period match flag" begin="0" end="0" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Counter 0 start event flag" begin="1" end="1" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Counter 0 stop event flag" begin="2" end="2" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Counter 1 Period match flag" begin="3" end="3" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Counter 1 start event flag" begin="4" end="4" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Counter 1 stop event flag" begin="5" end="5" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Counter 2 Period match flag" begin="6" end="6" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Counter 2 start event flag" begin="7" end="7" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Counter 2 stop event flag" begin="8" end="8" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Counter 3 Period match flag" begin="9" end="9" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Counter 3 start event flag" begin="10" end="10" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Counter 3 stop event flag" begin="11" end="11" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Counter 4 Period match flag" begin="12" end="12" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Counter 4 start event flag" begin="13" end="13" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Counter 4 stop event flag" begin="14" end="14" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Counter 5 Period match flag" begin="15" end="15" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Counter 5 start event flag" begin="16" end="16" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Counter 5 stop event flag" begin="17" end="17" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Counter 6 Period match flag" begin="18" end="18" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Counter 6 start event flag" begin="19" end="19" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Counter 6 stop event flag" begin="20" end="20" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Counter 7 Period match flag" begin="21" end="21" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Counter 7 start event flag" begin="22" end="22" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Counter 7 stop event flag" begin="23" end="23" width="1" rwaccess="R">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_GEN_EVENT_MIS" width="32" offset="0x18" description="Masked interrupt status. This is an AND of the IMASK and RIS registers.">
+            <bitfield id="CNT0OVF" description="Counter 0 period match flag." begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Counter 0 start event flag." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Counter 0 stop event flag." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Counter 1 period match flag." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Counter 1 start event flag." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Counter 1 stop event flag." begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Counter 2 period match flag." begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Counter 2 start event flag." begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Counter 2 stop event flag." begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Counter 3 period match flag." begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Counter 3 start event flag." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Counter 3 stop event flag." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Counter 4 period match flag." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Counter 4 start event flag." begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Counter 4 stop event flag." begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Counter 5 period match flag." begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Counter 5 start event flag." begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Counter 5 stop event flag." begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Counter 6 period match flag." begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Counter 6 start event flag." begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Counter 6 stop event flag." begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Counter 7 period match flag." begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Counter 7 start event flag." begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Counter 7 stop event flag." begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="CLR" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_GEN_EVENT_ISET" width="32" offset="0x20" description="Interrupt set. Allows interrupts to be set by software (useful in diagnostics and safety checks). Writing a 1 to a bit in ISET will set the event and therefore the related RIS bit also gets set. If the interrupt is enabled through the mask, then the corresponding MIS bit is also set.">
+            <bitfield id="CNT0OVF" description="Set Counter 0 period match flag" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Set Counter 0 start event flag" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Set Counter 0 stop event flag" begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Set Counter 1 period match flag" begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Set Counter 1 start event flag" begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Set Counter 1 stop event flag" begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Set Counter 2 period match flag" begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Set Counter 2 start event flag" begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Set Counter 2 stop event flag" begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Set Counter 3 period match flag" begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Set Counter 3 start event flag" begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Set Counter 3 stop event flag" begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Set Counter 4 period match flag" begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Set Counter 4 start event flag" begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Set Counter 4 stop event flag" begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Set Counter 5 period match flag" begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Set Counter 5 start event flag" begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Set Counter 5 stop event flag" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Set Counter 6 period match flag" begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Set Counter 6 start event flag" begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Set Counter 6 stop event flag" begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Set Counter 7 period match flag" begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Set Counter 7 start event flag" begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Set Counter 7 stop event flag" begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="SET" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_GEN_EVENT_ICLR" width="32" offset="0x28" description="Interrupt clear. Write a 1 to clear corresponding Interrupt.">
+            <bitfield id="CNT0OVF" description="Clear Counter 0 period match flag." begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STRT" description="Clear Counter 0 start event flag." begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT0STOP" description="Clear Counter 0 stop event flag." begin="2" end="2" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1OVF" description="Clear Counter 1 period match flag." begin="3" end="3" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STRT" description="Clear Counter 1 start event flag." begin="4" end="4" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT1STOP" description="Clear Counter 1 stop event flag." begin="5" end="5" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2OVF" description="Clear Counter 2 period match flag." begin="6" end="6" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STRT" description="Clear Counter 2 start event flag." begin="7" end="7" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT2STOP" description="Clear Counter 2 stop event flag." begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3OVF" description="Clear Counter 3 period match flag." begin="9" end="9" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STRT" description="Clear Counter 3 start event flag." begin="10" end="10" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT3STOP" description="Clear Counter 3 stop event flag." begin="11" end="11" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4OVF" description="Clear Counter 4 period match flag." begin="12" end="12" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STRT" description="Clear Counter 4 start event flag." begin="13" end="13" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT4STOP" description="Clear Counter 4 stop event flag." begin="14" end="14" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5OVF" description="Clear Counter 5 period match flag." begin="15" end="15" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STRT" description="Clear Counter 5 start event flag." begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT5STOP" description="Clear Counter 5 stop event flag." begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6OVF" description="Clear Counter 6 period match flag." begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STRT" description="Clear Counter 6 start event flag." begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT6STOP" description="Clear Counter 6 stop event flag." begin="20" end="20" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7OVF" description="Clear Counter 7 period match flag." begin="21" end="21" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STRT" description="Clear Counter 7 start event flag." begin="22" end="22" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+            <bitfield id="CNT7STOP" description="Clear Counter 7 stop event flag." begin="23" end="23" width="1" rwaccess="R/W">
+                <bitenum id="NO_EFFECT" value="0x0" description="Interrupt is not pending."/>
+                <bitenum id="CLR" value="0x1" description="Interrupt is pending."/>
+            </bitfield>
+        </register>
+        </group>
+    <register id="BTIM0_EVT_MODE" width="32" offset="0x10E0" description="Event Mode">
+        <bitfield id="CPU_INT_CFG" description="Event line mode select for event corresponding to CPU_INT" begin="1" end="0" width="2" rwaccess="R">
+            <bitenum id="DISABLE" value="0x0" description="The interrupt or event line is disabled."/>
+            <bitenum id="SOFTWARE" value="0x1" description="The interrupt or event line is in software mode. Software must clear the RIS."/>
+            <bitenum id="HARDWARE" value="0x2" description="The interrupt or event line is in hardware mode. The hardware (another module) clears automatically the associated RIS flag."/>
+        </bitfield>
+        <bitfield id="GEN_EVENT_CFG" description="Event line mode select for event corresponding to CPU_INT" begin="3" end="2" width="2" rwaccess="R">
+            <bitenum id="DISABLE" value="0x0" description="The interrupt or event line is disabled."/>
+            <bitenum id="SOFTWARE" value="0x1" description="The interrupt or event line is in software mode. Software must clear the RIS."/>
+            <bitenum id="HARDWARE" value="0x2" description="The interrupt or event line is in hardware mode. The hardware (another module) clears automatically the associated RIS flag."/>
+        </bitfield>
+    </register>
+    <group id="BTIM0_CTRREGS" name="BTIM0_CTRREGS" instances="4" offset="0x1100" instaddr="0x100" description="">
+        <register id="BTIM0_CTL0" width="32" offset="0x0" description="CTL0 register">
+            <bitfield id="EN" description="Counter Enable" begin="0" end="0" width="1" rwaccess="R/W">
+            </bitfield>
+            <bitfield id="STARTSEL" description="Selects the source used to start the counter." begin="7" end="4" width="4" rwaccess="R/W">
+            </bitfield>
+            <bitfield id="STOPSEL" description="Selects the source used to stop the counter." begin="11" end="8" width="4" rwaccess="R/W">
+            </bitfield>
+            <bitfield id="RESETSEL" description="Selects the source used to reset the counter." begin="15" end="12" width="4" rwaccess="R/W">
+            </bitfield>
+            <bitfield id="CLKSEL" description="Clock sources" begin="19" end="16" width="4" rwaccess="R/W">
+            </bitfield>
+        </register>
+        <register id="BTIM0_LD" width="32" offset="0x4" description="Counter period register.">
+            <bitfield id="VAL" description="Period value" begin="15" end="0" width="16" rwaccess="R/W">
+                <bitenum id="MINIMUM" value="0x1" description="Minimum counter value"/>
+                <bitenum id="MAXIMUM" value="0xFFFF" description="Maximum counter value"/>
+            </bitfield>
+        </register>
+        <register id="BTIM0_CNT" width="32" offset="0x8" description="Counter register.">
+            <bitfield id="VALUE" description="Counter Value" begin="15" end="0" width="16" rwaccess="R/W">
+            </bitfield>
+        </register>
+        </group>
+
+</module>

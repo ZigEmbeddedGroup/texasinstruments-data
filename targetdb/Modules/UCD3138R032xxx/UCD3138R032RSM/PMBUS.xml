@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<module description="PMBUS Description" id="PMBUS">
+  
+  
+  <register acronym="PMBCTRL1" description=" PMBUS Control Register 1" id="PMBCTRL1" offset="0x0" width="32">
+    
+  <bitfield begin="20" description="Master Process Call Message Enable" end="20" id="PRC_CALL" rwaccess="RW" width="1">
+    <bitenum description="Enables transmission of Process Call message" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Default state for all messages besides Process Call message (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="19" description="Master Group Command Message Enable" end="19" id="GRP_CMD" rwaccess="RW" width="1">
+    <bitenum description="Enables transmission of Group Command message" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Default state for all messages besides Group Command message (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="Master PEC Processing Enable" end="18" id="PEC_ENA" rwaccess="RW" width="1">
+    <bitenum description="Enables PEC byte transmission/reception" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables PEC processing (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Master Extended Command Code Enable" end="17" id="EXT_CMD" rwaccess="RW" width="1">
+    <bitenum description="Use 2 byte for Command Code" id="two_byte" token="two_byte" value="0x1"></bitenum>
+    <bitenum description="Use 1 byte for Command Code (Default)" id="one_byte" token="one_byte" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="Master Command Code Enable" end="16" id="CMD_ENA" rwaccess="RW" width="1">
+    <bitenum description="Enables use of command code on Master initiated messages" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables use of command code on Master initiated messages (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Indicates number of data bytes transmitted in current message. Byte count does not                  include any device addresses, command words or block lengths in block messages.                  In block messages, the PMBus Interface automatically inserts the block length into                  the message based on the byte count setting. The firmware only needs to load the                  address, command words and data to be transmitted. PMBus Interface supports byte                  writes up to 255 bytes" end="8" id="BYTE_COUNT" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="7" description="Specifies the address of the slave to which the current message is directed towards" end="1" id="SLAVE_ADDR" rwaccess="RW" width="7"></bitfield>
+    
+  <bitfield begin="0" description="Indicates if current Master initiated message is read operation or write operation" end="0" id="RW" rwaccess="RW" width="1">
+    <bitenum description="Message is a read transaction (data from Slave to Master)" id="read" token="read" value="0x1"></bitenum>
+    <bitenum description="Message is a write transaction (data from Master to Slave) (Default)" id="write" token="write" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PMBTXBUF" description="PMBus Transmit Data Buffer" id="PMBTXBUF" offset="0x4" width="32">
+    
+  <bitfield begin="31" description="Last data byte transmitted from Transmit Data Buffer" end="24" id="BYTE3" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="23" description="Third data byte transmitted from Transmit Data Buffer" end="16" id="BYTE2" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="15" description="Second data byte transmitted from Transmit Data Buffer" end="8" id="BYTE1" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="7" description="First data byte transmitted from Transmit Data Buffer" end="0" id="BYTE0" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMBRXBUF" description="PMBus Receive Data Register" id="PMBRXBUF" offset="0x8" width="32">
+    
+  <bitfield begin="31" description="Last data byte transmitted from Transmit Data Buffer" end="24" id="BYTE3" rwaccess="R" width="8"></bitfield>
+    
+  <bitfield begin="23" description="Third data byte transmitted from Transmit Data Buffer" end="16" id="BYTE2" rwaccess="R" width="8"></bitfield>
+    
+  <bitfield begin="15" description="Second data byte transmitted from Transmit Data Buffer" end="8" id="BYTE1" rwaccess="R" width="8"></bitfield>
+    
+  <bitfield begin="7" description="First data byte transmitted from Transmit Data Buffer" end="0" id="BYTE0" rwaccess="R" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMBACK" description=" PMBus Acknowledge Register" id="PMBACK" offset="0xC" width="32">
+    
+  <bitfield begin="0" description="Allows firmware to acknowledge or not acknowledge received data" end="0" id="ACL" rwaccess="RW" width="1">
+    <bitenum description="Acknowledge received data, bit clears upon issue of ACK on PMBus" id="Acknowledge" token="Acknowledge" value="0x1"></bitenum>
+    <bitenum description="NACK received data (Default)" id="recieved" token="recieved" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PMBST" description=" PMBus Status Register" id="PMBST" offset="0x10" width="32">
+    
+  <bitfield begin="21" description="PMBus Clock Pin Real Time Status" end="21" id="SCL_RAW" rwaccess="R" width="1">
+    <bitenum description="PMBus clock pin observed at logic level high" id="high" token="high" value="0x1"></bitenum>
+    <bitenum description="PMBus clock pin observed at logic level low" id="low" token="low" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="PMBus Data Pin Real Time Status" end="20" id="SDA_RAW" rwaccess="R" width="1">
+    <bitenum description="PMBus data pin observed at logic level high" id="high" token="high" value="0x1"></bitenum>
+    <bitenum description="PMBus data pin observed at logic level low" id="low" token="low" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="19" description="Control Pin Real Time Status" end="19" id="CONTROL_RAW" rwaccess="R" width="1">
+    <bitenum description="Control pin observed at logic level high" id="high" token="high" value="0x1"></bitenum>
+    <bitenum description="Control pin observed at logic level low" id="low" token="low" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="Control Pin Real Time Status" end="18" id="ALERT_RAW" rwaccess="R" width="1">
+    <bitenum description="Alert pin observed at logic level high" id="high" token="high" value="0x1"></bitenum>
+    <bitenum description="Alert pin observed at logic level low" id="low" token="low" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Control Edge Detection Status" end="17" id="CONTROL_EDGE" rwaccess="R" width="1">
+    <bitenum description="Control pin has been asserted by another device on PMBus" id="asserted" token="asserted" value="0x1"></bitenum>
+    <bitenum description="Control pin has not transitioned" id="not_transitioned" token="not_transitioned" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="Alert Edge Detection Status" end="16" id="ALERT_EDGE" rwaccess="R" width="1">
+    <bitenum description="Alert pin has been asserted by another device on PMBus" id="asserted" token="asserted" value="0x1"></bitenum>
+    <bitenum description="Alert pin has not transitioned" id="not_transitioned" token="not_transitioned" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Master Indicator" end="15" id="MASTER" rwaccess="R" width="1">
+    <bitenum description="PMBus Interface in Master Mode" id="Master" token="Master" value="0x1"></bitenum>
+    <bitenum description="PMBus Interface in Slave Mode or Idle Mode" id="Slave" token="Slave" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="Lost Arbitration Flag" end="14" id="LOST_ARB" rwaccess="R" width="1">
+    <bitenum description="Master has lost arbitration and control of PMBus" id="lost" token="lost" value="0x1"></bitenum>
+    <bitenum description="Master has attained control of PMBus" id="attained" token="attained" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="PMBus Free Indicator" end="13" id="BUS_FREE" rwaccess="R" width="1">
+    <bitenum description="PMBus available for new message" id="new" token="new" value="0x1"></bitenum>
+    <bitenum description="PMBus processing current message" id="current" token="current" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="PMBus Busy Indicator" end="12" id="UNIT_BUSY" rwaccess="R" width="1">
+    <bitenum description="PMBus Interface is busy, processing current message" id="busy" token="busy" value="0x1"></bitenum>
+    <bitenum description="PMBus Interface is idle, ready to transmit/receive message" id="idle" token="idle" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Repeated Start Flag" end="11" id="RPT_START" rwaccess="R" width="1">
+    <bitenum description="Repeated Start condition received by interface" id="Repeated" token="Repeated" value="0x1"></bitenum>
+    <bitenum description="No Repeated Start received by interface" id="Not_Repeated" token="Not_Repeated" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Slave Address Ready" end="10" id="SLAVE_ADDR_READY" rwaccess="R" width="1">
+    <bitenum description="Slave address ready to be read from Receive Data Register (Bits 6:0)" id="available" token="available" value="0x1"></bitenum>
+    <bitenum description="Indicates no slave address is available for reading" id="Not_available" token="Not_available" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Clock High Detection Status" end="9" id="CLK_HIGH_TIMEOUT" rwaccess="R" width="1">
+    <bitenum description="Clock High exceeded 50us during message" id="clock_high" token="clock_high" value="0x1"></bitenum>
+    <bitenum description="No Clock High condition detected" id="No_clock_high" token="No_clock_high" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Clock Low Detection Status" end="8" id="CLK_LOW_TIMEOUT" rwaccess="R" width="1">
+    <bitenum description="Clock low timeout detected, clock held low for greater than 35ms" id="clock_high" token="clock_high" value="0x1"></bitenum>
+    <bitenum description="No clock low timeout detected" id="No_clock_high" token="No_clock_high" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="PEC Valid Indicator" end="7" id="PEC_VALID" rwaccess="R" width="1">
+    <bitenum description="Received PEC is valid" id="valid" token="valid" value="0x1"></bitenum>
+    <bitenum description="Received PEC not valid (if EOM is asserted)" id="not_valid" token="not_valid" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Not Acknowledge Flag Status" end="6" id="NACK" rwaccess="R" width="1">
+    <bitenum description="Receiver has not accepted transmitted data" id="not_accepted" token="not_accepted" value="0x1"></bitenum>
+    <bitenum description="Data transmitted has been accepted by receiver" id="accepted" token="accepted" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="End of Message Indicator" end="5" id="EOM" rwaccess="R" width="1">
+    <bitenum description="End of current message detected" id="end" token="end" value="0x1"></bitenum>
+    <bitenum description="Message still in progress or PMBus in idle state" id="in_progress" token="in_progress" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Data Request Flag" end="4" id="DATA_REQUEST" rwaccess="R" width="1">
+    <bitenum description="PMBus Interface request additional data. PMBus clock stretching enabled to stall                          bus until firmware provides transmit data" id="additional" token="additional" value="0x1"></bitenum>
+    <bitenum description="No data needed by PMBus Interface" id="no_addtional" token="no_addtional" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Data Ready Flag" end="3" id="DATA_READY" rwaccess="R" width="1">
+    <bitenum description="PMBus Interface read buffer full, firmware required to read data prior to further                          bus activity. PMBus clock stretching enabled to stall bus until data is read by                          firmware" id="buffer_full" token="buffer_full" value="0x1"></bitenum>
+    <bitenum description="No data available for reading by processor" id="not_available" token="not_available" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Number of Data Bytes available in Receive Data Register" end="0" id="RD_BYTE_COUNT" rwaccess="R" width="3">
+    <bitenum description="4 byte received. Data located in Receive Data Register, Bits 31-0" id="four_byte" token="four_byte" value="0x4"></bitenum>
+    <bitenum description="3 byte received. Data located in Receive Data Register, Bits 23-0" id="three_byte" token="three_byte" value="0x3"></bitenum>
+    <bitenum description="2 byte received. Data located in Receive Data Register, Bits 15-0" id="two_byte" token="two_byte" value="0x2"></bitenum>
+    <bitenum description="1 byte received. Data located in Receive Data Register, Bits 7-0" id="one_byte" token="one_byte" value="0x1"></bitenum>
+    <bitenum description="No received data" id="no_dat" token="no_dat" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PMBINTM" description="PMBus Interrupt Mask Register" id="PMBINTM" offset="0x14" width="32">
+    
+  <bitfield begin="9" description="Clock High Detection Interrupt Mask" end="9" id="CLK_HIGH_DETECT" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation for Clock High detection (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt if clock high exceeds 50us during message" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Lost Arbitration Interrupt Mask" end="8" id="LOST_ARB" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of Lost Arbitration flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of Lost Arbitration flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Control Detection Interrupt Mask" end="7" id="CONTROL" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of Control flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of Control flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="ALERT Detection Interrupt Mask" end="6" id="ALERT" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of ALERT flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of ALERT flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="End of Message Interrupt Mask" end="5" id="EOM" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of End of Message flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of End of Message flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Slave Address Ready Interrupt Mask" end="4" id="SLAVE_ADDR_READY" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of Slave Address Ready flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of Slave Address Ready flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Data Request Interrupt Mask" end="3" id="DATA_REQUEST" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of Data Request flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of Data Request flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Data Ready Interrupt Mask" end="2" id="DATA_READY" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of Data Ready flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of Data Ready flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Clock Low Timeout Interrupt Mask" end="1" id="BUS_LOW_TIMEOUT" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of Clock Low Timeout flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of Clock Low Timeout flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Bus Free Interrupt Mask" end="0" id="BUS_FREE" rwaccess="RW" width="1">
+    <bitenum description="Disables interrupt generation upon assertion of Bus Free flag (Default)" id="disables_interrupt_gen" token="disables_interrupt_gen" value="0x1"></bitenum>
+    <bitenum description="Generates interrupt upon assertion of Bus Free flag" id="genrates_interuupt" token="genrates_interuupt" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PMBCTRL2" description="PMBus Control Register 2" id="PMBCTRL2" offset="0x18" width="32">
+    
+  <bitfield begin="30" description="Enable auto detection of the 2nd slave address" end="30" id="SLAVE_ADDR_2_EN" rwaccess="RW" width="1">
+    <bitenum description="2nd slave address enabled" id="disabled" token="disabled" value="0x1"></bitenum>
+    <bitenum description="2nd slave address disabled (default)" id="enabled" token="enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="29" description="Configures the second device address of the slave. Used in automatic slave address                      acknowledge mode (default mode)." end="23" id="SLAVE_ADDR_2" rwaccess="RW" width="7"></bitfield>
+    
+  <bitfield begin="22" description="Configures number of data bytes to automatically acknowledge when receiving data                      in slave mode" end="21" id="RX_BYTE_ACK_CNT" rwaccess="RW" width="2">
+    <bitenum description="4 bytes received by slave. Hardware automatically acknowledges the first                          3 received bytes. Firmware is required to manually acknowledge after the fourth                          received byte" id="four_bytes" token="four_bytes" value="0x3"></bitenum>
+    <bitenum description="3 bytes received by slave. Hardware automatically acknowledges the first                          2 received bytes. Firmware is required to manually acknowledge after the third                          received byte" id="three_bytes" token="three_bytes" value="0x2"></bitenum>
+    <bitenum description="2 bytes received by slave. Hardware automatically acknowledges the first                          received byte. Firmware is required to manually acknowledge after the second                          received byte" id="two_bytes" token="two_bytes" value="0x1"></bitenum>
+    <bitenum description="1 byte received by slave. Firmware is required to manually acknowledge every                          received byte" id="one_byte" token="one_byte" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="Manual Command Acknowledgement Mode" end="20" id="MAN_CMD" rwaccess="RW" width="1">
+    <bitenum description="Data Request flag generated after receipt of command code, firmware required to                          issue ACK to continue message" id="request_flag" token="request_flag" value="0x1"></bitenum>
+    <bitenum description="Slave automatically acknowledges received command code (Default)" id="acknowledges" token="acknowledges" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="19" description="Asserted when the slave needs to send a PEC byte at end of message. PMBus                  Interface will transmit the calculated PEC byte after transmitting the number of data                  bytes indicated by TX Byte Cnt(Bits 19:17)" end="19" id="TX_PEC" rwaccess="RW" width="1">
+    <bitenum description="PEC byte transmitted at end of current message" id="PEC" token="PEC" value="0x1"></bitenum>
+    <bitenum description="No PEC byte transmitted (Default)" id="No_PEC" token="No_PEC" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="Number of valid bytes in Transmit Data Register" end="16" id="TX_COUNT" rwaccess="RW" width="3">
+    <bitenum description="Four bytes valid, Bytes #0-3 (Bits 31:0 of Receive Data Register)" id="four" token="four" value="0x4"></bitenum>
+    <bitenum description="Three bytes valid, Bytes #0-2 (Bits 23:0 of Receive Data Register)" id="three" token="three" value="0x3"></bitenum>
+    <bitenum description="Two bytes valid, Bytes #0 and #1 (Bits 15:0 of Receive Data Register)" id="two" token="two" value="0x2"></bitenum>
+    <bitenum description="One byte valid, Byte #0 (Bits 7:0 of Receive Data Register)" id="one" token="one" value="0x1"></bitenum>
+    <bitenum description="No bytes valid (Default)" id="No_bytes" token="No_bytes" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="PEC Processing Enable" end="15" id="PEC_ENA" rwaccess="RW" width="1">
+    <bitenum description="PEC processing enabled" id="enable" token="enable" value="0x1"></bitenum>
+    <bitenum description="PEC processing disabled (Default)" id="diabled" token="diabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="Used in address detection, the slave mask enables acknowledgement of multiple                  device addresses by the slave. Writing a ‘0’ to a bit within the slave mask enables the                  corresponding bit in the slave address to be either ‘1’ or ‘0’ and still allow for a match.                  Writing a ‘0’ to all bits in the mask enables the PMBus Interface to acknowledge any                  device address. Upon power-up, the slave mask defaults to 7Fh, indicating the slave                  will only acknowledge the address programmed into the Slave Address (Bits 6-0)." end="8" id="SLAVE_MASK" rwaccess="RW" width="7"></bitfield>
+    
+  <bitfield begin="7" description="Manual Slave Address Acknowledgement Mode" end="7" id="MAN_SLAVE_ACK" rwaccess="RW" width="1">
+    <bitenum description="Enables the Manual Slave Address Acknowledgement Mode. Firmware is                      required to read received address and acknowledge on every message" id="enable" token="enable" value="0x1"></bitenum>
+    <bitenum description="Slave automatically acknowledges device address specified in SLAVE_ADDR,                      Also uses SLAVE_ADDR_2 if present and enabled. (Default)" id="diabled" token="diabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Configures the current device address of the slave. Used in automatic slave address                      acknowledge mode (default mode). The PMBus Interface will compare the received                      device address with the value stored in the Slave Address bits and the mask                      configured in the Slave Mask bits. If matching, the slave will acknowledge the device                      address" end="0" id="SLAVE_ADDR" rwaccess="RW" width="7"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMBHSA" description=" PMBus Hold Slave Address Register" id="PMBHSA" offset="0x1C" width="32">
+    
+  <bitfield begin="7" description="Enable auto detection of the 2nd slave address" end="1" id="SLAVE_ADDR" rwaccess="R" width="7"></bitfield>
+    
+  <bitfield begin="0" description="Stored device address acknowledged by the slave" end="0" id="SLAVE_RW" rwaccess="R" width="1">
+    <bitenum description="Read Access" id="read" token="read" value="0x1"></bitenum>
+    <bitenum description="Write Access" id="write" token="write" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PMBCTRL3" description=" PMBus Hold Slave Address Register" id="PMBCTRL3" offset="0x20" width="32">
+    
+  <bitfield begin="27" description="Selects the glitch filter mode enabled" end="25" id="GLITCH_FILTER_MODE" rwaccess="RW" width="3">
+    <bitenum description="Illegal Value" id="Illegal_1" token="Illegal_1" value="0x7"></bitenum>
+    <bitenum description="400ns Glitch Filter" id="_400ns_glitch_filter" token="_400ns_glitch_filter" value="0x6"></bitenum>
+    <bitenum description="200ns Glitch Filter" id="_200ns_glitch_filter" token="_200ns_glitch_filter" value="0x5"></bitenum>
+    <bitenum description="100ns Glitch Filter" id="_100ns_glitch_filter" token="_100ns_glitch_filter" value="0x4"></bitenum>
+    <bitenum description="Illegal Value" id="Illegal" token="Illegal" value="0x3"></bitenum>
+    <bitenum description="Glitch Filter Disabled" id="glitch_filter_disabled" token="glitch_filter_disabled" value="0x2"></bitenum>
+    <bitenum description="2x PMBCLK Glitch Filter" id="_2x_PMBCLK_glitch_filter" token="_2x_PMBCLK_glitch_filter" value="0x1"></bitenum>
+    <bitenum description="50ns Glitch Filter" id="_50ns_glitch_filter" token="_50ns_glitch_filter" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="24" description="I2C Mode Enable - Utilized for Master mode only.The only effect of I2C_MODE_EN is to remove the automatic insertion of number of                      bytes in block writes in master mode" end="24" id="I2C_MODE_EN" rwaccess="RW" width="1">
+    <bitenum description="I2C Mode Enabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="I2C Mode Disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="23" description="Clock High Timeout Disable" end="23" id="CLK_HI_DIS" rwaccess="RW" width="1">
+    <bitenum description="Clock High Timeout Disabled" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Clock High Timeout Disabled (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="22" description="PMBus Master Enable" end="22" id="MASTER_EN" rwaccess="RW" width="1">
+    <bitenum description="Enables PMBus Master capability" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables PMBus Master capability (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="21" description="PMBus SLAVE Enable" end="21" id="SLAVE_EN" rwaccess="RW" width="1">
+    <bitenum description="Enables PMBus SLAVE capability" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables PMBus SLAVE capability (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="Clock Low Timeout Disable" end="20" id="CLK_LO_DIS" rwaccess="RW" width="1">
+    <bitenum description="Clock Low Timeout Disabled" id="disabled" token="disabled" value="0x1"></bitenum>
+    <bitenum description="Clock Low Timeout Enabled (Default)" id="enabled" token="enabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="19" description="PMBus Current Source B Control" end="19" id="IBIAS_B_EN" rwaccess="RW" width="1">
+    <bitenum description="Enables Current Source for PMBUS address detection thru ADC" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables Current Source for PMBUS address detection thru ADC (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="PMBus Current Source A Control" end="18" id="IBIAS_A_EN" rwaccess="RW" width="1">
+    <bitenum description="Enables Current Source for PMBUS address detection thru ADC" id="enabled" token="enabled" value="0x1"></bitenum>
+    <bitenum description="Disables Current Source for PMBUS address detection thru ADC (Default)" id="disabled" token="disabled" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Reserved" end="6" id="RESERVED" rwaccess="R" width="12"></bitfield>
+    
+  <bitfield begin="5" description="Control Interrupt Edge Select" end="5" id="CNTL_INT_EDGE" rwaccess="RW" width="1">
+    <bitenum description="Interrupt generated on rising edge of Control" id="rising_edge" token="rising_edge" value="0x1"></bitenum>
+    <bitenum description="Interrupt generated on falling edge of Control (Default)" id="falling_edge" token="falling_edge" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Fast Mode Plus Enable" end="4" id="FAST_MODE_PLUS" rwaccess="RW" width="1">
+    <bitenum description="Fast Mode Plus enabled (1MHz operation on PMBus)" id="Fast" token="Fast" value="0x1"></bitenum>
+    <bitenum description="Standard 100 KHz mode enabled (Default)" id="Standard" token="Standard" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Fast Mode  Enable" end="3" id="FAST_MODE" rwaccess="RW" width="1">
+    <bitenum description="Fast Mode Plus enabled (400KHz operation on PMBus)" id="Fast" token="Fast" value="0x1"></bitenum>
+    <bitenum description="Standard 100 KHz mode enabled (Default)" id="Standard" token="Standard" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Clock Low Timeout Interrupt Edge Select" end="2" id="BUS_LO_INT_EDGE" rwaccess="RW" width="1">
+    <bitenum description="Interrupt generated on falling edge of clock low timeout" id="falling_edge" token="falling_edge" value="0x1"></bitenum>
+    <bitenum description="Interrupt generated on rising edge of clock low timeout (Default)" id="rising_edge" token="rising_edge" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Slave Alert Enable" end="1" id="ALERT_EN" rwaccess="RW" width="1">
+    <bitenum description="PMBus Alert driven low by slave" id="driven" token="driven" value="0x1"></bitenum>
+    <bitenum description="PMBus Alert is not driven by slave, pulled up high on PMBus (Default)" id="not_driven" token="not_driven" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="PMBus Interface Synchronous Reset" end="0" id="RESET" rwaccess="RW" width="1">
+    <bitenum description="Control state machines are reset to initial states" id="reset" token="reset" value="0x1"></bitenum>
+    <bitenum description="No reset of internal state machines (Default)" id="not_reset" token="not_reset" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PMB_DBG" description=" PMBus Debug Register" id="PMB_DBG" offset="0x80" width="32">
+    
+  <bitfield begin="31" description="Unused" end="5" id="Unused" rwaccess="R" width="27"></bitfield>
+    
+  <bitfield begin="4" description="Mentions the current PMBus State" end="0" id="PMBus_STATE" rwaccess="R" width="5"></bitfield>
+  </register>
+</module>

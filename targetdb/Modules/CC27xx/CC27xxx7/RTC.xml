@@ -5,19 +5,19 @@ RTC includes 2 channels.
 - Channel 1 is a capture channel
 " xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setup_parser.xsd">
    <register acronym="DESC" width="32" description="Description Register. This register provides IP module ID, revision information, instance index and standard MMR registers offset." id="DESC" offset="0x0">
-      <bitfield range="" begin="31" width="16" end="16" rwaccess="RW" description="Module identifier used to uniquely identify this IP." id="MODID" resetval="0x6442">
+      <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Module identifier used to uniquely identify this IP." id="MODID" resetval="0x6442">
       </bitfield>
-      <bitfield range="" begin="15" width="4" end="12" rwaccess="RW" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
 
 0: Standard IP MMRs do not exist
 
 0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)" id="STDIPOFF" resetval="0x1">
       </bitfield>
-      <bitfield range="" begin="11" width="4" end="8" rwaccess="RW" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
+      <bitfield range="" begin="11" width="4" end="8" rwaccess="RO" description="IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15)." id="INSTIDX" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="7" width="4" end="4" rwaccess="RW" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
+      <bitfield range="" begin="7" width="4" end="4" rwaccess="RO" description="Major revision of IP (0-15)." id="MAJREV" resetval="0x1">
       </bitfield>
-      <bitfield range="" begin="3" width="4" end="0" rwaccess="RW" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor revision of IP (0-15)." id="MINREV" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CTL" width="32" description="RTC Control register. This register controls resetting the of RTC counter" id="CTL" offset="0x4">
@@ -67,22 +67,27 @@ A write to each bitfield of this register the following effect:
       </bitfield>
    </register>
    <register acronym="TIME250N" width="32" description="RTC Time value register. 32-bit unsigned integer representing [29:-2] time slice of the real time clock counter. The counter runs on LFCLK. This field has a resolution of 250ns, and range of about 17.8 minutes." id="TIME250N" offset="0x10">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="Unsigned integer representing [34:3]slice of real time counter.
-" id="VAL" resetval="0x0">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="[29:-2] slice of RTC TIME[50:-2]. Slice has an LSB weight of 250 ns and modular range 17m 53.74182002 s. RTC.TIME is updated every LF clock modulo by a fixed or measured LFINC value and will thus on average update only every ~30.5 us.
+ 
+SYSTIM.TIME is synchronized to RTC TIME[31:-2] and is updated every 250 ns if better resolution is needed (in addition to having a much shorter access time of 1-2 cycles instead of 22-26 cycles for RTC.TIMEx)." id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="TIME1U" width="32" description="RTC Time value register. 32-bit unsigned integer representing [31:0] time slice of the real time clock counter. The counter runs on LFCLK. This field has a resolution of 1us, and range of about 1.19 hours." id="TIME1U" offset="0x14">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="Unsigned integer representing [34:3]slice of real time counter.
-" id="VAL" resetval="0x0">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="[31:0] slice of RTC TIME[50:-2]. Slice has an LSB weight of 1 us and modular range 1h 11m 34.967296s. RTC.TIME is updated every LF clock modulo by a fixed or measured LFINC value and will thus on average update only every ~30.5 us.
+ 
+SYSTIM.TIME is synchronized to RTC TIME[31:-2] and is updated every 250 ns if better resolution is needed (in addition to having a much shorter access time of 1-2 cycles instead of 22-26 cycles for RTC.TIMEx)." id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="TIME8U" width="32" description="RTC Time value register. 32-bit unsigned integer representing [34:3] time slice of the real time clock counter. The counter runs on LFCLK. This field has a resolution of 8us, and range of about 9.5 hours." id="TIME8U" offset="0x18">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="Unsigned integer representing [34:3]slice of real time counter.
-" id="VAL" resetval="0x0">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="[34:3] slice of RTC TIME[50:-2]. Slice has an LSB weight of 8 us and modular range 9h 32m 39.73836s. RTC.TIME is updated every LF clock modulo by a fixed or measured LFINC value and will thus on average update only every ~30.5 us.
+ 
+SYSTIM.TIME is synchronized to RTC TIME[31:-2] and is updated every 250 ns if better resolution is needed (in addition to having a much shorter access time of 1-2 cycles instead of 22-26 cycles for RTC.TIMEx)." id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="TIME524M" width="32" description="RTC time value register. 32-bit unsigned integer representing [50:19] time slice of the real time clock counter. This field has a resolution of about 0.5s and a range of about 71.4 years." id="TIME524M" offset="0x1c">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="Unsigned integer representing. [50:19]slice of real time counter." id="VAL" resetval="0x0">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="[50:19] slice of RTC TIME[50:-2]. Slice has an LSB weight of 0.524288s and modular range of approximately 71 years 147 days 11h 56m 53s. RTC.TIME is updated every LF clock modulo by a fixed or measured LFINC value and will thus on average update only every ~30.5 us.
+ 
+SYSTIM.TIME is synchronized to RTC TIME[31:-2] and is updated every 250 ns if better resolution is needed (in addition to having a much shorter access time of 1-2 cycles instead of 22-26 cycles for RTC.TIMEx)." id="VAL" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="CH0CC250N" width="32" description="Channel 0 compare value with 250ns resolution. A read to this register returns the value {CH0CC8U[29:3], 5b’0}
@@ -214,7 +219,7 @@ TIME[50:-2] is adjusted by TIME += sxt(MANT[30:0], 53) * 2^(22*EXP).
 In other words:
 (EXP==0): TIME is adjusted by MANT * 250 ns (range +/-134 s)
 (EXP==1): TIME is adjusted by MANT * 1.049 s (range +/- 35.7 yr)
-" id="DTIME" offset="0x68">
+If used by an application to adjust RTC TIME value, the write to DTIME must occur as quickly as possible after an lftick event. It should also be followed by a write of 1 to SYSTIM.STATUS.SYNCUP to ensure that SYSTIM resynchronizes to the new RTC TIME value at the next lftick event." id="DTIME" offset="0x68">
       <bitfield range="" begin="31" width="1" end="31" rwaccess="WO" description="Exponent" id="EXP" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="30" width="31" end="0" rwaccess="WO" description="Mantissa" id="MANT" resetval="0x0">

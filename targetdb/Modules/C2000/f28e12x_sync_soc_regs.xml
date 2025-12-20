@@ -1,0 +1,15 @@
+<module id="SYNC_SOC_REGS" HW_revision="" description="SYNC SOC Registers">
+	<register id="SYNCSELECT" width="32" page="1" offset="0x0" internal="0" description="Sync Input and Output Select Register">
+		<bitfield id="SYNCOUT" description="Select EXT Syncout Source" begin="28" end="24" width="5" rwaccess="RW"/>
+	</register>
+	<register id="ADCSOCOUTSELECT" width="32" page="1" offset="0x2" internal="0" description="External ADCSOC Select Register">
+		<bitfield id="PWM1SOCAEN" description="PWM1SOCAEN Enable for ADCSOCAOn " begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="PWM3SOCAEN" description="PWM3SOCAEN Enable for ADCSOCAOn " begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="PWM1SOCBEN" description="PWM1SOCBEN Enable for ADCSOCBOn " begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="PWM3SOCBEN" description="PWM3SOCBEN Enable for ADCSOCBOn " begin="18" end="18" width="1" rwaccess="RW"/>
+	</register>
+	<register id="SYNCSOCLOCK" width="32" page="1" offset="0x4" internal="0" description="SYNCSEL and EXTADCSOC Select Lock register">
+		<bitfield id="SYNCSELECT" description="SYNCSEL Register Lock bit" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ADCSOCOUTSELECT" description="ADCSOCOUTSELECT Register Lock bit" begin="1" end="1" width="1" rwaccess="RW"/>
+	</register>
+</module>

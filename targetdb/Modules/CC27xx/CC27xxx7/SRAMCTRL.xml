@@ -14,14 +14,6 @@ This register identifies the peripheral
       <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor revision" id="MINREV" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="DTB" width="32" description="
-This bit field is used to select DTB mux digital inputs
-" id="DTB" offset="0x64">
-      <bitfield range="" begin="31" width="30" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="1" width="2" end="0" rwaccess="RW" description="DTB Selection" id="SEL" resetval="0x0">
-      </bitfield>
-   </register>
    <register acronym="CFG" width="32" description="
 Configuration Register
 " id="CFG" offset="0x100">
@@ -36,30 +28,6 @@ Configuration Register
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="SRAM Parity Enable." id="PAREN" resetval="0x0">
          <bitenum id="EN" value="1" token="Enable Parity" description="Enable Parity"/>
          <bitenum id="DIS" value="0" token="Disable Parity" description="Disable Parity"/>
-      </bitfield>
-   </register>
-   <register acronym="INITSEL" width="32" description="
-Initilizataion Select Register.
-" id="INITSEL" offset="0x104">
-      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="Bank Select. Bit[0]:Bank-0 Bit[1]:Bank-1 ... Bit[n]:Bank-n" id="SEL" resetval="0x0">
-      </bitfield>
-   </register>
-   <register acronym="INITTRIG" width="32" description="
-Initilizataion Select Register. This register is writable only if CFG.LOCKDIS = 1
-" id="INITTRIG" offset="0x108">
-      <bitfield range="" begin="31" width="31" end="1" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Trigger Initilization. All banks with its INIT.SEL[x] bit set to 1 will be initilizaed. This bit will auto clear once initlization is complete" id="TRG" resetval="0x0">
-      </bitfield>
-   </register>
-   <register acronym="INITSTAT" width="32" description="
-Initilizataion Status
-" id="INITSTAT" offset="0x10c">
-      <bitfield range="" begin="31" width="25" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
-      </bitfield>
-      <bitfield range="" begin="6" width="7" end="0" rwaccess="RO" description="Each bit indicate that corresponding bank is getting initialzed" id="BUSY" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="PARDBG" width="32" description="

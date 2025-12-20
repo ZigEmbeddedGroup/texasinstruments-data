@@ -29,9 +29,7 @@ The Information Processing Time (IPT) is zero, meaning the data for the next bit
       </bitfield>
       <bitfield range="" begin="23" width="1" end="23" rwaccess="RW" description="Transmitter Delay Compensation
   0  Transmitter Delay Compensation disabled
-  1  Transmitter Delay Compensation enabled
- 
-+I107" id="TDC" resetval="0x0">
+  1  Transmitter Delay Compensation enabled" id="TDC" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="22" width="2" end="21" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED21" resetval="0x0">
       </bitfield>
@@ -1231,9 +1229,7 @@ Qualified Write is possible only with CCCR.CCE=&#39;1&#39; and CCCR.INIT=&#39;1&
   1-32  Number of Tx Buffers used for Tx FIFO/Queue
   $gt;32   Values greater than 32 are interpreted as 32
  
-Note: Be aware that the sum of TFQS and NDTB may be not greater than 32. There is no check
-for erroneous configurations. The Tx Buffers section in the Message RAM starts with the
-dedicated Tx Buffers.
+Note: Be aware that the sum of TFQS and NDTB may be not greater than 32. There is no check for erroneous configurations. The Tx Buffers section in the Message RAM starts with the dedicated Tx Buffers.
  
 Qualified Write is possible only with CCCR.CCE=&#39;1&#39; and CCCR.INIT=&#39;1&#39;." id="TFQS" resetval="0x0">
       </bitfield>
@@ -1244,9 +1240,7 @@ Qualified Write is possible only with CCCR.CCE=&#39;1&#39; and CCCR.INIT=&#39;1&
   1-32  Number of Dedicated Tx Buffers
   $gt;32   Values greater than 32 are interpreted as 32
  
-Note: Be aware that the sum of TFQS and NDTB may be not greater than 32. There is no check
-for erroneous configurations. The Tx Buffers section in the Message RAM starts with the
-dedicated Tx Buffers.
+Note: Be aware that the sum of TFQS and NDTB may be not greater than 32. There is no check for erroneous configurations. The Tx Buffers section in the Message RAM starts with the dedicated Tx Buffers.
  
 Qualified Write is possible only with CCCR.CCE=&#39;1&#39; and CCCR.INIT=&#39;1&#39;." id="NDTB" resetval="0x0">
       </bitfield>
@@ -2037,7 +2031,7 @@ Each Tx Buffer has its own Cancellation Finished bit. The bits are set when the 
   1  Write of &#39;1&#39; clears the MCANSS_IRS.EXT_TS_CNTR_OVFL bit" id="EXT_TS_CNTR_OVFL" resetval="0x0">
       </bitfield>
    </register>
-   <register acronym="MCANSS_IRS" width="32" description="MCAN Subsystem Interrupt Raw Satus Register" id="MCANSS_IRS" offset="0x210">
+   <register acronym="MCANSS_IRS" width="32" description="MCAN Subsystem Interrupt Raw Status Register" id="MCANSS_IRS" offset="0x210">
       <bitfield range="" begin="31" width="31" end="1" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="External Timestamp Counter Overflow Interrupt Status. This bit is set by HW or by a SW write of &#39;1&#39;. To clear, use the MCANSS_ICS.EXT_TS_CNTR_OVFL bit.
@@ -2767,7 +2761,7 @@ Shows module version and module ID" id="DESC" offset="0x800">
          <bitenum id="NO_EFFECT" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
       </bitfield>
    </register>
-   <register acronym="MCANSS_CLKDIV" width="32" description="Needs to go to the Management apperture once available" id="MCANSS_CLKDIV" offset="0x904">
+   <register acronym="MCANSS_CLKDIV" width="32" description="Clock Divider. Configuring Clock divider setting for MCAN functional clock." id="MCANSS_CLKDIV" offset="0x904">
       <bitfield range="" begin="31" width="30" end="2" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="1" width="2" end="0" rwaccess="RW" description="Clock divide ratio specification. Enables configuring clock divide settings for the MCAN functional clock input to the MCAN-SS. " id="RATIO" resetval="0x0">
@@ -2776,8 +2770,7 @@ Shows module version and module ID" id="DESC" offset="0x800">
          <bitenum id="DIV_BY_1_" value="0" token="Divides input clock by 1" description="Divides input clock by 1"/>
       </bitfield>
    </register>
-   <register acronym="MCANSS_CLKCTL" width="32" description="MCANSS clock stop control MMR. 
-$lt;Internal note$gt; Bus clock for the Dragon wrapper MMRs (including this MMR) is not gated by this register. " id="MCANSS_CLKCTL" offset="0x908">
+   <register acronym="MCANSS_CLKCTL" width="32" description="MCANSS clock stop control MMR. " id="MCANSS_CLKCTL" offset="0x908">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Setting this bit enables the glitch filter on MCAN RXD input, which wakes up the MCAN controller to exit clock gating. " id="WKUP_GLTFLT_EN" resetval="0x0">
@@ -2794,7 +2787,7 @@ $lt;Internal note$gt; Bus clock for the Dragon wrapper MMRs (including this MMR)
       </bitfield>
       <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="This bit is used to enable/disable MCAN clock (both host clock and functional clock) gating request.
 
-Note: This bit can be reset by HW by Clock-Stop Wake-up via CAN RX Activity. See spec for more details. 
+Note: This bit can be reset by HW by Clock-Stop Wake-up via CAN RX Activity. 
 " id="STOPREQ" resetval="0x0">
          <bitenum id="ENABLE" value="1" token="Enable MCAN-SS clock stop request" description="Enable MCAN-SS clock stop request"/>
          <bitenum id="DISABLE" value="0" token="Disable MCAN-SS clock stop request" description="Disable MCAN-SS clock stop request"/>
@@ -3070,7 +3063,7 @@ Address should be compited based on the 14-bit RBSA (Rx buffer start address) + 
 The address of this register is programmed as the DMA source address register for moving NDAT1 value during DMA operation. 
 
 This register is automatically updated on the fly depending on FE001/FE010 (Rxbuf(x)/Rxbuf(x+1)) ongoing transfer. " id="RXDMA_TTO_NDAT1" offset="0x950">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="NDAT1 value to be programmed onto MCAN.NDAT1 MMR. 
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="NDAT1 value to be programmed onto MCAN.NDAT1 MMR. 
 Automatically updated by HW. " id="NDAT1_VAL" resetval="0x0">
          <bitenum id="MAX" value="2147483648" token="max value = (bit 31 set) = 0x80000000" description="max value = (bit 31 set) = 0x80000000"/>
          <bitenum id="MIN" value="0" token="Min value = 0x0 (not bits set)" description="Min value = 0x0 (not bits set)"/>

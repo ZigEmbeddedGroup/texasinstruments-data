@@ -57,7 +57,7 @@
    <register acronym="RIS0" width="32" description="Raw interrupt status. This register reflects the state of all pending interrupts, regardless of masking. This register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the corresponding ICLR0 register bit." id="RIS0" offset="0x30">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Raw interrupt status for MEMRES3.
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="RO" description="Raw interrupt status for MEMRES3.
 This bit is set to 1 when MEMRES3 is loaded with a new
 conversion result.
 Reading MEMRES3 register will clear this bit, or when the
@@ -65,7 +65,7 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG3" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Raw interrupt status for MEMRES2.
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="RO" description="Raw interrupt status for MEMRES2.
 This bit is set to 1 when MEMRES2 is loaded with a new
 conversion result.
 Reading MEMRES2 register will clear this bit, or when the
@@ -73,7 +73,7 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG2" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Raw interrupt status for MEMRES1.
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="RO" description="Raw interrupt status for MEMRES1.
 This bit is set to 1 when MEMRES1 is loaded with a new
 conversion result.
 Reading MEMRES1 register will clear this bit, or when the
@@ -81,7 +81,7 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG1" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Raw interrupt status for MEMRES0.
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Raw interrupt status for MEMRES0.
 This bit is set to 1 when MEMRES0 is loaded with a new
 conversion result.
 Reading MEMRES0 register will clear this bit, or when the
@@ -89,35 +89,35 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG0" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Raw interrupt flag for ASC done." id="ASCDONE" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="RO" description="Raw interrupt flag for ASC done." id="ASCDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Raw interrupt flag for MEMRESx underflow." id="UVIFG" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RO" description="Raw interrupt flag for MEMRESx underflow." id="UVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Raw interrupt flag for DMADONE." id="DMADONE" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Raw interrupt flag for DMADONE." id="DMADONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Raw interrupt status for In-range comparator." id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RO" description="Raw interrupt status for In-range comparator." id="INIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Raw interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Raw interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Raw interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Raw interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Raw interrupt flag for sequence conversion trigger overflow." id="TOVIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Raw interrupt flag for sequence conversion trigger overflow." id="TOVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Raw interrupt flag for MEMRESx overflow." id="OVIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Raw interrupt flag for MEMRESx overflow." id="OVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -125,51 +125,51 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="MIS0" width="32" description="Masked interrupt status. This register is simply a bitwise AND of the contents of IMASK and RIS registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="MIS0" offset="0x38">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Masked interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="RO" description="Masked interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Masked interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="RO" description="Masked interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Masked interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="RO" description="Masked interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Masked interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Masked interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Masked interrupt status for ASC done." id="ASCDONE" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="RO" description="Masked interrupt status for ASC done." id="ASCDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Masked interrupt flag for MEMRESx underflow." id="UVIFG" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="RO" description="Masked interrupt flag for MEMRESx underflow." id="UVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Masked interrupt flag for DMADONE." id="DMADONE" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="RO" description="Masked interrupt flag for DMADONE." id="DMADONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Mask INIFG in MIS0 register. " id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RO" description="Mask INIFG in MIS0 register. " id="INIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Masked interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Masked interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Masked interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Masked interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Masked interrupt flag for sequence conversion timeout overflow." id="TOVIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="RO" description="Masked interrupt flag for sequence conversion timeout overflow." id="TOVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Masked interrupt flag for MEMRESx overflow." id="OVIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RO" description="Masked interrupt flag for MEMRESx overflow." id="OVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -178,51 +178,51 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG0" resetval="0x0">
 " id="ISET0" offset="0x40">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Set interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="Set interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Set interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="Set interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Set interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="Set interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Set Interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Set Interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Set interrupt for ASC done." id="ASCDONE" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="Set interrupt for ASC done." id="ASCDONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Set interrupt for MEMRESx underflow." id="UVIFG" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Set interrupt for MEMRESx underflow." id="UVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Set interrupt for DMADONE." id="DMADONE" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Set interrupt for DMADONE." id="DMADONE" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Set INIFG interrupt register." id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Set INIFG interrupt register." id="INIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Set interrupt for MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Set interrupt for MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Set Interrupt for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Set Interrupt for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Set interrupt for sequence conversion timeout overflow." id="TOVIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Set interrupt for sequence conversion timeout overflow." id="TOVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Set Interrupt for MEMRESx overflow." id="OVIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Set Interrupt for MEMRESx overflow." id="OVIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -230,51 +230,51 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="ICLR0" width="32" description="Interrupt clear register. This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared." id="ICLR0" offset="0x48">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Clear interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="Clear interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Clear interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="Clear interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Clear interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="Clear interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Clear interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Clear interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="7" width="1" end="7" rwaccess="RW" description="Clear ASC done flag in RIS." id="ASCDONE" resetval="0x0">
+      <bitfield range="" begin="7" width="1" end="7" rwaccess="WO" description="Clear ASC done flag in RIS." id="ASCDONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="6" width="1" end="6" rwaccess="RW" description="Clear interrupt flag for MEMRESx underflow." id="UVIFG" resetval="0x0">
+      <bitfield range="" begin="6" width="1" end="6" rwaccess="WO" description="Clear interrupt flag for MEMRESx underflow." id="UVIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="5" width="1" end="5" rwaccess="RW" description="Clear interrupt flag for DMADONE." id="DMADONE" resetval="0x0">
+      <bitfield range="" begin="5" width="1" end="5" rwaccess="WO" description="Clear interrupt flag for DMADONE." id="DMADONE" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Clear INIFG in MIS0 register." id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Clear INIFG in MIS0 register." id="INIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Clear interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Clear interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Clear interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Clear interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="1" width="1" end="1" rwaccess="RW" description="Clear interrupt flag for sequence conversion timeout overflow." id="TOVIFG" resetval="0x0">
+      <bitfield range="" begin="1" width="1" end="1" rwaccess="WO" description="Clear interrupt flag for sequence conversion timeout overflow." id="TOVIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Clear interrupt flag for MEMRESx overflow." id="OVIFG" resetval="0x0">
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="WO" description="Clear interrupt flag for MEMRESx overflow." id="OVIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -306,7 +306,7 @@ corresponding bit in ICLR0 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="RIS1" width="32" description="Raw interrupt status. This register reflects the state of all pending interrupts, regardless of masking. This register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the corresponding ICLR0 register bit." id="RIS1" offset="0x60">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Raw interrupt status for MEMRES0.
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Raw interrupt status for MEMRES0.
 This bit is set to 1 when MEMRES0 is loaded with a new
 conversion result.
 Reading MEMRES0 register will clear this bit, or when the
@@ -316,15 +316,15 @@ corresponding bit in ICLR1 is set to 1" id="MEMRESIFG0" resetval="0x0">
       </bitfield>
       <bitfield range="" begin="7" width="3" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Raw interrupt status for In-range comparator." id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RO" description="Raw interrupt status for In-range comparator." id="INIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Raw interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Raw interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Raw interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Raw interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -334,21 +334,21 @@ corresponding bit in ICLR1 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="MIS1" width="32" description="Masked interrupt status. This register is simply a bitwise AND of the contents of IMASK and RIS registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="MIS1" offset="0x68">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Masked interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Masked interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
       <bitfield range="" begin="7" width="3" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Mask INIFG in MIS1 register." id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="RO" description="Mask INIFG in MIS1 register." id="INIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Masked interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="RO" description="Masked interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Masked interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="RO" description="Masked interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="CLR" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -359,21 +359,21 @@ corresponding bit in ICLR1 is set to 1" id="MEMRESIFG0" resetval="0x0">
 " id="ISET1" offset="0x70">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Set Interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Set Interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
       <bitfield range="" begin="7" width="3" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Set INIFG interrupt register." id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Set INIFG interrupt register." id="INIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Set interrupt for MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Set interrupt for MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Set Interrupt for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Set Interrupt for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="SET" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -383,21 +383,21 @@ corresponding bit in ICLR1 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="ICLR1" width="32" description="Interrupt clear register. This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared." id="ICLR1" offset="0x78">
       <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Clear interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Clear interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
       <bitfield range="" begin="7" width="3" end="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="4" width="1" end="4" rwaccess="RW" description="Clear INIFG in MIS1 register." id="INIFG" resetval="0x0">
+      <bitfield range="" begin="4" width="1" end="4" rwaccess="WO" description="Clear INIFG in MIS1 register." id="INIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="3" width="1" end="3" rwaccess="RW" description="Clear interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
+      <bitfield range="" begin="3" width="1" end="3" rwaccess="WO" description="Clear interrupt flag for the MEMRESx result register being below than the WCLOWx threshold of the window comparator." id="LOWIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
-      <bitfield range="" begin="2" width="1" end="2" rwaccess="RW" description="Clear interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
+      <bitfield range="" begin="2" width="1" end="2" rwaccess="WO" description="Clear interrupt flag for the MEMRESx result register being higher than the WCHIGHx threshold of the window comparator." id="HIGHIFG" resetval="0x0">
          <bitenum id="CLR" value="1" token="Interrupt is pending." description="Interrupt is pending."/>
          <bitenum id="NO_EFFECT" value="0" token="Interrupt is not pending." description="Interrupt is not pending."/>
       </bitfield>
@@ -429,7 +429,7 @@ corresponding bit in ICLR1 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="RIS2" width="32" description="Raw interrupt status. This register reflects the state of all pending interrupts, regardless of masking. This register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the corresponding ICLR0 register bit." id="RIS2" offset="0x90">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Raw interrupt status for MEMRES3.
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="RO" description="Raw interrupt status for MEMRES3.
 This bit is set to 1 when MEMRES3 is loaded with a new
 conversion result.
 Reading MEMRES3 register will clear this bit, or when the
@@ -437,7 +437,7 @@ corresponding bit in ICLR2 is set to 1" id="MEMRESIFG3" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Raw interrupt status for MEMRES2.
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="RO" description="Raw interrupt status for MEMRES2.
 This bit is set to 1 when MEMRES2 is loaded with a new
 conversion result.
 Reading MEMRES2 register will clear this bit, or when the
@@ -446,7 +446,7 @@ corresponding bit in ICLR2 is set to 1
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Raw interrupt status for MEMRES1.
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="RO" description="Raw interrupt status for MEMRES1.
 This bit is set to 1 when MEMRES1 is loaded with a new
 conversion result.
 Reading MEMRES1 register will clear this bit, or when the
@@ -454,7 +454,7 @@ corresponding bit in ICLR2 is set to 1" id="MEMRESIFG1" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Raw interrupt status for MEMRES0.
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Raw interrupt status for MEMRES0.
 This bit is set to 1 when MEMRES0 is loaded with a new
 conversion result.
 Reading MEMRES0 register will clear this bit, or when the
@@ -468,19 +468,19 @@ corresponding bit in ICLR2 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="MIS2" width="32" description="Extension of Masked interrupt status. This register is simply a bitwise AND of the contents of IMASK and RIS registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit." id="MIS2" offset="0x98">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Masked interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="RO" description="Masked interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Masked interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="RO" description="Masked interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Masked interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="RO" description="Masked interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Masked interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RO" description="Masked interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="CLR" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
@@ -490,19 +490,19 @@ corresponding bit in ICLR2 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="ISET2" width="32" description="Interrupt set register. This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set." id="ISET2" offset="0xa0">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Set interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="Set interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Set interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="Set interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Set interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="Set interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Set Interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Set Interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="SET" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
@@ -512,19 +512,19 @@ corresponding bit in ICLR2 is set to 1" id="MEMRESIFG0" resetval="0x0">
    <register acronym="ICLR2" width="32" description="Interrupt clear register. This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared." id="ICLR2" offset="0xa8">
       <bitfield range="" begin="31" width="20" end="12" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="11" width="1" end="11" rwaccess="RW" description="Clear interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
+      <bitfield range="" begin="11" width="1" end="11" rwaccess="WO" description="Clear interrupt status for MEMRES3." id="MEMRESIFG3" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="10" width="1" end="10" rwaccess="RW" description="Clear interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
+      <bitfield range="" begin="10" width="1" end="10" rwaccess="WO" description="Clear interrupt status for MEMRES2." id="MEMRESIFG2" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="9" width="1" end="9" rwaccess="RW" description="Clear interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
+      <bitfield range="" begin="9" width="1" end="9" rwaccess="WO" description="Clear interrupt status for MEMRES1." id="MEMRESIFG1" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
-      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Clear interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="WO" description="Clear interrupt status for MEMRES0." id="MEMRESIFG0" resetval="0x0">
          <bitenum id="CLR" value="1" token="A new data is ready to be read." description="A new data is ready to be read."/>
          <bitenum id="NO_EFFECT" value="0" token="No new data ready." description="No new data ready."/>
       </bitfield>
@@ -742,7 +742,7 @@ For 10-bits and 8-bits resolution, unused bit have to be 0s." id="DATA" resetval
       </bitfield>
    </register>
    <register acronym="FIFODATA" width="32" description="FIFO data register. This is a virtual register used to read from FIFO." id="FIFODATA" offset="0x160">
-      <bitfield range="" begin="31" width="32" end="0" rwaccess="RW" description="Read from this data field returns the ADC sample from FIFO." id="DATA" resetval="0x0">
+      <bitfield range="" begin="31" width="32" end="0" rwaccess="RO" description="Read from this data field returns the ADC sample from FIFO." id="DATA" resetval="0x0">
       </bitfield>
    </register>
    <register acronym="ASCRES" width="32" description="ASC result register" id="ASCRES" offset="0x170">
@@ -955,7 +955,7 @@ Note: Writing value 0x3 defaults to INTREF." id="VRSEL" resetval="0x0">
    <register acronym="MEMRES0" width="32" description="Memory Result Register 0" id="MEMRES0" offset="0x280">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="16" end="0" rwaccess="RW" description="If DF = 0, unsigned binary:
+      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="If DF = 0, unsigned binary:
 The conversion results are right aligned. In 10 and 8 bit modes, the unused MSB bits are forced to 0. 
 If DF = 1, 2s-complement format:
 The conversion results are left aligned. In 10 and 8 bit modes, the unused LSB bits are forced to 0.
@@ -966,7 +966,7 @@ The data is stored in the right-justified format and is converted to the left-ju
    <register acronym="MEMRES1" width="32" description="Memory Result Register 1" id="MEMRES1" offset="0x284">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="16" end="0" rwaccess="RW" description="If DF = 0, unsigned binary:
+      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="If DF = 0, unsigned binary:
 The conversion results are right aligned. In 10 and 8 bit modes, the unused MSB bits are forced to 0. 
 If DF = 1, 2s-complement format:
 The conversion results are left aligned. In 10 and 8 bit modes, the unused LSB bits are forced to 0.
@@ -977,7 +977,7 @@ The data is stored in the right-justified format and is converted to the left-ju
    <register acronym="MEMRES2" width="32" description="Memory Result Register 2" id="MEMRES2" offset="0x288">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="16" end="0" rwaccess="RW" description="If DF = 0, unsigned binary:
+      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="If DF = 0, unsigned binary:
 The conversion results are right aligned. In 10 and 8 bit modes, the unused MSB bits are forced to 0. 
 If DF = 1, 2s-complement format:
 The conversion results are left aligned. In 10 and 8 bit modes, the unused LSB bits are forced to 0.
@@ -988,7 +988,7 @@ The data is stored in the right-justified format and is converted to the left-ju
    <register acronym="MEMRES3" width="32" description="Memory Result Register 3" id="MEMRES3" offset="0x28c">
       <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0">
       </bitfield>
-      <bitfield range="" begin="15" width="16" end="0" rwaccess="RW" description="If DF = 0, unsigned binary:
+      <bitfield range="" begin="15" width="16" end="0" rwaccess="RO" description="If DF = 0, unsigned binary:
 The conversion results are right aligned. In 10 and 8 bit modes, the unused MSB bits are forced to 0. 
 If DF = 1, 2s-complement format:
 The conversion results are left aligned. In 10 and 8 bit modes, the unused LSB bits are forced to 0.

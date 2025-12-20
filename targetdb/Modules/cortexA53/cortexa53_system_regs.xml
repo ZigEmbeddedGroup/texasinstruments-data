@@ -383,10 +383,10 @@
     </register>
     <register id="MIDR_EL1" acronym="MIDR_EL1" width="32" description="Main ID Register">
 	    <bitfield id="Implementer" width="8" begin="31" end="24" description="Implementer code" rwaccess="R"/>
-	    <bitfield id="Variant"     width="4" begin="31" end="24" description="Variant" rwaccess="R"/>
-	    <bitfield id="Architecture" width="4" begin="23" end="16" description="Architecture" rwaccess="R"/>
-	    <bitfield id="PartNum"     width="12" begin="15" end="8"  description="Primary part number" rwaccess="R"/>
-	    <bitfield id="Revision"    width="4" begin="7"  end="0"  description="Revision number" rwaccess="R"/>
+	    <bitfield id="Variant"     width="4" begin="23" end="20" description="Variant" rwaccess="R"/>
+	    <bitfield id="Architecture" width="4" begin="19" end="16" description="Architecture" rwaccess="R"/>
+	    <bitfield id="PartNum"     width="12" begin="15" end="4"  description="Primary part number" rwaccess="R"/>
+	    <bitfield id="Revision"    width="4" begin="3"  end="0"  description="Revision number" rwaccess="R"/>
     </register>
     <register id="MPIDR_EL1" acronym="MPIDR_EL1" width="64" description="Multiprocessor Affinity Register">
 <!--	    <bitfield id="RES0_0"    width="24" begin="63" end="40" description="Reserved 0" rwaccess="R"/>-->
@@ -539,7 +539,7 @@
 	    <bitfield id="TBI0"      width="1" begin="37" end="37" description="Top byte ignored for TTBR0_EL1 region" rwaccess="RW"/>
 	    <bitfield id="AS"        width="1" begin="36" end="36" description="ASID size (0=8, 1=16)" rwaccess="RW"/>
 <!--	    <bitfield id="RES0_1"    width="1" begin="35" end="35" description="Reserved 0" rwaccess="R"/>-->
-	    <bitfield id="IPS"       width="2" begin="34" end="32" description="Intermediate Physical Address Size" rwaccess="RW"/>
+	    <bitfield id="IPS"       width="3" begin="34" end="32" description="Intermediate Physical Address Size" rwaccess="RW"/>
 	    <bitfield id="TG1"       width="2" begin="31" end="30" description="TTBR1_EL1 granule size" rwaccess="RW"/>
 	    <bitfield id="SH1"       width="2" begin="29" end="28" description="Shareability for memory associated with TTBR1_EL1 table walks" rwaccess="RW"/>
 	    <bitfield id="ORGN1"     width="2" begin="27" end="26" description="Outer cacheability for memory associated with TTBR1_EL1 table walks" rwaccess="RW"/>
@@ -622,10 +622,10 @@
     </register>
     <register id="VPIDR_EL2" acronym="VPIDR_EL2" width="32" description="Virtualization Processor ID Register">
 	    <bitfield id="Implementer" width="8" begin="31" end="24" description="Implementer code" rwaccess="RW"/>
-	    <bitfield id="Variant"     width="4" begin="31" end="24" description="Variant" rwaccess="RW"/>
-	    <bitfield id="Architecture" width="4" begin="23" end="16" description="Architecture" rwaccess="RW"/>
-	    <bitfield id="PartNum"     width="12" begin="15" end="8"  description="Primary part number" rwaccess="RW"/>
-	    <bitfield id="Revision"    width="4" begin="7"  end="0"  description="Revision number" rwaccess="RW"/>
+	    <bitfield id="Variant"     width="4" begin="23" end="20" description="Variant" rwaccess="RW"/>
+	    <bitfield id="Architecture" width="4" begin="19" end="16" description="Architecture" rwaccess="RW"/>
+	    <bitfield id="PartNum"     width="12" begin="15" end="4"  description="Primary part number" rwaccess="RW"/>
+	    <bitfield id="Revision"    width="4" begin="3"  end="0"  description="Revision number" rwaccess="RW"/>
     </register>
     <register id="VTCR_EL2" acronym="VTCR_EL2" width="32" description="Virtualization Translation Control Register">
 <!--	    <bitfield id="RES1"      width="1" begin="31" end="31" description="Reserved 1" rwaccess="R"/>-->

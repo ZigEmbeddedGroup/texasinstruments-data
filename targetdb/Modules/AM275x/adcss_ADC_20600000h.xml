@@ -1,0 +1,123 @@
+<module name="adc" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="ADC_REVISION" acronym="ADC_REVISION" offset="0" width="32" description="IP Revision Identifier (X.Y.R) Used by software to track features, bugs, and compatibility">
+		<bitfield id="MODID" width="16" begin="31" end="16" resetval="0x27072" description="Module ID field   Reset Source: rst_mod_g_rst_n" range="31:16" rwaccess="R"/>
+	<bitfield id="REVRTL" width="5" begin="15" end="11" resetval="0x7" description="RTL revision. Will vary depending on release.   Reset Source: rst_mod_g_rst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="REVMAJ" width="3" begin="10" end="8" resetval="0x1" description="Major revision   Reset Source: rst_mod_g_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom   Reset Source: rst_mod_g_rst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="REVMIN" width="6" begin="5" end="0" resetval="0x0" description="Minor revision   Reset Source: rst_mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="ADC_DMAENABLE_SET" acronym="ADC_DMAENABLE_SET" offset="56" width="32" description="The DMAENABLE_SET register allows the enabling of DMA requests">
+		<bitfield id="ENABLE1" width="1" begin="1" end="1" resetval="0x0" description="enable DMA reguest FIFO1   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="ENABLE0" width="1" begin="0" end="0" resetval="0x0" description="enable DMA reguest FIFO0   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="ADC_DMAENABLE_CLR" acronym="ADC_DMAENABLE_CLR" offset="60" width="32" description="The DMAENABLE_CLR register allows the disabling of DMA requests">
+		<bitfield id="ENABLE1" width="1" begin="1" end="1" resetval="0x0" description="clears the enable of the DMA reguest FIFO1. Disables DMA request when Writing 1   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="ENABLE0" width="1" begin="0" end="0" resetval="0x0" description="clears the enable of the DMA reguest FIFO0. Disables DMA request when Writing 1   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="ADC_CTRL" acronym="ADC_CTRL" offset="64" width="32" description="Controls various parameters of the cotroller state.">
+		<bitfield id="HI_MID_SEL" width="1" begin="11" end="11" resetval="0x0" description="Functional safety debug mode. =1 choose ADCREFP, =0 VMID reference input to ADC   Reset Source: rst_mod_g_rst_n" range="11" rwaccess="R/W"/>
+	<bitfield id="HI_MID_EN" width="1" begin="10" end="10" resetval="0x0" description="Functional safety debug mode. enable fixed reference to ADC for testing   Reset Source: rst_mod_g_rst_n" range="10" rwaccess="R/W"/>
+	<bitfield id="HW_PREEMPT" width="1" begin="9" end="9" resetval="0x0" description="1 steps are preempted   Reset Source: rst_mod_g_rst_n" range="9" rwaccess="R/W"/>
+	<bitfield id="HW_MAP" width="1" begin="8" end="8" resetval="0x0" description="1 = hw events enabled   Reset Source: rst_mod_g_rst_n" range="8" rwaccess="R/W"/>
+	<bitfield id="PD" width="1" begin="4" end="4" resetval="0x1" description="AFE powered down   Reset Source: rst_mod_g_rst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="BIAS_SEL" width="1" begin="3" end="3" resetval="0x0" description="AFE select bias control   Reset Source: rst_mod_g_rst_n" range="3" rwaccess="R/W"/>
+	<bitfield id="STEP_ID_EN" width="1" begin="1" end="1" resetval="0x0" description="Writing 1 will store the stepid number with the captured adc data in the fifo   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W"/>
+	<bitfield id="MODULE_ENABLE" width="1" begin="0" end="0" resetval="0x0" description="ADC12_SS module enable bit. After programming all the configuration and step enable registers,write a 1 to this bit to start conversion.Writing a 0 will disable the module after the current conversion.Before turning on again, the ADC_SEQUENCER_STATUS register show read back STEP_ID=Idle and FSM_BUSY=0. Enabling the controller will be held off until mem_init_done =1.   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="R/W"/>
+	</register><register id="ADC_ADCSTAT" acronym="ADC_ADCSTAT" offset="68" width="32" description="SW can read this register to find out the currently scheduled step id being converted on the ADC port.If you want to turn the controller off and then back on, the step_id bit should be checked and compared to IDLE before enabling the ADC12_SS module again.Also, before enabling the controller again, the user should wait for the FSM bit 5 to read idl.">
+		<bitfield id="GPADC_BUSY" width="1" begin="8" end="8" resetval="0x0" description="Monitor the AFE internal calibration, busy bit   Reset Source: rst_mod_g_rst_n" range="8" rwaccess="R"/>
+	<bitfield id="MEM_INIT_DONE" width="1" begin="6" end="6" resetval="0x0" description="status of ram initialization, 1= ram initialization to 0 after reset is done.   Reset Source: rst_mod_g_rst_n" range="6" rwaccess="R"/>
+	<bitfield id="FSM_BUSY" width="1" begin="5" end="5" resetval="0x1" description="status of fsm, 1= conversion in progress   Reset Source: rst_mod_g_rst_n" range="5" rwaccess="R"/>
+	<bitfield id="STEP_IDLE" width="5" begin="4" end="0" resetval="0x0" description="10000 = idle, 000000 -> 01111 corresponds to step 1 -> step 16   Reset Source: rst_mod_g_rst_n" range="4:0" rwaccess="R"/>
+	</register><register id="ADC_ADCRANGE" acronym="ADC_ADCRANGE" offset="72" width="32" description="This feature requires the range check interrupt bit to be enabled first.The user can decide  which channel input is compared by programming the RangeCheck bit of the StepConfig Registers.It is up to software to sort through FIFO data to determine which channel data was out of range. Software should only use LSB 10 bits for comparison and make sure bits 11,12 are 0.">
+		<bitfield id="HIRANGE" width="12" begin="27" end="16" resetval="0x0" description="If the sampled data is > value, then interrupt is generated   Reset Source: rst_mod_g_rst_n" range="27:16" rwaccess="R/W"/>
+	<bitfield id="LOWRANGE" width="12" begin="11" end="0" resetval="0x0" description="If the sampled data is &#60; value, then interrupt is generated   Reset Source: rst_mod_g_rst_n" range="11:0" rwaccess="R/W"/>
+	</register><register id="ADC_MISC" acronym="ADC_MISC" offset="80" width="32" description="Spare inputs of the AFE are driven by this register, spare outputs from the AFE are read.">
+		<bitfield id="AFE_SPARE_OUT" width="4" begin="11" end="8" resetval="0x0" description="Spare outputs from AFE   Reset Source: rst_mod_g_rst_n" range="11:8" rwaccess="R"/>
+	<bitfield id="AFE_SPARE_IN" width="4" begin="3" end="0" resetval="0x0" description="Spare inputs to AFE   Reset Source: rst_mod_g_rst_n" range="3:0" rwaccess="R/W"/>
+	</register><register id="ADC_STEPENABLE" acronym="ADC_STEPENABLE" offset="84" width="32" description="Contains the enable bit for each step in the sequencer.When all steps are disabled, the FSM will stay in IDLE state.These bits can be enabled or disabled dynamically during operation.When a write to this register occurs during operational mode, the HW will make sure the new settings are updated after the END_OF_SEQUENCE event">
+		<bitfield id="STEP16" width="1" begin="16" end="16" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="16" rwaccess="R/W"/>
+	<bitfield id="STEP15" width="1" begin="15" end="15" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="15" rwaccess="R/W"/>
+	<bitfield id="STEP14" width="1" begin="14" end="14" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="14" rwaccess="R/W"/>
+	<bitfield id="STEP13" width="1" begin="13" end="13" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="13" rwaccess="R/W"/>
+	<bitfield id="STEP12" width="1" begin="12" end="12" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="12" rwaccess="R/W"/>
+	<bitfield id="STEP11" width="1" begin="11" end="11" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="11" rwaccess="R/W"/>
+	<bitfield id="STEP10" width="1" begin="10" end="10" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="10" rwaccess="R/W"/>
+	<bitfield id="STEP9" width="1" begin="9" end="9" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="9" rwaccess="R/W"/>
+	<bitfield id="STEP8" width="1" begin="8" end="8" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="8" rwaccess="R/W"/>
+	<bitfield id="STEP7" width="1" begin="7" end="7" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="7" rwaccess="R/W"/>
+	<bitfield id="STEP6" width="1" begin="6" end="6" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="6" rwaccess="R/W"/>
+	<bitfield id="STEP5" width="1" begin="5" end="5" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="5" rwaccess="R/W"/>
+	<bitfield id="STEP4" width="1" begin="4" end="4" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="STEP3" width="1" begin="3" end="3" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="3" rwaccess="R/W"/>
+	<bitfield id="STEP2" width="1" begin="2" end="2" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="2" rwaccess="R/W"/>
+	<bitfield id="STEP1" width="1" begin="1" end="1" resetval="0x0" description="Enable step   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W"/>
+	</register><register id="ADC_FIFOCOUNT0" acronym="ADC_FIFOCOUNT0" offset="228" width="32" description="FIFO word count status">
+		<bitfield id="NUMWDS" width="9" begin="8" end="0" resetval="0x0" description="number of words in the FIFO   Reset Source: rst_mod_g_rst_n" range="8:0" rwaccess="R"/>
+	</register><register id="ADC_FIFOTHRESHOLD0" acronym="ADC_FIFOTHRESHOLD0" offset="232" width="32" description="FIFO threshold">
+		<bitfield id="THRESHOLD" width="8" begin="7" end="0" resetval="0x0" description="Program the desired FIFO0 data sample level minus 1 to reach before generating interrupt to CPU   Reset Source: rst_mod_g_rst_n" range="7:0" rwaccess="R/W"/>
+	</register><register id="ADC_DMAREQ0" acronym="ADC_DMAREQ0" offset="236" width="32" description="dma request.">
+		<bitfield id="DMAREQLEVEL" width="8" begin="7" end="0" resetval="0x0" description="Number of words minus 1 in FIFO0 before generating a DMA request    Reset Source: rst_mod_g_rst_n" range="7:0" rwaccess="R/W"/>
+	</register><register id="ADC_FIFOCOUNT1" acronym="ADC_FIFOCOUNT1" offset="240" width="32" description="FIFO word count status">
+		<bitfield id="NUMWDS" width="9" begin="8" end="0" resetval="0x0" description="number of words in the FIFO   Reset Source: rst_mod_g_rst_n" range="8:0" rwaccess="R"/>
+	</register><register id="ADC_FIFOTHRESHOLD1" acronym="ADC_FIFOTHRESHOLD1" offset="244" width="32" description="FIFO threshold">
+		<bitfield id="THRESHOLD" width="8" begin="7" end="0" resetval="0x0" description="Program the desired FIFO1 data sample level minus 1 to reach before generating interrupt to CPU   Reset Source: rst_mod_g_rst_n" range="7:0" rwaccess="R/W"/>
+	</register><register id="ADC_DMAREQ1" acronym="ADC_DMAREQ1" offset="248" width="32" description="dma request.">
+		<bitfield id="DMAREQLEVEL" width="8" begin="7" end="0" resetval="0x0" description="Number of words minus 1 in FIFO1 before generating a DMA request    Reset Source: rst_mod_g_rst_n" range="7:0" rwaccess="R/W"/>
+	</register><register id="ADC_FIFODATA0" acronym="ADC_FIFODATA0" offset="256" width="32" description="A read from this register will auto increment the FIFO read pointer. If you read when FIFO is empty,it will trigger an underflow interrupt">
+		<bitfield id="ADCCHANLID" width="4" begin="19" end="16" resetval="0x0" description="Optional ID tag of channel that captured the data.If tag option is disabled, these bits will be 0   Reset Source: rst_mod_g_rst_n" range="19:16" rwaccess="R"/>
+	<bitfield id="ADCDATA" width="12" begin="11" end="0" resetval="0x0" description="sampled ADC converted data value stored in FIFO   Reset Source: rst_mod_g_rst_n" range="11:0" rwaccess="R"/>
+	</register><register id="ADC_FIFODATA1" acronym="ADC_FIFODATA1" offset="512" width="32" description="A read from this register will auto increment the FIFO read pointer. If you read when FIFO is empty,it will trigger an underflow interrupt">
+		<bitfield id="ADCCHANLID" width="4" begin="19" end="16" resetval="0x0" description="Optional ID tag of channel that captured the data.If tag option is disabled, these bits will be 0   Reset Source: rst_mod_g_rst_n" range="19:16" rwaccess="R"/>
+	<bitfield id="ADCDATA" width="12" begin="11" end="0" resetval="0x0" description="sampled ADC converted data value stored in FIFO   Reset Source: rst_mod_g_rst_n" range="11:0" rwaccess="R"/>
+	</register><register id="ADC_IRQ_EOI" acronym="ADC_IRQ_EOI" offset="32" width="32" description="The End of Interrupt (EOI) MISC Register allows the CPU to acknowledge completion of an interrupt by writing to the EOI for MISC interrupt sources. An eoi_write signal will be generated and another interrupt will be triggered if interrupt sources remain.  This register will be reset one cycle after it has been written to.">
+		<bitfield id="LINENUMEOI" width="1" begin="0" end="0" resetval="0x0" description="Write 0 to flag End Of Interrupt.   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="W"/>
+	</register><register id="ADC_IRQSTATUS_RAW" acronym="ADC_IRQSTATUS_RAW" offset="36" width="32" description="The IRQ_STATUS_RAW register allows the adc12 interrupt sources to be manually set when writing a 1 to a specific bit.  Write 0: No action Write 1: Set event Read 0: No event pending Read 1: Event pending">
+		<bitfield id="OUTOFRANGE" width="1" begin="8" end="8" resetval="0x0" description="sample out of range   Reset Source: rst_mod_g_rst_n" range="8" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO1UNFL" width="1" begin="7" end="7" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="7" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO1OVFL" width="1" begin="6" end="6" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="6" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO1THRS" width="1" begin="5" end="5" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="5" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO0UNFL" width="1" begin="4" end="4" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="4" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO0OVFL" width="1" begin="3" end="3" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="3" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO0THRS" width="1" begin="2" end="2" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ENDOFEQUENCE" width="1" begin="1" end="1" resetval="0x0" description="end of sequence   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="AFE_EOC_MISSING" width="1" begin="0" end="0" resetval="0x0" description="eoc from the analog front end missing at expected time after soc   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="ADC_IRQSTATUS" acronym="ADC_IRQSTATUS" offset="40" width="32" description="The IRQ_STATUS register allows the adc12 interrupt sources to be manually cleared when writing a 1 to a specific bit.   Write 0: No action Write 1: Clear event Read 0: No event pending Read 1: Event pending">
+		<bitfield id="OUTOFRANGE" width="1" begin="8" end="8" resetval="0x0" description="sample out of range   Reset Source: rst_mod_g_rst_n" range="8" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO1UNFL" width="1" begin="7" end="7" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="7" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO1OVFL" width="1" begin="6" end="6" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="6" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO1THRS" width="1" begin="5" end="5" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="5" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO0UNFL" width="1" begin="4" end="4" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="4" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO0OVFL" width="1" begin="3" end="3" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="3" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO0THRS" width="1" begin="2" end="2" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ENDOFEQUENCE" width="1" begin="1" end="1" resetval="0x0" description="end of sequence   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="AFE_EOC_MISSING" width="1" begin="0" end="0" resetval="0x0" description="eoc from the analog front end missing at expected time after soc   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="ADC_IRQENABLE_SET" acronym="ADC_IRQENABLE_SET" offset="44" width="32" description="The IRQ_ENABLE_SET register allows the adc12 interrupt sources to be manually enabled when writing a 1 to a specific bit.  Write 0: No action Write 1: Enable event Read 0: Event is disabled Read 1: Event is enabled">
+		<bitfield id="OUTOFRANGE" width="1" begin="8" end="8" resetval="0x0" description="sample out of range   Reset Source: rst_mod_g_rst_n" range="8" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO1UNFL" width="1" begin="7" end="7" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="7" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO1OVFL" width="1" begin="6" end="6" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="6" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO1THRS" width="1" begin="5" end="5" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="5" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO0UNFL" width="1" begin="4" end="4" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="4" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO0OVFL" width="1" begin="3" end="3" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="3" rwaccess="R/W1TS"/>
+	<bitfield id="FIFO0THRS" width="1" begin="2" end="2" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="2" rwaccess="R/W1TS"/>
+	<bitfield id="ENDOFEQUENCE" width="1" begin="1" end="1" resetval="0x0" description="end of sequence   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W1TS"/>
+	<bitfield id="AFE_EOC_MISSING" width="1" begin="0" end="0" resetval="0x0" description="eoc from the analog front end missing at expected time after soc   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="ADC_IRQENABLE_CLR" acronym="ADC_IRQENABLE_CLR" offset="48" width="32" description="The IRQ_ENABLE_CLR register allows the adc12 interrupt sources to be manually disabled when writing a 1 to a specific bit.  Write 0: No action Write 1: Disable event Read 0: Event is disabled Read 1: Event is enabled">
+		<bitfield id="OUTOFRANGE" width="1" begin="8" end="8" resetval="0x0" description="sample out of range   Reset Source: rst_mod_g_rst_n" range="8" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO1UNFL" width="1" begin="7" end="7" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="7" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO1OVFL" width="1" begin="6" end="6" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="6" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO1THRS" width="1" begin="5" end="5" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="5" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO0UNFL" width="1" begin="4" end="4" resetval="0x0" description="fifo under flow   Reset Source: rst_mod_g_rst_n" range="4" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO0OVFL" width="1" begin="3" end="3" resetval="0x0" description="fifo over flow   Reset Source: rst_mod_g_rst_n" range="3" rwaccess="R/W1TC"/>
+	<bitfield id="FIFO0THRS" width="1" begin="2" end="2" resetval="0x0" description="fifo thresholds met   Reset Source: rst_mod_g_rst_n" range="2" rwaccess="R/W1TC"/>
+	<bitfield id="ENDOFEQUENCE" width="1" begin="1" end="1" resetval="0x0" description="end of sequence   Reset Source: rst_mod_g_rst_n" range="1" rwaccess="R/W1TC"/>
+	<bitfield id="AFE_EOC_MISSING" width="1" begin="0" end="0" resetval="0x0" description="eoc from the analog front end missing at expected time after soc   Reset Source: rst_mod_g_rst_n" range="0" rwaccess="R/W1TC"/>
+	</register><register id="ADC_STEPCONFIG_j" acronym="ADC_STEPCONFIG_j" offset="100" width="32" description="The user should write to this register the values of the input pins send to the AFE during step 1.the StepConfig WriteEnable bit should be set to 1 before a write can occur.">
+		<bitfield id="RANGECHECK" width="1" begin="27" end="27" resetval="0x0" description="0 = no range sel 1 = compare ADC data with range   Reset Source: rst_mod_g_rst_n" range="27" rwaccess="R/W"/>
+	<bitfield id="FIFOSEL" width="1" begin="26" end="26" resetval="0x0" description="Sampled data will be stored in FIFO0 when = 0, FIFO1 when = 1   Reset Source: rst_mod_g_rst_n" range="26" rwaccess="R/W"/>
+	<bitfield id="DIFF_CNTRL" width="1" begin="25" end="25" resetval="0x0" description="Differential control. Single ended when = 0, differential input when = 1   Reset Source: rst_mod_g_rst_n" range="25" rwaccess="R/W"/>
+	<bitfield id="SEL_INP_SWC" width="4" begin="22" end="19" resetval="0x0" description="SEL_INP pins SW configuration   Reset Source: rst_mod_g_rst_n" range="22:19" rwaccess="R/W"/>
+	<bitfield id="SEL_INM_SWM" width="4" begin="18" end="15" resetval="0x8" description="SEL_INM pins, negative differential   Reset Source: rst_mod_g_rst_n" range="18:15" rwaccess="R/W"/>
+	<bitfield id="AVERAGING" width="3" begin="4" end="2" resetval="0x0" description="000 -> no average001 -> 2 samples average010 -> 4 samples average011 -> 8 samples average  100 -> 16 samples average   Reset Source: rst_mod_g_rst_n" range="4:2" rwaccess="R/W"/>
+	<bitfield id="MODE" width="2" begin="1" end="0" resetval="0x0" description="00  SW enabled one shot 01  SW enabled continuous   10  HW synchronized one-shot11  HW synchronized continuous   Reset Source: rst_mod_g_rst_n" range="1:0" rwaccess="R/W"/>
+	</register><register id="ADC_STEPDELAY_j" acronym="ADC_STEPDELAY_j" offset="104" width="32" description="Controls number of clock periods to sample and delay">
+		<bitfield id="SAMPLEDELAY" width="8" begin="31" end="24" resetval="0x0" description="number of ADC clock cycles to sample.Any value programmed here will be added to the minimum requirement of 1 clock cycle.   Reset Source: rst_mod_g_rst_n" range="31:24" rwaccess="R/W"/>
+	<bitfield id="OPENDELAY" width="18" begin="17" end="0" resetval="0x0" description="Program the number of ADC clock cycles to wait after applying the step configuration registers and before sending the start of ADC conversion   Reset Source: rst_mod_g_rst_n" range="17:0" rwaccess="R/W"/>
+	</register>
+</module>

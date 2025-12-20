@@ -1,0 +1,1622 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+
+<module description="SYSCTRL" id="SYSCTRL">
+  
+  
+  <register acronym="MCLKCFG" description=" Configuration related to MCLK " id="MCLKCFG" offset="0x400" width="32">
+    
+  <bitfield begin="16" description="High Speed Clock Selected for MCLK (HFCLK, PLL,...)" end="16" id="USEHSCLK" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Flash wait states when using a high speed clock source - HFCLK or PLL" end="8" id="FLASHWAIT" rwaccess="RW" width="4"></bitfield>
+  </register>
+  
+  
+  <register acronym="HSCLKEN" description=" High Speed Clock Configuration " id="HSCLKEN" offset="0x404" width="32">
+    
+  <bitfield begin="16" description="Use External Pin as High Frequency Oscillator Source(HFCLK)" end="16" id="EXT_HFCLK_IN_SEL" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="System PLL Reference Clock Source 0: SYSOSC, 1:HFCLK" end="9" id="SYSPLLREF" rwaccess="RW" width="1">
+    <bitenum id="SYSOSC" token="SYSOSC" value="0"></bitenum>
+    <bitenum id="HFCLK" token="HFCLK" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Enable the SYSTEM PLL" end="8" id="SYSPLLEN" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enable the HFXT Crystal" end="0" id="HFXTEN" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="HFCLKCLKCFG" description=" High Frequency OSC Clock Configuration " id="HFCLKCLKCFG" offset="0x408" width="32">
+    
+  <bitfield begin="28" description="Check for stuck fault on HFCLK related pins" end="28" id="HFCLKFLTCHK" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="HFXT startup time in 64 usec resolution" end="0" id="HFXTTIME" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="MONCLKCFG" description=" Low Frequency Monitor Clock Configuration " id="MONCLKCFG" offset="0x40C" width="32">
+    
+  <bitfield begin="2" description="FCL enable" end="2" id="FCL_EN" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Monitor cloclk enable" end="1" id="EN" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="CLKCNTRL" description=" General Clock Configuration " id="CLKCNTRL" offset="0x420" width="32">
+    
+  <bitfield begin="12" description="ICLK Div ratio" end="10" id="ICLKDIVVAL" rwaccess="RW" width="3">
+    <bitenum description="ICLK is MCLK div" id="DIV1" token="DIV1" value="0"></bitenum>
+    <bitenum description="ICLK is MCLK div 2" id="DIV2" token="DIV2" value="1"></bitenum>
+    <bitenum description="ICLK is MCLK div 4" id="DIV4" token="DIV4" value="2"></bitenum>
+    <bitenum description="ICLK is MCLK div 8" id="DIV8" token="DIV8" value="3"></bitenum>
+    <bitenum description="ICLK is MCLK div 16" id="DIV16" token="DIV16" value="4"></bitenum>
+    <bitenum description="ICLK is MCLK div 16" id="DIV16_X1" token="DIV16_X1" value="5"></bitenum>
+    <bitenum description="ICLK is MCLK div 16" id="DIV16_X2" token="DIV16_X2" value="6"></bitenum>
+    <bitenum description="ICLK is MCLK div 16" id="DIV16_X3" token="DIV16_X3" value="7"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="MCLK divide ratio" end="7" id="MCLKDIV" rwaccess="RW" width="3">
+    <bitenum description="MCLK is MCLK div" id="DIV1" token="DIV1" value="0"></bitenum>
+    <bitenum description="MCLK is MCLK div 2" id="DIV2" token="DIV2" value="1"></bitenum>
+    <bitenum description="MCLK is MCLK div 4" id="DIV4" token="DIV4" value="2"></bitenum>
+    <bitenum description="MCLK is MCLK div 8" id="DIV8" token="DIV8" value="3"></bitenum>
+    <bitenum description="MCLK is MCLK div 16" id="DIV16" token="DIV16" value="4"></bitenum>
+    <bitenum description="MCLK is MCLK div 16" id="DIV16_X1" token="DIV16_X1" value="5"></bitenum>
+    <bitenum description="MCLK is MCLK div 32" id="DIV32" token="DIV32" value="6"></bitenum>
+    <bitenum description="MCLK is MCLK div 32" id="DIV32_X1" token="DIV32_X1" value="7"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="These bits control the source/function of CLKOUT" end="5" id="CLKSR" rwaccess="RW" width="2">
+    <bitenum description="CLKSR is CLKOUT" id="CLKOUT" token="CLKOUT" value="0"></bitenum>
+    <bitenum description="CLKSR is ICLK " id="ICLK" token="ICLK" value="1"></bitenum>
+    <bitenum description="CLKSR is MCLK " id="MCLK" token="MCLK" value="2"></bitenum>
+    <bitenum description="CLKSR is ICLK div 4" id="ICLKDIV4" token="ICLKDIV4" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="This pin represents the output value of CLKOUT " end="3" id="CLKDOUT" rwaccess="RW" width="1">
+    <bitenum id="LOWLOGIC" token="LOWLOGIC" value="0"></bitenum>
+    <bitenum id="HIGHLOGIC" token="HIGHLOGIC" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PWRDISCTRL" description=" Powe control by CLock enable  " id="PWRDISCTRL" offset="0x428" width="32">
+    
+  <bitfield begin="23" description="clock enable" end="23" id="aes_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="22" description="clock enable" end="22" id="dtc_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="21" description="clock enable" end="21" id="canfd_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="clock enable" end="20" id="sdfm_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="clock enable" end="18" id="spi_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="clock enable" end="17" id="pcm_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="clock enable" end="16" id="cpcc_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="clock enable" end="15" id="filter2_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="clock enable" end="14" id="filter1_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="clock enable" end="13" id="filter0_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="clock enable" end="12" id="fe_ctrl2_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="clock enable" end="11" id="fe_ctrl1_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="clock enable" end="10" id="fe_ctrl0_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="clock enable" end="9" id="dpwm3_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="clock enable" end="8" id="dpwm2_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="clock enable" end="7" id="dpwm1_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="clock enable" end="6" id="dpwm0_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="clock enable" end="4" id="sci0_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="clock enable" end="3" id="adc12_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="clock enable" end="2" id="pmbus_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="clock enable" end="1" id="gpio_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="clock enable" end="0" id="timer_clk_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SYSTEMCFG" description=" System configuration for reset " id="SYSTEMCFG" offset="0x43C" width="32">
+    
+  <bitfield begin="3" description="0: SRAM Parity Double Error will issue System Reset 1: Reset is disable but sysstatus will be provided (default)" end="3" id="SRAMPARITYRSTDIS" rwaccess="RW" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="0: Flash ECC Double Error will issue System Reset  1: Reset is disable but sysstatus will be provided (default)" end="2" id="FLASHECCRSTDIS" rwaccess="RW" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="WRITELOCK" description=" SYSOSC Trim Values specified by user " id="WRITELOCK" offset="0x440" width="32">
+    
+  <bitfield begin="0" description="LOCK configuration MMRs from write" end="0" id="ACTIVE" rwaccess="RW" width="1">
+    <bitenum description="Allow Writes to Lockable MMRs" id="ENABLE" token="ENABLE" value="0"></bitenum>
+    <bitenum description="Disallow Writes to Lockable MMRs" id="DISABLE" token="DISABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="CLKSTATUS" description=" Useful debug status of clock selections " id="CLKSTATUS" offset="0x444" width="32">
+    
+  <bitfield begin="29" description="Writes to SYSPLLCFG0-1, SYSPLLPARAM0-1 are blocked" end="29" id="SYSPLLBLKUPD" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="28" description="Writes to HFCLKCLKCFG are blocked" end="28" id="HFCLKBLKUPD" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="25" description="SYSOSC FCC DONE" end="25" id="FCCDONE" rwaccess="R" width="1">
+    <bitenum id="DISABLED" token="DISABLED" value="0"></bitenum>
+    <bitenum id="ENABLED" token="ENABLED" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="24" description="SYSOSC FCL MODE ON" end="24" id="FCLMODE" rwaccess="R" width="1">
+    <bitenum id="DISABLED" token="DISABLED" value="0"></bitenum>
+    <bitenum id="ENABLED" token="ENABLED" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="SYSPLLDEAD is set by hardware if the selected source for HSCLK was started but did not start successfully." end="15" id="SYSPLLDEAD" rwaccess="R" width="1">
+    <bitenum description="The HSCLK source was not started or started correctly" id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum description="The HSCLK source did not start correctly" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="SYSPLL is OFF or DEAD" end="14" id="SYSPLLOFF" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="HFCLKs is OFF or DEAD" end="13" id="HFCLKOFF" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="MONOSC ON" end="10" id="MONOSCGOOD" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="SYSTEM PLL ON" end="9" id="SYSPLLGOOD" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="High Frequency Clock ON" end="8" id="HFCLKGOOD" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="High Speed Clock Selected for MCLK (HFCLK, PLL,...)" end="4" id="HSCLKMUX" rwaccess="R" width="1">
+    <bitenum id="SYSOSC" token="SYSOSC" value="0"></bitenum>
+    <bitenum id="HSCLK" token="HSCLK" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SYSSTATUS" description=" Useful System Status Data " id="SYSSTATUS" offset="0x448" width="32">
+    
+  <bitfield begin="31" description="REBOOTATTEMPTS indicates the number of boot attempts taken before the user application starts." end="30" id="REBOOTATTEMPTS" rwaccess="R" width="2"></bitfield>
+    
+  <bitfield begin="15" description="SWD alternate pin selection" end="15" id="SWALTSELEN" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="SHDNIOLOCK indicates when IO is locked due to SHUTDOWN" end="14" id="SHDNIOLOCK" rwaccess="R" width="1">
+    <bitenum description="IO IS NOT Locked due to SHUTDOWN" id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum description="IO IS Locked due to SHUTDOWN" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="SWDCFGDIS indicates when user has disabled the use of SWD Port" end="13" id="SWDCFGDIS" rwaccess="R" width="1">
+    <bitenum description="SWD Port Enabled" id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum description="SWD Port Disabled" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="External reset pin disable status" end="12" id="EXTRSTPINDIS" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="APORCURTHRESHOLD indicates the active APOR reset supply monitor configuration." end="9" id="AORCURTHRESHOLD" rwaccess="R" width="2">
+    <bitenum description="Default minimum threshold; a APOR0- violation triggers a APOR" id="APORMIN" token="APORMIN" value="0"></bitenum>
+    <bitenum description="A APOR1- violation generates a APORLVL interrupt" id="APORLEVEL1" token="APORLEVEL1" value="1"></bitenum>
+    <bitenum description="A APOR2- violation generates a APORLVL interrupt" id="APORLEVEL2" token="APORLEVEL2" value="2"></bitenum>
+    <bitenum description="A APOR3- violation generates a APORLVL interrupt" id="APORLEVEL3" token="APORLEVEL3" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="PMU IFREF GOOD" end="6" id="PMUIREFGOOD" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="BOR LEVEL STATUS Indicator" end="4" id="BORLVL" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="BORCURTHRESHOLD indicates the active brown-out reset supply monitor configuration." end="2" id="BORCURTHRESHOLD" rwaccess="R" width="2">
+    <bitenum description="Default minimum threshold; a BOR0- violation triggers a BOR" id="BORMIN" token="BORMIN" value="0"></bitenum>
+    <bitenum description="A BOR1- violation generates a BORLVL interrupt" id="BORLEVEL1" token="BORLEVEL1" value="1"></bitenum>
+    <bitenum description="A BOR2- violation generates a BORLVL interrupt" id="BORLEVEL2" token="BORLEVEL2" value="2"></bitenum>
+    <bitenum description="A BOR3- violation generates a BORLVL interrupt" id="BORLEVEL3" token="BORLEVEL3" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Single Error Correction on Flash" end="1" id="FLASHSEC" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Double Error Detect on Flash" end="0" id="FLASHDED" rwaccess="R" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="DEDERRADDR" description="         Memory DED Address         " id="DEDERRADDR" offset="0x44C" width="32">
+    
+  <bitfield begin="31" description="Address of MEMORY DED Error." end="0" id="ADDR" rwaccess="R" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="RSTCAUSE" description="         Reset cause         " id="RSTCAUSE" offset="0x450" width="32">
+    
+  <bitfield begin="4" description="ID is a read-to-clear field which indicates the lowest level reset cause since the last read." end="0" id="ID" rwaccess="R" width="5">
+    <bitenum description="No reset since last read" id="NORST" token="NORST" value="0"></bitenum>
+    <bitenum description="POR- violation, SHUTDNSTOREx or PMU trim parity fault" id="PORHWFAIL" token="PORHWFAIL" value="1"></bitenum>
+    <bitenum description="REF CLK FAIL" id="REFCLKFAIL" token="REFCLKFAIL" value="2"></bitenum>
+    <bitenum description="Software triggered POR" id="PORSW" token="PORSW" value="3"></bitenum>
+    <bitenum description="BOR0- violation" id="BORSUPPLY" token="BORSUPPLY" value="4"></bitenum>
+    <bitenum description="Non-PMU trim parity fault" id="BOOTNONPMUPARITY" token="BOOTNONPMUPARITY" value="8"></bitenum>
+    <bitenum description="PLL Fatal clock failure" id="BOOTCLKFAIL" token="BOOTCLKFAIL" value="9"></bitenum>
+    <bitenum description="NRST triggered BOOTRST (&amp;lt;1s hold)" id="BOOTEXNRST" token="BOOTEXNRST" value="12"></bitenum>
+    <bitenum description="Software triggered BOOTRST" id="BOOTSW" token="BOOTSW" value="13"></bitenum>
+    <bitenum description="Flash DED" id="FLASHDED" token="FLASHDED" value="16"></bitenum>
+    <bitenum description="SRAM DED" id="SRAMDED" token="SRAMDED" value="17"></bitenum>
+    <bitenum description="CPU lock up condition" id="CPULOCK" token="CPULOCK" value="18"></bitenum>
+    <bitenum description="DebugSS reset" id="DEBUGSS" token="DEBUGSS" value="19"></bitenum>
+    <bitenum description="CPU reset" id="CPURESET" token="CPURESET" value="20"></bitenum>
+    <bitenum description="ILLEGAL ACCESS" id="ILLEGAL" token="ILLEGAL" value="21"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="RESETLEVEL" description=" Reset level for application-triggered reset command " id="RESETLEVEL" offset="0x454" width="32">
+    
+  <bitfield begin="2" description="LEVEL is used to specify the type of reset to be issued when RESETCMD is set to generate a software triggered reset." end="0" id="LEVEL" rwaccess="RW" width="3">
+    <bitenum description="Issue a BOOTRST (CPU, peripherals, and boot configuration routine)" id="BOOT" token="BOOT" value="1"></bitenum>
+    <bitenum description="Issue a power-on reset (POR)" id="POR" token="POR" value="3"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="RESETCMD" description=" Execute Reset Command " id="RESETCMD" offset="0x458" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0xE4(228) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Reset" id="VALUE" token="VALUE" value="0xE4"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Execute Reset defined in RESETLEVEL" end="0" id="GO" rwaccess="W" width="1">
+    <bitenum description="Issue Reset" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="BORRSTDIS" description=" BOR Reset Disable register " id="BORRSTDIS" offset="0x45C" width="32">
+    
+  <bitfield begin="31" description="BORRSTDIS specifies whether a BOR Event will trigger a BOR Reset or not." end="31" id="RSTDISABLE" rwaccess="RW" width="1">
+    <bitenum description="BOR Event will not Trigger a BOR RST" id="BORNRST" token="BORNRST" value="0"></bitenum>
+    <bitenum description="BOR Event will Trigger a BOR RST" id="BORRST" token="BORRST" value="0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="BORCLRCMD" description=" Set the BOR threshold " id="BORCLRCMD" offset="0x464" width="32">
+    
+  <bitfield begin="31" description="The key value of C7h (199) must be written to KEY together with GO to trigger the clear and BOR threshold change." end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue clear" id="VALUE" token="VALUE" value="0xC7"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="GO clears any prior BOR violation status indications and attempts to change the active BOR mode to that specified in the LEVEL field of the BORTHRESHOLD register." end="0" id="GO" rwaccess="W" width="1">
+    <bitenum description="Issue clear" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="APORCLRCMD" description=" Set the APOR threshold " id="APORCLRCMD" offset="0x468" width="32">
+    
+  <bitfield begin="31" description="The key value of C8h (199) must be written to KEY together with GO to trigger the clear and APOR threshold change." end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue clear" id="VALUE" token="VALUE" value="0xC8"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="GO clears any prior APOR violation status indications and attempts to change the active APOR mode to that specified in the LEVEL field of the APORTHRESHOLD register." end="0" id="GO" rwaccess="W" width="1">
+    <bitenum description="Issue clear" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SYSOSCFCLCTL" description=" SYSOSC Frequency Control Loop with External Resistor " id="SYSOSCFCLCTL" offset="0x46C" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0x2A(42) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0x2A"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Use Freq Control Loop" end="0" id="SETUSEFCL" rwaccess="W" width="1">
+    <bitenum description="Set FCL Control" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SHDNIOREL" description=" Shutdown IO Release Command " id="SHDNIOREL" offset="0x470" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0x4F(79) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0x4F"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Release IO after Shutdown" end="0" id="RELEASE" rwaccess="W" width="1">
+    <bitenum description="Release IO after SHUTDOWN Exit" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="EXRSTPIN" description=" Disable use of external Reset Pin " id="EXRSTPIN" offset="0x474" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0x1E(30) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0x1E"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Disable External Reset " end="0" id="DISABLE" rwaccess="W" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum description="Disable External Reset" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SYSSTATUSCLR" description=" Clear sticky bits of SYSSTATUS " id="SYSSTATUSCLR" offset="0x478" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0xCE(206) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0xCE"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Clear ALL ECC related SYSSTATUS indicators" end="0" id="ALLECCCLR" rwaccess="W" width="1">
+    <bitenum description="Clear ECC state" id="CLEAR" token="CLEAR" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SWDCFG" description=" Disable SWD " id="SWDCFG" offset="0x47C" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0x62(98) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0x62"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Set DISABLE to disable the SWD function on SWD pins, allowing the SWD pins to be used as GPIO." end="0" id="DISABLE" rwaccess="W" width="1">
+    <bitenum description="Disable SWD function on SWD pins" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PERIPHCLKCNTRL" description=" Peripheral Clock Configuration " id="PERIPHCLKCNTRL" offset="0x488" width="32">
+    
+  <bitfield begin="11" description="CANFD Clock divide ratio" end="9" id="CANFDCLKDIV" rwaccess="RW" width="3">
+    <bitenum description="Divide ICLK by 1" id="DIV1" token="DIV1" value="0"></bitenum>
+    <bitenum description="Divide ICLK by 2" id="DIV2" token="DIV2" value="1"></bitenum>
+    <bitenum description="Divide ICLK by 4" id="DIV4" token="DIV4" value="2"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV8" token="DIV8" value="3"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV16" token="DIV16" value="4"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV16_X1" token="DIV16_X1" value="5"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV32" token="DIV32" value="6"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV32_X1" token="DIV32_X1" value="7"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="PMBUS Clock divide ratio" end="5" id="PMBUSCLKDIV" rwaccess="RW" width="3">
+    <bitenum description="Divide ICLK by 1" id="DIV1" token="DIV1" value="0"></bitenum>
+    <bitenum description="Divide ICLK by 2" id="DIV2" token="DIV2" value="1"></bitenum>
+    <bitenum description="Divide ICLK by 4" id="DIV4" token="DIV4" value="2"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV8" token="DIV8" value="3"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV16" token="DIV16" value="4"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV16_X1" token="DIV16_X1" value="5"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV32" token="DIV32" value="6"></bitenum>
+    <bitenum description="Divide ICLK by 8" id="DIV32_X1" token="DIV32_X1" value="7"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PCLKPRESCALER" description=" PCLK prescaler " id="PCLKPRESCALER" offset="0x48C" width="32">
+    
+  <bitfield begin="0" description="This determines the division value for PCLK" end="0" id="PCLK_PRESCALER_DIVVAL" rwaccess="RW" width="1">
+    <bitenum id="DIV_BY_1" token="DIV_BY_1" value="0"></bitenum>
+    <bitenum id="DIV_BY_2" token="DIV_BY_2" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SWDALT" description=" SWD Alternate pin selection " id="SWDALT" offset="0x490" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0x62(98) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0x62"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Alternal pin selection for SWDIO " end="0" id="SWDALTSEL" rwaccess="W" width="1">
+    <bitenum description="PAD14 is SWDIO" id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum description="PAD16 is SWDIO" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="EADC" description=" EADC control pins " id="EADC" offset="0x494" width="32">
+    
+  <bitfield begin="31" description="EADC LDO disdable pin" end="31" id="EADCLDO" rwaccess="RW" width="1">
+    <bitenum description="Disable the ADC LDO" id="TRUE" token="TRUE" value="0x1"></bitenum>
+    <bitenum description="Not disable the ADC LDO" id="FALSE" token="FALSE" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="EADC EN anamod inst 2" end="2" id="ENANAMOD2" rwaccess="RW" width="1">
+    <bitenum description="Enable the ANAMOD 2" id="TRUE" token="TRUE" value="0x1"></bitenum>
+    <bitenum description="Disable the ANAMOD 2" id="FALSE" token="FALSE" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="EADC EN anamod inst 1" end="1" id="ENANAMOD1" rwaccess="RW" width="1">
+    <bitenum description="Enable the ANAMOD 1" id="TRUE" token="TRUE" value="0x1"></bitenum>
+    <bitenum description="Disable the ANAMOD 1" id="FALSE" token="FALSE" value="0x0"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="EADC EN anamod inst 0" end="0" id="ENANAMOD0" rwaccess="RW" width="1">
+    <bitenum description="Enable the ANAMOD 0" id="TRUE" token="TRUE" value="0x1"></bitenum>
+    <bitenum description="Disable the ANAMOD 0" id="FALSE" token="FALSE" value="0x0"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="LIFECYCLE" description=" Device Lifecycle " id="LIFECYCLE" offset="0x800" width="32">
+    
+  <bitfield begin="7" description="Device Lifecycle set by BOOTCODE READY=0x69(105), ATTEST=0x55(85), PREPROBE=0x96(150)" end="0" id="VALUE" rwaccess="RW" width="8">
+    <bitenum description="Device in Pre Probe State" id="PREPROBE" token="PREPROBE" value="0x69"></bitenum>
+    <bitenum description="Device in Product Mode" id="READY" token="READY" value="0x96"></bitenum>
+    <bitenum description="Device in TI Test Mode" id="ATTEST" token="ATTEST" value="0x55"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="BOOTDONE" description=" BOOTCODE PASS " id="BOOTDONE" offset="0x808" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0xCA(202) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Reset" id="VALUE" token="VALUE" value="0xCA"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="BOOTCODE writes 1 for PASS, left unwritten a timeout will occur if not blocked" end="0" id="PASS" rwaccess="W" width="1">
+    <bitenum description="BOOTCODE PASS" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="BOOTTIMEOUT" description=" BOOT TIMEOUT Control " id="BOOTTIMEOUT" offset="0x80C" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0x35(53) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Reset" id="VALUE" token="VALUE" value="0x35"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="BOOTCODE writes 1 for STOPPING BOOT TIMEOUT Counter" end="1" id="STOP" rwaccess="W" width="1">
+    <bitenum description="STOP Bootcode Timeout Counter" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="BOOTCODE writes 1 for reloading BOOT TIMEOUT Counter" end="0" id="PET" rwaccess="W" width="1">
+    <bitenum description="Restart Bootcode Timeout Counter" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="BCTRIMUNLOCK" description=" BootCode TRIM Unlock " id="BCTRIMUNLOCK" offset="0x810" width="32">
+    
+  <bitfield begin="31" description="BootCode TRIM Unlock Signiture: 0xE1BE41F1" end="0" id="KEY" rwaccess="W" width="32">
+    <bitenum description="Issue Reset" id="VALUE" token="VALUE" value="0xE1BE41F1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="INFRASTATUS" description=" Infrastructure  Status " id="INFRASTATUS" offset="0x814" width="32">
+    
+  <bitfield begin="24" description="Flash 1T Read mode is available" end="24" id="READY1T" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="17" description="SRAM repair has failed" end="17" id="SRAMREPAIRFAILED" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="16" description="SRAM repair is completed or not supported on this SOC" end="16" id="SRAMREPAIRDONE" rwaccess="R" width="1"></bitfield>
+    
+  <bitfield begin="8" description="TRIM MMRs are UNLOCKED" end="8" id="TRIMUNLOCK" rwaccess="R" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="BOOTDIAG" description=" 32 bit boot diagnostic to Debugss " id="BOOTDIAG" offset="0x818" width="32">
+    
+  <bitfield begin="31" description="32 bit boot diagnostic to Debugss" end="0" id="BOOTSTATUS" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="INFRASTATUS1" description=" Infrastructure  Status 2 " id="INFRASTATUS1" offset="0x81C" width="32">
+    
+  <bitfield begin="0" description="Customer Return Pad" end="0" id="CRPAD" rwaccess="R" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="JTAGUSERCODE" description=" JTAG USERCODE " id="JTAGUSERCODE" offset="0x820" width="32">
+    
+  <bitfield begin="31" description="JTAG USERCODE for Debugger" end="0" id="DATA" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="SYSOSCTRIM" description=" SYSOSC Trim Values for frequency when change from disable to enable, generally 32MHz " id="SYSOSCTRIM" offset="0x824" width="32">
+    
+  <bitfield begin="31" description="TRIM Data Valid- used to trigger FSM" end="31" id="TRIMVALID" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="13" description="SYSOSC enable" end="13" id="SYSOSCEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="12" description="otp - tie high" end="12" id="OTP" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="11" description="Trim en - tie low" end="8" id="TRIMEN" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="7" description="CAP TRIM - Changes per frequency target" end="0" id="CAP" rwaccess="RW" width="8"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM0" description=" PMU TRIM 0 " id="PMUTRIM0" offset="0x828" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="0" id="DATA" rwaccess="RW" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM1" description=" PMU TRIM 1 " id="PMUTRIM1" offset="0x82C" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="0" id="DATA" rwaccess="RW" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM2" description=" PMU TRIM 2 " id="PMUTRIM2" offset="0x830" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="0" id="DATA" rwaccess="RW" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM3" description=" PMU TRIM 3 " id="PMUTRIM3" offset="0x834" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="0" id="DATA" rwaccess="RW" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM4" description=" PMU TRIM 4 " id="PMUTRIM4" offset="0x838" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="0" id="DATA" rwaccess="RW" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM5" description=" PMU TRIM 5 " id="PMUTRIM5" offset="0x83C" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="0" id="DATA" rwaccess="RW" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM6" description=" PMU TRIM 6 " id="PMUTRIM6" offset="0x840" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="0" id="DATA" rwaccess="RW" width="10"></bitfield>
+  </register>
+  
+  
+  <register acronym="PMUTRIM7" description=" PMU TRIM 7 " id="PMUTRIM7" offset="0x848" width="32">
+    
+  <bitfield begin="9" description="SEE PMU definition for usage" end="8" id="DATA2" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="0" description="SEE PMU definition for usage" end="0" id="DATA1" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="SRAMREPAIR" description=" $brname sram Repair " id="SRAMREPAIR" offset="0x84C" width="32">
+    
+  <bitfield begin="13" description="Repair Bits" end="0" id="DATA" rwaccess="RW" width="14"></bitfield>
+  </register>
+  
+  
+  <register acronym="SRAMTIMING" description=" SRAM timing MMR for ESRAM controller, based on 4MHz " id="SRAMTIMING" offset="0x850" width="32">
+    
+  <bitfield begin="15" description="ISO GOOD FALL to CLKRISE, spec 250ns (boot 500ns)" end="12" id="TISOGOODFALL2CLKRISE" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="11" description="PGOOD RISE to ISO FALL, spec 750ns (boot 1500ns)" end="8" id="TPGOODRISE2ISOFALL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="7" description="Driver Weak to Stong timing, spec 1000ns (boot 1500ns)" end="4" id="TSTRONG" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="3" description="ISO Rise to any ON FALL, spec 500ns (boot 750ns)" end="0" id="TISORISE2XONFALL" rwaccess="RW" width="4"></bitfield>
+  </register>
+  
+  
+  <register acronym="SYSOSCTRIMFCL" description=" SYSOSC Trim Values for frequency when change from disable to enable, generally 32MHz " id="SYSOSCTRIMFCL" offset="0x854" width="32">
+    
+  <bitfield begin="18" description="1- enable internal R mode for FCL loop" end="18" id="EN_INTR_MODE" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="17" description="sysosc Rlad trimming (9bits)" end="9" id="RTRIM" rwaccess="RW" width="9"></bitfield>
+    
+  <bitfield begin="8" description="1-enable frequency control loop of sysosc" end="8" id="FCL_EN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="7" description="1- precharge path cutoff when FCL_en=0" end="7" id="INIT" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="6" description="1- allows to FCL mode to power up only after precharge" end="6" id="INITFALL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="5" description="1-enable external R mode for FCL loop" end="5" id="REXT_IN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="4" description="1- sets the vctrl from amp instead of divider 0- cuts off Res div when 0" end="4" id="VCTRL_SEL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="3" description="default-0100 (select varactor bank)" end="0" id="CTL_VARACIN" rwaccess="RW" width="4"></bitfield>
+  </register>
+  
+  
+  <register acronym="MONOSCTRIM0" description=" MONOSC TRIM 1 values " id="MONOSCTRIM0" offset="0x858" width="32">
+    
+  <bitfield begin="31" description="Monitor clock Trim" end="0" id="MONCLKTRIM0" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="MONOSCTRIM1" description=" MONOSC TRIM 2 values " id="MONOSCTRIM1" offset="0x85C" width="32">
+    
+  <bitfield begin="31" description="Monitor clock Trim" end="0" id="MONCLKTRIM0" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="MONOSCTRIM2" description=" MONOSC TRIM 3 values " id="MONOSCTRIM2" offset="0x860" width="32">
+    
+  <bitfield begin="1" description="Frequency switch" end="1" id="FREQ_SWITCH" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Voltage control sel" end="0" id="VCTRL_SEL" rwaccess="RW" width="1">
+    <bitenum description="Voltage control is not selected" id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum description="Voltage control is selected" id="Enable" token="Enable" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PLLTRIM0" description=" PLL TRIM and Override " id="PLLTRIM0" offset="0x86C" width="32">
+    
+  <bitfield begin="20" description="LPF VCOVTUNE NOM Value" end="16" id="LPFVCOVTUNE" rwaccess="RW" width="5"></bitfield>
+    
+  <bitfield begin="13" description="VCO Start Settling Time in SYSOSC BASE clocks generally 32MHz - this comes before STARTTIME-STARTTIMELP" end="8" id="VCOSTARTTIME" rwaccess="RW" width="6"></bitfield>
+    
+  <bitfield begin="7" description="VCO Freq Jump Settling Time" end="4" id="VCOJUMPTIME" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="3" description="Search iterations to perform" end="2" id="SEARCHITER" rwaccess="RW" width="2">
+    <bitenum id="OneIteration" token="OneIteration" value="0"></bitenum>
+    <bitenum id="TwoIteration" token="TwoIteration" value="1"></bitenum>
+    <bitenum id="ThreeIteration" token="ThreeIteration" value="2"></bitenum>
+    <bitenum id="FourIteration" token="FourIteration" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Select Search Mode Algorithm" end="1" id="SEARCHALGO" rwaccess="RW" width="1">
+    <bitenum id="ALG1" token="ALG1" value="0"></bitenum>
+    <bitenum id="ALG2" token="ALG2" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Force Freq Search to ALWAYS be performed" end="0" id="SEARCHALWAYS" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PLLTRIM1" description=" PLL TRIM and Override " id="PLLTRIM1" offset="0x870" width="32">
+    
+  <bitfield begin="27" description="Clock Gating Bypass added to SPARE MMR bit 1 port" end="27" id="CLKGATEBPASS" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="26" description="CP Scale added to SPARE MMR bit 0 port" end="26" id="CPSCALE" rwaccess="RW" width="1">
+    <bitenum description="" id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum description="" id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="25" description="Exchange 1X and 2X clock paths - Experimental" end="25" id="EXCHG1X2X" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="24" description="VCO Feq IDAC mcode override enable" end="24" id="VCOIDACOVRDEN" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="22" description="VCO Feq IDAC mcode override val" end="16" id="VCOIDACOVRDVAL" rwaccess="RW" width="7"></bitfield>
+    
+  <bitfield begin="14" description="IDAC Offset Value" end="8" id="IDACOFFSET" rwaccess="RW" width="7"></bitfield>
+    
+  <bitfield begin="6" description="IDAC Start Value" end="0" id="IDACSTART" rwaccess="RW" width="7"></bitfield>
+  </register>
+  
+  
+  <register acronym="MISCTRIM" description=" Various Small TRIM " id="MISCTRIM" offset="0x874" width="32">
+    
+  <bitfield begin="2" description="PMU REF/BOR Sample Periode TRIM for STANDBY Mode" end="0" id="PMUSMPLMODE" rwaccess="RW" width="3">
+    <bitenum description="Sample Periode is 8ms" id="SMPL8MS" token="SMPL8MS" value="0"></bitenum>
+    <bitenum description="Sample Periode is 16ms" id="SMPL16MS" token="SMPL16MS" value="1"></bitenum>
+    <bitenum description="Sample Periode is 32ms" id="SMPL32MS" token="SMPL32MS" value="2"></bitenum>
+    <bitenum description="Sample Periode is 48ms" id="SMPL48MS" token="SMPL48MS" value="3"></bitenum>
+    <bitenum description="Sample Periode is 64ms" id="SMPL64MS" token="SMPL64MS" value="4"></bitenum>
+    <bitenum description="Sample Periode is 80ms" id="SMPL80MS" token="SMPL80MS" value="5"></bitenum>
+    <bitenum description="Sample Periode is 100ms" id="SMPL100MS" token="SMPL100MS" value="6"></bitenum>
+    <bitenum description="Sample Periode is 125ms" id="SMPL125MS" token="SMPL125MS" value="7"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="HWOPTS0" description=" IP Available Paper Spin " id="HWOPTS0" offset="0x880" width="32">
+    
+  <bitfield begin="27" description="Peripheral  Instance Available" end="27" id="dpwm3" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="26" description="Peripheral  Instance Available" end="26" id="dpwm2" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="25" description="Peripheral  Instance Available" end="25" id="dpwm1" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="24" description="Peripheral  Instance Available" end="24" id="dpwm0" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="22" description="Peripheral  Instance Available" end="22" id="PMB_ADDR_ISRC2_EN" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="21" description="Peripheral  Instance Available" end="21" id="adc12_ch15" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="Peripheral  Instance Available" end="20" id="adc12_ch14" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="19" description="Peripheral  Instance Available" end="19" id="adc12_ch13" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="18" description="Peripheral  Instance Available" end="18" id="adc12_ch12" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Peripheral  Instance Available" end="17" id="adc12_ch11" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="Peripheral  Instance Available" end="16" id="adc12_ch10" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Peripheral  Instance Available" end="15" id="adc12_ch9" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="Peripheral  Instance Available" end="14" id="adc12_ch8" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Peripheral  Instance Available" end="13" id="adc12_ch7" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="Peripheral  Instance Available" end="12" id="adc12_ch6" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Peripheral  Instance Available" end="11" id="adc12_ch5" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="10" description="Peripheral  Instance Available" end="10" id="adc12_ch4" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Peripheral  Instance Available" end="9" id="adc12_ch3" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Peripheral  Instance Available" end="8" id="adc12_ch2" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Peripheral  Instance Available" end="7" id="adc12_ch1" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Peripheral  Instance Available" end="6" id="adc12_ch0" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Peripheral  Instance Available" end="2" id="SRAMSIZE" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Peripheral  Instance Available" end="0" id="FLASHSIZE" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="HWOPTS1" description=" IP Available Paper Spin " id="HWOPTS1" offset="0x884" width="32">
+    
+  <bitfield begin="30" description="Peripheral  Instance Available" end="30" id="vcx0_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="28" description="Peripheral  Instance Available" end="28" id="mcan_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="26" description="Peripheral  Instance Available" end="26" id="spi0_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="24" description="Peripheral  Instance Available" end="24" id="uart0_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="22" description="Peripheral  Instance Available" end="22" id="pmbus_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Peripheral  Instance Available" end="17" id="acompf_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="Peripheral  Instance Available" end="16" id="acompe_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="Peripheral  Instance Available" end="15" id="acompd_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="Peripheral  Instance Available" end="14" id="acompc_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="13" description="Peripheral  Instance Available" end="13" id="acompb_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="12" description="Peripheral  Instance Available" end="12" id="acompa_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="8" description="Peripheral  Instance Available" end="8" id="afe2_50msps_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Peripheral  Instance Available" end="7" id="afe1_50msps_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Peripheral  Instance Available" end="6" id="afe0_50msps_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Peripheral  Instance Available" end="2" id="afe2_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Peripheral  Instance Available" end="1" id="afe1_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Peripheral  Instance Available" end="0" id="afe0_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="HWOPTS2" description=" IP Available Paper Spin " id="HWOPTS2" offset="0x888" width="32">
+    
+  <bitfield begin="30" description="Enables SDFM module" end="30" id="sdfm_en" rwaccess="RW" width="1">
+    <bitenum id="Disable_SDFM_Module" token="Disable_SDFM_Module" value="0"></bitenum>
+    <bitenum id="Enable_SDFM_Module" token="Enable_SDFM_Module" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="29" description="Peripheral  Instance Available" end="29" id="aes_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="27" description="Peripheral  Instance Available" end="27" id="pcmc2_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="26" description="Peripheral  Instance Available" end="26" id="pcmc1_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="25" description="Peripheral  Instance Available" end="25" id="pcmc0_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="Peripheral  Instance Available" end="20" id="acomp_d_dacout_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Peripheral  Instance Available" end="17" id="acomp_a_dacout_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="11" description="Controls the pin variant for IO-MUX selections in the IOC controller" end="10" id="pin_variant" rwaccess="RW" width="2">
+    <bitenum id="Variant24pin" token="Variant24pin" value="0"></bitenum>
+    <bitenum id="Variant32pin" token="Variant32pin" value="1"></bitenum>
+    <bitenum id="Reserved" token="Reserved" value="2"></bitenum>
+    <bitenum id="Variant40pin" token="Variant40pin" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Peripheral  Instance Available" end="9" id="ana_pins_dg_dis" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Peripheral  Instance Available" end="4" id="vinff_afe2_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Peripheral  Instance Available" end="3" id="vinff_afe1_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Peripheral  Instance Available" end="2" id="vinff_afe0_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Peripheral  Instance Available" end="0" id="timer16_24_en" rwaccess="RW" width="1">
+    <bitenum id="NOTAVAILABLE" token="NOTAVAILABLE" value="0"></bitenum>
+    <bitenum id="AVAILABLE" token="AVAILABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="TRIMCRC" description=" FINAL 16 bit CRC of the TRIM load " id="TRIMCRC" offset="0x88C" width="32">
+    
+  <bitfield begin="31" description="final 16 bit CRC value" end="0" id="DATA" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="ADCLDOCNTL" description=" ADC LDO control bits " id="ADCLDOCNTL" offset="0x890" width="32">
+    
+  <bitfield begin="14" description="ADC LDO control bits" end="0" id="DATA" rwaccess="RW" width="15"></bitfield>
+  </register>
+  
+  
+  <register acronym="ANATOPREG1" description=" ANATOP Regsiter 1 " id="ANATOPREG1" offset="0x894" width="32">
+    
+  <bitfield begin="31" description="Anatop register 1" end="0" id="DATA" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="ANATOPREG2" description=" ANATOP Regsiter 2 " id="ANATOPREG2" offset="0x898" width="32">
+    
+  <bitfield begin="31" description="Anatop register 2" end="0" id="DATA" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="CLKTOPREG6" description=" CLKTOP Regsiter 6 " id="CLKTOPREG6" offset="0x89C" width="32">
+    
+  <bitfield begin="31" description="Clktop register 6" end="0" id="DATA" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="CLKTOPREG7" description=" CLKTOP Regsiter 7 " id="CLKTOPREG7" offset="0x910" width="32">
+    
+  <bitfield begin="31" description="Clktop register 7" end="0" id="DATA" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="CLKTOPREG8" description=" CLKTOP Regsiter 8 " id="CLKTOPREG8" offset="0x914" width="32">
+    
+  <bitfield begin="31" description="Clktop register 8" end="0" id="DATA" rwaccess="RW" width="32"></bitfield>
+  </register>
+  
+  
+  <register acronym="SYSPLLCFG0" description=" System PLL Configuration 0 MMR " id="SYSPLLCFG0" offset="0x918" width="32">
+    
+  <bitfield begin="19" description="Final Divider for CLK2X Output 1-16" end="16" id="RDIVCLK2X" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="15" description="Final Divider for CLK1 Output 1-16" end="12" id="RDIVCLK1" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="11" description="Final Divider for CLK0 Output 1-16" end="8" id="RDIVCLK0" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="6" description="PLL CLK2X Output enabled" end="6" id="ENABLECLK2X" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="PLL CLK1 Output enabled" end="5" id="ENABLECLK1" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="PLL CLK0 Output enabled" end="4" id="ENABLECLK0" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Use PLL CLK2X PATH as source for MCLK" end="1" id="MCLK2XVCO" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SYSPLLCFG1" description=" System PLL Configuration 1 MMR " id="SYSPLLCFG1" offset="0x91C" width="32">
+    
+  <bitfield begin="14" description="PLL Feedback Clock Divider 1-127 by 1" end="8" id="QDIV" rwaccess="RW" width="7"></bitfield>
+    
+  <bitfield begin="1" description="PLL Reference Clock Divider 1,2,4,8" end="0" id="PDIV" rwaccess="RW" width="2">
+    <bitenum description="PLL REF CLK is REF CLK" id="REFDIV1" token="REFDIV1" value="0"></bitenum>
+    <bitenum description="PLL REF CLK is REF CLK div 2" id="REFDIV2" token="REFDIV2" value="1"></bitenum>
+    <bitenum description="PLL REF CLK is REF CLK div 4" id="REFDIV4" token="REFDIV4" value="2"></bitenum>
+    <bitenum description="PLL REF CLK is REF CLK div 8" id="REFDIV8" token="REFDIV8" value="3"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="SYSPLLPARAM0" description=" System PLL Paramater 0 MMR --- Data from Flash Table Lookup " id="SYSPLLPARAM0" offset="0x920" width="32">
+    
+  <bitfield begin="31" description="Override Enable For Cap B" end="31" id="CAPBOVERRIDE" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="30" description="Override Value for Cap C" end="29" id="CAPCVAL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="28" description="Override Value for Cap B" end="24" id="CAPBVAL" rwaccess="RW" width="5"></bitfield>
+    
+  <bitfield begin="21" description="Charge Pump Current" end="16" id="CPCURRENT" rwaccess="RW" width="6"></bitfield>
+    
+  <bitfield begin="13" description="Startup time from Low Power Exit to Locked Clock in resolution of 1usec" end="8" id="STARTTIMELP" rwaccess="RW" width="6"></bitfield>
+    
+  <bitfield begin="5" description="Startup time from Enable to Locked Clock in resolution of 1usec" end="0" id="STARTTIME" rwaccess="RW" width="6"></bitfield>
+  </register>
+  
+  
+  <register acronym="SYSPLLPARAM1" description=" System PLL Paramater 1 MMR --- Data from Flash Table Lookup " id="SYSPLLPARAM1" offset="0x924" width="32">
+    
+  <bitfield begin="31" description="Loop Filter Res C" end="24" id="LPFRESC" rwaccess="RW" width="8"></bitfield>
+    
+  <bitfield begin="17" description="Loop Filter Res A" end="8" id="LPFRESA" rwaccess="RW" width="10"></bitfield>
+    
+  <bitfield begin="4" description="Loop Filter Cap A" end="0" id="LPFCAPA" rwaccess="RW" width="5"></bitfield>
+  </register>
+  
+  
+  <register acronym="LDOCONTROLBITS" description=" DIG LDO control bits " id="LDOCONTROLBITS" offset="0x928" width="32">
+    
+  <bitfield begin="4" description="DIG LDO control bits" end="0" id="DATA" rwaccess="RW" width="5"></bitfield>
+  </register>
+  
+  
+  <register acronym="APORTHRESHOLD" description=" APOR Threshold Level " id="APORTHRESHOLD" offset="0x92C" width="32">
+    
+  <bitfield begin="1" description="APOR Threshold Level 0: Full Re-boot This level is always enforced regardless of MMR seting 1-3: Generates interrupt" end="0" id="LEVEL" rwaccess="RW" width="2">
+    <bitenum description="Minimum allowed threshold - will force a re-boot" id="APORMIN" token="APORMIN" value="0"></bitenum>
+    <bitenum description="BOR Level 1 -- Generates an Interupt" id="BORLEVEL1" token="BORLEVEL1" value="1"></bitenum>
+    <bitenum description="BOR Level 2 -- Generates an Interupt" id="APORLEVEL2" token="APORLEVEL2" value="2"></bitenum>
+    <bitenum description="BOR Level 3 -- Generates an Interupt" id="APORLEVEL3" token="APORLEVEL3" value="3"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="BORTHRESHOLD" description=" BOR Threshold Level " id="BORTHRESHOLD" offset="0x930" width="32">
+    
+  <bitfield begin="1" description="BOR Threshold Level 0: Full Re-boot This level is always enforced regardless of MMR seting 1-3: Generates interrupt" end="0" id="LEVEL" rwaccess="RW" width="2">
+    <bitenum description="Minimum allowed threshold - will force a re-boot" id="BORMIN" token="BORMIN" value="0x3"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="PMUOPAMP" description=" PMU OPAMP Control " id="PMUOPAMP" offset="0x934" width="32">
+    
+  <bitfield begin="6" description="Output To Pad Enable" end="6" id="OUTENABLE" rwaccess="RW" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Rail to Rail Input Mode Select" end="4" id="RRI" rwaccess="RW" width="2">
+    <bitenum description="select PMOS input pairs mode" id="MODE0" token="MODE0" value="0"></bitenum>
+    <bitenum description="select NMOS input pairs mode" id="MODE1" token="MODE1" value="1"></bitenum>
+    <bitenum description="select rail to rail mode" id="MODE2" token="MODE2" value="2"></bitenum>
+    <bitenum description="select sample channel 0" id="MODE3" token="MODE3" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Negative Channel Input Select" end="2" id="NSEL" rwaccess="RW" width="2">
+    <bitenum description="Select buf output pad as input" id="SEL0" token="SEL0" value="0"></bitenum>
+    <bitenum description="slect unbuf output pad as input" id="SEL1" token="SEL1" value="1"></bitenum>
+    <bitenum description="select internal buffer output as input" id="SEL2" token="SEL2" value="2"></bitenum>
+    <bitenum description="no channel selected" id="SEL3" token="SEL3" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Positive Channel Input Enable" end="1" id="PCHENABLE" rwaccess="RW" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enable PMU OPAMP" end="0" id="ENABLE" rwaccess="RW" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="MCANSRAMREPAIR" description=" $brname sram Repair " id="MCANSRAMREPAIR" offset="0x938" width="32">
+    
+  <bitfield begin="13" description="Repair Bits" end="0" id="DATA" rwaccess="RW" width="14"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTSYSOSC" description=" DFT Control for HFXT " id="DFTSYSOSC" offset="0xC00" width="32">
+    
+  <bitfield begin="4" description="Enable DTB Structure" end="4" id="DTBEN" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Clock Div value for DTB" end="0" id="CLKDIV" rwaccess="RW" width="4"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTMONCLK" description=" DFT Control for MONCLK Hard Macro " id="DFTMONCLK" offset="0xC04" width="32">
+    
+  <bitfield begin="14" description="MON OSC reset" end="14" id="MONOSCRST" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="13" description="MON OSC enable" end="13" id="MONOSCEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="12" description="MON OSC enable" end="12" id="MONOSCOVERRIDE" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="9" description="ATB control" end="6" id="ATBCTL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="5" description="Debug control" end="4" id="DBUGCTL" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="2" description="DTB enable" end="2" id="DTB" rwaccess="RW" width="1">
+    <bitenum description="" id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum description="" id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Bit1: enables buffered path, Bit0 enables unbuffered path" end="0" id="ATB" rwaccess="RW" width="2"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTCLKTOP" description=" DFT for CLKTOP to bring voltage reference " id="DFTCLKTOP" offset="0xC08" width="32">
+    
+  <bitfield begin="3" description="ATB enable" end="3" id="ATB" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="2" description="ATB Select line" end="0" id="ATBSEL" rwaccess="RW" width="3"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTHFXT" description=" DFT Control for HFXT " id="DFTHFXT" offset="0xC10" width="32">
+    
+  <bitfield begin="22" description="Use DTBI[0] as the HFCLK output" end="22" id="USEDTBI0" rwaccess="RW" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="20" description="Turn off slicer" end="20" id="SLICERDISABLE" rwaccess="RW" width="1">
+    <bitenum id="FALSE" token="FALSE" value="0"></bitenum>
+    <bitenum id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="19" description="Override Turn HFCLK related ICGs ON qualified with HFCLKSEL" end="19" id="ICG" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="17" description="Use External Pin as High Frequency Oscillator Source(HFCLK)" end="17" id="HFCLKSEL" rwaccess="RW" width="1">
+    <bitenum id="HFXT" token="HFXT" value="0"></bitenum>
+    <bitenum id="EXTHF" token="EXTHF" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="16" description="Override outputs of HFCLK FSM" end="16" id="FSMOVERRIDE" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="DFTSYSPLL0" description=" DFT Control for SYSPLL " id="DFTSYSPLL0" offset="0xC20" width="32">
+    
+  <bitfield begin="25" description="Override Value For VCO Freq Idac Code" end="20" id="VCOIDACVAL" rwaccess="RW" width="6"></bitfield>
+    
+  <bitfield begin="16" description="Override Enable For VCO Freq Idac Code" end="16" id="VCOIDACOVERRIDE" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="14" description="DTB Signal Select" end="12" id="DTBSEL" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="10" description="ATB UnBuffered Signal Select" end="8" id="ATBUNBUFSEL" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="6" description="ATB Buffered Signal Select" end="4" id="ATBBUFSEL" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="1" description="Enable DTB Structure" end="1" id="DTB" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Enable ATB Structure" end="0" id="ATB" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="DFTSYSPLL1" description=" DFT Control for SYSPLL " id="DFTSYSPLL1" offset="0xC24" width="32">
+    
+  <bitfield begin="9" description="Override value to select Ref Clk" end="8" id="REFCLKSEL" rwaccess="RW" width="2">
+    <bitenum id="SYSOSC" token="SYSOSC" value="0"></bitenum>
+    <bitenum id="HFCLK" token="HFCLK" value="1"></bitenum>
+    <bitenum id="DTBI0" token="DTBI0" value="2"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="Override value to turn PLL ICGCLK2X ON" end="7" id="ICG2X" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="6" description="Override value to turn PLL ICGCLK1 ON" end="6" id="ICG1" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="5" description="Override value to turn PLL ICGCLK0 ON" end="5" id="ICG0" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="4" description="Assert ISO PD to the hard macro" end="4" id="PDISO" rwaccess="RW" width="1">
+    <bitenum id="DEASSERT" token="DEASSERT" value="0"></bitenum>
+    <bitenum id="ASSERT" token="ASSERT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Assert RST PD to the hard macro" end="3" id="PDRST" rwaccess="RW" width="1">
+    <bitenum id="DEASSERT" token="DEASSERT" value="0"></bitenum>
+    <bitenum id="ASSERT" token="ASSERT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="2" description="Assert ONDOMAIN RST to the hard macro" end="2" id="ONDOMAINRST" rwaccess="RW" width="1">
+    <bitenum id="DEASSERT" token="DEASSERT" value="0"></bitenum>
+    <bitenum id="ASSERT" token="ASSERT" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="1" description="Override value for PLL ENABLE to PLL" end="1" id="PLLEN" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Override outputs of PLL FSM" end="0" id="FSMOVERRIDE" rwaccess="RW" width="1">
+    <bitenum id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="DFTPMUATB" description=" DFT Control for PMU ATB " id="DFTPMUATB" offset="0xC40" width="32">
+    
+  <bitfield begin="21" description=" " end="21" id="UNBUFOUTSWEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="20" description=" " end="20" id="BUFOUTSWEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="19" description=" " end="19" id="UBUF2BUFPADEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="18" description=" " end="18" id="UBUF2BUFEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="17" description=" " end="17" id="UBUFMUXSEL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="16" description=" " end="16" id="BUFMUXSEL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="13" description=" " end="12" id="BUFFERFB" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="10" description=" " end="8" id="BUFFERMDSEL" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="5" description=" " end="5" id="BUFFEREN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="4" description=" " end="4" id="BYPASSSWEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="3" description=" " end="3" id="SENSEMUXSEL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="2" description=" " end="2" id="SENSEEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="1" description="ATB UnBuffered Output Enable " end="1" id="UBUFEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="0" description="ATB Buffered Output Enable " end="0" id="BUFEN" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTPMUCTL" description=" DFT Control for PMU CTL " id="DFTPMUCTL" offset="0xC44" width="32">
+    
+  <bitfield begin="30" description=" " end="30" id="APORRDIVPD" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="29" description=" " end="29" id="APORDISSMPL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="28" description=" " end="28" id="APORDISHYS" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="27" description=" " end="27" id="APORCTOPFLIP" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="26" description=" " end="24" id="DTBOSEL" rwaccess="RW" width="3"></bitfield>
+    
+  <bitfield begin="23" description=" " end="23" id="BORDISSMPL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="22" description=" " end="22" id="PARDIS" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="21" description=" " end="21" id="PARBYPASS" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="20" description=" " end="20" id="DFTPORREQ" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="19" description=" " end="19" id="LDOCOMPEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="18" description=" " end="18" id="LDODISLDO" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="17" description=" " end="17" id="LDOENCLAMP" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="16" description=" " end="16" id="LDODISPD" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="15" description=" " end="15" id="BORDISRST" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="14" description=" " end="14" id="BORDISHYS" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="13" description=" " end="13" id="BORCTOPFLIP" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="12" description=" " end="12" id="BORRDIVPD" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="11" description=" " end="11" id="REFEXTBGSEL" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="10" description=" " end="10" id="REFCHOPCFG" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="9" description=" " end="6" id="PMUUBUFCTRL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="5" description=" " end="2" id="PMUBUFCTRL" rwaccess="RW" width="4"></bitfield>
+    
+  <bitfield begin="1" description="ATB UnBuffered Output Enable " end="1" id="PMUUBUFEN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="0" description="ATB Buffered Output Enable " end="0" id="PMUBUFEN" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTPMULPM" description=" DFT Control for PMU LPM " id="DFTPMULPM" offset="0xC48" width="32">
+    
+  <bitfield begin="5" description=" " end="4" id="BOR_threshold" rwaccess="RW" width="2"></bitfield>
+    
+  <bitfield begin="3" description=" " end="3" id="FORCESTDBY" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="2" description=" " end="2" id="FORCESTOP" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="1" description=" " end="1" id="FORCERUN" rwaccess="RW" width="1"></bitfield>
+    
+  <bitfield begin="0" description=" " end="0" id="OVRDEN" rwaccess="RW" width="1"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTSRAMREPCLR" description=" Clear SRAM Repair Data " id="DFTSRAMREPCLR" offset="0xC58" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0xF3(243) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0xF3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Send CLR to SRAM Banks" end="0" id="MANCLR" rwaccess="W" width="1">
+    <bitenum description="" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="DFTSRAMREPSHFT" description=" Shift SRAM Repair Preamble Read-Only " id="DFTSRAMREPSHFT" offset="0xC5C" width="32">
+    
+  <bitfield begin="29" description="SRAM Data from Shift" end="0" id="DATA" rwaccess="R" width="30"></bitfield>
+  </register>
+  
+  
+  <register acronym="DFTPMCU" description=" Overall PMCU DFT Controls " id="DFTPMCU" offset="0xC60" width="32">
+    
+  <bitfield begin="16" description="Use DTBI0 as the LFCLK source" end="16" id="DTBIOASLFCLK" rwaccess="RW" width="1">
+    <bitenum description="" id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum description="" id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="15" description="DFT selections for CLK source of counter" end="12" id="FCCOVRDCLKSEL" rwaccess="RW" width="4">
+    <bitenum description="" id="FCCSELCLK" token="FCCSELCLK" value="0"></bitenum>
+    <bitenum description="" id="DTBI0" token="DTBI0" value="1"></bitenum>
+    <bitenum description="" id="ADC0OSCLK" token="ADC0OSCLK" value="2"></bitenum>
+    <bitenum description="" id="ADC1OSCLK" token="ADC1OSCLK" value="3"></bitenum>
+    <bitenum description="Directly from MSIP" id="RAWSYSOSC" token="RAWSYSOSC" value="4"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="9" description="Use DTBI1 as the trigger" end="9" id="FCCDTBI1TRIG" rwaccess="RW" width="1">
+    <bitenum description="" id="DISABLE" token="DISABLE" value="0"></bitenum>
+    <bitenum description="" id="ENABLE" token="ENABLE" value="1"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="7" description="DFT selections for OTHERCLKS bit 0 of DTB" end="4" id="DTBOB0CLKSEL" rwaccess="RW" width="4">
+    <bitenum description="" id="VBST4MHZCLK" token="VBST4MHZCLK" value="0"></bitenum>
+    <bitenum description="" id="PMUCHOPCLK" token="PMUCHOPCLK" value="1"></bitenum>
+    <bitenum description="" id="FINALVBSTCLK" token="FINALVBSTCLK" value="2"></bitenum>
+    <bitenum description="" id="FUNCEXTCLK" token="FUNCEXTCLK" value="3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="3" description="Major DTB Output Select " end="0" id="DTBOSEL" rwaccess="RW" width="4">
+    <bitenum description="" id="PMU" token="PMU" value="0"></bitenum>
+    <bitenum description="" id="SYSPLL" token="SYSPLL" value="1"></bitenum>
+    <bitenum description="" id="LFCLK" token="LFCLK" value="2"></bitenum>
+    <bitenum description="" id="OTHERCLKS" token="OTHERCLKS" value="3"></bitenum>
+    <bitenum description="" id="SYSOSC" token="SYSOSC" value="4"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="DFTMCANSRAMREPCLR" description=" Clear SRAM Repair Data " id="DFTMCANSRAMREPCLR" offset="0xC64" width="32">
+    
+  <bitfield begin="31" description="Must have KEY==0xF3(243) for write" end="24" id="KEY" rwaccess="W" width="8">
+    <bitenum description="Issue Command" id="VALUE" token="VALUE" value="0xF3"></bitenum>
+  </bitfield>
+    
+  <bitfield begin="0" description="Send CLR to SRAM Banks" end="0" id="MANCLR" rwaccess="W" width="1">
+    <bitenum description="" id="TRUE" token="TRUE" value="1"></bitenum>
+  </bitfield>
+  </register>
+  
+  
+  <register acronym="DFTMCANSRAMREPSHFT" description=" Shift SRAM Repair Preamble Read-Only " id="DFTMCANSRAMREPSHFT" offset="0xC68" width="32">
+    
+  <bitfield begin="29" description="SRAM Data from Shift" end="0" id="DATA" rwaccess="R" width="30"></bitfield>
+  </register>
+</module>

@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<module id="HSM_SEC" XML_version="1.0" description="">
+	<register acronym="CLK_MEM_CTRL_SEC" id="clk_mem_ctrl_sec" width="32" description="Clock Control Secured Register.
+
+This register is used for enabling clock to the module." offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Write this bit to enable clock to the module" id="CLKGO" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Write 0 to disable clock" description="Write 0 to disable clock"/>
+			<bitenum id="EN" value="1" token="Write 1 to enable clock" description="Write 1 to enable clock"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Write this bit to enable host interface clock" id="HIFCLKGO" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Write 0 to disable clock" description="Write 0 to disable clock"/>
+			<bitenum id="EN" value="1" token="Write 1 to enable clock" description="Write 1 to enable clock"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Write this bit to enable counter clock" id="CNTCLKGO" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Write 0 to disable clock" description="Write 0 to disable clock"/>
+			<bitenum id="EN" value="1" token="Write 1 to enable clock" description="Write 1 to enable clock"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="This bit is set to disable all clock sources." id="CLKDISREQ" resetval="0x0">
+			<bitenum id="DIS" value="1" token="Write 1 to disable clock" description="Write 1 to disable clock"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="when 1b, indicates that the module is active and busy with processing data and tokens." id="CLKBUSY" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="When 1b indicates the Host interface is active and busy with Host bus transfers." id="HIFCLKBUSY" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="When 1b, indicates that the counter clock domain is active. This signal is always asserted (set to '1'), except when the 
+counter module is in reset (ctr_reset_n set to '0')." id="CTLCLKBUSY" resetval="0x0"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved7" resetval="0x0"/>
+	</register>
+	<register acronym="SOFT_RESET_CTRL" id="soft_reset_ctrl" width="32" description="Soft Reset Control.
+
+This register is used for controlling soft reset mechanism." offset="0x4">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Write this bit to request soft reset. It is a write-clear or auto clear register." id="ABORTREQ" resetval="0x0">
+			<bitenum id="REQ" value="1" token="To enable Abort request" description="To enable Abort request"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="when 1b, indicates abort request is acknowledged by EIP and soft reset is asserted" id="ABORTACK" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="Write 1b, to forcely assert soft reset without waiting for abort acknowledge from EIP." id="FRCACK" resetval="0x0">
+			<bitenum id="EN" value="1" token="To force soft reset" description="To force soft reset"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="When 1b, soft reset is asserted to the module" id="STA" resetval="0x0"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved7" resetval="0x0"/>
+		<bitfield width="3" end="4" begin="6" rwaccess="RO" description="It indicates state of soft reset assertion." id="STATE" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="soft reset is not requested" description="soft reset is not requested"/>
+			<bitenum id="REQ" value="1" token="Soft reset is requested" description="Soft reset is requested"/>
+			<bitenum id="ACK" value="2" token="Soft reset is acknowledged." description="Soft reset is acknowledged."/>
+			<bitenum id="ASSERT" value="3" token="Soft reset can be asserted" description="Soft reset can be asserted"/>
+			<bitenum id="SET" value="4" token="soft reset is set" description="soft reset is set"/>
+		</bitfield>
+	</register>
+	<register acronym="PKA_ABORT_CTRL_SEC" id="pka_abort_ctrl_sec" width="32" description="PKA Abort Control Secured Register.
+
+This register is used for aborting PKA operation." offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Write 1 to Abort." id="ABORT" resetval="0x0">
+			<bitenum id="ABORT" value="1" token="Write 1 to this bit to abort PKA operation" description="Write 1 to this bit to abort PKA operation"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="This bit is used to mask PKA abort request generated by non-secure controller." id="NSMASKREQ" resetval="0x0">
+			<bitenum id="MASK" value="1" token="Mask request" description="Mask request"/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved2" resetval="0x0"/>
+	</register>
+	<register acronym="DBG_MEM_CTRL" id="dbg_mem_ctrl" width="32" description="Debug Control.
+
+This register is used for HSM memory and asset debug through OCP only if TI debug access is enabled" offset="0xc">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="This register enables debug through OCP. 
+To enable FIFO0   , bit0 should be set.
+To enable FIFO1   , bit1 should be set.
+To enable MBIN    , bit2 should be set.
+To enable MBOUT, bit3 should be set.
+To enable OTP      , bit4 should be set.
+To enable DRAM   , bit5 should be set.
+To enable PROM   , bit6 should be set." id="SEL" resetval="0x0"/>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved7" resetval="0x0"/>
+	</register>
+	<register acronym="SECGA_DFT_CTRL" id="secga_dft_ctrl" width="32" description="DFT Control.
+
+This register is used for enabling FRO controls if TI test access is enabled" offset="0x10">
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved8" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Active HIGH enable signal for FRO characterization (enables the tst_fro_select, tst_fro_enable and tst_fro_delay inputs). 
+This is a combinatorial function. The TRNG module clocks do not need to run for this to work." id="CTLEN" resetval="0x0"/>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Active HIGH enable signal for FRO selected by tst_fro_select" id="ENABLE" resetval="0x0"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Delay chain length selection for FRO selected by tst_fro_select. This input should only be changed while 
+tst_fro_enable is LOW." id="DLY" resetval="0x0"/>
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="FRO selection input. A selected FRO will have its fro_testin input forced low. Valid value to select FRO's is 0-7." id="SEL" resetval="0x0"/>
+	</register>
+	<register acronym="CLK_FRO_DIV" id="clk_fro_div" width="32" description="Clock FRO Divide Configuration.
+
+This register is used for controlling FRO clock measurements." offset="0x14">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="It is used for dividing FRO clock withe the division value specified by this register. 
+Division value should be from 2-80." id="VAL" resetval="0x2"/>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="It is write enable signal used for loading division value onto divider.
+It should be disable and re-enable after changing the mem_value" id="EN" resetval="0x0"/>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved8" resetval="0x0"/>
+	</register>
+	<register acronym="SLP_CTRL" id="slp_ctrl" width="32" description="Sleep Control." offset="0x18">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="power_mode_in override value by FW. FW can set to 1 after cold boot" id="OVRVAL" resetval="0x0"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="power_mode_in source select MMR 
+0-power_mode_in comes from logic
+1-power_mode_in comes from mem_slp_ovr_val" id="SRCVAL" resetval="0x0"/>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved2" resetval="0x0"/>
+	</register>
+</module>

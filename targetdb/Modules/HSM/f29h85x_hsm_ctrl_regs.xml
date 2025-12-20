@@ -1,0 +1,231 @@
+<module id="HSM_CTRL" HW_revision="" description="HSM CTRL Registers">
+	<register id="PID" width="32" page="0" offset="0" internal="0" description="PID register">
+		<bitfield id="PID_MINOR" description="" begin="5" end="0" width="6" rwaccess="R"/>
+		<bitfield id="PID_CUSTOM" description="" begin="7" end="6" width="2" rwaccess="R"/>
+		<bitfield id="PID_MAJOR" description="" begin="10" end="8" width="3" rwaccess="R"/>
+		<bitfield id="PID_MISC" description="" begin="15" end="11" width="5" rwaccess="R"/>
+		<bitfield id="PID_MSB16" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="HW_REG0" width="32" page="0" offset="4" internal="0" description="">
+		<bitfield id="HW_REG0_HWREG0" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="HW_REG1" width="32" page="0" offset="8" internal="0" description="">
+		<bitfield id="HW_REG1_HWREG1" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="HW_REG2" width="32" page="0" offset="12" internal="0" description="">
+		<bitfield id="HW_REG2_HWREG2" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="HW_REG3" width="32" page="0" offset="16" internal="0" description="">
+		<bitfield id="HW_REG3_HWREG3" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="HSM_B0_MEMINIT_START" width="32" page="0" offset="20" internal="0" description="">
+		<bitfield id="HSM_B0_MEMINIT_START_HSM_B0_MEMINIT_START" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_B0_MEMINIT_STATUS" width="32" page="0" offset="24" internal="0" description="">
+		<bitfield id="HSM_B0_MEMINIT_STATUS_HSM_B0_MEMINIT_STATUS" description="" begin="0" end="0" width="1" rwaccess="R"/>
+	</register>
+	<register id="HSM_B0_MEMINIT_DONE" width="32" page="0" offset="28" internal="0" description="">
+		<bitfield id="HSM_B0_MEMINIT_DONE_HSM_B0_MEMINIT_DONE" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_B1_MEMINIT_START" width="32" page="0" offset="32" internal="0" description="">
+		<bitfield id="HSM_B1_MEMINIT_START_HSM_B1_MEMINIT_START" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_B1_MEMINIT_STATUS" width="32" page="0" offset="36" internal="0" description="">
+		<bitfield id="HSM_B1_MEMINIT_STATUS_HSM_B1_MEMINIT_STATUS" description="" begin="0" end="0" width="1" rwaccess="R"/>
+	</register>
+	<register id="HSM_B1_MEMINIT_DONE" width="32" page="0" offset="40" internal="0" description="">
+		<bitfield id="HSM_B1_MEMINIT_DONE_HSM_B1_MEMINIT_DONE" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_SECURERAM_MEMINIT_START" width="32" page="0" offset="68" internal="0" description="">
+		<bitfield id="HSM_SECURERAM_MEMINIT_START_HSM_SECURE_MEMINIT_START" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_SECURERAM_MEMINIT_STATUS" width="32" page="0" offset="72" internal="0" description="">
+		<bitfield id="HSM_SECURERAM_MEMINIT_STATUS_HSM_SECURE_MEMINIT_STATUS" description="" begin="0" end="0" width="1" rwaccess="R"/>
+	</register>
+	<register id="HSM_SECURERAM_MEMINIT_DONE" width="32" page="0" offset="76" internal="0" description="">
+		<bitfield id="HSM_SECURERAM_MEMINIT_DONE_HSM_SECURE_MEMINIT_DONE" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DBG_ACK_CTL0" width="32" page="0" offset="112" internal="0" description="">
+		<bitfield id="HSM_DBG_ACK_CTL0_RTI" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+		<bitfield id="HSM_DBG_ACK_CTL0_WDT" description="" begin="6" end="4" width="3" rwaccess="RW"/>
+		<bitfield id="HSM_DBG_ACK_CTL0_DMT0" description="" begin="14" end="12" width="3" rwaccess="RW"/>
+		<bitfield id="HSM_DBG_ACK_CTL0_DMTB" description="" begin="18" end="16" width="3" rwaccess="RW"/>
+		<bitfield id="HSM_DBG_ACK_CTL0_DTHE" description="" begin="22" end="20" width="3" rwaccess="RW"/>
+		<bitfield id="HSM_DBG_ACK_CTL0_RTDMA" description="" begin="26" end="24" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_CM4_POR_RST_CTRL" width="32" page="0" offset="116" internal="0" description="Reserved. Not supported in this version of HW">
+		<bitfield id="HSM_CM4_POR_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_CM4_SYS_RST_CTRL" width="32" page="0" offset="120" internal="0" description="Reserved. Not supported in this version of HW">
+		<bitfield id="HSM_CM4_SYS_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_RTC_RST_CTRL" width="32" page="0" offset="124" internal="0" description="Reset control for RTC. Reset on PORESETn only">
+		<bitfield id="HSM_RTC_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_RTI0_RST_CTRL" width="32" page="0" offset="128" internal="0" description="">
+		<bitfield id="HSM_RTI0_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_WDT_RST_CTRL" width="32" page="0" offset="132" internal="0" description="">
+		<bitfield id="HSM_WDT_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DCCA_RST_CTRL" width="32" page="0" offset="136" internal="0" description="">
+		<bitfield id="HSM_DCCA_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_ESM_RST_CTRL" width="32" page="0" offset="140" internal="0" description="">
+		<bitfield id="HSM_ESM_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DMT0_RST_CTRL" width="32" page="0" offset="144" internal="0" description="">
+		<bitfield id="HSM_DMT0_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DMT1_RST_CTRL" width="32" page="0" offset="148" internal="0" description="">
+		<bitfield id="HSM_DMT1_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DMA_RST_CTRL" width="32" page="0" offset="152" internal="0" description="">
+		<bitfield id="HSM_DMA_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_INFRA_RST_CTRL" width="32" page="0" offset="156" internal="0" description="">
+		<bitfield id="HSM_INFRA_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DTHE_RST_CTRL" width="32" page="0" offset="160" internal="0" description="">
+		<bitfield id="HSM_DTHE_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_SHA_RST_CTRL" width="32" page="0" offset="164" internal="0" description="">
+		<bitfield id="HSM_SHA_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_TRNG_RST_CTRL" width="32" page="0" offset="168" internal="0" description="">
+		<bitfield id="HSM_TRNG_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_PKE4P2_RST_CTRL" width="32" page="0" offset="172" internal="0" description="">
+		<bitfield id="HSM_PKE4P2_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_AES_RST_CTRL" width="32" page="0" offset="176" internal="0" description="">
+		<bitfield id="HSM_AES_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DMT_CFG" width="32" page="0" offset="180" internal="0" description="">
+		<bitfield id="HSM_DMT_CFG_DMT0_CLK_EN" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMT_CFG_DMTB_CLK_EN" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMT_CFG_DMT0_FCLKEN" description="" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMT_CFG_DMTB_FCLKEN" description="" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMT_CFG_DMT0_INTR_SWKUP" description="" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMT_CFG_DMTB_INTR_SWKUP" description="" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMT_CFG_CASCADE_EN" description="" begin="31" end="31" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_CM4_CFG" width="32" page="0" offset="188" internal="0" description="">
+		<bitfield id="HSM_CM4_CFG_FORCE_HCLK_ACTIVE" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_CM4_CFG_SLEEP_HOLD_REQN" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_CM4_CFG_WICENREQ" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_CM4_RST_CAUSE_CLR" width="32" page="0" offset="192" internal="0" description="">
+		<bitfield id="HSM_CM4_RST_CAUSE_CLR_CLEAR" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_CM4_RST_CAUSE" width="32" page="0" offset="196" internal="0" description="HSM CM4 reset cuase register. Reset on PORESETn">
+		<bitfield id="HSM_CM4_RST_CAUSE_STATUS" description="" begin="7" end="0" width="8" rwaccess="R"/>
+	</register>
+	<register id="HSM_CM4_BOOTROM_ENABLE_STATUS" width="32" page="0" offset="204" internal="0" description="">
+		<bitfield id="HSM_CM4_BOOTROM_ENABLE_STATUS_INDICATOR" description="" begin="0" end="0" width="1" rwaccess="R"/>
+	</register>
+	<register id="HSM_DMA_ERR_MASK" width="32" page="0" offset="212" internal="0" description="">
+		<bitfield id="HSM_DMA_ERR_MASK_RD_ERR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMA_ERR_MASK_WR_ERR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DMA_ERR_STATUS" width="32" page="0" offset="216" internal="0" description="">
+		<bitfield id="HSM_DMA_ERR_STATUS_RD_ERR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMA_ERR_STATUS_WR_ERR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+	</register>
+	<register id="HSM_DMA_ERR_STATUS_RAW" width="32" page="0" offset="220" internal="0" description="">
+		<bitfield id="HSM_DMA_ERR_STATUS_RAW_RD_ERR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="HSM_DMA_ERR_STATUS_RAW_WR_ERR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+	</register>
+	<register id="DEVICE_TYPE" width="32" page="0" offset="464" internal="0" description="">
+		<bitfield id="DEVICE_TYPE_DTYPE_RAW" description="" begin="15" end="0" width="16" rwaccess="R"/>
+	</register>
+	<register id="TRACE_FIREWALL" width="32" page="0" offset="476" internal="0" description="">
+		<bitfield id="TRACE_FIREWALL_ENABLE" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="TRACE_FIREWALL_LOCK_REGSITER" description="" begin="7" end="4" width="4" rwaccess="RW"/>
+	</register>
+	<register id="HSM_SEC_MGR_FIREWALL_STATUS" width="32" page="0" offset="480" internal="0" description="">
+		<bitfield id="HSM_SEC_MGR_FIREWALL_STATUS_HSM" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="HSM_SEC_MGR_FIREWALL_STATUS_SOC" description="" begin="8" end="8" width="1" rwaccess="R"/>
+	</register>
+	<register id="TRACE_FIREWALL_STATUS" width="32" page="0" offset="492" internal="0" description="">
+		<bitfield id="TRACE_FIREWALL_STATUS_POST_LOCK_ENABLE" description="" begin="3" end="0" width="4" rwaccess="R"/>
+		<bitfield id="TRACE_FIREWALL_STATUS_POST_LOCK_POST_DEVICE_TYPE_ENABLE" description="" begin="8" end="8" width="1" rwaccess="R"/>
+	</register>
+	<register id="HSM_SM3_RST_CTRL" width="32" page="0" offset="512" internal="0" description="">
+		<bitfield id="HSM_SM3_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_SM4_RST_CTRL" width="32" page="0" offset="516" internal="0" description="">
+		<bitfield id="HSM_SM4_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HSM_XRSN_RST_CTRL" width="32" page="0" offset="520" internal="0" description="Control to generate XRSn on HSM output.">
+		<bitfield id="HSM_XRSN_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HOST_CPU1_RST_CTRL" width="32" page="0" offset="524" internal="0" description="Control to generate SOC CPU1. This gets asserted conditionally when HSM CM4 is asserted. Once asserted, ROM code need to clear the field to get this reset deasserted.">
+		<bitfield id="HOST_CPU1_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HOST_CPU2_RST_CTRL" width="32" page="0" offset="528" internal="0" description="Control to generate SOC CPU2. This gets asserted conditionally when HSM CM4 is asserted. Once asserted, ROM code need to clear the field to get this reset deasserted">
+		<bitfield id="HOST_CPU2_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HOST_CPU3_RST_CTRL" width="32" page="0" offset="532" internal="0" description="Control to generate SOC CPU2. This gets asserted conditionally when HSM CM4 is asserted. Once asserted, ROM code need to clear the field to get this reset deasserted">
+		<bitfield id="HOST_CPU3_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HOST_CPU4_RST_CTRL" width="32" page="0" offset="536" internal="0" description="Control to generate SOC CPU4. This gets asserted conditionally when HSM CM4 is asserted. Once asserted, ROM code need to clear the field to get this reset deasserted">
+		<bitfield id="HOST_CPU4_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HOST_CPU5_RST_CTRL" width="32" page="0" offset="540" internal="0" description="Control to generate SOC CPU5. This gets asserted conditionally when HSM CM4 is asserted. Once asserted, ROM code need to clear the field to get this reset deasserted">
+		<bitfield id="HOST_CPU5_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HOST_CPU6_RST_CTRL" width="32" page="0" offset="544" internal="0" description="Control to generate SOC CPU6. This gets asserted conditionally when HSM CM4 is asserted. Once asserted, ROM code need to clear the field to get this reset deasserted">
+		<bitfield id="HOST_CPU6_RST_CTRL_ASSERT" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="HOST_CPU_M4RST_ENABLE_CTRL" width="32" page="0" offset="552" internal="0" description="Reserved. Not used in this version of HW">
+		<bitfield id="HOST_CPU_M4RST_ENABLE_CTRL_ENABLE" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="CPU0_BANKMAP" width="32" page="0" offset="928" internal="0" description="Active Bank Configuration for HSM CPU">
+		<bitfield id="CPU0_BANKMAP_SWAP" description="" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SWRV_FLW_ALLOWED0" width="32" page="0" offset="948" internal="0" description="Allowed Software revisions for Flash Writer. Gets Reset on PORESETn. Write once until next PORESETn">
+		<bitfield id="SWRV_FLW_ALLOWED0_VALUE" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SWRV_FLW_ALLOWED1" width="32" page="0" offset="952" internal="0" description="Allowed Software revisions for Flash Writer. Gets Reset on PORESETn. Write once until next PORESETn">
+		<bitfield id="SWRV_FLW_ALLOWED1_VALUE" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="UCID0" width="32" page="0" offset="956" internal="0" description="UCID Value. Gets Reset on PORESETn. Write once until next PORESETn">
+		<bitfield id="UCID0_VALUE" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="UCID1" width="32" page="0" offset="960" internal="0" description="UCID Value. Gets Reset on PORESETn. Write once until next PORESETn">
+		<bitfield id="UCID1_VALUE" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="CRYPTO_FEATURE0" width="32" page="0" offset="964" internal="0" description="Indicate the availability of crypto features">
+		<bitfield id="CRYPTO_FEATURE0_AES" description="" begin="5" end="0" width="6" rwaccess="R"/>
+		<bitfield id="CRYPTO_FEATURE0_SHA" description="" begin="13" end="8" width="6" rwaccess="R"/>
+		<bitfield id="CRYPTO_FEATURE0_PKA" description="" begin="21" end="16" width="6" rwaccess="R"/>
+		<bitfield id="CRYPTO_FEATURE0_TRNG" description="" begin="29" end="24" width="6" rwaccess="R"/>
+	</register>
+	<register id="CRYPTO_FEATURE1" width="32" page="0" offset="968" internal="0" description="Indicate the availability of crypto features">
+		<bitfield id="CRYPTO_FEATURE1_SM3" description="" begin="5" end="0" width="6" rwaccess="R"/>
+		<bitfield id="CRYPTO_FEATURE1_SM4" description="" begin="13" end="8" width="6" rwaccess="R"/>
+		<bitfield id="CRYPTO_FEATURE1_SM2" description="" begin="21" end="16" width="6" rwaccess="R"/>
+	</register>
+	<register id="DMT0CLKSRCSEL" width="32" page="0" offset="1024" internal="0" description="Clock source select configuration">
+		<bitfield id="DMT0CLKSRCSEL_SRC" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="DMTBCLKSRCSEL" width="32" page="0" offset="1028" internal="0" description="Clock source select configuration">
+		<bitfield id="DMTBCLKSRCSEL_SRC" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="WDTACLKSRCSEL" width="32" page="0" offset="1032" internal="0" description="Clock source select configuration">
+		<bitfield id="WDTACLKSRCSEL_SRC" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="RTIACLKSRCSEL" width="32" page="0" offset="1036" internal="0" description="Clock source select configuration">
+		<bitfield id="RTIACLKSRCSEL_SRC" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="RTCCLKSRCSEL" width="32" page="0" offset="1040" internal="0" description="Clock source select configuration. Reset on POR only">
+		<bitfield id="RTCCLKSRCSEL_SRC" description="" begin="2" end="0" width="3" rwaccess="RW"/>
+	</register>
+	<register id="LOCK0_KICK0" width="32" page="0" offset="4104" internal="0" description="Lock register for HSM_SOC_CTRL registers.">
+		<bitfield id="LOCK0_KICK0" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="LOCK0_KICK1" width="32" page="0" offset="4108" internal="0" description="Unlock register for HSM_SOC_CTRL registers.">
+		<bitfield id="LOCK0_KICK1" description="" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+</module>
