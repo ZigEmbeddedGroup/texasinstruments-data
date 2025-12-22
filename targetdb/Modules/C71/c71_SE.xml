@@ -1,210 +1,210 @@
 <module name="SE" acronym="SE" XML_version="1.0" HW_revision="n/a" description="Streaming Engine">
 	<register id="SE0_PID" offset="0x300" width="64" page="121" description="Stream 0 PID Register" >
-		<bitfield id="REV_ID" resetval="0x60E00800" begin="31" end="0" rwaccess="R" description="PID Revision"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="REV_ID" resetval="0x60E00800" begin="31" end="0" width="32" rwaccess="R" description="PID Revision"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_FAR" offset="0x301" width="64" page="121" description="Stream 0 Fail Address Register" >
-		<bitfield id="RSVD0" resetval="0x00" begin="6" end="0" rwaccess="R" description="Reserved"/>
-		<bitfield id="FAR" resetval="0x00000000000" begin="48" end="7" rwaccess="RW" description="FAR"/>
-		<bitfield id="RSVD1" resetval="0x0000" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD0" resetval="0x00" begin="6" end="0" width="7" rwaccess="R" description="Reserved"/>
+		<bitfield id="FAR" resetval="0x00000000000" begin="48" end="7" width="42" rwaccess="RW" description="FAR"/>
+		<bitfield id="RSVD1" resetval="0x0000" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_FSR" offset="0x302" width="64" page="121" description="Stream 0 Fail Status Register" >
-		<bitfield id="FSR" resetval="0x0000" begin="12" end="0" rwaccess="RW" description="FSR"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="13" rwaccess="R" description="Reserved"/>
+		<bitfield id="FSR" resetval="0x0000" begin="12" end="0" width="13" rwaccess="RW" description="FSR"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="13" width="51" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG0" offset="0x000308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 0" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG1" offset="0x100308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 1" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG2" offset="0x200308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 2" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG3" offset="0x300308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 3" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG4" offset="0x400308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 4" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG5" offset="0x500308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 5" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG6" offset="0x600308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 6" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG7" offset="0x700308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 7" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG8" offset="0x800308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 8" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG9" offset="0x900308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 9" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG10" offset="0xa00308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 10" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG11" offset="0xb00308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 11" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG12" offset="0xc00308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 12" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG13" offset="0xd00308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 13" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG14" offset="0xe00308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 14" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_TAG15" offset="0xf00308" width="64" page="121" description="Stream 0 Tag Data and Metadata Register Index 15" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_ICNT0" offset="0x0000309" width="64" page="121" description="Early Remaining Iteration Count for Loop Level 0 (innermost loop)"/>
@@ -240,28 +240,28 @@
 
 
 	<register id="SE0_DIM0" offset="0x00030a" width="64" page="121" description="Stream 0 Dimension Register Index 0" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_DIM1" offset="0x10030a" width="64" page="121" description="Stream 0 Dimension Register Index 1" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_DIM2" offset="0x20030a" width="64" page="121" description="Stream 0 Dimension Register Index 2" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_DIM3" offset="0x30030a" width="64" page="121" description="Stream 0 Dimension Register Index 3" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_DIM4" offset="0x40030a" width="64" page="121" description="Stream 0 Dimension Register Index 4" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE0_ADDR0"  offset="0x00030b" width="64" page="121" description="Early Address for hardware dimension 0"/>
@@ -279,215 +279,215 @@
 
 
 	<register id="SE0_STATUS" offset="0x30c" width="64" page="121" description="Stream 0 Status and Flag Register" >
-		<bitfield id="FLAG" resetval="0x00000000" begin="63" end="0" rwaccess="R" description="FLAG"/>
+		<bitfield id="FLAG" resetval="0x00000000" begin="63" end="0" width="64" rwaccess="R" description="FLAG"/>
 	</register>
 
 	<register id="SE1_PID" offset="0x310" width="64" page="121" description="Stream 1 PID Register" >
-		<bitfield id="REV_ID" resetval="0x60E00800" begin="31" end="0" rwaccess="R" description="PID Revision"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="REV_ID" resetval="0x60E00800" begin="31" end="0" width="32" rwaccess="R" description="PID Revision"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_FAR" offset="0x311" width="64" page="121" description="Stream 1 Fail Address Register" >
-		<bitfield id="RSVD0" resetval="0x00" begin="6" end="0" rwaccess="R" description="Reserved"/>
-		<bitfield id="FAR" resetval="0x00000000000" begin="48" end="7" rwaccess="RW" description="FAR"/>
-		<bitfield id="RSVD1" resetval="0x0000" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD0" resetval="0x00" begin="6" end="0" width="7" rwaccess="R" description="Reserved"/>
+		<bitfield id="FAR" resetval="0x00000000000" begin="48" end="7" width="42" rwaccess="RW" description="FAR"/>
+		<bitfield id="RSVD1" resetval="0x0000" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_FSR" offset="0x312" width="64" page="121" description="Stream 1 Fail Status Register" >
-		<bitfield id="FSR" resetval="0x0000" begin="12" end="0" rwaccess="RW" description="FSR"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="13" rwaccess="R" description="Reserved"/>
+		<bitfield id="FSR" resetval="0x0000" begin="12" end="0" width="13" rwaccess="RW" description="FSR"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="13" width="51" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG0" offset="0x000318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 0" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG1" offset="0x100318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 1" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG2" offset="0x200318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 2" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG3" offset="0x300318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 3" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG4" offset="0x400318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 4" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG5" offset="0x500318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 5" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG6" offset="0x600318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 6" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG7" offset="0x700318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 7" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG8" offset="0x800318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 8" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG9" offset="0x900318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 9" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG10" offset="0xa00318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 10" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG11" offset="0xb00318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 11" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG12" offset="0xc00318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 12" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG13" offset="0xd00318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 13" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG14" offset="0xe00318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 14" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_TAG15" offset="0xf00318" width="64" page="121" description="Stream 1 Tag Data and Metadata Register Index 15" >
-		<bitfield id="ACT" resetval="0x0" begin="0" end="0" rwaccess="R" description="Active Bit"/>
-		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" rwaccess="R" description="Low Ready Bit"/>
-		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" rwaccess="R" description="High Ready Bit"/>
-		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" rwaccess="R" description="Low Valid Bit"/>
-		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" rwaccess="R" description="High Valid Bit"/>
-		<bitfield id="ERR" resetval="0x0" begin="5" end="5" rwaccess="R" description="Error Bit"/>
-		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" rwaccess="R" description="Reserved"/>
-		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" rwaccess="R" description="Reserved"/>
-		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" rwaccess="R" description="Reserved"/>
+		<bitfield id="ACT" resetval="0x0" begin="0" end="0" width="1" rwaccess="R" description="Active Bit"/>
+		<bitfield id="RDYL" resetval="0x1" begin="1" end="1" width="1" rwaccess="R" description="Low Ready Bit"/>
+		<bitfield id="RDYH" resetval="0x1" begin="2" end="2" width="1" rwaccess="R" description="High Ready Bit"/>
+		<bitfield id="VLDL" resetval="0x0" begin="3" end="3" width="1" rwaccess="R" description="Low Valid Bit"/>
+		<bitfield id="VLDH" resetval="0x0" begin="4" end="4" width="1" rwaccess="R" description="High Valid Bit"/>
+		<bitfield id="ERR" resetval="0x0" begin="5" end="5" width="1" rwaccess="R" description="Error Bit"/>
+		<bitfield id="RSVD0" resetval="0x0" begin="6" end="6" width="1" rwaccess="R" description="Reserved"/>
+		<bitfield id="ADDR" resetval="0x0" begin="48" end="7" width="42" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD1" resetval="0x0" begin="63" end="49" width="15" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_ICNT0" offset="0x0000319" width="64" page="121" description="Early Remaining Iteration Count for Loop Level 0 (innermost loop)"/>
@@ -522,28 +522,28 @@
 	<register id="SE1_ICNT28" offset="0x1c00319" width="64" page="121" description="LEZR_CNT from template"/>
 
 	<register id="SE1_DIM0" offset="0x00031a" width="64" page="121" description="Stream 1 Dimension Register Index 0" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_DIM1" offset="0x10031a" width="64" page="121" description="Stream 1 Dimension Register Index 1" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_DIM2" offset="0x20031a" width="64" page="121" description="Stream 1 Dimension Register Index 2" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_DIM3" offset="0x30031a" width="64" page="121" description="Stream 1 Dimension Register Index 3" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_DIM4" offset="0x40031a" width="64" page="121" description="Stream 1 Dimension Register Index 4" >
-		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" rwaccess="R" description="DIM"/>
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" rwaccess="R" description="Reserved"/>
+		<bitfield id="DIM" resetval="0x00000000" begin="31" end="0" width="32" rwaccess="R" description="DIM"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="32" width="32" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE1_ADDR0"  offset="0x00031b" width="64" page="121" description="Early Address for hardware dimension 0"/>
@@ -560,14 +560,14 @@
 	<register id="SE1_ADDR13" offset="0xd0031b" width="64" page="121" description="Late Address for hardware dimension 5"/>
 
 	<register id="SE1_STATUS" offset="0x31c" width="64" page="121" description="Stream 1 Status and Flag Register" >
-		<bitfield id="FLAG" resetval="0x00000000" begin="63" end="0" rwaccess="R" description="FLAG"/>
+		<bitfield id="FLAG" resetval="0x00000000" begin="63" end="0" width="64" rwaccess="R" description="FLAG"/>
 	</register>
 
 	<register id="SE2_PID" offset="0x320" width="64" page="121" description="Stream 2 PID Register" >
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="0" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="0" width="64" rwaccess="R" description="Reserved"/>
 	</register>
 
 	<register id="SE3_PID" offset="0x330" width="64" page="121" description="Stream 3 PID Register" >
-		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="0" rwaccess="R" description="Reserved"/>
+		<bitfield id="RSVD0" resetval="0x00000000" begin="63" end="0" width="64" rwaccess="R" description="Reserved"/>
 	</register>
 </module>
