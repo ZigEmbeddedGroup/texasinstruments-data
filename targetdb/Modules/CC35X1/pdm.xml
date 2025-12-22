@@ -64,8 +64,8 @@ Value 1 indicates two channels that can be used for stereo or dual mono micropho
 			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
 			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
 		</bitfield>
-		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Data Overflow event.
-Data has been written to the buffer before the previous values was read.
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Data Overflow event.
+Data has been written to the buffer before the previous values was read.
 This flag gets set if one of the channel OVERFLOW flags gets set" id="OVFL" resetval="0x0">
 			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
 			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
@@ -78,8 +78,8 @@ This flag gets set if one of the channel OVERFLOW flags gets set" id="OVFL" rese
 			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
 			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
 		</bitfield>
-		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Data Underflow event.
-Data has been read from an emty FIFO.
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Data Underflow event.
+Data has been read from an emty FIFO.
 This flag gets set if one of the channel UNDERFLOW flags gets set." id="UNFL" resetval="0x0">
 			<bitenum id="CLR" value="0" token="Interrupt disable" description="Interrupt disable"/>
 			<bitenum id="SET" value="1" token="Interrrupt Enable" description="Interrrupt Enable"/>
@@ -282,7 +282,7 @@ Ex: When value is 0, selscale is 1/8, and when value is 7, selscale is 1/1024" i
 		<bitfield width="1" end="31" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED31" resetval="0x700000"/>
 	</register>
 	<register acronym="OSR" id="osr" width="32" description="Oversampling Control Register" offset="0x114">
-		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Oversampling rate. The oversampling rate is defined as OSRx + 1.
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Oversampling rate. The oversampling rate is defined as OSRx + 1.
 Applicable oversampling rates are 2 to 256. Default is 64." id="VALUE" resetval="0x3f">
 			<bitenum id="MINIMUM" value="1" token="Smallest value" description="Smallest value"/>
 			<bitenum id="MAXIMUM" value="255" token="Highest possible value" description="Highest possible value"/>

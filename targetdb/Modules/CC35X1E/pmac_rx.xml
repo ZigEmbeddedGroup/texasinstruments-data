@@ -2743,10 +2743,10 @@ There is a frame ready to transmit (TX) -  it allows Suspend with Spatial-Reuse"
 		<bitfield width="6" end="2" begin="7" rwaccess="RO" id="Reserved" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1000000'}"/>
 		<bitfield width="22" end="10" begin="31" rwaccess="RO" id="Reserved_2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x1000000'}"/>
 	</register>
-	<register acronym="RX_SCRPT_BASE7_OFFSET" id="rx_scrpt_base7_offset" width="32" description="Base7 offset is added to Base7 in TX Scripter wrapper.
-Increment and decrement logic was implemented to ease Scripter update,
-Byte Enable - 2'b01 : (+) Increment previous value (with immediate value)
-Byte Enable - 2'b10 : (-)  Decrement previous value (with immediate value)
+	<register acronym="RX_SCRPT_BASE7_OFFSET" id="rx_scrpt_base7_offset" width="32" description="Base7 offset is added to Base7 in TX Scripter wrapper.
+Increment and decrement logic was implemented to ease Scripter update,
+Byte Enable - 2'b01 : (+) Increment previous value (with immediate value)
+Byte Enable - 2'b10 : (-)  Decrement previous value (with immediate value)
 Byte Enable - 2'b11 : (ld) Initilize previous value  (with immediate value)" offset="0x650">
 		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Immedite value written by scripter can be only one byte width [7:0]." id="RX_SCRPT_BASE7_OFFSET_WROPT" resetval="0x0"/>
 		<bitfield width="16" end="16" begin="31" rwaccess="RO" id="Reserved" resetval="0x0"/>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="UC14" HW_revision="1.0">
+    <group id="UC14_GPRCM" name="UC14_GPRCM" instances="1" offset="0x800" instaddr="0x100" description="">
+        <register id="UC14_PWREN" width="32" offset="0x0" description="Power enable">
+            <bitfield id="ENABLE" description="Enable the power" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="Disable Power"/>
+                <bitenum id="ENABLE" value="0x1" description="Enable Power"/>
+            </bitfield>
+        </register>
+        <register id="UC14_RSTCTL" width="32" offset="0x4" description="Reset Control">
+            <bitfield id="RESETSTKYCLR" description="Clear the RESETSTKY bit in the STAT register" begin="1" end="1" width="1" rwaccess="R/W">
+                <bitenum id="NOP" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="CLR" value="0x1" description="Clear reset sticky bit"/>
+            </bitfield>
+            <bitfield id="RESETASSERT" description="Assert reset to the peripheral" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="NOP" value="0x0" description="Writing 0 has no effect"/>
+                <bitenum id="ASSERT" value="0x1" description="Assert reset"/>
+            </bitfield>
+        </register>
+        <register id="UC14_CLKCFG" width="32" offset="0x8" description="Peripheral Clock Configuration Register">
+            <bitfield id="BLOCKASYNC" description="Async Clock Request is blocked from starting SYSOSC or forcing bus clock to 32MHz" begin="8" end="8" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="Not block async clock request"/>
+                <bitenum id="ENABLE" value="0x1" description="Block async clock request"/>
+            </bitfield>
+        </register>
+        <register id="UC14_GPRCM_STAT" width="32" offset="0x14" description="Status Register">
+            <bitfield id="RESETSTKY" description="This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register" begin="16" end="16" width="1" rwaccess="R">
+                <bitenum id="NORES" value="0x0" description="The peripheral has not been reset since this bit was last cleared by RESETSTKYCLR in the RSTCTL register"/>
+                <bitenum id="RESET" value="0x1" description="The peripheral was reset since the last bit clear"/>
+            </bitfield>
+        </register>
+        </group>
+    <register id="UC14_IPMODE" width="32" offset="0x1100" description="Mode Selection Register">
+        <bitfield id="SELECT" description="Free run control" begin="1" end="0" width="2" rwaccess="R/W">
+            <bitenum id="UART" value="0x0" description="Default functionality is UART"/>
+            <bitenum id="SPI" value="0x1" description="SPG in SPI Mode"/>
+            <bitenum id="I2C_CONTROLLER" value="0x2" description="SPG in I2C Controller Mode"/>
+            <bitenum id="I2C_PERIPHERAL" value="0x3" description="SPG in I2C Peripheral Mode"/>
+        </bitfield>
+    </register>
+
+</module>

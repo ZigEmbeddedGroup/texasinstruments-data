@@ -177,12 +177,12 @@ This register is used to set the timer clock period. The prescaler is a counter 
 	<register acronym="PREEVENT" id="preevent" width="32" description="Prescaler Event
 
 This register is used to output a logic high signal before the zero crossing of the prescaler counter. The output is routed to the IOC." offset="0x1c">
-		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Sets the HIGH time of the prescaler event output. 
-
-Event goes high when the prescaler counter equals [VAL]. Event goes low when prescaler counter is 0.
-
-Note:
-- Can be used to precharge or turn an external component on for a short time before sampling, like in QDEC.
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Sets the HIGH time of the prescaler event output. 
+
+Event goes high when the prescaler counter equals [VAL]. Event goes low when prescaler counter is 0.
+
+Note:
+- Can be used to precharge or turn an external component on for a short time before sampling, like in QDEC.
 - If there is a requirement to create such events that have very short periods compared to timer clock period, use two timers. One timer acts as prescaler and event generator for another timer." id="VAL" resetval="0"/>
 		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0"/>
 	</register>
@@ -1136,34 +1136,34 @@ Primary use scenario is to select [CCACT] before starting the timer. Follow thes
 - Configure [CCACT].
 - Wait for three system clock periods before setting [EDGE] different from NONE.
 These steps prevent capture events caused by expired signal values in edge-detection circuit." offset="0xc4">
-		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Capture-Compare action.
-
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Capture-Compare action.
+
 Capture-Compare action defines 15 different channel functions that utilize capture, compare, and zero events. In every compare event the timer looks at the current value of [CNTR.*]. The corresponding output event will be set 1 timer period after [CNTR.*] = [C1CC.*]." id="CCACT" resetval="0">
 			<bitenum id="DIS" value="0" token="Disable channel." description="Disable channel."/>
-			<bitenum id="SET_ON_CAPT_DIS" value="1" token="Set on capture, and then disable channel.
-
-Channel function sequence: 
-- Set enabled outputs on capture event and copy [CNTR.VAL] to [C1CC.VAL].
-- Disable channel. 
-
-Primary use scenario is to select this function before starting the timer.
-Follow these steps to select this function while [CTL.MODE] is different from DIS:  
- - Set CCACT to SET_ON_CAPT with no output enable.
- - Configure [INPUT] (optional).
- - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
-
-These steps prevent capture events caused by expired signal values in edge-detection circuit." description="Set on capture, and then disable channel.
-
-Channel function sequence: 
-- Set enabled outputs on capture event and copy [CNTR.VAL] to [C1CC.VAL].
-- Disable channel. 
-
-Primary use scenario is to select this function before starting the timer.
-Follow these steps to select this function while [CTL.MODE] is different from DIS:  
- - Set CCACT to SET_ON_CAPT with no output enable.
- - Configure [INPUT] (optional).
- - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
-
+			<bitenum id="SET_ON_CAPT_DIS" value="1" token="Set on capture, and then disable channel.
+
+Channel function sequence: 
+- Set enabled outputs on capture event and copy [CNTR.VAL] to [C1CC.VAL].
+- Disable channel. 
+
+Primary use scenario is to select this function before starting the timer.
+Follow these steps to select this function while [CTL.MODE] is different from DIS:  
+ - Set CCACT to SET_ON_CAPT with no output enable.
+ - Configure [INPUT] (optional).
+ - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
+
+These steps prevent capture events caused by expired signal values in edge-detection circuit." description="Set on capture, and then disable channel.
+
+Channel function sequence: 
+- Set enabled outputs on capture event and copy [CNTR.VAL] to [C1CC.VAL].
+- Disable channel. 
+
+Primary use scenario is to select this function before starting the timer.
+Follow these steps to select this function while [CTL.MODE] is different from DIS:  
+ - Set CCACT to SET_ON_CAPT with no output enable.
+ - Configure [INPUT] (optional).
+ - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
+
 These steps prevent capture events caused by expired signal values in edge-detection circuit."/>
 			<bitenum id="CLR_ON_0_TGL_ON_CMP" value="10" token="Clear on zero, toggle on compare repeatedly.
  
@@ -1325,36 +1325,36 @@ Channel function sequence:
 - Disable channel.
 
  The output is high for two timer clock periods."/>
-			<bitenum id="PER_PULSE_WIDTH_MEAS" value="8" token="Period and pulse width measurement.
-
-Continuously capture period and pulse width of the signal selected by [INPUT] relative to the signal edge given by [EDGE]. 
-
-Set enabled outputs and [RIS.C1CC] when [C1CC.VAL] contains signal period and [PC1CC.VAL] contains signal pulse width. 
-
-Notes: 
-- Make sure to configure [INPUT] and CCACT when [CTL.MODE] equals DIS, then set [CTL.MODE] to UP_ONCE or UP_PER. 
-- The counter restarts in the selected timer mode when [C1CC.VAL] contains the signal period.
-- If more than one channel uses this function, the channels will perform this function one at a time. The channel with lowest number has priority and performs the function first. Next measurement starts when current measurement completes successfully or times out. A timeout occurs when counter equals target. 
-- To observe a timeout event the [RIS.TGT] interrupt can be used, or another channel can be configured to SET_ON_CMP with compare value equal [TGT].
-
-Signal property requirements:
-- Signal Period &gt;= 2 * ( 1 + [PRECFG.TICKDIV] ) * timer clock period.
-- Signal Period &lt;= MAX([CNTR.*]) * (1 + [PRECFG.TICKDIV] ) * timer clock period.
-- Signal low and high phase &gt;= (1 + [PRECFG.TICKDIV] ) * timer clock period." description="Period and pulse width measurement.
-
-Continuously capture period and pulse width of the signal selected by [INPUT] relative to the signal edge given by [EDGE]. 
-
-Set enabled outputs and [RIS.C1CC] when [C1CC.VAL] contains signal period and [PC1CC.VAL] contains signal pulse width. 
-
-Notes: 
-- Make sure to configure [INPUT] and CCACT when [CTL.MODE] equals DIS, then set [CTL.MODE] to UP_ONCE or UP_PER. 
-- The counter restarts in the selected timer mode when [C1CC.VAL] contains the signal period.
-- If more than one channel uses this function, the channels will perform this function one at a time. The channel with lowest number has priority and performs the function first. Next measurement starts when current measurement completes successfully or times out. A timeout occurs when counter equals target. 
-- To observe a timeout event the [RIS.TGT] interrupt can be used, or another channel can be configured to SET_ON_CMP with compare value equal [TGT].
-
-Signal property requirements:
-- Signal Period &gt;= 2 * ( 1 + [PRECFG.TICKDIV] ) * timer clock period.
-- Signal Period &lt;= MAX([CNTR.*]) * (1 + [PRECFG.TICKDIV] ) * timer clock period.
+			<bitenum id="PER_PULSE_WIDTH_MEAS" value="8" token="Period and pulse width measurement.
+
+Continuously capture period and pulse width of the signal selected by [INPUT] relative to the signal edge given by [EDGE]. 
+
+Set enabled outputs and [RIS.C1CC] when [C1CC.VAL] contains signal period and [PC1CC.VAL] contains signal pulse width. 
+
+Notes: 
+- Make sure to configure [INPUT] and CCACT when [CTL.MODE] equals DIS, then set [CTL.MODE] to UP_ONCE or UP_PER. 
+- The counter restarts in the selected timer mode when [C1CC.VAL] contains the signal period.
+- If more than one channel uses this function, the channels will perform this function one at a time. The channel with lowest number has priority and performs the function first. Next measurement starts when current measurement completes successfully or times out. A timeout occurs when counter equals target. 
+- To observe a timeout event the [RIS.TGT] interrupt can be used, or another channel can be configured to SET_ON_CMP with compare value equal [TGT].
+
+Signal property requirements:
+- Signal Period &gt;= 2 * ( 1 + [PRECFG.TICKDIV] ) * timer clock period.
+- Signal Period &lt;= MAX([CNTR.*]) * (1 + [PRECFG.TICKDIV] ) * timer clock period.
+- Signal low and high phase &gt;= (1 + [PRECFG.TICKDIV] ) * timer clock period." description="Period and pulse width measurement.
+
+Continuously capture period and pulse width of the signal selected by [INPUT] relative to the signal edge given by [EDGE]. 
+
+Set enabled outputs and [RIS.C1CC] when [C1CC.VAL] contains signal period and [PC1CC.VAL] contains signal pulse width. 
+
+Notes: 
+- Make sure to configure [INPUT] and CCACT when [CTL.MODE] equals DIS, then set [CTL.MODE] to UP_ONCE or UP_PER. 
+- The counter restarts in the selected timer mode when [C1CC.VAL] contains the signal period.
+- If more than one channel uses this function, the channels will perform this function one at a time. The channel with lowest number has priority and performs the function first. Next measurement starts when current measurement completes successfully or times out. A timeout occurs when counter equals target. 
+- To observe a timeout event the [RIS.TGT] interrupt can be used, or another channel can be configured to SET_ON_CMP with compare value equal [TGT].
+
+Signal property requirements:
+- Signal Period &gt;= 2 * ( 1 + [PRECFG.TICKDIV] ) * timer clock period.
+- Signal Period &lt;= MAX([CNTR.*]) * (1 + [PRECFG.TICKDIV] ) * timer clock period.
 - Signal low and high phase &gt;= (1 + [PRECFG.TICKDIV] ) * timer clock period."/>
 			<bitenum id="SET_ON_CAPT" value="9" token="Set on capture repeatedly.
 
@@ -1423,30 +1423,30 @@ These steps prevent capture events caused by expired signal values in edge-detec
 
 Capture-Compare action defines 15 different channel functions that utilize capture, compare, and zero events. In every compare event the timer looks at the current value of [CNTR.*]. The corresponding output event will be set 1 timer period after [CNTR.*] = [C2CC.*]." id="CCACT" resetval="0">
 			<bitenum id="DIS" value="0" token="Disable channel." description="Disable channel."/>
-			<bitenum id="SET_ON_CAPT_DIS" value="1" token="Set on capture, and then disable channel.
-
-Channel function sequence: 
-- Set enabled outputs on capture event and copy [CNTR.VAL] to [C2CC.VAL].
-- Disable channel. 
-
-Primary use scenario is to select this function before starting the timer.
-Follow these steps to select this function while [CTL.MODE] is different from DIS:  
- - Set CCACT to SET_ON_CAPT with no output enable.
- - Configure [INPUT] (optional).
- - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
-
-These steps prevent capture events caused by expired signal values in edge-detection circuit." description="Set on capture, and then disable channel.
-
-Channel function sequence: 
-- Set enabled outputs on capture event and copy [CNTR.VAL] to [C2CC.VAL].
-- Disable channel. 
-
-Primary use scenario is to select this function before starting the timer.
-Follow these steps to select this function while [CTL.MODE] is different from DIS:  
- - Set CCACT to SET_ON_CAPT with no output enable.
- - Configure [INPUT] (optional).
- - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
-
+			<bitenum id="SET_ON_CAPT_DIS" value="1" token="Set on capture, and then disable channel.
+
+Channel function sequence: 
+- Set enabled outputs on capture event and copy [CNTR.VAL] to [C2CC.VAL].
+- Disable channel. 
+
+Primary use scenario is to select this function before starting the timer.
+Follow these steps to select this function while [CTL.MODE] is different from DIS:  
+ - Set CCACT to SET_ON_CAPT with no output enable.
+ - Configure [INPUT] (optional).
+ - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
+
+These steps prevent capture events caused by expired signal values in edge-detection circuit." description="Set on capture, and then disable channel.
+
+Channel function sequence: 
+- Set enabled outputs on capture event and copy [CNTR.VAL] to [C2CC.VAL].
+- Disable channel. 
+
+Primary use scenario is to select this function before starting the timer.
+Follow these steps to select this function while [CTL.MODE] is different from DIS:  
+ - Set CCACT to SET_ON_CAPT with no output enable.
+ - Configure [INPUT] (optional).
+ - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
+
 These steps prevent capture events caused by expired signal values in edge-detection circuit."/>
 			<bitenum id="CLR_ON_0_TGL_ON_CMP" value="10" token="Clear on zero, toggle on compare repeatedly.
  
@@ -1707,30 +1707,30 @@ These steps prevent capture events caused by expired signal values in edge-detec
 
 Capture-Compare action defines 15 different channel functions that utilize capture, compare, and zero events. In every compare event the timer looks at the current value of [CNTR.*]. The corresponding output event will be set 1 timer period after [CNTR.*] = [C3CC.*]." id="CCACT" resetval="0">
 			<bitenum id="DIS" value="0" token="Disable channel." description="Disable channel."/>
-			<bitenum id="SET_ON_CAPT_DIS" value="1" token="Set on capture, and then disable channel.
-
-Channel function sequence: 
-- Set enabled outputs on capture event and copy [CNTR.VAL] to [C3CC.VAL].
-- Disable channel. 
-
-Primary use scenario is to select this function before starting the timer.
-Follow these steps to select this function while [CTL.MODE] is different from DIS:  
- - Set CCACT to SET_ON_CAPT with no output enable.
- - Configure [INPUT] (optional).
- - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
-
-These steps prevent capture events caused by expired signal values in edge-detection circuit." description="Set on capture, and then disable channel.
-
-Channel function sequence: 
-- Set enabled outputs on capture event and copy [CNTR.VAL] to [C3CC.VAL].
-- Disable channel. 
-
-Primary use scenario is to select this function before starting the timer.
-Follow these steps to select this function while [CTL.MODE] is different from DIS:  
- - Set CCACT to SET_ON_CAPT with no output enable.
- - Configure [INPUT] (optional).
- - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
-
+			<bitenum id="SET_ON_CAPT_DIS" value="1" token="Set on capture, and then disable channel.
+
+Channel function sequence: 
+- Set enabled outputs on capture event and copy [CNTR.VAL] to [C3CC.VAL].
+- Disable channel. 
+
+Primary use scenario is to select this function before starting the timer.
+Follow these steps to select this function while [CTL.MODE] is different from DIS:  
+ - Set CCACT to SET_ON_CAPT with no output enable.
+ - Configure [INPUT] (optional).
+ - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
+
+These steps prevent capture events caused by expired signal values in edge-detection circuit." description="Set on capture, and then disable channel.
+
+Channel function sequence: 
+- Set enabled outputs on capture event and copy [CNTR.VAL] to [C3CC.VAL].
+- Disable channel. 
+
+Primary use scenario is to select this function before starting the timer.
+Follow these steps to select this function while [CTL.MODE] is different from DIS:  
+ - Set CCACT to SET_ON_CAPT with no output enable.
+ - Configure [INPUT] (optional).
+ - Wait for three timer clock periods as defined in [PRECFG.*] before setting CCACT to SET_ON_CAPT_DIS. Output enable is optional.
+
 These steps prevent capture events caused by expired signal values in edge-detection circuit."/>
 			<bitenum id="CLR_ON_0_TGL_ON_CMP" value="10" token="Clear on zero, toggle on compare repeatedly.
  

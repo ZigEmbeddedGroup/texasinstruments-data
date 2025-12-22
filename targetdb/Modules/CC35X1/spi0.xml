@@ -424,9 +424,9 @@ When [CDMODE] is set to value 0x1 to 0xE, reading [CDMODE] during operation indi
 			<bitenum id="DIS" value="0" token="SPI is disabled" description="SPI is disabled"/>
 			<bitenum id="EN" value="1" token="SPI Enabled and released for operation." description="SPI Enabled and released for operation."/>
 		</bitfield>
-		<bitfield width="6" end="24" begin="29" rwaccess="RW" description="Receive Timeout (only for Peripheral mode)
-Defines the number of Clock Cycles before after which the Receive Timeout flag [RIS.RTOUT] is set.
-The time is calculated using the control register for the clock selection and divider in the Controller mode configuration.
+		<bitfield width="6" end="24" begin="29" rwaccess="RW" description="Receive Timeout (only for Peripheral mode)
+Defines the number of Clock Cycles before after which the Receive Timeout flag [RIS.RTOUT] is set.
+The time is calculated using the control register for the clock selection and divider in the Controller mode configuration.
 A value of 0 disables this function." id="RTOUT" resetval="0x4"/>
 		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="Command/Data mode enable. This feature is applicable only in controller mode and for 8-bit transfers ([CTL0.DSS] = 7). The chip select pin is used for command/data signaling in Motorola SPI frame format (3-wire) operation." id="CDEN" resetval="0x4">
 			<bitenum id="DIS" value="0" token="C/D Mode Disable" description="C/D Mode Disable"/>
@@ -541,13 +541,13 @@ If the header is already updated when CS is high and inactive, HDRCMT is set imm
 		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0x0"/>
 	</register>
 	<register acronym="RXDATA" id="rxdata" width="32" description="RXDATA Register. Reading this register returns first value in the RX FIFO. If the FIFO is empty the last read value is returned. Writing has no effect and is ignored." offset="0x140">
-		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Received Data. When read, the entry in the receive FIFO, pointed to by the current FIFO read pointer is accessed. As data values are read by the receive logic from the incoming data frame, they are placed into the entry in the receive FIFO, pointed to by the current RX FIFO write pointer.
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Received Data. When read, the entry in the receive FIFO, pointed to by the current FIFO read pointer is accessed. As data values are read by the receive logic from the incoming data frame, they are placed into the entry in the receive FIFO, pointed to by the current RX FIFO write pointer.
 Received data less than 16 bits is automatically right-justified in the receive buffer." id="DATA" resetval="0x0"/>
 		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0x0"/>
 	</register>
 	<register acronym="TXDATA" id="txdata" width="32" description="TXDATA Register. Writing a value in this register puts the data into the TX FIFO. Reading this register returns the last written value." offset="0x150">
-		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Transmit Data. When read, the last entry in the transmit FIFO, pointed to by the current FIFO write pointer is accessed. 
-When written, the entry in the TX FIFO pointed to by the write pointer, is written to. Data values are read from the transmit FIFO by the transmit logic. It is loaded into the transmit serial shifter, then serially shifted out onto the output pin at the programmed bit rate.
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Transmit Data. When read, the last entry in the transmit FIFO, pointed to by the current FIFO write pointer is accessed. 
+When written, the entry in the TX FIFO pointed to by the write pointer, is written to. Data values are read from the transmit FIFO by the transmit logic. It is loaded into the transmit serial shifter, then serially shifted out onto the output pin at the programmed bit rate.
 When a data size of less than 16 bits is selected, the user must right-justify data written to the transmit FIFO. The transmit logic ignores the unused bits." id="DATA" resetval="0x0"/>
 		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED" resetval="0x0"/>
 	</register>
