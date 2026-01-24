@@ -1,0 +1,30 @@
+/*******************************************************************/
+/* This GEL file is loaded for the first IPU instance on the       */
+/* device in order to provide instance awareness for the shared M4 */
+/* GEL scripts.  This enables conditional execution based on IPU   */
+/* instance.                                                       */
+/*                                                                 */
+/* DRA7xxP Cortex M4 IPU1                                           */
+/*                                                                 */
+/*******************************************************************/
+
+int IPU_INSTANCE = 1;
+
+StartUp()
+{
+    GEL_TextOut("--->>> DRA7xxP Cortex M4 Startup Sequence In Progress... <<<---\n");
+
+    /*------------------ Load Common Gel Files -------------------*/
+    GEL_LoadGel("$(GEL_file_dir)//DRA7xxP_cortexM4_common.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DRA7xxP_cortexM4_basic_emulation.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DRA7xxP_cortexM4_cross_triggering.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DRA7xxP_SMP_config.gel");
+
+    /*------------------ Memory Map Config -------------------*/
+    GEL_MapOff();
+    GEL_MapReset();
+    memorymap_init();
+    GEL_MapOn();
+
+    GEL_TextOut("--->>> DRA7xxP Cortex M4 Startup Sequence DONE! <<<---\n");
+}

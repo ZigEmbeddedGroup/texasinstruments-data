@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- TMS470R33X Nodes-->
+    <node id="FlashProgrammerNode">
+        <name>MSPM33 Flash Settings</name>
+        <children>
+            <child>FlashResetGroup</child>
+            <child>FlashEraseGroup</child>
+			<child>ProgramGroup</child>
+            <child>DssmEraseGroup</child>
+            <child>DssmResetGroup</child>
+            <child>SRAMGroup</child>
+            <child>AdvancedGroup</child>
+        </children>
+    </node>
+
+    <!-- TMS470R33X Groups -->
+    <group id="FlashResetGroup">
+        <name>Reset Configuration</name>
+        <children>
+            <child>FlashResetBeforeLoadSetting</child>
+            <child>FlashResetAfterLoadSetting</child>
+            <child>FlashResetType</child>
+        </children>
+    </group>
+
+    <group id="DssmEraseGroup">
+        <name>DSSM Mass Erase</name>
+        <children>
+            <child>ManualMassErase</child>
+            <child>AutomaticMassErase</child>
+        </children>
+    </group>
+
+    <group id="DssmResetGroup">
+        <name>DSSM Factory Reset</name>
+        <children>
+            <child>ManualFactoryReset</child>
+            <child>AutomaticFactoryReset</child>
+        </children>
+    </group>
+
+    <group id="FlashEraseGroup">
+        <name>Erase Configuration</name>
+        <children>
+            <child>MSPM33EraseText</child>
+            <child>FlashEraseSelection</child>
+            <child>FlashEraseSectorsText</child>
+            <child>FlashEraseSectorsStartAddress</child>
+			<child>FlashEraseSectorsEndAddress</child>
+            <!-- <child>FlashNonMainIgnoreErase</child> -->
+        </children>
+    </group>
+    <group id="ProgramGroup">
+        <name>Program Configuration</name>
+        <children>
+            <child>FlashVerification</child>
+            <child>EnableWaitForDebug</child>
+        </children>
+    </group>
+    <group id="SRAMGroup">
+        <name>SRAM Configuration</name>
+        <children>
+            <child>EraseECCSRAMText</child>
+            <child>EraseECCSRAM</child>
+        </children>
+    </group>
+    <group id="AdvancedGroup">
+        <name>Advanced Configuration</name>
+        <children>
+            <child>FlashSkipDeviceID</child>
+        </children>
+    </group>
+    <!-- Reset Settings -->
+    <property id="FlashResetBeforeLoadSetting">
+        <target>TMS470R33X</target>
+        <name>Reset target before program load</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>1</defaultValue>
+    </property>
+    <property id="FlashResetAfterLoadSetting">
+        <target>TMS470R33X</target>
+        <name>Reset target after program load</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>1</defaultValue>
+    </property>
+    <property id="FlashResetType">
+        <target>TMS470R33X</target>
+        <name>Reset Type</name>
+        <valueType>ChoiceList</valueType>
+        <values>
+            <value>Soft reset</value>
+	    <value>Hard reset</value>
+        </values>
+        <defaultValue>Hard reset</defaultValue>
+       <disableIf>
+            <property id="FlashResetBeforeLoadSetting">0</property>
+            <property id="FlashResetAfterLoadSetting">0</property>
+       </disableIf>
+    </property>
+
+    <!-- Erase Settings -->
+    <property id="MSPM33EraseText">
+        <target>TMS470R33X</target>
+        <name>!!!Warning: Modifying NONMAIN incorrectly, or erasing it without programming can permanently lock the device!!!
+        See MSPM33 documentation for more details</name>
+        <valueType>Text</valueType>
+    </property>
+    <property id="FlashEraseSelection">
+        <target>TMS470R33X</target>
+        <name>Erase method</name>
+        <valueType>ChoiceList</valueType>
+        <values>
+            <value>Erase MAIN memory only</value>
+            <value>Erase DATA memory only</value>
+            <value>Erase MAIN and DATA memory</value>
+            <value>Erase MAIN and NONMAIN memory (see warning above)</value>
+            <value>Erase MAIN, DATA, and NONMAIN memory (see warning above)</value>
+            <value>Erase MAIN memory sectors by range (specify below)</value>
+            <value>Do not erase Flash memory</value>
+        </values>
+        <defaultValue>Erase MAIN memory only</defaultValue>
+    </property>
+    <property id="FlashEraseSectorsText">
+		<target>TMS470R33X</target>
+		<name>Sector Erase: all 2kB sectors between Start and End address will be erased</name>
+		<valueType>Text</valueType>
+	</property>
+    <property id="FlashEraseSectorsStartAddress">
+        <target>TMS470R33X</target>
+        <name>Sector Erase Start Address: 0x</name>
+        <valueType>String</valueType>
+        <defaultValue>0</defaultValue>
+    </property>
+    <property id="FlashEraseSectorsEndAddress">
+        <target>TMS470R33X</target>
+        <name>Sector Erase End Address: 0x</name>
+        <valueType>String</valueType>
+        <defaultValue>0</defaultValue>
+    </property>
+    <property id="FlashNonMainIgnoreErase">
+        <target>TMS470R33X</target>
+        <name>Allow writes to NON-MAIN without erasing (see warning above)</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>0</defaultValue>
+    </property>
+    <!-- Program Settings -->
+    <property id="FlashVerification">
+        <target>TMS470R33X</target>
+        <name>Perform CRC verification</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>0</defaultValue>
+    </property>
+    <property id="EnableWaitForDebug">
+	<target>TMS470R33X</target>
+        <name>Enable wait for debug (Warning: Do not enable if flash is empty)</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>0</defaultValue>
+    </property>
+    <!--  DSSM Commands  -->
+    <!-- Sram setting-->
+    <property id="EraseECCSRAMText">
+        <target>TMS470R33X</target>
+        <name>Note: Option will be ignored if device does not support ECC in SRAM region.
+        See MSPM33 documentation for more details</name>
+        <valueType>Text</valueType>
+    </property>
+    <property id="EraseECCSRAM">
+        <target>TMS470R33X</target>
+        <name>Erase ECC SRAM</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>0</defaultValue>
+    </property>
+    <!-- Advanced Settings -->
+    <property id="FlashSkipDeviceID">
+        <target>TMS470R33X</target>
+        <name>Skip Device ID Check</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>0</defaultValue>
+    </property>
+
+</PropertyList>

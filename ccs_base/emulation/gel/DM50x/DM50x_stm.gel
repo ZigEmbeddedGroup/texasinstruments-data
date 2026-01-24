@@ -1,0 +1,101 @@
+/********************************************************************************************************/
+/* This GEL file is loaded on the command line of Code Composer                                         */
+/* The StartUp() function is called every time you start                                                */
+/* Code Composer.  You can customize this function to                                                   */
+/* initialize wait states or to perform other initialization.                                           */
+/*                                                                                                      */
+/* File       :TDA3xx_stm.gel                                                                           */
+/* Description:TDA3xx STM related functions                                                             */
+/* Revision history                                                                                     */
+/* ==================================================================================================== */
+/* Version   Date          Change from previous version                                                 */
+/* ==================================================================================================== */
+/* 0.1       14-Nov'14     First Draft                                                                  */
+/* ==================================================================================================== */
+/********************************************************************************************************/
+
+/*********************************************************************************************************
+*
+*  DEFINITIONS
+*
+********************************************************************************************************/
+
+
+#define WR_MEM_32(addr, data)   *(unsigned int*)(addr) =(unsigned int)(data)
+#define RD_MEM_32(addr)         *(unsigned int*)(addr)
+#define uint32_t                unsigned int
+
+
+/*********************************************************************************************************
+*
+*  DEFINITIONS
+*
+*********************************************************************************************************/
+
+
+#define TDA2xx_DRM_BASE_ADDR              0x54160000
+
+#define DRM_CLAIM                         0x54160050
+#define DPM_CTRL0                         0x54160080
+#define DPM_CTRL1                         0x54160084
+#define DPM_CTRL2                         0x54160088
+#define DPM_CTRL3                         0x5416008C
+#define DPM_CTRL4                         0x54160090
+
+#define STM_SWMCTRL0                      0x54161024
+#define STM_PTI_CONFIG                    0x5416103C
+#define STM_LOCK_ACCESS                   0x54161FB0
+#define STM_TESTCTRL                      0x54161050
+
+#define UNLOCK_VALUE                      0xC5ACCE55
+
+#define DEBUGSS_CFGBUS_TPIU               0x80023000
+#define DEBUGSS_CFGBUS_CSTPIU_LOCKACCESS  *(unsigned int *)
+#define DEBUGSS_CFGBUS_CSTPIU_FFCR        *(unsigned int *) 0x80023304
+#define DEBUGSS_CFGBUS_CSTPIU_FORMSTAT    *(unsigned int *) 0x80023300
+
+menuitem "STM_Utility";
+
+hotmenu Enable_ETB_For_STM()
+{
+    int value;
+
+    // Configure Trace Funnel
+    *(int*)0xD4164FB0@data = UNLOCK_VALUE;
+
+    //Enable port 7 to pass STM data to ETB
+    *(int*)0x80024000@data = 0x389;
+
+    value = *((int*)0x80024000@data);
+
+    if ((value & 0xFF) != 0x80)
+    {
+        GEL_TextOut("< DEBUGSS FUNNEL UPDATE FAILED \n");
+    }
+    else
+    {
+        GEL_TextOut("< DEBUGSS FUNNEL UPDATE SUCCEEDED \n");
+    }
+
+    GEL_TextOut("Disabling TPIU... \n");
+    disable_TPIU();
+}
+
+disable_TPIU()
+{
+    unsigned int count = 0;
+
+    // Manual flush
+    DEBUGSS_CFGBUS_CSTPIU_FFCR@data |= (1 << 6);
+
+    // Stop the formatter
+    DEBUGSS_CFGBUS_CSTPIU_FFCR@data |= ((1 << 12) | (1<<6));
+
+    // Poll for the "formatter stopped" status bit FtStopped [2]
+    while ( ((DEBUGSS_CFGBUS_CSTPIU_FORMSTAT@data & 0x2) == 0x0) && (count < 100))
+    {
+        count++;
+    }
+
+    GEL_TextOut("---<<< TPIU formatter has been stopped >>>---\n");
+}

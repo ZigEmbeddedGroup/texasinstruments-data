@@ -1,0 +1,685 @@
+<module id="wsoc_con_dma_secure" XML_version="1.0" description="">
+	<register acronym="STATUS_FSM_STATE" id="status_fsm_state" width="32" description="STATUS_FSM_STATE FSM States for all channels in one register: 0 - AES_IN      1 - AES_OUT     2 - UART_IN   3 - UART_OUT  4 - General Purpose" offset="0x4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_FSM_STATE_CH0" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_FSM_STATE_CH1" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_FSM_STATE_CH2" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_FSM_STATE_CH3" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="4" end="16" begin="19" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_FSM_STATE_CH4" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="12" end="20" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="IIDX" id="iidx" width="32" description="This register provides the highest priority enabled interrupt index.  0x00. means no event pending, 0x01 means interrupt pending for channel 0,  0x07 means interrupt pending for channel 6. Interrupt 1 is the highest priority, 2 next highest, 3,4, ...,7 is the least priority.  That is, the least bit position that is set to 1 denotes the highest priority pending interrupt. channel 1 has highest priority,  channel 6 has lowest. On each read, only one interrupt is indicated.  On a read, the current interrupt (highest priority) is automatically cleared by the hardware and the corresponding interrupt flag in the  RIS and MIS are cleared as well. After a read from the CPU (not from the debug interface), the register must be updated with the  next highest priority interrupt, if none are pending, then it should display 0h" offset="0x20">
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="index of highest priority pending interrupt" id="IIDX_STAT_RDCL" resetval="0x00">
+			<bitenum id="NO_INTR" value="0" token="No bit is set means there is no pending interrupt request" description="No bit is set means there is no pending interrupt request" />
+			<bitenum id="IRQ_0" value="1" token="Read and clear channel 0 irq" description="Read and clear channel 0 irq" />
+			<bitenum id="IRQ_1" value="2" token="Read and clear channel 1 irq" description="Read and clear channel 1 irq" />
+			<bitenum id="IRQ_2" value="4" token="Read and clear channel 2 irq" description="Read and clear channel 2 irq" />
+			<bitenum id="IRQ_3" value="3" token="Read and clear channel 3 irq" description="Read and clear channel 3 irq" />
+			<bitenum id="IRQ_4" value="5" token="Read and clear channel 4 irq" description="Read and clear channel 4 irq" />
+			<bitenum id="IRQ_5" value="6" token="Read and clear channel 5 irq" description="Read and clear channel 5 irq" />
+			<bitenum id="IRQ_6" value="7" token="Read and clear channel 6 irq" description="Read and clear channel 6 irq" />
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="IMASK" id="imask" width="32" description="Interrupt mask. If a bit is set, then corresponding interrupt mask is set." offset="0x24">
+		<bitfield width="5" end="0" begin="4" rwaccess="RW" description="set 1 to enable irq" id="MEM_IMASK_IRQ" resetval="0x0">
+			<bitenum id="DISABLED" value="0" token="Interrupt is masked out" description="Interrupt is masked out" />
+			<bitenum id="ENABLED" value="1" token="Interrupt will request an interrupt service routine and corresponding bit in [MIS] will be set" description="Interrupt will request an interrupt service routine and corresponding bit in [MIS] will be set" />
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="RIS" id="ris" width="32" description="Raw interrupt status reflects all pending interrupts, regardless of masking. The RIS register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the ICLR register bit even if the corresponding IMASK bit is not enabled." offset="0x28">
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="bitmap of channel irqs" id="RIS_IRQ" resetval="0x0">
+			<bitenum id="SET" value="1" token="IRQ occured" description="IRQ occured" />
+			<bitenum id="CLR" value="0" token="IRQ did not occur" description="IRQ did not occur" />
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="MIS" id="mis" width="32" description="Masked interrupt status. This is an AND of the IMASK and RIS registers." offset="0x2c">
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="bitmap of channel irqs" id="MIS_IRQ" resetval="0x0">
+			<bitenum id="SET" value="1" token="IRQ occured" description="IRQ occured" />
+			<bitenum id="CLR" value="0" token="IRQ did not occur" description="IRQ did not occur" />
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="ISET" id="iset" width="32" description="ISET allows interrupts to be set by software (useful in diagnostics and safety checks). Writing a 1 to a bit in ISET will set the event and therefore the related RIS bit also gets set. If the interrupt is enabled through the mask, then the corresponding MIS bit is also set." offset="0x30">
+		<bitfield width="5" end="0" begin="4" rwaccess="WO" description="set 1 to set channel" id="ISET_IRQ_WRCL" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect" />
+			<bitenum id="SET" value="1" token="[RIS] bit corresponding to IRQ_EXAMPLE0 is set" description="[RIS] bit corresponding to IRQ_EXAMPLE0 is set" />
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="ICLR" id="iclr" width="32" description="Write a 1 to clear corresponding Interrupt." offset="0x34">
+		<bitfield width="5" end="0" begin="4" rwaccess="WO" description="set 1 to clear irq" id="ICLR_IRQ_WRCL" resetval="0x0">
+			<bitenum id="NO_EFFECT" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect" />
+			<bitenum id="CLR" value="1" token="[RIS] clear bit corresponding to IRQ" description="[RIS] clear bit corresponding to IRQ" />
+		</bitfield>
+		<bitfield width="27" end="5" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="STATUS_CH0" id="status_ch0" width="32" description="Channel Status FSM state and run indication." offset="0x40">
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_CHAN_0_FSM_STATE" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Indication that channel is currently transfering data and is not idle. Channels that are waiting on arbitration are considered running." id="STATUS_CHAN_0_RUN" resetval="0x0">
+			<bitenum id="INACTIVE" value="0" token="Channel is IDLE or waiting for HOST" description="Channel is IDLE or waiting for HOST" />
+			<bitenum id="ACTIVE" value="1" token="Channel is copying data or waiting on arbitration" description="Channel is copying data or waiting on arbitration" />
+		</bitfield>
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Channel status, bit mask. Multiple bits can be set at the same time" id="STATUS_CHAN_0_HW_EVENT" resetval="0x0">
+			<bitenum id="NO_EVENT" value="0" token="No pending event" description="No pending event" />
+			<bitenum id="JOB_DONE" value="1" token="Job done" description="Job done" />
+			<bitenum id="TRANS_DONE" value="2" token="Transaction done" description="Transaction done" />
+			<bitenum id="ABORTED" value="4" token="Transaction aborted by SW" description="Transaction aborted by SW" />
+			<bitenum id="PAUSED" value="8" token="Transaction paused by SW" description="Transaction paused by SW" />
+			<bitenum id="EXC" value="16" token="An error has occured" description="An error has occured" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_IPTR_CH0" id="trans_iptr_ch0" width="32" description="32 bit address pointer of channel current input." offset="0x44">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_IPTR_CHAN_0_IN_PTR_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_OPTR_CH0" id="trans_optr_ch0" width="32" description="32 bit address pointer of channel current output." offset="0x48">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="address" id="TRANS_OPTR_CHAN_0_OUT_PTR_WROPT" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="address" id="TRANS_OPTR_CHAN_0_OUT_PTR_STATIC" resetval="0x45aa006" />
+	</register>
+	<register acronym="TRANS_CTRL_CH0" id="trans_ctrl_ch0" width="32" description="Transaction control" offset="0x4c">
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Indicates this is the last DMA transaction on a specific crypto job, and therefore, the padding should apply to it. If this DMA transaction is not last, the channel must buffer the incomplete word and wait for the next DMA transaction command to be able to fetch the missing bytes. Once the last byte is reached, the DMA shall pad the remaining bytes.  0: not last transaction 1: last transaction" id="MEM_TRANS_CTRL_CHAN_0_LAST_TRANS" resetval="0x0" />
+		<bitfield width="14" end="0" begin="13" rwaccess="RW" description="Number of bytes of the transaction to move from source to destination." id="MEM_TRANS_CTRL_CHAN_0_TRANS_NUM_B" resetval="0x4" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL2_CH0" id="trans_ctrl2_ch0" width="32" description="DMA command interface" offset="0x50">
+		<bitfield width="4" end="0" begin="3" rwaccess="WO" description="command to resume, pause, stop or clear channel. STATUS_CHAN_X.RUN is a level signal that is high as long as the channel has not completed a tranfer." id="TRANS_CTRL2_CHAN_0_CMD_WRCL" resetval="0x0">
+			<bitenum id="NOP" value="0" token="No effect" description="No effect" />
+			<bitenum id="RUN" value="1" token="Run - reactivate channel that is waiting on host. This is currently a pulse." description="Run - reactivate channel that is waiting on host. This is currently a pulse." />
+			<bitenum id="PAUSE" value="2" token="Pause - stop reading data from source and change state to PAUSE once block has comleted." description="Pause - stop reading data from source and change state to PAUSE once block has comleted." />
+			<bitenum id="ABORT" value="4" token="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." description="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." />
+			<bitenum id="INIT" value="8" token="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." description="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." />
+		</bitfield>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_STAT_CH0" id="trans_stat_ch0" width="32" description="Job completion reason - either last transaction or exception" offset="0x54">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="channel vbusp rstatus recieved at one of the master ports. Once an error is encountered the channel will enter an Exception state and stay the until an init command is recieved. ICLR does not affect this status." id="TRANS_STAT_CHAN_0_STAT" resetval="0x0">
+			<bitenum id="NO_ERR" value="0" token="No vbusp read error" description="No vbusp read error" />
+			<bitenum id="ADDR_ERR" value="1" token="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" description="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" />
+			<bitenum id="PROTECTION_ERR" value="2" token="Improper priv/privid" description="Improper priv/privid" />
+			<bitenum id="TIMEOUT_ERR" value="3" token="watchdog timeout - unsupported" description="watchdog timeout - unsupported" />
+			<bitenum id="DATA_ERR" value="4" token="Data integrity error unsupported" description="Data integrity error unsupported" />
+			<bitenum id="ADDR_MODE_ERR" value="5" token="vbus amode not supported" description="vbus amode not supported" />
+			<bitenum id="EXCLUSIVE_RD_ERR" value="7" token="Exclusive read is not supported." description="Exclusive read is not supported." />
+			<bitenum id="MPPC_ERR" value="6" token="MPPC Fault occured" description="MPPC Fault occured" />
+		</bitfield>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Offset in words from block boundary. Represents the number of words to be read from accelerator before context switch." id="TRANS_STAT_CHAN_0_WORD_OFFSET" resetval="0x0" />
+		<bitfield width="14" end="16" begin="29" rwaccess="RO" description="Number of bytes remaining to complete the transaction. Loads (MEM_TRANS_NUM_B - TRANS_ALIGN.STAT_WROPT) and decrements the value for each transfer. This value should be read before context switch and written back to MEM_TRANS_NUM_B. The value of TRANS_ALIGN must be updated as well read and written back as well. The number of autstanding bytes should be equal to TRANS_STAT_CHAN_0_REMAIN_NUM_B+TRANS_ALIGN.CONTENT_WROPT" id="TRANS_STAT_CHAN_0_REMAIN_NUM_B" resetval="0x0" />
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_ALIGN_CH0" id="trans_align_ch0" width="32" description="content and number of bytes in alignment buffer" offset="0x58">
+		<bitfield width="24" end="0" begin="23" rwaccess="RW" description="3 bytes of channel alignment FIFO. offset: 0x0: oldest data- lowest address 0x1: Data 0x2: Newest Data - highest address 0x3: Reserved" id="TRANS_ALIGN_CHAN_0_CONTENT_WROPT" resetval="0x0" />
+		<bitfield width="2" end="24" begin="25" rwaccess="RW" description="Number of bytes in the alignment buffer. In case of context switch, this field need to be read before context is swapped out and re written after the context is swapped back in." id="TRANS_ALIGN_CHAN_0_STAT_WROPT" resetval="0x0">
+			<bitenum id="LEN_0" value="0" token="No words in buffer" description="No words in buffer" />
+			<bitenum id="LEN_1" value="1" token="One word in buffer" description="One word in buffer" />
+			<bitenum id="LEN_2" value="2" token="Two words in buffer" description="Two words in buffer" />
+			<bitenum id="LEN_3" value="3" token="Three words in buffer" description="Three words in buffer" />
+		</bitfield>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="JOB_CTRL_CH0" id="job_ctrl_ch0" width="32" description="Job control register" offset="0x5c">
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="JOB_CTRL_CHAN_0_BLK_MODE_SRC" resetval="0x0" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="Destination pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="JOB_CTRL_CHAN_0_BLK_MODE_DST" resetval="0x1" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="destination padding pattern. This field has only an effect if block_mode_dest is asserted.  If the number of bytes provided is not sufficient to complete 1 block, the DMA engine shall pad the remaining bytes to provide 1 full block of data to the accelerator.  Some of the accelerators already support a subset of padding schemes, hence a partial last block is not necessarily an error. Note that FIPS andf RFC are in big endian. See crypto engine documentation for details.  0: No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1. 1: (Poly1305, AES-CCM) all zeros. 2: (AES-CMAC) 0x80 followed by all zeros. 3: (SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte. 4: Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement) 5: All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04 6: Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03 7: Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation).  Note: SHA-1, 224, 256 &amp; MD5 https://www.ietf.org/rfc/rfc1321.txt (3.1) http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.1) -Append 1 bit, then zero out to the 448th/512th bits.  (The length of the message goes in 449-512). SHA-384, 512 http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.2) -Append 1 bit, zero out to the 896th/1024th bit." id="MEM_JOB_CTRL_CHAN_0_PADDING" resetval="0x0">
+			<bitenum id="NO_PADDING" value="0" token="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." description="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." />
+			<bitenum id="ALL_ZEROS" value="1" token="(Poly1305, AES-CCM) all zeros." description="(Poly1305, AES-CCM) all zeros." />
+			<bitenum id="SHAKE" value="3" token="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." description="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." />
+			<bitenum id="INCREMENT" value="4" token="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" description="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" />
+			<bitenum id="ANSIX923" value="5" token="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" description="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" />
+			<bitenum id="PKCS7" value="6" token="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" description="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" />
+			<bitenum id="TLS" value="7" token="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." description="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." />
+		</bitfield>
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="size of the block in words. If block mode is enabled, defines the address wrap around. Since channel arbitration decisions are made every block, this also effect how much bandwidth is given to a specific channel. AES - 4 UART - 1" id="JOB_CTRL_CHAN_0_BLOCK_SIZE" resetval="0x04" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" description="tie high channel DMA req signal. This is useful to change a channel dedicated to a specific crypto engine to a general usage channel." id="JOB_CTRL_CHAN_0_DMA_SIG_BPS" resetval="0x0">
+			<bitenum id="CLR" value="0" token="No channel is bypassed" description="No channel is bypassed" />
+			<bitenum id="SET" value="1" token="channel bypass" description="channel bypass" />
+		</bitfield>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_0_SWITCH_ENDIANNESS" resetval="0x0">
+			<bitenum id="NO_ENDIANNESS_SWITCH" value="0" />
+			<bitenum id="SWITCH_ENDIANNESS" value="1" />
+		</bitfield>
+	</register>
+	<register acronym="STATUS_CH1" id="status_ch1" width="32" description="Channel Status FSM state and run indication." offset="0x60">
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_CHAN_1_FSM_STATE" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Indication that channel is currently transfering data and is not idle. Channels that are waiting on arbitration are considered running." id="STATUS_CHAN_1_RUN" resetval="0x0">
+			<bitenum id="INACTIVE" value="0" token="Channel is IDLE or waiting for HOST" description="Channel is IDLE or waiting for HOST" />
+			<bitenum id="ACTIVE" value="1" token="Channel is copying data or waiting on arbitration" description="Channel is copying data or waiting on arbitration" />
+		</bitfield>
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Channel status, bit mask. Multiple bits can be set at the same time" id="STATUS_CHAN_1_HW_EVENT" resetval="0x0">
+			<bitenum id="NO_EVENT" value="0" token="No pending event" description="No pending event" />
+			<bitenum id="JOB_DONE" value="1" token="Job done" description="Job done" />
+			<bitenum id="TRANS_DONE" value="2" token="Transaction done" description="Transaction done" />
+			<bitenum id="ABORTED" value="4" token="Transaction aborted by SW" description="Transaction aborted by SW" />
+			<bitenum id="PAUSED" value="8" token="Transaction paused by SW" description="Transaction paused by SW" />
+			<bitenum id="EXC" value="16" token="An error has occured" description="An error has occured" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_IPTR_CH1" id="trans_iptr_ch1" width="32" description="32 bit address pointer of channel current input." offset="0x64">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="address" id="TRANS_IPTR_CHAN_1_IN_PTR_WROPT" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="address" id="TRANS_IPTR_CHAN_1_IN_PTR_STATIC" resetval="0x45aa006" />
+	</register>
+	<register acronym="TRANS_OPTR_CH1" id="trans_optr_ch1" width="32" description="32 bit address pointer of channel current output." offset="0x68">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_OPTR_CHAN_1_OUT_PTR_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL_CH1" id="trans_ctrl_ch1" width="32" description="Transaction control" offset="0x6c">
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Indicates this is the last DMA transaction on a specific crypto job, and therefore, the padding should apply to it. If this DMA transaction is not last, the channel must buffer the incomplete word and wait for the next DMA transaction command to be able to fetch the missing bytes. Once the last byte is reached, the DMA shall pad the remaining bytes.  0: not last transaction 1: last transaction" id="MEM_TRANS_CTRL_CHAN_1_LAST_TRANS" resetval="0x0" />
+		<bitfield width="14" end="0" begin="13" rwaccess="RW" description="Number of bytes of the transaction to move from source to destination." id="MEM_TRANS_CTRL_CHAN_1_TRANS_NUM_B" resetval="0x4" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL2_CH1" id="trans_ctrl2_ch1" width="32" description="DMA command interface" offset="0x70">
+		<bitfield width="4" end="0" begin="3" rwaccess="WO" description="command to resume, pause, stop or clear channel. STATUS_CHAN_X.RUN is a level signal that is high as long as the channel has not completed a tranfer." id="TRANS_CTRL2_CHAN_1_CMD_WRCL" resetval="0x0">
+			<bitenum id="NOP" value="0" token="No effect" description="No effect" />
+			<bitenum id="RUN" value="1" token="Run - reactivate channel that is waiting on host. This is currently a pulse." description="Run - reactivate channel that is waiting on host. This is currently a pulse." />
+			<bitenum id="PAUSE" value="2" token="Pause - stop reading data from source and change state to PAUSE once block has comleted." description="Pause - stop reading data from source and change state to PAUSE once block has comleted." />
+			<bitenum id="ABORT" value="4" token="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." description="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." />
+			<bitenum id="INIT" value="8" token="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." description="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." />
+		</bitfield>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_STAT_CH1" id="trans_stat_ch1" width="32" description="Job completion reason - either last transaction or exception" offset="0x74">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="channel vbusp rstatus recieved at one of the master ports. Once an error is encountered the channel will enter an Exception state and stay the until an init command is recieved. ICLR does not affect this status." id="TRANS_STAT_CHAN_1_STAT" resetval="0x0">
+			<bitenum id="NO_ERR" value="0" token="No vbusp read error" description="No vbusp read error" />
+			<bitenum id="ADDR_ERR" value="1" token="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" description="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" />
+			<bitenum id="PROTECTION_ERR" value="2" token="Improper priv/privid" description="Improper priv/privid" />
+			<bitenum id="TIMEOUT_ERR" value="3" token="watchdog timeout - unsupported" description="watchdog timeout - unsupported" />
+			<bitenum id="DATA_ERR" value="4" token="Data integrity error unsupported" description="Data integrity error unsupported" />
+			<bitenum id="ADDR_MODE_ERR" value="5" token="vbus amode not supported" description="vbus amode not supported" />
+			<bitenum id="EXCLUSIVE_RD_ERR" value="7" token="Exclusive read is not supported." description="Exclusive read is not supported." />
+			<bitenum id="MPPC_ERR" value="6" token="MPPC Fault occured" description="MPPC Fault occured" />
+		</bitfield>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Offset in words from block boundary. Represents the number of words to be read from accelerator before context switch." id="TRANS_STAT_CHAN_1_WORD_OFFSET" resetval="0x0" />
+		<bitfield width="14" end="16" begin="29" rwaccess="RO" description="Number of bytes remaining to complete the transaction. Loads (MEM_TRANS_NUM_B - TRANS_ALIGN.STAT_WROPT) and decrements the value for each transfer. This value should be read before context switch and written back to MEM_TRANS_NUM_B. The value of TRANS_ALIGN must be updated as well read and written back as well. The number of autstanding bytes should be equal to TRANS_STAT_CHAN_1_REMAIN_NUM_B+TRANS_ALIGN.CONTENT_WROPT" id="TRANS_STAT_CHAN_1_REMAIN_NUM_B" resetval="0x0" />
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_ALIGN_CH1" id="trans_align_ch1" width="32" description="content and number of bytes in alignment buffer" offset="0x78">
+		<bitfield width="24" end="0" begin="23" rwaccess="RW" description="3 bytes of channel alignment FIFO. offset: 0x0: oldest data- lowest address 0x1: Data 0x2: Newest Data - highest address 0x3: Reserved" id="TRANS_ALIGN_CHAN_1_CONTENT_WROPT" resetval="0x0" />
+		<bitfield width="2" end="24" begin="25" rwaccess="RW" description="Number of bytes in the alignment buffer. In case of context switch, this field need to be read before context is swapped out and re written after the context is swapped back in." id="TRANS_ALIGN_CHAN_1_STAT_WROPT" resetval="0x0">
+			<bitenum id="LEN_0" value="0" token="No words in buffer" description="No words in buffer" />
+			<bitenum id="LEN_1" value="1" token="One word in buffer" description="One word in buffer" />
+			<bitenum id="LEN_2" value="2" token="Two words in buffer" description="Two words in buffer" />
+			<bitenum id="LEN_3" value="3" token="Three words in buffer" description="Three words in buffer" />
+		</bitfield>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="JOB_CTRL_CH1" id="job_ctrl_ch1" width="32" description="Job control register" offset="0x7c">
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="JOB_CTRL_CHAN_1_BLK_MODE_SRC" resetval="0x1" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="Destination pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="JOB_CTRL_CHAN_1_BLK_MODE_DST" resetval="0x0" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="destination padding pattern. This field has only an effect if block_mode_dest is asserted.  If the number of bytes provided is not sufficient to complete 1 block, the DMA engine shall pad the remaining bytes to provide 1 full block of data to the accelerator.  Some of the accelerators already support a subset of padding schemes, hence a partial last block is not necessarily an error. Note that FIPS andf RFC are in big endian. See crypto engine documentation for details.  0: No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1. 1: (Poly1305, AES-CCM) all zeros. 2: (AES-CMAC) 0x80 followed by all zeros. 3: (SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte. 4: Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement) 5: All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04 6: Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03 7: Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation).  Note: SHA-1, 224, 256 &amp; MD5 https://www.ietf.org/rfc/rfc1321.txt (3.1) http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.1) -Append 1 bit, then zero out to the 448th/512th bits.  (The length of the message goes in 449-512). SHA-384, 512 http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.2) -Append 1 bit, zero out to the 896th/1024th bit." id="MEM_JOB_CTRL_CHAN_1_PADDING" resetval="0x0">
+			<bitenum id="NO_PADDING" value="0" token="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." description="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." />
+			<bitenum id="ALL_ZEROS" value="1" token="(Poly1305, AES-CCM) all zeros." description="(Poly1305, AES-CCM) all zeros." />
+			<bitenum id="SHAKE" value="3" token="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." description="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." />
+			<bitenum id="INCREMENT" value="4" token="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" description="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" />
+			<bitenum id="ANSIX923" value="5" token="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" description="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" />
+			<bitenum id="PKCS7" value="6" token="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" description="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" />
+			<bitenum id="TLS" value="7" token="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." description="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." />
+		</bitfield>
+		<bitfield width="8" end="16" begin="23" rwaccess="RO" description="size of the block in words. If block mode is enabled, defines the address wrap around. Since channel arbitration decisions are made every block, this also effect how much bandwidth is given to a specific channel. AES - 4 UART - 1" id="JOB_CTRL_CHAN_1_BLOCK_SIZE" resetval="0x04" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" description="tie high channel DMA req signal. This is useful to change a channel dedicated to a specific crypto engine to a general usage channel." id="JOB_CTRL_CHAN_1_DMA_SIG_BPS" resetval="0x0">
+			<bitenum id="CLR" value="0" token="No channel is bypassed" description="No channel is bypassed" />
+			<bitenum id="SET" value="1" token="channel bypass" description="channel bypass" />
+		</bitfield>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_1_SWITCH_ENDIANNESS" resetval="0x0">
+			<bitenum id="NO_ENDIANNESS_SWITCH" value="0" />
+			<bitenum id="SWITCH_ENDIANNESS" value="1" />
+		</bitfield>
+	</register>
+	<register acronym="STATUS_CH2" id="status_ch2" width="32" description="Channel Status FSM state and run indication." offset="0x80">
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_CHAN_2_FSM_STATE" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Indication that channel is currently transfering data and is not idle. Channels that are waiting on arbitration are considered running." id="STATUS_CHAN_2_RUN" resetval="0x0">
+			<bitenum id="INACTIVE" value="0" token="Channel is IDLE or waiting for HOST" description="Channel is IDLE or waiting for HOST" />
+			<bitenum id="ACTIVE" value="1" token="Channel is copying data or waiting on arbitration" description="Channel is copying data or waiting on arbitration" />
+		</bitfield>
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Channel status, bit mask. Multiple bits can be set at the same time" id="STATUS_CHAN_2_HW_EVENT" resetval="0x0">
+			<bitenum id="NO_EVENT" value="0" token="No pending event" description="No pending event" />
+			<bitenum id="JOB_DONE" value="1" token="Job done" description="Job done" />
+			<bitenum id="TRANS_DONE" value="2" token="Transaction done" description="Transaction done" />
+			<bitenum id="ABORTED" value="4" token="Transaction aborted by SW" description="Transaction aborted by SW" />
+			<bitenum id="PAUSED" value="8" token="Transaction paused by SW" description="Transaction paused by SW" />
+			<bitenum id="EXC" value="16" token="An error has occured" description="An error has occured" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_IPTR_CH2" id="trans_iptr_ch2" width="32" description="32 bit address pointer of channel current input." offset="0x84">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_IPTR_CHAN_2_IN_PTR_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_OPTR_CH2" id="trans_optr_ch2" width="32" description="32 bit address pointer of channel current output." offset="0x88">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_OPTR_CHAN_2_OUT_PTR_WROPT" resetval="0x45860000" />
+	</register>
+	<register acronym="TRANS_CTRL_CH2" id="trans_ctrl_ch2" width="32" description="Transaction control" offset="0x8c">
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Indicates this is the last DMA transaction on a specific crypto job, and therefore, the padding should apply to it. If this DMA transaction is not last, the channel must buffer the incomplete word and wait for the next DMA transaction command to be able to fetch the missing bytes. Once the last byte is reached, the DMA shall pad the remaining bytes.  0: not last transaction 1: last transaction" id="MEM_TRANS_CTRL_CHAN_2_LAST_TRANS" resetval="0x0" />
+		<bitfield width="14" end="0" begin="13" rwaccess="RW" description="Number of bytes of the transaction to move from source to destination." id="MEM_TRANS_CTRL_CHAN_2_TRANS_NUM_B" resetval="0x4" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL2_CH2" id="trans_ctrl2_ch2" width="32" description="DMA command interface" offset="0x90">
+		<bitfield width="4" end="0" begin="3" rwaccess="WO" description="command to resume, pause, stop or clear channel. STATUS_CHAN_X.RUN is a level signal that is high as long as the channel has not completed a tranfer." id="TRANS_CTRL2_CHAN_2_CMD_WRCL" resetval="0x0">
+			<bitenum id="NOP" value="0" token="No effect" description="No effect" />
+			<bitenum id="RUN" value="1" token="Run - reactivate channel that is waiting on host. This is currently a pulse." description="Run - reactivate channel that is waiting on host. This is currently a pulse." />
+			<bitenum id="PAUSE" value="2" token="Pause - stop reading data from source and change state to PAUSE once block has comleted." description="Pause - stop reading data from source and change state to PAUSE once block has comleted." />
+			<bitenum id="ABORT" value="4" token="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." description="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." />
+			<bitenum id="INIT" value="8" token="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." description="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." />
+		</bitfield>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_STAT_CH2" id="trans_stat_ch2" width="32" description="Job completion reason - either last transaction or exception" offset="0x94">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="channel vbusp rstatus recieved at one of the master ports. Once an error is encountered the channel will enter an Exception state and stay the until an init command is recieved. ICLR does not affect this status." id="TRANS_STAT_CHAN_2_STAT" resetval="0x0">
+			<bitenum id="NO_ERR" value="0" token="No vbusp read error" description="No vbusp read error" />
+			<bitenum id="ADDR_ERR" value="1" token="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" description="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" />
+			<bitenum id="PROTECTION_ERR" value="2" token="Improper priv/privid" description="Improper priv/privid" />
+			<bitenum id="TIMEOUT_ERR" value="3" token="watchdog timeout - unsupported" description="watchdog timeout - unsupported" />
+			<bitenum id="DATA_ERR" value="4" token="Data integrity error unsupported" description="Data integrity error unsupported" />
+			<bitenum id="ADDR_MODE_ERR" value="5" token="vbus amode not supported" description="vbus amode not supported" />
+			<bitenum id="EXCLUSIVE_RD_ERR" value="7" token="Exclusive read is not supported." description="Exclusive read is not supported." />
+			<bitenum id="MPPC_ERR" value="6" token="MPPC Fault occured" description="MPPC Fault occured" />
+		</bitfield>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Offset in words from block boundary. Represents the number of words to be read from accelerator before context switch." id="TRANS_STAT_CHAN_2_WORD_OFFSET" resetval="0x0" />
+		<bitfield width="14" end="16" begin="29" rwaccess="RO" description="Number of bytes remaining to complete the transaction. Loads (MEM_TRANS_NUM_B - TRANS_ALIGN.STAT_WROPT) and decrements the value for each transfer. This value should be read before context switch and written back to MEM_TRANS_NUM_B. The value of TRANS_ALIGN must be updated as well read and written back as well. The number of autstanding bytes should be equal to TRANS_STAT_CHAN_2_REMAIN_NUM_B+TRANS_ALIGN.CONTENT_WROPT" id="TRANS_STAT_CHAN_2_REMAIN_NUM_B" resetval="0x0" />
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_ALIGN_CH2" id="trans_align_ch2" width="32" description="content and number of bytes in alignment buffer" offset="0x98">
+		<bitfield width="24" end="0" begin="23" rwaccess="RW" description="3 bytes of channel alignment FIFO. offset: 0x0: oldest data- lowest address 0x1: Data 0x2: Newest Data - highest address 0x3: Reserved" id="TRANS_ALIGN_CHAN_2_CONTENT_WROPT" resetval="0x0" />
+		<bitfield width="2" end="24" begin="25" rwaccess="RW" description="Number of bytes in the alignment buffer. In case of context switch, this field need to be read before context is swapped out and re written after the context is swapped back in." id="TRANS_ALIGN_CHAN_2_STAT_WROPT" resetval="0x0">
+			<bitenum id="LEN_0" value="0" token="No words in buffer" description="No words in buffer" />
+			<bitenum id="LEN_1" value="1" token="One word in buffer" description="One word in buffer" />
+			<bitenum id="LEN_2" value="2" token="Two words in buffer" description="Two words in buffer" />
+			<bitenum id="LEN_3" value="3" token="Three words in buffer" description="Three words in buffer" />
+		</bitfield>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="JOB_CTRL_CH2" id="job_ctrl_ch2" width="32" description="Job control register" offset="0x9c">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_2_BLK_MODE_SRC" resetval="0x0" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" description="Destination pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_2_BLK_MODE_DST" resetval="0x1" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="destination padding pattern. This field has only an effect if block_mode_dest is asserted.  If the number of bytes provided is not sufficient to complete 1 block, the DMA engine shall pad the remaining bytes to provide 1 full block of data to the accelerator.  Some of the accelerators already support a subset of padding schemes, hence a partial last block is not necessarily an error. Note that FIPS andf RFC are in big endian. See crypto engine documentation for details.  0: No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1. 1: (Poly1305, AES-CCM) all zeros. 2: (AES-CMAC) 0x80 followed by all zeros. 3: (SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte. 4: Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement) 5: All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04 6: Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03 7: Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation).  Note: SHA-1, 224, 256 &amp; MD5 https://www.ietf.org/rfc/rfc1321.txt (3.1) http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.1) -Append 1 bit, then zero out to the 448th/512th bits.  (The length of the message goes in 449-512). SHA-384, 512 http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.2) -Append 1 bit, zero out to the 896th/1024th bit." id="MEM_JOB_CTRL_CHAN_2_PADDING" resetval="0x0">
+			<bitenum id="NO_PADDING" value="0" token="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." description="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." />
+			<bitenum id="ALL_ZEROS" value="1" token="(Poly1305, AES-CCM) all zeros." description="(Poly1305, AES-CCM) all zeros." />
+			<bitenum id="SHAKE" value="3" token="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." description="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." />
+			<bitenum id="INCREMENT" value="4" token="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" description="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" />
+			<bitenum id="ANSIX923" value="5" token="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" description="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" />
+			<bitenum id="PKCS7" value="6" token="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" description="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" />
+			<bitenum id="TLS" value="7" token="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." description="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." />
+		</bitfield>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="size of the block in words. If block mode is enabled, defines the address wrap around. Since channel arbitration decisions are made every block, this also effect how much bandwidth is given to a specific channel. AES - 4 UART - 1" id="MEM_JOB_CTRL_CHAN_2_BLOCK_SIZE" resetval="0x01" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" description="tie high channel DMA req signal. This is useful to change a channel dedicated to a specific crypto engine to a general usage channel." id="MEM_JOB_CTRL_CHAN_2_DMA_SIG_BPS" resetval="0x0">
+			<bitenum id="CLR" value="0" token="No channel is bypassed" description="No channel is bypassed" />
+			<bitenum id="SET" value="1" token="channel bypass" description="channel bypass" />
+		</bitfield>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_2_SWITCH_ENDIANNESS" resetval="0x0">
+			<bitenum id="NO_ENDIANNESS_SWITCH" value="0" />
+			<bitenum id="SWITCH_ENDIANNESS" value="1" />
+		</bitfield>
+	</register>
+	<register acronym="STATUS_CH3" id="status_ch3" width="32" description="Channel Status FSM state and run indication." offset="0xa0">
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_CHAN_3_FSM_STATE" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Indication that channel is currently transfering data and is not idle. Channels that are waiting on arbitration are considered running." id="STATUS_CHAN_3_RUN" resetval="0x0">
+			<bitenum id="INACTIVE" value="0" token="Channel is IDLE or waiting for HOST" description="Channel is IDLE or waiting for HOST" />
+			<bitenum id="ACTIVE" value="1" token="Channel is copying data or waiting on arbitration" description="Channel is copying data or waiting on arbitration" />
+		</bitfield>
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Channel status, bit mask. Multiple bits can be set at the same time" id="STATUS_CHAN_3_HW_EVENT" resetval="0x0">
+			<bitenum id="NO_EVENT" value="0" token="No pending event" description="No pending event" />
+			<bitenum id="JOB_DONE" value="1" token="Job done" description="Job done" />
+			<bitenum id="TRANS_DONE" value="2" token="Transaction done" description="Transaction done" />
+			<bitenum id="ABORTED" value="4" token="Transaction aborted by SW" description="Transaction aborted by SW" />
+			<bitenum id="PAUSED" value="8" token="Transaction paused by SW" description="Transaction paused by SW" />
+			<bitenum id="EXC" value="16" token="An error has occured" description="An error has occured" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_IPTR_CH3" id="trans_iptr_ch3" width="32" description="32 bit address pointer of channel current input." offset="0xa4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_IPTR_CHAN_3_IN_PTR_WROPT" resetval="0x45860000" />
+	</register>
+	<register acronym="TRANS_OPTR_CH3" id="trans_optr_ch3" width="32" description="32 bit address pointer of channel current output." offset="0xa8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_OPTR_CHAN_3_OUT_PTR_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL_CH3" id="trans_ctrl_ch3" width="32" description="Transaction control" offset="0xac">
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Indicates this is the last DMA transaction on a specific crypto job, and therefore, the padding should apply to it. If this DMA transaction is not last, the channel must buffer the incomplete word and wait for the next DMA transaction command to be able to fetch the missing bytes. Once the last byte is reached, the DMA shall pad the remaining bytes.  0: not last transaction 1: last transaction" id="MEM_TRANS_CTRL_CHAN_3_LAST_TRANS" resetval="0x0" />
+		<bitfield width="14" end="0" begin="13" rwaccess="RW" description="Number of bytes of the transaction to move from source to destination." id="MEM_TRANS_CTRL_CHAN_3_TRANS_NUM_B" resetval="0x4" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL2_CH3" id="trans_ctrl2_ch3" width="32" description="DMA command interface" offset="0xb0">
+		<bitfield width="4" end="0" begin="3" rwaccess="WO" description="command to resume, pause, stop or clear channel. STATUS_CHAN_X.RUN is a level signal that is high as long as the channel has not completed a tranfer." id="TRANS_CTRL2_CHAN_3_CMD_WRCL" resetval="0x0">
+			<bitenum id="NOP" value="0" token="No effect" description="No effect" />
+			<bitenum id="RUN" value="1" token="Run - reactivate channel that is waiting on host. This is currently a pulse." description="Run - reactivate channel that is waiting on host. This is currently a pulse." />
+			<bitenum id="PAUSE" value="2" token="Pause - stop reading data from source and change state to PAUSE once block has comleted." description="Pause - stop reading data from source and change state to PAUSE once block has comleted." />
+			<bitenum id="ABORT" value="4" token="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." description="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." />
+			<bitenum id="INIT" value="8" token="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." description="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." />
+		</bitfield>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_STAT_CH3" id="trans_stat_ch3" width="32" description="Job completion reason - either last transaction or exception" offset="0xb4">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="channel vbusp rstatus recieved at one of the master ports. Once an error is encountered the channel will enter an Exception state and stay the until an init command is recieved. ICLR does not affect this status." id="TRANS_STAT_CHAN_3_STAT" resetval="0x0">
+			<bitenum id="NO_ERR" value="0" token="No vbusp read error" description="No vbusp read error" />
+			<bitenum id="ADDR_ERR" value="1" token="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" description="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" />
+			<bitenum id="PROTECTION_ERR" value="2" token="Improper priv/privid" description="Improper priv/privid" />
+			<bitenum id="TIMEOUT_ERR" value="3" token="watchdog timeout - unsupported" description="watchdog timeout - unsupported" />
+			<bitenum id="DATA_ERR" value="4" token="Data integrity error unsupported" description="Data integrity error unsupported" />
+			<bitenum id="ADDR_MODE_ERR" value="5" token="vbus amode not supported" description="vbus amode not supported" />
+			<bitenum id="EXCLUSIVE_RD_ERR" value="7" token="Exclusive read is not supported." description="Exclusive read is not supported." />
+			<bitenum id="MPPC_ERR" value="6" token="MPPC Fault occured" description="MPPC Fault occured" />
+		</bitfield>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Offset in words from block boundary. Represents the number of words to be read from accelerator before context switch." id="TRANS_STAT_CHAN_3_WORD_OFFSET" resetval="0x0" />
+		<bitfield width="14" end="16" begin="29" rwaccess="RO" description="Number of bytes remaining to complete the transaction. Loads (MEM_TRANS_NUM_B - TRANS_ALIGN.STAT_WROPT) and decrements the value for each transfer. This value should be read before context switch and written back to MEM_TRANS_NUM_B. The value of TRANS_ALIGN must be updated as well read and written back as well. The number of autstanding bytes should be equal to TRANS_STAT_CHAN_3_REMAIN_NUM_B+TRANS_ALIGN.CONTENT_WROPT" id="TRANS_STAT_CHAN_3_REMAIN_NUM_B" resetval="0x0" />
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_ALIGN_CH3" id="trans_align_ch3" width="32" description="content and number of bytes in alignment buffer" offset="0xb8">
+		<bitfield width="24" end="0" begin="23" rwaccess="RW" description="3 bytes of channel alignment FIFO. offset: 0x0: oldest data- lowest address 0x1: Data 0x2: Newest Data - highest address 0x3: Reserved" id="TRANS_ALIGN_CHAN_3_CONTENT_WROPT" resetval="0x0" />
+		<bitfield width="2" end="24" begin="25" rwaccess="RW" description="Number of bytes in the alignment buffer. In case of context switch, this field need to be read before context is swapped out and re written after the context is swapped back in." id="TRANS_ALIGN_CHAN_3_STAT_WROPT" resetval="0x0">
+			<bitenum id="LEN_0" value="0" token="No words in buffer" description="No words in buffer" />
+			<bitenum id="LEN_1" value="1" token="One word in buffer" description="One word in buffer" />
+			<bitenum id="LEN_2" value="2" token="Two words in buffer" description="Two words in buffer" />
+			<bitenum id="LEN_3" value="3" token="Three words in buffer" description="Three words in buffer" />
+		</bitfield>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="JOB_CTRL_CH3" id="job_ctrl_ch3" width="32" description="Job control register" offset="0xbc">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_3_BLK_MODE_SRC" resetval="0x1" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" description="Destination pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_3_BLK_MODE_DST" resetval="0x0" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="destination padding pattern. This field has only an effect if block_mode_dest is asserted.  If the number of bytes provided is not sufficient to complete 1 block, the DMA engine shall pad the remaining bytes to provide 1 full block of data to the accelerator.  Some of the accelerators already support a subset of padding schemes, hence a partial last block is not necessarily an error. Note that FIPS andf RFC are in big endian. See crypto engine documentation for details.  0: No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1. 1: (Poly1305, AES-CCM) all zeros. 2: (AES-CMAC) 0x80 followed by all zeros. 3: (SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte. 4: Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement) 5: All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04 6: Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03 7: Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation).  Note: SHA-1, 224, 256 &amp; MD5 https://www.ietf.org/rfc/rfc1321.txt (3.1) http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.1) -Append 1 bit, then zero out to the 448th/512th bits.  (The length of the message goes in 449-512). SHA-384, 512 http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.2) -Append 1 bit, zero out to the 896th/1024th bit." id="MEM_JOB_CTRL_CHAN_3_PADDING" resetval="0x0">
+			<bitenum id="NO_PADDING" value="0" token="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." description="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." />
+			<bitenum id="ALL_ZEROS" value="1" token="(Poly1305, AES-CCM) all zeros." description="(Poly1305, AES-CCM) all zeros." />
+			<bitenum id="SHAKE" value="3" token="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." description="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." />
+			<bitenum id="INCREMENT" value="4" token="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" description="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" />
+			<bitenum id="ANSIX923" value="5" token="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" description="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" />
+			<bitenum id="PKCS7" value="6" token="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" description="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" />
+			<bitenum id="TLS" value="7" token="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." description="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." />
+		</bitfield>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="size of the block in words. If block mode is enabled, defines the address wrap around. Since channel arbitration decisions are made every block, this also effect how much bandwidth is given to a specific channel. AES - 4 UART - 1" id="MEM_JOB_CTRL_CHAN_3_BLOCK_SIZE" resetval="0x01" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" description="tie high channel DMA req signal. This is useful to change a channel dedicated to a specific crypto engine to a general usage channel." id="MEM_JOB_CTRL_CHAN_3_DMA_SIG_BPS" resetval="0x0">
+			<bitenum id="CLR" value="0" token="No channel is bypassed" description="No channel is bypassed" />
+			<bitenum id="SET" value="1" token="channel bypass" description="channel bypass" />
+		</bitfield>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_3_SWITCH_ENDIANNESS" resetval="0x0">
+			<bitenum id="NO_ENDIANNESS_SWITCH" value="0" />
+			<bitenum id="SWITCH_ENDIANNESS" value="1" />
+		</bitfield>
+	</register>
+	<register acronym="STATUS_CH4" id="status_ch4" width="32" description="Channel Status FSM state and run indication." offset="0xc0">
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Channel FSM State, see Enumeration for details" id="STATUS_CHAN_4_FSM_STATE" resetval="0x0">
+			<bitenum id="IDLE" value="0" token="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." description="Run command not recieved yet, Host is allowed to configure control registers, read status registers and execute a run command." />
+			<bitenum id="PAUSE" value="1" token="Pause command recieved and irq raised. run command required to resume operation." description="Pause command recieved and irq raised. run command required to resume operation." />
+			<bitenum id="EXCEPTION" value="2" token="Channel has encountered an error and requires assistance from host." description="Channel has encountered an error and requires assistance from host." />
+			<bitenum id="DRAIN" value="3" token="ABORT or EXPECTION happend, draining FIFO." description="ABORT or EXPECTION happend, draining FIFO." />
+			<bitenum id="ABORT" value="4" token="SW abort signal, host must send Init command for channel to become active again." description="SW abort signal, host must send Init command for channel to become active again." />
+			<bitenum id="PRE_PAUSE" value="5" token="Copying remaining alignemnt buffer Bytes on write after pause command." description="Copying remaining alignemnt buffer Bytes on write after pause command." />
+			<bitenum id="Reserved" value="6" token="Reserved" description="Reserved" />
+			<bitenum id="LAST_2_PAUSE" value="7" token="Flushing write address aligner after pause command." description="Flushing write address aligner after pause command." />
+			<bitenum id="PENDING_ARB" value="8" token="Channel is active, but arbiter has selected another channel for current transfer." description="Channel is active, but arbiter has selected another channel for current transfer." />
+			<bitenum id="COPY" value="9" token="Channel is active and is currently transferring data." description="Channel is active and is currently transferring data." />
+			<bitenum id="COPY_LAST" value="10" token="Channel is active and is currently transfering the last block of data for current transaction." description="Channel is active and is currently transfering the last block of data for current transaction." />
+			<bitenum id="PAD" value="11" token="Channel is padding last block of Job." description="Channel is padding last block of Job." />
+			<bitenum id="DONE" value="12" token="Transaction has completed, this state is active for one cycle. Next state is IDLE." description="Transaction has completed, this state is active for one cycle. Next state is IDLE." />
+			<bitenum id="SAVE_CTX" value="13" token="waiting for vbusp wready to transfer last word of block." description="waiting for vbusp wready to transfer last word of block." />
+			<bitenum id="WAIT_NXT_TRANS" value="14" token="Similar to IDLE, but explicitly states we are waiting for response from host." description="Similar to IDLE, but explicitly states we are waiting for response from host." />
+			<bitenum id="LAST_NO_PAD" value="15" token="The last transaction of last block of job when we do not do padding." description="The last transaction of last block of job when we do not do padding." />
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Indication that channel is currently transfering data and is not idle. Channels that are waiting on arbitration are considered running." id="STATUS_CHAN_4_RUN" resetval="0x0">
+			<bitenum id="INACTIVE" value="0" token="Channel is IDLE or waiting for HOST" description="Channel is IDLE or waiting for HOST" />
+			<bitenum id="ACTIVE" value="1" token="Channel is copying data or waiting on arbitration" description="Channel is copying data or waiting on arbitration" />
+		</bitfield>
+		<bitfield width="5" end="0" begin="4" rwaccess="RO" description="Channel status, bit mask. Multiple bits can be set at the same time" id="STATUS_CHAN_4_HW_EVENT" resetval="0x0">
+			<bitenum id="NO_EVENT" value="0" token="No pending event" description="No pending event" />
+			<bitenum id="JOB_DONE" value="1" token="Job done" description="Job done" />
+			<bitenum id="TRANS_DONE" value="2" token="Transaction done" description="Transaction done" />
+			<bitenum id="ABORTED" value="4" token="Transaction aborted by SW" description="Transaction aborted by SW" />
+			<bitenum id="PAUSED" value="8" token="Transaction paused by SW" description="Transaction paused by SW" />
+			<bitenum id="EXC" value="16" token="An error has occured" description="An error has occured" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="3" end="5" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_IPTR_CH4" id="trans_iptr_ch4" width="32" description="32 bit address pointer of channel current input." offset="0xc4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_IPTR_CHAN_4_IN_PTR_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_OPTR_CH4" id="trans_optr_ch4" width="32" description="32 bit address pointer of channel current output." offset="0xc8">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="address" id="TRANS_OPTR_CHAN_4_OUT_PTR_WROPT" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL_CH4" id="trans_ctrl_ch4" width="32" description="Transaction control" offset="0xcc">
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Indicates this is the last DMA transaction on a specific crypto job, and therefore, the padding should apply to it. If this DMA transaction is not last, the channel must buffer the incomplete word and wait for the next DMA transaction command to be able to fetch the missing bytes. Once the last byte is reached, the DMA shall pad the remaining bytes.  0: not last transaction 1: last transaction" id="MEM_TRANS_CTRL_CHAN_4_LAST_TRANS" resetval="0x0" />
+		<bitfield width="14" end="0" begin="13" rwaccess="RW" description="Number of bytes of the transaction to move from source to destination." id="MEM_TRANS_CTRL_CHAN_4_TRANS_NUM_B" resetval="0x4" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="2" end="14" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_CTRL2_CH4" id="trans_ctrl2_ch4" width="32" description="DMA command interface" offset="0xd0">
+		<bitfield width="4" end="0" begin="3" rwaccess="WO" description="command to resume, pause, stop or clear channel. STATUS_CHAN_X.RUN is a level signal that is high as long as the channel has not completed a tranfer." id="TRANS_CTRL2_CHAN_4_CMD_WRCL" resetval="0x0">
+			<bitenum id="NOP" value="0" token="No effect" description="No effect" />
+			<bitenum id="RUN" value="1" token="Run - reactivate channel that is waiting on host. This is currently a pulse." description="Run - reactivate channel that is waiting on host. This is currently a pulse." />
+			<bitenum id="PAUSE" value="2" token="Pause - stop reading data from source and change state to PAUSE once block has comleted." description="Pause - stop reading data from source and change state to PAUSE once block has comleted." />
+			<bitenum id="ABORT" value="4" token="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." description="Stop channel-operation immediately. Channel is in an invalid state until it is initialized again." />
+			<bitenum id="INIT" value="8" token="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." description="Return Channel state to rest values. Requesred after an exception or Abort command were encountered to return channel to valid state." />
+		</bitfield>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_STAT_CH4" id="trans_stat_ch4" width="32" description="Job completion reason - either last transaction or exception" offset="0xd4">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="channel vbusp rstatus recieved at one of the master ports. Once an error is encountered the channel will enter an Exception state and stay the until an init command is recieved. ICLR does not affect this status." id="TRANS_STAT_CHAN_4_STAT" resetval="0x0">
+			<bitenum id="NO_ERR" value="0" token="No vbusp read error" description="No vbusp read error" />
+			<bitenum id="ADDR_ERR" value="1" token="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" description="Address error 1. No slave has this address 2. reserved address 3. wrong access type(read/write)" />
+			<bitenum id="PROTECTION_ERR" value="2" token="Improper priv/privid" description="Improper priv/privid" />
+			<bitenum id="TIMEOUT_ERR" value="3" token="watchdog timeout - unsupported" description="watchdog timeout - unsupported" />
+			<bitenum id="DATA_ERR" value="4" token="Data integrity error unsupported" description="Data integrity error unsupported" />
+			<bitenum id="ADDR_MODE_ERR" value="5" token="vbus amode not supported" description="vbus amode not supported" />
+			<bitenum id="EXCLUSIVE_RD_ERR" value="7" token="Exclusive read is not supported." description="Exclusive read is not supported." />
+			<bitenum id="MPPC_ERR" value="6" token="MPPC Fault occured" description="MPPC Fault occured" />
+		</bitfield>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Offset in words from block boundary. Represents the number of words to be read from accelerator before context switch." id="TRANS_STAT_CHAN_4_WORD_OFFSET" resetval="0x0" />
+		<bitfield width="14" end="16" begin="29" rwaccess="RO" description="Number of bytes remaining to complete the transaction. Loads (MEM_TRANS_NUM_B - TRANS_ALIGN.STAT_WROPT) and decrements the value for each transfer. This value should be read before context switch and written back to MEM_TRANS_NUM_B. The value of TRANS_ALIGN must be updated as well read and written back as well. The number of autstanding bytes should be equal to TRANS_STAT_CHAN_4_REMAIN_NUM_B+TRANS_ALIGN.CONTENT_WROPT" id="TRANS_STAT_CHAN_4_REMAIN_NUM_B" resetval="0x0" />
+		<bitfield width="2" end="30" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+	</register>
+	<register acronym="TRANS_ALIGN_CH4" id="trans_align_ch4" width="32" description="content and number of bytes in alignment buffer" offset="0xd8">
+		<bitfield width="24" end="0" begin="23" rwaccess="RW" description="3 bytes of channel alignment FIFO. offset: 0x0: oldest data- lowest address 0x1: Data 0x2: Newest Data - highest address 0x3: Reserved" id="TRANS_ALIGN_CHAN_4_CONTENT_WROPT" resetval="0x0" />
+		<bitfield width="2" end="24" begin="25" rwaccess="RW" description="Number of bytes in the alignment buffer. In case of context switch, this field need to be read before context is swapped out and re written after the context is swapped back in." id="TRANS_ALIGN_CHAN_4_STAT_WROPT" resetval="0x0">
+			<bitenum id="LEN_0" value="0" token="No words in buffer" description="No words in buffer" />
+			<bitenum id="LEN_1" value="1" token="One word in buffer" description="One word in buffer" />
+			<bitenum id="LEN_2" value="2" token="Two words in buffer" description="Two words in buffer" />
+			<bitenum id="LEN_3" value="3" token="Three words in buffer" description="Three words in buffer" />
+		</bitfield>
+		<bitfield width="6" end="26" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="JOB_CTRL_CH4" id="job_ctrl_ch4" width="32" description="Job control register" offset="0xdc">
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_4_BLK_MODE_SRC" resetval="0x0" />
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" description="Destination pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_4_BLK_MODE_DST" resetval="0x0" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" description="destination padding pattern. This field has only an effect if block_mode_dest is asserted.  If the number of bytes provided is not sufficient to complete 1 block, the DMA engine shall pad the remaining bytes to provide 1 full block of data to the accelerator.  Some of the accelerators already support a subset of padding schemes, hence a partial last block is not necessarily an error. Note that FIPS andf RFC are in big endian. See crypto engine documentation for details.  0: No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1. 1: (Poly1305, AES-CCM) all zeros. 2: (AES-CMAC) 0x80 followed by all zeros. 3: (SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte. 4: Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement) 5: All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04 6: Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03 7: Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation).  Note: SHA-1, 224, 256 &amp; MD5 https://www.ietf.org/rfc/rfc1321.txt (3.1) http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.1) -Append 1 bit, then zero out to the 448th/512th bits.  (The length of the message goes in 449-512). SHA-384, 512 http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf (5.1.2) -Append 1 bit, zero out to the 896th/1024th bit." id="MEM_JOB_CTRL_CHAN_4_PADDING" resetval="0x0">
+			<bitenum id="NO_PADDING" value="0" token="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." description="No Padding. If the DMA is unable to transfer a full word (and also finish a block), it must keep up to 3 bytes that were already read in a buffer. Once the next pointer (gather function) is programed (automatically or by the software), it resumes filling up words to complete a block. The buffer is cleared (might be a simple pointer re-init) by setting the init field to 1." />
+			<bitenum id="ALL_ZEROS" value="1" token="(Poly1305, AES-CCM) all zeros." description="(Poly1305, AES-CCM) all zeros." />
+			<bitenum id="SHAKE" value="3" token="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." description="(SHAKE) pad10*1. Depending on the rate (r=1600-c), the DMA forms an integer multiple of r. Message || 0x1F || 00...0 || 0x80. The DMA adds a 0x1F (for SHAKE) after the last byte of the message, then all 0s, then 0x80 at the last byte." />
+			<bitenum id="INCREMENT" value="4" token="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" description="Pad with 0x01, 0x02, 0x03,...,0xn (where n is the number of padding bytes) (TBD as this one might very complex to implement along with the byte realignment requirement)" />
+			<bitenum id="ANSIX923" value="5" token="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" description="All zeros except for the last byte which says how many bytes of padding there are (ANSI X.923). E.g. 0x00 0x00 0x00 0x04" />
+			<bitenum id="PKCS7" value="6" token="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" description="Pad with repeated byte stating how many padding bytes there are (PKCS#7 https://tools.ietf.org/html/rfc5652#section-6.3). E.g. 0x03 0x03 0x03" />
+			<bitenum id="TLS" value="7" token="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." description="Pad with padding length. TLS padding: https://www.ietf.org/rfc/rfc5246.txt. Message + mac + padding length + padding length repeated. E.g. xx 0x03 0x03 0x03 0x03. (see section 6.2.3.2. of the link above for a full explanation)." />
+		</bitfield>
+		<bitfield width="8" end="16" begin="23" rwaccess="RW" description="size of the block in words. If block mode is enabled, defines the address wrap around. Since channel arbitration decisions are made every block, this also effect how much bandwidth is given to a specific channel. AES - 4 UART - 1" id="MEM_JOB_CTRL_CHAN_4_BLOCK_SIZE" resetval="0x04" />
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" description="tie high channel DMA req signal. This is useful to change a channel dedicated to a specific crypto engine to a general usage channel." id="MEM_JOB_CTRL_CHAN_4_DMA_SIG_BPS" resetval="0x0">
+			<bitenum id="CLR" value="0" token="No channel is bypassed" description="No channel is bypassed" />
+			<bitenum id="SET" value="1" token="channel bypass" description="channel bypass" />
+		</bitfield>
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="7" end="1" begin="7" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved_3" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="source pointer wrap around mode  0: no wrap around(non block mode) 1: with wrap around(block mode)" id="MEM_JOB_CTRL_CHAN_4_SWITCH_ENDIANNESS" resetval="0x0">
+			<bitenum id="NO_ENDIANNESS_SWITCH" value="0" />
+			<bitenum id="SWITCH_ENDIANNESS" value="1" />
+		</bitfield>
+	</register>
+</module>

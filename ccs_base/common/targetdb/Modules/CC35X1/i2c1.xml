@@ -1,0 +1,1140 @@
+<?xml version="1.0" ?>
+<module id="I2C" XML_version="1.0" description="">
+	<register acronym="GFCTL" id="gfctl" width="32" description="This register controls the glitch filter on the SCL and SDA lines" offset="0x100">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Glitch suppression pulse width
+ 
+This field controls the pulse width select for glitch suppression on the SCL and SDA lines. The following values are the glitch suppression values in terms of functional clocks." id="GFSEL" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Bypass" description="Bypass"/>
+			<bitenum id="CLK_1" value="1" token="1 clock" description="1 clock"/>
+			<bitenum id="CLK_2" value="2" token="2 clocks" description="2 clocks"/>
+			<bitenum id="CLK_3" value="3" token="3 clocks" description="3 clocks"/>
+			<bitenum id="CLK_4" value="4" token="4 clocks" description="4 clocks"/>
+			<bitenum id="CLK_5" value="5" token="5 clocks" description="5 clocks"/>
+			<bitenum id="CLK_6" value="6" token="6 clocks" description="6 clocks"/>
+			<bitenum id="CLK_7" value="7" token="7 clocks" description="7 clocks"/>
+			<bitenum id="CLK_8" value="8" token="8 clocks" description="8 clocks"/>
+			<bitenum id="CLK_9" value="9" token="10 clocks" description="10 clocks"/>
+			<bitenum id="CLK_A" value="10" token="12 clocks" description="12 clocks"/>
+			<bitenum id="CLK_B" value="11" token="14 clocks" description="14 clocks"/>
+			<bitenum id="CLK_C" value="12" token="16 clocks" description="16 clocks"/>
+			<bitenum id="CLK_D" value="13" token="20 clocks" description="20 clocks"/>
+			<bitenum id="CLK_E" value="14" token="24 clocks" description="24 clocks"/>
+			<bitenum id="CLK_F" value="15" token="31 clocks" description="31 clocks"/>
+		</bitfield>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0"/>
+	</register>
+	<register acronym="CSA" id="csa" width="32" description="Controller target address register" offset="0x104">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This field specifies if the next controller operation is a Receive or Transmit" id="DIR" resetval="0x0">
+			<bitenum id="TRANSMIT" value="0" token="The controller is in transmit mode." description="The controller is in transmit mode."/>
+			<bitenum id="RECEIVE" value="1" token="The controller is in receive mode." description="The controller is in receive mode."/>
+		</bitfield>
+		<bitfield width="10" end="1" begin="10" rwaccess="RW" description="*I2C* Target Address This field specifies bits A9 through A0 of the target address.
+In 7-field addressing mode as selected by MODE field, the top 3 bits are don't care" id="TADDR" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="1023" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="This field selects the addressing mode(7-field/10-field) to be used in controller mode" id="CMODE" resetval="0x0">
+			<bitenum id="SEVEN_BIT" value="0" token="7-field addressing mode" description="7-field addressing mode"/>
+			<bitenum id="TEN_BIT" value="1" token="10-field addressing mode" description="10-field addressing mode"/>
+		</bitfield>
+		<bitfield width="4" end="11" begin="14" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED11" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x0"/>
+	</register>
+	<register acronym="CCTR" id="cctr" width="32" description="This control register configures the *I2C* controller operation. The START field generates the START or REPEATED START condition. The STOP field determines if the cycle stops at the end of the data cycle or continues to the next transfer cycle, which could be a repeated START. To generate a single transmit cycle, the *I2C* Controller Target Address [CSA] register is written with the desired address, the RS field is cleared, and this register is written with ACK = X (0 or 1), STOP = 1, START = 1, and RUN = 1 to perform the operation and stop. When the operation is completed (or aborted due an error), an byte transaction completed interrupt becomes active and the data may be read from the RXDATA register. When the I2C module operates in Controller receiver mode, a set ACK field causes the I2C bus controller to transmit an acknowledge automatically after each byte. This field must be cleared when the *I2C* bus controller requires no further data to be transmitted from the target transmitter." offset="0x108">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Controller enable and start transaction" id="BURSTRUN" resetval="0x0">
+			<bitenum id="DIS" value="0" token="In standard mode, the controller will be unable to transmit or receive data." description="In standard mode, the controller will be unable to transmit or receive data."/>
+			<bitenum id="EN" value="1" token="The controller will be able to transmit or receive data" description="The controller will be able to transmit or receive data"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Generate START" id="START" resetval="0x0">
+			<bitenum id="DIS_START" value="0" token="The controller does not generate the START condition." description="The controller does not generate the START condition."/>
+			<bitenum id="EN_START" value="1" token="The controller generates the START or repeated START condition" description="The controller generates the START or repeated START condition"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Generate STOP" id="STOP" resetval="0x0">
+			<bitenum id="DIS_STOP" value="0" token="The controller does not generate the STOP condition." description="The controller does not generate the STOP condition."/>
+			<bitenum id="EN_STOP" value="1" token="The controller generates the STOP condition" description="The controller generates the STOP condition"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Data Acknowledge Enable. Configure this field to send the ACK or NACK." id="ACK" resetval="0x0">
+			<bitenum id="DIS_ACK" value="0" token="The last received data byte of a transaction is not acknowledged automatically by the controller." description="The last received data byte of a transaction is not acknowledged automatically by the controller."/>
+			<bitenum id="EN_ACK" value="1" token="The last received data byte of a transaction is acknowledged automatically by the controller." description="The last received data byte of a transaction is acknowledged automatically by the controller."/>
+		</bitfield>
+		<bitfield width="12" end="16" begin="27" rwaccess="RW" description="Transaction length
+This field contains the programmed length of bytes of the Transaction." id="MBLEN" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="4095" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Controller ACK overrride enable" id="CACKOEN" resetval="0x0">
+			<bitenum id="EN" value="1" token="When 1 and the controller is receiving data and the number of bytes indicated in MBLEN have been received, the state machine will generate an rxdone interrupt and wait at the start of the ACK for FW to indicate if an ACK or NACK should be sent. The ACK or NACK is selected by writing the [CCTR] register and setting ACK accordingly. The other fields in this register can also be written at this time to continue on with the transaction. If a NACK is sent the state machine will automatically send a Stop." description="When 1 and the controller is receiving data and the number of bytes indicated in MBLEN have been received, the state machine will generate an rxdone interrupt and wait at the start of the ACK for FW to indicate if an ACK or NACK should be sent. The ACK or NACK is selected by writing the [CCTR] register and setting ACK accordingly. The other fields in this register can also be written at this time to continue on with the transaction. If a NACK is sent the state machine will automatically send a Stop."/>
+			<bitenum id="DIS" value="0" token="No special behavior" description="No special behavior"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Read on TXFIFO empty" id="RDONTXEMPTY" resetval="0x0">
+			<bitenum id="EN" value="1" token="When 1 the controller will transmit all bytes from the TX FIFO before continuing with the programmed Burst Run Read. If the [CSA.DIR] is not set to read, then this field is ignored. The Start must be set in the [CCTR] for proper *I2C* protocol. The controller will first send the Start Condition, *I2C* Address with R/W field set to write, before sending the bytes in the TX FIFO. When the TX FIFO is empty, the *I2C* transaction will continue as programmed in [CCTR] and [CSA] without sending a Stop Condition.
+This is intended to be used to perform simple *I2C* command based reads transition that will complete after initiating them without having to get an interrupt to turn the bus around." description="When 1 the controller will transmit all bytes from the TX FIFO before continuing with the programmed Burst Run Read. If the [CSA.DIR] is not set to read, then this field is ignored. The Start must be set in the [CCTR] for proper *I2C* protocol. The controller will first send the Start Condition, *I2C* Address with R/W field set to write, before sending the bytes in the TX FIFO. When the TX FIFO is empty, the *I2C* transaction will continue as programmed in [CCTR] and [CSA] without sending a Stop Condition.
+This is intended to be used to perform simple *I2C* command based reads transition that will complete after initiating them without having to get an interrupt to turn the bus around."/>
+			<bitenum id="DIS" value="0" token="No special behaviour" description="No special behaviour"/>
+		</bitfield>
+		<bitfield width="10" end="6" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED6" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+	</register>
+	<register acronym="CSR" id="csr" width="32" description="The status register indicates the state of the bus controller." offset="0x10c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Controller FSM busy
+
+The field is set during an ongoing transaction, so is set during the transmit/receive of the amount of data set in [CCTR.MBLEN] including START, RESTART, Address and STOP signal generation when required for the current transaction." id="BUSY" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="The controller is idle." description="The controller is idle."/>
+			<bitenum id="SET" value="1" token="The controller is busy." description="The controller is busy."/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Error
+ 
+The error can be from the target address not being acknowledged or the transmit data not being acknowledged." id="ERR" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="No error was detected on the last operation." description="No error was detected on the last operation."/>
+			<bitenum id="SET" value="1" token="An error occurred on the last operation." description="An error occurred on the last operation."/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Acknowledge address" id="ADRACK" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="The transmitted address was acknowledged" description="The transmitted address was acknowledged"/>
+			<bitenum id="SET" value="1" token="The transmitted address was not acknowledged." description="The transmitted address was not acknowledged."/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Acknowledge data" id="DATACK" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="The transmitted data was acknowledged" description="The transmitted data was acknowledged"/>
+			<bitenum id="SET" value="1" token="The transmitted data was not acknowledged." description="The transmitted data was not acknowledged."/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Arbitration lost" id="ARBLST" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="The controller won arbitration." description="The controller won arbitration."/>
+			<bitenum id="SET" value="1" token="The controller lost arbitration." description="The controller lost arbitration."/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="*I2C* Idle" id="IDLE" resetval="0x1">
+			<bitenum id="CLEAR" value="0" token="The controller is not idle." description="The controller is not idle."/>
+			<bitenum id="SET" value="1" token="The controller is idle." description="The controller is idle."/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Bus is busy
+Controller state machine will wait until this field is cleared before starting a transaction. When first enabling the controller in multi controller environments, FW should wait for one I2C clock period after setting ACTIVE high before writing to the [CCTR] register to start the transaction so that if SCL goes low it will trigger the BUSBSY." id="BUSBSY" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="The bus is idle." description="The bus is idle."/>
+			<bitenum id="SET" value="1" token="This Status field is set on a START or when SCL goes low. It is cleared on a STOP,  or when a SCL high bus busy timeout occurs and SCL and SDA are both high. This status is cleared when the ACTIVE field is low.
+ 
+Note that the controller state machine will wait until this field is cleared before starting a transaction. When first enabling the controller in multi controller environments, FW should wait for one I2C clock period after setting ACTIVE high before writing to the [CCTR] register to start the transaction so that if SCL goes low it will trigger the BUSBSY." description="This Status field is set on a START or when SCL goes low. It is cleared on a STOP,  or when a SCL high bus busy timeout occurs and SCL and SDA are both high. This status is cleared when the ACTIVE field is low.
+ 
+Note that the controller state machine will wait until this field is cleared before starting a transaction. When first enabling the controller in multi controller environments, FW should wait for one I2C clock period after setting ACTIVE high before writing to the [CCTR] register to start the transaction so that if SCL goes low it will trigger the BUSBSY."/>
+		</bitfield>
+		<bitfield width="12" end="16" begin="27" rwaccess="RO" description="Controller Transaction Count
+This field contains the current count-down value of the transaction." id="CBCNT" resetval="0x0">
+			<bitenum id="MAXIMUM" value="4095" token="Highest possible value" description="Highest possible value"/>
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+		</bitfield>
+		<bitfield width="9" end="7" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+	</register>
+	<register acronym="CTPR" id="ctpr" width="32" description="This register is programmed to set the timer period for the SCL clock and assign the SCL clock to standard mode." offset="0x110">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Timer Period 
+
+This field is used in the equation to configure SCL_PERIOD :
+
+SCL_PERIOD = (1 + TPR ) x (SCL_LP + SCL_HP ) x INT_CLK_PRD
+where:
+ 
+SCL_PRD is the SCL line period (I2C clock).
+  
+TPR is the Timer Period register value (range of 1 to 127).
+
+SCL_LP is the SCL Low period (fixed at 6).
+  
+SCL_HP is the SCL High period (fixed at 4).
+
+INT_CLK_PRD is the functional clock period in ns. 
+
+Note: INT_CLK_PRD is based on divider value selected in [FCLK_DIV:FCLK:DIV]" id="TPR" resetval="0x1">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="127" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="25" end="7" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x1"/>
+	</register>
+	<register acronym="CCR" id="ccr" width="32" description="Controller configuration register" offset="0x114">
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="I2C Loopback" id="LPBK" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Normal operation." description="Normal operation."/>
+			<bitenum id="EN" value="1" token="The controller in a test mode loopback configuration." description="The controller in a test mode loopback configuration."/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Multicontroller mode. In Multicontroller mode the SCL high time counts once the SCL line has been detected high. If this is not enabled the high time counts as soon as the SCL line has been set high by the *I2C* controller." id="MCST" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Disable Multicontroller mode." description="Disable Multicontroller mode."/>
+			<bitenum id="EN" value="1" token="Enable Multicontroller mode." description="Enable Multicontroller mode."/>
+		</bitfield>
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Device Active  After this field has been set, it should not be set again unless it has been cleared by writing a 0 or by a reset, otherwise transfer failures may occur." id="ACTIVE" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Disables the *I2C* controller operation." description="Disables the *I2C* controller operation."/>
+			<bitenum id="EN" value="1" token="Enables the *I2C* controller operation." description="Enables the *I2C* controller operation."/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Clock Stretching. This field controls the support for clock stretching of the *I2C* bus." id="CLKSTRETCH" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Disables the clock stretching detection.
+This can be disabled if no target on the bus does support clock streching, so that the maximum speed on the bus can be reached." description="Disables the clock stretching detection.
+This can be disabled if no target on the bus does support clock streching, so that the maximum speed on the bus can be reached."/>
+			<bitenum id="EN" value="1" token="Enables the clock stretching detection.
+Enabling the clock strechting ensures compliance to the I2C standard but could limit the speed due the clock stretching." description="Enables the clock stretching detection.
+Enabling the clock strechting ensures compliance to the I2C standard but could limit the speed due the clock stretching."/>
+		</bitfield>
+		<bitfield width="5" end="3" begin="7" rwaccess="RO" description="Reads to this field return zero.Writes to this field are ignored." id="RESERVED3" resetval="0x0"/>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Reads to this field return zero.Writes to this field are ignored." id="RESERVED9" resetval="0x0"/>
+	</register>
+	<register acronym="CBMON" id="cbmon" width="32" description="This register is used to determine the SCL and SDA signal status." offset="0x118">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="SCL status" id="SCL" resetval="0x3">
+			<bitenum id="CLEAR" value="0" token="The SCL signal is low." description="The SCL signal is low."/>
+			<bitenum id="SET" value="1" token="The SCL signal is high
+Note: During and right after reset, the SCL pin is in GPIO input mode without the internal pull enabled. For proper *I2C* operation, the user should have the external pull-up resistor in place." description="The SCL signal is high
+Note: During and right after reset, the SCL pin is in GPIO input mode without the internal pull enabled. For proper *I2C* operation, the user should have the external pull-up resistor in place."/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="SDA status" id="SDA" resetval="0x3">
+			<bitenum id="CLEAR" value="0" token="The SDA signal is low." description="The SDA signal is low."/>
+			<bitenum id="SET" value="1" token="The SDA signal is high. 
+Note: During and right after reset, the SDA pin is in GPIO input mode without the internal pull enabled. For proper *I2C* operation, the user should have the external pull-up resistor in place." description="The SDA signal is high. 
+Note: During and right after reset, the SDA pin is in GPIO input mode without the internal pull enabled. For proper *I2C* operation, the user should have the external pull-up resistor in place."/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x3"/>
+	</register>
+	<register acronym="TOAR" id="toar" width="32" description="This register consists of seven address bits that identify the I2C device on the I2C bus." offset="0x11c">
+		<bitfield width="10" end="0" begin="9" rwaccess="RW" description="Target own address: This field specifies bits A9 through A0 of the target address.
+In 7-field addressing mode as selected by [TOAR.MODE] field, the top 3 bits are don't care" id="OAR" resetval="0x4000">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="1023" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="1" end="14" begin="14" rwaccess="RW" description="Target own address enable" id="OAREN" resetval="0x4000">
+			<bitenum id="EN" value="1" token="Enable OAR address" description="Enable OAR address"/>
+			<bitenum id="DIS" value="0" token="Disable OAR address" description="Disable OAR address"/>
+		</bitfield>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="This field selects the addressing mode(7-field/10-field) to be used in target mode." id="MODE" resetval="0x4000">
+			<bitenum id="SEVEN_BIT" value="0" token="Enable 7-field addressing" description="Enable 7-field addressing"/>
+			<bitenum id="TEN_BIT" value="1" token="Enable 10-field addressing" description="Enable 10-field addressing"/>
+		</bitfield>
+		<bitfield width="4" end="10" begin="13" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x4000"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x4000"/>
+	</register>
+	<register acronym="TOAR2" id="toar2" width="32" description="This register consists of seven address bits that identify the alternate address for the *I2C* device on the *I2C* bus." offset="0x120">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="Target own address 2
+This field specifies the alternate target own address." id="OAR2" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="127" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="Target own address 2 enable" id="OAR2EN" resetval="0x0">
+			<bitenum id="DIS" value="0" token="The alternate address is disabled." description="The alternate address is disabled."/>
+			<bitenum id="EN" value="1" token="Enables the use of the alternate address in the OAR2 field." description="Enables the use of the alternate address in the OAR2 field."/>
+		</bitfield>
+		<bitfield width="7" end="16" begin="22" rwaccess="RW" description="Target own address 2 mask: This field specifies bits A6 through A0 of the target address.
+The bits with value '1' in this field will make the corresponding incoming address bits to match by default regardless of the value inside this field i.e. corresponding bits of this field are don't care." id="OAR2_MASK" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Minimum Value" description="Minimum Value"/>
+			<bitenum id="MAXIMUM" value="127" token="Maximum Value" description="Maximum Value"/>
+		</bitfield>
+		<bitfield width="8" end="8" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x0"/>
+		<bitfield width="9" end="23" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED23" resetval="0x0"/>
+	</register>
+	<register acronym="TCTR" id="tctr" width="32" description="Target control register" offset="0x124">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Device active. Setting this field enables the target functionality." id="ACTIVE" resetval="0x4">
+			<bitenum id="DIS" value="0" token="Disables the target operation." description="Disables the target operation."/>
+			<bitenum id="EN" value="1" token="Enables the target operation." description="Enables the target operation."/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="General call response enable." id="GENCALL" resetval="0x4">
+			<bitenum id="DIS" value="0" token="Do not respond to a general call" description="Do not respond to a general call"/>
+			<bitenum id="EN" value="1" token="Respond to a general call" description="Respond to a general call"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Target clock stretch enable" id="CLKSTRETCH" resetval="0x4">
+			<bitenum id="EN" value="1" token="Target clock stretching is enabled" description="Target clock stretching is enabled"/>
+			<bitenum id="DIS" value="0" token="Target clock stretching is disabled" description="Target clock stretching is disabled"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Tx Empty Interrupt on TREQ" id="TXEMPTYONTREQ" resetval="0x4">
+			<bitenum id="EN" value="1" token="[RIS.STXEMPTY] will be set when the Target State Machine is in the TX_WAIT state which occurs when the TX FIFO is empty and the transaction is clock stretched waiting for the FIFO to receive data." description="[RIS.STXEMPTY] will be set when the Target State Machine is in the TX_WAIT state which occurs when the TX FIFO is empty and the transaction is clock stretched waiting for the FIFO to receive data."/>
+			<bitenum id="DIS" value="0" token="[RIS.TTXEMPTY] will be set when only the target TX FIFO is empty.
+This allows the [RIS.TTXEMPTY] interrupt to be used to indicate that the bus is being clock stretched and that target TX data is required." description="[RIS.TTXEMPTY] will be set when only the target TX FIFO is empty.
+This allows the [RIS.TTXEMPTY] interrupt to be used to indicate that the bus is being clock stretched and that target TX data is required."/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Tx trigger when target FSM is in TX mode" id="TXTRIGXMODE" resetval="0x4">
+			<bitenum id="EN" value="1" token="[RIS.TXFIFOTRG] will be set when the Target TX FIFO has reached the trigger level AND the target state machine is in the as defined in the [TSR.TXMODE] field.
+When cleared [RIS.TXFIFOTRG] will be set when the Target TX FIFO is at or above the trigger level.
+This setting can be used to hold off the TX DMA until a transaction starts.
+This allows the DMA to be configured when the *I2C* is idle but have it wait till the transaction starts to load the Target TX FIFO, so it can load from a memory buffer that might be changing over time." description="[RIS.TXFIFOTRG] will be set when the Target TX FIFO has reached the trigger level AND the target state machine is in the as defined in the [TSR.TXMODE] field.
+When cleared [RIS.TXFIFOTRG] will be set when the Target TX FIFO is at or above the trigger level.
+This setting can be used to hold off the TX DMA until a transaction starts.
+This allows the DMA to be configured when the *I2C* is idle but have it wait till the transaction starts to load the Target TX FIFO, so it can load from a memory buffer that might be changing over time."/>
+			<bitenum id="DIS" value="0" token="No special behavior" description="No special behavior"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Tx transfer waits when stale data in Tx FIFO.
+This prevents stale bytes left in the TX FIFO from automatically being sent on the next I2C packet. Note: this should be used with [TCTR:TXEMPTY_ON_TREQ] set to prevent the Target State Machine from waiting for TX FIFO data without an interrupt notification when the FIFO data is stale." id="TXWAITSTALETXFIFO" resetval="0x4">
+			<bitenum id="EN" value="1" token="The TX FIFO empty signal to the Target State Machine will indicate that the TX FIFO is empty or that the TX FIFO data is stale. The TX FIFO data is determined to be stale when there is data in the TX FIFO when the target state machine leaves the [TSR.TXMODE] field. This can occur is a stop or timeout occur when there are bytes left in the TX FIFO." description="The TX FIFO empty signal to the Target State Machine will indicate that the TX FIFO is empty or that the TX FIFO data is stale. The TX FIFO data is determined to be stale when there is data in the TX FIFO when the target state machine leaves the [TSR.TXMODE] field. This can occur is a stop or timeout occur when there are bytes left in the TX FIFO."/>
+			<bitenum id="DIS" value="0" token="The TX FIFO empty signal to the Target State Machine indicates that the TX FIFO is empty." description="The TX FIFO empty signal to the Target State Machine indicates that the TX FIFO is empty."/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Rx full interrupt generated based on [TSR.RREQ] filed." id="RXFULLONRREQ" resetval="0x4">
+			<bitenum id="EN" value="1" token="[RIS.SRXFULL] will be set when the target state machine is in the RX_WAIT or RX_ACK_WAIT states which occurs when the transaction is clock stretched because the RX FIFO is full or the ACKOEN has been set and the state machine is waiting for FW to ACK/NACK the current byte." description="[RIS.SRXFULL] will be set when the target state machine is in the RX_WAIT or RX_ACK_WAIT states which occurs when the transaction is clock stretched because the RX FIFO is full or the ACKOEN has been set and the state machine is waiting for FW to ACK/NACK the current byte."/>
+			<bitenum id="DIS" value="0" token="[RIS.TRXFULL] will be set when only the Target RX FIFO is full.
+This allows the [RIS.TRXFULL] interrupt to be used to indicate that the I2C bus is being clock stretched and that the FW must either read the RX FIFO or ACK/NACK the current RX byte." description="[RIS.TRXFULL] will be set when only the Target RX FIFO is full.
+This allows the [RIS.TRXFULL] interrupt to be used to indicate that the I2C bus is being clock stretched and that the FW must either read the RX FIFO or ACK/NACK the current RX byte."/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x4"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="Enable alert response address" id="ENALRESPADR" resetval="0x4">
+			<bitenum id="EN" value="1" token="Alert response address of 7'h000_1100 is always matched by the target address match logic." description="Alert response address of 7'h000_1100 is always matched by the target address match logic."/>
+			<bitenum id="DIS" value="0" token="The alert response address is not matched.
+ NOTE: It may still be matched if programmed inside [TOAR]/[TOAR2]" description="The alert response address is not matched.
+ NOTE: It may still be matched if programmed inside [TOAR]/[TOAR2]"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Enable default device address" id="ENDEFDEVADR" resetval="0x4">
+			<bitenum id="EN" value="1" token="When this field is 1, default device address of 7'h110_0001 is always matched by the target address match logic." description="When this field is 1, default device address of 7'h110_0001 is always matched by the target address match logic."/>
+			<bitenum id="DIS" value="0" token="When this field is 0, the default device address is not matched. NOTE: it may still be matched if programmed inside TOAR/TOAR2." description="When this field is 0, the default device address is not matched. NOTE: it may still be matched if programmed inside TOAR/TOAR2."/>
+		</bitfield>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x4"/>
+	</register>
+	<register acronym="TSR" id="tsr" width="32" description="Target status register" offset="0x128">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Receive Request" id="RREQ" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="No outstanding receive data." description="No outstanding receive data."/>
+			<bitenum id="SET" value="1" token="The controller has outstanding receive data and is using clock stretching to delay the controller until the data has been read from the RXDATA FIFO (target RX FIFO is full)." description="The controller has outstanding receive data and is using clock stretching to delay the controller until the data has been read from the RXDATA FIFO (target RX FIFO is full)."/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Transmit Request" id="TREQ" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="No outstanding transmit request." description="No outstanding transmit request."/>
+			<bitenum id="SET" value="1" token="The controller has been addressed as a target transmitter and is using clock stretching to delay the controller until data has been written to the TXDATA FIFO (Target TX FIFO is empty)." description="The controller has been addressed as a target transmitter and is using clock stretching to delay the controller until data has been written to the TXDATA FIFO (Target TX FIFO is empty)."/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="OAR2 address matched
+ This field gets re-evaluated after every address comparison." id="OAR2SEL" resetval="0x0">
+			<bitenum id="CLEAR" value="0" token="Either the OAR2 address is not matched or the match is in legacy mode." description="Either the OAR2 address is not matched or the match is in legacy mode."/>
+			<bitenum id="SET" value="1" token="OAR2 address matched and acknowledged by the target." description="OAR2 address matched and acknowledged by the target."/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x0"/>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="Target FSM is in RX MODE" id="RXMODE" resetval="0x0">
+			<bitenum id="SET" value="1" token="The target state machine is in the RX_DATA, RX_ACK, RX_WAIT, RX_ACK_WAIT or ADDR_ACK state with the bus direction set to write." description="The target state machine is in the RX_DATA, RX_ACK, RX_WAIT, RX_ACK_WAIT or ADDR_ACK state with the bus direction set to write."/>
+			<bitenum id="CLEAR" value="0" token="The target state machine is not in the RX_DATA, RX_ACK, RX_WAIT, RX_ACK_WAIT or ADDR_ACK state with the bus direction set to write." description="The target state machine is not in the RX_DATA, RX_ACK, RX_WAIT, RX_ACK_WAIT or ADDR_ACK state with the bus direction set to write."/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Bus is busy" id="BUSBSY" resetval="0x0">
+			<bitenum id="SET" value="1" token="Bus is busy. This is cleared on a timeout." description="Bus is busy. This is cleared on a timeout."/>
+			<bitenum id="CLEAR" value="0" token="Bus is not busy" description="Bus is not busy"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="Target FSM is in TX MODE" id="TXMODE" resetval="0x0">
+			<bitenum id="SET" value="1" token="The target state machine is in TX_DATA, TX_WAIT, TX_ACK  or ADDR_ACK state with the bus direction set to read." description="The target state machine is in TX_DATA, TX_WAIT, TX_ACK  or ADDR_ACK state with the bus direction set to read."/>
+			<bitenum id="CLEAR" value="0" token="The target state machine is not in TX_DATA, TX_WAIT, TX_ACK  or ADDR_ACK state with the bus direction set to read." description="The target state machine is not in TX_DATA, TX_WAIT, TX_ACK  or ADDR_ACK state with the bus direction set to read."/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="Stale TX FIFO" id="STALETXFIFO" resetval="0x0">
+			<bitenum id="SET" value="1" token="The TX FIFO is stale. This occurs when the TX FIFO was not emptied during the previous transaction." description="The TX FIFO is stale. This occurs when the TX FIFO was not emptied during the previous transaction."/>
+			<bitenum id="CLEAR" value="0" token="Tx FIFO is not stale" description="Tx FIFO is not stale"/>
+		</bitfield>
+		<bitfield width="10" end="9" begin="18" rwaccess="RO" description="Indicates the address for which target address match happened" id="ADDRMATCH" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Minimum Value" description="Minimum Value"/>
+			<bitenum id="MAXIMUM" value="1023" token="Maximum Value" description="Maximum Value"/>
+		</bitfield>
+		<bitfield width="13" end="19" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED19" resetval="0x0"/>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED5" resetval="0x0"/>
+	</register>
+	<register acronym="RXDATA" id="rxdata" width="32" description="RX FIFO read data byte
+This field contains the current byte being read in the RX FIFO stack.
+If the FIFO is disabled, the data byte and status are stored in the receiving holding register (the bottom word of the receive FIFO). The received data can be retrieved by reading this register." offset="0x12c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Received Data. 
+
+This field contains the last received data." id="VALUE" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="255" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x0"/>
+	</register>
+	<register acronym="TXDATA" id="txdata" width="32" description="Transmit data register. 
+This register is the transmit data register (the interface to the FIFOs). For transmitted data, if the FIFO is enabled, data written to this location is pushed onto the transmit FIFO. If the FIFO is disabled, data is stored in the transmitter holding register (the bottom word of the transmit FIFO)." offset="0x130">
+		<bitfield width="8" end="0" begin="7" rwaccess="RW" description="Transmit data
+This byte contains the data to be transferred during the next transaction." id="VALUE" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="255" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED8" resetval="0x0"/>
+	</register>
+	<register acronym="TACKCTL" id="tackctl" width="32" description="This register enables the target to not acknowledge (NACK) for invalid data or command or acknowledge (ACK) for valid data or command. The *I2C* clock is pulled low after the last data field until this register is written." offset="0x134">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Target ACK override enable" id="ACKOEN" resetval="0x0">
+			<bitenum id="DIS" value="0" token="A response in not provided." description="A response in not provided."/>
+			<bitenum id="EN" value="1" token="An ACK or NACK is sent according to the value written to the ACKOVAL field." description="An ACK or NACK is sent according to the value written to the ACKOVAL field."/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Target ACK override Value
+
+Note: For general call this field will be ignored if set to NACK and target continues to receive data." id="ACKOVAL" resetval="0x0">
+			<bitenum id="DIS" value="0" token="An ACK is sent indicating valid data or command." description="An ACK is sent indicating valid data or command."/>
+			<bitenum id="EN" value="1" token="A NACK is sent indicating invalid data or command." description="A NACK is sent indicating invalid data or command."/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="When set this field will automatically turn on the target ACKOEN field following a start condition." id="ACKOENONSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="When set this field will automatically turn on the Target ACKOEN field following a start condition." description="When set this field will automatically turn on the Target ACKOEN field following a start condition."/>
+			<bitenum id="DIS" value="0" token="No special behavior" description="No special behavior"/>
+		</bitfield>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x0"/>
+	</register>
+	<register acronym="FIFOCTL" id="fifoctl" width="32" description="Target FIFO control" offset="0x138">
+		<bitfield width="3" end="0" begin="2" rwaccess="RW" description="TX FIFO trigger
+Indicates at what fill level in the TX FIFO a trigger will be generated." id="TXTRIG" resetval="0x0">
+			<bitenum id="EMPTY" value="0" token="Trigger when the TX FIFO is empty." description="Trigger when the TX FIFO is empty."/>
+			<bitenum id="LEVEL_1" value="1" token="Trigger when TX FIFO contains bigger or equal to 1 byte" description="Trigger when TX FIFO contains bigger or equal to 1 byte"/>
+			<bitenum id="LEVEL_2" value="2" token="Trigger when TX FIFO contains bigger or equal to 2 byte" description="Trigger when TX FIFO contains bigger or equal to 2 byte"/>
+			<bitenum id="LEVEL_3" value="3" token="Trigger when TX FIFO contains bigger or equal to 3 byte" description="Trigger when TX FIFO contains bigger or equal to 3 byte"/>
+			<bitenum id="LEVEL_6" value="6" token="Trigger when TX FIFO contains bigger or equal to 6 byte" description="Trigger when TX FIFO contains bigger or equal to 6 byte"/>
+			<bitenum id="LEVEL_4" value="4" token="Trigger when TX FIFO contains bigger or equal to  4 byte" description="Trigger when TX FIFO contains bigger or equal to  4 byte"/>
+			<bitenum id="LEVEL_5" value="5" token="Trigger when TX FIFO contains bigger or equal to  5 byte" description="Trigger when TX FIFO contains bigger or equal to  5 byte"/>
+			<bitenum id="LEVEL_7" value="7" token="Trigger when TX FIFO contains bigger or equal to  7 byte" description="Trigger when TX FIFO contains bigger or equal to  7 byte"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="TX FIFO flush
+Setting this field will flush the TX FIFO.
+Before resetting this field to stop flush the TXFIFOCNT should be checked to be 8 and indicating that the flush has completed." id="TXFLUSH" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Do not flush FIFO" description="Do not flush FIFO"/>
+			<bitenum id="EN" value="1" token="flush FIFO" description="flush FIFO"/>
+		</bitfield>
+		<bitfield width="1" end="15" begin="15" rwaccess="RW" description="RX FIFO flush
+Setting this field will flush the RX FIFO.
+Before resetting this field to stop flush the [FIFOSR.RXFIFOCNT] should be checked to be 0 and indicating that the flush has completed." id="RXFLUSH" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Do not flush FIFO" description="Do not flush FIFO"/>
+			<bitenum id="EN" value="1" token="Flush FIFO" description="Flush FIFO"/>
+		</bitfield>
+		<bitfield width="3" end="8" begin="10" rwaccess="RW" description="RX FIFO trigger
+Indicates at what fill level in the RX FIFO a trigger will be generated.
+Note: Programming this field to 0x0 has no effect since no data is
+present to transfer out of RX FIFO." id="RXTRIG" resetval="0x0">
+			<bitenum id="LEVEL_1" value="0" token="Trigger when RX FIFO contains &gt;= 1 byte" description="Trigger when RX FIFO contains &gt;= 1 byte"/>
+			<bitenum id="LEVEL_2" value="1" token="Trigger when RX FIFO contains &gt;= 2 byte" description="Trigger when RX FIFO contains &gt;= 2 byte"/>
+			<bitenum id="LEVEL_3" value="2" token="Trigger when RX FIFO contains &gt;= 3 byte" description="Trigger when RX FIFO contains &gt;= 3 byte"/>
+			<bitenum id="LEVEL_4" value="3" token="Trigger when RX FIFO contains &gt;= 4 byte" description="Trigger when RX FIFO contains &gt;= 4 byte"/>
+			<bitenum id="LEVEL_5" value="4" token="Trigger when RX FIFO contains &gt;= 5 byte" description="Trigger when RX FIFO contains &gt;= 5 byte"/>
+			<bitenum id="LEVEL_6" value="5" token="Trigger when RX FIFO contains &gt;= 6 byte" description="Trigger when RX FIFO contains &gt;= 6 byte"/>
+			<bitenum id="LEVEL_7" value="6" token="Trigger when RX FIFO contains &gt;= 7 byte" description="Trigger when RX FIFO contains &gt;= 7 byte"/>
+			<bitenum id="LEVEL_8" value="7" token="Trigger when RX FIFO contains &gt;= 8 byte" description="Trigger when RX FIFO contains &gt;= 8 byte"/>
+		</bitfield>
+		<bitfield width="4" end="3" begin="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED3" resetval="0x0"/>
+		<bitfield width="4" end="11" begin="14" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED11" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Reads to this field return zero.Writes to this field are ignored." id="RESERVED16" resetval="0x0"/>
+	</register>
+	<register acronym="FIFOSR" id="fifosr" width="32" description="FIFO status register
+Note: This register should only be read when BUSY is 0" offset="0x13c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Number of bytes which could be read from the RX FIFO" id="RXFIFOCNT" resetval="0x800">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="8" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Number of bytes which could be put into the TX FIFO" id="TXFIFOCNT" resetval="0x800">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="8" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="1" end="15" begin="15" rwaccess="RO" description="TX FIFO flush
+When this field is set a flush operation for the TX FIFO is active. Clear [FIFOCTL.TXFLUSH] to stop." id="TXFLUSH" resetval="0x800">
+			<bitenum id="CLEAR" value="0" token="FIFO flush not active" description="FIFO flush not active"/>
+			<bitenum id="SET" value="1" token="FIFO flush active" description="FIFO flush active"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="RX FIFO flush
+When this field is set a flush operation for the RX FIFO is active. Clear the [FIFOCTL.RXFLUSH] field to stop." id="RXFLUSH" resetval="0x800">
+			<bitenum id="CLEAR" value="0" token="FIFO flush not active" description="FIFO flush not active"/>
+			<bitenum id="SET" value="1" token="FIFO flush active" description="FIFO flush active"/>
+		</bitfield>
+		<bitfield width="3" end="4" begin="6" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED4" resetval="0x800"/>
+		<bitfield width="3" end="12" begin="14" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED12" resetval="0x800"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED16" resetval="0x800"/>
+	</register>
+	<register acronym="FCLK_DIV" id="fclk_div" width="32" description="Register for the selection of divider value to generate functional clock from SVT clock" offset="0x140">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Divider value selection" id="FCLKDIV" resetval="0x0">
+			<bitenum id="BY_1" value="0" token="Divide by 1 = 80MHz" description="Divide by 1 = 80MHz"/>
+			<bitenum id="BY_2" value="1" token="Divide by 2 = 40MHz" description="Divide by 2 = 40MHz"/>
+			<bitenum id="BY_4" value="2" token="Divide by 4 = 20MHz" description="Divide by 4 = 20MHz"/>
+			<bitenum id="BY_5" value="3" token="Divide by 5 = 16MHz" description="Divide by 5 = 16MHz"/>
+			<bitenum id="BY_8" value="4" token="Divide by 8 = 10MHz" description="Divide by 8 = 10MHz"/>
+			<bitenum id="BY_10" value="5" token="Divide by 10 = 8MHz" description="Divide by 10 = 8MHz"/>
+			<bitenum id="BY_16" value="6" token="Divide by 16 = 5MHz" description="Divide by 16 = 5MHz"/>
+			<bitenum id="BY_20" value="7" token="Divide by 20 = 4MHz" description="Divide by 20 = 4MHz"/>
+			<bitenum id="BY_25" value="8" token="Divide by 25 = 3.2MHz" description="Divide by 25 = 3.2MHz"/>
+			<bitenum id="BY_32" value="9" token="Divide by 32 = 2.5MHz" description="Divide by 32 = 2.5MHz"/>
+			<bitenum id="BY_40" value="10" token="Divide by 40 = 2MHz" description="Divide by 40 = 2MHz"/>
+			<bitenum id="BY_80" value="11" token="Divide by 80 = 1MHz" description="Divide by 80 = 1MHz"/>
+		</bitfield>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" id="RESERVED4" resetval="0x0"/>
+	</register>
+	<register acronym="PDBGCTL" id="pdbgctl" width="32" description="This register can be used by the software developer to control the behavior of the peripheral relative to the 'Core Halted' input" offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Free run control" id="FREE" resetval="1">
+			<bitenum id="DIS" value="0" token="The peripheral freezes functionality while the Core Halted input is asserted and resumes when it is deasserted." description="The peripheral freezes functionality while the Core Halted input is asserted and resumes when it is deasserted."/>
+			<bitenum id="EN" value="1" token="The peripheral ignores the state of the Core Halted input" description="The peripheral ignores the state of the Core Halted input"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Soft halt boundary control. This function is only available, if FREE is set to 'STOP'" id="SOFT" resetval="1">
+			<bitenum id="DIS" value="0" token="The peripheral will halt immediately, even if the resultant state will result in corruption if the system is restarted" description="The peripheral will halt immediately, even if the resultant state will result in corruption if the system is restarted"/>
+			<bitenum id="EN" value="1" token="The peripheral blocks the debug freeze until it has reached a boundary where it can resume without corruption" description="The peripheral blocks the debug freeze until it has reached a boundary where it can resume without corruption"/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED2" resetval="0x0"/>
+	</register>
+	<register acronym="EVENT0_IMASK" id="event0_imask" width="32" description="Interrupt Mask. If a field is set, then corresponding interrupt is masked. Un-masking the interrupt causes the raw interrupt to be visible in [RIS], as well as [MIS]." offset="0x4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Controller receive transaction completed Interrupt" id="CRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="Address/Data NACK interrupt" id="CNACK" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="START detection interrupt" id="CSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="STOP detection interrupt" id="CSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="Arbitration lost interrupt" id="CARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Controller transmit transaction completed Interrupt" id="CTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="RXFIFO full event in controller mode. This interrupt is set if an RX FIFO is full in controller mode." id="RXFIFOFULLC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="TXFIFO empty interrupt in controller mode. This interrupt is set if all data in the TX FIFO in controller mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Receive FIFO trigger in controller code
+Trigger when RX FIFO contains &gt;= defined bytes" id="RXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="Transmit FIFO trigger in controller mode
+Trigger when TX FIFO contains &lt;= defined bytes" id="TXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="Target receive data interrupt. Signals that a byte has been received" id="TRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="Target transmit transaction completed interrupt" id="TTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="General call interrupt" id="TGENCALL" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="TX FIFO empty interrupt mask in target mode. This interrupt is set if all data in the Transmit FIFO in target mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="RX FIFO full event. This interrupt is set if an target RX FIFO is full in target mode." id="RXFIFOFULLT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="RX FIFO trigger in target mode" id="RXFIFOTRGMT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="TX FIFO trigger in target mode" id="TXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" description="Target start condition interrupt. Asserted when the received address matches the target address" id="TSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="23" begin="23" rwaccess="RW" description="Stop condition interrupt" id="TSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt Mask" description="Set Interrrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="25" begin="25" rwaccess="RW" description="TX FIFO underflow in target mode" id="TX_UNFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrupt Mask" description="Set Interrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="26" begin="26" rwaccess="RW" description="RX FIFO overflow in target mode" id="RX_OVFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrupt Mask" description="Set Interrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="1" end="27" begin="27" rwaccess="RW" description="Target arbitration lost" id="TARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrupt Mask" description="Set Interrupt Mask"/>
+			<bitenum id="DIS" value="0" token="Clear Interrupt Mask" description="Clear Interrupt Mask"/>
+		</bitfield>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED11" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+	</register>
+	<register acronym="EVENT0_RIS" id="event0_ris" width="32" description="Raw interrupt status. Reflects all pending interrupts, regardless of masking. The RIS register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the [ICLR] register field even if the corresponding [IMASK] field is not enabled." offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Controller receive transaction completed interrupt" id="CRXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Address/Data NACK interrupt" id="CNACK" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="START detection interrupt" id="CSTART" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="STOP detection interrupt" id="CSTOP" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Arbitration lost interrupt" id="CARBLOST" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Controller transmit transaction completed interrupt" id="CTXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="RX FIFO full event in controller mode. This interrupt is set if an RX FIFO is full in controller mode." id="RXFIFOFULLC" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="TX FIFO empty interrupt mask in controller mode. This interrupt is set if all data in the TX FIFO in controller mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYC" resetval="0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="RX FIFO trigger in controller mode
+Trigger when RX FIFO contains &gt;= defined bytes" id="RXFIFOTRGC" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="TX FIFO Trigger in Transmit Mode
+Trigger when TX FIFO contains &lt;= defined bytes" id="TXFIFOTRGC" resetval="0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Target receive data interrupt. Signals that a byte has been received" id="TRXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Target transmit transaction completed interrupt" id="TTXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" description="General call interrupt" id="TGENCALL" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="21" begin="21" rwaccess="RO" description="TX FIFO empty interrupt mask in target mode. This interrupt is set if all data in the TX FIFO in target mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="RX FIFO full event in target mode. This interrupt is set if an RX FIFO is full in target mode." id="RXFIFOFULLT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="RX FIFO trigger in target mode" id="RXFIFOTRGT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="TX FIFO trigger in target mode" id="TXFIFOTRGT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" description="Target start condition interrupt.When the received address matches the target address, this interrupt asserted." id="TSTART" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Stop condition interrupt" id="TSTOP" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="TX FIFO underflow in target mode" id="TX_UNFL_T" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" description="RX FIFO overflow in target mode" id="RX_OVFL_T" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt Occured" description="Interrupt Occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" description="Target arbitration lost" id="TARBLOST" resetval="0x0">
+			<bitenum id="SET" value="1" token="Interrupt occured" description="Interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Interrupt did not occur" description="Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+	</register>
+	<register acronym="EVENT0_MIS" id="event0_mis" width="32" description="Masked interrupt status. This is an AND of the [IMASK] and [RIS] registers." offset="0xc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Controller receive data interrupt" id="CRXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="Address/Data NACK interrupt" id="CNACK" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="START detection interrupt" id="CSTART" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="STOP detection interrupt" id="CSTOP" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="RO" description="Arbitration lost interrupt" id="CARBLOST" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="Controller transmit transaction completed interrupt" id="CTXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RO" description="RX FIFO full event. This interrupt is set if the RX FIFO is full in controller mode." id="RXFIFOFULLC" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RO" description="TX FIFO Empty interrupt mask in controller mode. This interrupt is set if all data in the TX FIFO in controller mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYC" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="RX FIFO trigger in controller mode
+Trigger when RX FIFO contains &gt;= defined bytes" id="RXFIFOTRGC" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="TX FIFO trigger in controller mode
+Trigger when TX FIFO contains &lt;= defined bytes" id="TXFIFOTRGC" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="Target receive data interrupt. Signals that a byte has been received" id="TRXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="RO" description="Target transmit transaction completed interrupt" id="TTXDONE" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="RO" description="General call interrupt" id="TGENCALL" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="21" begin="21" rwaccess="RO" description="TX FIFO empty interrupt mask in target mode. This interrupt is set if all data in the TX FIFO in target mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="20" begin="20" rwaccess="RO" description="RXFIFO full event in Target mode. This interrupt is set if an RX FIFO is full in target mode." id="RXFIFOFULLT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="RO" description="Target RX FIFO trigger" id="RXFIFOTRGT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="RO" description="TX FIFO trigger in target mode" id="TXFIFOTRGT" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="22" begin="22" rwaccess="RO" description="Target start condition interrupt. Asserted when the received address matches the target address" id="TSTART" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" description="Target STOP detection interrupt" id="TSTOP" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="25" begin="25" rwaccess="RO" description="TX FIFO underflow in target mode" id="TTX_UNFL" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="26" begin="26" rwaccess="RO" description="RX FIFO overflow in target mode" id="TRX_OVFL" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Masked Interrupt did not occur" description="Masked Interrupt did not occur"/>
+		</bitfield>
+		<bitfield width="1" end="27" begin="27" rwaccess="RO" description="Target arbitration lost" id="TARBLOST" resetval="0x0">
+			<bitenum id="SET" value="1" token="Masked interrupt occured" description="Masked interrupt occured"/>
+			<bitenum id="CLR" value="0" token="Clear interrupt mask" description="Clear interrupt mask"/>
+		</bitfield>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+	</register>
+	<register acronym="EVENT0_IEN" id="event0_ien" width="32" description="Interrupt set. Allows interrupts to be set by software (useful in diagnostics and safety checks). Writing a 1 to a field in IEN will set the event and therefore the related RIS field also gets set. If the interrupt is enabled through the mask, then the corresponding MIS field is also set." offset="0x10">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Controller receive data interrupt
+Signals that a byte has been received" id="CRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Address/Data NACK interrupt" id="CNACK" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="START detection interrupt" id="CSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="STOP detection interrupt" id="CSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Arbitration lost interrupt" id="CARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Controller transmit transaction completed interrupt" id="CTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="RXFIFO full event in controller mode." id="RXFIFOFULLC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="TX FIFO empty interrupt mask in controller mode. This interrupt is set if all data in the TX FIFO in controller mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="RX FIFO trigger in controller mode
+Trigger when RX FIFO contains &gt;= defined bytes" id="RXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="TX FIFO trigger in controller mode
+Trigger when TX FIFO contains &lt;= defined bytes" id="TXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" description="Target receive data interrupt. Signals that a byte has been received" id="TRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="WO" description="Target transmit transaction completed Interrupt" id="TTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="WO" description="General call interrupt" id="TGENCALL" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="21" begin="21" rwaccess="WO" description="TX FIFO empty interrupt mask in target mode. This interrupt is set if all data in the TX FIFO in target mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="20" begin="20" rwaccess="WO" description="RXFIFO full event in Target mode. This interrupt is set if an RX FIFO is full in Target mode." id="RXFIFOFULLT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="WO" description="RX FIFO trigger in target mode" id="RXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="WO" description="TX FIFO trigger in target mode" id="TXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="22" begin="22" rwaccess="WO" description="Target start condition interrupt. Asserted when the received address matches the target address" id="TSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="23" begin="23" rwaccess="WO" description="Stop condition interrupt" id="TSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="25" begin="25" rwaccess="WO" description="TX FIFO underflow in target mode" id="TX_UNFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set interrupt" description="Set interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="26" begin="26" rwaccess="WO" description="RX FIFO overflow in target mode" id="RX_OVFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrrupt" description="Set Interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="27" begin="27" rwaccess="WO" description="Target arbitration lost" id="TARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set Interrupt" description="Set Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="WO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+	</register>
+	<register acronym="EVENT0_IDIS" id="event0_idis" width="32" description="Interrupt clear. Write a 1 to clear corresponding Interrupt." offset="0x14">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Controller receive data interrupt. Signals that a byte has been received" id="CRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Address/Data NACK interrupt" id="CNACK" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="START detection interrupt" id="CSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="STOP detection interrupt" id="CSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Arbitration lost interrupt" id="CARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Controller transmit transaction completed interrupt" id="CTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="RXFIFO full event in controller mode." id="RXFIFOFULLC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="TX FIFO empty interrupt mask. This interrupt is set if all data in the TX FIFO have been shifted out and the transmit goes into idle mode." id="TXEMPTYC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="RX FIFO trigger in controller mode
+Trigger when RX FIFO contains &gt;= defined bytes" id="RXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="TX FIFO trigger in controller mode
+Trigger when TX FIFO contains &lt;= defined bytes" id="TXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" description="Target receive data interrupt
+Signals that a byte has been received" id="TRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="WO" description="Target transmit transaction completed interrupt" id="TTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="WO" description="General call interrupt" id="TGENCALL" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="21" begin="21" rwaccess="WO" description="TX FIFO empty interrupt mask in target mode. This interrupt is set if all data in the TX FIFO in target mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="20" begin="20" rwaccess="WO" description="RXFIFO full event in target mode. This interrupt is set if an RX FIFO is full in target mode." id="RXFIFOFULLT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="WO" description="RX FIFO trigger in target mode" id="RXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="WO" description="TX FIFO trigger in target mode" id="TXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="22" begin="22" rwaccess="WO" description="Target start condition interrupt. Asserted when the received address matches the target address" id="TSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="23" begin="23" rwaccess="WO" description="Target STOP detection interrupt" id="TSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="25" begin="25" rwaccess="WO" description="TX FIFO underflow	in target mode" id="TX_UNFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="26" begin="26" rwaccess="WO" description="RX FIFO overflow in target mode" id="RX_OVFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="27" begin="27" rwaccess="WO" description="Target arbitration lost" id="TARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear Interrupt" description="Clear Interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+	</register>
+	<register acronym="EVENT0_IMEN" id="event0_imen" width="32" description="Interrupt mask set. Writing a 1 to a field in IMEN will set the related IMASK field." offset="0x18">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Controller receive data interrupt. Signals that a byte has been received" id="CRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Address/Data NACK interrupt" id="CNACK" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="START detection interrupt" id="CSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="STOP detection interrupt" id="CSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Arbitration lost interrupt" id="CARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Controller transmit transaction completed interrupt" id="CTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="RXFIFO full event in controller mode." id="RXFIFOFULLC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="TX FIFO empty interrupt mask in controller mode. This interrupt is set if all data in the TX FIFO in controller mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="RX FIFO trigger in controller mode
+Trigger when RX FIFO contains &gt;= defined bytes" id="RXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="TX FIFO trigger in Controller mode
+Trigger when TX FIFO contains &lt;= defined bytes" id="TXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" description="Target receive data interrupt. Signals that a byte has been received" id="SRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="WO" description="Target transmit transaction completed interrupt" id="TTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="WO" description="General call interrupt" id="TGENCALL" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="21" begin="21" rwaccess="WO" description="TX FIFO Empty interrupt mask in target mode. This interrupt is set if all data in the TX FIFO in target mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="20" begin="20" rwaccess="WO" description="RXFIFO full event in target mode. This interrupt is set if an RX FIFO is full in target mode." id="RXFIFOFULLT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="WO" description="RX FIFO trigger in target mode" id="RXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="WO" description="TX FIFO trigger in target mode" id="TXFIFOTRGST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="22" begin="22" rwaccess="WO" description="Target start condition interrupt. Asserted when the received address matches the target address" id="TSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="23" begin="23" rwaccess="WO" description="Stop condition interrupt" id="TSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="25" begin="25" rwaccess="WO" description="TX FIFO underflow in target mode" id="TX_UNFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="26" begin="26" rwaccess="WO" description="RX FIFO overflow in target mode" id="RX_OVFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="27" begin="27" rwaccess="WO" description="Target srbitration lost" id="TARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Set masked interrrupt" description="Set masked interrrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="4" end="28" begin="31" rwaccess="WO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+	</register>
+	<register acronym="EVENT0_IMDIS" id="event0_imdis" width="32" description="Interrupt clear. Write a 1 to clear corresponding Interrupt." offset="0x1c">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Controller receive data interrupt. Signals that a byte has been received" id="CRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="WO" description="Address/Data NACK interrupt" id="CNACK" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="7" begin="7" rwaccess="WO" description="START detection interrupt" id="CSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="STOP detection interrupt" id="CSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="9" begin="9" rwaccess="WO" description="Arbitration lost interrupt" id="CARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="WO" description="Controller transmit transaction completed interrupt" id="CTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="WO" description="RX FIFO full event in controller mode." id="RXFIFOFULLC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="WO" description="TX FIFO empty interrupt mask. This interrupt is set if all data in the TX FIFO have been shifted out and the transmit goes into idle mode." id="TXEMPTYC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="WO" description="RX FIFO trigger in controller mode
+Trigger when RX FIFO contains &gt;= defined bytes" id="RXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="WO" description="TX FIFO trigger in controller mode
+Trigger when TX FIFO contains &lt;= defined bytes" id="TXFIFOTRGC" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" description="Target receive data interrupt. Signals that a byte has been received" id="TRXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="17" begin="17" rwaccess="WO" description="Target transmit transaction completed interrupt" id="TTXDONE" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="24" begin="24" rwaccess="WO" description="General call interrupt" id="TGENCALL" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="21" begin="21" rwaccess="WO" description="TX FIFO empty interrupt mask in target mode. This interrupt is set if all data in the TX FIFO in target mode have been shifted out and the transmit goes into idle mode." id="TXEMPTYT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="20" begin="20" rwaccess="WO" description="RXFIFO full event in target mode. This interrupt is set if an RX FIFO is full in target mode." id="RXFIFOFULLT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="18" begin="18" rwaccess="WO" description="RX FIFO trigger in target mode" id="RXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="19" begin="19" rwaccess="WO" description="TX FIFO trigger in target mode" id="TXFIFOTRGT" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="22" begin="22" rwaccess="WO" description="Target start condition interrupt. Asserted when the received address matches the target address." id="TSTART" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="23" begin="23" rwaccess="WO" description="Target STOP detection interrupt" id="TSTOP" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="25" begin="25" rwaccess="WO" description="TX FIFO underflow	in target mode" id="TX_UNFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="26" begin="26" rwaccess="WO" description="RX FIFO overflow in target mode" id="RX_OVFL_T" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="1" end="27" begin="27" rwaccess="WO" description="Target arbitration lost" id="TARBLOST" resetval="0x0">
+			<bitenum id="EN" value="1" token="Clear masked interrupt" description="Clear masked interrupt"/>
+			<bitenum id="DIS" value="0" token="Writing 0 has no effect" description="Writing 0 has no effect"/>
+		</bitfield>
+		<bitfield width="4" end="28" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED28" resetval="0x0"/>
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED10" resetval="0x0"/>
+	</register>
+	<register acronym="EVT_MODE" id="evt_mode" width="32" description="Event mode register. It is used to select whether each line is disabled, in software mode (software clears the [RIS]) or in hardware mode (hardware clears the [RIS])" offset="0x20">
+		<bitfield width="2" end="0" begin="1" rwaccess="RO" description="Event line mode select for event corresponding to [INT_EVENT0]" id="INT0_CFG" resetval="0x1">
+			<bitenum id="DIS" value="0" token="The interrupt or event line is disabled." description="The interrupt or event line is disabled."/>
+			<bitenum id="SOFTWARE" value="1" token="The interrupt or event line is in software mode. Software must clear the RIS." description="The interrupt or event line is in software mode. Software must clear the RIS."/>
+			<bitenum id="HARDWARE" value="2" token="The interrupt or event line is in hardware mode. The hardware (another module) clears automatically the associated RIS flag." description="The interrupt or event line is in hardware mode. The hardware (another module) clears automatically the associated RIS flag."/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="RESERVED2" resetval="0x0"/>
+	</register>
+	<register acronym="DESC" id="desc" width="32" description="This register identifies the peripheral and its exact version." offset="0x24">
+		<bitfield width="4" end="0" begin="3" rwaccess="RO" description="Minor rev of the IP" id="MINREV" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="4" begin="7" rwaccess="RO" description="Major rev of the IP" id="MAJREV" resetval="0x1">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="8" begin="11" rwaccess="RO" description="Instance Number within the device. This will be a parameter to the RTL for modules that can have multiple instances" id="INSTNUM" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" description="Feature Set for the module *instance*" id="FEATUREVER" resetval="0x0">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="15" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Module identification contains a unique peripheral identification number. The assignments are maintained in a central database for all of the platform modules to ensure uniqueness." id="MODULEID" resetval="0x1511">
+			<bitenum id="MINIMUM" value="0" token="Smallest value" description="Smallest value"/>
+			<bitenum id="MAXIMUM" value="65535" token="Highest possible value" description="Highest possible value"/>
+		</bitfield>
+	</register>
+	<register acronym="CLK_CFG" id="clk_cfg" width="32" description="This register controls the bus clock to *I2C*" offset="0x1000">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="This field enables or disables the bus clock to *I2C*" id="ENABLE" resetval="0x0">
+			<bitenum id="DIS" value="0" token="I2C clock disabled" description="I2C clock disabled"/>
+			<bitenum id="EN" value="1" token="I2C clock disabled" description="I2C clock disabled"/>
+		</bitfield>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Reads to this field return zero.Writes to this field are ignored." id="RESERVED1" resetval="0x0"/>
+	</register>
+</module>

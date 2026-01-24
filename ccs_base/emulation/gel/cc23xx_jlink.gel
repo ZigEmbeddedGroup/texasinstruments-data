@@ -1,0 +1,27 @@
+/* \file        cc23xx_jlink.gel
+ * \brief       GEL script for CC23xx and CC27xx device family + Segger J-Link.
+ *
+ * \revision    $Revision$
+ */
+
+OnTargetConnect()
+{
+    GEL_TextOut("OnTargetConnect()\n"); // DEBUG text
+    SetUpResets();
+}
+
+SetUpResets()
+{
+    /* Deleting unnecessary resets: // DEBUG text
+     * J-link does not support Board reset. // DEBUG text
+     * CPU reset is the same as Core reset.*/ //DEBUG text
+    GEL_TextOut("SetUpResets()\n"); // DEBUG text
+    // Remove unsupported resets
+    DEBUG_RemoveResets(2);
+}
+
+OnPreFileLoaded()
+{
+    ConnectIfDisconnected();
+}
+

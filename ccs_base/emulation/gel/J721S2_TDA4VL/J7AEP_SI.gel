@@ -1,0 +1,270 @@
+/**
+ * \file  J7AEP.gel
+ *
+ * \brief GEL File to control and manage other GEL functions for J7AEP
+ */
+
+/* Copyright (c) 2020, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*
+ *        Platform: Keystone 3 SoCs
+ *                     - Jacinto 7  (J7AEP)
+ *        Usage: This GEL will be run from CCS upon connection to the Cortex-M4F
+ *               CPU.
+ *        History:
+ *          See History.txt
+ */
+
+//Common Register Definitions
+#define WAKEUP_PSC_BASE                             (0x42000000U)
+#define MAIN_PSC_BASE                               (0x00400000U)
+#define PSC_PID                                     (0x44827A00U)
+#define M3_SOC_OFFSET                               (0x60000000U)
+#define CSL_MCU_SEC_MMR0_CFG0_BASE                  (0x45A50000U)
+#define CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE            (0x45A40000U)
+#define CSL_WKUP_DMSC0_RAT_BASE                     (0x44200000U)
+#define CSL_COMPUTE_CLUSTER0_DMSC_BOOT_BASE         (0x45A00000U)
+#define CSL_WKUP_CTRL_MMR0_CFG0_BASE                (0x43000000U)
+#define PARTITION_4_LOCK_VAL0                       (0x68EF3490U)
+#define PARTITION_4_LOCK_VAL1                       (0xD172BC5AU)
+
+
+StartUp(){
+    //Load the PLL GEL. 
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_PLL/J7AEP_PLL_MMR.gel");
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_PLL/J7AEP_PLL_PARAMS.gel");
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_PLL/J7AEP_PLL.gel");
+
+    //Load the Power Sleep Controller GEL.
+	GEL_LoadGel("$(GEL_file_dir)/J7AEP_PSC/J7AEP_PSC.gel");
+
+    //Load the DDR GELs.  
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_DDR_SI/J7-DDR-addr-map-offs.gel");
+
+    // ======================================================================== //
+    // TI EMIF tool 
+    // ======================================================================== //
+    // GEL_LoadGel("$(GEL_file_dir)/J7AEP_DDR_SI/J721S2-DDR-EVM-LP4-2132.gel");
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_DDR_SI/J721S2-DDR-EVM-LP4-4266.gel");
+
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_DDR_SI/J7_DDR_Config.gel");
+    
+    //Load the R5 lockstep gel
+	GEL_LoadGel( "$(GEL_file_dir)/J7AEP_R5LOCKSTEP.gel");
+
+    //Load the Register Poke GEL.
+    GEL_LoadGel("$(GEL_file_dir)/registerpoke.gel");
+
+    //Load the padconfig and OBSCLK GELs
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_PADCONFIG/J7AEP_PADCONFIG.gel");
+    GEL_LoadGel("$(GEL_file_dir)/J7AEP_OBSCLK/J7AEP_OBSCLK.gel");
+}
+
+OnTargetConnect(){
+    Configure_ATCM();
+    Configure_RAT();
+    Configure_R5F_Halt_Upon_PowerUp();
+    Configure_C71_Halt_Upon_PowerUp();
+    Set_All_PLL();
+    Set_PSC_All_On();
+	MCU_R5_Cluster_0_split();
+	MAIN_R5_Cluster_0_split();
+	MAIN_R5_Cluster_1_split();
+}
+
+menuitem "Initial Device Configuration";
+
+hotmenu Configure_RAT(){
+   //Configure RAT
+    unsigned int read_pid = 0;
+    unsigned int i0 = 0;
+    read_pid = *((unsigned int *)MAIN_PSC_BASE);
+    
+    GEL_TextOut( "This GEL is currently only supported for use from the Cortex-M3 inside the DMSC.\n");
+    GEL_TextOut( "Do not run this GEL from any other CPU on the SoC.\n");
+    GEL_TextOut( "This script sets the first address translation region to [0x8000_0000, 0x0000_0000].\n");
+    GEL_TextOut( "It also sets the second address translation region to    [0x6000_0000, 0x4000_0000].\n");
+    GEL_TextOut( "This is consistent with the SoC DV assumptions.\n");
+    // Configure the RAT for view into the SoC
+	// enable and set region size for first two regions
+	// region 0
+	*(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x24) = 0x80000000; //If the M3 reads from here -------> IN ADDRESS
+	*(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x28) = 0x00000000; //the RAT will retrieve data from here -> OUT ADDRESS
+    *(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x2C) = 0x00000000; //Upper 16 bits of the real physical address.
+	*(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x20) = 0x8000001D;
+	// region 1
+	*(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x44) = 0x60000000;  //IN ADDRESS
+	*(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x48) = 0x40000000;  //OUT ADDRESS
+    *(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x4C) = 0x00000000;  //Upper 16 bits of the real physical address.
+	*(unsigned int *)(CSL_WKUP_DMSC0_RAT_BASE + 0x40) = 0x8000001D;
+
+}
+
+hotmenu Configure_ATCM(){
+    //Enable ATCM
+    GEL_TextOut("Configuring ATCM for the R5Fs\n");
+    *((unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x100)) = 0x888;
+    *((unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x180)) = 0x888;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x100)) = 0x888;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x180)) = 0x888;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1100)) = 0x888;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1180)) = 0x888;
+    GEL_TextOut("ATCM Configured.\n");
+}
+
+hotmenu Configure_R5F_Bootvectors(){
+    //Set bootvector (default 0x822000) to 0x0.
+    GEL_TextOut("Configuring bootvectors\n");
+    *((unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x110)) = 0;
+    *((unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x114)) = 0;
+    *((unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x190)) = 0;
+    *((unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x194)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x110)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x114)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x190)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x194)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1110)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1114)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1190)) = 0;
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1194)) = 0;
+    GEL_TextOut("Bootvectors configured.\n");
+}
+
+hotmenu Configure_R5F_Halt_Upon_PowerUp(){
+    //Put all R5Fs in HALT mode upon PORz by writing to the MMRs.
+    *(unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x120) = 0x1; //MCU Core 0
+    *(unsigned int *)(CSL_MCU_SEC_MMR0_CFG0_BASE + 0x1A0) = 0x1; //MCU Core 1
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x120) = 0x1; //Main Core 0
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1A0) = 0x1; //Main Core 1
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x1120) = 0x1; //Main Core 2
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_BOOT_CTRL_BASE + 0x11A0) = 0x1; //Main Core 3
+    GEL_TextOut("R5F Halt bits set.\n");
+}
+
+hotmenu Configure_C71_Halt_Upon_PowerUp() {
+    //Configure all C7x DSPs to wait in reset.
+    *(unsigned int *)(0x62060244) = 0x1; // allow reset modes without firmware (rat addr)
+    GEL_EvalOnTarget("C71X_0", "GEL_SetWaitInResetMode(1)");
+    GEL_EvalOnTarget("C71X_1", "GEL_SetWaitInResetMode(1)");
+    GEL_TextOut("C71X_x DSPs configured for Wait In Reset Mode\n");
+}
+
+hotmenu Configure_C71_Bootvector(){
+    *(unsigned int *)(CSL_COMPUTE_CLUSTER0_DMSC_BOOT_BASE + 0x5008) = (0x64801000/4);
+    *(unsigned int *)(CSL_COMPUTE_CLUSTER0_DMSC_BOOT_BASE + 0x6008) = (0x64801000/4);
+    GEL_TextOut("C71 Bootvectors configured.\n");
+}
+
+/* ************************************************************************* */
+/* Global Helper Functions */
+/* ************************************************************************* */
+
+/* Read from an MMR. */
+Read_MMR(unsigned int mmr_address){
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    return *p_mmr;
+}
+
+/* Write to an MMR. */
+Write_MMR(unsigned int mmr_address, unsigned int mmr_value){
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    *p_mmr = mmr_value;
+}
+
+/* Write to a specific field in an MMR. */
+Write_MMR_Field(unsigned int mmr_address, unsigned int field_value, unsigned int width, unsigned int leftshift){
+    unsigned int * p_mmr;
+    unsigned int mask;
+    p_mmr = (unsigned int *) mmr_address;   //Grab the MMR value
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field. 
+    mask = ~(mask); //Invert the mask so that the field will be zero'd out with the AND operation.
+    *p_mmr &= mask; //Zero out the field in the register.
+    *p_mmr |= (field_value << leftshift); //Assign the value to that specific field.
+}
+
+/* Read from a specific field in an MMR. */
+Read_MMR_Field(unsigned int mmr_address, unsigned int width, unsigned int leftshift){
+    unsigned int * p_mmr;
+    unsigned int mask;
+    unsigned int retval;
+    p_mmr = (unsigned int *) mmr_address;
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field. 
+    retval = (*p_mmr & mask) >> leftshift; //Bitwise AND the mask with the register value, and then shift the field back down to the LSB
+    return retval;
+}
+
+/* END OF FILE */
+
+//TIFS_SEC_MMR Register Definition
+#define TIFS_SEC_LOCK0_KICK0        (0x44230020)
+#define TIFS_SEC_LOCK0_KICK1        (0x44230024)
+#define SEC_HSM_RESET               (0x44230800)
+//TIFS_SEC_MMR UNLOCK KEY
+#define HSM_KICK0_UNLOCK            (0xF457C023)
+#define HSM_KICK1_UNLOCK            (0x93B0A410)
+#define HSM_M4_IRAM_BASE_ADDRESS            (0x43C00000UL)
+
+
+Load_HSM_M4_WFI_Vector(){
+    //Goal is to load in a valid stack pointer and reset vector so the M4 does not enter a hard fault when turned on
+    unsigned int address_offset = 0;
+    address_offset = 0x20000000;
+
+    //Set the stack pointer to 0x1000 for M4
+    *((unsigned int *)(HSM_M4_IRAM_BASE_ADDRESS+address_offset+0x0)) = 0x00001000;
+
+    //Set the reset vector, nmi, and hard fault vector for M4 to be a location with no code so it spins, but have bit[0] of the vectors =1 so it does not hard fault
+    *((unsigned int *)(HSM_M4_IRAM_BASE_ADDRESS+address_offset+0x4)) = 0x00000400 + 0x1; //Reset Vector
+
+    //Zero out the location specified so it does not do anything
+    *((unsigned int *)(HSM_M4_IRAM_BASE_ADDRESS+address_offset+0x400)) = 0xBF30BF30;
+
+    GEL_TextOut("HSM_M4F WFI Vector set into IRAM.\n");
+}
+
+hotmenu Init_HSM_M4() {
+
+    GEL_TextOut("Initializing HSM_M4F ...\n");
+
+    //Unlock TIFS_SEC_MMR
+    *((unsigned int *)(TIFS_SEC_LOCK0_KICK0)) = HSM_KICK0_UNLOCK;
+    *((unsigned int *)(TIFS_SEC_LOCK0_KICK1)) = HSM_KICK1_UNLOCK;
+
+    //Release SEC_HSM_RESET
+    *((unsigned int *)(SEC_HSM_RESET)) = 0x1;
+
+    change_HSM_M4_LRST(1);
+    Load_HSM_M4_WFI_Vector();
+    change_HSM_M4_LRST(0);
+    GEL_TextOut("HSM_M4F Initialized.\n");
+}

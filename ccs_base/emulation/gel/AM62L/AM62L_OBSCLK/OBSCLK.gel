@@ -1,0 +1,113 @@
+/**
+ * \file  AM62L_OBSCLK.gel
+ *
+ * \brief GEL File to control and manage the OBSCLK for AM62L
+ */
+
+/* Copyright (c) 2024, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*
+ *        Platform: Keystone 3 SoCs
+ *                     - AM62L
+ *        Usage: This GEL configure the OBSCLK
+ */
+
+#define OFFSET 0x80000000
+
+menuitem "OBSCLK";
+
+menuitem "OBSCLK/WKUP_OBSCLK";
+
+hotmenu WKUP_OBSCLK_PINMUX()
+{
+	//PADCONFIG 2
+	Write_MMR_Field(OFFSET + CSL_WKUP_PADCFG_CTRL0_CFG0_BASE + 0x4008, 2, 4, 0);
+	Write_MMR_Field(OFFSET + CSL_WKUP_PADCFG_CTRL0_CFG0_BASE + 0x4008, 0, 1, 21);
+	GEL_TextOut("PADCONFIG_2 set to mux mode 2 for WKUP_OBSCLK output on WKUP_UART0_CTSn pin.\n");
+}
+
+dialog WKUP_OBSCLK_SELECT(clkSel "Clock Select(1 for direct HFOSC): ", divVal "Divide by (1 to 16): ")
+{
+	//Set the clock source selection
+	Write_MMR(OFFSET + CSL_WKUP_CTRL_MMR0_CLK_MMRS_BASE + 0x200, clkSel);
+	if(clkSel == 1){
+		Write_MMR(OFFSET + CSL_WKUP_CTRL_MMR0_CLK_MMRS_BASE + 0x204, 1);
+	}else{
+		Write_MMR(OFFSET + CSL_WKUP_CTRL_MMR0_CLK_MMRS_BASE + 0x204, 0);
+	}
+	
+	//Set clock divider value
+	Write_MMR_Field(OFFSET + CSL_WKUP_CTRL_MMR0_CLK_MMRS_BASE + 0x208, divVal - 1, 4, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(OFFSET + CSL_WKUP_CTRL_MMR0_CLK_MMRS_BASE + 0x208, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(OFFSET + CSL_WKUP_CTRL_MMR0_CLK_MMRS_BASE + 0x208, 1, 1, 16);
+
+	GEL_TextOut("WKUP_OBSCLK set to clock source selection %d divided by %d.\n",,,,,clkSel, divVal);
+}
+
+menuitem "OBSCLK/MAIN_OBSCLK";
+
+hotmenu MAIN_OBSCLK_PINMUX0()
+{
+    //PADCONFIG 40
+    Write_MMR_Field(OFFSET + CSL_WKUP_PADCFG_CTRL0_CFG0_BASE + 0x40A0, 8, 4, 0); //muxmode = 8
+    Write_MMR_Field(OFFSET + CSL_WKUP_PADCFG_CTRL0_CFG0_BASE + 0x40A0, 0, 1, 21);
+    GEL_TextOut("PADCONFIG_40 set to mux mode 8 for MAIN_OBSCLK output on GPMC0_AD10 pin.\n");
+}
+
+hotmenu MAIN_OBSCLK_PINMUX1()
+{
+	//PADCONFIG 115
+	Write_MMR_Field(OFFSET + CSL_WKUP_PADCFG_CTRL0_CFG0_BASE + 0x41CC, 3, 4, 0); //muxmode = 3
+	Write_MMR_Field(OFFSET + CSL_WKUP_PADCFG_CTRL0_CFG0_BASE + 0x41CC, 0, 1, 21);
+	GEL_TextOut("PADCONFIG_115 set to mux mode 3 for MAIN_OBSCLK output on I2C0_SCL pin.\n");
+}
+
+dialog MAIN_OBSCLK_SELECT(clkSel "Clock Select(15 for direct HFOSC): ", divVal "Divide by (1 to 16): ")
+{
+	//Set the clock source selection
+	Write_MMR_Field(OFFSET + CSL_CTRL_MMR0_CLK_MMRS_BASE + 0x9000, clkSel, 4, 0);
+	if(clkSel == 15){
+		Write_MMR_Field(OFFSET + CSL_CTRL_MMR0_CLK_MMRS_BASE + 0x9000, 1, 1, 24);
+	}else{
+		Write_MMR_Field(OFFSET + CSL_CTRL_MMR0_CLK_MMRS_BASE + 0x9000, 0, 1, 24);
+	}
+	
+	//Set clock divider value
+	Write_MMR_Field(OFFSET + CSL_CTRL_MMR0_CLK_MMRS_BASE + 0x9010, divVal - 1, 4, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(OFFSET + CSL_CTRL_MMR0_CLK_MMRS_BASE + 0x9010, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(OFFSET + CSL_CTRL_MMR0_CLK_MMRS_BASE + 0x9010, 1, 1, 16);
+
+	GEL_TextOut("MAIN_OBSCLK set to clock source selection %d divided by %d.\n",,,,,clkSel, divVal);
+}

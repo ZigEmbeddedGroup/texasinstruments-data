@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="C6672" partnum="TMS320C6672" HW_revision="1" XML_version="2" desc="TMS320C6672" description="C66x core">
+<!-- Filter for Project Wizard -->
+	<property Type="stringfield" Value="C66xx Multicore DSP" id="FilterString" />	
+	<instance XML_version="1.2" desc="IcePick_D" href="routers/icepick_d.xml" id="IcePick_D_0" xml="icepick_d.xml" xmlpath="routers" />
+		<router HW_revision="1.0" XML_version="1.2" description="ICEPick_D Router" id="IcePick_D_0" isa="ICEPICK_D">
+		<subpath id="subpath_0">
+			<property Type="numericfield" Value="0x1" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="1" id="Pseudo Address"/>	
+			<instance XML_version="1.2" desc="C66xx_0" href="cpus/c66xx.xml" id="C66xx_0" xml="c66xx.xml" xmlpath="cpus" />
+				<cpu HW_revision="1.0" XML_version="1.2" desc="C66xx_0" description="C66xx CPU" id="C66xx_0" isa="TMS320c66xx">
+					<property Type="numericfield" Value="0x1" id="TraceDeviceId" />
+					<property Type="stringfield" Value="--silicon_version=6600" id="CompilerBuildOptions" />
+					<property Type="stringfield" Value="true" id="IsElfDefault" />
+					<property Type="stringfield" Value="Auto" id="Domain Power Loss Mode"/>					
+
+					<!-- NETCP-->
+					<instance href="../Modules/Keystone/pass.xml" id="NETCP" xml="pass.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Network Coprocessor" requestor="TMS320C6672" baseaddr="0x02000000" endaddr="0x020FFFFF" size="0x100000" accessnumbytes="4" permissions="p" />
+					<!-- NETCP PDSP REGISTERS -->
+					<instance href="../Modules/Keystone/pdsp/cmdinterface.xml" id="NETCP_PDSP_CMD_INTERFACE" xml="cmdinterface.xml" xmlpath="../Modules/Keystone/pdsp/" HW_version="TMS320C6672" description="NETCP PDSP Command Interface" requestor="TMS320C6672" baseaddr="0x02001000" endaddr="0x0200101F" size="0x20" accessnumbytes="4" permissions="p" />          
+					<!-- NETCP PACKET DMA REGISTERS -->  
+					<instance href="../Modules/Keystone/pktdma/globalctrl.xml" id="NETCP_PKTDMA_CTRL" xml="globalctrl.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="NETCP Packet DMA Global Control" requestor="TMS320C6672" baseaddr="0x02004000" endaddr="0x0200401F" size="0x20" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/txchannel.xml" id="NETCP_PKTDMA_TX_CHANNEL" xml="txchannel.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="NETCP Packet DMA Tx Channel Config" requestor="TMS320C6672" baseaddr="0x02004400" endaddr="0x02004407" size="0x8" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/rxchannel.xml" id="NETCP_PKTDMA_RX_CHANNEL" xml="rxchannel.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="NETCP Packet DMA Rx Channel Config" requestor="TMS320C6672" baseaddr="0x02004800" endaddr="0x02004803" size="0x4" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/txscheduler.xml" id="NETCP_PKTDMA_TX_SCHED" xml="txscheduler.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="NETCP Packet DMA Tx Scheduler Config" requestor="TMS320C6672" baseaddr="0x02004C00" endaddr="0x02004C03" size="0x4" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/rxflow.xml" id="NETCP_PKTDMA_RX_FLOW" xml="rxflow.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="NETCP Packet DMA Rx Flow Config" requestor="TMS320C6672" baseaddr="0x02005000" endaddr="0x0200500F" size="0x20" accessnumbytes="4" permissions="p" />
+					<!-- TIMERS [0-15]-->
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER0" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 0" requestor="TMS320C6672" baseaddr="0x02200000" endaddr="0x0220007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER1" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 1" requestor="TMS320C6672" baseaddr="0x02210000" endaddr="0x0221007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER2" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 2" requestor="TMS320C6672" baseaddr="0x02220000" endaddr="0x0222007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER3" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 3" requestor="TMS320C6672" baseaddr="0x02230000" endaddr="0x0223007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER4" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 4" requestor="TMS320C6672" baseaddr="0x02240000" endaddr="0x0224007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER5" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 5" requestor="TMS320C6672" baseaddr="0x02250000" endaddr="0x0225007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER6" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 6" requestor="TMS320C6672" baseaddr="0x02260000" endaddr="0x0226007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER7" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 7" requestor="TMS320C6672" baseaddr="0x02270000" endaddr="0x0227007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER8" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 8" requestor="TMS320C6672" baseaddr="0x02280000" endaddr="0x0228007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER9" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 9" requestor="TMS320C6672" baseaddr="0x02290000" endaddr="0x0229007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER10" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 10" requestor="TMS320C6672" baseaddr="0x022A0000" endaddr="0x022A007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER11" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 11" requestor="TMS320C6672" baseaddr="0x022B0000" endaddr="0x022B007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER12" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 12" requestor="TMS320C6672" baseaddr="0x022C0000" endaddr="0x022C007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER13" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 13" requestor="TMS320C6672" baseaddr="0x022D0000" endaddr="0x022D007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER14" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 14" requestor="TMS320C6672" baseaddr="0x022E0000" endaddr="0x022E007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/timer.xml" id="TIMER15" xml="timer.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Timer 15" requestor="TMS320C6672" baseaddr="0x022F0000" endaddr="0x022F007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<!-- GPIO -->
+					<instance href="../Modules/Keystone/gpio.xml" id="GPIO" xml="gpio.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="GPIO" requestor="TMS320C6672" baseaddr="0x02320000" endaddr="0x023200FF" size="0x100" accessnumbytes="4" permissions="p" />
+					<!-- MEMORY PROTECTION UNIT [0-3]-->
+					<instance href="../Modules/Keystone/mpu.xml" id="MPU0" xml="mpu.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Memory Protection Unit 0" requestor="TMS320C6672" baseaddr="0x02360000" endaddr="0x023603FF" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/mpu.xml" id="MPU1" xml="mpu.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Memory Protection Unit 1" requestor="TMS320C6672" baseaddr="0x02368000" endaddr="0x023683FF" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/mpu.xml" id="MPU2" xml="mpu.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Memory Protection Unit 2" requestor="TMS320C6672" baseaddr="0x02370000" endaddr="0x023703FF" size="0x400" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/mpu.xml" id="MPU3" xml="mpu.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Memory Protection Unit 3" requestor="TMS320C6672" baseaddr="0x02378000" endaddr="0x023783FF" size="0x400" accessnumbytes="4" permissions="p" />
+					<!-- I2C Data and Control -->
+					<instance href="../Modules/Keystone/i2c.xml" id="I2C" xml="i2c.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="I2C Data and Control" requestor="TMS320C6672" baseaddr="0x02530000" endaddr="0x0253007F" size="0x80" accessnumbytes="4" permissions="p" />
+					<!-- Secondary Interrupt Controller INTC [0-3] -->
+					<instance href="../Modules/Keystone/intc.xml" id="INTC0" xml="intc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Secondary Interrupt Controller (0)" requestor="TMS320C6672" baseaddr="0x02600000" endaddr="0x02601FFF" size="0x2000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/intc.xml" id="INTC1" xml="intc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Secondary Interrupt Controller (1)" requestor="TMS320C6672" baseaddr="0x02604000" endaddr="0x02605FFF" size="0x2000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/intc.xml" id="INTC2" xml="intc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Secondary Interrupt Controller (2)" requestor="TMS320C6672" baseaddr="0x02608000" endaddr="0x02609FFF" size="0x2000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/intc.xml" id="INTC3" xml="intc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Secondary Interrupt Controller (3)" requestor="TMS320C6672" baseaddr="0x0260C000" endaddr="0x0260DFFF" size="0x2000" accessnumbytes="4" permissions="p" />
+					<!-- SEMAPHORE -->
+					<instance href="../Modules/Keystone/sem.xml" id="SEM" xml="sem.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Semaphore" requestor="TMS320C6672" baseaddr="0x02640000" endaddr="0x026407FF" size="0x800" accessnumbytes="4" permissions="p" />
+					<!-- EDMA Channel Controller (TPCC) [0-2] -->
+					<instance href="../Modules/Keystone/edma_cc.xml" id="EDMACC0" xml="edmacc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="EDMA Channel Controller (TPCC) 0" requestor="TMS320C6672" baseaddr="0x02700000" endaddr="0x02707FFF" size="0x8000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/edma_cc.xml" id="EDMACC1" xml="edmacc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="EDMA Channel Controller (TPCC) 1" requestor="TMS320C6672" baseaddr="0x02720000" endaddr="0x02727FFF" size="0x8000" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/edma_cc.xml" id="EDMACC2" xml="edmacc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="EDMA Channel Controller (TPCC) 2" requestor="TMS320C6672" baseaddr="0x02740000" endaddr="0x02747FFF" size="0x8000" accessnumbytes="4" permissions="p" />
+					<!-- SRIO -->
+					<instance href="../Modules/Keystone/srio.xml" id="SRIO" xml="srio.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Serial RapidIO (SRIO) Configuration" requestor="TMS320C6672" baseaddr="0x02900000" endaddr="0x02920FFF" size="0x21000" accessnumbytes="4" permissions="p" />
+					<!-- SRIO PKTDMA REGISTERS -->
+					<instance href="../Modules/Keystone/pktdma/globalctrl.xml" id="SRIO_PKTDMA_CTRL" xml="globalctrl.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="SRIO Packet DMA Global Control" requestor="TMS320C6672" baseaddr="0x02901000" endaddr="0x0290101F" size="0x20" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/txchannel.xml" id="SRIO_PKTDMA_TX_CHANNEL" xml="txchannel.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="SRIO Packet DMA Tx Channel Config" requestor="TMS320C6672" baseaddr="0x02901400" endaddr="0x02901407" size="0x8" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/rxchannel.xml" id="SRIO_PKTDMA_RX_CHANNEL" xml="rxchannel.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="SRIO Packet DMA Rx Channel Config" requestor="TMS320C6672" baseaddr="0x02901800" endaddr="0x02901803" size="0x4" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/txscheduler.xml" id="SRIO_PKTDMA_TX_SCHED" xml="txscheduler.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="SRIO Packet DMA Tx Scheduler Config" requestor="TMS320C6672" baseaddr="0x02901C00" endaddr="0x02901C03" size="0x4" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/rxflow.xml" id="SRIO_PKTDMA_RX_FLOW" xml="rxflow.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="SRIO Packet DMA Rx Flow Config" requestor="TMS320C6672" baseaddr="0x02902000" endaddr="0x0290201F" size="0x20" accessnumbytes="4" permissions="p" />          
+					<!-- QMSS  -->
+					<instance href="../Modules/Keystone/qmss.xml" id="QMSS" xml="qmss.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Queue Manager Subsystem Configuration" requestor="TMS320C6672" baseaddr="0x02A00000" endaddr="0x02BFFFFF" size="0x200000" accessnumbytes="4" permissions="p" />
+					<!-- QMSS PDSP REGISTERS -->
+					<instance href="../Modules/Keystone/pdsp/cmdinterface.xml" id="QMSS_PDSP_CMD_INTERFACE" xml="cmdinterface.xml" xmlpath="../Modules/Keystone/pdsp/" HW_version="TMS320C6672" description="QMSS PDSP Command Interface" requestor="TMS320C6672" baseaddr="0x02AB8000" endaddr="0x02AB801F" size="0x20" accessnumbytes="4" permissions="p" />          
+					<!-- QMSS PACKET DMA REGISTERS -->  
+					<instance href="../Modules/Keystone/pktdma/globalctrl.xml" id="QMSS_PKTDMA_CTRL" xml="globalctrl.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="QMSS Packet DMA Global Control" requestor="TMS320C6672" baseaddr="0x02A6C000" endaddr="0x02A6C01F" size="0x20" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/txchannel.xml" id="QMSS_PKTDMA_TX_CHANNEL" xml="txchannel.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="QMSS Packet DMA Tx Channel Config" requestor="TMS320C6672" baseaddr="0x02A6C400" endaddr="0x02A6C407" size="0x8" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/rxchannel.xml" id="QMSS_PKTDMA_RX_CHANNEL" xml="rxchannel.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="QMSS Packet DMA Rx Channel Config" requestor="TMS320C6672" baseaddr="0x02A6C800" endaddr="0x02A6C803" size="0x4" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/txscheduler.xml" id="QMSS_PKTDMA_TX_SCHED" xml="txscheduler.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="QMSS Packet DMA Tx Scheduler Config" requestor="TMS320C6672" baseaddr="0x02A6CC00" endaddr="0x02A6Cfff" size="0x4" accessnumbytes="4" permissions="p" />
+					<instance href="../Modules/Keystone/pktdma/rxflow.xml" id="QMSS_PKTDMA_RX_FLOW" xml="rxflow.xml" xmlpath="../Modules/Keystone/pktdma/" HW_version="TMS320C6672" description="QMSS Packet DMA Rx Flow Config" requestor="TMS320C6672" baseaddr="0x02A6d000" endaddr="0x02A6dfff" size="0x20" accessnumbytes="4" permissions="p" />
+					<!-- XMC -->
+					<instance href="../Modules/Keystone/xmc.xml" id="XMC" xml="xmc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Extended Memory Controller Configuration (XMC)" requestor="TMS320C6672" baseaddr="0x08000000" endaddr="0x0800FFFF" size="0x10000" accessnumbytes="4" permissions="p" />
+					<!-- MSMC -->
+					<instance href="../Modules/Keystone/msmc.xml" id="MSMC" xml="msmc.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Multicore Shared memory controller configuration (MSMC)" requestor="TMS320C6672" baseaddr="0x0BC00000" endaddr="0x0BCFFFFF" size="0x100000" accessnumbytes="4" permissions="p" />
+                    <!-- DDR3 EMIF -->
+                    <instance href="../Modules/Keystone/ddr_emif.xml" id="DDR3" xml="ddr_emif.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="DDR3 EMIF memory controller configuration (DDR3)" requestor="TMS320C6672" baseaddr="0x21000000" endaddr="0x210001FF" size="0x0200" accessnumbytes="4" permissions="p" />
+					<!-- HYPERLINK -->
+					<instance href="../Modules/Keystone/hyperlink.xml" id="HYPERLINK" xml="hyperlink.xml" xmlpath="../Modules/Keystone/" HW_version="TMS320C6672" description="Hyperlink Config" requestor="TMS320C6672" baseaddr="0x21400000" endaddr="0x214003ff" size="0x400" accessnumbytes="4" permissions="p" />
+				</cpu>
+			</subpath>
+			<subpath id="subpath_1">
+				<property Type="numericfield" Value="0x2" id="Port Number" />
+				<property Type="choicelist" Value="1" id="Initial Configuration"/>
+				<property Type="choicelist" Value="1" id="Custom Configuration"/>
+				<property Type="choicelist" Value="1" id="Pseudo Address"/>
+				<instance XML_version="1.2" desc="C66xx_1" href="cpus/c66xx.xml" id="C66xx_1" xml="c66xx.xml" xmlpath="cpus" />
+				<cpu HW_revision="1.0" XML_version="1.2" desc="C66xx_1" description="C66xx CPU" id="C66xx_1" isa="TMS320c66xx">
+					<property Type="numericfield" Value="0x2" id="TraceDeviceId" />
+					<property Type="stringfield" Value="Auto" id="Domain Power Loss Mode"/>
+				</cpu>
+			</subpath>
+			<subpath id="DAP">
+				<property Type="numericfield" Value="0x3" id="Port Number" />
+				<router HW_revision="1.0" XML_version="1.2" description="CS DAP Router" id="CS_DAP_DebugSS" isa="CS_DAP">
+					<property Type="numericfield" Value="0x4B6B902F" id="DAP TAP ID"/>
+					<subpath id="STM">
+						<property Type="numericfield" Value="0x1" id="Port Number"/>
+						<property Type="choicelist" Value="0x0" id="Type"/>
+						<instance XML_version="1.2" desc="CSSTM_0" href="cpus/csstm.xml" id="CSSTM_0" xml="csstm.xml" xmlpath="cpus"/>
+						<cpu HW_revision="1.0" XML_version="1.2" description="CS System Trace" deviceSim="false" id="CSSTM_0" isa="TMS470R26X">
+							<property Type="numericfield" Value="0x02421000" id="Address"/>
+						</cpu>
+						<instance XML_version="1.2" desc="TETB_STM" href="cpus/csetb.xml" id="TETB_STM" xml="csetb.xml" xmlpath="cpus" />
+						<cpu HW_revision="1.0" XML_version="1.2" description="CS Embedded Trace Buffer" deviceSim="false" id="TETB_STM" isa="CS_ETB">
+							<property Type="numericfield" Value="0x02850000" id="Address"/>
+						</cpu>				
+					</subpath>
+				</router>
+			</subpath>
+		</router>
+</device>
+<!-- KeyStone1 Emupack version __KEYSTONE1_EMUPACK_VERSION__ -->

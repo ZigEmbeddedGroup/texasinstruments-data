@@ -1,0 +1,178 @@
+<module id="PIPE_REGS" HW_revision="" description="PIPE Registers">
+	<register id="RTINT_THRESHOLD" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="Interrupt threshold register">
+		<bitfield id="INT_RTINT_THRESHOLD" description="Interrupt threshold value " begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="INT_GRP_MASK" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="Interrupt group mask register">
+		<bitfield id="INT_GRP_MASK" description="Interrupt group mask" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="GLOBAL_EN" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="Global enable for INT and RTINT">
+		<bitfield id="ENABLE" description="Global enable " begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="REVISION" width="32" page="0" offset="0xc" instances="1" instaddr="4" internal="0" description="Reserved">
+		<bitfield id="MINREV" description="Minor Revision Number" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="MAJREV" description="Major Revision Number" begin="15" end="8" width="8" rwaccess="R"/>
+	</register>
+	<register id="CPU_INT_STS" width="32" page="0" offset="0x20" instances="1" instaddr="4" internal="0" description="CPU interrupt status">
+		<bitfield id="LAST_INTSTS" description="Type of last interrupt in-service between INT and  RTINT" begin="1" end="0" width="2" rwaccess="R"/>
+		<bitfield id="LAST_INT_PRIOLVL" description="Priority level of last INT interrupt  in-service" begin="15" end="8" width="8" rwaccess="R"/>
+		<bitfield id="LAST_RTINT_PRIOLVL" description="Priority level of last RTINT interrupt  in-service" begin="23" end="16" width="8" rwaccess="R"/>
+	</register>
+	<register id="RST_VECT" width="32" page="0" offset="0x24" instances="1" instaddr="4" internal="0" description="Reset vector register">
+		<bitfield id="VECT" description="Reset vector location" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RST_LINK_OWNER" width="32" page="0" offset="0x28" instances="1" instaddr="4" internal="0" description="Reset link owner register">
+		<bitfield id="LINK_OWNER" description="Reset vector link owner " begin="3" end="0" width="4" rwaccess="R"/>
+	</register>
+	<register id="NMI_STS" width="32" page="0" offset="0x2c" instances="1" instaddr="4" internal="0" description="Non Maskable Interrupt status register">
+		<bitfield id="NMI_FLAG" description="Interrupt active" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="NMI_CLR" description="NMI SW clear bit" begin="1" end="1" width="1" rwaccess="RW"/>
+	</register>
+	<register id="NMI_VECT" width="32" page="0" offset="0x30" instances="1" instaddr="4" internal="0" description="Non Maskable Interrupt vector register">
+		<bitfield id="VECT" description="NMI vector location" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="NMI_LINK_OWNER" width="32" page="0" offset="0x34" instances="1" instaddr="4" internal="0" description="Non Maskable Interrupt link owner register">
+		<bitfield id="LINK_OWNER" description="NMI vector link owner " begin="3" end="0" width="4" rwaccess="RW"/>
+	</register>
+	<register id="MEM_ECC_DIAG" width="32" page="0" offset="0x40" instances="1" instaddr="4" internal="0" description="ECC diagnostics register">
+		<bitfield id="ECC_VIEW" description="ECC memory map enable register" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MEM_SIC_DIAG_EN" description="Memory safe interconnect diagnostics enable" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="MEM_INIT" width="32" page="0" offset="0x44" instances="1" instaddr="4" internal="0" description="PIPE vector memory initialization register">
+		<bitfield id="INIT" description="Memory initialization start" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="MEM_INIT_STS" width="32" page="0" offset="0x48" instances="1" instaddr="4" internal="0" description="PIPE memory initialization status register">
+		<bitfield id="INIT_STS" description="Memory initialization status" begin="1" end="0" width="2" rwaccess="R"/>
+	</register>
+	<register id="INT_SEC_STS" width="32" page="0" offset="0x4c" instances="1" instaddr="4" internal="0" description="Interrupt security status register">
+		<bitfield id="SEC_FAIL_FLAG" description="VBUSP access security error " begin="0" end="0" width="1" rwaccess="R"/>
+	</register>
+	<register id="INT_SEC_CLR" width="32" page="0" offset="0x50" instances="1" instaddr="4" internal="0" description="Interrupt security clear register">
+		<bitfield id="SEC_FAIL_FLAG_CLR" description="SEC_FAIL_FLAG bit clear field" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="RTINT_SP_L" width="32" page="0" offset="0x60" instances="1" instaddr="4" internal="0" description="RTINT stack limit register ">
+		<bitfield id="RTISP" description="Real Time Interrupt Stack Pointer" begin="4" end="0" width="5" rwaccess="R"/>
+		<bitfield id="MAXRTISP" description="Maximum Real Time Interrupt Stack Pointer" begin="12" end="8" width="5" rwaccess="R"/>
+	</register>
+	<register id="RTINT_SP_H" width="32" page="0" offset="0x64" instances="1" instaddr="4" internal="0" description="RTINT stack limit register ">
+		<bitfield id="WARNRTISP" description="Warning Real Time Interrupt Stack Pointer " begin="4" end="0" width="5" rwaccess="RW"/>
+		<bitfield id="WARNRTISP_PRIO_LEVEL" description="RTINT Stack Pointer warning priority level " begin="15" end="8" width="8" rwaccess="RW"/>
+	</register>
+	<register id="RTISP_STS" width="32" page="0" offset="0x68" instances="1" instaddr="4" internal="0" description="RTINT Stack pointer violation status register">
+		<bitfield id="WARNRTISP_STS" description="RTINT Stack Pointer warning status " begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="MAXRTISP_STS" description="RTINT Stack Pointer max breach status " begin="1" end="1" width="1" rwaccess="R"/>
+	</register>
+	<register id="INTSP" width="32" page="0" offset="0x6c" instances="1" instaddr="4" internal="0" description="INT stack pointer ">
+		<bitfield id="INTSP" description="INT Interrupt Stack " begin="3" end="0" width="4" rwaccess="RW"/>
+	</register>
+	<register id="LOCK" width="32" page="0" offset="0x80" instances="1" instaddr="4" internal="0" description="PIPE lock register">
+		<bitfield id="LINK_LOCK" description="Lock bit for link owner field" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="CONFIG_LOCK" description="Lock bit for interrupt priority field" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="GLOBAL_LOCK" description="Lock bit for common config regs" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_LOCK" description="Lock bit for Vector memory" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="COMMIT" width="32" page="0" offset="0x84" instances="1" instaddr="4" internal="0" description="PIPE commit register">
+		<bitfield id="LINK_COMMIT" description="Commit bit for link fields" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="CONFIG_COMMIT" description="Commit bit for interrupt priority field" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="GLOBAL_COMMIT" description="Commit bit for common config regs" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="VECT_COMMIT" description="Commit bit for vector memory " begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="TASK_CTRL" width="32" page="0" offset="0x90" instances="1" instaddr="4" internal="0" description="Task control register">
+		<bitfield id="ACTIVE_CONTEXT_ID" description="Active context ID for PIPE arbitration." begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="SUP_IGN_INTE_EN" description="Supervisor Interrupt Enable" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="BOOT_LINK_CTRL" width="32" page="0" offset="0x94" instances="1" instaddr="4" internal="0" description="Boot Link control to lock out BOOT_LINK">
+		<bitfield id="BOOT_LINK_LOCK" description="Locks the Boot Link updates to configuration registers. " begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="INT_VECT_MAPPING" width="32" page="0" offset="0x98" instances="1" instaddr="4" internal="0" description="Interrupt vector mapping for LFU, FOTA, and INT vector swapping support">
+		<bitfield id="LFU_INT_VECT_MAPPING" description="Interrupt vector mapping to PPB for LFU support" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="MMR_CLR" width="32" page="0" offset="0xa0" instances="1" instaddr="4" internal="0" description="PIPE MMR clear register">
+		<bitfield id="MMR_CLR" description="PIPE MMR clear control" begin="1" end="0" width="2" rwaccess="RW"/>
+	</register>
+	<register id="ALL_FLAG_CLR" width="32" page="0" offset="0xa4" instances="1" instaddr="4" internal="0" description="PIPE flag clear register">
+		<bitfield id="ALL_FLAG_CLR" description="Clears the Flags for all the interrupt lines." begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="REG_PARITY_DIAG_DATA" width="32" page="0" offset="0xb0" instances="1" instaddr="4" internal="0" description="Register parity Diagnostic data">
+		<bitfield id="DIAG_DATA" description="Diagnostics data" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="REG_PARITY_DIAG_PARITY" width="32" page="0" offset="0xb8" instances="1" instaddr="4" internal="0" description="Register parity Diagnostic Parity">
+		<bitfield id="DIAG_PARITY_DATA" description="Diagnostics parity data" begin="3" end="0" width="4" rwaccess="RW"/>
+	</register>
+	<register id="REG_PARITY_DIAG_ASSERT" width="32" page="0" offset="0xc0" instances="1" instaddr="4" internal="0" description="Register parity Assert diagnostic">
+		<bitfield id="DIAG_ASSERT" description="Diagnostics assert" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="REG_PARITY_CHECK" width="32" page="0" offset="0xc8" instances="1" instaddr="4" internal="0" description="Enabling the Parity check">
+		<bitfield id="MODE" description="Parity check mode" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="REG_PARITY_READ" width="32" page="0" offset="0xcc" instances="1" instaddr="4" internal="0" description="Enabling the Parity read">
+		<bitfield id="PARITY_READ_EN" description="Parity read enable" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable write to lower [15:0] bit fields" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="INT_CTL_L" width="32" page="0" offset="0x1000" instances="256" instaddr="4" internal="0" description="Interrupt low flag and status control register">
+		<bitfield id="EN" description="INT enable" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="FLAG" description="INT FLAG status" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="OVERFLOW_FLAG" description="INT_OVERFLOW_FLAG status" begin="2" end="2" width="1" rwaccess="R"/>
+	</register>
+	<register id="INT_CTL_H" width="32" page="0" offset="0x2000" instances="256" instaddr="4" internal="0" description="Interrupt high flag and status control register">
+		<bitfield id="FLAG_FRC" description="INT SW set bit" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="FLAG_CLR" description="INT_FLAG clear bit" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="OVERFLOW_FLAG_CLR" description="INT_OVERFLOW_FLAG clear bit" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+	<register id="INT_CONFIG" width="32" page="0" offset="0x3000" instances="256" instaddr="4" internal="0" description="Interrupt configuration register">
+		<bitfield id="PRI_LEVEL" description="Priority level" begin="7" end="0" width="8" rwaccess="RW"/>
+		<bitfield id="CONTEXT_ID" description="Interrupt Context-ID" begin="17" end="16" width="2" rwaccess="RW"/>
+	</register>
+	<register id="INT_LINK_OWNER" width="32" page="0" offset="0x4000" instances="256" instaddr="4" internal="0" description="Interrupt link ownership config register">
+		<bitfield id="OWNER_LINK" description="Link owner for INT " begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="API_LINK" description="Access protection inheritance link for INT" begin="7" end="4" width="4" rwaccess="RW"/>
+		<bitfield id="API_LINK_EN" description="Access protection inheritance link enable for INT" begin="8" end="8" width="1" rwaccess="RW"/>
+	</register>
+	<register id="INT_VECT_ADDR" width="32" page="0" offset="0x5000" instances="256" instaddr="4" internal="0" description="Interrupt vector address">
+		<bitfield id="VECT_ADDR" description="INT vector address" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="INT_LINK_OWNER_LFU" width="32" page="0" offset="0x6000" instances="256" instaddr="4" internal="0" description="Interrupt link ownership config register">
+		<bitfield id="OWNER_LINK" description="Link owner for INT for LFU " begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="API_LINK" description="Access protection inheritance link for INT for LFU " begin="7" end="4" width="4" rwaccess="RW"/>
+		<bitfield id="API_LINK_EN" description="Access protection inheritance link enable for INT for LFU" begin="8" end="8" width="1" rwaccess="RW"/>
+	</register>
+	<register id="INT_VECT_ADDR_LFU" width="32" page="0" offset="0x7000" instances="256" instaddr="4" internal="0" description="Interrupt vector address">
+		<bitfield id="VECT_ADDR" description="INT vector address for LFU" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_DATA0" width="32" page="0" offset="0x8000" instances="1" instaddr="4" internal="0" description="Diagnostics data register 0">
+		<bitfield id="SELFTEST_DIAG_DATA0" description="Self test Diagnostics data 0" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_DATA1" width="32" page="0" offset="0x8004" instances="1" instaddr="4" internal="0" description="Diagnostics data register 1">
+		<bitfield id="SELFTEST_DIAG_DATA1" description="Self test Diagnostics data 1" begin="19" end="0" width="20" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_ECC" width="32" page="0" offset="0x8020" instances="1" instaddr="4" internal="0" description="Diagnostics ECC">
+		<bitfield id="SELFTEST_DIAG_ECC" description="Self test Diagnostics ECC" begin="6" end="0" width="7" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_CONTROL" width="32" page="0" offset="0x8028" instances="1" instaddr="4" internal="0" description="Diagnostic test enable.">
+		<bitfield id="DIAG_TEST_EN" description="Diagnostic test enable" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="DIAG_ECC_WIDTH" description="Diagnostic ECC width" begin="19" end="16" width="4" rwaccess="RW"/>
+		<bitfield id="DIAG_DATA_WIDTH" description="Diagnostic Data width" begin="31" end="24" width="8" rwaccess="RW"/>
+	</register>
+	<register id="SELFTEST_DIAG_STATUS" width="32" page="0" offset="0x802c" instances="1" instaddr="4" internal="0" description="Diagnostic status register">
+		<bitfield id="DIAG_TEST_DONE" description="Done self test" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_TEST_FAIL" description="Test failed" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_C_ERROR" description="Diagnostic correctable error" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_UC_ERROR" description="Diagnostic uncorrectable error" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_CHECK_TYPE" description="Failed diagnostic check type" begin="6" end="5" width="2" rwaccess="R"/>
+		<bitfield id="DIAG_FAIL_BIT_INDEX" description="Error bit position" begin="15" end="8" width="8" rwaccess="R"/>
+	</register>
+	<register id="SELFTEST_DIAG_STATUS_CLR" width="32" page="0" offset="0x8030" instances="1" instaddr="4" internal="0" description="Diagnostic status clear register">
+		<bitfield id="DIAG_TEST_DONE" description="Clear self test done status flag" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="DIAG_TEST_FAIL" description="Clear test failed status flags" begin="2" end="2" width="1" rwaccess="RW"/>
+	</register>
+</module>

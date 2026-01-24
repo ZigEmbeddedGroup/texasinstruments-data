@@ -1,0 +1,227 @@
+<module name="DPHY_TX0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT2" acronym="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT2" offset="0x20" width="32" description="CMN_DIG_TBIT2">
+		<bitfield id="CMN0_O_CMN_RX_MODE_EN" width="1" begin="10" end="10" resetval="0x0" description="Enable CMN RX related StateMachines" range="10" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_CMN_TX_MODE_EN" width="1" begin="9" end="9" resetval="0x0" description="Enable CMN TX related StateMachines" range="9" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_SSM_WAIT_BGCAL_EN" width="8" begin="8" end="1" resetval="0x20" description="Wait time for Calibrations enable after bandgap is enabled (in us)" range="8 - 1" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_CMN_SSM_EN" width="1" begin="0" end="0" resetval="0x0" description="Enable CMN startup state machine" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT10" acronym="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT10" offset="0x40" width="32" description="CMN_DIG_TBIT10">
+		<bitfield id="CMN0_O_ANA_PLL_BYTECLK_DIV" width="8" begin="27" end="20" resetval="0x8" description="Byteclk divider value" range="27 - 20" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_GM_PWM_DIV_LOW" width="10" begin="19" end="10" resetval="0x0" description="Low division value setting for the gm PWM control divider" range="19 - 10" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_GM_PWM_DIV_HIGH" width="10" begin="9" end="0" resetval="0x0" description="High division value setting for the gm PWM control divider" range="9 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT13" acronym="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT13" offset="0x4C" width="32" description="CMN_DIG_TBIT13">
+		<bitfield id="CMN0_O_ANA_PLL_FB_DIV_LOW_TM" width="10" begin="31" end="22" resetval="0x0" description="forced value for pll_fb_div_clk_low" range="31 - 22" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_FB_DIV_LOW_TM_SEL" width="1" begin="21" end="21" resetval="0x0" description="pll_fb_div_clk_low forced from test registers" range="21" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_FB_DIV_HIGH_TM" width="10" begin="20" end="11" resetval="0x0" description="forced value for pll_fb_div_clk_high" range="20 - 11" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_FB_DIV_HIGH_TM_SEL" width="1" begin="10" end="10" resetval="0x0" description="pll_fb_div_clk_high forced from test registers" range="10" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT14" acronym="WIZ16B8M4CDT3_CMN0_CMN_DIG_TBIT14" offset="0x50" width="32" description="CMN_DIG_TBIT14">
+		<bitfield id="CMN0_O_ANA_PLL_OP_DIV_TM" width="6" begin="12" end="7" resetval="0x0" description="forced value for op_div" range="12 - 7" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_OP_DIV_TM_SEL" width="1" begin="6" end="6" resetval="0x0" description="op_div forced from test registers" range="6" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_IP_DIV_TM" width="5" begin="5" end="1" resetval="0x0" description="forced value for ip_div" range="5 - 1" rwaccess="R/W"/> 
+		<bitfield id="CMN0_O_ANA_PLL_IP_DIV_TM_SEL" width="1" begin="0" end="0" resetval="0x0" description="ip_div forced from test registers" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_CLK0_TX_DIG_TBIT14" acronym="WIZ16B8M4CDT3_CLK0_TX_DIG_TBIT14" offset="0x154" width="32" description="digital to analog signals test muxing">
+		<bitfield id="CLK0_TM_ISO_EN" width="1" begin="31" end="31" resetval="0x0" description="Enable isolation in test mode" range="31" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LOAD_DPDN_SEL" width="1" begin="30" end="30" resetval="0x0" description="Take ana_dpdn_load from dig logic" range="30" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LOAD_DPDN" width="3" begin="29" end="27" resetval="0x0" description="set ana_dpdn_load as per requirement in test mode" range="29 - 27" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_HSTX_DATA_RATE_SEL" width="1" begin="26" end="26" resetval="0x0" description="Take ana_hstx_datarate from dig logic" range="26" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_HSTX_DATE_RATE" width="2" begin="25" end="24" resetval="0x0" description="set ana_hstx_datarate as per requirement in test mode" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_BIST_ULP_RCV_EN_SEL" width="1" begin="23" end="23" resetval="0x0" description="Take ana_bist_ulps_rcv_en from dig logic" range="23" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_BIST_ULP_RCV_EN" width="1" begin="22" end="22" resetval="0x0" description="set ana_bist_ulps_rcv_en to 0" range="22" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_ULPS_PULDN_SEL" width="1" begin="21" end="21" resetval="0x0" description="Take ana_ulps_puldn from dig logic" range="21" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_ULPS_PULDN" width="1" begin="20" end="20" resetval="0x0" description="set ana_ulps_puldn to 0" range="20" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_BIST_SMPLR_CLK_EDGE_SEL" width="1" begin="19" end="19" resetval="0x0" description="Take ana_bist_smplr_clkedge from dig logic" range="19" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_BIST_SMPLR_CLK_EDGE" width="1" begin="18" end="18" resetval="0x0" description="set ana_bist_smplr_clkedge to posedge" range="18" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_BIST_EN_SEL" width="1" begin="17" end="17" resetval="0x0" description="Take ana_bist_en from dig logic" range="17" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_BIST_EN" width="1" begin="16" end="16" resetval="0x0" description="set ana_bist_en to 0" range="16" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_TRST_SEL" width="1" begin="15" end="15" resetval="0x0" description="Take ana_lptx_trst from dig logic" range="15" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_TRST" width="1" begin="14" end="14" resetval="0x0" description="set ana_lptx_trst to 0" range="14" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_RST_SEL" width="1" begin="13" end="13" resetval="0x0" description="Take ana_lptx_rst from dig logic" range="13" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_RST" width="1" begin="12" end="12" resetval="0x0" description="set ana_lptx_rst to 0" range="12" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_DP_SEL" width="1" begin="11" end="11" resetval="0x0" description="give output for LPTX DP from dig logic" range="11" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_DP" width="1" begin="10" end="10" resetval="0x0" description="send 0 to LP TX Dp" range="10" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_DN_SEL" width="1" begin="9" end="9" resetval="0x0" description="give output for LPTX DN from dig logic" range="9" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LPTX_DN" width="1" begin="8" end="8" resetval="0x0" description="send 0 to LP TX Dn" range="8" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LDO_REF_EN_SEL" width="1" begin="7" end="7" resetval="0x0" description="Take ana_ldo_ref_en from dig logic" range="7" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_LDO_REF_EN" width="1" begin="6" end="6" resetval="0x0" description="set ana_ldo_ref_en to 0" range="6" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_HSTX_TRST_SEL" width="1" begin="5" end="5" resetval="0x0" description="Take ana_hstx_trst from dig logic" range="5" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_HSTX_TRST" width="1" begin="4" end="4" resetval="0x0" description="set ana_hstx_trst to 0" range="4" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_HSTX_RQST_SEL" width="1" begin="3" end="3" resetval="0x0" description="Take ana_hstx_rqst from dig logic" range="3" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_HSTX_RQST" width="1" begin="2" end="2" resetval="0x0" description="set ana_hstx_rqst to 0" range="2" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_GLOBAL_PD_SEL" width="1" begin="1" end="1" resetval="0x0" description="Take ana_global_pd from dig logic" range="1" rwaccess="R/W"/> 
+		<bitfield id="CLK0_TM_GLOBAL_PD" width="1" begin="0" end="0" resetval="0x0" description="set ana_global_pd to 0 (powered up)" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_DL0_TX_DIG_TBIT20" acronym="WIZ16B8M4CDT3_DL0_TX_DIG_TBIT20" offset="0x26C" width="32" description="digital to analog signal muxing">
+		<bitfield id="DL0_TM_ISO_EN" width="1" begin="31" end="31" resetval="0x0" description="Enable isolation in test mode" range="31" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LOAD_DPDN_SEL" width="1" begin="30" end="30" resetval="0x0" description="Take ana_dpdn_load from dig logic" range="30" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LOAD_DPDN" width="3" begin="29" end="27" resetval="0x0" description="set ana_dpdn_load as per requirement in test mode" range="29 - 27" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_HSTX_DATA_RATE_SEL" width="1" begin="26" end="26" resetval="0x0" description="Take ana_hstx_datarate from dig logic" range="26" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_HSTX_DATE_RATE" width="2" begin="25" end="24" resetval="0x0" description="set ana_hstx_datarate as per requirement in test mode" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_BIST_ULP_RCV_EN_SEL" width="1" begin="23" end="23" resetval="0x0" description="Take ana_bist_ulps_rcv_en from dig logic" range="23" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_BIST_ULP_RCV_EN" width="1" begin="22" end="22" resetval="0x0" description="set ana_bist_ulps_rcv_en to 0" range="22" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_ULPS_PULDN_SEL" width="1" begin="21" end="21" resetval="0x0" description="Take ana_ulps_puldn from dig logic" range="21" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_ULPS_PULDN" width="1" begin="20" end="20" resetval="0x0" description="set ana_ulps_puldn to 0" range="20" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_BIST_SMPLR_CLK_EDGE_SEL" width="1" begin="19" end="19" resetval="0x0" description="Take ana_bist_smplr_clkedge from dig logic" range="19" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_BIST_SMPLR_CLK_EDGE" width="1" begin="18" end="18" resetval="0x0" description="set ana_bist_smplr_clkedge to posedge" range="18" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_BIST_EN_SEL" width="1" begin="17" end="17" resetval="0x0" description="Take ana_bist_en from dig logic" range="17" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_BIST_EN" width="1" begin="16" end="16" resetval="0x0" description="set ana_bist_en to 0" range="16" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_TRST_SEL" width="1" begin="15" end="15" resetval="0x0" description="Take ana_lptx_trst from dig logic" range="15" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_TRST" width="1" begin="14" end="14" resetval="0x0" description="set ana_lptx_trst to 0" range="14" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_RST_SEL" width="1" begin="13" end="13" resetval="0x0" description="Take ana_lptx_rst from dig logic" range="13" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_RST" width="1" begin="12" end="12" resetval="0x0" description="set ana_lptx_rst to 0" range="12" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_DP_SEL" width="1" begin="11" end="11" resetval="0x0" description="give output for LPTX DP from dig logic" range="11" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_DP" width="1" begin="10" end="10" resetval="0x0" description="send 0 to LP TX Dp" range="10" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_DN_SEL" width="1" begin="9" end="9" resetval="0x0" description="give output for LPTX DN from dig logic" range="9" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LPTX_DN" width="1" begin="8" end="8" resetval="0x0" description="send 0 to LP TX Dn" range="8" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LDO_REF_EN_SEL" width="1" begin="7" end="7" resetval="0x0" description="Take ana_ldo_ref_en from dig logic" range="7" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_LDO_REF_EN" width="1" begin="6" end="6" resetval="0x0" description="set ana_ldo_ref_en to 0" range="6" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_HSTX_TRST_SEL" width="1" begin="5" end="5" resetval="0x0" description="Take ana_hstx_trst from dig logic" range="5" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_HSTX_TRST" width="1" begin="4" end="4" resetval="0x0" description="set ana_hstx_trst to 0" range="4" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_HSTX_RQST_SEL" width="1" begin="3" end="3" resetval="0x0" description="Take ana_hstx_rqst from dig logic" range="3" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_HSTX_RQST" width="1" begin="2" end="2" resetval="0x0" description="set ana_hstx_rqst to 0" range="2" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_GLOBAL_PD_SEL" width="1" begin="1" end="1" resetval="0x0" description="Take ana_global_pd from dig logic" range="1" rwaccess="R/W"/> 
+		<bitfield id="DL0_TM_GLOBAL_PD" width="1" begin="0" end="0" resetval="0x0" description="set ana_global_pd to 0 (powered up)" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_DL1_TX_DIG_TBIT20" acronym="WIZ16B8M4CDT3_DL1_TX_DIG_TBIT20" offset="0x36C" width="32" description="digital to analog signal muxing">
+		<bitfield id="DL1_TM_ISO_EN" width="1" begin="31" end="31" resetval="0x0" description="Enable isolation in test mode" range="31" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LOAD_DPDN_SEL" width="1" begin="30" end="30" resetval="0x0" description="Take ana_dpdn_load from dig logic" range="30" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LOAD_DPDN" width="3" begin="29" end="27" resetval="0x0" description="set ana_dpdn_load as per requirement in test mode" range="29 - 27" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_HSTX_DATA_RATE_SEL" width="1" begin="26" end="26" resetval="0x0" description="Take ana_hstx_datarate from dig logic" range="26" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_HSTX_DATE_RATE" width="2" begin="25" end="24" resetval="0x0" description="set ana_hstx_datarate as per requirement in test mode" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_BIST_ULP_RCV_EN_SEL" width="1" begin="23" end="23" resetval="0x0" description="Take ana_bist_ulps_rcv_en from dig logic" range="23" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_BIST_ULP_RCV_EN" width="1" begin="22" end="22" resetval="0x0" description="set ana_bist_ulps_rcv_en to 0" range="22" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_ULPS_PULDN_SEL" width="1" begin="21" end="21" resetval="0x0" description="Take ana_ulps_puldn from dig logic" range="21" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_ULPS_PULDN" width="1" begin="20" end="20" resetval="0x0" description="set ana_ulps_puldn to 0" range="20" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_BIST_SMPLR_CLK_EDGE_SEL" width="1" begin="19" end="19" resetval="0x0" description="Take ana_bist_smplr_clkedge from dig logic" range="19" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_BIST_SMPLR_CLK_EDGE" width="1" begin="18" end="18" resetval="0x0" description="set ana_bist_smplr_clkedge to posedge" range="18" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_BIST_EN_SEL" width="1" begin="17" end="17" resetval="0x0" description="Take ana_bist_en from dig logic" range="17" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_BIST_EN" width="1" begin="16" end="16" resetval="0x0" description="set ana_bist_en to 0" range="16" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_TRST_SEL" width="1" begin="15" end="15" resetval="0x0" description="Take ana_lptx_trst from dig logic" range="15" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_TRST" width="1" begin="14" end="14" resetval="0x0" description="set ana_lptx_trst to 0" range="14" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_RST_SEL" width="1" begin="13" end="13" resetval="0x0" description="Take ana_lptx_rst from dig logic" range="13" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_RST" width="1" begin="12" end="12" resetval="0x0" description="set ana_lptx_rst to 0" range="12" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_DP_SEL" width="1" begin="11" end="11" resetval="0x0" description="give output for LPTX DP from dig logic" range="11" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_DP" width="1" begin="10" end="10" resetval="0x0" description="send 0 to LP TX Dp" range="10" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_DN_SEL" width="1" begin="9" end="9" resetval="0x0" description="give output for LPTX DN from dig logic" range="9" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LPTX_DN" width="1" begin="8" end="8" resetval="0x0" description="send 0 to LP TX Dn" range="8" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LDO_REF_EN_SEL" width="1" begin="7" end="7" resetval="0x0" description="Take ana_ldo_ref_en from dig logic" range="7" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_LDO_REF_EN" width="1" begin="6" end="6" resetval="0x0" description="set ana_ldo_ref_en to 0" range="6" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_HSTX_TRST_SEL" width="1" begin="5" end="5" resetval="0x0" description="Take ana_hstx_trst from dig logic" range="5" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_HSTX_TRST" width="1" begin="4" end="4" resetval="0x0" description="set ana_hstx_trst to 0" range="4" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_HSTX_RQST_SEL" width="1" begin="3" end="3" resetval="0x0" description="Take ana_hstx_rqst from dig logic" range="3" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_HSTX_RQST" width="1" begin="2" end="2" resetval="0x0" description="set ana_hstx_rqst to 0" range="2" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_GLOBAL_PD_SEL" width="1" begin="1" end="1" resetval="0x0" description="Take ana_global_pd from dig logic" range="1" rwaccess="R/W"/> 
+		<bitfield id="DL1_TM_GLOBAL_PD" width="1" begin="0" end="0" resetval="0x0" description="set ana_global_pd to 0 (powered up)" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_DL2_TX_DIG_TBIT20" acronym="WIZ16B8M4CDT3_DL2_TX_DIG_TBIT20" offset="0x46C" width="32" description="digital to analog signal muxing">
+		<bitfield id="DL2_TM_ISO_EN" width="1" begin="31" end="31" resetval="0x0" description="Enable isolation in test mode" range="31" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LOAD_DPDN_SEL" width="1" begin="30" end="30" resetval="0x0" description="Take ana_dpdn_load from dig logic" range="30" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LOAD_DPDN" width="3" begin="29" end="27" resetval="0x0" description="set ana_dpdn_load as per requirement in test mode" range="29 - 27" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_HSTX_DATA_RATE_SEL" width="1" begin="26" end="26" resetval="0x0" description="Take ana_hstx_datarate from dig logic" range="26" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_HSTX_DATE_RATE" width="2" begin="25" end="24" resetval="0x0" description="set ana_hstx_datarate as per requirement in test mode" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_BIST_ULP_RCV_EN_SEL" width="1" begin="23" end="23" resetval="0x0" description="Take ana_bist_ulps_rcv_en from dig logic" range="23" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_BIST_ULP_RCV_EN" width="1" begin="22" end="22" resetval="0x0" description="set ana_bist_ulps_rcv_en to 0" range="22" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_ULPS_PULDN_SEL" width="1" begin="21" end="21" resetval="0x0" description="Take ana_ulps_puldn from dig logic" range="21" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_ULPS_PULDN" width="1" begin="20" end="20" resetval="0x0" description="set ana_ulps_puldn to 0" range="20" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_BIST_SMPLR_CLK_EDGE_SEL" width="1" begin="19" end="19" resetval="0x0" description="Take ana_bist_smplr_clkedge from dig logic" range="19" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_BIST_SMPLR_CLK_EDGE" width="1" begin="18" end="18" resetval="0x0" description="set ana_bist_smplr_clkedge to posedge" range="18" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_BIST_EN_SEL" width="1" begin="17" end="17" resetval="0x0" description="Take ana_bist_en from dig logic" range="17" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_BIST_EN" width="1" begin="16" end="16" resetval="0x0" description="set ana_bist_en to 0" range="16" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_TRST_SEL" width="1" begin="15" end="15" resetval="0x0" description="Take ana_lptx_trst from dig logic" range="15" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_TRST" width="1" begin="14" end="14" resetval="0x0" description="set ana_lptx_trst to 0" range="14" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_RST_SEL" width="1" begin="13" end="13" resetval="0x0" description="Take ana_lptx_rst from dig logic" range="13" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_RST" width="1" begin="12" end="12" resetval="0x0" description="set ana_lptx_rst to 0" range="12" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_DP_SEL" width="1" begin="11" end="11" resetval="0x0" description="give output for LPTX DP from dig logic" range="11" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_DP" width="1" begin="10" end="10" resetval="0x0" description="send 0 to LP TX Dp" range="10" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_DN_SEL" width="1" begin="9" end="9" resetval="0x0" description="give output for LPTX DN from dig logic" range="9" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LPTX_DN" width="1" begin="8" end="8" resetval="0x0" description="send 0 to LP TX Dn" range="8" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LDO_REF_EN_SEL" width="1" begin="7" end="7" resetval="0x0" description="Take ana_ldo_ref_en from dig logic" range="7" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_LDO_REF_EN" width="1" begin="6" end="6" resetval="0x0" description="set ana_ldo_ref_en to 0" range="6" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_HSTX_TRST_SEL" width="1" begin="5" end="5" resetval="0x0" description="Take ana_hstx_trst from dig logic" range="5" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_HSTX_TRST" width="1" begin="4" end="4" resetval="0x0" description="set ana_hstx_trst to 0" range="4" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_HSTX_RQST_SEL" width="1" begin="3" end="3" resetval="0x0" description="Take ana_hstx_rqst from dig logic" range="3" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_HSTX_RQST" width="1" begin="2" end="2" resetval="0x0" description="set ana_hstx_rqst to 0" range="2" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_GLOBAL_PD_SEL" width="1" begin="1" end="1" resetval="0x0" description="Take ana_global_pd from dig logic" range="1" rwaccess="R/W"/> 
+		<bitfield id="DL2_TM_GLOBAL_PD" width="1" begin="0" end="0" resetval="0x0" description="set ana_global_pd to 0 (powered up)" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_DL3_TX_DIG_TBIT20" acronym="WIZ16B8M4CDT3_DL3_TX_DIG_TBIT20" offset="0x56C" width="32" description="digital to analog signal muxing">
+		<bitfield id="DL3_TM_ISO_EN" width="1" begin="31" end="31" resetval="0x0" description="Enable isolation in test mode" range="31" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LOAD_DPDN_SEL" width="1" begin="30" end="30" resetval="0x0" description="Take ana_dpdn_load from dig logic" range="30" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LOAD_DPDN" width="3" begin="29" end="27" resetval="0x0" description="set ana_dpdn_load as per requirement in test mode" range="29 - 27" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_HSTX_DATA_RATE_SEL" width="1" begin="26" end="26" resetval="0x0" description="Take ana_hstx_datarate from dig logic" range="26" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_HSTX_DATE_RATE" width="2" begin="25" end="24" resetval="0x0" description="set ana_hstx_datarate as per requirement in test mode" range="25 - 24" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_BIST_ULP_RCV_EN_SEL" width="1" begin="23" end="23" resetval="0x0" description="Take ana_bist_ulps_rcv_en from dig logic" range="23" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_BIST_ULP_RCV_EN" width="1" begin="22" end="22" resetval="0x0" description="set ana_bist_ulps_rcv_en to 0" range="22" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_ULPS_PULDN_SEL" width="1" begin="21" end="21" resetval="0x0" description="Take ana_ulps_puldn from dig logic" range="21" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_ULPS_PULDN" width="1" begin="20" end="20" resetval="0x0" description="set ana_ulps_puldn to 0" range="20" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_BIST_SMPLR_CLK_EDGE_SEL" width="1" begin="19" end="19" resetval="0x0" description="Take ana_bist_smplr_clkedge from dig logic" range="19" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_BIST_SMPLR_CLK_EDGE" width="1" begin="18" end="18" resetval="0x0" description="set ana_bist_smplr_clkedge to posedge" range="18" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_BIST_EN_SEL" width="1" begin="17" end="17" resetval="0x0" description="Take ana_bist_en from dig logic" range="17" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_BIST_EN" width="1" begin="16" end="16" resetval="0x0" description="set ana_bist_en to 0" range="16" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_TRST_SEL" width="1" begin="15" end="15" resetval="0x0" description="Take ana_lptx_trst from dig logic" range="15" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_TRST" width="1" begin="14" end="14" resetval="0x0" description="set ana_lptx_trst to 0" range="14" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_RST_SEL" width="1" begin="13" end="13" resetval="0x0" description="Take ana_lptx_rst from dig logic" range="13" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_RST" width="1" begin="12" end="12" resetval="0x0" description="set ana_lptx_rst to 0" range="12" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_DP_SEL" width="1" begin="11" end="11" resetval="0x0" description="give output for LPTX DP from dig logic" range="11" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_DP" width="1" begin="10" end="10" resetval="0x0" description="send 0 to LP TX Dp" range="10" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_DN_SEL" width="1" begin="9" end="9" resetval="0x0" description="give output for LPTX DN from dig logic" range="9" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LPTX_DN" width="1" begin="8" end="8" resetval="0x0" description="send 0 to LP TX Dn" range="8" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LDO_REF_EN_SEL" width="1" begin="7" end="7" resetval="0x0" description="Take ana_ldo_ref_en from dig logic" range="7" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_LDO_REF_EN" width="1" begin="6" end="6" resetval="0x0" description="set ana_ldo_ref_en to 0" range="6" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_HSTX_TRST_SEL" width="1" begin="5" end="5" resetval="0x0" description="Take ana_hstx_trst from dig logic" range="5" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_HSTX_TRST" width="1" begin="4" end="4" resetval="0x0" description="set ana_hstx_trst to 0" range="4" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_HSTX_RQST_SEL" width="1" begin="3" end="3" resetval="0x0" description="Take ana_hstx_rqst from dig logic" range="3" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_HSTX_RQST" width="1" begin="2" end="2" resetval="0x0" description="set ana_hstx_rqst to 0" range="2" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_GLOBAL_PD_SEL" width="1" begin="1" end="1" resetval="0x0" description="Take ana_global_pd from dig logic" range="1" rwaccess="R/W"/> 
+		<bitfield id="DL3_TM_GLOBAL_PD" width="1" begin="0" end="0" resetval="0x0" description="set ana_global_pd to 0 (powered up)" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_PCS_TX_DIG_TBIT0" acronym="WIZ16B8M4CDT3_PCS_TX_DIG_TBIT0" offset="0xB00" width="32" description="PHY_BAND_CONTROL">
+		<bitfield id="PCS_BAND_CTL_REG_R" width="5" begin="9" end="5" resetval="0x0" description="Data Rate [80_100] MHz" range="9 - 5" rwaccess="R/W"/> 
+		<bitfield id="PCS_BAND_CTL_REG_L" width="5" begin="4" end="0" resetval="0x0" description="Data Rate [80_100] MHz" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_PCS_TX_DIG_TBIT1" acronym="WIZ16B8M4CDT3_PCS_TX_DIG_TBIT1" offset="0xB04" width="32" description="PHY_PSM_CONFIG">
+		<bitfield id="PCS_PSM_CLOCK_FREQ" width="8" begin="8" end="1" resetval="0x0" description="psm_clock freq value" range="8 - 1" rwaccess="R/W"/> 
+		<bitfield id="PCS_PSM_CLOCK_FREQ_EN" width="1" begin="0" end="0" resetval="0x0" description="take psm_clock_freq from tbit" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_MOD_VER" acronym="WIZ16B8M4CDT3_MOD_VER" offset="0xF00" width="32" description="The Module and Version Register identifies the module identifier and revision of the WIZ16B8M4CDT3 module.">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Module Scheme" range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Module Business Unit" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="MODULE_ID" width="12" begin="27" end="16" resetval="0x2450" description="WIZ16B8M4CDT3 module ID." range="27 - 16" rwaccess="R"/> 
+		<bitfield id="RTL_VERSION" width="5" begin="15" end="11" resetval="0x8" description="RTL Version." range="15 - 11" rwaccess="R"/> 
+		<bitfield id="MAJOR_REVISION" width="3" begin="10" end="8" resetval="0x0" description="Major Revision." range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM_REVISION" width="2" begin="7" end="6" resetval="0x0" description="Custom Revision." range="7 - 6" rwaccess="R"/> 
+		<bitfield id="MINOR_REVISION" width="6" begin="5" end="0" resetval="0x1" description="Minor Revision." range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_PLL_CTRL" acronym="WIZ16B8M4CDT3_PLL_CTRL" offset="0xF04" width="32" description="Sets the PLL info.">
+		<bitfield id="PLL_LOCK" width="1" begin="31" end="31" resetval="0x0" description="Signal to indicate that PLL has got locked.  1: PLL locked to required frequency  0: PLL not yet locked" range="31" rwaccess="R"/> 
+		<bitfield id="PSO_DISABLE" width="1" begin="30" end="30" resetval="0x0" description="Disables the ability to switch off the analog switched power islands in the lane when in the ultra-low power state" range="30" rwaccess="R/W"/> 
+		<bitfield id="PLL_PSO" width="1" begin="29" end="29" resetval="0x0" description="Power Shut Off signal for PLL  1: PLL shutoff  0: PLL power ON" range="29" rwaccess="R/W"/> 
+		<bitfield id="PLL_PD" width="1" begin="28" end="28" resetval="0x1" description="Power down signal for PLL (Does not switch off the PLL supply)  1: PLL is powered down  0: PLL is active" range="28" rwaccess="R/W"/> 
+		<bitfield id="PLL_FBDIV" width="10" begin="25" end="16" resetval="0x255" description="DPHY TX PLL VCO Feedback Divider ratio. Feedback divider value = ROUND ((Data Rate * 2 * pll_opdiv * pll_ipdiv) / PLL reference clock frequency)" range="25 - 16" rwaccess="R/W"/> 
+		<bitfield id="PLL_OPDIV" width="6" begin="13" end="8" resetval="0x1" description="DPHY TX PLL OUTCLK Divider ratio.&#38;#38;#60;BR> 6'h01: Div by 1, 2.5 Gbps - 1.25 Gbps&#38;#38;#60;BR> 6'h02: Div by 2, 1.24 Gbps - 630 Mbps&#38;#38;#60;BR> 6'h04: Div by 4, 620 Mbps - 320 Mbps&#38;#38;#60;BR> 6'h08: Div by 8, 310 Mbps - 160 Mbps&#38;#38;#60;BR> 6'h10: Div by 16, 150 Mbps - 80 Mbps" range="13 - 8" rwaccess="R/W"/> 
+		<bitfield id="PLL_IPDIV" width="5" begin="4" end="0" resetval="0x1" description="DPHY TX PLL REFCLK Input Divider ratio.&#38;#38;#60;BR> 5'h01: Div by 1, 9.6 MHz - &#38;#38;#60;19.2 MHz&#38;#38;#60;BR> 5'h02: Div by 2, 19.2 MHz - &#38;#38;#60;38.4 MHz&#38;#38;#60;BR> 5'h04: Div by 4, 38.4 MHz - &#38;#38;#60; 76.8 MHz&#38;#38;#60;BR> 5'h08: Div by 8, 76.8 MHz - &#38;#38;#60; 150 MHz" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_STATUS" acronym="WIZ16B8M4CDT3_STATUS" offset="0xF08" width="32" description="The status register reports status of the DPHYTS sub module.">
+		<bitfield id="O_CMN_READY" width="1" begin="31" end="31" resetval="0x0" description="System Should check this during Power up Initialisation" range="31" rwaccess="R"/> 
+		<bitfield id="O_SUPPLY_CORE_PG" width="1" begin="2" end="2" resetval="0x0" description="The indicates the core supply is good." range="2" rwaccess="R"/> 
+		<bitfield id="O_SUPPLY_IO_PG" width="1" begin="1" end="1" resetval="0x0" description="The indicates the IO supply is good." range="1" rwaccess="R"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_RST_CTRL" acronym="WIZ16B8M4CDT3_RST_CTRL" offset="0xF0C" width="32" description="Sets the RST info.">
+		<bitfield id="LANE_RSTB_CMN" width="1" begin="31" end="31" resetval="0x0" description="DPHY System Reset for Common Module - required to be released after APB register programming; See DPHY PMA specification for details of DPHY power up sequence" range="31" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_PSM_FREQ" acronym="WIZ16B8M4CDT3_PSM_FREQ" offset="0xF10" width="32" description="The PSM Frequency register configures the so that it knows hoe fast the PSM clock is.">
+		<bitfield id="PSM_CLOCK_FREQ" width="8" begin="7" end="0" resetval="0x1" description="Static value based on System PSM clock frequency. The signal must be driven with a value such that the internal psm frequency of the divided psm clock is 1 MHz" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_IPCONFIG" acronym="WIZ16B8M4CDT3_IPCONFIG" offset="0xF14" width="32" description="">
+		<bitfield id="PSO_CMN" width="1" begin="31" end="31" resetval="0x0" description="Power Shutoff signal for CMN  1: CMN is power OFF  0: CMN is power ON" range="31" rwaccess="R/W"/> 
+		<bitfield id="IPCONFIG_CMN" width="3" begin="2" end="0" resetval="0x1" description="This signal decides which clock lane acts as master clock lane to all data lanes. Needed only for RXIP. Bit[2]: Reserved CASE {Bit[1],Bit[0]}:  00: Left RX clk lane provides clock to all left and right data lanes.  01: Left RX clk lane provides clock to all right data lanes, Right RX clk lane provides clock to all left data lanes.  10: Right RX clk lane provides clock to all right data lanes, Left RX clk lane provides clock to all left data lanes.  11: Right RX clk lane provides clock to all left and right data lanes." range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_PLLRES" acronym="WIZ16B8M4CDT3_PLLRES" offset="0xFF8" width="32" description="The PLL Reserved register is not being used currently">
+		<bitfield id="PLLREFSEL_CMN" width="8" begin="7" end="0" resetval="0x0" description="PLL frequency range. This signal is not being used currently. Should be 8'd0" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="WIZ16B8M4CDT3_DIAG_TEST" acronym="WIZ16B8M4CDT3_DIAG_TEST" offset="0xFFC" width="32" description="The Diagnostic Test Register allows the system to validate the read and write of all data bits.">
+		<bitfield id="DIAG_REG" width="32" begin="31" end="0" resetval="0x0" description="Diagnostic register." range="31 - 0" rwaccess="R/W"/>
+	</register>
+</module>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="DFTSS" HW_revision="1.0">
+    <group id="DFTSS_PINCM" name="DFTSS_PINCM" instances="1" offset="0x4" instaddr="0x10" description="">
+        <register id="DFTSS_TDI" width="32" offset="0x0" description="TDI">
+            <bitfield id="PSTATE" description="Peripheral-Analog Channel State" begin="7" end="6" width="2" rwaccess="R/W">
+                <bitenum id="UNASSIGNED" value="0x0" description="P-Channel is in Unassigned State"/>
+                <bitenum id="HANDOVER" value="0x1" description="P-Channel is in Handover State"/>
+                <bitenum id="CONC_NOT_LOCKED" value="0x2" description="P-Channel is in Connected State and not Locked (That is F field is allowed to change without going back through Unassigned state)"/>
+                <bitenum id="CONC_LOCKED" value="0x3" description="P-Channel is in Connected State and Locked (That is F field is not allowed to change to a different non-Zero value until both G and P channels go to Unassigned)"/>
+            </bitfield>
+            <bitfield id="GSTATE" description="GPIO Channel State" begin="15" end="14" width="2" rwaccess="R/W">
+                <bitenum id="UNASSIGNED" value="0x0" description="G-Channel is in Unassigned State"/>
+                <bitenum id="HANDOVER" value="0x1" description="G-Channel is in Handover State"/>
+                <bitenum id="CONC_NOT_LOCKED" value="0x2" description="G-Channel is in Connected State and not Locked (That is F field is allowed to change without going back through Unassigned state)"/>
+                <bitenum id="CONC_LOCKED" value="0x3" description="G-Channel is in Connected State and Locked (That is F field is not allowed to change to a different non-Zero value until both G and P channels go to Unassigned)"/>
+            </bitfield>
+            <bitfield id="PIPD" description="Pull down enable" begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="NO_PULL_DOWN" value="0x0" description="No pull down"/>
+                <bitenum id="PULL_DOWN" value="0x1" description="Pull down"/>
+            </bitfield>
+            <bitfield id="PIPU" description="Pull up enable" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_PULL_UP" value="0x0" description="No pull up"/>
+                <bitenum id="PULL_UP" value="0x1" description="Pull up"/>
+            </bitfield>
+            <bitfield id="INENA" description="Input enable" begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="INP_DISABLE" value="0x0" description="Inputs 0 to connected core"/>
+                <bitenum id="INP_ENABLE" value="0x1" description="Inputs IO pad value to connected core"/>
+            </bitfield>
+            <bitfield id="HYSTEN" description="Hysteresis enable" begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="DIS_HYST" value="0x0" description="No hysteresis"/>
+                <bitenum id="EN_HYST" value="0x1" description="Hysteresis on"/>
+            </bitfield>
+            <bitfield id="DRV" description="Drive strength options" begin="22" end="20" width="3" rwaccess="R/W">
+                <bitenum id="STRENGTH_0" value="0x0" description="Lowest drive strength"/>
+                <bitenum id="STRENGTH_1" value="0x1" description="Drive strength 2/8"/>
+                <bitenum id="STRENGTH_2" value="0x2" description="Drive strength 3/8"/>
+                <bitenum id="STRENGTH_3" value="0x3" description="Drive strength 4/8"/>
+                <bitenum id="STRENGTH_4" value="0x4" description="Drive strength 5/8"/>
+                <bitenum id="STRENGTH_5" value="0x5" description="Drive strength 6/8"/>
+                <bitenum id="STRENGTH_6" value="0x6" description="Drive strength 7/8"/>
+                <bitenum id="STRENGTH_7" value="0x7" description="Highest drive strength"/>
+            </bitfield>
+            <bitfield id="HIGHZ0" description="High-Z instead of low output" begin="24" end="24" width="1" rwaccess="R/W">
+                <bitenum id="DRV_LOW" value="0x0" description="Pin can be driven low"/>
+                <bitenum id="DRV_HIZ" value="0x1" description="Pin is tri-stated instead of driven low"/>
+            </bitfield>
+            <bitfield id="HIGHZ1" description="High-Z instead of high output" begin="25" end="25" width="1" rwaccess="R/W">
+                <bitenum id="DRV_HIGH" value="0x0" description="Pin can be driven high"/>
+                <bitenum id="DRV_HIZ" value="0x1" description="Pin is tri-stated instead of driven high"/>
+            </bitfield>
+            <bitfield id="INV" description="Invert digital input/output relative to peripheral/GPIO" begin="26" end="26" width="1" rwaccess="R/W">
+                <bitenum id="NO_CHNG" value="0x0" description="Input and output are non-inverted"/>
+                <bitenum id="CHNG" value="0x1" description="Input and output are inverted"/>
+            </bitfield>
+            <bitfield id="WUEN" description="Wake up enable" begin="27" end="27" width="1" rwaccess="R/W">
+                <bitenum id="NO_WAKEUP" value="0x0" description="Wake up not enabled"/>
+                <bitenum id="WAKEUP" value="0x1" description="Wake up enabled"/>
+            </bitfield>
+            <bitfield id="WCOMP" description="Wake up compare value" begin="28" end="28" width="1" rwaccess="R/W">
+                <bitenum id="MATCH_ZERO" value="0x0" description="Match 0 will wake"/>
+                <bitenum id="MATCH_ONE" value="0x1" description="Match 1 will wake"/>
+            </bitfield>
+        </register>
+        <register id="DFTSS_TDO" width="32" offset="0x4" description="TDO">
+            <bitfield id="PSTATE" description="Peripheral-Analog Channel State" begin="7" end="6" width="2" rwaccess="R/W">
+                <bitenum id="UNASSIGNED" value="0x0" description="P-Channel is in Unassigned State"/>
+                <bitenum id="HANDOVER" value="0x1" description="P-Channel is in Handover State"/>
+                <bitenum id="CONC_NOT_LOCKED" value="0x2" description="P-Channel is in Connected State and not Locked (That is F field is allowed to change without going back through Unassigned state)"/>
+                <bitenum id="CONC_LOCKED" value="0x3" description="P-Channel is in Connected State and Locked (That is F field is not allowed to change to a different non-Zero value until both G and P channels go to Unassigned)"/>
+            </bitfield>
+            <bitfield id="GSTATE" description="GPIO Channel State" begin="15" end="14" width="2" rwaccess="R/W">
+                <bitenum id="UNASSIGNED" value="0x0" description="G-Channel is in Unassigned State"/>
+                <bitenum id="HANDOVER" value="0x1" description="G-Channel is in Handover State"/>
+                <bitenum id="CONC_NOT_LOCKED" value="0x2" description="G-Channel is in Connected State and not Locked (That is F field is allowed to change without going back through Unassigned state)"/>
+                <bitenum id="CONC_LOCKED" value="0x3" description="G-Channel is in Connected State and Locked (That is F field is not allowed to change to a different non-Zero value until both G and P channels go to Unassigned)"/>
+            </bitfield>
+            <bitfield id="PIPD" description="Pull down enable" begin="16" end="16" width="1" rwaccess="R/W">
+                <bitenum id="NO_PULL_DOWN" value="0x0" description="No pull down"/>
+                <bitenum id="PULL_DOWN" value="0x1" description="Pull down"/>
+            </bitfield>
+            <bitfield id="PIPU" description="Pull up enable" begin="17" end="17" width="1" rwaccess="R/W">
+                <bitenum id="NO_PULL_UP" value="0x0" description="No pull up"/>
+                <bitenum id="PULL_UP" value="0x1" description="Pull up"/>
+            </bitfield>
+            <bitfield id="INENA" description="Input enable" begin="18" end="18" width="1" rwaccess="R/W">
+                <bitenum id="INP_DISABLE" value="0x0" description="Inputs 0 to connected core"/>
+                <bitenum id="INP_ENABLE" value="0x1" description="Inputs IO pad value to connected core"/>
+            </bitfield>
+            <bitfield id="HYSTEN" description="Hysteresis enable" begin="19" end="19" width="1" rwaccess="R/W">
+                <bitenum id="DIS_HYST" value="0x0" description="No hysteresis"/>
+                <bitenum id="EN_HYST" value="0x1" description="Hysteresis on"/>
+            </bitfield>
+            <bitfield id="DRV" description="Drive strength options" begin="22" end="20" width="3" rwaccess="R/W">
+                <bitenum id="STRENGTH_0" value="0x0" description="Lowest drive strength"/>
+                <bitenum id="STRENGTH_1" value="0x1" description="Drive strength 2/8"/>
+                <bitenum id="STRENGTH_2" value="0x2" description="Drive strength 3/8"/>
+                <bitenum id="STRENGTH_3" value="0x3" description="Drive strength 4/8"/>
+                <bitenum id="STRENGTH_4" value="0x4" description="Drive strength 5/8"/>
+                <bitenum id="STRENGTH_5" value="0x5" description="Drive strength 6/8"/>
+                <bitenum id="STRENGTH_6" value="0x6" description="Drive strength 7/8"/>
+                <bitenum id="STRENGTH_7" value="0x7" description="Highest drive strength"/>
+            </bitfield>
+            <bitfield id="HIGHZ0" description="High-Z instead of low output" begin="24" end="24" width="1" rwaccess="R/W">
+                <bitenum id="DRV_LOW" value="0x0" description="Pin can be driven low"/>
+                <bitenum id="DRV_HIZ" value="0x1" description="Pin is tri-stated instead of driven low"/>
+            </bitfield>
+            <bitfield id="HIGHZ1" description="High-Z instead of high output" begin="25" end="25" width="1" rwaccess="R/W">
+                <bitenum id="DRV_HIGH" value="0x0" description="Pin can be driven high"/>
+                <bitenum id="DRV_HIZ" value="0x1" description="Pin is tri-stated instead of driven high"/>
+            </bitfield>
+            <bitfield id="INV" description="Invert digital input/output relative to peripheral/GPIO" begin="26" end="26" width="1" rwaccess="R/W">
+                <bitenum id="NO_CHNG" value="0x0" description="Input and output are non-inverted"/>
+                <bitenum id="CHNG" value="0x1" description="Input and output are inverted"/>
+            </bitfield>
+            <bitfield id="WUEN" description="Wake up enable" begin="27" end="27" width="1" rwaccess="R/W">
+                <bitenum id="NO_WAKEUP" value="0x0" description="Wake up not enabled"/>
+                <bitenum id="WAKEUP" value="0x1" description="Wake up enabled"/>
+            </bitfield>
+            <bitfield id="WCOMP" description="Wake up compare value" begin="28" end="28" width="1" rwaccess="R/W">
+                <bitenum id="MATCH_ZERO" value="0x0" description="Match 0 will wake"/>
+                <bitenum id="MATCH_ONE" value="0x1" description="Match 1 will wake"/>
+            </bitfield>
+        </register>
+        </group>
+
+</module>

@@ -1,0 +1,110 @@
+/********************************************************************************************************/
+/* This GEL file is loaded on the command line of Code Composer                                         */
+/* The StartUp() function is called every time you start                                                */
+/* Code Composer.  You can customize this function to                                                   */
+/* initialize wait states or to perform other initialization.                                           */
+/*                                                                                                      */
+/* File       :DM50x_dap_startup.gel                                                                   */
+/* Description:DAP utilities                                                                            */
+/* Revision history                                                                                     */
+/* ==================================================================================================== */
+/* Version   Date          Change from previous version                                                 */
+/* ==================================================================================================== */
+/* 0.1       14-Nov'14     First Draft                                                                  */
+/* ==================================================================================================== */
+/********************************************************************************************************/
+/*********************************************************************************************************
+*
+*  DEFINITIONS
+*
+********************************************************************************************************/
+
+#define GEL_VERSION         0.1
+
+// Timeout definitions
+int _GEL_Global_Timeout1 = 0;
+
+#define TIMEOUT_ID 10
+// Global timeout value
+#define GTIMEOUT 2000
+
+#define WR_MEM_32(addr, data)   *(unsigned int*)(addr) =(unsigned int)(data)
+#define RD_MEM_32(addr)         *(unsigned int*)(addr)
+#define uint32_t                unsigned int
+
+#define CM_L3INSTR_L3_3_CLKCTRL                         0x4A008E20
+#define CM_L3INSTR_L3_INSTR_CLKCTRL                     0x4A008E28
+
+StartUp()
+{
+    /*------------------ Load Common Gel Files -------------------*/
+    // STM traces
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_prcm_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_stm.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_tpiu.gel");
+
+    /*------------------ Memory Map Config -------------------*/
+    GEL_MapOff();
+    GEL_MapReset();
+    memorymap_init();
+    GEL_MapOn();
+}
+
+memorymap_init()
+{
+    GEL_MapAddStr(0x00000000, 0, 0x20000000, "R|W|AS4", 0);     /* GPMC -  */
+    GEL_MapAddStr(0x40300000, 0, 0x00080000, "R|W|AS4", 0);     /* OCMRAM1 -  */
+    GEL_MapAddStr(0x40800000, 0, 0x00808000, "R|W|AS4", 0);     /* FULL DSP1  */
+    GEL_MapAddStr(0x41000000, 0, 0x00808000, "R|W|AS4", 0);     /* FULL DSP2  */
+    GEL_MapAddStr(0x41800000, 0, 0x02000000, "R|W|AS4", 0);     /* CBUF  */
+    GEL_MapAddStr(0x42000000, 0, 0x00400000, "R|W|AS4", 0);     /* EVE1 addr space */
+    GEL_MapAddStr(0x43300000, 0, 0x00300000, "R|W|AS4", 0);     /* EDMA */
+    GEL_MapAddStr(0x44000000, 0, 0x01800000, "R|W|AS4", 0);     /* L3 main1 */
+    GEL_MapAddStr(0x45800000, 0, 0x00040000, "R|W|AS4", 0);     /* MCASP1 */
+    GEL_MapAddStr(0x47000000, 0, 0x01000000, "R|AS4", 0);       /* STM - 16MBytes */
+    GEL_MapAddStr(0x48000000, 0, 0x00200000, "R|W|AS4", 0);     /* L4PER1 */
+    GEL_MapAddStr(0x48400000, 0, 0x00200000, "R|W|AS4", 0);     /* L4PER2 */
+    GEL_MapAddStr(0x48800000, 0, 0x00400000, "R|W|AS4", 0);     /* L4PER3 */
+    GEL_MapAddStr(0x4A000000, 0, 0x00E00000, "R|W|AS4", 0);     /* L4CFG */
+    GEL_MapAddStr(0x4AE00000, 0, 0x00200000, "R|W|AS4", 0);     /* L4WKUP */
+    GEL_MapAddStr(0x4B300000, 0, 0x00100000, "R|W|AS4", 0);     /* QSPI Config*/
+    GEL_MapAddStr(0x4B800000, 0, 0x00300000, "R|W|AS4", 0);     /* TESOC */
+    GEL_MapAddStr(0x4BC00000, 0, 0x00100000, "R|W|AS4", 0);     /* CRC */
+    GEL_MapAddStr(0x4C000000, 0, 0x01000000, "R|W|AS4", 0);     /* EMIF1*/
+    GEL_MapAddStr(0x50000000, 0, 0x01000000, "R|W|AS4", 0);     /* GPMC */
+    GEL_MapAddStr(0x52000000, 0, 0x02000000, "R|W|AS4", 0);     /* ISS */
+    GEL_MapAddStr(0x54000000, 0, 0x00800000, "R|W|AS4", 0);     /* L3INSTR */
+    GEL_MapAddStr(0x54800000, 0, 0x00800000, "R|W|AS4", 0);     /* DEBUGSS */
+    GEL_MapAddStr(0x54140000, 0, 0x00800000, "R|W|AS4", 0);     /* DEBUGSS CONFIG*/
+    GEL_MapAddStr(0x58000000, 0, 0x00800000, "R|W|AS4", 0);     /* DSS */
+    GEL_MapAddStr(0x58800000, 0, 0x00800000, "R|W|AS4", 0);     /* IPU */
+    GEL_MapAddStr(0x5c000000, 0, 0x04000000, "R|W|AS4", 0);     /* QSPI Maddrspace */
+    GEL_MapAddStr(0x80000000, 0, 0x40000000, "R|W|AS4", 0);     /* DDR Area */
+    // APB view
+    GEL_MapAddStr(0x80000000, 1, 0x40000000, "R|W|AS4", 0);     /* DDR Area */
+}
+
+OnTargetConnect()
+{
+    int device_type;
+
+    GEL_TextOut("--->>> TURNING ON L3_INSTR and L3_3 clocks required for debug instrumentation <<<<<<----\n");
+    configure_CM2_provide_instrumentation_clocks();
+
+    device_type = (RD_MEM_32(0x4A002134) & 0x1C0) >> 6;
+
+    // Applying Firewall Settings
+    // Nothing to do for GP devices
+    if (device_type != 0x3)
+    {
+    }
+}
+
+configure_CM2_provide_instrumentation_clocks()
+{
+    *(int*)CM_L3INSTR_L3_3_CLKCTRL = 0x1; /* Provide L3_3 clock */
+
+    *(int*)CM_L3INSTR_L3_INSTR_CLKCTRL = 0x1; /* Provide L3 instr clock */
+
+    GEL_TextOut("---<<< L3 instrumentation clocks are enabled >>>> ---\n");
+}

@@ -1,0 +1,331 @@
+Sitara Device Support Files
+===========================
+
+
+1.5.6 (Sept 29, 2021)
+-----
+Update to the pad config gel files, for AM571/2/4x to correct wrong address assigned to I2C1_SDA and I2C1_SCL
+
+1.5.5 (Jul 21, 2021)
+-----
+Added files to support AM64x StarterKit
+
+1.5.4 (Mar 26, 2020)
+-----
+Fixed duplicate IDs in device XMLs
+Fixed AM64x.gel relative path references
+
+1.5.1 (Fev, 2020)
+-----
+AM654x Rev 2.0 device peripherals aligned with latest: (on Shared support package 1.1.6)
+ - AM65x_DRA80xM_Maxwell_Public_TRM_vE
+ - Split Rev 1.0 ICSS registers for RevA devices
+Added "end of support" notice to obsolete and unsupported devices. 
+Added "limited support" notice to limited and third party supported devices. 
+Fixed CR/LF in device and board files
+
+1.5.0 (Jan, 2020)
+-----
+Added AM654x Rev 2.0 support
+  - Requires shared device support package 1.1.5 or newer
+
+1.4.9 (Nov, 2019)
+-----
+AM5729 device support added
+Fixed invalid addresses of AM335x control_module.xml
+
+1.4.8 (Jun, 2019)
+-----
+AM576x device support added
+AM574x registers refresh
+Aligned with AM574x_AM576x_SR1.0_Public_TRM_vB
+
+1.4.7 (Mai, 2019)
+-----
+Updated AM65x/DRA80xM GEL files (on Shared support package 1.1.3)
+
+1.4.6 (Abr, 2019)
+-----
+Updated AM65x/DRA80xM GEL files (on Shared support package 1.1.2)
+Fixed DBGTRC-4542 (System Reset failure on AM57x boards)
+Removal of duplicate register instantiations in OMAP3503 and OMAP3515
+
+1.4.5 (Jan, 2019)
+-----
+Removed common files between AM65x and DRA80xM. Moved to Shared Device support
+Removed common startup_ARMCA8.S, startup_ARMCA9.S, startup_ARMCA53.S. Moved to Shared Device support
+Added IPU2 cores to AM571x/AM572x SiRev 2.0 devices
+Removed IPU2 cores from AM572x SiRev 1.1 devices
+Merged Spectrum Digital board and GEL files
+
+1.4.4 (Nov, 2018)
+-----
+Fixed re-connect error in the AM65x M3 core
+Added shared memory configuration for SMP on AM571x, AM572x, AM574x 
+Small cleanup and fixes to AM5716, AM5728 and AM5728_RevA
+
+1.4.3 (Out, 2018)
+-----
+AM5749 device added
+Updated AM65x GEL files
+General cleanup of unused XML directives to improve performance
+
+1.4.2 (Out, 2018)
+-----
+Fixed Sync Run issues with Cortex R5 on AM65x devices
+Matched Registers with latest TRM version of AM65x
+
+1.4.1 (Set, 2018)
+-----
+Added support for AMIC120
+Added support for AM65x family
+
+1.4.0 (Jun, 2018)
+-----
+AM570x and AM571x updates
+Updated top level xml files to match latest peripherals from TRM
+Updated latest peripherals 
+Package aligned with AM571x_SR2.0_SR1.0_AM570x_SR2.1_SR2.0_Public_TRM_vH
+Fixed issue of non-existing on GEL file references on AM570x devices (VAYUFAMILYAPPS-348)
+Fixed issue with invalid silicon ID on AM570x devices (VAYUFAMILYAPPS-354)
+
+1.3.9 (Abr, 2018)
+-----
+Fixed a wrong reference on the file <AM570x_cortexa15_cpu0_startup.gel>
+Moved Startup_ARMCA15.S to shared support
+
+1.3.8 (Mar, 2018)
+-----
+AM574x device support updated and aligned with AM574x_SR1.0_Public_TRM_vInitial
+AM572x device support updated and aligned with AM572x_SR2.0_SR1.1_Public_TRM_vF(vAG)
+AM574x GEL updated for 666MHz DDR
+
+1.3.7 (Dez, 2017)
+-----
+AM574x device support added with no peripheral registers
+Updated AM335x GEL files
+
+1.3.6 (Jun, 2017)
+-----
+AM438x device support added
+Fixed minor typos in AM437x devices
+
+1.3.5 (Mar, 2017)
+-----
+TMDXICE110 (AMIC110 ICE) board support added 
+Bug fixes to AMIC110 device
+
+1.3.4 (Jan, 2017)
+-----
+AM5706/AM5708 device support added
+Fixed SYSCFG_PULLUP_ENABLE bits on AM571x/A572x_pad_config.gel
+
+1.3.3 (Set, 2016)
+-----
+AMIC110 device support added
+AM4372 device support added
+
+1.3.2 (Jul, 2016)
+-----
+Fixed AM437x PRU memory sizes
+Fixed missing Module XML files for AM572x devices
+
+1.3.1 (Jun, 2016)
+-----
+Added MII_RT and MDIO PRU registers to AM335x and AM437x devices
+Repaired AM335x and AM437x PRU GEL files to accomodate PRU changes
+Removed PRU source files from the package. They are now hosted in the SDK.
+Updated AM571x and AM572x GEL files
+
+1.3.0 (Jun, 2016)
+-----
+Fixed SDOAPPSCOL-11: Duplicate ICECrusherCS_0 entries in AM572x_RevA.xml files
+  THIS BREAKS COMPATIBILITY WITH EXISTING CONFIGURATIONS
+Fixed SDOAPPSCOL-13: Invalid base address for CM_WKUP module in AM437x devices
+
+1.2.9 (Mai, 2016)
+-----
+AM571x SR2.0 Support Added
+Updated AM571x and AM572x top level xml files
+Updated latest peripherals 
+Package aligned with AM572x_SR2.0_SR1.1_Public_TRM_vF(vAC) and AM571x_SR2.0_SR1.0_Public_TRM_vB(vR)
+PRU include files updated to PRU support package 4.02
+Updated AM571x and AM572x GEL files
+Updated AM57xx_CM4.cmd file to accomodate for MMU changes
+Fixed invalid project wizard options in all cores of AM571x and AM572x devices
+
+1.2.8 (Fev, 2016)
+-----
+Added user-contributed CPSW_STATS register Module to AM335x and AM437x devices
+Added page 2 specifier to PRU ICSS linker command files for AM335x, AM437x and AM57xx devices
+Added PRU ICSS GEL files with Memory Maps for AM335x, AM437x, AM57xx devices
+Fixed local PRU ICSS register on AM57xx devices
+
+1.2.7 (Dez, 2015)
+-----
+Fixed SDSCM00052300
+Implemented SDSCM00052758. Added AM3351 device.
+Implemented SDSCM00052436. Added GCC startup files for AM437x devices
+Added Cortex M4 and C66x linker CMD files for AM57xx devices
+Added support for Silicon Rev 2.x of AM572x
+Modified existing gpevm_am572x_SiRevA.xml to point to updated GEL files
+Added PRU cores to Freon devices (AM18x)
+  THIS BREAKS COMPATIBILITY WITH EXISTING CONFIGURATIONS
+
+1.2.6 (Dez, 2015)
+-----
+(SDSCM00052436) Added GCC startup files for AM437x devices
+Added Cortex M4 and C66x linker CMD files for AM57xx devices
+Added support for Silicon Rev 2.x of AM572x
+Modified existing gpevm_am572x_SiRevA.xml to point to updated GEL files
+Added PRU cores to Freon devices (AM18x)
+  THIS BREAKS COMPATIBILITY WITH EXISTING CONFIGURATIONS
+
+1.2.5 (Set, 2015)
+-----
+Updated GEL files for AM335x ICE Rev2, AM437x IDK, AM437x EVM and AM572x GPEVM
+Added board support for AM437x SK
+Added device support for AM571x
+
+1.2.4 (Jul, 2015)
+-----
+Fixed errors on the file <gpevm_am572x_SiRevA.xml>
+Corrected the memory organization on the <AM572x.lds> file
+
+1.2.3 (Jun, 2015)
+-----
+Fixed a description error on the file <gpevm_am572x_SiRevA.xml>
+
+1.2.2 (Mai, 2015)
+-----
+Added AM572x (Silicon rev 1.1) device support
+Added specific PRU linker CMD files
+Added specific PRU include files
+General cleanup of unused XML properties
+
+1.2.1 (Jan, 2015)
+-----
+Fixed SDSCM00051393
+
+1.2.0 (Jan, 2015)
+-----
+Added NEON and VFP startup code to startup_ARMCA8.S
+Updated AM43x GEL files
+
+1.1.9 (Jun, 2014)
+-----
+Fixed SDSCM00050412 and SDSCM00050413
+COMPATIBILITY NOTE: PRU registers and shared RAM are mapped to page 2. This will change in the future pending a CCS update. 
+
+1.1.8 (Jun, 2014)
+-----
+Fixed SDSCM00047383
+Added filter specification for Aegis XML files 
+Updated GEL files AM3358_StarterKit.gel, TMDXICE3359.gel
+Included GEL files for the AM335x and AM437x PRU cores and linked them to the main board files
+Added a pru directory containing the AM335x.cmd and AM437x.cmd files for the project wizard
+Moved AM437x GEL files to match the current directory convention 
+COMPATIBILITY NOTE: PRU registers and shared RAM are mapped to page 2. This will change in the future pending a CCS update. 
+
+1.1.7 (Mar, 2014)
+-----
+Fixed SDSCM00049721
+Fixed bad registers for AM437x devices
+Handoff to CCSv6.0 RTM
+
+1.1.6 (Jan, 2014)
+-----
+Added GEL file for AM335x EVM Rev 1.5
+Added AM437x device support
+Changed default toolchain to GCC for Cortex A cores
+Unified Linker CMD and LDS files for AM335x, now named <AM335x.cmd> and <AM335x.lds>
+Added PRU compiler support for AM335x
+Handoff for CCSv6.0
+
+1.1.5 (Jul, 2013)
+-----
+Fixed SDSCM00046668
+Added control_module to AM335x
+Added BeagleBone Black to board configurations
+Added GEL file for AM335x EVM Rev 1.3
+
+1.1.4 (Jan, 2013)
+-----
+Final version of semihosting support according to Baltasar and Mandeep's directives.
+Fixed missing page specification for PRU support.
+
+1.1.3 (Jan, 2013)
+-----
+Added semihosting support according to Mandeep's directives
+
+1.1.2 (Jan, 2013)
+-----
+Added GCC baremetal support for AM335x devices
+
+1.1.1 (Oct, 2012)
+-----
+Complete register descriptions for the AM335x devices according to TRM Rev. H
+Updated GEL files for all the AM335x boards (Beaglebone, ice_am3359, sk_am3358 and evmam3358.
+Added the AM3359 ICE board XML
+Added the legacy AM335x SK board GEL files
+Cross Triggering settings added to Sitara and OMAP
+
+1.1.0 (Sep, 2012)
+-----
+Added AM335x modules according to TRM rev G.
+
+1.0.9 (Mai, 2012)
+-----
+Memory block overlap issue fixed in AM335x cmd files
+AM335x GEL file updated to remove DSP info
+
+1.0.8 (Mai, 2012)
+-----
+ETM added to AM3871, AM3872, AM3874, AM3892 and AM3894
+
+1.0.7 (Abr, 2012)
+-----
+Beaglebone file correct to include AM3359 instead of AM3358
+AM1808 and AM3715 EVM files corrected for case
+
+1.0.6 (Apr, 2012)
+-----
+Line feed issues corrected in board files
+
+1.0.5 (Mar, 2012)
+-----
+linker command file for am3517 added
+board xml files added for am3517 evm, am3715 evm, am3358 evm, am3358 starter kit
+gel files added for beaglebone, am3517, am3358 boards
+
+1.0.4 (Fev, 2012)
+-----
+Revision history file renamed to not conflict with other packages
+Added OMAP3503.xml file with peripheral registers
+Added OMAP3515.xml file with peripheral registers
+Sample linker command files added for (AM17xx, AM18xx, AM33xx, AM35xx, AM37xx, AM38xx and OMAP35xx)
+Endianness property added
+Binary mode property added
+Linker options for stack and heap added
+
+1.0.3 (Jan, 2012)
+-----
+Peripheral definitions added for AM335x devices (not all peripherals but many)
+
+1.0.2 (Nov, 2011)
+-----
+Added -D build option with device names to help with using StarterWare
+Updated installation instructions to include running with -clean
+
+1.0.1 (Nov, 2011)
+-----
+changed directory structure to accommodate GEL files
+Fixed issue in AM335x files with subpath ID overlap
+Added beaglebone board file
+
+1.0.0 (Nov, 2011)
+-----
+Added device files for each AM device
+
+
+

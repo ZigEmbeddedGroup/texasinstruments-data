@@ -1,0 +1,71 @@
+/*******************************************************************/
+/* This GEL file is loaded on the command line of Code Composer    */
+/* The StartUp() function is called every time you start           */
+/* Code Composer.  You can customize this function to              */
+/* initialize wait states or to perform other initialization.      */
+/*                                                                 */
+/* DM50x Cortex M4 IPU                                            */
+/*                                                                 */
+/*                                                                 */
+/*******************************************************************/
+
+
+#define WR_MEM_32(addr, data)   *(unsigned int*)(addr) =(unsigned int)(data)
+#define RD_MEM_32(addr)         *(unsigned int*)(addr)
+#define uint32_t                unsigned int
+
+memorymap_init()
+{
+	int smp_enabled;
+
+	GEL_MapAddStr(0x00000000, 0, 0x20000000, "R|W|AS4", 0);     /* GPMC -  */
+    GEL_MapAddStr(0x40300000, 0, 0x00080000, "R|W|AS4", 0);     /* OCMRAM1 -  */
+    GEL_MapAddStr(0x40800000, 0, 0x00808000, "R|W|AS4", 0);     /* FULL DSP1  */
+    GEL_MapAddStr(0x41000000, 0, 0x00808000, "R|W|AS4", 0);     /* FULL DSP2  */
+    GEL_MapAddStr(0x41800000, 0, 0x02000000, "R|W|AS4", 0);     /* CBUF  */
+    GEL_MapAddStr(0x42000000, 0, 0x00400000, "R|W|AS4", 0);     /* EVE1 addr space */
+    GEL_MapAddStr(0x43300000, 0, 0x00300000, "R|W|AS4", 0);     /* EDMA */
+    GEL_MapAddStr(0x44000000, 0, 0x01800000, "R|W|AS4", 0);     /* L3 main1 */
+    GEL_MapAddStr(0x45800000, 0, 0x00040000, "R|W|AS4", 0);     /* MCASP1 */
+    GEL_MapAddStr(0x47000000, 0, 0x01000000, "R|AS4", 0);       /* STM - 16MBytes */
+    GEL_MapAddStr(0x48000000, 0, 0x00200000, "R|W|AS4", 0);     /* L4PER1 */
+    GEL_MapAddStr(0x48400000, 0, 0x00200000, "R|W|AS4", 0);     /* L4PER2 */
+    GEL_MapAddStr(0x48800000, 0, 0x00400000, "R|W|AS4", 0);     /* L4PER3 */
+    GEL_MapAddStr(0x4A000000, 0, 0x00E00000, "R|W|AS4", 0);     /* L4CFG */
+    GEL_MapAddStr(0x4AE00000, 0, 0x00200000, "R|W|AS4", 0);     /* L4WKUP */
+    GEL_MapAddStr(0x4B300000, 0, 0x00100000, "R|W|AS4", 0);     /* QSPI Config*/
+    GEL_MapAddStr(0x4B800000, 0, 0x00300000, "R|W|AS4", 0);     /* TESOC */
+    GEL_MapAddStr(0x4BC00000, 0, 0x00100000, "R|W|AS4", 0);     /* CRC */
+    GEL_MapAddStr(0x4C000000, 0, 0x01000000, "R|W|AS4", 0);     /* EMIF1*/
+    GEL_MapAddStr(0x50000000, 0, 0x01000000, "R|W|AS4", 0);     /* GPMC */
+	GEL_MapAddStr(0x52000000, 0, 0x02000000, "R|W|AS4", 0);     /* ISS */
+    GEL_MapAddStr(0x54000000, 0, 0x00800000, "R|W|AS4", 0);     /* L3INSTR */
+    GEL_MapAddStr(0x54800000, 0, 0x00800000, "R|W|AS4", 0);     /* DEBUGSS */
+    GEL_MapAddStr(0x54140000, 0, 0x00800000, "R|W|AS4", 0);     /* DEBUGSS CONFIG*/
+    GEL_MapAddStr(0x58000000, 0, 0x00800000, "R|W|AS4", 0);     /* DSS */
+    GEL_MapAddStr(0x58800000, 0, 0x00800000, "R|W|AS4", 0);     /* IPU */
+    GEL_MapAddStr(0x5c000000, 0, 0x04000000, "R|W|AS4", 0);     /* QSPI Maddrspace */
+	
+	GEL_MapAddStr(0x55020000, 0, 0x00010000, "R|W|AS4", 0);      /* RAM - 64KBytes */
+	GEL_MapAddStr(0x55080000, 0, 0x00001000, "R|W|AS4", 0);      /* Unicache MMU - 4KBytes */
+
+		
+    GEL_MapAddStr(0x80000000, 0, 0x40000000, "R|W|AS4", 0);     /* DDR Area */
+	/* Map DDR region.  Determine whether shared access must be enabled for SMP configurations */
+    smp_enabled = ((IPU_INSTANCE == 1) && (IPU1_SMP_Enable));
+	
+    if (smp_enabled)
+    {
+        GEL_TextOut("DDR mapped as shared with cross triggering for SMP Configrations.\n");
+        GEL_TextOut("    Default memory configurations are determined by the SYS/BIOS \n");
+        GEL_TextOut("    memory map defined in the ti.platforms.evmDRA7xx platform from\n");
+        GEL_TextOut("    <bios_path>/packages/ti/platforms/evmDRA7xx.\n");
+
+        if (IPU_INSTANCE == 1)
+        {
+            GEL_TextOut("IPU instance 1.\n");
+            GEL_MapAddStr(0x81400000, 0, 0xb00000, "R|W|AS4|SH2C", 0);     /* "IPU1 Code Memory (12 MB)" */
+			GEL_MapAddStr(0x82800000, 0, 0x1700000, "R|W|AS4|SH3C", 0);     /* "IPU1 Data Memory (23 MB)" */
+        }
+    }
+}

@@ -1,0 +1,42 @@
+<module name="USB0_VBP2AHB_WRAP_CONTROLLER_VBP_USB3_CORE_INTR" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_IMAN" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_IMAN" offset="0x0" width="32" description="Interrupter Management Register Bit Definitions
+
+For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="IE" width="1" begin="1" end="1" resetval="0x0" description="IE  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="1" rwaccess="R/W"/> 
+		<bitfield id="IP" width="1" begin="0" end="0" resetval="0x0" description="IP Interrupt Pending  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_IMOD" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_IMOD" offset="0x4" width="32" description="Interrupter Moderation Register
+
+The software may use this register to pace (or even out) the delivery of interrupts to the host CPU. 
+
+This register provides a guaranteed inter-interrupt delay between interrupts asserted by the xHC, regardless of USB traffic conditions. 
+
+To independently validate configuration settings, software may use the following algorithm to convert the inter-interrupt Interval value to the common 'interrupts/sec' performance metric.  ">
+		<bitfield id="IMODC" width="16" begin="31" end="16" resetval="0x0" description="Interrupt Moderation Counter [IMODC]   - RW.   Default = undefined. Down counter.   Loaded with the IMODI value whenever IP is cleared to '0', counts down to '0', and stops. The associated interrupt is signaled whenever this counter is '0', the Event Ring is not empty, the IE and IP flags = '1', and EHB = '0'. This counter may be directly written by software at any time to alter the interrupt rate.  " range="31 - 16" rwaccess="R/W"/> 
+		<bitfield id="IMODI" width="16" begin="15" end="0" resetval="0x4000" description="Interrupt Moderation Interval [IMODI] - RW.   Default = '4000' [~1ms]. Minimum inter-interrupt interval. The interval is specified in 250ns increments.   A value of '0' disables interrupt throttling logic and interrupts is generated immediately if IP = '0', EHB = '0', and the Event Ring is not empty.  " range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERSTSZ" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERSTSZ" offset="0x8" width="32" description="Event Ring Segment Table Size Register Bit Definitions
+
+For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="ERS_TABLE_SIZE" width="16" begin="15" end="0" resetval="0x0" description="ERS_TABLE_SIZE  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_RsvdP" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_RsvdP" offset="0xC" width="32" description="RsvdP">
+		
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERSTBA_LO" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERSTBA_LO" offset="0x10" width="32" description="ERSTBA_LO">
+		<bitfield id="ERS_TABLE_BAR" width="26" begin="31" end="6" resetval="0x0" description="ERS_TABLE_BAR" range="31 - 6" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERSTBA_HI" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERSTBA_HI" offset="0x14" width="32" description="ERSTBA_HI">
+		<bitfield id="ERS_TABLE_BAR" width="32" begin="31" end="0" resetval="0x0" description="ERS_TABLE_BAR  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERDP_LO" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERDP_LO" offset="0x18" width="32" description="ERDP_LO
+
+For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus (USB) Specification 3.0.">
+		<bitfield id="ERD_PNTR" width="28" begin="31" end="4" resetval="0x0" description="ERD_PNTR  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 4" rwaccess="R/W"/> 
+		<bitfield id="EHB" width="1" begin="3" end="3" resetval="0x0" description="HC OS Owned SemaphoreERS_TABLE_SIZEHC BIOS Owned Semaphore  USB SMI Enable  SMI on Host System Error Enable   - SMI on OS Ownership Enable  - SMI on PCI Command Enable  - SMI on BAR Enable  - SMI on Event Interrupt  - SMI on Host System Error  - SMI on OS Ownership Change   - SMI on PCI Command  - SMI on BAR   - Compatible Port Count  - HC OS Owned Semaphore  - HC BIOS Owned Semaphore  - USB SMI Enable  - SMI on Host System Error Enable   - SMI on OS Ownership Enable  - SMI on PCI Command Enable  - SMI on BAR Enable  - SMI on Event Interrupt  - SMI on Host System Error  - SMI on OS Ownership Change   - SMI on PCI Command  - SMI on BAR   - Compatible Port Count" range="3" rwaccess="R/W1TC"/> 
+		<bitfield id="DESI" width="3" begin="2" end="0" resetval="0x0" description="DESI  - For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERDP_HI" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_INTR_ERDP_HI" offset="0x1C" width="32" description="ERDP_HI">
+		<bitfield id="ERD_PNTR" width="32" begin="31" end="0" resetval="0x0" description="ERD_PNTR  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 0" rwaccess="R/W"/>
+	</register>
+</module>

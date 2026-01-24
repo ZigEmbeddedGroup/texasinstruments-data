@@ -1,0 +1,346 @@
+/**
+ * \file  AM275_common.gel
+ *
+ * \brief GEL File to control and manage other GEL functions for AM275
+ */
+
+/* Copyright (c) 2024, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+
+// LOCK and UCLOCK values for AM275 Ctrl registers space
+#define KICK0_UNLOCK    0x68EF3490
+#define KICK1_UNLOCK    0xD172BC5A
+#define KICK_LOCK       0x00000000
+
+
+//Common Register Definitions
+#define MCU_PSC_BASE                        (0x04000000)   // WKUP_PSC0_BASE
+#define MAIN_PSC_BASE                       (0x00400000)
+#define CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE    (0x45a00000ul)
+#define CSL_WKUP_SEC_MMR0_CFG0_BASE         (0x45a20000ul)
+#define CSL_SMS0_RAT_BASE                   (0x44200000UL)
+#define HSM_M4_IRAM_BASE_ADDRESS            (0x43C00000UL)  // SMS0_HSM_SRAM0_0_BASE
+#define CSL_MAIN_CTRL_MMR0_CFG0_BASE        (0x00100000UL)
+#define CSL_MCU_CTRL_MMR0_CFG0_BASE         (0x04500000UL)
+#define CSL_WKUP_CTRL_MMR0_CFG0_BASE        (0x43000000UL)
+#define CSL_MCU_PADCFG_CTRL_MMR0_CFG0_BASE      (0x04080000UL)
+#define CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE     (0x000f0000UL)
+
+
+//TIFS_SEC_MMR Register Definition
+#define TIFS_SEC_LOCK0_KICK0        (0x44230020)
+#define TIFS_SEC_LOCK0_KICK1        (0x44230024)
+#define SEC_HSM_RESET               (0x44230800)
+
+//TIFS_SEC_MMR UNLOCK KEY
+#define HSM_KICK0_UNLOCK            (0xF457C023)
+#define HSM_KICK1_UNLOCK            (0x93B0A410)
+
+//MCU CTRL MMR
+#define CSL_MCU_CTRL_MMR_CFG0_LFXOSC_CTRL       (0x00008038U)
+
+//WKUP CTRL MMR
+#define CSL_WKUP_CTRL_MMR_CFG0_CLKOUT_CTRL      (0x00008020U)
+
+
+
+/* ************************************************************************* */
+/* Global Helper Functions */
+/* ************************************************************************* */
+
+/* Read from an MMR. */
+Read_MMR(unsigned int mmr_address)
+{
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    return *p_mmr;
+}
+
+/* Write to an MMR. */
+Write_MMR(unsigned int mmr_address, unsigned int mmr_value)
+{
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    *p_mmr = mmr_value;
+}
+
+/* Write to a specific field in an MMR. */
+Write_MMR_Field(unsigned int mmr_address, unsigned int field_value, unsigned int width, unsigned int leftshift)
+{
+    unsigned int * p_mmr;
+    unsigned int mask;
+    unsigned int value;
+    p_mmr = (unsigned int *) mmr_address;   //Grab the MMR value
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field.
+    mask = ~(mask); //Invert the mask so that the field will be zero'd out with the AND operation.
+//    *p_mmr &= mask; //Zero out the field in the register.
+//    *p_mmr |= (field_value << leftshift); //Assign the value to that specific field.
+    /*fixing double write issue*/
+    value = *p_mmr; //Read the register once.
+    value &= mask; //Zero out the field
+    value |= (field_value << leftshift); //Assign the value to that specific field.
+    *p_mmr = value; // Write the register just once.
+}
+
+/* Read from a specific field in an MMR. */
+Read_MMR_Field(unsigned int mmr_address, unsigned int width, unsigned int leftshift)
+{
+    unsigned int * p_mmr;
+    unsigned int mask;
+    unsigned int retval;
+    p_mmr = (unsigned int *) mmr_address;
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field.
+    retval = (*p_mmr & mask) >> leftshift; //Bitwise AND the mask with the register value, and then shift the field back down to the LSB
+    return retval;
+}
+
+/**
+ * \brief   Write the unlocking keys to the locking registers.
+ *
+ * \param   kick0 		 		The first lock register.
+ *
+ * \param   kick1 				The second lock register.
+ *
+ * \return  status 				This should return 0 on a successful unlock.
+ */
+
+
+menuitem "lock and unlock kick registers";
+
+//Function to bring up a dialog box in which users can custom-configure the pinmuxing for a pin.
+dialog Unlock_Kick_Registers(kick0 "kick0 ", kick1 "kick ")
+{
+    // initialize the status variable
+    unsigned int status = 0;
+
+    // if either of the kick lock registers are locked
+    if (!(*kick0 & 0x1) | !(*kick1 & 0x1)){
+        // unlock the partition by writing the unlock values to the kick lock registers
+        *kick0 = KICK0_UNLOCK;
+        *kick1 = KICK1_UNLOCK;
+    }
+
+    // check to see if either of the kick registers are unlocked.
+    if (!(*kick0 & 0x1)){
+        status = 1;
+    }
+
+    // return the status to the calling program
+    return status;
+
+}
+
+menuitem "Initial Device Configuration";
+
+hotmenu Configure_RAT()
+{
+   //Configure RAT
+    GEL_TextOut( "This GEL is currently only supported for use from the Cortex-M4(TIFS) inside the SMS.\n");
+    GEL_TextOut( "Do not run this GEL from any other CPU on the SoC.\n");
+    GEL_TextOut( "This script sets the first address translation region to [0x8000_0000, 0x0000_0000].\n");
+    GEL_TextOut( "It also sets the second address translation region to    [0x6000_0000, 0x4000_0000].\n");
+    GEL_TextOut( "This is consistent with the SoC DV assumptions.\n");
+
+    // Available M4 space to remap = 2GB, 0x6000_0000 - 0xDFFF_FFFF
+    // Configure the RAT for view into the SoC
+    // enable and set region size for first two regions
+
+    // region 0 0x60000000 - 0x80000000 -> 0x40000000 - 0x60000000
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x24) = 0x60000000;     //If the M3 reads from here -------> IN ADDRESS
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x2C) = 0x00000000;     //retrieve data from here   -------> OUT ADDRESS[47:32] in RAT register[15:0]
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x28) = 0x40000000;     //                          -------> OUT ADDRESS[31:0]
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x20) = 0x8000001D;     //Size = 512MB and enable region
+
+    // region 1 0x80000000 - 0xA0000000 -> 0X0 - 0x20000000
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x34) = 0x80000000;     //If the M3 reads from here -------> IN ADDRESS
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x3C) = 0x00000000;     //retrieve data from here   -------> OUT ADDRESS[47:32] in RAT register[15:0]
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x38) = 0x00000000;     //                          -------> OUT ADDRESS[31:0]
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x30) = 0x8000001D;     //Size = 512MB and enable region
+
+    //Disable region 2-15
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x40)  = 0x00000000;    //Region 2 Disable
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x50)  = 0x00000000;    //Region 3
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x60)  = 0x00000000;    //Region 4
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x70)  = 0x00000000;    //...
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x80)  = 0x00000000;
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x90)  = 0x00000000;
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0xA0)  = 0x00000000;
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0xB0)  = 0x00000000;
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0xC0)  = 0x00000000;
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0xD0)  = 0x00000000;
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0xE0)  = 0x00000000;
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0xF0)  = 0x00000000;    //...
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x100) = 0x00000000;    //Region 14
+    *(unsigned int *)(CSL_SMS0_RAT_BASE + 0x110) = 0x00000000;    //Region 15
+}
+
+hotmenu Configure_ATCM()
+{
+    //Enable ATCM
+    GEL_TextOut("Configuring ATCM for DM R5F\n");
+    *((unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C100)) = 0x888;    //Cluster 28 Core 0
+    GEL_TextOut("Configuring ATCM for MAIN R5F00\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x100)) = 0x888;        //Cluster 0 Core 0
+    GEL_TextOut("Configuring ATCM for MAIN R5F01\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x180)) = 0x888;        //Cluster 0 Core 0
+    GEL_TextOut("ATCM Configured.\n");
+}
+
+hotmenu Configure_R5F_Bootvectors()
+{
+    //Set bootvector (default 0x822000)
+    GEL_TextOut("Configuring DM R5F bootvector\n");
+    *((unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C110)) = 0;         //Cluster 28 Core 0
+    *((unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C114)) = 0;
+    GEL_TextOut("DM R5F Bootvector configured.\n");
+    
+    GEL_TextOut("Configuring MCU R5F00 bootvector\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x110)) = 0;             //Cluster 0 Core 0
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x114)) = 0;
+    GEL_TextOut("Configuring MCU R5F01 bootvector\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x190)) = 0;             //Cluster 0 Core 0
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x194)) = 0;
+    GEL_TextOut("MAIN R5F Bootvector configured.\n");
+}
+
+hotmenu Configure_R5F_Halt_Upon_PowerUp()
+{
+    //Put all R5Fs in HALT mode upon PORz by writing to the MMRs.
+    *(unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C120) = 0x1;  //Cluster 28 Core 0
+    GEL_TextOut("DM R5F Halt bit set.\n");
+    
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x120) = 0x1;      //Cluster 0 Core 0
+    GEL_TextOut("MAIN R5F00 Halt bit set.\n");
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1A0) = 0x1;      //Cluster 0 Core 1
+    GEL_TextOut("MAIN R5F01 Halt bit set.\n");
+}
+
+hotmenu Configure_Cluster1_ATCM()
+{
+    //Enable ATCM
+    //GEL_TextOut("Configuring ATCM for DM R5F\n");
+    //*((unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C100)) = 0x888;    //Cluster 28 Core 0
+
+    GEL_TextOut("Configuring ATCM for Cluster1 MAIN R5F00\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1100)) = 0x888;        //Cluster 0 Core 0
+    GEL_TextOut("Configuring ATCM for Cluster1 MAIN R5F01\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1180)) = 0x888;        //Cluster 0 Core 0
+    GEL_TextOut("ATCM Cluster1 Configured.\n");
+}
+
+hotmenu Configure_Cluster1_R5F_Bootvectors()
+{
+   //Set bootvector (default 0x822000)
+   //GEL_TextOut("Configuring DM R5F bootvector\n");
+   //*((unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C110)) = 0;         //Cluster 28 Core 0
+   //*((unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C114)) = 0;
+   //GEL_TextOut("DM R5F Bootvector configured.\n");
+
+    GEL_TextOut("Configuring MCU Cluster1 R5F00 bootvector\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1110)) = 0;             //Cluster 0 Core 0
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1114)) = 0;
+    GEL_TextOut("Configuring MCU Cluster1 R5F01 bootvector\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1190)) = 0;             //Cluster 0 Core 0
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1194)) = 0;
+    GEL_TextOut("MAIN R5F Cluster1 Bootvector configured.\n");
+}
+
+hotmenu Configure_Cluster1_R5F_Halt_Upon_PowerUp()
+{
+    //Put all R5Fs in HALT mode upon PORz by writing to the MMRs.
+    //*(unsigned int *)(CSL_WKUP_SEC_MMR0_CFG0_BASE + 0x1C120) = 0x1;  //Cluster 28 Core 0
+    // GEL_TextOut("DM R5F Halt bit set.\n");
+
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1120) = 0x1;      //Cluster 0 Core 0
+    GEL_TextOut("MAIN R5F00 Halt bit set.\n");
+    *(unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x11A0) = 0x1;      //Cluster 0 Core 1
+    GEL_TextOut("MAIN R5F01 Halt bit set.\n");
+}
+
+hotmenu Switch_Cluster0_to_Dual_Core()
+{
+    GEL_TextOut("Switching to Dual Core\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x40)) = 0x8;        //Cluster 0
+}
+
+hotmenu Switch_Cluster1_to_Dual_Core()
+{
+    GEL_TextOut("Switching to Dual Core\n");
+    *((unsigned int *)(CSL_MAIN_SEC_MMR0_CFG0_CTRL_BASE + 0x1040)) = 0x8;        //Cluster 1
+}
+
+
+Load_HSM_M4_WFI_Vector()
+{
+    //Goal is to load in a valid stack pointer and reset vector so the M4 does not enter a hard fault when turned on
+    unsigned int address_offset = 0;
+    address_offset = 0x20000000;
+
+    //Set the stack pointer to 0x1000 for M4
+    *((unsigned int *)(HSM_M4_IRAM_BASE_ADDRESS+address_offset+0x0)) = 0x00001000;
+
+    //Set the reset vector, nmi, and hard fault vector for M4 to be a location with no code so it spins, but have bit[0] of the vectors =1 so it does not hard fault
+    *((unsigned int *)(HSM_M4_IRAM_BASE_ADDRESS+address_offset+0x4)) = 0x00000400 + 0x1; //Reset Vector
+
+    //Zero out the location specified so it does not do anything
+    *((unsigned int *)(HSM_M4_IRAM_BASE_ADDRESS+address_offset+0x400)) = 0xBF30BF30;
+
+    GEL_TextOut("HSM_M4F WFI Vector set into IRAM.\n");
+}
+
+hotmenu Init_HSM_M4()
+{
+    GEL_TextOut("Initializing HSM_M4F ...\n");
+
+    //Unlock TIFS_SEC_MMR
+    *((unsigned int *)(TIFS_SEC_LOCK0_KICK0)) = HSM_KICK0_UNLOCK;
+    *((unsigned int *)(TIFS_SEC_LOCK0_KICK1)) = HSM_KICK1_UNLOCK;
+
+    //Release SEC_HSM_RESET
+    *((unsigned int *)(SEC_HSM_RESET)) = 0x1;
+
+
+    change_HSM_M4_LRST(1);
+    Load_HSM_M4_WFI_Vector();
+    change_HSM_M4_LRST(0);
+    GEL_TextOut("HSM_M4F Initialized.\n");
+}
+
+//Stops TIFS M4 from re-running all of ROM boot/init code when reset
+NOBOOT_ROM_safeguard()
+{
+	//Fill 0x44400 through 0x444FF with [branch-to-self]
+	unsigned int i = 0;
+	for(i = 0; i < 0xFF; i += 4)
+	{
+		*((unsigned int *)(0x44400 + i)) = 0xF7FFBFFE;
+	}
+}

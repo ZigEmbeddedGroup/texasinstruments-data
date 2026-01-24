@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<board 	id="EVMTCI6488" XML_version="1" desc="EVMTCI6488" description="Spectrum Digital TCI6488 EVM Board">
+    <instance XML_version="1.2" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+    <instance XML_version="1.2" desc="IcePick_C_1" href="routers/icepick_c.xml" id="IcePick_C_1" xml="icepick_c.xml" xmlpath="routers"/>
+    <router HW_revision="1.0" XML_version="1.2" desc="IcePick_C_0" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+        <subpath desc="Subpath_0" id="Subpath">
+            <instance XML_version="1.2" desc="C64XP_0" href="cpus/c64xp.xml" id="C64XP_0" xml="c64xp.xml" xmlpath="cpus"/>
+            <cpu HW_revision="1.0" XML_version="1.2" desc="C64XP_1A" description="C64x+ CPU" id="C64XP_0" isa="TMS320C64XP">
+                <property Type="filepathfield" Value="../../emulation/boards/evmtci6488/gel/evmtci6488.gel" id="GEL File"/>
+            </cpu>
+        </subpath>
+        <subpath desc="Subpath_1" id="Subpath_0">
+            <instance XML_version="1.2" desc="C64XP_1" href="cpus/c64xp.xml" id="C64XP_1" xml="c64xp.xml" xmlpath="cpus"/>
+            <cpu HW_revision="1.0" XML_version="1.2" desc="C64XP_1B" description="C64x+ CPU" id="C64XP_1" isa="TMS320C64XP">
+                <property Type="filepathfield" Value="../../emulation/boards/evmtci6488/gel/evmtci6488-MemoryMap.gel" id="GEL File"/>
+            </cpu>
+            <property Type="numericfield" Value="0x11" id="Port Number"/>
+        </subpath>
+        <subpath desc="Subpath_2" id="Subpath_1">
+            <instance XML_version="1.2" desc="C64XP_2" href="cpus/c64xp.xml" id="C64XP_2" xml="c64xp.xml" xmlpath="cpus"/>
+            <cpu HW_revision="1.0" XML_version="1.2" desc="C64XP_1C" description="C64x+ CPU" id="C64XP_2" isa="TMS320C64XP">
+                <property Type="filepathfield" Value="../../emulation/boards/evmtci6488/gel/evmtci6488-MemoryMap.gel" id="GEL File"/>
+            </cpu>
+            <property Type="numericfield" Value="0x12" id="Port Number"/>
+        </subpath>
+    </router>
+    <router HW_revision="1.0" XML_version="1.2" desc="IcePick_C_1" description="ICEPick_C Router" id="IcePick_C_1" isa="ICEPICK_C">
+        <subpath desc="Subpath_3" id="Subpath">
+            <instance XML_version="1.2" desc="C64XP_0" href="cpus/c64xp.xml" id="C64XP_0" xml="c64xp.xml" xmlpath="cpus"/>
+            <cpu HW_revision="1.0" XML_version="1.2" desc="C64XP_2A" description="C64x+ CPU" id="C64XP_0" isa="TMS320C64XP">
+                <property Type="filepathfield" Value="../../emulation/boards/evmtci6488/gel/evmtci6488.gel" id="GEL File"/>
+            </cpu>
+        </subpath>
+        <subpath desc="Subpath_4" id="Subpath_3">
+            <instance XML_version="1.2" desc="C64XP_1" href="cpus/c64xp.xml" id="C64XP_1" xml="c64xp.xml" xmlpath="cpus"/>
+            <cpu HW_revision="1.0" XML_version="1.2" desc="C64XP_2B" description="C64x+ CPU" id="C64XP_1" isa="TMS320C64XP">
+                <property Type="filepathfield" Value="../../emulation/boards/evmtci6488/gel/evmtci6488-MemoryMap.gel" id="GEL File"/>
+            </cpu>
+            <property Type="numericfield" Value="0x11" id="Port Number"/>
+        </subpath>
+        <subpath desc="Subpath_5" id="Subpath_4">
+            <instance XML_version="1.2" desc="C64XP_2" href="cpus/c64xp.xml" id="C64XP_2" xml="c64xp.xml" xmlpath="cpus"/>
+            <cpu HW_revision="1.0" XML_version="1.2" desc="C64XP_2C" description="C64x+ CPU" id="C64XP_2" isa="TMS320C64XP">
+                <property Type="filepathfield" Value="../../emulation/boards/evmtci6488/gel/evmtci6488-MemoryMap.gel" id="GEL File"/>
+            </cpu>
+            <property Type="numericfield" Value="0x12" id="Port Number"/>
+        </subpath>
+    </router>
+</board>

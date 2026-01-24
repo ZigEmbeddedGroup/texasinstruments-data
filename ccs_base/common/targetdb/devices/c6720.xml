@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device id="C6720" partnum="TMS320C6720" HW_revision="1" XML_version="2" desc="TMS320C6720" description="C67x+ Floating-point DSP">
+	<!-- Filter for Project Wizard -->
+	<property Type="stringfield" Value="C672x Floating-point DSP"   id="FilterString" />
+	<cpu HW_revision="1.0" XML_version="1.2" description="Bypass Cpu" id="bypass_0" isa="BYPASS08"/>
+	<instance XML_version="1.2" desc="C672X_0" href="../cpus/c672x.xml" id="C672X_0" xml="c672x.xml" xmlpath="cpus"/>
+	<cpu HW_revision="1.0" XML_version="1.2" description="C672x CPU" id="C672X_0" isa="TMS320C672X">
+	<!-- Project Wizard Settings -->
+    <property Type="stringfield" Value="little" id="Endianness" />
+	<property Type="stringfield" Value="--silicon_version=67p -D=c6720" id="CompilerBuildOptions" />
+    <property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+    <property Type="stringfield" Value="C6720.cmd" id="LinkerCmd" />
+	<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+	<!-- End project wizard settigns -->
+	</cpu>
+</device>

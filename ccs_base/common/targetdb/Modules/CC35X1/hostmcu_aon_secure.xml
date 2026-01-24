@@ -1,0 +1,110 @@
+<module id="hostmcu_aon_secure" XML_version="1.0" description="">
+	<register acronym="ELP_WUC_SKIP_CFG" id="elp_wuc_skip_cfg" width="32" description="Wake up Control Skip Configuration" offset="0x4">
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED2" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="SKIP PRCM VALID  Enable skip precise duration for PRCM Shared UP if wake up event type is '0': '0' - don't skip '1' - skip" id="SKPPRCMVLD" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Don't Skip" description="Don't Skip" />
+			<bitenum id="EN" value="1" token="Skip" description="Skip" />
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="SKIP POWER DOMAIN VALID  Enable skip precise duration for Power Domain if wake up event type is '0': '0' - don't skip '1' - skip" id="SKPPDVLD" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Don't skip" description="Don't skip" />
+			<bitenum id="EN" value="1" token="Skip" description="Skip" />
+		</bitfield>
+	</register>
+	<register acronym="HOST_ELP_CFG_WICSENSE" id="host_elp_cfg_wicsense" width="32" description="Configure WIC SENSE" offset="0x8">
+		<bitfield width="17" end="0" begin="16" rwaccess="RW" description="Field to control wake up source  Set 1 - Enable wake up source. Set 0 - Disable wake up source.  Bit 0   : ELP TMR Wake up request Bit 1   : GPIO wake up src 0  Bit 2   : GPIO wake up src 1 Bit 3   : doorbell 0 Bit 4   : doorbell 1 Bit 5   : doorbell 2 Bit 6   : doorbell 3 Bit 7   : doorbell 4 Bit 8   : doorbell 5 Bit 9   : doorbell 6 Bit 10 : doorbell 7 Bit 11 : nab_host_irq Bit 12 : ble_rfc_gpo_8_irq Bit 13 : RTC Bit 14 : DebugSS Csyspwrupreq Bit 15 : DebugSS Force-active Bit 16 : secured_error_irq" id="VAL" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Disable wakeup source" description="Disable wakeup source" />
+			<bitenum id="EN" value="1" token="Enable wakeup source" description="Enable wakeup source" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED17" resetval="0x0" />
+	</register>
+	<register acronym="HOST_ELP_CFG_WAKEUP_TYPE" id="host_elp_cfg_wakeup_type" width="32" description="ELP Wake-up Type Configuration.  Register to configure wake up type" offset="0xc">
+		<bitfield width="17" end="0" begin="16" rwaccess="RW" description="Field to configure wake up type   Set 0 - Slow Wake up (precise WU). Set 1 - Fast Wake up (assume system is already active when event is triggered).  Bit 0   : ELP TMR Wake up request Bit 1   : GPIO wake up src 0  Bit 2   : GPIO wake up src 1 Bit 3   : doorbell 0 Bit 4   : doorbell 1 Bit 5   : doorbell 2 Bit 6   : doorbell 3 Bit 7   : doorbell 4 Bit 8   : doorbell 5 Bit 9   : doorbell 6 Bit 10 : doorbell 7 Bit 11 : nab_host_irq Bit 12 : ble_rfc_gpo_8_irq Bit 13 : RTC Bit 14 : DebugSS Csyspwrupreq Bit 15 : DebugSS Force-active Bit 16 : secured_error_irq" id="VAL" resetval="0x0">
+			<bitenum id="SLOW" value="0" />
+			<bitenum id="FAST" value="1" token="Fast wake up (assume system is already active when event is triggered)" description="Fast wake up (assume system is already active when event is triggered)" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED17" resetval="0x0" />
+	</register>
+	<register acronym="ELP_TIMER_EN" id="elp_timer_en" width="32" description="ELP Timer Enable.  Register to configure ELP Timer enable" offset="0x10">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Field to enable ELP Timer" id="VAL" resetval="0x2">
+			<bitenum id="DIS" value="0" token="Disable" description="Disable" />
+			<bitenum id="EN" value="1" token="Enable" description="Enable" />
+		</bitfield>
+		<bitfield width="12" end="4" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x2" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Field to configure the type of timer control" id="TMRSWCTL" resetval="0x2">
+			<bitenum id="HW" value="0" token="Hardware control" description="Hardware control" />
+			<bitenum id="SW" value="1" token="Software control" description="Software control" />
+		</bitfield>
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED17" resetval="0x2" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="ELP TIMER SET  starts the timer" id="ELPTMRSET" resetval="0x2" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="ELP TIMER RESET  setting this bit will stop the timer" id="ELPTMRRST" resetval="0x2" />
+		<bitfield width="1" end="16" begin="16" rwaccess="WO" description="ELP TIMER LOAD  setting this bit will load the value 2 to the timer" id="ELPTMRLD" resetval="0x2" />
+	</register>
+	<register acronym="ELP_CFG_TMR_WAKEUP" id="elp_cfg_tmr_wakeup" width="32" description="Timer Wake-up Configuration.  Register to configure Timer wake up" offset="0x14">
+		<bitfield width="31" end="0" begin="30" rwaccess="RW" description="Field to configure the Threshold of timer wake up  Upon reaching this value wake up event is generated towards the WUC (if not masked in WICSENSE). Resolution slow clock cycles.  value must be greater than 1" id="THR" resetval="0x0" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="Field to enable timer wake up  Set 1 - Enable BCN threshold IRQ. Set 0 - Otherwise.  Timer is kicked upon moving from ACTIVE to POWER DOWN." id="EN" resetval="0x0">
+			<bitenum id="DIS" value="0" token="otherwise" description="otherwise" />
+			<bitenum id="EN" value="1" token="Enable BCN threshold IRQ" description="Enable BCN threshold IRQ" />
+		</bitfield>
+	</register>
+	<register acronym="ELP_TMR_WAKEUP_REQ_CLR" id="elp_tmr_wakeup_req_clr" width="32" description="Timer Wake-up Request Clear.  Register to configure timer wake up request" offset="0x18">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Field to clear timer wake up request. Set this bit to clear" id="CLR" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED1" resetval="0x0" />
+	</register>
+	<register acronym="ELP_CFG_WDT" id="elp_cfg_wdt" width="32" description="Watch Dog Timer Configuration.  Register to configure watchdog timer" offset="0x1c">
+		<bitfield width="8" end="0" begin="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED0" resetval="0x800ea600" />
+		<bitfield width="23" end="8" begin="30" rwaccess="RW" description="Field to configure watchdog timer threshold  Upon reaching this value wake up event is generated towards the WUC (if not masked in WICSENSE). Resolution slow clock cycles (min val ~8ms).  value must be greater than 1" id="THR" resetval="0x800ea600" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" description="Field to enable watchdog timer" id="EN" resetval="0x800ea600">
+			<bitenum id="DIS" value="0" />
+			<bitenum id="EN" value="1" />
+		</bitfield>
+	</register>
+	<register acronym="ELP_WDT_REQ_CLR" id="elp_wdt_req_clr" width="32" description="Watch Dog Timer Request Clear.  Register to clear watchdog timer request" offset="0x20">
+		<bitfield width="1" end="0" begin="0" rwaccess="WO" description="Field to clear watchdog timer request. Set this bet to clear" id="CLR" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED1" resetval="0x0" />
+	</register>
+	<register acronym="ELP_GPIO_WAKEUP_AND_IRQ" id="elp_gpio_wakeup_and_irq" width="32" description="GPIO Wake-up AND IRQ Configuration.  Field to configure *GPIO* wake up AND *IRQ* 0 to 31" offset="0x28">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Field to bit mask GPIO 0 to 31  select 0-31 GPIOs as wake up source." id="BM0T31" resetval="0xffffffff" />
+	</register>
+	<register acronym="ELP_GPIO_WAKEUP_OR_IRQ" id="elp_gpio_wakeup_or_irq" width="32" description="GPIO Wake-up OR IRQ Configuration.  Field to configure *GPIO* wake up OR gate *IRQ*" offset="0x2c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Field to bit mask GPIO 0 to 31  select 0-31 GPIOs as wake up source." id="BM0T31" resetval="0xffffffff" />
+	</register>
+	<register acronym="ELP_GPIO_WAKEUP_AND_IRQ_1" id="elp_gpio_wakeup_and_irq_1" width="32" description="GPIO Wake-up AND IRQ Configuration.  Field to configure *GPIO* wake up AND *IRQ* 32 to 44" offset="0x30">
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" id="Reserved" resetval="0xfffff" />
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Field to bit mask 32 to 44  select 32-44 GPIOs as wake up source." id="BM32T44" resetval="0xfffff" />
+	</register>
+	<register acronym="ELP_GPIO_WAKEUP_OR_IRQ_1" id="elp_gpio_wakeup_or_irq_1" width="32" description="GPIO Wake-up OR IRQ Configuration.  Field to configure *GPIO* wake up OR *IRQ* 32 to 44" offset="0x34">
+		<bitfield width="19" end="13" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED13" resetval="0xfffff" />
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Field to bit mask 32 to 44  select 32-44 GPIOs as wake up source." id="BM32T44" resetval="0xfffff" />
+	</register>
+	<register acronym="ELP_FAST_CLK_FROM_ARM_CMD" id="elp_fast_clk_from_arm_cmd" width="32" description="Fast Clock From ARM Command" offset="0x38">
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED16" resetval="0x0" />
+		<bitfield width="16" end="0" begin="15" rwaccess="RO" description="Command Latched counter value reflecting the number of fast clocks (host_clk) from rise of SLEEPDEEP indication until ELP WUC start power down sequence. This value should capture the uncertainty of 2-3 slow clocks of synchronization of ARM CMD" id="CMD" resetval="0x0" />
+	</register>
+	<register acronym="ELP_SLEEP_TIME_SLOW" id="elp_sleep_time_slow" width="32" description="Sleep Time Slow Clock.  Register for sleep time on slow clock" offset="0x3c">
+		<bitfield width="32" end="0" begin="31" rwaccess="RO" description="Sleep time value from last ELP sleep entry (slow clock synced ARM CMD). Slow Clock - Reflects the number of slow clocks in ELP timer." id="CLK" resetval="0x0" />
+	</register>
+	<register acronym="ELP_SLEEP_TIME_FAST" id="elp_sleep_time_fast" width="32" description="Sleep Time Fast Clock.  Register for sleep time on fast clock" offset="0x40">
+		<bitfield width="11" end="0" begin="10" rwaccess="RO" description="Sleep time value from last ELP sleep entry (slow clock synced ARM CMD). Fast Clock - Reflects the number of fast clocks from last Slow clock rise until OCP Read. Note, fast counter value is latched upon OCP Read of ELP_SLEEP_TIME_SLOW. Counts up t0 51 microsecond." id="CLK" resetval="0x0" />
+		<bitfield width="21" end="11" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED11" resetval="0x0" />
+	</register>
+	<register acronym="ELP_WAKEUP_REQ" id="elp_wakeup_req" width="32" description="Wake up Request Status" offset="0x4c">
+		<bitfield width="17" end="0" begin="16" rwaccess="RO" description="Field to show the event request  Bit 0   : ELP TMR Wake up request Bit 1   : GPIO wake up src 0  Bit 2   : GPIO wake up src 1 Bit 3   : doorbell 0 Bit 4   : doorbell 1 Bit 5   : doorbell 2 Bit 6   : doorbell 3 Bit 7   : doorbell 4 Bit 8   : doorbell 5 Bit 9   : doorbell 6 Bit 10 : doorbell 7 Bit 11 : nab_host_irq Bit 12 : ble_rfc_gpo_8_irq Bit 13 : RTC Bit 14 : DebugSS Csyspwrupreq Bit 15 : DebugSS Force-active Bit 16 : secured_error_irq" id="VAL" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED17" resetval="0x0" />
+	</register>
+	<register acronym="HOST_OSPI_REF_CLK" id="host_ospi_ref_clk" width="32" description="OSPI Reference Clock.  Field to select the OSPI  reference clock" offset="0x50">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="SELECTOR  '0' - default host clk div2 '1' host clk div 4" id="SEL" resetval="{'@spirit:resolve': 'immediate', '#text': '0x12'}">
+			<bitenum id="SEL_0" value="0" token="Host clock div2" description="Host clock div2" />
+			<bitenum id="SEL_1" value="1" token="Host clock div4" description="Host clock div4" />
+		</bitfield>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x12'}" />
+	</register>
+	<register acronym="HOST_WUC_STATE" id="host_wuc_state" width="32" description="Wake-up Control State.  Register for Host wake up state" offset="0x5c">
+		<bitfield width="3" end="0" begin="2" rwaccess="RO" description="Field showing the host wake up state  3'b000 - PD_PWR_DN 3'b001 - SHARED_UP 3'b010 - PD_PWR_UP 3'b011 - ACTIVE 3'b100 - DEEPSLEEP" id="STA" resetval="0x4">
+			<bitenum id="RD_0" value="0" token="PD power down" description="PD power down" />
+			<bitenum id="RD_1" value="1" token="Shared domain up" description="Shared domain up" />
+			<bitenum id="RD_2" value="2" token="PD power up" description="PD power up" />
+			<bitenum id="RD_3" value="3" token="Active" description="Active" />
+		</bitfield>
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED3" resetval="0x4" />
+	</register>
+</module>

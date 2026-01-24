@@ -1,0 +1,107 @@
+/**
+ * \file  J7AEN_SI.gel
+ *
+ * \brief GEL File to control and manage other GEL functions for J7AEN
+ */
+
+/* Copyright (c) 2023, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*
+ *        Platform: Keystone 3 SoCs
+ *                     - J7AEN
+ *        Usage: This GEL will be run from CCS upon connection to the Cortex-M4
+ *               CPU.
+ */
+
+#define DDR4    1
+#define LPDDR4   2
+#define MHZ25    1
+// since 0307 rls
+#define DDR_CMD_ADDR_SLICE_SWAP 0
+
+#define QT  (1330)
+#define SVB (1331)
+#define EVM (1332)
+
+int DDR_MODE = LPDDR4;  //default DDR mode (can be changed with hotmenu)
+int HFOSC    = MHZ25;
+int PLATFORM = EVM;
+
+StartUp(){
+
+    //Load the common GEL
+    GEL_LoadGel( "$(GEL_file_dir)/J7AEN_common/J7AEN_common.gel");
+
+    //Load the PLL GELS
+    GEL_LoadGel( "$(GEL_file_dir)/J7AEN_PLL/J7AEN_PLL_MMR.gel");
+
+    //Load the DDR GELs
+    GEL_LoadGel( "$(GEL_file_dir)/J7AEN_DDRSS/j7aen_ddr_top.gel");
+
+    load_commmon_PLL_gels();
+
+    // This is added due to Set_MAIN_PLL12_HSDIV0_CLKOUT_25MHz(); for DDR configuration
+    GEL_LoadGel( "$(GEL_file_dir)/J7AEN_PLL/J7AEN_PLL_non_UC_configurations.gel");
+
+    //Load the PSC GELs
+    load_PSC_gels();
+
+    //Load the DDR GELs.
+	if(DDR_MODE == LPDDR4){
+		Load_LPDDR4_GELs();
+	}
+
+    //load obsclk gels
+    //load_obsclk_gel();
+}
+
+OnTargetConnect(){
+	Configure_RAT();
+	//Configure DM and MCU R5Fs
+    Configure_ATCM();
+    Configure_R5F_Halt_Upon_PowerUp();
+    Configure_R5F_Bootvectors();
+    Configure_C75_Halt_Upon_PowerUp();
+	NOBOOT_ROM_safeguard();
+	Set_All_PLL_OFC1();
+	Set_PSC_All_On();
+	GEL_TextOut("\n");
+}
+
+hotmenu Configure_C75_Halt_Upon_PowerUp() {
+    //Configure all C7x DSPs to wait in reset.
+    *0x80580244 = 1; // allow reset modes without firmware
+    GEL_EvalOnTarget("C75X_0", "GEL_SetWaitInResetMode(1)");
+    GEL_EvalOnTarget("C75X_1", "GEL_SetWaitInResetMode(1)");
+    GEL_TextOut("C75X_x DSPs configured for Wait In Reset Mode\n");
+}
+
+/* END OF FILE */

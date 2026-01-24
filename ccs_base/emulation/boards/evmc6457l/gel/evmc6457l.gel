@@ -1,0 +1,2101 @@
+/***************************************************************************
+ *
+ *  Project     : Texas Instruments - C6457 Lite EVM
+ *  File        : evmc6457l.gel
+ *  Description : Configure the Code Composer Studio development environment.
+ *                This GEL file is designed to be used in conjunction with
+ *                CCStudio 3.3 and CCStudio 4 with the TMS320C6457 based EVM.
+ *
+ ***************************************************************************
+ *
+ * "$Revision: 1.1 $"
+ * "$Date: 2010/09/15 13:19:22 $"
+ *
+ ***************************************************************************/
+
+
+// Global Register and constant definitions
+
+//*****************************************************
+// Power definitions
+#define PSC_BASE            0x02AC0000
+#define PSC_PTCMD           *( unsigned int* )( PSC_BASE+0x120 )
+#define PSC_PTSTAT          *( unsigned int* )( PSC_BASE+0x128 )
+#define PSC_PDCTL_BASE      ( PSC_BASE+0x300 )
+#define PSC_MDSTAT_BASE     ( PSC_BASE+0x800 )
+#define PSC_MDCTL_BASE      ( PSC_BASE+0xA00 )
+/*PSC Module Related Values*/
+
+// Modules on power domain 0
+#define LPSC_EMIF64 (2)
+#define LPSC_HPI    (3)
+#define LPSC_UTOPIA (4)
+
+// Modules on power domain 1
+#define LPSC_SRIO   (7)
+
+// Modules on power domain 2
+#define LPSC_TCP2_0 (8)
+
+// Modules on power domain 3
+#define LPSC_TCP2_1 (9)
+
+// Modules on power domain 4
+#define LPSC_VCP2   (10)
+
+// Power domains definitions
+#define PD0         (0)     // Power Domain-0
+#define PD1         (1)     // Power Domain-1
+#define PD2         (2)     // Power Domain-2
+#define PD3         (3)     // Power Domain-3
+#define PD4         (4)     // Power Domain-4
+
+#define PSC_SYNCRESET (0x1)
+#define PSC_DISABLE   (0x2)
+#define PSC_ENABLE    (0x3)
+
+//*****************************************************
+// BOOT and CONFIG dsp system modules Definitions
+#define CHIP_LEVEL_REG  (0x02880800)
+#define DEVSTAT         *(unsigned int*)(CHIP_LEVEL_REG + 0x20)
+
+//*****************************************************
+// Timeout definitions
+int _GEL_Global_Timeout1 = 0;
+
+#define TIMEOUT_ID 10
+
+//*****************************************************
+// I2C Comm definitions
+
+// I2C desired setup
+// Master dsp own I2C address
+#define I2C_MASTER_ADDR     0x00
+// Clock values for pll1 = 1000MHz down till 400 MHz (i2c 99.2 -> 39.7 KHz)
+#define I2C_CLOCK_PRESCALAR 0x0D
+#define I2C_CLOCK_CLKL      0x36
+#define I2C_CLOCK_CLKH      0x36
+// Interrupt
+#define I2C_DISABLE_INTR    0x00
+// Based mode: free running, master, tx, 7 bits addr, non repeat, reset, 8 bits data
+#define I2C_MODE_RST        0x00004600
+#define I2C_MODE            0x00004620
+#define I2C_MODE_STT        0x00006620
+#define I2C_MODE_STT_STP    0x00006E20
+#define I2C_MODE_RX_STT_STP 0x00006C20
+#define I2C_MODE_RM_STT     0x000066A0
+#define I2C_MODE_RM_STP     0x00004EA0
+// Extended mode:
+#define I2C_EXTMODE         0x00000000
+
+// I2C peripheral registers definitions
+#define I2C_BASE_ADDR 0x02B04000
+#define ICOAR   *( unsigned int* )( I2C_BASE_ADDR+0x00 )
+#define ICIMR   *( unsigned int* )( I2C_BASE_ADDR+0x04 )
+#define ICSTR   *( unsigned int* )( I2C_BASE_ADDR+0x08 )
+#define ICCLKL  *( unsigned int* )( I2C_BASE_ADDR+0x0C )
+#define ICCLKH  *( unsigned int* )( I2C_BASE_ADDR+0x10 )
+#define ICCNT   *( unsigned int* )( I2C_BASE_ADDR+0x14 )
+#define ICDRR   *( unsigned int* )( I2C_BASE_ADDR+0x18 )
+#define ICSAR   *( unsigned int* )( I2C_BASE_ADDR+0x1C )
+#define ICDXR   *( unsigned int* )( I2C_BASE_ADDR+0x20 )
+#define ICMDR   *( unsigned int* )( I2C_BASE_ADDR+0x24 )
+#define ICEMDR  *( unsigned int* )( I2C_BASE_ADDR+0x2C )
+#define ICPSC   *( unsigned int* )( I2C_BASE_ADDR+0x30 )
+
+// ICSTR bits definitions
+#define BB     0x00001000
+#define ICXRDY 0x00000010
+#define NACK   0x00000002
+#define ICRRDY 0x00000008
+#define ARDY   0x00000004
+
+// DSP 1
+#define DSP1_EE      0x50
+
+//*****************************************************
+// DDR2 definitions
+#define DDR_BASE_ADDR (0x78000000)
+
+#define DDR_MIDR     (*(int*)(DDR_BASE_ADDR + 0x00000000))
+#define DDR_SDCFG    (*(int*)(DDR_BASE_ADDR + 0x00000008))
+#define DDR_SDRFC    (*(int*)(DDR_BASE_ADDR + 0x0000000C))
+#define DDR_SDTIM1   (*(int*)(DDR_BASE_ADDR + 0x00000010))
+#define DDR_SDTIM2   (*(int*)(DDR_BASE_ADDR + 0x00000014))
+#define DDR_BPRIO    (*(int*)(DDR_BASE_ADDR + 0x00000020))
+#define DDR_DMCCTL   (*(int*)(DDR_BASE_ADDR + 0x000000E4))
+
+#define BOOT_UNLOCK    0x00800000
+#define TIMUNLOCK      0x00008000
+//*****************************************************
+// PLL 1 definitions (DSP clk and subsystems)
+#define PLL1_BASE           0x029A0000
+#define PLL1_PLLCTL         (PLL1_BASE + 0x100)   // PLL1 Control
+#define PLL1_PLLM           (PLL1_BASE + 0x110)   // PLL1 Multiplier
+#define PLL1_PREDIV         (PLL1_BASE + 0x114)   // PREDIV divider
+#define PLL1_POSTDIV        (PLL1_BASE + 0x128)   // POSTDIV divider
+#define PLL1_CMD            (PLL1_BASE + 0x138)   // CMD control
+#define PLL1_STAT           (PLL1_BASE + 0x13C)   // STAT control
+#define PLL1_DIV3           (PLL1_BASE + 0x120)   // DIV3 divider
+#define PLL1_DIV6           (PLL1_BASE + 0x168)   // DIV6 divider
+#define PLL1_DIV7           (PLL1_BASE + 0x16C)   // DIV7 divider
+#define PLL1_DIV8           (PLL1_BASE + 0x170)   // DIV8 divider
+
+//*****************************************************
+// CACHE definitions
+#define CACHE_BASE          0x01840000
+#define CACHE_L2CFG         *( unsigned int* )( CACHE_BASE )
+#define CACHE_L1PCFG        *( unsigned int* )( CACHE_BASE + 0x0020 )
+#define CACHE_L1DCFG        *( unsigned int* )( CACHE_BASE + 0x0040 )
+#define L2WBINV             (CACHE_BASE + 0x5004) // L2WBINV Control
+#define L2INV               (CACHE_BASE + 0x5008) // L2INV Control
+#define L1PINV              (CACHE_BASE + 0x5028) // L1PINV Control
+#define L1DWBINV            (CACHE_BASE + 0x5044) // L1DWBINV Control
+#define L1DINV              (CACHE_BASE + 0x5048) // L1DINV Control
+
+//*****************************************************
+// EDMA3 definitions
+#define EDMA3_TPCC_BASE     0x02A00000
+#define IERH                (EDMA3_TPCC_BASE + 0x1054) // IERH Control
+#define EERH                (EDMA3_TPCC_BASE + 0x1024) // EERH Control
+#define ICRH                (EDMA3_TPCC_BASE + 0x1074) // ICRH Control
+#define ECRH                (EDMA3_TPCC_BASE + 0x100C) // ECRH Control
+#define IER                 (EDMA3_TPCC_BASE + 0x1050) // IER Control
+#define EER                 (EDMA3_TPCC_BASE + 0x1020) // EER Control
+#define ICR                 (EDMA3_TPCC_BASE + 0x1070) // ICR Control
+#define ECR                 (EDMA3_TPCC_BASE + 0x1008) // ECR Control
+#define IECRH               (EDMA3_TPCC_BASE + 0x105C) // IECRH Control
+#define IECR                (EDMA3_TPCC_BASE + 0x1058) // IECR Control
+#define EECRH               (EDMA3_TPCC_BASE + 0x102C) // EECRH Control
+#define EECR                (EDMA3_TPCC_BASE + 0x1028) // EECR Control
+
+//*****************************************************
+// GPIO definitions
+#define GPIO_BASE           0x02B00000
+#define GPIO_BITEN          (*(unsigned int*)(GPIO_BASE + 0x0008)) // BITEN Control
+#define GPIO_DIR            (*(unsigned int*)(GPIO_BASE + 0x0010)) // DIR Control
+#define GPIO_OUT_DATA       (*(unsigned int*)(GPIO_BASE + 0x0014)) // OUT_DATA Control
+#define GPIO_IN_DATA        (*(unsigned int*)(GPIO_BASE + 0x0020)) // IN_DATA Register
+#define GPIO_CLR_RIS_TRIG   (*(unsigned int*)(GPIO_BASE + 0x0028)) // CLR_RIS_TRIG Control
+#define GPIO_CLR_FAL_TRIG   (*(unsigned int*)(GPIO_BASE + 0x0030)) // CLR_FAL_TRIG Control
+
+#define GPIO_DEFAULT_DIR    0xFFFFE7FF  // GP11 UserLed and GP12 MDIOSel are outputs
+#define GPIO_DEFAULT_OUT    0x00000000  // GP11 and GP12 default to LOW
+
+// GPIO other definitions
+#define ROLE_MASK           0x00000400 //  Role mask value
+#define ROLE_DSP1           0x00000400 //  Role value for DSP1
+#define ROLE_DSP2           0x00000000 //  Role value for DSP2
+
+#define LED_MASK            0x00000800 //  Dsp led mask value
+#define LED_ON              0x00000800 //  Dsp led ON state
+#define LED_OFF             0x00000000 //  Dsp led OFF state
+
+#define USER_IO_MASK        0x0000C000 // Mask for user io GP14-15
+#define USER_IO_POS         14         // User io bit shift position
+
+#define MDIO_CTRL_MASK      0x00001000 // Mask for GP12 MDIOSel
+#define MDIO_ACK_MASK       0x00002000 // Mask for GP13 MDIOAck
+#define MDIO_GRANTED        0x00002000 // MDIO granted state
+
+
+/****************************************************************************
+ *
+ * NAME
+ *      StartUp
+ *
+ * PURPOSE:
+ *      Perform CCS Memory Map configuration.
+ *      This function is called each time CCS is started.
+ *
+ * USAGE
+ *      This routine is a callback routine and called by CCS only.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+StartUp( )
+{
+    Setup_Memory_Map( );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      OnTargetConnect
+ *
+ * PURPOSE:
+ *      Setup almost everything ready for a new debug session:
+ *      DSP modules and EVM board modules, at target connection.
+ *      Do nothing if target is in realtime mode.
+ *      This routine is called when you connect to the target board.
+ *
+ *      IMPORTANT: this routine won't attempt to connect to the target
+ *      if the target is not in real-time mode and that the dsp boot
+ *      mode switches are not set in emulation boot mode.
+ *
+ * USAGE
+ *      This routine is a callback routine and called by CCS only.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+OnTargetConnect( )
+{
+    int err=0;
+ 
+    // Check if target is not in real-time mode. If it is in stop mode,
+    // initialize everything. In real-time mode, do nothing to connect
+    // unobtrusively...
+    Global_Default_Setup_Silent();
+
+    GEL_TextOut( "Connecting Target... " );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      OnReset
+ *
+ * PURPOSE:
+ *      Called by CCS when you do in menu Reset-> System
+ *
+ * USAGE
+ *      This routine is a callback routine and called by CCS only.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+OnReset( int nErrorCode )
+{
+	Global_Default_Setup_Silent();
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      OnPreFileLoaded
+ *
+ * PURPOSE:
+ *      Called by CCS when you do in menu File->LoadProgram, File->LoadSymbols,
+ *      etc, before loading anything.
+ *
+ * USAGE
+ *      This routine is a callback routine and called by CCS only.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+OnPreFileLoaded()
+{
+    // Purge all the cache
+    Invalidate_Cache();
+
+    // Is used to be sure dsp is ready to load a file
+    // Can be comment out if not needed...
+    GEL_TextOut( "DSP Reset CPU...\n" );
+    GEL_Reset();
+    GEL_TextOut( "DSP Reset CPU... Done.\n" );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      OnFileLoaded
+ *
+ * PURPOSE:
+ *      Called by CCS when you do in menu File->LoadProgram, File->LoadSymbols,
+ *      etc, after loading completed.
+ *
+ * USAGE
+ *      This routine is a callback routine and called by CCS only.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+OnFileLoaded(int nErrorCode, int bSymbolsOnly)
+{
+    // Check for errors in loading program
+    if (nErrorCode)
+    {
+        GEL_TextOut("OnFileLoaded: error occured while loading a file code %d\n",,2,,,nErrorCode);
+    }
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      OnHalt
+ *
+ * PURPOSE:
+ *      Called by CCS each time the cpu is halted.
+ *      You may use it to do specific custom action each the cpu is halted
+ *      (Displays some info with GEL_TextOut, etc).
+ *
+ * USAGE
+ *      This routine is a callback routine and called by CCS only.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+OnHalt()
+{
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      OnRestart
+ *
+ * PURPOSE:
+ *      Called by CCS each time you do Debug->Restart.
+ *      Put the C6X in  known good state in relation to cache, EDMA, IRQ
+ *
+ * USAGE
+ *      This routine is a callback routine and called by CCS only.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+OnRestart( int nErrorCode )
+{
+    // Disable EDMA3 events and interrupts and clear any pending events.                                      */
+    GEL_TextOut("Disable all EDMA3 interrupts and events.\n");
+    *(int*)IECRH = 0xFFFFFFFF;  // IECRH (disable high interrupts enable)
+    *(int*)EECRH = 0xFFFFFFFF;  // EECRH (disable high events enable)
+    *(int*)ICRH  = 0xFFFFFFFF;  // ICRH  (clear high interrupts pending)
+    *(int*)ECRH  = 0xFFFFFFFF;  // ECRH  (clear high events pending)
+
+    *(int*)IECR  = 0xFFFFFFFF;  // IECR  (disable low interrupts enable)
+    *(int*)EECR  = 0xFFFFFFFF;  // EECR  (disable low events enable)
+    *(int*)ICR   = 0xFFFFFFFF;  // ICR   (clear low interrupts pending)
+    *(int*)ECR   = 0xFFFFFFFF;  // ECR   (clear low events pending)
+}
+
+
+/****************************************************************************
+ *
+ * NAME
+ *      Global_Default_Setup_Silent
+ *
+ * PURPOSE:
+ *      Setup almost everything ready for a new debug session:
+ *      DSP modules and EVM board modules.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Global_Default_Setup_Silent()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Global_Default_Setup_Silent()
+{
+    // Set DSP cache to pre defined values...
+    Set_DSP_Cache();
+
+    // Setup Pll1 DSP @ 1000 MHz
+    Set_Pll1_1000_MHz();
+
+    // Setup all Power Domains on
+    Set_Psc_All_On( );
+
+    // Setup DDR timing @ 660.0 MHz (External Clk * 10 and ddr ext /2)
+    Set_DDR2(660000000);
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Wait_Soft
+ *
+ * PURPOSE:
+ *      Wait for a specified delay in number of empty loop.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Wait_Soft(nloop)
+ *
+ *      nloop - (i) number of empty loop to do for delay
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Wait_Soft( int nloop )
+{
+    int i;
+
+    // 1 sec ~ 40000 loop on P4 3.4GHz
+    for( i = 0 ; i < nloop ; i++ )
+    {
+    }
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1
+ *
+ * PURPOSE:
+ *      Setup PLL 1 for DSP clock to external clock source with the specified
+ *      clock multiplier. The Frequency is based on an external 50 MHz clock.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1(pll_multiplier)
+ *
+ *      pll_multiplier - (i) DSP Freq = 50 MHz * (pll_multiplier)
+ *                           (For a base ext. clock in of 50 MHz only)
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Set_Pll1( int pll_multiplier )
+{
+    unsigned int* pll_ctl       = ( unsigned int* )PLL1_PLLCTL;
+    unsigned int* pll_mult      = ( unsigned int* )PLL1_PLLM;
+    unsigned int i;
+    unsigned int rbmult;
+    
+    // !!! M.T. For the moment, pll divider are hardcoded...
+    // Warning prediv and postdiv must be > 0
+    unsigned int div3=3, div6=10, div7=10, div8=10, prediv=1, postdiv=1;
+    
+    unsigned int* pll_div3      = ( unsigned int* )PLL1_DIV3;
+    unsigned int* pll_div6      = ( unsigned int* )PLL1_DIV6;
+    unsigned int* pll_div7      = ( unsigned int* )PLL1_DIV7;
+    unsigned int* pll_div8      = ( unsigned int* )PLL1_DIV8;
+    unsigned int* pll_cmd       = ( unsigned int* )PLL1_CMD;
+    unsigned int* pll_stat      = ( unsigned int* )PLL1_STAT;
+    unsigned int* pll_prediv    = ( unsigned int* )PLL1_PREDIV;
+    unsigned int* pll_postdiv    = ( unsigned int* )PLL1_POSTDIV;
+
+    int dsp_freq;
+
+    rbmult = pll_multiplier;
+    
+    // !!! M.T. all delays to be reviewed and valid pll multipliers
+    
+    // Verify if multiplier is ok...
+    if (pll_multiplier>=8 && pll_multiplier<=32)
+    {
+        // Print message info...
+        GEL_TextOut( "PLL1 Setup... \n" );
+
+        //  Step 1: Set PLL to BYPASS mode
+        *pll_ctl &= 0xFFFFFFDF;             // Set PLL to Bypass mode
+        *pll_ctl &= 0xFFFFFFFE;
+
+        // Wait Bypass mode switch
+        // Bypass sw time is 4 clkin cycles = (1/50000000) * 4 ~0.12 usec
+        // The following delay is much more than necessary...
+        Wait_Soft(150);
+
+        //  Step 2: Configure and stabilize PLL
+        *pll_ctl |= 0x8;                    // Reset PLL
+
+        // !!! M.T. Verify this section
+        // Verify if pll is in power down
+        if ((*pll_ctl & 0x00000002) !=0 )
+        {
+            //*pll_ctl |= 0x00000010;         // Disable PLL
+            *pll_ctl &= 0xFFFFFFFD;         // Power up PLL
+            //*pll_ctl &= 0xFFFFFFEF;         // Enable PLL
+
+            // Wait PLL Stabilization time
+            // that is 150 usec
+            // The following delay is much more than necessary and provide stable PLL...
+            Wait_Soft(5000);
+        }
+        else
+        {
+            //*pll_ctl &= 0xFFFFFFEF;         // Enable PLL
+        }
+
+        // Step 3: Set PLL multiplier register (minus 1 desired mult value)
+        *pll_mult = (pll_multiplier-1);       // Set PLL multipler
+        *pll_prediv = (prediv-1) | 0x8000;    // Set PLL prediv divider
+        *pll_postdiv = (postdiv-1) | 0x8000;    // Set PLL postdiv divider
+
+        // Wait for GOSTAT to be cleared so no go operation is in progress
+        Set_Timeout(1000);
+
+        while( Get_Timeout() && (*pll_stat & 0x01) !=0 );
+
+        // Check if we got timeout error while waiting
+        if (!Get_Timeout())
+        {
+            GEL_TextOut( "PLL1 Setup... Timeout Error #02!\n",,2,,,);
+        }
+        Kill_Timeout();
+
+        // Step 4. Set PLL dividers if needed
+        *pll_div3 = (0x8000) | (div3 - 1);
+        *pll_div6 = (0x8000) | (div6 - 1);
+        *pll_div7 = (0x8000) | (div7 - 1);
+        *pll_div8 = (0x8000) | (div8 - 1);
+        
+        // Gives the GO cmd
+        *pll_cmd |= 0x00000001;
+
+        // Wait for phase alignment
+        Set_Timeout(1000);
+
+        while( Get_Timeout() && (*pll_stat & 0x01) !=0 );
+
+        // Check if we got timeout error while waiting
+        if (!Get_Timeout())
+        {
+            GEL_TextOut( "PLL1 Setup... Timeout Error #01!\n",,2,,,);
+        }
+        Kill_Timeout();
+
+
+        // Step 5: Wait for PLL to lock
+
+        // Wait for PLL to Reset
+        // !!! M.T.
+        // Reset time =128C (For 50 MHz, C=20.000) ~2560 nsec = 2.56 usec
+        Wait_Soft(1000);
+        
+        *pll_ctl &= 0xFFFFFFF7;             // Release PLL from Reset
+
+        // Wait for PLL to LOCK
+        // !!! M.T.
+        // Lock time =2000C (For 50 MHz, C=20.000) ~40000 nsec = 40.0 usec
+        Wait_Soft(4000);
+        
+        *pll_ctl |= 0x00000001;             // Set PLL to PLL mode
+
+
+        // Read back pll dividers and multipliers for validation
+        div3 = (*pll_div3 & 0x1f) +1;
+        div6 = (*pll_div6 & 0x1f) +1;
+        div7 = (*pll_div7 & 0x1f) +1;
+        div8 = (*pll_div8 & 0x1f) +1;
+        prediv = (*pll_prediv & 0x1f) +1;
+        postdiv = (*pll_postdiv & 0x1f) +1;
+        rbmult = (*pll_mult & 0x1f) +1;
+
+        dsp_freq = (50 * rbmult)/prediv/postdiv;
+
+        // Print freq info...
+        GEL_TextOut( "PLL1 Setup for DSP @ %d MHz, SYSCLK3 = %f MHz, SYSCLK6 = %f MHz.\n",,,,, dsp_freq, ((float)(dsp_freq)/div3/prediv/postdiv), ((float)(dsp_freq)/div6/prediv/postdiv));
+        GEL_TextOut( "                              SYSCLK7 = %f MHz, SYSCLK8 = %f MHz.\n",,,,, ((float)(dsp_freq)/div7/prediv/postdiv), ((float)(dsp_freq)/div8/prediv/postdiv));
+        GEL_TextOut( "PLL1 Setup... Done.\n" );
+    }
+    else
+    {
+
+        GEL_TextOut( "PLL1 Setup... ERROR: multiplier is outside allowed range!\n",,2,,);
+    }
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_PSC_State
+ *
+ * PURPOSE:
+ *      Set a new power state for the specified domain id in a power controler
+ *      domain. Wait for the power transition to complete.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_PSC_State(unsigned int pd,unsigned int id,unsigned int state)
+ *
+ *      pd    - (i) power domain.
+ *
+ *      id    - (i) domain id to use for the specified power domain
+ *
+ *      state - (i) new state value to set
+ *                  0 = RESET
+ *                  1 = SYNC RESET
+ *                  2 = DISABLE
+ *                  3 = ENABLE
+ *
+ * RETURN VALUE
+ *      0 if ok, !=0 for error
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Set_PSC_State(unsigned int pd,unsigned int id,unsigned int state)
+{
+    unsigned int* mdctl;
+    unsigned int* mdstat;
+    unsigned int* pdctl;
+    int ret=0;
+
+    mdctl = ( unsigned int* )(PSC_MDCTL_BASE + ( 4 * id ));
+    mdstat = ( unsigned int* )( PSC_MDSTAT_BASE + ( 4 * id ));
+    pdctl = ( unsigned int* )(PSC_PDCTL_BASE + ( 4 * id ));
+
+    // If state is already set, do nothing
+    if ( ( *mdstat & 0x1f ) == state )
+    {
+        return(0);
+    }
+
+    // Wait for GOSTAT to clear
+    Set_Timeout(1000);
+    while( Get_Timeout() && (PSC_PTSTAT & (0x1 << pd)) != 0 );
+
+    // Check if we got timeout error while waiting
+    if (!Get_Timeout())
+    {
+        GEL_TextOut( "Set_PSC_State... Timeout Error #01!\n",,2,,,);
+        ret=1;
+    }
+    else
+    {
+        // Set power domain control
+        *pdctl = (*pdctl) | 0x00000001;
+        
+        // Set MDCTL NEXT to new state
+        *mdctl = ((*mdctl) & ~(0x1f)) | state;
+
+        // Start power transition by setting PTCMD GO to 1
+        PSC_PTCMD = (PSC_PTCMD) | (0x1<<pd);
+
+        // Wait for PTSTAT GOSTAT to clear
+        Set_Timeout(1000);
+        while( Get_Timeout() && (PSC_PTSTAT & (0x1 << pd)) != 0 );
+
+        // Check if we got timeout error while waiting
+        if (!Get_Timeout())
+        {
+            GEL_TextOut( "Set_PSC_State... Timeout Error #02!\n",,2,,,);
+            ret=2;
+        }
+        else
+        {
+            // Verify state changed
+            Set_Timeout(1000);
+            while(Get_Timeout() && ( *mdstat & 0x1f ) != state );
+
+            // Check if we got timeout error while waiting
+            if (!Get_Timeout())
+            {
+                GEL_TextOut( "Set_PSC_State... Timeout Error #03!\n",,2,,,);
+                ret=3;
+            }
+        }
+    }
+
+    // Kill the currently running timeout
+    Kill_Timeout();
+
+    return(ret);
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_DDR2
+ *
+ * PURPOSE:
+ *      Configure DDR2 to run at specified frequency on a 32 bits bus.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_DDR2(ddr2_freq)
+ *
+ *      ddr2_freq - (i) Running desired frequency * 2 in Hz for DDR2 memory.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Set_DDR2( int ddr2_freq )
+{
+    int iSdcfg,iCas, iSdtim1, iSdtim2, iTemp;
+    int ddr2_freM,ddr2_freD,ddr2_freqh;
+    double fFreq,fTemp;
+
+    // ************************************************************************
+    // DDR2 Memory timing info
+    // Config 8 banks, page size=1Kword, (Clk>200 && clk<=266.5 MHz CAS=4, Clk<=200 MHz CAS=3)
+    //                                   (clk>266.5 && clk<=333.5 MHz CAS=5)
+    //        32 bits data bus
+
+    int    i8Banks_Flg=1;
+    // 2 Gb
+    double Trfc = 197.5e-9;
+    // 1 Gb
+    //double Trfc = 127.5e-9;
+    double Trp  = 15.0e-9;
+    double Trcd = 15.0e-9;
+    double Twr  = 15.0e-9;
+    double Tras = 45.0e-9;
+    double Trc  = 60.0e-9;
+    double Trrd = 10.0e-9;
+    double Twtr = 7.5e-9;
+
+    int Taond = 2;
+    // 2 Gb
+    double Txsnr = 207.5e-9;
+    // 1 Gb
+    //double Txsnr = 137.5e-9;
+    int Txsrd = 200;
+    double Trtp = 7.5e-9;
+    int Tcke = 3;
+
+    // Compute external ddr clk frequency
+    ddr2_freqh= ddr2_freq / 2;
+    
+    // Adjust CAS latency/SDCFG depending of clock speed
+    if (ddr2_freqh>266500000)
+    {
+        // CAS 5 and config for CAS5
+        iCas = 5;
+        iSdcfg = 0x00000A32;
+    }
+    else
+    {
+        if (ddr2_freqh>200000000)
+        {
+            // CAS 4 and config for CAS4
+            iCas = 4;
+            iSdcfg = 0x00000832;
+        }
+        else
+        {
+            // CAS 3 and config for CAS3
+            iCas = 3;
+            iSdcfg = 0x00000632;
+        }
+    }
+    
+    // Typical setup for 330.0 MHz DDR (CAS5) 2Gb ddr2
+    //DDR_SDCFG    = 0x00530A32;
+    //DDR_SDRFC    = 0x00000A0E;
+    //DDR_SDTIM1   = 0x832474DA;
+    //DDR_SDRIM2   = 0x0144C742;
+    //DDR_DMCCTL   = 0x001800C6;
+
+    // Typical setup for 330.0 MHz DDR (CAS5)
+    //DDR_SDCFG    = 0x00530A32;
+    //DDR_SDRFC    = 0x00000A0E;
+    //DDR_SDTIM1   = 0x552474DA;
+    //DDR_SDRIM2   = 0x012DC742;
+    //DDR_DMCCTL   = 0x001800C6;
+
+    // ************************************************************************
+
+
+    // Displayed ddr frequency to setup
+    // DDR2 freq in MHz
+    ddr2_freM = ddr2_freq / 1000000;
+
+    // DDR2 freq first decimal if freq expressed in MHz
+    ddr2_freD = (((ddr2_freq / 10000) - ddr2_freM * 100) + 5) / 10;
+
+    // Add roundup unit to MHz displayed and reajust decimal value if necessary...
+    if (ddr2_freD > 9)
+    {
+       ddr2_freD = ddr2_freD - 10;
+       ddr2_freM = ddr2_freM + 1;
+    }
+    GEL_TextOut( "DDR2 Setup for 32 bits DDR @ %d.%d MHz... \n",,,,, ddr2_freM, ddr2_freD );
+
+    // Assumes DDR2 is powered
+
+    //  *******************************************************
+    // 1- DDR2 Module Initialization
+    DDR_SDCFG    = (iSdcfg | TIMUNLOCK | BOOT_UNLOCK);
+
+    // Refresh Rate - Freq (Hz) * 7.8e-6 (sec)
+    fFreq = ddr2_freqh * 7.8e-6;
+    DDR_SDRFC   = fFreq;
+
+    // Compute and sets SDTIM1 register timing from memory specs
+    // Tras must >= Trcd
+    if (Tras<Trcd)
+       Tras = Trcd;
+
+    iSdtim1 =  TimeToField(Twtr, ddr2_freqh, 0);
+
+    // Adjust T_RRD with correct formula for 8 banks type mem or not...
+    if (i8Banks_Flg)
+    {
+        // T_RRD = ((4.0 * Trrd + 2.0 * Tck)/ (4.0 * Tck)) - 1
+        // Simplified to (with Tck = 1/ddr2_freqh)
+        // T_RRD = (Trrd * ddr2_freqh) - 0.5 (value must be rounded to higher int)
+        fTemp = 0.5;
+        fFreq = (Trrd * ddr2_freqh) - fTemp;
+        iSdtim1 |= ClckToField(RoundToHigherInt(fFreq)+1, 3);
+    }
+    else
+        iSdtim1 |= TimeToField(Trrd, ddr2_freqh, 3);
+    iSdtim1 |= TimeToField(Trc,  ddr2_freqh, 6);
+    iSdtim1 |= TimeToField(Tras, ddr2_freqh, 11);
+    iSdtim1 |= TimeToField(Twr,  ddr2_freqh, 16);
+    iSdtim1 |= TimeToField(Trcd, ddr2_freqh, 19);
+    iSdtim1 |= TimeToField(Trp,  ddr2_freqh, 22);
+    iSdtim1 |= TimeToField(Trfc, ddr2_freqh, 25);
+    DDR_SDTIM1   = iSdtim1;
+
+    // Compute and sets SDTIM2 register timing from memory specs
+    iSdtim2 =  ClckToField(Tcke, 0);
+    iSdtim2 |= TimeToField(Trtp, ddr2_freqh, 5);
+    iSdtim2 |= ClckToField(Txsrd,8);
+    iSdtim2 |= TimeToField(Txsnr, ddr2_freqh, 16);
+    iSdtim2 |= ClckToField((iCas-Taond), 23);
+    
+    // !!! M.T. Special reserved bits
+    //iSdtim2 |= 0x3C000000;
+    DDR_SDTIM2   = iSdtim2;
+
+    // !!! M.T. Special reserved bits
+    // Writes special reserved bits which are not correct at power on
+    DDR_SDCFG    = (iSdcfg | 0x00530000 | TIMUNLOCK);
+    
+    // Lock DDR Bank timing
+    DDR_SDCFG    = iSdcfg;
+
+    // ReadLatency = CAS +1 with default bits in other positions and release rst
+    DDR_DMCCTL  = (DDR_DMCCTL & 0xFFFFFFF8) | ( iCas + 1);
+    DDR_DMCCTL  = (DDR_DMCCTL & 0xFFFFFFDF);
+
+    Wait_Soft( 1500 );
+
+    GEL_TextOut( "DDR2 Setup... Done.\n" );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      RoundToHigherInt
+ *
+ * PURPOSE:
+ *      This routine will round a float value to higher int.
+ *      ex.: RoundToHigherInt(7.1)=8, RoundToHigherInt(7.7)=8,
+ *           RoundToHigherInt(7.0)=7
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      RoundToHigherInt(fValue)
+ *
+ *      fValue - (i) float value to be converted.
+ *
+ * RETURN VALUE
+ *      Converted int value.
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+RoundToHigherInt(fValue)
+{
+    int iResult,iTemp;
+    double fTemp, fSTolP, fSTolN, fPar, fZero;
+
+    fSTolP =  1.0e-7;
+    fSTolN = -1.0e-7;
+    fPar = fValue;
+    fZero = 0.0;
+
+    // Compute a truncated value for fValue
+    iTemp = fPar;
+
+    // Convert int value to double floating point
+    fTemp = iTemp;
+
+    // Compute difference between truncated int and value to be converted
+    fTemp = fPar - fTemp;
+
+    // If value to be converted is positive
+    if (fPar >= fZero)
+    {
+        // Verify equality by allowing single precision least digit tolerance 1e-7
+        // to catch (int + fSTolP) like exact int value
+        if ((fTemp >= fZero) && (fTemp < fSTolP))
+            // Do not adjust int because wright on it
+            iResult = iTemp;
+        else
+            // adjust to upper int
+            iResult = iTemp + 1;
+    }
+    else
+    {
+        fTemp = 1 - fTemp;
+        // Negative converted value
+        // Verify equality by allowing single precision least digit tolerance 1e-7
+        // to catch (int + fSTolP) like exact int value
+        if (((fTemp >= fZero) && (fTemp < fSTolP)))
+            // adjust to lower int cause we missed it
+            iResult = iTemp - 1;
+        else
+            // Do not adjust int because wright on it
+            iResult = iTemp;
+    }
+
+    //GEL_TextOut("ceil value:%f, int:%d\n",,,,,fValue, iResult);
+    return(iResult);
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      TimeToField
+ *
+ * PURPOSE:
+ *      This routine will convert a ddr timing value in sec to a field integer
+ *      value for the ddr timing registers.
+ *      Does not validate register filed overflow!
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      TimeToField(fValue, freq, position)
+ *
+ *      fValue   - (i) float timing value in sec (to be converted).
+ *
+ *      freq     - (i) ddr frequency value in Hz.
+ *
+ *      position - (i) position of field within register.
+ *
+ * RETURN VALUE
+ *      Converted int ddr field value at correct position.
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+TimeToField(fValue, freq, position)
+{
+    int iResult;
+
+    double fTemp;
+
+    // Convert to double float
+    fTemp = fValue;
+
+    iResult = RoundToHigherInt((fTemp * freq)-1);
+    iResult = iResult << position;
+
+    return(iResult);
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      ClckToField
+ *
+ * PURPOSE:
+ *      This routine will convert a ddr timing value in clock period unit to
+ *      a field integer value for the ddr timing registers.
+ *      Does not validate register field overflow!
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      ClckToField(value, position)
+ *
+ *      value    - (i) timing value in clock unit (to be converted).
+ *
+ *      position - (i) position of field within register.
+ *
+ * RETURN VALUE
+ *      Converted int ddr field value at correct position.
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+ClckToField(value, position)
+{
+    int iResult;
+
+    iResult = (value - 1) << position;
+
+    return(iResult);
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Timeout
+ *
+ * PURPOSE:
+ *      Starts a timeout period of msec. The running timeout period can be
+ *      query with Get_Timeout. To kill a running timeout before the end,
+ *      call Kill_Timeout. Only one timeout period can be used at any time.
+ *      A timeout period can be used to measure a period of time while doing
+ *      anything else. Not accurate, sets timer at least as big as desired.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Timeout(msec)
+ *
+ *      msec - (i) timeout period in msec
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Set_Timeout(msec)
+{
+    // Cancel the current timer if not already expired
+    GEL_CancelTimer(TIMEOUT_ID);
+
+    // Starts the timeout period
+    _GEL_Global_Timeout1=1;
+
+    // Setup a callback routine with specified timeout
+    GEL_SetTimer(msec, TIMEOUT_ID, "_Timeout_Callback()");
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Get_Timeout
+ *
+ * PURPOSE:
+ *      Query the running state of a timeout period started by Set_Timeout.
+ *      (see Set_Timeout for more info).
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Get_Timeout()
+ *
+ * RETURN VALUE
+ *      0:expired, 1:running
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Get_Timeout()
+{
+    if (!_GEL_Global_Timeout1)
+    {
+        // Cancel the current timer
+        GEL_CancelTimer(TIMEOUT_ID);
+    }
+
+    // Return the global timeout status 1=running, 0=expired
+    return _GEL_Global_Timeout1;
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Wait
+ *
+ * PURPOSE:
+ *      Wait for a specified delay in msec (min 19 msec).
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Wait(msec)
+ *
+ *      msec - (i) delay period in msec
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Set_Wait(msec)
+{
+    // Temporary call a soft loop
+    // 1 sec ~ 40000 loop on P4 3.4GHz because of CCS 3.x Set_Timeout problem
+    Wait_Soft(msec*40);
+    //Set_Timeout(msec);
+    //while (Get_Timeout()==1);
+    //Kill_Timeout();
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Kill_Timeout
+ *
+ * PURPOSE:
+ *      Cancel a running timeout period before it expires
+ *      (see Set_Timeout for more info).
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Kill_Timeout()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+Kill_Timeout()
+{
+    // Cancel the current timer
+    GEL_CancelTimer(TIMEOUT_ID);
+
+    // The timeout period is expired
+    _GEL_Global_Timeout1=0;
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      _Timeout_Callback
+ *
+ * PURPOSE:
+ *      Internal Callback function used by Set_timeout
+ *      (see Set_Timeout for more info).
+ *
+ * USAGE
+ *      This routine must not be called by itself.
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+_Timeout_Callback()
+{
+    // The timeout period is expired
+    _GEL_Global_Timeout1=0;
+}
+
+
+menuitem "TMDSEVM6457L Init Functions";
+
+/****************************************************************************
+ *
+ * NAME
+ *      Init_Functions_Help
+ *
+ * PURPOSE:
+ *      Prints the help for the init functions menu.
+ *
+ * USAGE
+ *
+ *      Called from GEL menu only
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Init_Functions_Help()
+{
+    GEL_TextOut("\n\n");
+    GEL_TextOut("                  INIT FUNCTIONS MENU HELP\n");
+    GEL_TextOut("                  ------------------------\n\n");
+    GEL_TextOut("This menu is to do EVM & DSP initialization.\n\n");
+    GEL_TextOut("Global_Default_Setup: same function as when connecting to target. Will do:\n");
+    GEL_TextOut("                      Set_DSP_Cache, Set_Pll1_1000_MHz, Set_Psc_All_On,\n");
+    GEL_TextOut("                      Set_DDR2_660_0_MHz,Set_Pin_Board, Set_AEmif_32Bit_Bus.\n");
+    GEL_TextOut("Set_DSP_Cache: setup DSP default cache settings (for L1P, L1D, L2).\n");
+    GEL_TextOut("Set_Pll1_xxx_MHz: setup DSP speed (PLL1) to specified MHz.\n");
+    GEL_TextOut("Set_Psc_All_On: power-on all DSP peripherals domain/modules.\n");
+    GEL_TextOut("Set_DDR2_660_0_MHz: setup DDR2 timings for speed of 660_0 MHz (ext clk*10).\n");
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Global_Default_Setup
+ *
+ * PURPOSE:
+ *      Setup almost everything ready for a new debug session:
+ *      DSP modules and EVM board modules.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Global_Default_Setup()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Global_Default_Setup()
+{
+    GEL_TextOut( "Global Default Setup...\n" );
+    Global_Default_Setup_Silent();
+    GEL_TextOut( "Global Default Setup... Done.\n" );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_DSP_Cache
+ *
+ * PURPOSE:
+ *      Setup the DSP caches with predefined cache size.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_DSP_Cache()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_DSP_Cache( )
+{
+    int l1p, l1d, l2;
+
+    GEL_TextOut( "Setup Cache... \n");
+
+    // Modify for the desired cache settings needed
+    CACHE_L1PCFG = 7;           // L1P on, MAX size
+    CACHE_L1DCFG = 7;           // L1D on, MAX size
+    CACHE_L2CFG  = 0;           // L2 off, use as RAM
+
+    l1p = CACHE_L1PCFG;
+
+    if ( l1p == 0 )
+    {
+        GEL_TextOut( "L1P = 0K   " );
+    }
+    if ( l1p == 1 )
+    {
+        GEL_TextOut( "L1P = 4K   " );
+    }
+    if ( l1p == 2 )
+    {
+        GEL_TextOut( "L1P = 8K   " );
+    }
+    if ( l1p == 3 )
+    {
+        GEL_TextOut( "L1P = 16K   " );
+    }
+    if ( l1p >= 4 )
+    {
+        GEL_TextOut( "L1P = 32K   " );
+    }
+
+    l1d = CACHE_L1DCFG;
+    if ( l1d == 0 )
+    {
+        GEL_TextOut( "L1D = 0K   " );
+    }
+    if ( l1d == 1 )
+    {
+        GEL_TextOut( "L1D = 4K   " );
+    }
+    if ( l1d == 2 )
+    {
+        GEL_TextOut( "L1D = 8K   " );
+    }
+    if ( l1d == 3 )
+    {
+        GEL_TextOut( "L1D = 16K   " );
+    }
+    if ( l1d >= 4 )
+    {
+        GEL_TextOut( "L1D = 32K   " );
+    }
+
+    l2 = CACHE_L2CFG;
+    if ( l2 == 0 )
+    {
+        GEL_TextOut( "L2 = ALL SRAM   " );
+    }
+    if ( l2 == 1 )
+    {
+        GEL_TextOut( "L2 = 63/64 SRAM   " );
+    }
+    if ( l2 == 2 )
+    {
+        GEL_TextOut( "L2 = 31/32 SRAM   " );
+    }
+    if ( l2 == 3 )
+    {
+        GEL_TextOut( "L2 = 15/16 SRAM   " );
+    }
+    if ( l2 == 4 )
+    {
+        GEL_TextOut( "L2 = 7/8 SRAM   " );
+    }
+    if ( l2 == 5 )
+    {
+        GEL_TextOut( "L2 = 3/4 SRAM   " );
+    }
+    if ( l2 >= 6 )
+    {
+        GEL_TextOut( "L2 = 1/2 SRAM   " );
+    }
+
+    GEL_TextOut( "\nSetup Cache... Done.\n");
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_400_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 400 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_400_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_400_MHz( )
+{
+    Set_Pll1( 8 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_650_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 650 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_650_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_650_MHz( )
+{
+    Set_Pll1( 13 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_700_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 700 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_700_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_700_MHz( )
+{
+    Set_Pll1( 14 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_750_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 750 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_750_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_750_MHz( )
+{
+    Set_Pll1( 15 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_800_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 800 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_800_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_800_MHz( )
+{
+    Set_Pll1( 16 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_850_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 850 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_850_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_850_MHz( )
+{
+    Set_Pll1( 17 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_900_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 900 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_900_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_900_MHz( )
+{
+    Set_Pll1( 18 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_950_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 950 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_950_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_950_MHz( )
+{
+    Set_Pll1( 19 );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Pll1_1000_MHz
+ *
+ * PURPOSE:
+ *      Setup PLL 1 DSP @ 891 MHz with External clock
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Pll1_1000_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Pll1_1000_MHz( )
+{
+    Set_Pll1( 20 );
+}
+
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_Psc_All_On
+ *
+ * PURPOSE:
+ *      Enable all PSC modules and DSP power domains on ALWAYSON, and wait
+ *      for these power transitions to complete.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_Psc_All_On()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_Psc_All_On( )
+{
+    unsigned int i=0;
+
+    GEL_TextOut( "Power on all PSC modules and DSP domains... \n");
+
+    // !!! M.T. missing power domain 5?
+    
+    GEL_TextOut( "PSC #3... \n");
+    Set_PSC_State(PD0, LPSC_EMIF64, PSC_ENABLE);
+    GEL_TextOut( "PSC #4... \n");
+    Set_PSC_State(PD0, LPSC_HPI, PSC_ENABLE);
+    GEL_TextOut( "PSC #5... \n");
+    Set_PSC_State(PD0, LPSC_UTOPIA, PSC_ENABLE);
+    // !!! M.T. check SRIO in problem
+    //GEL_TextOut( "PSC #6... \n");
+    //Set_PSC_State(PD1, LPSC_SRIO, PSC_ENABLE);
+    GEL_TextOut( "PSC #7... \n");
+    Set_PSC_State(PD2, LPSC_TCP2_0, PSC_ENABLE);
+    GEL_TextOut( "PSC #8... \n");
+    Set_PSC_State(PD3, LPSC_TCP2_1, PSC_ENABLE);
+    GEL_TextOut( "PSC #9... \n");
+    Set_PSC_State(PD4, LPSC_VCP2, PSC_ENABLE);
+
+
+    GEL_TextOut( "Power on all PSC modules and DSP domains... Done.\n" );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Set_DDR2_660_0_MHz
+ *
+ * PURPOSE:
+ *      Setup DDR2 timings @ 660.0 / 2 MHz (External clock * 10 / 2)
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Set_DDR2_660_0_MHz()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Set_DDR2_660_0_MHz( )
+{
+    // Setup DDR timing @ 660.0 / 2 MHz (External Clk * 10: fix pll ratio / 2)
+    Set_DDR2(660000000);
+}
+
+
+/****************************************************************************
+ *
+ * NAME
+ *      Invalidate_Cache
+ *
+ * PURPOSE:
+ *      Invalidate L1P, L1D and L2 cache (purge all cache contents).
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Invalidate_Cache()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Invalidate_Cache()
+{
+    GEL_TextOut( "Invalidate All Cache...\n" );
+
+    /* Invalidate L1P cache */
+    *(int*)L1PINV = 1;
+
+    // Wait for cache operation to finish
+    // Set timeout before polling...
+    Set_Timeout(1000);
+
+    // Wait for transition to finish for max timeout time...
+    while( Get_Timeout() && ( *(int*)L1PINV & 0x0001 ) );
+
+    // Check if we got timeout error while waiting
+    if (!Get_Timeout())
+    {
+        GEL_TextOut( "Invalidate All Cache... Timeout Error #01!\n",,2,,,);
+    }
+
+    /* Invalidate L1D cache */
+    *(int*)L1DINV = 1;
+
+    // Wait for cache operation to finish
+    // Set timeout before polling...
+    Set_Timeout(1000);
+
+    // Wait for transition to finish for max timeout time...
+    while( Get_Timeout() && ( *(int*)L1DINV & 0x0001 ) );
+
+    // Check if we got timeout error while waiting
+    if (!Get_Timeout())
+    {
+        GEL_TextOut( "Invalidate All Cache... Timeout Error #02!\n",,2,,,);
+    }
+
+    /* Invalidate L2 cache */
+    *(int*)L2INV = 1;
+
+    // Wait for cache operation to finish
+    // Set timeout before polling...
+    Set_Timeout(1000);
+
+    // Wait for transition to finish for max timeout time...
+    while( Get_Timeout() && ( *(int*)L2INV & 0x0001 ) );
+
+    // Check if we got timeout error while waiting
+    if (!Get_Timeout())
+    {
+        GEL_TextOut( "Invalidate All Cache... Timeout Error #03!\n",,2,,,);
+    }
+
+    Kill_Timeout();
+
+    GEL_TextOut( "Invalidate All Cache... Done.\n" );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Flush_Cache
+ *
+ * PURPOSE:
+ *      Invalidate L1P, FLUSH L1D and L2 cache (writeback dirty lines to
+ *      lower memory and invalidates cache content).
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Flush_Cache()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Flush_Cache()
+{
+    GEL_TextOut( "Flush All Cache...\n" );
+
+    /* Invalidate L1P cache */
+    *(int*)L1PINV = 1;
+
+    // Wait for cache operation to finish
+    // Set timeout before polling...
+    Set_Timeout(1000);
+
+    // Wait for transition to finish for max timeout time...
+    while( Get_Timeout() && ( *(int*)L1PINV & 0x0001 ) );
+
+    // Check if we got timeout error while waiting
+    if (!Get_Timeout())
+    {
+        GEL_TextOut( "Flush All Cache... Timeout Error #01!\n",,2,,,);
+    }
+
+    /* Flush L1D cache (writeback dirty lines to lower memory and invalidate all) */
+    *(int*)L1DWBINV = 1;
+
+    // Wait for cache operation to finish
+    // Set timeout before polling...
+    Set_Timeout(1000);
+
+    // Wait for transition to finish for max timeout time...
+    while( Get_Timeout() && ( *(int*)L1DWBINV & 0x0001 ) );
+
+    // Check if we got timeout error while waiting
+    if (!Get_Timeout())
+    {
+        GEL_TextOut( "Flush All Cache... Timeout Error #02!\n",,2,,,);
+    }
+
+    /* Flush L2 cache (writeback dirty lines to lower memory and invalidate all) */
+    *(int*)L2WBINV = 1;
+
+    // Wait for cache operation to finish
+    // Set timeout before polling...
+    Set_Timeout(1000);
+
+    // Wait for transition to finish for max timeout time...
+    while( Get_Timeout() && ( *(int*)L2WBINV & 0x0001 ) );
+
+    // Check if we got timeout error while waiting
+    if (!Get_Timeout())
+    {
+        GEL_TextOut( "Flush All Cache... Timeout Error #03!\n",,2,,,);
+    }
+
+    Kill_Timeout();
+
+    GEL_TextOut( "Flush All Cache... Done.\n" );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Boot_Mode_Info
+ *
+ * PURPOSE:
+ *      Display on the screen information about the selected rom boot mode and
+ *      other boot options defined at startup.
+ *
+ * USAGE
+ *
+ *      Called from GEL menu only
+ *
+ * RETURN VALUE
+ *      1= SUCCESS, 0=FAIL
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Boot_Mode_Info( )
+{
+    int endian;
+    int eclkinsel;
+    int hpiwidth;
+    int boot_mode;
+    int retcode = 1;
+    int cfggp, devnum;
+
+    endian          = ( DEVSTAT ) & 1;
+    eclkinsel       = ( DEVSTAT >> 15 ) & 1;
+    hpiwidth        = ( DEVSTAT >> 14 ) & 1;
+    cfggp           = ( DEVSTAT >> 9  ) & 0x1F;
+    devnum          = ( DEVSTAT >> 5  ) & 0x0F;
+    boot_mode       = ( DEVSTAT >> 1  ) & 0x0F;
+
+    GEL_TextOut( "  *********************** Boot Mode Info **********************\n" );
+
+    // Displays rom bootmode selected
+    if ( boot_mode == 0 )
+    {
+        GEL_TextOut( "  > [BOOTMODE]  : Master Mode - Emulation Boot\n" );
+    }
+    else
+        if ( boot_mode == 1 )
+        {
+            GEL_TextOut( "  > [BOOTMODE]  : Master Mode - I2C Boot (slave 0x50) \n" );
+        }
+        else
+            if ( boot_mode == 2 )
+            {
+                GEL_TextOut( "  > [BOOTMODE]  : Master Mode - I2C Boot (slave 0x51) \n" );
+            }
+            else
+                if ( boot_mode == 4 )
+                {
+                    GEL_TextOut( "  > [BOOTMODE]  : Slave Mode - HPI Boot\n" );
+                }
+                else
+                    if ( boot_mode == 5 )
+                        GEL_TextOut( "  > [BOOTMODE]  : Master Mode - EMIFA CS3 Boot\n" );
+                    else
+                        if ( boot_mode == 6 )
+                            GEL_TextOut( "  > [BOOTMODE]  : Master Mode - EMAC Boot\n" );
+                        else
+                            if ( boot_mode == 8 )
+                                GEL_TextOut( "  > [BOOTMODE]  : Master Mode - EMAC Forced Boot\n" );
+                            else
+                                if ( boot_mode == 7 )
+                                {
+                                    GEL_TextOut( "  > [BOOTMODE]  : Slave Mode - EMAC Boot\n" );
+                                }
+                                else
+                                    if ( boot_mode == 10 )
+                                        GEL_TextOut( "  > [BOOTMODE]  : Slave Mode - SRIO 1.25GHz 125MHz 4-1X\n" );
+                                    else
+                                        if ( boot_mode == 3 )
+                                        {
+                                            GEL_TextOut( "  > [BOOTMODE]  : Slave Mode - I2C Boot \n" );
+                                        }
+                                        else
+                                            if ( boot_mode == 11 )
+                                            {
+                                                GEL_TextOut( "  > [BOOTMODE]  : Slave Mode - SRIO 3.125GHz 125MHz 1-4X\n" );
+                                            }
+                                            else
+                                                if ( boot_mode == 12 )
+                                                {
+                                                    GEL_TextOut( "  > [BOOTMODE]  : Slave Mode - SRIO 1.25GHz 156.25MHz 1-4X\n" );
+                                                }
+                                                else
+                                                    if ( boot_mode == 13 )
+                                                    {
+                                                        GEL_TextOut( "  > [BOOTMODE]  : Slave Mode - SRIO 3.125GHz 156.25MHz 1-4X\n" );
+                                                    }
+                                                    else
+                                                    {
+                                                        GEL_TextOut( "  > [BOOTMODE]  : ERROR Boot Option Not Supported!\n" ,,2,,);
+                                                        retcode = 0; 
+                                                    }
+
+    if ( eclkinsel==1 )
+        GEL_TextOut( "  > [ECLKINSEL] : EMIF Clocked From Internal SYSCLK\n" );
+    else
+        GEL_TextOut( "  > [ECLKINSEL] : EMIF Clocked From Outside ECLKIN\n" );
+
+    if ( hpiwidth ==0)
+        GEL_TextOut( "  > [HPIWIDTH]  : 16 Bits\n" );
+    else
+        GEL_TextOut( "  > [HPIWIDTH]  : 32 Bits\n" );
+
+    if ( endian == 0 )
+        GEL_TextOut( "  > [ENDIAN]    : Big Endian\n" );
+    else
+        GEL_TextOut( "  > [ENDIAN]    : Little Endian\n" );
+
+    GEL_TextOut( "  > [CFGGP]     : %d\n",,,,, cfggp );
+    GEL_TextOut( "  > [DEVNUM]    : %d\n",,,,, devnum );
+
+    return(retcode);
+}
+
+
+menuitem "Memory Map";
+
+/****************************************************************************
+ *
+ * NAME
+ *      Memory_Map_Help
+ *
+ * PURPOSE:
+ *      Prints the help for the memory map menu.
+ *
+ * USAGE
+ *
+ *      Called from GEL menu only
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Memory_Map_Help()
+{
+    GEL_TextOut("\n\n");
+    GEL_TextOut("                  MEMORY MAP MENU HELP\n");
+    GEL_TextOut("                  --------------------\n\n");
+    GEL_TextOut("This menu is to do CCS memory map configuration for DSP.\n\n");
+    GEL_TextOut("Setup_Memory_Map: Configure CCS memory map to match DSP memory map (called at GEL init.).\n");
+    GEL_TextOut("Clear_Memory_Map: Clears (disables) CCS memory map configuration.\n\n");
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Setup_Memory_Map
+ *
+ * PURPOSE:
+ *      Setup the Memory Map for EVMC6457.
+ *      Defined memory location avoid debugger access outside these locations.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Setup_Memory_Map()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *      Based on C6457 datasheet.
+ *
+ ****************************************************************************/
+hotmenu Setup_Memory_Map( )
+{
+    GEL_TextOut("Setup_Memory_Map...\n",,);
+
+    GEL_MapOn( );
+    GEL_MapReset( );
+
+    GEL_MapAddStr( 0x00800000, 0, 0x00200000, "R|W|AS4", 0 );   // L2 SRAM
+    GEL_MapAddStr( 0x00E00000, 0, 0x00008000, "R|W|AS4", 0 );   // L1P SRAM
+    GEL_MapAddStr( 0x00F00000, 0, 0x00008000, "R|W|AS4", 0 );   // L1D SRAM
+
+    GEL_MapAddStr( 0x01800000, 0, 0x00400000, "R|W|AS4", 0 );   // C64x+ Megamodule
+    
+    GEL_MapAddStr( 0x02880000, 0, 0x00000100, "R|W|AS4", 0 );   // HPI Control
+    GEL_MapAddStr( 0x02880800, 0, 0x00000400, "R|W|AS4", 0 );   // Chip Level Reg
+    
+    GEL_MapAddStr( 0x028C0000, 0, 0x00000100, "R|W|AS4", 0 );   // McBSP 0
+    GEL_MapAddStr( 0x02900000, 0, 0x00000100, "R|W|AS4", 0 );   // McBSP 1
+    
+    GEL_MapAddStr( 0x02940000, 0, 0x00000080, "R|W|AS4", 0 );   // Timer0
+    GEL_MapAddStr( 0x02980000, 0, 0x00000080, "R|W|AS4", 0 );   // Timer1
+    
+    GEL_MapAddStr( 0x029A0000, 0, 0x00000200, "R|W|AS4", 0 );   // PLL Controller
+
+    GEL_MapAddStr( 0x02A00000, 0, 0x00008000, "R|W|AS4", 0 );   // EDMA3 - CC
+    GEL_MapAddStr( 0x02A20000, 0, 0x00000400, "R|W|AS4", 0 );   // EDMA3 - TC0
+    GEL_MapAddStr( 0x02A28000, 0, 0x00000400, "R|W|AS4", 0 );   // EDMA3 - TC1
+    GEL_MapAddStr( 0x02A30000, 0, 0x00000400, "R|W|AS4", 0 );   // EDMA3 - TC2
+    GEL_MapAddStr( 0x02A38000, 0, 0x00000400, "R|W|AS4", 0 );   // EDMA3 - TC3
+    GEL_MapAddStr( 0x02A40000, 0, 0x00000400, "R|W|AS4", 0 );   // EDMA3 - TC4
+    GEL_MapAddStr( 0x02A48000, 0, 0x00000400, "R|W|AS4", 0 );   // EDMA3 - TC5
+
+    GEL_MapAddStr( 0x02AC0000, 0, 0x00001000, "R|W|AS4", 0 );   // PSC
+
+    GEL_MapAddStr( 0x02AD0000, 0, 0x00002000, "R|W|AS4", 0 );   // Embedded Trace Buffer
+
+    GEL_MapAddStr( 0x02B00000, 0, 0x00000100, "R|W|AS4", 0 );   // GPIO
+
+    GEL_MapAddStr( 0x02B04000, 0, 0x00000080, "R|W|AS4", 0 );   // I2C
+
+    GEL_MapAddStr( 0x02B40000, 0, 0x00000200, "R|W|AS4", 0 );   // Utopia Control
+
+    GEL_MapAddStr( 0x02B80000, 0, 0x00000100, "R|W|AS4", 0 );   // VCP2 Control
+
+    GEL_MapAddStr( 0x02BA0000, 0, 0x00000100, "R|W|AS4", 0 );   // TCP2_A Control
+    GEL_MapAddStr( 0x02BA0100, 0, 0x00000100, "R|W|AS4", 0 );   // TCP2_B Control
+
+    GEL_MapAddStr( 0x02C40000, 0, 0x00000100, "R|W|AS4", 0 );   // SGMII Control
+    GEL_MapAddStr( 0x02C80000, 0, 0x00000800, "R|W|AS4", 0 );   // EMAC Control
+    GEL_MapAddStr( 0x02C81000, 0, 0x00000100, "R|W|AS4", 0 );   // EMAC Interrupt Controller
+    GEL_MapAddStr( 0x02C81800, 0, 0x00000100, "R|W|AS4", 0 );   // MDIO Control
+    GEL_MapAddStr( 0x02C82000, 0, 0x00002000, "R|W|AS4", 0 );   // EMAC Descriptor Memory
+
+    GEL_MapAddStr( 0x02D00000, 0, 0x00021000, "R|W|AS4", 0 );   // RapidIO Control
+    GEL_MapAddStr( 0x02E00000, 0, 0x00004000, "R|W|AS4", 0 );   // RapidIO Descriptor Memory
+
+    GEL_MapAddStr( 0x30000000, 0, 0x00000100, "R|W|AS4", 0 );   // McBSP 0 Data
+    GEL_MapAddStr( 0x34000000, 0, 0x00000100, "R|W|AS4", 0 );   // McBSP 1 Data
+
+    GEL_MapAddStr( 0x3C000000, 0, 0x00010000, "R|AS4", 0 );     // L3 ROM
+
+    GEL_MapAddStr( 0x3D000000, 0, 0x00000080, "R|W|AS4", 0 );   // Utopia Receive (RX) Data
+    GEL_MapAddStr( 0x3D000400, 0, 0x00000080, "R|W|AS4", 0 );   // Utopia Transmit (TX) Data
+
+    GEL_MapAddStr( 0x50000000, 0, 0x00100000, "R|W|AS4", 0 );   // TCP2_A Data
+    GEL_MapAddStr( 0x50100000, 0, 0x00100000, "R|W|AS4", 0 );   // TCP2_B Data
+
+    GEL_MapAddStr( 0x58000000, 0, 0x00010000, "R|W|AS4", 0 );   // VCP2 Data
+
+    GEL_MapAddStr( 0x70000000, 0, 0x00000100, "R|W|AS4", 0 );   // EMIFA (EMIF64) Config
+    GEL_MapAddStr( 0x78000000, 0, 0x00000100, "R|W|AS4", 0 );   // DDR2 EMIF Config
+    GEL_MapAddStr( 0xA0000000, 0, 0x00800000, "R|W|AS4", 0 );   // EMIFA CE2 - SBSRAM/Async
+    GEL_MapAddStr( 0xB0000000, 0, 0x00800000, "R|W|AS4", 0 );   // EMIFA CE3 - SBSRAM/Async
+    GEL_MapAddStr( 0xC0000000, 0, 0x00800000, "R|W|AS4", 0 );   // EMIFA CE4 - SBSRAM/Async
+    GEL_MapAddStr( 0xD0000000, 0, 0x00800000, "R|W|AS4", 0 );   // EMIFA CE5 - SBSRAM/Async
+    GEL_MapAddStr( 0xE0000000, 0, 0x20000000, "R|W|AS4", 0 );   // DDR2 EMIF CE0 Data
+
+    GEL_TextOut( "Setup_Memory_Map... Done.\n" );
+}
+
+/****************************************************************************
+ *
+ * NAME
+ *      Clear_Memory_Map
+ *
+ * PURPOSE:
+ *      Clear the Memory Map in CCS.
+ *      All memory locations are not verified anymore by CCS.
+ *
+ * USAGE
+ *      This routine can be called as:
+ *
+ *      Clear_Memory_Map()
+ *
+ * RETURN VALUE
+ *      NONE
+ *
+ * REFERENCE
+ *
+ ****************************************************************************/
+hotmenu Clear_Memory_Map( )
+{
+    GEL_TextOut( "Clear_Memory_Map...\n" );
+
+    GEL_MapOff( );
+    GEL_MapReset( );
+
+    GEL_TextOut( "Clear_Memory_Map... Done.\n" );
+}
+

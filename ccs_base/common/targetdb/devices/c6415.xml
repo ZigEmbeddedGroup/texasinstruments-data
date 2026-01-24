@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device id="C6415" partnum="TMS320C6415" HW_revision="1" XML_version="1" desc="TMS320C6415" description="TMS320C6415&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+	<!-- Filter for Project Wizard -->
+	<property Type="stringfield" Value="C641x Performance Value DSP"   id="FilterString" />
+	<instance XML_version="1.2" desc="C64xx_0" href="cpus/c64xx.xml" id="C64xx_0" xml="c64xx.xml" xmlpath="cpus"/>
+	<cpu HW_revision="1.0" XML_version="1.2" description="C64xx CPU" id="C64xx_0" isa="TMS320C64XX">
+	<!-- <property Type="filepathfield" Value="../../../emulation/gel/dsp641x.gel" id="GEL File"/> -->
+	<!-- Project Wizard Settings -->
+    <property Type="stringfield" Value="little" id="Endianness" />
+	<property Type="stringfield" Value="--silicon_version=6400 -D=c6415" id="CompilerBuildOptions" />
+    <property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+    <property Type="stringfield" Value="C6415.cmd" id="LinkerCmd" />
+	<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+	<!-- End project wizard settigns -->
+	</cpu>
+</device>

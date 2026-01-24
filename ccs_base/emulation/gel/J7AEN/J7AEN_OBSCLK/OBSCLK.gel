@@ -1,0 +1,542 @@
+/**
+ * \file  J7AEN_OBSCLK.gel
+ *
+ * \brief GEL File to control and manage the OBSCLK for J7AEN
+ */
+
+/* Copyright (c) 2018, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*
+ *        Platform: Keystone 3 SoCs
+ *                     - J7AEN
+ *        Usage: This GEL configure the OBSCLK
+ */
+
+#define KICK0_UNLOCK    0x68EF3490
+#define KICK1_UNLOCK    0xD172BC5A
+#define KICK_LOCK       0x00000000 
+
+#define CSL_MCU_CTRL_MMR0_CFG0_BASE             (0x4500000UL)
+#define CSL_MAIN_CTRL_MMR0_CFG0_BASE            (0x100000UL)
+#define CSL_MCU_PADCFG_CTRL_MMR0_CFG0_BASE      (0x4080000UL)
+#define CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE     (0xf0000UL)
+#define CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL     (0x00008000U)
+#define CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL   (0x00008000U)
+
+ menuitem "OBSCLK Configuration";
+ //OBSCLK0 on GPMC0_AD10 pin
+ hotmenu OBSCLK0_PINMUX()
+{
+	//PADCONFIG 25
+	MMR_Unlock_One(0x80000000  + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x5008, 0x80000000 + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x500c);
+	Write_MMR_Field(0x80000000 + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x4064, 0x8, 4, 0);   //muxmode = 8
+	Write_MMR_Field(0x80000000 + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x4064, 0, 1, 21);    //tx_dis=0 - driver is enabled
+	GEL_TextOut("Main PADCONFIG_25 set to mux mode 8\n");
+}
+ 
+ //OBSCLK1 on I2C0_SCL pin
+ hotmenu OBSCLK1_PINMUX()
+{
+    //PADCONFIG 125
+    MMR_Unlock_One(0x80000000  + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x5008, 0x80000000 + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x500c);
+    Write_MMR_Field(0x80000000 + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x41E0, 0x3, 4, 0);   //muxmode = 3
+    Write_MMR_Field(0x80000000 + CSL_MAIN_PADCFG_CTRL_MMR0_CFG0_BASE + 0x41E0, 0, 1, 21);    //tx_dis=0 - driver is enabled
+    GEL_TextOut("Main PADCONFIG_120 set to mux mode 3\n");
+}
+ 
+ //MCU_OBSCLK0 on MCU_SPI0_CS1
+ hotmenu MCU_OBSCLK0_PINMUX()
+{
+	//PADCONFIG 1
+	MMR_Unlock_One(0x80000000  + CSL_MCU_PADCFG_CTRL_MMR0_CFG0_BASE + 0x5008, 0x80000000 + CSL_MCU_PADCFG_CTRL_MMR0_CFG0_BASE + 0x500c);
+	Write_MMR_Field(0x80000000 + CSL_MCU_PADCFG_CTRL_MMR0_CFG0_BASE + 0x4004, 0x1, 4, 0);   //muxmode=1
+	Write_MMR_Field(0x80000000 + CSL_MCU_PADCFG_CTRL_MMR0_CFG0_BASE + 0x4004, 0, 1, 21);    //tx_dis=0 - driver is enabled
+	GEL_TextOut("MCU PADCONFIG_1 set to mux mode 1\n");
+}
+
+ menuitem "OBSCLK Configuration/OBSCLK0_1";
+
+dialog MAIN_PLL0_HSDIV0_CLKOUT(divVal "Divide by (1 to 256): ")
+{
+	MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+	//Set the clock source selection
+	Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x0, 5, 0);
+
+	//Set clock divider value
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+	GEL_TextOut("OBSCLK0/1 set to MAIN_PLL0_HSDIV0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MAIN_PLL1_HSDIV0_CLKOUT(divVal "Divide by (1 to 256): ")
+{
+	MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+	//Set the clock source selection
+	Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x1, 5, 0);
+
+	//Set clock divider value
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+	GEL_TextOut("OBSCLK0/1 set to MAIN_PLL1_HSDIV0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MAIN_PLL2_HSDIV0_CLKOUT(divVal "Divide by (1 to 256): ")
+{
+	MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+	//Set the clock source selection
+	Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x2, 5, 0);
+
+	//Set clock divider value
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+	GEL_TextOut("OBSCLK0/1 set to MAIN_PLL2_HSDIV0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MAIN_PLL5_HSDIV0_CLKOUT(divVal "Divide by (1 to 256): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x12, 5, 0);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+    GEL_TextOut("OBSCLK0/1 set to MAIN_PLL5_HSDIV0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+//c7xv_ divh_ clk4_ obsclk_ out_ clk
+dialog MAIN_PLL7_HSDIV0_CLKOUT_DIV4(divVal "Divide by (1 to 256): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x13, 5, 0);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+    GEL_TextOut("OBSCLK0/1 set to MAIN_PLL7_HSDIV0_CLKOUT_DIV4. CLK Div: %d\n",,,,,divVal);
+}
+
+//a53_ divh_ clk4_ obsclk_ out_ clk
+dialog MAIN_PLL8_HSDIV0_CLKOUT_DIV4(divVal "Divide by (1 to 256): ")
+{
+	MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+	//Set the clock source selection
+	Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x3, 5, 0);
+
+	//Set clock divider value
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+	GEL_TextOut("OBSCLK0/1 set to MAIN_PLL8_HSDIV0_CLKOUT_DIV4. CLK Div: %d\n",,,,,divVal);
+}
+
+//ddrss_ddr_pll_clk_div4
+dialog MAIN_PLL12_HSDIV0_CLKOUT_DIV4(divVal "Divide by (1 to 256): ")
+{
+	MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+	//Set the clock source selection
+	Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x4, 5, 0);
+
+	//Set clock divider value
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+	GEL_TextOut("OBSCLK0/1 set to MAIN_PLL12_HSDIV0_CLKOUT_DIV4. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MAIN_PLL15_HSDIV0_CLKOUT(divVal "Divide by (1 to 256): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0xD, 5, 0);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+    GEL_TextOut("OBSCLK0/1 set to MAIN_PLL15_HSDIV0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MAIN_PLL17_HSDIV0_CLKOUT(divVal "Divide by (1 to 256): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0xF, 5, 0);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+    GEL_TextOut("OBSCLK0/1 set to MAIN_PLL17_HSDIV0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog PLLCTRL_OBSCLK (divVal "Divide by (1 to 256): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x7, 5, 0);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+    GEL_TextOut("OBSCLK0/1 set to PLLCTRL_OBSCLK. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MAIN_SYSCLK0 (divVal "Divide by (1 to 256): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x10, 5, 0);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+    GEL_TextOut("OBSCLK0/1 set to MAIN_SYSCLK0. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog HFOSC0__CLK (divVal "Divide by (1 to 256): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x1f, 5, 0);
+    //Select HFOSC0_CLK
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0x1, 1, 24);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, divVal - 1, 8, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK0_CTRL, 1, 1, 16);
+
+    GEL_TextOut("OBSCLK0/1 set to HFOSC0_CLK. CLK Div: %d\n",,,,,divVal);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+menuitem "OBSCLK Configuration/MCU_OBSCLK0";
+
+dialog MCU_PLL0_HSDIV0_CLKOUT(divVal "Divide by (1 to 15): ")
+{
+
+	MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+	//Set the clock source selection
+	Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x2);
+
+	//Set clock divider value
+	Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+	GEL_TextOut("MCU_OBSCLK0 set to MCU_PLL0_HSDIV0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MCU_PLL0_HSDIV4_CLKOUT(divVal "Divide by (1 to 15): ")
+{
+
+	MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+	//Set the clock source selection
+	Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x3);
+
+	//Set clock divider value
+	Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+	//Clear clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+	//Set clock divider load field
+	Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+	GEL_TextOut("MCU_OBSCLK0 set to MCU_PLL0_HSDIV4_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog CLK_12M_RC (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x0);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to CLK_12M_RC\n");
+}
+
+dialog HFOSC0_CLK (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x1);
+    //Select HFOSC0_CLK
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x1, 1, 24);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to HFOSC0_CLK\n");
+}
+
+dialog MCU_PLLCTRL_OBSCLK (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x4);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to MCU_PLLCTRL_OBSCLK\n");
+}
+
+dialog CLK_32K (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x5);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to CLK_32K_RC\n");
+}
+
+dialog HFOSC0_CLKOUT (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x6);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to HFOSC0_CLKOUT. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog HFOSC0_CLKOUT_32k (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x7);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to HFOSC0_CLKOUT_32k. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog MCU_SYSCLK0 (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x8);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to MCU_SYSCLK0. CLK Div: %d\n",,,,,divVal);
+}
+
+dialog DEVICE_CLKOUT_32K (divVal "Divide by (1 to 15): ")
+{
+    MMR_Unlock_One(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x9008, 0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + 0x900c);
+
+    //Set the clock source selection
+    Write_MMR(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0x9);
+
+    //Set clock divider value
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, divVal - 1, 4, 8);
+    //Clear clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 0, 1, 16);
+    //Set clock divider load field
+    Write_MMR_Field(0x80000000 + CSL_MCU_CTRL_MMR0_CFG0_BASE + CSL_MCU_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL, 1, 1, 16);
+
+    GEL_TextOut("MCU_OBSCLK0 set to DEVICE_CLKOUT_32K. CLK Div: %d\n",,,,,divVal);
+}
+
+/* ************************************************************************* */
+/* Global Helper Functions */
+/* ************************************************************************* */
+
+/* Read from an MMR. */
+Read_MMR(unsigned int mmr_address){
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    return *p_mmr;
+}
+
+/* Write to an MMR. */
+Write_MMR(unsigned int mmr_address, unsigned int mmr_value){
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    *p_mmr = mmr_value;
+}
+
+/* Write to a specific field in an MMR. */
+Write_MMR_Field(unsigned int mmr_address, unsigned int field_value, unsigned int width, unsigned int leftshift){
+    unsigned int * p_mmr;
+    unsigned int mask;
+    p_mmr = (unsigned int *) mmr_address;   //Grab the MMR value
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field.
+    mask = ~(mask); //Invert the mask so that the field will be zero'd out with the AND operation.
+    *p_mmr &= mask; //Zero out the field in the register.
+    *p_mmr |= (field_value << leftshift); //Assign the value to that specific field.
+}
+
+/* Read from a specific field in an MMR. */
+Read_MMR_Field(unsigned int mmr_address, unsigned int width, unsigned int leftshift){
+    unsigned int * p_mmr;
+    unsigned int mask;
+    unsigned int retval;
+    p_mmr = (unsigned int *) mmr_address;
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field.
+    retval = (*p_mmr & mask) >> leftshift; //Bitwise AND the mask with the register value, and then shift the field back down to the LSB
+    return retval;
+}
+
+/**
+ * \brief   Write the unlocking keys to the locking registers.
+ *
+ * \param   kick0 		 		The first lock register.
+ *
+ * \param   kick1 				The second lock register.
+ *
+ * \return  status 				This should return 0 on a successful unlock.
+ */
+MMR_Unlock_One(unsigned int kick0, unsigned int kick1)
+{
+    // initialize the status variable
+    unsigned int status = 1;
+
+    // if either of the kick lock registers are locked
+    if (!(Read_MMR(kick0) & 0x1) | !(Read_MMR(kick1) & 0x1)){
+        // unlock the partition by writing the unlock values to the kick lock registers
+        Write_MMR(kick0, KICK0_UNLOCK);
+        Write_MMR(kick1, KICK1_UNLOCK);
+    }
+
+    // check to see if either of the kick registers are unlocked.
+    if (!(Read_MMR(kick0) & 0x1)){
+        status = 0;
+    }
+
+    // return the status to the calling program
+    return status;
+
+}
+

@@ -1,0 +1,581 @@
+//REVISION 1.0
+
+#define PERLOCK		0x02AC0004	// Peripheral Lock Register
+#define PERCFG0 	0x02AC0008	// Peripheral Configuration register
+#define PERSTAT0	0x02AC0014	// Peripheral Status 0
+#define PERSTAT1 	0x02AC002C	// Peripheral Status 1
+#define PERCFG1		0x02AC002C	// Peripheral configuration 1
+
+#define DEVSTAT		0x02A80000  // Device Status Register
+#define DEVSTAT_KEY	0x02A80050  // Device STAT KEY Register
+
+#define PLLCTL_1	0x029A0100	// PLL1 control register
+#define PLLM_1		0x029A0110	// PLL1 multiplier control register
+#define PREDIV_1	0x029A0114	// PLL1 pre-divider control register
+#define PLLCMD_1	0x029A0138	// PLL1 controller command register
+#define PLLSTAT_1	0x029A013C	// PLL1 controller status register
+#define DCHANGE_1	0x029A0144	// PLL1 PLLDIV ratio change status register
+#define SYSTAT_1	0x029A0150	// PLL1 SYSCLK status register
+#define PLLDIV4_1	0x029A0160	// PLL1 controller divider 4 register
+#define PLLDIV5_1	0x029A0164	// PLL1 controller divider 5 register
+
+#define PLLDIV1_2	0x029C0118	// PLL2 controller divider 1 register
+#define PLLCMD_2	0x029C0138	// PLL2 controller command register
+#define PLLSTAT_2	0x029C013C	// PLL2 controller status register
+#define DCHANGE_2	0x029C0144	// PLL2 PLLDIV ratio change status register
+#define SYSTAT_2	0x029C0150	// PLL2 SYSCLK status register
+
+#define MIDR		0x78000000	// DDR2 Memory Controller Module ID and Revision Register
+#define DMCSTAT		0x78000004  // DDR2 Memory Controller Status Register
+#define SDCFG		0x78000008  // DDR2 Memory Controller SDRAM Configuration Register
+#define SDRFC		0x7800000C  // DDR2 Memory Controller SDRAM Refresh Control Register
+#define SDTIM1		0x78000010  // DDR2 Memory Controller SDRAM Timing 1 Register
+#define SDTIM2		0x78000014  // DDR2 Memory Controller SDRAM Timing 2 Register
+#define BPRIO		0x78000028	// DDR2 Memory Controller Burst Priority Register
+#define DMCCTL		0x780000E4  // DDR2 Memory Controller Control Register
+
+/* Board Options */
+#define CLKIN1FREQ	50		// CLKIN1 frequency in MHz */
+#define CLKIN2FREQ	50		// CLKIN2 frequency in MHz */
+
+menuitem "Device Configuration";
+
+/*
+hotmenu turn_off_CLKOUT4_6()
+{
+	int regval;
+	
+	regval = *(int *)GBLCTL;
+	regval = regval & 0xFFFFFFE7;
+	*(int *)GBLCTL = regval;
+}
+
+hotmenu turn_off_ECLKOUTs()
+{
+	int regval;
+	
+	regval = *(int *)GBLCTL;
+	regval = regval & 0xFFFEFFDF;
+	*(int *)GBLCTL = regval;
+}
+*/
+
+hotmenu check_device_configuration()
+{
+	GEL_TextOut("\n","Output",1,1,1);
+	
+	check_PLL_Config();
+//	check_PERCFG();
+//	check_PCFGLOCK();
+	check_DEVSTAT();
+}
+
+hotmenu SET_DEVSTAT_KEY()
+{
+	*(int *)DEVSTAT_KEY = 0x0E3C5A78;
+	*(int *)DEVSTAT = 0x006F9771;  //0xD4054019
+	GEL_TextOut("DEVSTAT_KEY = 0x0E3C5A78\n");
+	GEL_TextOut("DEVSTAT = 0x006F9771\n");
+}
+
+
+hotmenu check_PERCFG()  /* Checks the status of the PERCFG register. */
+{
+	int regval;
+	
+	regval = *(int *)PERCFG;
+	GEL_TextOut("PERCFG = %x\n","Output",2,1,1, regval);
+
+	//regval = regval & 0x00000001;
+	//GEL_TextOut("regval = %x\n","Output",1,1,1, regval);
+
+	if(regval & 0x00000001){
+		GEL_TextOut("\tMcASP0 enabled\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tMcASP0 disabled\n","Output",1,1,1);
+	}
+
+	if(regval & 0x00000002){
+		GEL_TextOut("\tMcBSP0 enabled\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tMcBSP0 disabled\n","Output",1,1,1);
+	}
+
+	if(regval & 0x00000004){
+		GEL_TextOut("\tMcBSP1 enabled\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tMcBSP1 disabled\n","Output",1,1,1);
+	}
+
+	if(regval & 0x00000008){
+		GEL_TextOut("\tI2C0 enabled\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tI2C0 disabled\n","Output",1,1,1);
+	}
+	
+	if(regval & 0x00000080){
+		GEL_TextOut("\tI2C1 enabled\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tI2C1 disabled\n","Output",1,1,1);
+	}
+	
+	if(regval & 0x00000100){
+		GEL_TextOut("\tMcASP1 enabled\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tMcASP1 disabled\n","Output",1,1,1);
+	}
+}
+
+hotmenu check_PLL_Config()  /* Checks the status of the device PLLs. */
+{
+	int regval;
+	int tempregval;
+	float freq = CLKIN1FREQ;
+
+	/* Check PLL1 Configuration */
+	GEL_TextOut("PLL1 Controller Configuration\n","Output",2,1,1);
+
+	regval = *(int *)PLLCTL_1;
+
+	if(regval & 0x00000001){
+		GEL_TextOut("\tPLL1 Controller is in PLL mode.\n","Output",1,1,1);
+
+		/* PREDIV_1 Config*/
+		tempregval = (*(int *)PREDIV_1) & 0x0000801F;
+		GEL_TextOut("\tPREDIV = ","Output",1,1,1);
+		if (tempregval & 0x00008000)
+			GEL_TextOut("enabled, ","Output",1,1,1);
+		else
+			GEL_TextOut("disabled, ","Output",1,1,1);
+		GEL_TextOut(" divide by %d.\n","Output",1,1,1, (tempregval & 0x0000001F) + 1);
+		
+		freq /= ((tempregval & 0x0000001F) + 1);
+
+		tempregval = (*(int *)PLLM_1) & 0x0000001F;
+		GEL_TextOut("\tPLL multiply value = %d.\n","Output",1,1,1, tempregval + 1);
+
+		freq *= (tempregval + 1);
+		GEL_TextOut("\tCPU frequency = %f MHz.\n","Output",1,1,1, freq);
+	}
+	else{
+		GEL_TextOut("\tPLL1 is in bypass mode.\n","Output",1,1,1);
+		GEL_TextOut("\tCPU frequency = %f MHz.\n","Output",1,1,1, freq);
+	}
+
+	/* PLLDIV4_1 Config*/
+	tempregval = (*(int *)PLLDIV4_1) & 0x0000801F;
+	GEL_TextOut("\tPLLDIV4 = ","Output",1,1,1);
+	if (tempregval & 0x00008000)
+		GEL_TextOut("enabled, ","Output",1,1,1);
+	else
+		GEL_TextOut("disabled, ","Output",1,1,1);
+	tempregval = (tempregval & 0x0000001F) + 1;
+	GEL_TextOut("divide by %d, ","Output",1,1,1, tempregval);
+	GEL_TextOut("SYSCLK4 frequency = %f MHz.\n","Output",1,1,1, freq/tempregval);
+
+	/* PLLDIV5_1 Config*/
+	tempregval = (*(int *)PLLDIV5_1) & 0x0000801F;
+	GEL_TextOut("\tPLLDIV5 = ","Output",1,1,1);
+	if (tempregval & 0x00008000)
+		GEL_TextOut("enabled, ","Output",1,1,1);
+	else
+		GEL_TextOut("disabled, ","Output",1,1,1);
+	tempregval = (tempregval & 0x0000001F) + 1;
+	GEL_TextOut("divide by %d, ","Output",1,1,1, tempregval);
+	GEL_TextOut("SYSCLK5 frequency = %f MHz.\n","Output",1,1,1, freq/tempregval);
+
+	/* Check PLL2 Configuration */
+	GEL_TextOut("PLL2 Controller Configuration\n","Output",2,1,1);
+
+	freq = CLKIN2FREQ*10;
+
+	/* PLLDIV1_2 Config*/
+	tempregval = (*(int *)PLLDIV1_2) & 0x0000801F;
+	GEL_TextOut("\tPLLDIV1 = ","Output",1,1,1);
+	if (tempregval & 0x00008000)
+		GEL_TextOut("enabled, ","Output",1,1,1);
+	else
+		GEL_TextOut("disabled, ","Output",1,1,1);
+	tempregval = (tempregval & 0x0000001F) + 1;
+	GEL_TextOut("divide by %d, ","Output",1,1,1, tempregval);
+	GEL_TextOut("SYSCLK1 frequency = %f MHz.\n","Output",1,1,1, freq/tempregval);
+}
+
+hotmenu check_DEVSTAT()  /* Checks the status of the DEVSTAT register. */
+{
+	int regval;
+	int tempregval;
+
+	regval = *(int *)DEVSTAT;
+	GEL_TextOut("DEVSTAT = %x\n","Output",2,1,1, regval);
+
+	/* EMIFA Pin Config */
+	if( (regval & 0x00400000) == 0x00400000 ){
+		GEL_TextOut("\tEMIFA pins = enabled.\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tEMIFA pins = disabled.\n","Output",1,1,1);
+	}
+
+	/* DDR2 Pin Config */
+	if( (regval & 0x00200000) == 0x00200000 ){
+		GEL_TextOut("\tDDR2 Mem Controller pins = enabled.\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tDDR2 Mem Controller pins = disabled.\n","Output",1,1,1);
+	}
+
+	/* CFGGPx Pins */
+	tempregval = (regval >> 17) & 0x00000007;
+	GEL_TextOut("\tCFGP[2:0] = %d.\n","Output",1,1,1, tempregval);
+
+	/* SYSCLK4/GP1 Pin Config */
+	if( (regval & 0x00008000) == 0x00008000 ){
+		GEL_TextOut("\tSYSCLK4/GP1 pin = SYSCLK4 mode.\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tSYSCLK4/GP1 pin = GP0 mode.\n","Output",1,1,1);
+	}
+
+	/* PCI/HPI Pin Config */
+	if( (regval & 0x00100000) == 0x00100000 ){
+		GEL_TextOut("\tPCI/HPI pins = PCI pins disabled.\n","Output",1,1,1);
+
+		/* PCI Speed */
+		if( (regval & 0x00002000) == 0x00002000 ){
+			GEL_TextOut("\t  PCI speed = 66MHz.\n","Output",1,1,1);
+		}
+		else{
+			GEL_TextOut("\t  PCI speed = 33MHz.\n","Output",1,1,1);
+		}
+
+		/* PCI EEPROM Init */
+		if( (regval & 0x00000800) == 0x00000800 ){
+			GEL_TextOut("\t  PCI EEPROM Init = enabled.\n","Output",1,1,1);
+		}
+		else{
+			GEL_TextOut("\t  PCI EEPROM Init = disabled.\n","Output",1,1,1);
+		}
+
+	}
+	else{
+		GEL_TextOut("\tPCI/HPI pins = HPI pins enabled.\n","Output",1,1,1);
+
+		/* HPI Width */
+		if( (regval & 0x00000020) == 0x00000020 ){
+			GEL_TextOut("\t  HPI width = 32-bit.\n","Output",1,1,1);
+		}
+		else{
+			GEL_TextOut("\t  HPI width = 16-bit.\n","Output",1,1,1);
+		}
+
+	}
+
+	/* VLYNQ/McBSP1/GPIO Pin Config */
+	if( (regval & 0x00001000) == 0x00001000 ){
+		GEL_TextOut("\tVLYNQ/McBSP1/GPIO pins = VLYNQ pins enabled.\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tVLYNQ/McBSP1/GPIO pins = McBSP1/GPIO pins enabled.\n","Output",1,1,1);
+
+		/* McBSP1/GPIO Pin Config */
+		if( (regval & 0x00004000) == 0x00004000 ){
+			GEL_TextOut("\t  McBSP1/GPIO pins = McBSP1 pins enabled.\n","Output",1,1,1);
+		}
+		else{
+			GEL_TextOut("\t  McBSP1/GPIO pins = GPIO pins enabled.\n","Output",1,1,1);
+		}
+
+	}
+
+	/* UTOPIA/EMAC Pin Config */
+	if( (regval & 0x00000080) == 0x00000080 ){
+		GEL_TextOut("\tUTOPIA/EMAC pins = UTOPIA pins enabled.\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tUTOPIA/EMAC pins = EMAC pins enabled.\n","Output",1,1,1);
+	}
+
+	/* MAC Select*/
+	if( (regval & 0x00000600) == 0x00000000 ){
+		GEL_TextOut("\tMII Interface Selected.\n","Output",1,1,1);
+	}
+	if( (regval & 0x00000600) == 0x00000100 ){
+		GEL_TextOut("\tRMII Interface Selected.\n","Output",1,1,1);
+	}
+	if( (regval & 0x00000600) == 0x00000200 ){
+		GEL_TextOut("\tGMII Interface Selected.\n","Output",1,1,1);
+	}
+	if( (regval & 0x00000600) == 0x00000300 ){
+		GEL_TextOut("\tRGMII Interface Selected.\n","Output",1,1,1);
+	}	
+	
+	/* Endianness */
+	if( (regval & 0x00000040) == 0x00000040 ){
+		GEL_TextOut("\tEndianness = little endian.\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tEndianness = big endian.\n","Output",1,1,1);
+	}
+
+	/* EMIFa clock source */
+	if( (regval & 0x00000010) == 0x00000010 ){
+		GEL_TextOut("\tEMIFa input clock = Internal SYSCLK4.\n","Output",1,1,1);
+	}
+	else{
+		GEL_TextOut("\tEMIFa input clock = AECLKIN.\n","Output",1,1,1);
+	}
+
+	/* Bootmode */
+	if( (regval & 0x0000000F) == 0x00000000 ){
+		GEL_TextOut("\tBootmode = no boot.\n","Output",1,1,1);
+	}
+	if( (regval & 0x0000000F) == 0x00000001 ){
+		GEL_TextOut("\tBootmode = Host boot.\n","Output",1,1,1);
+	}
+	if( (regval & 0x0000000F) == 0x00000004 ){
+		GEL_TextOut("\tBootmode = EMIF boot.\n","Output",1,1,1);
+	}
+	if( (regval & 0x0000000F) == 0x00000005 ){
+		GEL_TextOut("\tBootmode = Master I2C boot.\n","Output",1,1,1);
+	}
+	if( (regval & 0x0000000F) == 0x00000006 ){
+		GEL_TextOut("\tBootmode = Slave I2C boot.\n","Output",1,1,1);
+	}
+	if( (regval & 0x0000000F) >= 0x00000008 ){
+		GEL_TextOut("\tBootmode = SRIO boot.\n","Output",1,1,1);
+	}
+
+}
+
+menuitem "PLL Controller Functions";
+
+/* This dialog box can be used by the user to configure the PLL controllers on the device. */
+dialog PLL1_Controller_Setup(PLLM_val "Multiplier value [1-32]", PREDIV_val "Pre-divider value [1-32]", 
+			PLLDIV4_val "Divider D4 value [1-32]", PLLDIV5_val "Divider D5 value [1-32]")
+{
+	int i;
+	
+	if (PLLM_val > 0 && PLLM_val < 32)
+	{
+		if ( (PREDIV_val > 0) && (PREDIV_val < 33) )
+		{
+			/* In PLLCTL, write PLLENSRC = 0 (enable PLLEN bit).*/
+			*(int *)PLLCTL_1 &= ~(0x00000020);
+			/* In PLLCTL, write PLLEN = 0 (bypass mode).*/
+			*(int *)PLLCTL_1 &= ~(0x00000001);
+			/* Wait 4 cycles of the slowest of PLLOUT or reference clock source (CLKIN).*/
+			for (i=0 ; i<100 ; i++);
+			/*In PLLCTL, write PLLRST = 1 (PLL is reset).*/
+			*(int *)PLLCTL_1 |= 0x00000008;
+			/*If necessary, program PREDIV and PLLM.*/
+			*(int *)PLLM_1 = PLLM_val - 1;
+			*(int *)PREDIV_1 = (PREDIV_val - 1) | 0x8000;	/* set PLLDIV0 */
+			
+			/*If necessary, program PLLDIV1n. Note that you must apply the GO operation
+				to change these dividers to new ratios.*/
+
+				/* Check that the GOSTAT bit in PLLSTAT is cleared to show that no GO 
+					operation is currently in progress.*/
+				while( (*(int *)PLLSTAT_1) & 0x00000001);
+
+
+				/* Program the RATIO field in PLLDIVn to the desired new divide-down rate. 
+					If the RATIO field changed, the PLL controller will flag the change
+					in the corresponding bit of DCHANGE.*/
+				*(int *)PLLDIV4_1 = (PLLDIV4_val - 1) | 0x8000;	/* set PLLDIV4 */
+				*(int *)PLLDIV5_1 = (PLLDIV5_val - 1) | 0x8000;	/* set PLLDIV5 */
+
+				/* Set the GOSET bit in PLLCMD to initiate the GO operation to change
+					the divide values and align the SYSCLKs as programmed.*/
+				*(int *)PLLCMD_1 |= 0x00000001;
+
+				/* Read the GOSTAT bit in PLLSTAT to make sure the bit returns to 0
+					to indicate that the GO operation has completed.*/
+				while( (*(int *)PLLSTAT_1) & 0x00000001);
+
+			/* Wait for PLL to properly reset.(128 CLKIN1 cycles).*/
+			for (i=0 ; i<1000 ; i++);
+
+			/* In PLLCTL, write PLLRST = 0 to bring PLL out of reset.*/
+			*(int *)PLLCTL_1 &= ~(0x00000008);
+
+			/* Wait for PLL to lock (2000 CLKIN1 cycles). */
+			for (i=0 ; i<4000 ; i++);
+
+			/* In PLLCTL, write PLLEN = 1 to enable PLL mode. */
+			*(int *)PLLCTL_1 |= (0x00000001);
+
+			GEL_TextOut("PLL1 has been configured, run check_PLL_Config to check settings.\n","Output",2,1,1);
+		}
+		else
+		{
+			GEL_TextOut("Pre-divider value must be between 1 and 32.\n","Output",2,1,1);
+		}
+	}
+	else
+	{
+		GEL_TextOut("Multiplier value must be between 1 and 32.\n","Output",2,1,1);
+	}
+}
+
+hotmenu Lock_Mode()
+{
+	*(int *)PLLCTL_1 |= 0x00000001;	/* PLL enabled */
+}
+
+hotmenu Bypass_Mode()
+{
+	*(int *)PLLCTL_1 &= ~(0x000000001);	/* PLL in bypass */
+}
+
+menuitem "DDR2 Mem Controller Functions";
+
+
+/* Configures the DDR2 Memory Controller for operation for 500MHz, 32-bits, with two 16-bit
+	Micron devices (MT47H64M16) */
+hotmenu DDR2_533_32_Setup()
+{
+	
+	/* Set the BOOT_UNLOCK bit */
+	*(int *)SDCFG |= 0x00800000;
+
+	/* Program the SDRAM configuration register (SDCFG) to the desired value with the 
+		TIMUNLOCK bit set to 1 (unlocked). */
+	*(int *)SDCFG = 0x00538832;
+
+	/* Program the SDRAM timing 1 register (SDTIM1) and SDRAM timing 2 register (SDTIM2) with the
+		value needed to meet the DDR2 SDRAM device timings. */
+	*(int *)SDTIM1 = 0x47245BD2;
+	*(int *)SDTIM2 = 0x0125DC44;
+
+	/* Program the REFRESH_RATE bit in the SDRAM refresh control register (SDRFC) to a value
+		that meets the refresh requirements of the DDR2 SDRAM device. */
+	*(int *)SDRFC = 0x0000073B;
+
+	/* Program SDCFG to the desired value with the TIMUNLOCK bit cleared to 0 (locked). */
+	*(int *)SDCFG &= ~(0x00008000);	
+
+	/* Program the read latency (RL) bit in the DDR2 Memory Controller Control Register
+		(DMCCTL) to the desired value. */
+	*(int *)DMCCTL &= 0xFFFFFFF8;
+	*(int *)DMCCTL |= 0x00000005;
+
+	GEL_TextOut("DDR2 Memory Controller has been configured.\n","Output",2,1,1);
+}
+
+/* Configures the DDR2 Memory Controller for operation for 400MHz, 32-bits, with two 16-bit
+	Micron devices (MT47H64M16) */
+hotmenu DDR2_400_32_Setup()
+{
+
+	
+	/* Set the BOOT_UNLOCK bit */
+	*(int *)SDCFG |= 0x00800000;
+
+	/* Program the SDRAM configuration register (SDCFG) to the desired value with the 
+		TIMUNLOCK bit set to 1 (unlocked). */
+	*(int *)SDCFG = 0x00538632;
+
+	/* Program the SDRAM timing 1 register (SDTIM1) and SDRAM timing 2 register (SDTIM2) with the
+		value needed to meet the DDR2 SDRAM device timings. */
+	*(int *)SDTIM1 = 0x34DB42C9;
+	*(int *)SDTIM2 = 0x009CF023;
+
+	/* Program the REFRESH_RATE bit in the SDRAM refresh control register (SDRFC) to a value
+		that meets the refresh requirements of the DDR2 SDRAM device. */
+	*(int *)SDRFC = 0x000004A0;
+
+	/* Program SDCFG to the desired value with the TIMUNLOCK bit cleared to 0 (locked). */
+	*(int *)SDCFG &= ~(0x00008000);	
+
+	/* Program the read latency (RL) bit in the DDR2 Memory Controller Control Register
+		(DMCCTL) to the desired value. */
+	
+	*(int *)DMCCTL &= 0xFFFFFFF8;
+	*(int *)DMCCTL |= 0x00000004;
+
+	GEL_TextOut("DDR2 Memory Controller has been configured.\n","Output",2,1,1);
+}
+
+/* Configures the DDR2 Memory Controller for operation for 500MHz, 32-bits, with two 16-bit
+	Micron devices (MT47H64M16) */
+hotmenu DDR2_533_16_Setup()
+{
+	
+	/* Set the BOOT_UNLOCK bit */
+	*(int *)SDCFG |= 0x00800000;
+
+	/* Program the SDRAM configuration register (SDCFG) to the desired value with the 
+		TIMUNLOCK bit set to 1 (unlocked). */
+	*(int *)SDCFG = 0x0053C832;
+
+	/* Program the SDRAM timing 1 register (SDTIM1) and SDRAM timing 2 register (SDTIM2) with the
+		value needed to meet the DDR2 SDRAM device timings. */
+	*(int *)SDTIM1 = 0x47245BD2;
+	*(int *)SDTIM2 = 0x0125DC44;
+
+	/* Program the REFRESH_RATE bit in the SDRAM refresh control register (SDRFC) to a value
+		that meets the refresh requirements of the DDR2 SDRAM device. */
+	*(int *)SDRFC = 0x0000073B;
+
+	/* Program SDCFG to the desired value with the TIMUNLOCK bit cleared to 0 (locked). */
+	*(int *)SDCFG &= ~(0x00008000);	
+
+	/* Program the read latency (RL) bit in the DDR2 Memory Controller Control Register
+		(DMCCTL) to the desired value. */
+	*(int *)DMCCTL &= 0xFFFFFFF8;
+	*(int *)DMCCTL |= 0x00000005;
+
+
+	GEL_TextOut("DDR2 Memory Controller has been configured.\n","Output",2,1,1);
+}
+
+/* Configures the DDR2 Memory Controller for operation for 400MHz, 32-bits, with two 16-bit
+	Micron devices (MT47H64M16) */
+hotmenu DDR2_400_16_Setup()
+{
+
+	
+	/* Set the BOOT_UNLOCK bit */
+	*(int *)SDCFG |= 0x00800000;
+
+	/* Program the SDRAM configuration register (SDCFG) to the desired value with the 
+		TIMUNLOCK bit set to 1 (unlocked). */
+	*(int *)SDCFG = 0x0053C632;
+
+	/* Program the SDRAM timing 1 register (SDTIM1) and SDRAM timing 2 register (SDTIM2) with the
+		value needed to meet the DDR2 SDRAM device timings. */
+	*(int *)SDTIM1 = 0x34DB42C9;
+	*(int *)SDTIM2 = 0x009CF023;
+
+	/* Program the REFRESH_RATE bit in the SDRAM refresh control register (SDRFC) to a value
+		that meets the refresh requirements of the DDR2 SDRAM device. */
+	*(int *)SDRFC = 0x000004A0;
+
+	/* Program SDCFG to the desired value with the TIMUNLOCK bit cleared to 0 (locked). */
+	*(int *)SDCFG &= ~(0x00008000);	
+
+	/* Program the read latency (RL) bit in the DDR2 Memory Controller Control Register
+		(DMCCTL) to the desired value. */
+	*(int *)DMCCTL &= 0xFFFFFFF8;
+	*(int *)DMCCTL |= 0x00000004;
+
+
+	GEL_TextOut("DDR2 Memory Controller has been configured.\n","Output",2,1,1);
+}
+
+menuitem "EMIFA Functions";
+
+/* Enables EMIFA */
+hotmenu EMIFA_Enable()
+{
+	/* Enable EMIFA */
+	*(int *)PERCFG1 |= 0x00000001;
+}

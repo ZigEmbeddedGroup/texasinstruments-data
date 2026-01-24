@@ -1,0 +1,432 @@
+#define OSPI_REGS              0x41910000
+#define HOST_XIP_REGS          0x41912000
+#define IOMUX_REGS             0x41140000
+#define WSOC_COMMON_SPARE_A7   0x408200c0
+#define APP_ID                 0
+#define MAC_ID                 1
+
+#define DCACHE_REGS 		   0x41902400
+#define OFFSET_CTRL 		   0x00000004
+#define OFFSET_CAL	 		   0x00000010
+#define OFFSET_CAH	 		   0x00000018
+#define OFFSET_CTRL1 		   0x000000C0
+#define OFFSET_STATUS1 		   0x000000C4
+
+StartUp()
+{
+    /* Load the cc35xx_utils.gel file */
+    GEL_LoadGel("$(GEL_file_dir)/cc35xx_utils.gel");
+
+    GEL_TextOut("M33 on startup CC35X1E\n");
+
+	/* Initialize memory map */
+    memorymap_init();
+}
+
+isDCACHEconfigured() 
+{
+	int cal_val;
+	int cah_val;
+	int result = 1;
+
+	cal_val = read_register(DCACHE_REGS + OFFSET_CAL);
+	cah_val = read_register(DCACHE_REGS + OFFSET_CAH);
+
+	if ((cah_val - cal_val) <= 0) {
+		result = 0;
+	}
+
+	return result;
+}
+
+menuitem "CC35X1E"
+hotmenu enableDcache()
+{
+	if (isDCACHEconfigured()) {
+		int ctrl_val = read_register(DCACHE_REGS + OFFSET_CTRL);
+
+		if (!(ctrl_val & 0x80000000))
+		{
+			GEL_TextOut("*************** Enabling DCACHE ***************\n");
+			GEL_TextOut("DCACHE CTRL current value %x \n",,,,, ctrl_val);
+
+			ctrl_val = ctrl_val | 0x80000000;
+			GEL_TextOut("DCACHE CTRL set value %x \n",,,,, ctrl_val);
+
+			write_register(DCACHE_REGS + OFFSET_CTRL, ctrl_val, 32);
+			sw_wait();
+
+			ctrl_val = read_register(DCACHE_REGS + OFFSET_CTRL);
+			GEL_TextOut("DCACHE CTRL updated value %x \n",,,,, ctrl_val);
+
+			GEL_TextOut("*************** DCACHE Enabled ***************\n");
+		} 
+	}
+}
+
+flushDCACHE() 
+{
+	int status_val;
+
+	//Flush DCACHE
+	write_register(DCACHE_REGS + OFFSET_CTRL1, 0x80000000, 32);
+	sw_wait();
+
+	//Read DCACHE status register
+	status_val = read_register(DCACHE_REGS + OFFSET_STATUS1);
+	GEL_TextOut("DCACHE Status %x \n",,,,, status_val);
+
+	while (!(status_val & 0x20000000) & !(status_val & 0x80000000))
+	{
+		sw_wait();
+		status_val = read_register(DCACHE_REGS + OFFSET_STATUS1);
+		GEL_TextOut("DCACHE Status %x \n",,,,, status_val);
+	}
+
+	GEL_TextOut("Flush Done \n");
+}
+
+invalidateDCACHE()
+{
+	int status_val;
+
+	//Invalidate 
+	write_register(DCACHE_REGS + OFFSET_CTRL1, 0x40000000U, 32);
+	sw_wait();
+
+	//Read DCACHE status register
+	status_val = read_register(DCACHE_REGS + OFFSET_STATUS1);
+	GEL_TextOut("Invalidate Status %x \n",,,,, status_val);
+
+	while (!(status_val  & 0x40000000))
+	{
+		sw_wait();
+		status_val = read_register(DCACHE_REGS + OFFSET_STATUS1);
+		GEL_TextOut("Invalidate Status %x \n",,,,, status_val);
+	}
+
+	GEL_TextOut("invalidated Done\n");
+}
+
+menuitem "CC35X1E"
+hotmenu disableDcache()
+{
+	if (isDCACHEconfigured()) {
+		int ctrl_val = read_register(DCACHE_REGS + OFFSET_CTRL);
+		if (ctrl_val & 0x80000000)
+		{ // Enter if DCACHE is enabled
+			GEL_TextOut("*************** Disabling DCACHE ***************\n");
+			GEL_TextOut("DCACHE CTRL current value %x \n",,,,, ctrl_val);
+
+			flushDCACHE();
+
+			invalidateDCACHE();
+						
+			ctrl_val = read_register(DCACHE_REGS + OFFSET_CTRL);
+			GEL_TextOut("DCACHE CTRL updated value %x \n",,,,, ctrl_val);
+
+			ctrl_val = ctrl_val & 0x7FFFFFFF;
+			GEL_TextOut("DCACHE CTRL set value %x \n",,,,, ctrl_val);
+
+			write_register(DCACHE_REGS + OFFSET_CTRL, ctrl_val, 32);
+			sw_wait();
+
+			GEL_TextOut("*************** DCACHE Disabled ***************\n");
+		}
+	}
+}
+
+OnHalt()
+{
+	GEL_TextOut("M33 OnHalt\n");
+
+	disableDcache();
+}
+
+OnPreRun()
+{
+	GEL_TextOut("M33 OnPreRun\n");
+
+	enableDcache();
+}
+
+OnPreDisconnect()
+{
+	GEL_TextOut("M33 OnPreDisconnect\n");
+
+	enableDcache();
+}
+
+OnReset(int nErrorCode)
+{
+    GEL_TextOut("M33 OnReset\n");
+}
+
+OnTargetConnect()
+{
+    GEL_TextOut("M33 OnTargetConnect\n");
+
+    /* Initialize memory map */
+    // memorymap_init();
+}
+
+OnPreFileLoaded()
+{
+    GEL_TextOut("OnPreFileLoaded\n");
+}
+
+OnFileLoaded(int nErrorCode, int bSymbolsOnly)
+{
+    if (nErrorCode)
+        GEL_TextOut("An error occurred while loading a file. -%d\n",,,,, ErrorCode);
+    else
+        GEL_TextOut("File was loaded successfully. -%d\n",,,,, nErrorCode);
+
+    if (bSymbolsOnly)
+        GEL_TextOut("Only symbols were loaded\n");
+    else
+        GEL_TextOut("Full load\n");
+}
+
+memorymap_init()
+{
+    GEL_MapOff();
+    GEL_MapReset();
+    GEL_MapOn();
+
+    /*
+    * Syntax for GEL_MapAddStr.
+    * GEL_MapAddStr(address, page, length, "attribute", waitstate);
+
+    Basic Attribute Types           Derived Attribute Types
+    String      Description         String      Description
+    R           Read                NONE        No memory/protected
+    W           Write               RAM         Read and write
+    P           Port                ROM         Read only
+    EX          External            WOM         Write only
+    EM          Emulator            INPORT      Port read only
+    PR          Programmable        OUTPORT     Port write only
+    ER          Erasable            IOPORT      Port read and write
+    DA          Dual access         SARAM       Single access RAM
+    ASn         Access size         DARAM       Dual access RAM
+    SHnC        Shared              FLASH       Flash ROM
+    CACHE       Cache               EXRAM       External RAM
+    TX          Text                EXROM       External ROM
+    MN          Monitor             EPROM       Erasable write-able EPROM
+    SA          Single access       MONITOR     Monitor ROM
+    FL          Flash               PRAM        Program RAM
+    MR          Memory mapped       PROM        Program ROM
+    NULL        NULL                NULL        NULL
+    */
+
+    //GEL_MapAddStr(0x41900000, 0, 0x0000EFFF, "R|W", 0);  /* mcu  regs */
+    //GEL_MapAddStr(0x4190F000, 0, 0x00000FFF, "R|W", 0);  /* icache regs */
+    GEL_MapAddStr(0x41910000, 0, 0x0000FFFF, "R|W", 0);  /* host_xip_slv */
+
+    GEL_MapAddStr(0x00000000, 0, 0x03FFFFFF, "R|W", 0);  /* TCM Code RAM Non-Secure */
+    GEL_MapAddStr(0x04000000, 0, 0x03FFFFFF, "R|W", 0);  /* TCM Code RAM Secure*/
+
+    GEL_MapAddStr(0x08000000, 0, 0x03FFFFFF, "R|W", 0);  /* Code RAM Non-Secure */
+    GEL_MapAddStr(0x0C000000, 0, 0x03FFFFFF, "R|W", 0);  /* Code RAM Secure */
+
+    GEL_MapAddStr(0x10000000, 0, 0x03FFFFFF, "R", 0);  /* External Code Flash Non-Secure */
+    GEL_MapAddStr(0x14000000, 0, 0x03FFFFFF, "R", 0);  /* External Code Flash Secure */
+
+    GEL_MapAddStr(0xA0000000, 0, 0x03FFFFFF, "R|W", 0);  /* External Code Flash Non-Secure */
+    GEL_MapAddStr(0xA4000000, 0, 0x03FFFFFF, "R|W", 0);  /* External Code Flash Secure */
+
+    GEL_MapAddStr(0x20000000, 0, 0x03FFFFFF, "R|W", 0);  /* TCM Data RAM Non-Secure */
+    GEL_MapAddStr(0x24000000, 0, 0x03FFFFFF, "R|W", 0);  /* TCM Data RAM Secure */
+
+    GEL_MapAddStr(0x28000000, 0, 0x03FFFFFF, "R|W", 0);  /* Data RAM Non-Secure */
+    GEL_MapAddStr(0x2C000000, 0, 0x03FFFFFF, "R|W", 0);  /* Data RAM Secure */
+
+    GEL_MapAddStr(0x40700000, 0, 0x000FFFFF, "R|W", 0);  /* Code RAM */
+    GEL_MapAddStr(0x40600000, 0, 0x000FFFFF, "R|W", 0);  /*  Date RAM */
+
+    GEL_MapAddStr(0x40900000, 0, 0x0000FFFF, "R|W", 0);  /* Phy Ctx RAM */
+    GEL_MapAddStr(0x40910000, 0, 0x00007FFF, "R|W", 0);  /* Phy Scr RAM */
+    // GEL_MapAddStr(0x4091C000, 0, 0x00001FFF, "R|W", 0);  /* Phy MCU regs */
+
+    GEL_MapAddStr(0x40C00000, 0, 0x00010000, "R|W", 0);  /* BLE Code RAM Secure */
+
+    GEL_MapAddStr(0x41C00000, 0, 0x00FFFFFF, "R|W", 0); /* Global Port MemSS Non-Secure */
+
+    GEL_MapAddStr(0x60000000, 0, 0x03FFFFFF, "R|W", 0); /* External PSRAM Non-Secure */
+    GEL_MapAddStr(0x64000000, 0, 0x03FFFFFF, "R|W", 0); /* External PSRAM Secure */
+
+    GEL_MapAddStr(0xE0002000, 0, 0x00000024, "R|W", 0); /* ARM BPU programmers model (FPB) */
+    GEL_MapAddStr(0xE000ED00, 0, 0x00000090, "R|W", 0); /* ARM System Control Block (SCB) */
+
+    /* ==================================== Modules Address Definitions ============================================= */
+
+	GEL_MapAddStr(0x44d05000, 0, 0x000002BC, "R|W", 0); /* ble_rfcore_mdm_secure */
+	GEL_MapAddStr(0x40D05000, 0, 0x000002BC, "R|W", 0); /* ble_rfcore_mdm */
+	GEL_MapAddStr(0x44d01000, 0, 0x00000150, "R|W", 0); /* ble_rfcore_rdbell_cm0p_secure */
+	GEL_MapAddStr(0x40D01000, 0, 0x00000150, "R|W", 0); /* ble_rfcore_rdbell_cm0p */
+	GEL_MapAddStr(0x44d01000, 0, 0x00000048, "R|W", 0); /* ble_rfcore_rdbell_secure */
+	GEL_MapAddStr(0x40D01000, 0, 0x00000048, "R|W", 0); /* ble_rfcore_rdbell */
+	GEL_MapAddStr(0x44d06000, 0, 0x00000140, "R|W", 0); /* ble_rfcore_rfe_secure */
+	GEL_MapAddStr(0x40D06000, 0, 0x00000140, "R|W", 0); /* ble_rfcore_rfe */
+	GEL_MapAddStr(0x44d00000, 0, 0x00000460, "R|W", 0); /* ble_top_secure */
+	GEL_MapAddStr(0x40D00000, 0, 0x00000460, "R|W", 0); /* ble_top */
+	GEL_MapAddStr(0x44850000, 0, 0x000000E8, "R|W", 0); /* coex_secure */
+	GEL_MapAddStr(0x40850000, 0, 0x000000E8, "R|W", 0); /* coex */
+	GEL_MapAddStr(0x45e00000, 0, 0x0000011C, "R|W", 0); /* core_aon_secure */
+	GEL_MapAddStr(0x41E00000, 0, 0x0000011C, "R|W", 0); /* core_aon */
+	GEL_MapAddStr(0x452a0000, 0, 0x00002020, "R|W", 0); /* dcan_secure */
+	GEL_MapAddStr(0x412A0000, 0, 0x00002020, "R|W", 0); /* dcan */
+	GEL_MapAddStr(0x450c0000, 0, 0x00000090, "R|W", 0); /* gpadc_ctrl_secure */
+	GEL_MapAddStr(0x410C0000, 0, 0x00000090, "R|W", 0); /* gpadc_ctrl */
+	GEL_MapAddStr(0x45260000, 0, 0x00001020, "R|W", 0); /* gptimer0_secure */
+	GEL_MapAddStr(0x41260000, 0, 0x00001020, "R|W", 0); /* gptimer0 */
+	GEL_MapAddStr(0x45268000, 0, 0x00001020, "R|W", 0); /* gptimer1_secure */
+	GEL_MapAddStr(0x41268000, 0, 0x00001020, "R|W", 0); /* gptimer1 */
+	GEL_MapAddStr(0x448a0000, 0, 0x00000094, "R|W", 0); /* hif_secure */
+	GEL_MapAddStr(0x408A0000, 0, 0x00000094, "R|W", 0); /* hif */
+	GEL_MapAddStr(0x451d0000, 0, 0x0000007C, "R|W", 0); /* hostmcu_aon_secure */
+	GEL_MapAddStr(0x411D0000, 0, 0x0000007C, "R|W", 0); /* hostmcu_aon */
+	GEL_MapAddStr(0x45a00000, 0, 0x0000E03C, "R|W", 0); /* host_dma_secure */
+	GEL_MapAddStr(0x41A00000, 0, 0x0000E03C, "R|W", 0); /* host_dma */
+	GEL_MapAddStr(0x45900000, 0, 0x00000054, "R|W", 0); /* host_mcu_secure */
+	GEL_MapAddStr(0x41900000, 0, 0x00000054, "R|W", 0); /* host_mcu */
+	GEL_MapAddStr(0x45903000, 0, 0x00000028, "R|W", 0); /* host_mcu_sec_secure */
+	GEL_MapAddStr(0x41903000, 0, 0x00000028, "R|W", 0); /* host_mcu_sec */
+	GEL_MapAddStr(0x45912000, 0, 0x0000902C, "R|W", 0); /* host_xip_secure */
+	GEL_MapAddStr(0x41912000, 0, 0x0000902C, "R|W", 0); /* host_xip */
+	GEL_MapAddStr(0x45b00000, 0, 0x0000401C, "R|W", 0); /* hsm_secure */
+	GEL_MapAddStr(0x41B00000, 0, 0x0000401C, "R|W", 0); /* hsm */
+	GEL_MapAddStr(0x45b04000, 0, 0x0000002C, "R|W", 0); /* hsm_non_sec_secure */
+	GEL_MapAddStr(0x41B04000, 0, 0x0000002C, "R|W", 0); /* hsm_non_sec */
+	GEL_MapAddStr(0x45b05000, 0, 0x00000038, "R|W", 0); /* hsm_sec_secure */
+	GEL_MapAddStr(0x41B05000, 0, 0x00000038, "R|W", 0); /* hsm_sec */
+	GEL_MapAddStr(0x45200000, 0, 0x00001020, "R|W", 0); /* i2c0_secure */
+	GEL_MapAddStr(0x41200000, 0, 0x00001020, "R|W", 0); /* i2c0 */
+	GEL_MapAddStr(0x45210000, 0, 0x00001020, "R|W", 0); /* i2c1_secure */
+	GEL_MapAddStr(0x41210000, 0, 0x00001020, "R|W", 0); /* i2c1 */
+	GEL_MapAddStr(0x45270000, 0, 0x00001028, "R|W", 0); /* i2s_secure */
+	GEL_MapAddStr(0x41270000, 0, 0x00001028, "R|W", 0); /* i2s */
+	GEL_MapAddStr(0x45902000, 0, 0x000000AC, "R|W", 0); /* icache_secure */
+	GEL_MapAddStr(0x41902000, 0, 0x000000AC, "R|W", 0); /* icache */
+	GEL_MapAddStr(0x45140000, 0, 0x0003102C, "R|W", 0); /* iomux_secure */
+	GEL_MapAddStr(0x41140000, 0, 0x0003102C, "R|W", 0); /* iomux */
+	GEL_MapAddStr(0x45910000, 0, 0x0000011C, "R|W", 0); /* ospi_secure */
+	GEL_MapAddStr(0x41910000, 0, 0x0000011C, "R|W", 0); /* ospi */
+	GEL_MapAddStr(0x452b0000, 0, 0x00002020, "R|W", 0); /* ospreyadc_secure */
+	GEL_MapAddStr(0x412B0000, 0, 0x00002020, "R|W", 0); /* ospreyadc */
+	GEL_MapAddStr(0x45902400, 0, 0x000000E4, "R|W", 0); /* osprey_dcache_secure */
+	GEL_MapAddStr(0x41902400, 0, 0x000000E4, "R|W", 0); /* osprey_dcache */
+	GEL_MapAddStr(0x45280000, 0, 0x00001028, "R|W", 0); /* pdm_secure */
+	GEL_MapAddStr(0x41280000, 0, 0x00001028, "R|W", 0); /* pdm */
+	GEL_MapAddStr(0x450a0000, 0, 0x00000054, "R|W", 0); /* pll_sharing_secure */
+	GEL_MapAddStr(0x410A0000, 0, 0x00000054, "R|W", 0); /* pll_sharing */
+	GEL_MapAddStr(0x44881800, 0, 0x00000444, "R|W", 0); /* pmac_acm_secure */
+	GEL_MapAddStr(0x40881800, 0, 0x00000444, "R|W", 0); /* pmac_acm */
+	GEL_MapAddStr(0x44882000, 0, 0x00000770, "R|W", 0); /* pmac_rx_secure */
+	GEL_MapAddStr(0x40882000, 0, 0x00000770, "R|W", 0); /* pmac_rx */
+	GEL_MapAddStr(0x44881000, 0, 0x00000620, "R|W", 0); /* pmac_tx_secure */
+	GEL_MapAddStr(0x40881000, 0, 0x00000620, "R|W", 0); /* pmac_tx */
+	GEL_MapAddStr(0x45090000, 0, 0x000071D0, "R|W", 0); /* prcm_aon_secure */
+	GEL_MapAddStr(0x41090000, 0, 0x000071D0, "R|W", 0); /* prcm_aon */
+	GEL_MapAddStr(0x45098000, 0, 0x00001020, "R|W", 0); /* prcm_scratchpad_secure */
+	GEL_MapAddStr(0x41098000, 0, 0x00001020, "R|W", 0); /* prcm_scratchpad */
+	GEL_MapAddStr(0x44d03000, 0, 0x0000031C, "R|W", 0); /* rfc_pha_secure */
+	GEL_MapAddStr(0x40D03000, 0, 0x0000031C, "R|W", 0); /* rfc_pha */
+	GEL_MapAddStr(0x44d02000, 0, 0x000000BC, "R|W", 0); /* rfc_rat_secure */
+	GEL_MapAddStr(0x40D02000, 0, 0x000000BC, "R|W", 0); /* rfc_rat */
+	GEL_MapAddStr(0x44d07000, 0, 0x0000004C, "R|W", 0); /* rfc_trc_secure */
+	GEL_MapAddStr(0x40D07000, 0, 0x0000004C, "R|W", 0); /* rfc_trc */
+	GEL_MapAddStr(0x45108000, 0, 0x00000088, "R|W", 0); /* rtc_secure */
+	GEL_MapAddStr(0x41108000, 0, 0x00000088, "R|W", 0); /* rtc */
+	GEL_MapAddStr(0x452d0000, 0, 0x00001020, "R|W", 0); /* sdio_card_fn1_secure */
+	GEL_MapAddStr(0x412D0000, 0, 0x00001020, "R|W", 0); /* sdio_card_fn1 */
+	GEL_MapAddStr(0x452e0000, 0, 0x00020010, "R|W", 0); /* sdio_core_secure */
+	GEL_MapAddStr(0x412E0000, 0, 0x00020010, "R|W", 0); /* sdio_core */
+	GEL_MapAddStr(0x452c0000, 0, 0x00004020, "R|W", 0); /* sdmmc_secure */
+	GEL_MapAddStr(0x412C0000, 0, 0x00004020, "R|W", 0); /* sdmmc */
+	GEL_MapAddStr(0x45104000, 0, 0x00002038, "R|W", 0); /* soc_aaon_secure */
+	GEL_MapAddStr(0x41104000, 0, 0x00002038, "R|W", 0); /* soc_aaon */
+	GEL_MapAddStr(0x45100000, 0, 0x00002988, "R|W", 0); /* soc_aon_secure */
+	GEL_MapAddStr(0x41100000, 0, 0x00002988, "R|W", 0); /* soc_aon */
+	GEL_MapAddStr(0x4020000, 0, 0x0000041C, "R|W", 0); /* soc_debugss_secure */
+	GEL_MapAddStr(0x00020000, 0, 0x0000041C, "R|W", 0); /* soc_debugss */
+	GEL_MapAddStr(0x450d0000, 0, 0x000000C8, "R|W", 0); /* soc_debugss_dssm_mdb_secure */
+	GEL_MapAddStr(0x410D0000, 0, 0x000000C8, "R|W", 0); /* soc_debugss_dssm_mdb */
+	GEL_MapAddStr(0x450f0000, 0, 0x00000058, "R|W", 0); /* soc_ic_secure */
+	GEL_MapAddStr(0x410F0000, 0, 0x00000058, "R|W", 0); /* soc_ic */
+	GEL_MapAddStr(0x45220000, 0, 0x00001020, "R|W", 0); /* spi0_secure */
+	GEL_MapAddStr(0x41220000, 0, 0x00001020, "R|W", 0); /* spi0 */
+	GEL_MapAddStr(0x45230000, 0, 0x00001020, "R|W", 0); /* spi1_secure */
+	GEL_MapAddStr(0x41230000, 0, 0x00001020, "R|W", 0); /* spi1 */
+	GEL_MapAddStr(0x451e0000, 0, 0x00000424, "R|W", 0); /* sysresources_secure */
+	GEL_MapAddStr(0x411E0000, 0, 0x00000424, "R|W", 0); /* sysresources */
+	GEL_MapAddStr(0x451e2000, 0, 0x00001020, "R|W", 0); /* systim_secure */
+	GEL_MapAddStr(0x411E2000, 0, 0x00001020, "R|W", 0); /* systim */
+	GEL_MapAddStr(0x45240000, 0, 0x00001020, "R|W", 0); /* uartlin0_secure */
+	GEL_MapAddStr(0x41240000, 0, 0x00001020, "R|W", 0); /* uartlin0 */
+	GEL_MapAddStr(0x45250000, 0, 0x00001020, "R|W", 0); /* uartlin1_secure */
+	GEL_MapAddStr(0x41250000, 0, 0x00001020, "R|W", 0); /* uartlin1 */
+	GEL_MapAddStr(0x45300000, 0, 0x00001020, "R|W", 0); /* uartlin2_secure */
+	GEL_MapAddStr(0x41300000, 0, 0x00001020, "R|W", 0); /* uartlin2 */
+	GEL_MapAddStr(0x44928000, 0, 0x00000628, "R|W", 0); /* wl_phy_ana_pg_secure */
+	GEL_MapAddStr(0x40928000, 0, 0x00000628, "R|W", 0); /* wl_phy_ana_pg */
+	GEL_MapAddStr(0x44925000, 0, 0x00000220, "R|W", 0); /* wl_phy_common_secure */
+	GEL_MapAddStr(0x40925000, 0, 0x00000220, "R|W", 0); /* wl_phy_common */
+	GEL_MapAddStr(0x44925800, 0, 0x00000100, "R|W", 0); /* wl_phy_ctrl_secure */
+	GEL_MapAddStr(0x40925800, 0, 0x00000100, "R|W", 0); /* wl_phy_ctrl */
+	GEL_MapAddStr(0x44900000, 0, 0x00000020, "R|W", 0); /* wl_phy_mcu_ctx_ram_secure */
+	GEL_MapAddStr(0x40900000, 0, 0x00000020, "R|W", 0); /* wl_phy_mcu_ctx_ram */
+	GEL_MapAddStr(0x4491c000, 0, 0x0000009C, "R|W", 0); /* wl_phy_mcu_secure */
+	GEL_MapAddStr(0x4091C000, 0, 0x0000009C, "R|W", 0); /* wl_phy_mcu */
+	GEL_MapAddStr(0x44910000, 0, 0x00000020, "R|W", 0); /* wl_phy_mcu_scr_ram_secure */
+	GEL_MapAddStr(0x40910000, 0, 0x00000020, "R|W", 0); /* wl_phy_mcu_scr_ram */
+	GEL_MapAddStr(0x4492f000, 0, 0x0000005C, "R|W", 0); /* wl_phy_ocp_ic_secure */
+	GEL_MapAddStr(0x4092F000, 0, 0x0000005C, "R|W", 0); /* wl_phy_ocp_ic */
+	GEL_MapAddStr(0x4492d000, 0, 0x00000058, "R|W", 0); /* wl_phy_plcp_secure */
+	GEL_MapAddStr(0x4092D000, 0, 0x00000058, "R|W", 0); /* wl_phy_plcp */
+	GEL_MapAddStr(0x4492d800, 0, 0x00000420, "R|W", 0); /* wl_phy_rxf_secure */
+	GEL_MapAddStr(0x4092D800, 0, 0x00000420, "R|W", 0); /* wl_phy_rxf */
+	GEL_MapAddStr(0x44926000, 0, 0x00000E20, "R|W", 0); /* wl_phy_rxt_secure */
+	GEL_MapAddStr(0x40926000, 0, 0x00000E20, "R|W", 0); /* wl_phy_rxt */
+	GEL_MapAddStr(0x4492c000, 0, 0x0000061C, "R|W", 0); /* wl_phy_rx_11b_secure */
+	GEL_MapAddStr(0x4092C000, 0, 0x0000061C, "R|W", 0); /* wl_phy_rx_11b */
+	GEL_MapAddStr(0x44923000, 0, 0x00000030, "R|W", 0); /* wl_phy_rx_dfe_secure */
+	GEL_MapAddStr(0x40923000, 0, 0x00000030, "R|W", 0); /* wl_phy_rx_dfe */
+	GEL_MapAddStr(0x4492c800, 0, 0x0000040C, "R|W", 0); /* wl_phy_tx_cfg_secure */
+	GEL_MapAddStr(0x4092C800, 0, 0x0000040C, "R|W", 0); /* wl_phy_tx_cfg */
+	GEL_MapAddStr(0x44921000, 0, 0x00000220, "R|W", 0); /* wl_phy_tx_dfe_secure */
+	GEL_MapAddStr(0x40921000, 0, 0x00000220, "R|W", 0); /* wl_phy_tx_dfe */
+	GEL_MapAddStr(0x44920000, 0, 0x00000620, "R|W", 0); /* wl_phy_tx_secure */
+	GEL_MapAddStr(0x40920000, 0, 0x00000620, "R|W", 0); /* wl_phy_tx */
+	GEL_MapAddStr(0x44820000, 0, 0x00000130, "R|W", 0); /* wsoc_common_secure */
+	GEL_MapAddStr(0x40820000, 0, 0x00000130, "R|W", 0); /* wsoc_common */
+	GEL_MapAddStr(0x44aa0000, 0, 0x0000011C, "R|W", 0); /* wsoc_con_aes_secure */
+	GEL_MapAddStr(0x40AA0000, 0, 0x0000011C, "R|W", 0); /* wsoc_con_aes */
+	GEL_MapAddStr(0x44840000, 0, 0x000000FC, "R|W", 0); /* wsoc_con_dma_secure */
+	GEL_MapAddStr(0x40840000, 0, 0x000000FC, "R|W", 0); /* wsoc_con_dma */
+	GEL_MapAddStr(0x44a60000, 0, 0x00000820, "R|W", 0); /* wsoc_descr_fifo_secure */
+	GEL_MapAddStr(0x40A60000, 0, 0x00000820, "R|W", 0); /* wsoc_descr_fifo */
+	GEL_MapAddStr(0x44810000, 0, 0x00000138, "R|W", 0); /* wsoc_intr_ctrl_secure */
+	GEL_MapAddStr(0x40810000, 0, 0x00000138, "R|W", 0); /* wsoc_intr_ctrl */
+	GEL_MapAddStr(0x44883000, 0, 0x00000140, "R|W", 0); /* wsoc_mac_enc_secure */
+	GEL_MapAddStr(0x40883000, 0, 0x00000140, "R|W", 0); /* wsoc_mac_enc */
+	GEL_MapAddStr(0x44800000, 0, 0x00000280, "R|W", 0); /* wsoc_mcu_secure */
+	GEL_MapAddStr(0x40800000, 0, 0x00000280, "R|W", 0); /* wsoc_mcu */
+	GEL_MapAddStr(0x44580000, 0, 0x00004020, "R|W", 0); /* wsoc_mmu_secure */
+	GEL_MapAddStr(0x40580000, 0, 0x00004020, "R|W", 0); /* wsoc_mmu */
+	GEL_MapAddStr(0x44890000, 0, 0x00000170, "R|W", 0); /* wsoc_nab_secure */
+	GEL_MapAddStr(0x40890000, 0, 0x00000170, "R|W", 0); /* wsoc_nab */
+	GEL_MapAddStr(0x451c0000, 0, 0x000000D0, "R|W", 0); /* wsoc_ocla_secure */
+	GEL_MapAddStr(0x411C0000, 0, 0x000000D0, "R|W", 0); /* wsoc_ocla */
+	GEL_MapAddStr(0x448c0000, 0, 0x00000084, "R|W", 0); /* wsoc_ocp_ic_secure */
+	GEL_MapAddStr(0x408C0000, 0, 0x00000084, "R|W", 0); /* wsoc_ocp_ic */
+	GEL_MapAddStr(0x44860000, 0, 0x00000040, "R|W", 0); /* wsoc_uart_secure */
+	GEL_MapAddStr(0x40860000, 0, 0x00000040, "R|W", 0); /* wsoc_uart */
+	GEL_MapAddStr(0x44830000, 0, 0x000000EC, "R|W", 0); /* wsoc_wgcm_secure */
+	GEL_MapAddStr(0x40830000, 0, 0x000000EC, "R|W", 0); /* wsoc_wgcm */
+
+	/* ==================================== END Modules Address Definitions ========================================= */
+
+    GEL_TextOut("Memory Map Initialization Complete\n");
+}
+

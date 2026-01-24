@@ -1,0 +1,144 @@
+<module name="DEBUGSS_WRAP0_PWRAP1" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="PWRAP_CFG_1_CORE_PRECREG0" acronym="PWRAP_CFG_1_CORE_PRECREG0" offset="0x0" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  There can be upto 32 of these registers">
+		<bitfield id="RESERVED" width="8" begin="31" end="24" resetval="0x0" description="Reserved, returns 0" range="31 - 24" rwaccess="R"/> 
+		<bitfield id="RETENTION" width="1" begin="23" end="23" resetval="0x0" description="Core is in retention mode" range="23" rwaccess="R"/> 
+		<bitfield id="RST_OCCURED" width="1" begin="22" end="22" resetval="0x0" description="Sticky bit indicating a reset has occured Write 1 to clear this bit" range="22" rwaccess="R/W"/> 
+		<bitfield id="PWR_LOSS_DET" width="1" begin="21" end="21" resetval="0x0" description="Power Loss Detected Sticky bit, write a 1 to clear this bit" range="21" rwaccess="R/W"/> 
+		<bitfield id="INHIBIT_SLEEP" width="1" begin="20" end="20" resetval="0x0" description="Inhinit Sleep Block core from entering sleep mode" range="20" rwaccess="R/W"/> 
+		<bitfield id="DEBUG_POWER" width="1" begin="19" end="19" resetval="0x0" description="Core debug logic is powered" range="19" rwaccess="R/W"/> 
+		<bitfield id="UNNAT_RESET" width="1" begin="18" end="18" resetval="0x0" description="Unnatural Reset Device reset state is being affected by debug logic" range="18" rwaccess="R"/> 
+		<bitfield id="IN_RESET_RLS_WIR" width="1" begin="17" end="17" resetval="0x0" description="Writing a 1 releases the WIR When read this returns the reset status, 1 indicates core is in reset" range="17" rwaccess="R/W"/> 
+		<bitfield id="RESET_MODE" width="3" begin="16" end="14" resetval="0x0" description="Reset Mode 0=normal, 1=WIR, 2=Blk Rst, 3=Blk Assert, 4=Halt on Rst, 5=Cancel, 6=Halt and Block, 7=Halt-Blk-assert" range="16 - 14" rwaccess="R/W"/> 
+		<bitfield id="DEBUG_ENABLE" width="1" begin="13" end="13" resetval="0x0" description="Debug Enabled signal to the core" range="13" rwaccess="R/W"/> 
+		<bitfield id="RSV11_12" width="2" begin="12" end="11" resetval="0x0" description="Reserved, return 0" range="12 - 11" rwaccess="R"/> 
+		<bitfield id="EXEC_ACTION_DEBUG_ATTEN" width="1" begin="10" end="10" resetval="0x0" description="Writing this bit causes Execution Read will return the Debug Attention input value" range="10" rwaccess="R/W"/> 
+		<bitfield id="RSV8_9" width="2" begin="9" end="8" resetval="0x0" description="Reserved, returns 0 when read" range="9 - 8" rwaccess="R"/> 
+		<bitfield id="PWRDOWNDSRD" width="1" begin="7" end="7" resetval="0x0" description="The core wants to turn off it's power when high" range="7" rwaccess="R"/> 
+		<bitfield id="RSV6" width="1" begin="6" end="6" resetval="0x0" description="Reserved, returns 0 when read" range="6" rwaccess="R"/> 
+		<bitfield id="POWERED" width="1" begin="5" end="5" resetval="0x0" description="Core is powered up when high" range="5" rwaccess="R"/> 
+		<bitfield id="CLKDOWNDSRD" width="1" begin="4" end="4" resetval="0x0" description="The core wants to turn off it's clock when high" range="4" rwaccess="R"/> 
+		<bitfield id="FORCE_ACTIVE" width="1" begin="3" end="3" resetval="0x0" description="Force core active Turn on power and clocks" range="3" rwaccess="R/W"/> 
+		<bitfield id="CLOCKED" width="1" begin="2" end="2" resetval="0x0" description="When high the core clock is active" range="2" rwaccess="R"/> 
+		<bitfield id="SECURITY" width="1" begin="1" end="1" resetval="0x0" description="Security bit When high security is allowing access" range="1" rwaccess="R"/> 
+		<bitfield id="PRESENT" width="1" begin="0" end="0" resetval="0x0" description="The core controlled by this register exists when 1" range="0" rwaccess="R"/>
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG1" acronym="PWRAP_CFG_1_CORE_PRECREG1" offset="0x4" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG2" acronym="PWRAP_CFG_1_CORE_PRECREG2" offset="0x8" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG3" acronym="PWRAP_CFG_1_CORE_PRECREG3" offset="0xC" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG4" acronym="PWRAP_CFG_1_CORE_PRECREG4" offset="0x10" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG5" acronym="PWRAP_CFG_1_CORE_PRECREG5" offset="0x14" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG6" acronym="PWRAP_CFG_1_CORE_PRECREG6" offset="0x18" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG7" acronym="PWRAP_CFG_1_CORE_PRECREG7" offset="0x1C" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG8" acronym="PWRAP_CFG_1_CORE_PRECREG8" offset="0x20" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG9" acronym="PWRAP_CFG_1_CORE_PRECREG9" offset="0x24" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG10" acronym="PWRAP_CFG_1_CORE_PRECREG10" offset="0x28" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG11" acronym="PWRAP_CFG_1_CORE_PRECREG11" offset="0x2C" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG12" acronym="PWRAP_CFG_1_CORE_PRECREG12" offset="0x30" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG13" acronym="PWRAP_CFG_1_CORE_PRECREG13" offset="0x34" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG14" acronym="PWRAP_CFG_1_CORE_PRECREG14" offset="0x38" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG15" acronym="PWRAP_CFG_1_CORE_PRECREG15" offset="0x3C" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG16" acronym="PWRAP_CFG_1_CORE_PRECREG16" offset="0x40" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG17" acronym="PWRAP_CFG_1_CORE_PRECREG17" offset="0x44" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG18" acronym="PWRAP_CFG_1_CORE_PRECREG18" offset="0x48" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG19" acronym="PWRAP_CFG_1_CORE_PRECREG19" offset="0x4C" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG20" acronym="PWRAP_CFG_1_CORE_PRECREG20" offset="0x50" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG21" acronym="PWRAP_CFG_1_CORE_PRECREG21" offset="0x54" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG22" acronym="PWRAP_CFG_1_CORE_PRECREG22" offset="0x58" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG23" acronym="PWRAP_CFG_1_CORE_PRECREG23" offset="0x5C" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG24" acronym="PWRAP_CFG_1_CORE_PRECREG24" offset="0x60" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG25" acronym="PWRAP_CFG_1_CORE_PRECREG25" offset="0x64" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG26" acronym="PWRAP_CFG_1_CORE_PRECREG26" offset="0x68" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG27" acronym="PWRAP_CFG_1_CORE_PRECREG27" offset="0x6C" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG28" acronym="PWRAP_CFG_1_CORE_PRECREG28" offset="0x70" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG29" acronym="PWRAP_CFG_1_CORE_PRECREG29" offset="0x74" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG30" acronym="PWRAP_CFG_1_CORE_PRECREG30" offset="0x78" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_CORE_PRECREG31" acronym="PWRAP_CFG_1_CORE_PRECREG31" offset="0x7C" width="32" description="These registers are used to control functionality of CPUs without JTAG ports.  See CORE_PRECREG0 for details">
+		
+	</register>
+	<register id="PWRAP_CFG_1_SYS_PRECREG" acronym="PWRAP_CFG_1_SYS_PRECREG" offset="0xF0" width="32" description="This register is used to control system level functionality">
+		<bitfield id="RESERVED" width="11" begin="31" end="21" resetval="0x0" description="Reserved, returns 0" range="31 - 21" rwaccess="R"/> 
+		<bitfield id="DBGCON_WE" width="1" begin="20" end="20" resetval="0x0" description="This bit must be high to write to the debug connect field" range="20" rwaccess="R/W"/> 
+		<bitfield id="DBGCON" width="4" begin="19" end="16" resetval="0x0" description="The system debugger must write a value of 0x9 to be connected and access the debug logic" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="UNNAT_RESET" width="1" begin="15" end="15" resetval="0x0" description="Unnatural Reset Device reset state is being affected by debug logic" range="15" rwaccess="R"/> 
+		<bitfield id="RST_OCCURED" width="1" begin="14" end="14" resetval="0x0" description="Sticky bit indicating a reset has occured Write 1 to clear this bit" range="14" rwaccess="R/W"/> 
+		<bitfield id="SYSTEM_STAT" width="1" begin="13" end="13" resetval="0x0" description="System Status input, application specificall " range="13" rwaccess="R"/> 
+		<bitfield id="RSV12_BIT" width="1" begin="12" end="12" resetval="0x0" description="Reserved, read returns 0" range="12" rwaccess="R"/> 
+		<bitfield id="GLOB_EXEC_TRIG" width="1" begin="11" end="11" resetval="0x0" description=" " range="11" rwaccess="R"/> 
+		<bitfield id="CLR_EX_FLAGS" width="1" begin="10" end="10" resetval="0x0" description="Clear all run flags" range="10" rwaccess="R/W"/> 
+		<bitfield id="GLOB_EXEC_MSK" width="1" begin="9" end="9" resetval="0x0" description="Global Execute Mask" range="9" rwaccess="R/W"/> 
+		<bitfield id="IN_RESET_RLS_WIR" width="1" begin="8" end="8" resetval="0x0" description="Writing a 1 releases the global WIR When read this returns the in reset status" range="8" rwaccess="R/W"/> 
+		<bitfield id="WIR_REQ" width="1" begin="7" end="7" resetval="0x0" description="Wait In Reset Request" range="7" rwaccess="R/W"/> 
+		<bitfield id="BLK_SYS_RST" width="1" begin="6" end="6" resetval="0x0" description="Block System Reset" range="6" rwaccess="R/W"/> 
+		<bitfield id="RESERVED0" width="2" begin="5" end="4" resetval="0x0" description="Reserved0, returns 0" range="5 - 4" rwaccess="R"/> 
+		<bitfield id="DEV_TYPE" width="3" begin="3" end="1" resetval="0x0" description="Device Type tieoff value Test, emulator, secure, etc" range="3 - 1" rwaccess="R"/> 
+		<bitfield id="SYS_RST_REQ" width="1" begin="0" end="0" resetval="0x0" description="System Reset Request This bit will be reset once reset occurs" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="PWRAP_CFG_1_ID_Register" acronym="PWRAP_CFG_1_ID_Register" offset="0xFC" width="32" description="Reading this register returns the ID information for this AP.">
+		<bitfield id="REVISION" width="4" begin="31" end="28" resetval="0x0" description="Device Revision [0]" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="JEP_CODE" width="11" begin="27" end="17" resetval="0x23" description="Device JEP Code [0x017]" range="27 - 17" rwaccess="R"/> 
+		<bitfield id="CLASS" width="1" begin="16" end="16" resetval="0x0" description="Device Class[1] [a memory access port]" range="16" rwaccess="R"/> 
+		<bitfield id="SPARE" width="8" begin="15" end="8" resetval="0x0" description="Spare, returns 0" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="VARIANT" width="4" begin="7" end="4" resetval="0x0" description="Device Variant [0]" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="TYPE" width="4" begin="3" end="0" resetval="0x2" description="Device Type: 0=JTAG, 1=AHB, 2=APB [2]" range="3 - 0" rwaccess="R"/>
+	</register>
+</module>

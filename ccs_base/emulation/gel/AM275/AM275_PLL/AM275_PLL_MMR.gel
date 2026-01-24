@@ -1,0 +1,169 @@
+
+/**
+ * \file  AM275_PLL_MMR.gel
+ *
+ * \brief GEL File with register definitions for AM275_PLL_MMR.GEL
+ */
+
+/* Copyright (c) 2024, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+//PLL controller register offsets
+#define PLL_CTRL_PLLCTL_OFFSET      0x0100
+#define PLL_CTRL_OCSEL_OFFSET       0x0104
+#define PLL_CTRL_PREDIV_OFFSET      0x0114
+#define PLL_CTRL_PLLDIV1_OFFSET     0x0118
+#define PLL_CTRL_PLLDIV2_OFFSET     0x011C
+#define PLL_CTRL_PLLDIV3_OFFSET     0x0120
+#define PLL_CTRL_OSCDIV1_OFFSET     0x0124
+#define PLL_CTRL_POSTDIV_OFFSET     0x0128
+#define PLL_CTRL_BPDIV_OFFSET       0x012C
+#define PLL_CTRL_PLLCMD_OFFSET      0x0138
+#define PLL_CTRL_PLLSTAT_OFFSET     0x013C
+#define PLL_CTRL_ALNCTL_OFFSET      0x0140
+#define PLL_CTRL_CKEN_OFFSET        0x0148
+#define PLL_CTRL_CKSTAT_OFFSET      0x014C
+#define PLL_CTRL_SYSTAT_OFFSET      0x0150
+#define PLL_CTRL_PLLDIV4_OFFSET     0x0160
+#define PLL_CTRL_PLLDIV5_OFFSET     0x0164
+#define PLL_CTRL_PLLDIV6_OFFSET     0x0168
+#define PLL_CTRL_PLLDIV7_OFFSET     0x016C
+#define PLL_CTRL_PLLDIV8_OFFSET     0x0170
+#define PLL_CTRL_PLLDIV9_OFFSET     0x0174
+#define PLL_CTRL_PLLDIV10_OFFSET    0x0178
+#define PLL_CTRL_PLLDIV11_OFFSET    0x017C
+#define PLL_CTRL_PLLDIV12_OFFSET    0x0180
+#define PLL_CTRL_PLLDIV13_OFFSET    0x0184
+#define PLL_CTRL_PLLDIV14_OFFSET    0x0188
+#define PLL_CTRL_PLLDIV15_OFFSET    0x018C
+#define PLL_CTRL_PLLDIV16_OFFSET    0x0190
+
+//PLL Index Map
+#define MAIN_PLL_INDEX		0
+#define PER0_PLL_INDEX		1
+#define PER1_PLL_INDEX		2
+#define AUDIO_PLL_INDEX     4
+#define C7X_PLL_INDEX       7
+#define MAIN_R5SS_INDEX     14
+#define MAIN_SMS_INDEX      15
+
+#define MCU_PLL_INDEX       0
+
+
+
+//OFFSETS
+#define PLL_PID 		(0x00)
+#define PLL_CONFIG 		(0x08)
+#define CONTROL 		(0x20)
+#define STATUS			(0x24)
+#define FREQ_CONTROL_0 		(0x30)
+#define FREQ_CONTROL_1 		(0x34)
+#define OUTPUT_DIV_CONTROL 	(0x38)
+#define SSMOD_CONTROL 		(0x40)
+#define SSMOD_SPREAD		(0x44)
+#define CAL_CONTROL		(0x60)
+#define CAL_STATUS 		(0x64)
+#define HSDIV_0_CONTROL 	(0x80)
+#define HSDIV_1_CONTROL 	(0x84)
+#define HSDIV_2_CONTROL 	(0x88)
+#define HSDIV_3_CONTROL 	(0x8C)
+#define HSDIV_4_CONTROL 	(0x90)
+#define HSDIV_5_CONTROL 	(0x94)
+#define HSDIV_6_CONTROL 	(0x98)
+#define HSDIV_7_CONTROL 	(0x9C)
+#define HSDIV_8_CONTROL 	(0xA0)
+#define HSDIV_9_CONTROL 	(0xA4)
+
+//OFCs
+#define SPECIAL_CONFIG 0
+#define OFC1 		   1
+#define UC1_4		   2
+#define UC4 		   3
+#define OPP_LOW       	   4
+
+//Special Programming Indices
+
+
+//for AM275
+
+#define MAIN_PLL0_HSDIV0_500MHz  0
+#define MAIN_PLL0_HSDIV1_200MHz  1
+#define MAIN_PLL0_HSDIV2_200MHz  2
+#define MAIN_PLL0_HSDIV3_250MHz  3
+#define MAIN_PLL0_HSDIV4_80MHz   4
+#define MAIN_PLL0_HSDIV5_200MHz  5
+#define MAIN_PLL0_HSDIV6_250MHz  6
+#define MAIN_PLL0_HSDIV7_250MHz  7
+#define MAIN_PLL0_HSDIV8_50MHz   8
+#define MAIN_PLL0_HSDIV9_200MHz  9
+
+#define MAIN_PLL1_HSDIV0_192MHz  10
+#define MAIN_PLL1_HSDIV1_160MHz  11
+#define MAIN_PLL1_HSDIV2_192MHz  12
+#define MAIN_PLL1_HSDIV3_192MHz  13
+#define MAIN_PLL1_HSDIV4_60MHz   14
+#define MAIN_PLL1_HSDIV5_160MHz  15
+#define MAIN_PLL1_HSDIV6_96MHz   16
+
+#define MAIN_PLL2_HSDIV0_200MHz  17
+#define MAIN_PLL2_HSDIV1_250MHz  18
+#define MAIN_PLL2_HSDIV2_200MHz  19
+#define MAIN_PLL2_HSDIV3_333MHz  20
+#define MAIN_PLL2_HSDIV4_333MHz  21
+#define MAIN_PLL2_HSDIV5_500MHz  22
+#define MAIN_PLL2_HSDIV6_250MHz  23
+
+
+#define MAIN_PLL4_HSDIV0_98MHz   24
+#define MAIN_PLL4_HSDIV1_786MHz  25
+#define MAIN_PLL4_HSDIV2_196MHz  26
+#define MAIN_PLL4_HSDIV3_24MHz   27
+
+
+#define C7X_1000MHz 28   //pll7
+
+
+#define MAIN_R5FSS_PLL14_HSDIV0_1000MHZ 29
+#define MAIN_R5FSS_PLL14_HSDIV1_1000MHZ 30
+
+#define  MAIN_PLL15_HSDIV0_400MHz 31
+#define  MAIN_PLL15_HSDIV1_480MHz 32
+#define  MAIN_PLL15_HSDIV2_800MHz 33
+
+
+#define MCU_PLL0_HSDIV0_400MHz    34
+#define MCU_PLL0_HSDIV1_96MHz     35
+#define MCU_PLL0_HSDIV2_96MHz     36
+#define MCU_PLL0_HSDIV4_80MHz     37
+#define MCU_PLL0_HSDIV5_200MHz    38
+
+#define NONE                 0
+
+

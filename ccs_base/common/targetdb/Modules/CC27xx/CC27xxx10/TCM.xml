@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="TCM" HW_revision="" XML_version="1.0" description="IO Controller" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setup_parser.xsd">
+   <register acronym="DESC" width="32" description="This register identifies the peripheral and its exact version. 
+This register is strictly read-only. Any write to this register will trigger chip reset." id="DESC" offset="0x0">
+      <bitfield range="" begin="31" width="16" end="16" rwaccess="RO" description="Module identification contains a unique peripheral identification number." id="MODID" resetval="0x6f44">
+      </bitfield>
+      <bitfield range="" begin="15" width="4" end="12" rwaccess="RO" description="Standard IP registers offset. Value 0 indicates Standard IP registers are not present. Any other value between 1 to 15 indicates standard IP registers start from address offset 64 * STDIPOFF from base address." id="STDIPOFF" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="11" width="4" end="8" rwaccess="RO" description="Instance Index within the device. This will be a parameter to the RTL for modules that can have multiple instances." id="INSTIDX" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="7" width="4" end="4" rwaccess="RO" description="Major rev of the IP" id="MAJREV" resetval="0x1">
+      </bitfield>
+      <bitfield range="" begin="3" width="4" end="0" rwaccess="RO" description="Minor rev of the IP" id="MINREV" resetval="0x0">
+      </bitfield>
+   </register>
+   <register acronym="DESCEX" width="32" description="This register identifies the peripheral and its exact version.
+This register is strictly read-only. Any write to this register will trigger chip reset." id="DESCEX" offset="0x4">
+      <bitfield range="" begin="31" width="23" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="8" width="9" end="0" rwaccess="RO" description="Number of gaskets" id="GSKCNT" resetval="0x29">
+      </bitfield>
+   </register>
+   <register acronym="REGWEN" width="32" description="This register blocks writes to all the MMR of TCM once set. This register is protected by odd parity bit. It is sticky 1." id="REGWEN" offset="0x8">
+      <bitfield range="" begin="31" width="1" end="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED31" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="30" width="2" end="29" rwaccess="RW" description="Parity bit. Bit 29 stores the odd parity for bits 0 to 7. Bit 30 stores the odd parity of bits 8 to 15.
+PAR[29] = ~WEN
+PAR[30] = ~SYNC " id="PAR" resetval="0x1">
+      </bitfield>
+      <bitfield range="" begin="28" width="20" end="9" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED9" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="8" width="1" end="8" rwaccess="RW" description="Program this bit to 0 before writing to WMCFG or any of the gasket enable MMR i.e. GSKEN0, GSKEN1 etc.
+Once the MMR writes are done, program this bit to 1 again.
+Then WEN can be programmed 1 to lock the configuration.
+
+Note:
+Do not toggle SYNC and WEN in the same cycle" id="SYNC" resetval="0x1">
+         <bitenum id="RST" value="1" token="Reset" description="Reset"/>
+         <bitenum id="SET" value="0" token="Set" description="Set"/>
+      </bitfield>
+      <bitfield range="" begin="7" width="7" end="1" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED1" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="0" width="1" end="0" rwaccess="RW" description="Write enable" id="WEN" resetval="0x0">
+         <bitenum id="DIS" value="1" token="Disable writes" description="Disable writes"/>
+         <bitenum id="EN" value="0" token="Enable writes" description="Enable writes"/>
+      </bitfield>
+   </register>
+   <register acronym="WMCFG" width="32" description="This register is used to configure SRAM and VIMS watermark. This register is protected by odd parity bits." id="WMCFG" offset="0xc">
+      <bitfield range="" begin="31" width="3" end="29" rwaccess="RW" description="Parity bits. Bit 29 stores the odd parity for bits 0 to 7. Bit 30 stores the odd parity of bits 8 to 15. Bit 31 stores the odd parity of bits 23 to 16.
+PAR[29] = ~XOR(VIMSWM[7:0])
+PAR[30] = ~XOR({[VIMSWM[9:8]], SRAMWM[15:12]})
+PAR[31] = ~XOR(SRAMWM[21:16]) " id="PAR" resetval="0x6">
+      </bitfield>
+      <bitfield range="" begin="28" width="9" end="20" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED20" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="19" width="8" end="12" rwaccess="RW" description="SRAM Watermark.
+The address from (SRAM Base Address) to (SRAM Base Address + (SRAMWM + 1)$lt;$lt;10 - 1) is considered secure.
+The address from (SRAM Base Address + (SRAMWM + 1) $lt;$lt;10) to (SRAM Last Address) is considered Non-secure." id="SRAMWM" resetval="0xff">
+      </bitfield>
+      <bitfield range="" begin="11" width="5" end="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED7" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="6" width="7" end="0" rwaccess="RW" description="	VIMS Watermark
+The address from (Flash Main Base Address) to (Flash Main Base Address + (VIMSWM + 1)$lt;$lt;13 - 1) is considered secure.
+The address from (Flash Main Base Address + (VIMSWM + 1)$lt;$lt;13) to (Flash Main Last Address) is considered Non-secure." id="VIMSWM" resetval="0x7f">
+      </bitfield>
+   </register>
+   <register acronym="GSKEN0" width="32" description="This register is used to store gasket configuration. This register is protected by odd parity bits." id="GSKEN0" offset="0x10">
+      <bitfield range="" begin="31" width="3" end="29" rwaccess="RW" description="Parity bits. Bit 29 stores the odd parity for bits 0 to 7. Bit 30 stores the odd parity of bits 8 to 15. Bit 31 stores the odd parity of bits 23 to 16.
+PAR[29] = ~XOR(GSKEN0[7:0])
+PAR[30] = ~XOR(GSKEN0[15:8])
+PAR[31] = ~XOR(GSKEN0[23:16])" id="PAR" resetval="0x6">
+      </bitfield>
+      <bitfield range="" begin="28" width="5" end="24" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED24" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="23" width="24" end="0" rwaccess="RW" description="Gasket enable. The gasket bit to IP mapping is given as follows :-
+[0]     =   DMA initiator gasket enable
+[1]     =   I2S initiator gasket enable
+[2]     =   HSM initiator gasket enable
+[3]     =   Radio target gasket enable
+[4]     =   AES target gasket enable
+[5]     =   I2S target gasket enable
+[6]     =   PDM target gasket enable
+[7]     =   AFA target gasket enable
+[8]     =   DMA target gasket enable
+[9]     =   CANFD target gasket enable
+[10]   =   APU target gasket enable
+[11]   =   APURAM target gasket enable
+[12]   =   GPIO target gasket enable
+[13]   =   SYSTIMER target gasket enable
+[14]   =   UART0 target gasket enable
+[15]   =   UART1 target gasket enable
+[16]   =   SPI0 target gasket enable
+[17]   =   SPI1 target gasket enable
+[18]   =   I2C0 target gasket enable
+[19]   =   EVTSVT target gasket enable
+[20]   =   ADC target gasket enable
+[21]   =   MICADC target gasket enable
+[22]   =   MICPGA target gasket enable
+[23]   =   CLKCTRL target gasket enable" id="EN" resetval="0xfffff8">
+      </bitfield>
+   </register>
+   <register acronym="GSKEN1" width="32" description="This register is used to store gasket configuration. This register is protected by odd parity bits." id="GSKEN1" offset="0x14">
+      <bitfield range="" begin="31" width="3" end="29" rwaccess="RW" description="Parity bits. Bit 29 stores the odd parity for bits 0 to 7. Bit 30 stores the odd parity of bits 8 to 15. Bit 31 stores the odd parity of bits 23 to 16.
+PAR[29] = ~XOR(GSKEN1[7:0])
+PAR[30] = ~XOR(GSKEN1[15:8])
+PAR[31] = ~XOR(GSKEN1[23:16])" id="PAR" resetval="0x3">
+      </bitfield>
+      <bitfield range="" begin="28" width="12" end="17" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior." id="RESERVED17" resetval="0x0">
+      </bitfield>
+      <bitfield range="" begin="16" width="17" end="0" rwaccess="RW" description="Gasket enable. The gasket bit to IP mapping is given as follows :-
+[0]     =   LGPT target gasket enable
+[1]     =   FLASH target gasket enable
+[2]     =   VIMS target gasket enable
+[3]     =   HSM target gasket enable
+[4]     =   PMC target gasket enable
+[5]     =   CKMDIG target gasket enable
+[6]     =   RTC target gasket enable
+[7]     =   IOC target gasket enable
+[8]     =   SYS0 target gasket enable
+[9]     =   EVTULL target gasket enable
+[10]   =   PMUDIG target gasket enable
+[11]   =   DEBUGSS target gasket enable
+[12]   =   HSM mailbox 1 target gasket enable
+[13]   =   HSM mailbox 2 target gasket enable
+[14]   =   HSM mailbox 3 target gasket enable
+[15]   =   HSM mailbox 4 target gasket enable
+[16]   =   HSM config target gasket enable" id="EN" resetval="0x1ffff">
+      </bitfield>
+   </register>
+</module>

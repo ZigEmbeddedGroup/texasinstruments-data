@@ -1,0 +1,12 @@
+<module name="lcdma_ringacc_ring_cfg" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="lcdma_ringacc_ring_cfg_RING_ba_lo_j" acronym="lcdma_ringacc_ring_cfg_RING_ba_lo_j" offset="64" width="32" description="The Ring Base Address Lo Register contains the 32 LSBs of the base address for the ring which is used to hand off pending work for the channel from the Host. The base address must be aligned to 0x8. A write to this register will reset the associated ring to clear the occupancies and reset the pointers.">
+		<bitfield id="ADDR_LO" width="32" begin="31" end="0" resetval="0x0" description="Ring base address (LSBs)   Reset Source: rst_mod_g_rst_n" range="31:0" rwaccess="R/W"/>
+	</register><register id="lcdma_ringacc_ring_cfg_RING_ba_hi_j" acronym="lcdma_ringacc_ring_cfg_RING_ba_hi_j" offset="68" width="32" description="The Ring Base Address Hi Register contains the 16 MSBs of the base address for the ring which is used to hand off pending work for the channel from the Host. The base address must be aligned to 0x8. A write to this register will reset the associated ring to clear the occupancies and reset the pointers.">
+		<bitfield id="ASEL" width="4" begin="19" end="16" resetval="0x0" description="Ring base address select   Reset Source: rst_mod_g_rst_n" range="19:16" rwaccess="R/W"/>
+	<bitfield id="ADDR_HI" width="4" begin="3" end="0" resetval="0x0" description="Ring base address (MSBs)   Reset Source: rst_mod_g_rst_n" range="3:0" rwaccess="R/W"/>
+	</register><register id="lcdma_ringacc_ring_cfg_RING_size_j" acronym="lcdma_ringacc_ring_cfg_RING_size_j" offset="72" width="32" description="The Ring Size Register contains the element count for the ring which is used to hand off pending work for the channel from the Host. A write to this register will reset the associated ring to clear the occupancies and reset the pointers.">
+		<bitfield id="QMODE" width="3" begin="31" end="29" resetval="0x1" description="Defines the mode for this ring or queue. 1      exposed ring mode with dual queues       (forward/reverse) for SW direct access" range="31:29" rwaccess="R/NA"/>
+	<bitfield id="RING_ELSIZE" width="3" begin="26" end="24" resetval="0x1" description="   Reset Source: rst_mod_g_rst_n" range="26:24" rwaccess="R/NA"/>
+	<bitfield id="SIZE" width="16" begin="15" end="0" resetval="0x0" description="Tx Ring element count. This field configures the size of the ring in elements.   Reset Source: rst_mod_g_rst_n" range="15:0" rwaccess="R/W"/>
+	</register>
+</module>

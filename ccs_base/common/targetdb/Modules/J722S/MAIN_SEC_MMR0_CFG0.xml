@@ -1,0 +1,221 @@
+<module name="MAIN_SEC_MMR0_CFG0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CFG0_PID" acronym="CFG0_PID" offset="0x0" width="32" description="">
+		<bitfield id="PID_MSB16" width="16" begin="31" end="16" resetval="0x24960" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="PID_MISC" width="5" begin="15" end="11" resetval="0x0" description="" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="PID_MAJOR" width="3" begin="10" end="8" resetval="0x2" description="" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="PID_CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="PID_MINOR" width="6" begin="5" end="0" resetval="0x21" description="" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR0_DEF" acronym="CFG0_CLSTR0_DEF" offset="0x20" width="32" description="">
+		<bitfield id="CLSTR0_DEF_CORE_NUM" width="2" begin="17" end="16" resetval="0x1" description="Number of cores in cluster   001 - Single Core   010 - Dual Core" range="17 - 16" rwaccess="R"/> 
+		<bitfield id="CLSTR0_DEF_DSP_CORE_TYPE" width="8" begin="15" end="8" resetval="0x255" description="DSP core type configuration Field values (others are reserved): 8'h00 - C7x 8'h01 - C6x 8'h10 - AC7x 8'hFF - Not DSP" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="CLSTR0_DEF_ARM_CORE_TYPE" width="8" begin="7" end="0" resetval="0x16" description="ARM core type configuration Field values (others are reserved): 8'h01 - A57 8'h10 - R5 8'h11 - M4F 8'hFF - Not ARM 8'h00 - A53 8'h01 - A57 8'h10 - R5 8'h11 - M4F 8'hFF - Not ARM" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR0_CFG" acronym="CFG0_CLSTR0_CFG" offset="0x40" width="32" description="">
+		<bitfield id="CLSTR0_CFG_SINGLE_CORE_ONLY" width="1" begin="6" end="6" resetval="0x1" description="Single / Dual CPU Mode Supported:    0 = Both Dual and Single Core are supported    1 = Only Single Core Mode is Supported" range="6" rwaccess="R"/> 
+		<bitfield id="CLSTR0_CFG_SINGLE_CORE" width="1" begin="5" end="5" resetval="0x1" description="Single / Dual CPU Mode:   0 = Unsupported on this device   1 = Only CPU0 is active." range="5" rwaccess="R"/> 
+		<bitfield id="CLSTR0_CFG_MEM_INIT_DIS" width="1" begin="4" end="4" resetval="0x0" description="Deactivates  SRAM initialization (TCM, Cache Tags, etc) at reset Initialization must be performed for proper initial ECC initialization.  The mem_init_dis value must be selected prior to R5 reset assertion.   1'b0 - Perform memory initialization    1'b1 - Deactivate memory initialization" range="4" rwaccess="R/W"/> 
+		<bitfield id="CLSTR0_CFG_LOCKSTEP_EN" width="1" begin="3" end="3" resetval="0x0" description="Lockstep Not Supported" range="3" rwaccess="R"/> 
+		<bitfield id="CLSTR0_CFG_DBG_NO_CLKSTOP" width="1" begin="2" end="2" resetval="0x0" description="CPU clockstop behavior   0 - CPU clocks stopped and nCLOCKSTOPPED asserted in standby mode   1 - CPU clocks not stopped in standby mode" range="2" rwaccess="R/W"/> 
+		<bitfield id="CLSTR0_CFG_TEINIT" width="1" begin="1" end="1" resetval="0x0" description="Exception handling state at reset: 0 - ARM mode 1 - Thumb mode CAUTION: This bit must not be modified while R5F CPU is released from reset." range="1" rwaccess="R/W"/> 
+		<bitfield id="CLSTR0_CFG_LOCKSTEP" width="1" begin="0" end="0" resetval="0x0" description="Lockstep Not Supported" range="0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR0_PMCTRL" acronym="CFG0_CLSTR0_PMCTRL" offset="0x80" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR0_PMSTAT" acronym="CFG0_CLSTR0_PMSTAT" offset="0x90" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR0_CORE0_CFG" acronym="CFG0_CLSTR0_CORE0_CFG" offset="0x100" width="32" description="">
+		<bitfield id="CLSTR0_CORE0_CFG_NMFI_EN" width="1" begin="15" end="15" resetval="0x0" description="Activate Core0 Non-Maskable Fast Interrupts CAUTION: This bit must not be modified while R5F CPU is released from reset." range="15" rwaccess="R/W"/> 
+		<bitfield id="CLSTR0_CORE0_CFG_TCM_RSTBASE" width="1" begin="11" end="11" resetval="0x1" description="Core0 A/BTCM Reset Base Address Indicator   0 - BTCM located at address 0x0   1 - ATCM located at address 0x0 CAUTION: This bit must not be modified while R5F CPU is released from reset." range="11" rwaccess="R/W"/> 
+		<bitfield id="CLSTR0_CORE0_CFG_BTCM_EN" width="1" begin="7" end="7" resetval="0x1" description="Activate Core0 BTCM RAM at reset CAUTION: This bit must not be modified while R5F CPU is released from reset." range="7" rwaccess="R/W"/> 
+		<bitfield id="CLSTR0_CORE0_CFG_ATCM_EN" width="1" begin="3" end="3" resetval="0x0" description="Activate Core0 ATCM RAM at reset CAUTION: This bit must not be modified while R5F CPU is released from reset." range="3" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR0_CORE0_BOOTVECT_LO" acronym="CFG0_CLSTR0_CORE0_BOOTVECT_LO" offset="0x110" width="32" description="">
+		<bitfield id="CLSTR0_CORE0_BOOTVECT_LO_VECT_ADDR" width="25" begin="31" end="7" resetval="0x4" description="Specifies the lower 25 bits of the 41-bit  vector address  corresponding to Vector Table address bits[31:7].  Note bits 6:0 of the Vector Table address are always 0." range="31 - 7" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR0_CORE0_BOOTVECT_HI" acronym="CFG0_CLSTR0_CORE0_BOOTVECT_HI" offset="0x114" width="32" description="">
+		<bitfield id="CLSTR0_CORE0_BOOTVECT_HI_VECT_ADDR" width="16" begin="15" end="0" resetval="0x0" description="Specifies the upper 16 bits of the 41-bit vector address  corresponding to Vector Table address bits[47:32]." range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR0_CORE0_PMCTRL" acronym="CFG0_CLSTR0_CORE0_PMCTRL" offset="0x120" width="32" description="">
+		<bitfield id="CLSTR0_CORE0_PMCTRL_CORE_HALT" width="1" begin="0" end="0" resetval="0x0" description="Halt Core0 Field values (others are reserved): 1'b0 - CPU is held waiting to begin execution after reset is released 1'b1 - CPU is released to execute" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR0_CORE0_PMSTAT" acronym="CFG0_CLSTR0_CORE0_PMSTAT" offset="0x130" width="32" description="">
+		<bitfield id="CLSTR0_CORE0_PMSTAT_CLK_GATE" width="1" begin="3" end="3" resetval="0x0" description="Core0 Clocked stopped due to WFI or WFE state Note: Informaton is only valid when core is out of reset." range="3" rwaccess="R"/> 
+		<bitfield id="CLSTR0_CORE0_PMSTAT_WFE" width="1" begin="1" end="1" resetval="0x0" description="Core0 WFE When 0, indicates that Core0 is in the WFE state Note: Informaton is only valid when core is out of reset." range="1" rwaccess="R"/> 
+		<bitfield id="CLSTR0_CORE0_PMSTAT_WFI" width="1" begin="0" end="0" resetval="0x0" description="Core0 WFI When 0, indicates that Core0 is in the WFI state Note: Informaton is only valid when core is out of reset." range="0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR9_DEF" acronym="CFG0_CLSTR9_DEF" offset="0x9020" width="32" description="">
+		<bitfield id="CLSTR9_DEF_CORE_NUM" width="3" begin="18" end="16" resetval="0x2" description="Number of cores in cluster   000 - Single Core   001 - Dual Core   010 - Quad Core" range="18 - 16" rwaccess="R"/> 
+		<bitfield id="CLSTR9_DEF_DSP_CORE_TYPE" width="8" begin="15" end="8" resetval="0x255" description="DSP core type configuration Field values (others are reserved): 8'h00 - C7x 8'h01 - C6x 8'h10 - AC7x 8'hFF - Not DSP" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="CLSTR9_DEF_ARM_CORE_TYPE" width="8" begin="7" end="0" resetval="0x0" description="ARM core type configuration Field values (others are reserved): 8'h00 - A53 8'h01 - A57 8'h10 - R5 8'h11 - M4F 8'hFF - Not ARM" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR9_CONFIG0" acronym="CFG0_CLSTR9_CONFIG0" offset="0x9040" width="32" description="">
+		<bitfield id="CLSTR9_CONFIG0_CP15_DISABLE3" width="1" begin="11" end="11" resetval="0x0" description="Deactivate write access to secure CP15 registers for Core3  0 - Access activated 1 - Access deactivated CAUTION: This bit must not be modified while A53 CPU is released from reset." range="11" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_CP15_DISABLE2" width="1" begin="10" end="10" resetval="0x0" description="Deactivate write access to secure CP15 registers for Core2  0 - Access activated 1 - Access deactivated CAUTION: This bit must not be modified while A53 CPU is released from reset." range="10" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_CP15_DISABLE1" width="1" begin="9" end="9" resetval="0x0" description="Deactivate write access to secure CP15 registers for Core1 0 - Access activated 1 - Access deactivated CAUTION: This bit must not be modified while A53 CPU is released from reset." range="9" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_CP15_DISABLE0" width="1" begin="8" end="8" resetval="0x0" description="Deactivate write access to secure CP15 registers for Core0 0 - Access activated 1 - Access deactivated CAUTION: This bit must not be modified while A53 CPU is released from reset." range="8" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_CONFIG_TE3" width="1" begin="7" end="7" resetval="0x0" description="Activate T32 exceptions for Core3  Sets the initial value of the TE bit in the CP15 SCTLR register. This bitfield is sampled only during reset of the processor. 0 - TE bit is LOW 1 - TE bit is HIGH CAUTION: This bit must not be modified while A53 CPU is released from reset." range="7" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_CONFIG_TE2" width="1" begin="6" end="6" resetval="0x0" description="Activate T32 exceptions for Core2  Sets the initial value of the TE bit in the CP15 SCTLR register. This bitfield is sampled only during reset of the processor. 0 - TE bit is LOW 1 - TE bit is HIGH CAUTION: This bit must not be modified while A53 CPU is released from reset." range="6" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_CONFIG_TE1" width="1" begin="5" end="5" resetval="0x0" description="Activate T32 exceptions for Core1 Sets the initial value of the TE bit in the CP15 SCTLR register. This bitfield is sampled only during reset of the processor. 0 - TE bit is LOW 1 - TE bit is HIGH  CAUTION: This bit must not be modified while A53 CPU is released from reset." range="5" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_CONFIG_TE0" width="1" begin="4" end="4" resetval="0x0" description="Activate T32 exceptions for Core0 Sets the initial value of the TE bit in the CP15 SCTLR register. This bitfield is sampled only during reset of the processor. 0 - TE bit is LOW 1 - TE bit is HIGH  CAUTION: This bit must not be modified while A53 CPU is released from reset." range="4" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_AARCH3" width="1" begin="3" end="3" resetval="0x1" description="Core3  ARM Architecture configuration 0 - AArch32 1 - AArch64  CAUTION: This bit must not be modified while A53 CPU is released from reset." range="3" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_AARCH2" width="1" begin="2" end="2" resetval="0x1" description="Core2  ARM Architecture configuration 0 - AArch32 1 - AArch64  CAUTION: This bit must not be modified while A53 CPU is released from reset." range="2" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_AARCH1" width="1" begin="1" end="1" resetval="0x1" description="Core1 ARM Architecture configuration 0 - AArch32 1 - AArch64  CAUTION: This bit must not be modified while A53 CPU is released from reset." range="1" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_CONFIG0_AARCH0" width="1" begin="0" end="0" resetval="0x1" description="Core0 ARM Architecture configuration 0 - AArch32 1 - AArch64  CAUTION: This bit must not be modified while A53 CPU is released from reset." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_PM_CONFIG" acronym="CFG0_CLSTR9_PM_CONFIG" offset="0x9080" width="32" description="">
+		<bitfield id="CLSTR9_PM_CONFIG_L2RSTDISABLE" width="1" begin="12" end="12" resetval="0x0" description="Deactivate L2 cache automatic invalidate on reset functionality. This pin is sampled only during reset of the processor. 0 - Activate automatic invalidation of L2  cache on reset. 1 - Deactivate automatic invalidation of L2  cache on reset." range="12" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_DBGPWRUP3" width="1" begin="11" end="11" resetval="0x1" description="Core3 powered up 0 - Core is powered down 1 - Core is powered up" range="11" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_DBGPWRUP2" width="1" begin="10" end="10" resetval="0x1" description="Core2 powered up 0 - Core is powered down 1 - Core is powered up" range="10" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_DBGPWRUP1" width="1" begin="9" end="9" resetval="0x1" description="Core1 powered up 0 - Core is powered down 1 - Core is powered up" range="9" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_DBGPWRUP0" width="1" begin="8" end="8" resetval="0x1" description="Core0 powered up 0 - Core is powered down 1 - Core is powered up" range="8" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_DBGL1RSTDISABLE" width="1" begin="7" end="7" resetval="0x0" description="Deactivate L1 data cache automatic invalidate on reset functionality. This pin is sampled only during reset of the processor. 0 - Activate automatic invalidation of L1 data cache on reset. 1 - Deactivate automatic invalidation of L1 data cache on reset." range="7" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_CLEAR_MON" width="1" begin="6" end="6" resetval="0x0" description="Request to clear the external global exclusive monitor. This sends a WFE wake-up event to all cores in the cluster. When set HIGH the global exclusive monitor in the system is requesting the processor EVENT registers to be set HIGH." range="6" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_L2_FLUSHREQ" width="1" begin="5" end="5" resetval="0x0" description="ARM L2 hardware flush request" range="5" rwaccess="R/W"/> 
+		<bitfield id="CLSTR9_PM_CONFIG_ACP_MASTER" width="1" begin="1" end="1" resetval="0x0" description="ACP controller is inactive and is not participating in coherency. There must be no outstanding transactions when the controller asserts this signal, and while it is asserted the controller must not send any new transactions: 0 - ACP controller is active 1 - ACP controller is inactive" range="1" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_PM_STATUS" acronym="CFG0_CLSTR9_PM_STATUS" offset="0x9090" width="32" description="">
+		<bitfield id="CLSTR9_PM_STATUS_STANDBY_WFI_L2" width="1" begin="13" end="13" resetval="0x0" description="Indicates L2 low power state 0 - L2 not in low power state 1 - L2 is in WFI low power state" range="13" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_L2_HW_FLUSH" width="1" begin="12" end="12" resetval="0x0" description="L2 hardware flush complete" range="12" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE3_SMPEN" width="1" begin="11" end="11" resetval="0x0" description="Core3 coherency indicator 0 - Core is taking part in coherency 1 - Core is not taking part in coherency" range="11" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE2_SMPEN" width="1" begin="10" end="10" resetval="0x0" description="Core2 coherency indicator 0 - Core is taking part in coherency 1 - Core is not taking part in coherency" range="10" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE1_SMPEN" width="1" begin="9" end="9" resetval="0x0" description="Core1 coherency indicator 0 - Core is taking part in coherency 1 - Core is not taking part in coherency" range="9" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE0_SMPEN" width="1" begin="8" end="8" resetval="0x0" description="Core0 coherency indicator 0 - Core is taking part in coherency 1 - Core is not taking part in coherency" range="8" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE3_WFE" width="1" begin="7" end="7" resetval="0x0" description="Indicates Core3 in WFE state Note: Informaton is only valid when core is out of reset." range="7" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE2_WFE" width="1" begin="6" end="6" resetval="0x0" description="Indicates Core2 in WFE state Note: Informaton is only valid when core is out of reset." range="6" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE1_WFE" width="1" begin="5" end="5" resetval="0x0" description="Indicates Core1 in WFE state Note: Informaton is only valid when core is out of reset." range="5" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE0_WFE" width="1" begin="4" end="4" resetval="0x0" description="Indicates Core0 in WFE state Note: Informaton is only valid when core is out of reset." range="4" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE3_WFI" width="1" begin="3" end="3" resetval="0x0" description="Indicates Core3 in WFI state Note: Informaton is only valid when core is out of reset." range="3" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE2_WFI" width="1" begin="2" end="2" resetval="0x0" description="Indicates Core2 in WFI state Note: Informaton is only valid when core is out of reset." range="2" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE1_WFI" width="1" begin="1" end="1" resetval="0x0" description="Indicates Core1 in WFI state Note: Informaton is only valid when core is out of reset." range="1" rwaccess="R"/> 
+		<bitfield id="CLSTR9_PM_STATUS_CORE0_WFI" width="1" begin="0" end="0" resetval="0x0" description="Indicates Core0 in WFI state Note: Informaton is only valid when core is out of reset." range="0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_LO_CORE0" acronym="CFG0_CLSTR9_RST_VEC_LO_CORE0" offset="0x9110" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_LO_CORE0_RESET_BASE_VECTOR_LO" width="32" begin="31" end="0" resetval="0x0" description="Core0 - Reset base vector (v8 Mode) Address[33:2] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_HI_CORE0" acronym="CFG0_CLSTR9_RST_VEC_HI_CORE0" offset="0x9114" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_HI_CORE0_RESET_BASE_VECTOR_HI" width="2" begin="1" end="0" resetval="0x0" description="Core0 - Reset base vector (v8 Mode) Address[35:34] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_LO_CORE1" acronym="CFG0_CLSTR9_RST_VEC_LO_CORE1" offset="0x9190" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_LO_CORE1_RESET_BASE_VECTOR_LO" width="32" begin="31" end="0" resetval="0x0" description="Core1 - Reset base vector (v8 Mode) Address[33:2] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_HI_CORE1" acronym="CFG0_CLSTR9_RST_VEC_HI_CORE1" offset="0x9194" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_HI_CORE1_RESET_BASE_VECTOR_HI" width="2" begin="1" end="0" resetval="0x0" description="Core1 - Reset base vector (v8 Mode) Address[35:34] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_LO_CORE2" acronym="CFG0_CLSTR9_RST_VEC_LO_CORE2" offset="0x9210" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_LO_CORE2_RESET_BASE_VECTOR_LO" width="32" begin="31" end="0" resetval="0x0" description="Core2 - Reset base vector (v8 Mode) Address[33:2] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_HI_CORE2" acronym="CFG0_CLSTR9_RST_VEC_HI_CORE2" offset="0x9214" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_HI_CORE2_RESET_BASE_VECTOR_HI" width="2" begin="1" end="0" resetval="0x0" description="Core2 - Reset base vector (v8 Mode) Address[35:34] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_LO_CORE3" acronym="CFG0_CLSTR9_RST_VEC_LO_CORE3" offset="0x9290" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_LO_CORE3_RESET_BASE_VECTOR_LO" width="32" begin="31" end="0" resetval="0x0" description="Core3 - Reset base vector (v8 Mode) Address[33:2] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR9_RST_VEC_HI_CORE3" acronym="CFG0_CLSTR9_RST_VEC_HI_CORE3" offset="0x9294" width="32" description="">
+		<bitfield id="CLSTR9_RST_VEC_HI_CORE3_RESET_BASE_VECTOR_HI" width="2" begin="1" end="0" resetval="0x0" description="Core3 - Reset base vector (v8 Mode) Address[35:34] CAUTION: This bit must not be modified while A53 CPU is released from reset." range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR13_DEF" acronym="CFG0_CLSTR13_DEF" offset="0xD020" width="32" description="">
+		<bitfield id="CLSTR13_DEF_CORE_NUM" width="3" begin="18" end="16" resetval="0x0" description="Number of cores in cluster   000 - Single Core   001 - Dual Core   010 - Quad Core" range="18 - 16" rwaccess="R"/> 
+		<bitfield id="CLSTR13_DEF_DSP_CORE_TYPE" width="8" begin="15" end="8" resetval="0x16" description="DSP core type configuration Field values (others are reserved): 8'h00 - C7x 8'h01 - C6x 8'h10 - AC7x 8'hFF - Not DSP" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="CLSTR13_DEF_ARM_CORE_TYPE" width="8" begin="7" end="0" resetval="0x255" description="ARM core type configuration Field values (others are reserved): 8'h00 - A53 8'h01 - A57 8'h10 - R5 8'h11 - M4F 8'hFF - Not ARM" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR13_CONFIG0" acronym="CFG0_CLSTR13_CONFIG0" offset="0xD040" width="32" description="">
+		<bitfield id="CLSTR13_CONFIG0_ENDIAN" width="1" begin="31" end="31" resetval="0x0" description="Reset value of Endian control. Valid for DSP only. 0 - Little Endian 1 - Big Endian" range="31" rwaccess="R/W"/> 
+		<bitfield id="CLSTR13_CONFIG0_CPU_SYS_RISCV_MODE" width="1" begin="30" end="30" resetval="0x0" description="Activates CPU Booting in RiscV Mode 0 - Boot in C7x ISA Mode 1 -  Boot in RiscV ISA Mode" range="30" rwaccess="R/W"/> 
+		<bitfield id="CLSTR13_CONFIG0_MMA_PRESENT" width="1" begin="19" end="19" resetval="0x0" description="MMA Present Based on EFUSE.   This bit is intended to be read not modified and writes to this bit will not have any impact on the C7xv256 mma present which is directly controlled by efuse." range="19" rwaccess="R/W"/> 
+		<bitfield id="CLSTR13_CONFIG0_EL2SIZE" width="3" begin="18" end="16" resetval="0x0" description="EL2 Size Field values (others are reserved): 3'b111 - 4MB 3'b110 - 3.5MB 3'b101 - 3MB 3'b100 - 2.5MB 3'b011 - 2MB 3'b010 - 1.5MB 3'b001 - 1MB 3'b000 - None" range="18 - 16" rwaccess="R"/> 
+		<bitfield id="CLSTR13_CONFIG0_L2SIZE" width="5" begin="15" end="11" resetval="0x8" description="L2 Size Field values (others are reserved): 5'b10111 - 8MB 5'b10110 - 7.5MB 5'b10101 - 7MB 5'b10100 - 6.5MB 5'b10011 - 6MB 5'b10010 - 5.5MB 5'b10001 - 5MB 5'b10000 - 4.5MB 5'b01111 - 4MB 5'b01110 - 3.75MB 5'b01101 - 3.5MB 5'b01100 - 3.25MB 5'b01011 - 3MB 5'b01010 - 2.75MB 5'b01001 - 2.5MB 5'b01000 - 2.25MB 5'b00111 - 2MB 5'b00110 - 1.75MB 5'b00101 - 1.5MB 5'b00100 - 1.25MB 5'b00011 - 1.0MB 5'b00010 - 768KB 5'b00001 - 512KB 5'b00000 - None" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="CLSTR13_CONFIG0_L1DSIZE" width="2" begin="10" end="9" resetval="0x2" description="L1D Size Field values (others are reserved): 2'b11 - 128KB 2'b10 - 64KB 2'b01 - 48KB 2'b00 - 32KB" range="10 - 9" rwaccess="R"/> 
+		<bitfield id="CLSTR13_CONFIG0_L1PSIZE" width="2" begin="8" end="7" resetval="0x0" description="L1P Size Field values (others are reserved): 2'b11 - 128KB 2'b10 - 64KB 2'b01 - 48KB 2'b00 - 32KB" range="8 - 7" rwaccess="R"/> 
+		<bitfield id="CLSTR13_CONFIG0_VWIDTH" width="2" begin="6" end="5" resetval="0x2" description="Vector Width Field values (others are reserved): 2'b11 - 512b 2'b10 - 256b 2'b01 - 128b 2'b00 - 64b" range="6 - 5" rwaccess="R"/> 
+		<bitfield id="CLSTR13_CONFIG0_RISCV" width="1" begin="4" end="4" resetval="0x1" description="RISCV ISA SUPPORT Field values (others are reserved): 1'b1 - Supported 1'b0 - Not Supported" range="4" rwaccess="R"/> 
+		<bitfield id="CLSTR13_CONFIG0_MMA" width="2" begin="3" end="2" resetval="0x1" description="MMA Type Field values (others are reserved): 2'b11 - MMA2 2'b10 - MMA2P1 2'b01 - Reserved 2'b00 - Reserved" range="3 - 2" rwaccess="R"/> 
+		<bitfield id="CLSTR13_CONFIG0_CPU" width="2" begin="1" end="0" resetval="0x0" description="CPU Type Field values (others are reserved): 2'b11 - Reserved 2'b10 - Reserved 2'b01 - Reserved 2'b00 - AC72 R10" range="1 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR13_PM_CONFIG" acronym="CFG0_CLSTR13_PM_CONFIG" offset="0xD080" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR13_PM_STATUS" acronym="CFG0_CLSTR13_PM_STATUS" offset="0xD090" width="32" description="">
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT16" width="1" begin="16" end="16" resetval="0x0" description="C7x PBIST Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="16" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT8" width="1" begin="8" end="8" resetval="0x0" description="C7x DRU Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="8" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT7" width="1" begin="7" end="7" resetval="0x0" description="C7x L2 Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="7" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT6" width="1" begin="6" end="6" resetval="0x0" description="C7x Debug Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="6" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT5" width="1" begin="5" end="5" resetval="0x0" description="C7x SE Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="5" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT4" width="1" begin="4" end="4" resetval="0x0" description="C7x DMC Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="4" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT3" width="1" begin="3" end="3" resetval="0x0" description="C7x PMC Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="3" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT2" width="1" begin="2" end="2" resetval="0x0" description="C7x CPU Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="2" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT1" width="1" begin="1" end="1" resetval="0x0" description="C7x Core LPSC Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="1" rwaccess="R"/> 
+		<bitfield id="CLSTR13_PM_STATUS_DSP_IDLE_STAT0" width="1" begin="0" end="0" resetval="0x0" description="Composite Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR13_CORE0_CFG" acronym="CFG0_CLSTR13_CORE0_CFG" offset="0xD100" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR13_RST_VEC_LO_CORE0" acronym="CFG0_CLSTR13_RST_VEC_LO_CORE0" offset="0xD110" width="32" description="">
+		<bitfield id="CLSTR13_RST_VEC_LO_CORE0_RESET_BASE_VECTOR_LO" width="32" begin="31" end="0" resetval="0x0" description="Reset Vector Base Address 33:2 for C7x DSP" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR13_RST_VEC_HI_CORE0" acronym="CFG0_CLSTR13_RST_VEC_HI_CORE0" offset="0xD114" width="32" description="">
+		<bitfield id="CLSTR13_RST_VEC_HI_CORE0_RESET_BASE_VECTOR_HI" width="2" begin="1" end="0" resetval="0x0" description="Reset Vector Base Address 35:34 for C7x DSP" range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR13_CORE0_PMCTRL" acronym="CFG0_CLSTR13_CORE0_PMCTRL" offset="0xD120" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR13_CORE0_PMSTAT" acronym="CFG0_CLSTR13_CORE0_PMSTAT" offset="0xD130" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR14_DEF" acronym="CFG0_CLSTR14_DEF" offset="0xE020" width="32" description="">
+		<bitfield id="CLSTR14_DEF_CORE_NUM" width="3" begin="18" end="16" resetval="0x0" description="Number of cores in cluster   000 - Single Core   001 - Dual Core   010 - Quad Core" range="18 - 16" rwaccess="R"/> 
+		<bitfield id="CLSTR14_DEF_DSP_CORE_TYPE" width="8" begin="15" end="8" resetval="0x16" description="DSP core type configuration Field values (others are reserved): 8'h00 - C7x 8'h01 - C6x 8'h10 - AC7x 8'hFF - Not DSP" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="CLSTR14_DEF_ARM_CORE_TYPE" width="8" begin="7" end="0" resetval="0x255" description="ARM core type configuration Field values (others are reserved): 8'h00 - A53 8'h01 - A57 8'h10 - R5 8'h11 - M4F 8'hFF - Not ARM" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR14_CONFIG0" acronym="CFG0_CLSTR14_CONFIG0" offset="0xE040" width="32" description="">
+		<bitfield id="CLSTR14_CONFIG0_ENDIAN" width="1" begin="31" end="31" resetval="0x0" description="Reset value of Endian control. Valid for DSP only. 0 - Little Endian 1 - Big Endian" range="31" rwaccess="R/W"/> 
+		<bitfield id="CLSTR14_CONFIG0_CPU_SYS_RISCV_MODE" width="1" begin="30" end="30" resetval="0x0" description="Activates CPU Booting in RiscV Mode 0 - Boot in C7x ISA Mode 1 -  Boot in RiscV ISA Mode" range="30" rwaccess="R/W"/> 
+		<bitfield id="CLSTR14_CONFIG0_MMA_PRESENT" width="1" begin="19" end="19" resetval="0x0" description="MMA Present Based on EFUSE.   This bit is intended to be read not modified and writes to this bit will not have any impact on the C7xv256 mma present which is directly controlled by efuse." range="19" rwaccess="R/W"/> 
+		<bitfield id="CLSTR14_CONFIG0_EL2SIZE" width="3" begin="18" end="16" resetval="0x0" description="EL2 Size Field values (others are reserved): 3'b111 - 4MB 3'b110 - 3.5MB 3'b101 - 3MB 3'b100 - 2.5MB 3'b011 - 2MB 3'b010 - 1.5MB 3'b001 - 1MB 3'b000 - None" range="18 - 16" rwaccess="R"/> 
+		<bitfield id="CLSTR14_CONFIG0_L2SIZE" width="5" begin="15" end="11" resetval="0x8" description="L2 Size Field values (others are reserved): 5'b10111 - 8MB 5'b10110 - 7.5MB 5'b10101 - 7MB 5'b10100 - 6.5MB 5'b10011 - 6MB 5'b10010 - 5.5MB 5'b10001 - 5MB 5'b10000 - 4.5MB 5'b01111 - 4MB 5'b01110 - 3.75MB 5'b01101 - 3.5MB 5'b01100 - 3.25MB 5'b01011 - 3MB 5'b01010 - 2.75MB 5'b01001 - 2.5MB 5'b01000 - 2.25MB 5'b00111 - 2MB 5'b00110 - 1.75MB 5'b00101 - 1.5MB 5'b00100 - 1.25MB 5'b00011 - 1.0MB 5'b00010 - 768KB 5'b00001 - 512KB 5'b00000 - None" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="CLSTR14_CONFIG0_L1DSIZE" width="2" begin="10" end="9" resetval="0x2" description="L1D Size Field values (others are reserved): 2'b11 - 128KB 2'b10 - 64KB 2'b01 - 48KB 2'b00 - 32KB" range="10 - 9" rwaccess="R"/> 
+		<bitfield id="CLSTR14_CONFIG0_L1PSIZE" width="2" begin="8" end="7" resetval="0x0" description="L1P Size Field values (others are reserved): 2'b11 - 128KB 2'b10 - 64KB 2'b01 - 48KB 2'b00 - 32KB" range="8 - 7" rwaccess="R"/> 
+		<bitfield id="CLSTR14_CONFIG0_VWIDTH" width="2" begin="6" end="5" resetval="0x2" description="Vector Width Field values (others are reserved): 2'b11 - 512b 2'b10 - 256b 2'b01 - 128b 2'b00 - 64b" range="6 - 5" rwaccess="R"/> 
+		<bitfield id="CLSTR14_CONFIG0_RISCV" width="1" begin="4" end="4" resetval="0x1" description="RISCV ISA SUPPORT Field values (others are reserved): 1'b1 - Supported 1'b0 - Not Supported" range="4" rwaccess="R"/> 
+		<bitfield id="CLSTR14_CONFIG0_MMA" width="2" begin="3" end="2" resetval="0x1" description="MMA Type Field values (others are reserved): 2'b11 - MMA2 2'b10 - MMA2P1 2'b01 - Reserved 2'b00 - Reserved" range="3 - 2" rwaccess="R"/> 
+		<bitfield id="CLSTR14_CONFIG0_CPU" width="2" begin="1" end="0" resetval="0x0" description="CPU Type Field values (others are reserved): 2'b11 - Reserved 2'b10 - Reserved 2'b01 - Reserved 2'b00 - AC72 R10" range="1 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR14_PM_CONFIG" acronym="CFG0_CLSTR14_PM_CONFIG" offset="0xE080" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR14_PM_STATUS" acronym="CFG0_CLSTR14_PM_STATUS" offset="0xE090" width="32" description="">
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT16" width="1" begin="16" end="16" resetval="0x0" description="C7x PBIST Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="16" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT8" width="1" begin="8" end="8" resetval="0x0" description="C7x DRU Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="8" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT7" width="1" begin="7" end="7" resetval="0x0" description="C7x L2 Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="7" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT6" width="1" begin="6" end="6" resetval="0x0" description="C7x Debug Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="6" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT5" width="1" begin="5" end="5" resetval="0x0" description="C7x SE Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="5" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT4" width="1" begin="4" end="4" resetval="0x0" description="C7x DMC Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="4" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT3" width="1" begin="3" end="3" resetval="0x0" description="C7x PMC Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="3" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT2" width="1" begin="2" end="2" resetval="0x0" description="C7x CPU Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="2" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT1" width="1" begin="1" end="1" resetval="0x0" description="C7x Core LPSC Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="1" rwaccess="R"/> 
+		<bitfield id="CLSTR14_PM_STATUS_DSP_IDLE_STAT0" width="1" begin="0" end="0" resetval="0x0" description="Composite Idle Status Field values (others are reserved): 1'b1 - Idle 1'b0 - Not Idle" range="0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLSTR14_CORE0_CFG" acronym="CFG0_CLSTR14_CORE0_CFG" offset="0xE100" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR14_RST_VEC_LO_CORE0" acronym="CFG0_CLSTR14_RST_VEC_LO_CORE0" offset="0xE110" width="32" description="">
+		<bitfield id="CLSTR14_RST_VEC_LO_CORE0_RESET_BASE_VECTOR_LO" width="32" begin="31" end="0" resetval="0x0" description="Reset Vector Base Address 33:2 for C7x DSP" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR14_RST_VEC_HI_CORE0" acronym="CFG0_CLSTR14_RST_VEC_HI_CORE0" offset="0xE114" width="32" description="">
+		<bitfield id="CLSTR14_RST_VEC_HI_CORE0_RESET_BASE_VECTOR_HI" width="2" begin="1" end="0" resetval="0x0" description="Reset Vector Base Address 35:34 for C7x DSP" range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLSTR14_CORE0_PMCTRL" acronym="CFG0_CLSTR14_CORE0_PMCTRL" offset="0xE120" width="32" description="">
+		
+	</register>
+	<register id="CFG0_CLSTR14_CORE0_PMSTAT" acronym="CFG0_CLSTR14_CORE0_PMSTAT" offset="0xE130" width="32" description="">
+		
+	</register>
+	<register id="CFG0_GIC_CONFIG" acronym="CFG0_GIC_CONFIG" offset="0x18008" width="32" description="">
+		<bitfield id="GIC_CONFIG_A53SS0_CORE3_ACTIVE" width="1" begin="11" end="11" resetval="0x1" description="Drives GIC cpu_active input for A53SS0 Core3. When a core is in a low-power mode (cpu_active=0), the GIC will not route shared-SPI events to the core which would wake up the core resulting in increased power consumption. 0 - Core is in a software-transparent low power mode 1 - Core is active and available for shared SPIs" range="11" rwaccess="R/W"/> 
+		<bitfield id="GIC_CONFIG_A53SS0_CORE2_ACTIVE" width="1" begin="10" end="10" resetval="0x1" description="Drives GIC cpu_active input for A53SS0 Core2. When a core is in a low-power mode (cpu_active=0), the GIC will not route shared-SPI events to the core which would wake up the core resulting in increased power consumption. 0 - Core is in a software-transparent low power mode 1 - Core is active and available for shared SPIs" range="10" rwaccess="R/W"/> 
+		<bitfield id="GIC_CONFIG_A53SS0_CORE1_ACTIVE" width="1" begin="9" end="9" resetval="0x1" description="Drives GIC cpu_active input for A53SS0 Core1. When a core is in a low-power mode (cpu_active=0), the GIC will not route shared-SPI events to the core which would wake up the core resulting in increased power consumption. 0 - Core is in a software-transparent low power mode 1 - Core is active and available for shared SPIs" range="9" rwaccess="R/W"/> 
+		<bitfield id="GIC_CONFIG_A53SS0_CORE0_ACTIVE" width="1" begin="8" end="8" resetval="0x1" description="Drives GIC cpu_active input for A53SS0 Core0. When a core is in a low-power mode (cpu_active=0), the GIC will not route shared-SPI events to the core which would wake up the core resulting in increased power consumption. 0 - Core is in a software-transparent low power mode 1 - Core is active and available for shared SPIs" range="8" rwaccess="R/W"/>
+	</register>
+</module>

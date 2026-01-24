@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<module id="HOST_MCU" XML_version="1.0" description="">
+	<register acronym="MCU_TRACE_CFG" id="mcu_trace_cfg" width="32" description="Trace Configuration.
+
+Configuration register for CortexM3-TPIU (TRACE ports i/o unit)" offset="0x0">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" description="Configure TRACE-CLOCK divider value, for (TPIU - input clock)
+[1]    - Divide by 2 - 'tpiu_trace_clk_in' = 40MHz
+[2]    - Divide by 4 - 'tpiu_trace_clk_in' = 20MHz (Default)
+[0,3] - are not supported (do not use)
+
+AFTER setting this value - set [CLKDIVEN] to active this value" id="CLKDIVVAL" resetval="0x2">
+			<bitenum id="DIV_2" value="0" token="Divide by 2" description="Divide by 2"/>
+			<bitenum id="DIV_4" value="1" token="Divide by 4" description="Divide by 4"/>
+		</bitfield>
+		<bitfield width="6" end="2" begin="7" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED2" resetval="0x0"/>
+		<bitfield width="1" end="8" begin="8" rwaccess="WO" description="Set this register to load [CLKDIVVAL]" id="CLKDIVEN" resetval="0x0">
+			<bitenum id="DIS" value="0"/>
+			<bitenum id="EN" value="1" token="Disable" description="Disable"/>
+		</bitfield>
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED9" resetval="0x0"/>
+	</register>
+	<register acronym="MCU_SPARE" id="mcu_spare" width="32" description="Spare" offset="0x4">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="Spare" id="SBITS" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="WRR_ARB_EN" id="wrr_arb_en" width="32" description="WRR Arbiter Enable Register" offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Field to enable/select the arbitration logic
+0 - Disabled, use SIE-200 arbitration logic.
+1 - Enable, use wrapper arbitration logic." id="EN" resetval="0x2">
+			<bitenum id="DIS" value="0" token="Use SIE-200 arbitration logic" description="Use SIE-200 arbitration logic"/>
+			<bitenum id="EN" value="1" token="Use wrapper arbitration logic" description="Use wrapper arbitration logic"/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED2" resetval="0x2"/>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Field to configure the priority policy
+0 - Fixed Priority
+1 - Round Robin (Default)" id="POLICY" resetval="0x2">
+			<bitenum id="FIXED" value="0" token="Fixed priority" description="Fixed priority"/>
+			<bitenum id="ROUNDROBIN" value="1" token="Round Robin (Default)" description="Round Robin (Default)"/>
+		</bitfield>
+	</register>
+	<register acronym="WRR_ARB_AGENT0_CFG" id="wrr_arb_agent0_cfg" width="32" description="WRR Arbiter - Agent 0 Configuration" offset="0x10">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Number of words to be served in each arbitration grant.
+Up to 8,192 words (32KB).
+Value must be greater then 0." id="NUMOFBLK" resetval="0x10004"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED13" resetval="0x10004"/>
+		<bitfield width="2" end="16" begin="17" rwaccess="RW" description="Field to select the fixed priority level
+0 - Highest
+1 - Medium
+2 - Lowest (default)
+3 - Not in Use" id="FIXPRI" resetval="0x10004">
+			<bitenum id="SEL_0" value="0" token="Highest Priority" description="Highest Priority"/>
+			<bitenum id="SEL_2" value="2" token="Lowest priority (default)" description="Lowest priority (default)"/>
+			<bitenum id="SEL_1" value="1" token="Medium Priority" description="Medium Priority"/>
+		</bitfield>
+		<bitfield width="6" end="18" begin="23" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED18" resetval="0x10004"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED29" resetval="0x10004"/>
+		<bitfield width="5" end="24" begin="28" rwaccess="RW" description="Number of cycle before starting to serve next agent in line.
+Up to 32 cycles." id="TRANSDLY" resetval="0x10004"/>
+	</register>
+	<register acronym="WRR_ARB_AGENT1_CFG" id="wrr_arb_agent1_cfg" width="32" description="WRR Arbiter - Agent 1 Configuration" offset="0x14">
+		<bitfield width="13" end="0" begin="12" rwaccess="RW" description="Number of words to be served in each arbitration grant.
+Up to 8,192 words (32KB).
+Value must be greater then 0." id="NUMOFBLK" resetval="0x4"/>
+		<bitfield width="3" end="13" begin="15" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED13" resetval="0x4"/>
+		<bitfield width="2" end="16" begin="17" rwaccess="RW" description="Field to select the fixed priority level
+0 - Highest
+1 - Medium
+2 - Lowest (default)
+3 - Not in Use" id="FIXPRI" resetval="0x4">
+			<bitenum id="SEL_0" value="0" token="Highest priority" description="Highest priority"/>
+			<bitenum id="SEL_1" value="1" token="Medium priority" description="Medium priority"/>
+			<bitenum id="SEL_2" value="2" token="Lowest priority (default)" description="Lowest priority (default)"/>
+		</bitfield>
+		<bitfield width="6" end="18" begin="23" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED18" resetval="0x4"/>
+		<bitfield width="3" end="29" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED29" resetval="0x4"/>
+		<bitfield width="5" end="24" begin="28" rwaccess="RW" description="Number of cycle before starting to serve next agent in line.
+Up to 32 cycles." id="TRANSDLY" resetval="0x4"/>
+	</register>
+	<register acronym="SW_TIMESTAMP" id="sw_timestamp" width="32" description="Software Timestamp Interrupt Register" offset="0x18">
+		<bitfield width="16" end="0" begin="15" rwaccess="RW" description="Field to write timestamp for ET bus." id="TIMESTAMP" resetval="0x0"/>
+		<bitfield width="16" end="16" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED16" resetval="0x0"/>
+	</register>
+	<register acronym="NS_SW_INTERRUPT_TO_S" id="ns_sw_interrupt_to_s" width="32" description="Non Secure Software Interrupt" offset="0x1c">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" description="Non Secure context of CM33 can use this register to interrupt secure context of CM33." id="EN" resetval="0x0"/>
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED4" resetval="0x0"/>
+	</register>
+	<register acronym="SW_INTERRUPT_TO_CM3" id="sw_interrupt_to_cm3" width="32" description="Software Interrupt to CM3" offset="0x20">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Non Secure context of CM33 can use this register to interrupt CM3." id="EN" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED1" resetval="0x0"/>
+	</register>
+	<register acronym="ARBITER_POLICY" id="arbiter_policy" width="32" description="Arbiter Policy.
+
+Arbiter Policy for the arbiters(x2) located just before MEMSS Portion A and Portion B" offset="0x24">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Field to select the arbitration policy of second arbiter (MEMSS Portion A)
+1 -&gt; Round Robin is enabled 
+ 0 -&gt; Fixed priority is enabled" id="RNDRBNS0" resetval="0x0">
+			<bitenum id="FIXED" value="0" token="Fixed priority" description="Fixed priority"/>
+			<bitenum id="ROUNDROBIN" value="1" token="Round Robin priority" description="Round Robin priority"/>
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Field to select the arbitration policy of second arbiter (MEMSS Portion )
+1 -&gt; Round Robin is enabled 
+0 -&gt; Fixed priority is enabled" id="RNDRBNS1" resetval="0x0">
+			<bitenum id="FIXED" value="0" token="Fixed priority" description="Fixed priority"/>
+			<bitenum id="ROUNDROBIN" value="1" token="Round Robin priority" description="Round Robin priority"/>
+		</bitfield>
+		<bitfield width="2" end="2" begin="3" rwaccess="RW" description="This bit field takes affect when Fixed Priority is selected for the arbiter before MEMSS Portion A. This field is used to configure the priority of udma/sahb." id="S0PRIM0" resetval="0x0"/>
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="This bit field takes affect when Fixed Priority is selected for the arbiter before MEMSS Portion A. This field is used to configure the priority of ocp." id="S0PRIM1" resetval="0x0"/>
+		<bitfield width="2" end="6" begin="7" rwaccess="RW" description="This bit field takes affect when Fixed Priority is selected for the arbiter before MEMSS Portion B. This field is used to configure the priority of udma/sahb." id="S1PRIM0" resetval="0x0"/>
+		<bitfield width="2" end="8" begin="9" rwaccess="RW" description="This bit field takes affect when Fixed Priority is selected for the arbiter before MEMSS Portion B. This field is used to configure the priority of ocp." id="S1PRIM1" resetval="0x0"/>
+		<bitfield width="22" end="10" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED10" resetval="0x0"/>
+	</register>
+	<register acronym="DEBUGSS" id="debugss" width="32" description="DEBUGSS Control Register." offset="0x28">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Non Secure context of CM33 can use this register to interrupt CM3." id="EN" resetval="0x0"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED1" resetval="0x0"/>
+	</register>
+	<register acronym="DEBUGSS_IF_LOCK" id="debugss_if_lock" width="32" description="DEBUGSS Interface Lock." offset="0x2c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="The method: Obtain lock by Read. Following are all s/w operation possibilities: 
+When reading '1'  - lock is obtained. (i.e. no debugss request was active during the rd transaction).
+When reading '0'  - lock is not obtained. Try to read again. (i.e. at least debugss request event was active during the rd transaction).
+when writing '1'  - lock will be obtained regardless to debugss request status
+when writing '0'  - lock will be released.
+
+Type: Write/Read-Clear" id="LOCK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED1" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="DEBUGSS_IF_LOCK_COND_MASK" id="debugss_if_lock_cond_mask" width="32" description="DEBUGSS Interface Lock Condition Mask" offset="0x30">
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Masks Debugss Force-active
+
+Set 1 - Mask request during lock check.
+Set 0 - O.W." id="MASK" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}">
+			<bitenum id="SET_0" value="0" token="O.W" description="O.W"/>
+			<bitenum id="SET_1" value="1" token="Mask request during lock check" description="Mask request during lock check"/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED0" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+	</register>
+	<register acronym="DEBUGSS_IF_LOCK_COND_STATUS" id="debugss_if_lock_cond_status" width="32" description="DEBUGSS Interface Lock Condition Status" offset="0x34">
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="DEBUGSS HOST Force Active" id="FRCACT" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}">
+			<bitenum id="CLR" value="0" token="Not in use" description="Not in use"/>
+			<bitenum id="SET" value="1" token="Debugss host force active is set" description="Debugss host force active is set"/>
+		</bitfield>
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior" id="RESERVED2" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}"/>
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="DEBUGSS HOST C SYS Power Request" id="CSYSPWRREQ" resetval="{'@spirit:resolve': 'immediate', '#text': '0x0'}">
+			<bitenum id="CLR" value="0" token="Not in use" description="Not in use"/>
+			<bitenum id="SET" value="1" token="Debugss host c sys power requested" description="Debugss host c sys power requested"/>
+		</bitfield>
+	</register>
+</module>

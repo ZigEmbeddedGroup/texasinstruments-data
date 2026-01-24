@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <style>
+    </style>
+    <script type="module">
+
+
+        const urlParams = new URLSearchParams(location.search);
+        const server = 'https://dev.ti.com/tirex4-desktop';
+        const canConnect = await canConnectToServer(server);
+        const view = urlParams.get('view');
+        urlParams.delete('view');
+        urlParams.append('theiaPort', location.port); // theiPort is required for the template being used. 
+        try {
+            if (view && canConnect) {
+                document.location.replace(`${server}/${view}?${urlParams.toString()}`);
+            } else {
+                alert(`View not specified, received ${JSON.stringify(urlParams)}`);
+            }
+        }
+        catch (e) {
+            document.location.replace(`./index-offline.html?${urlParams.toString()}`);
+        }
+
+        async function canConnectToServer(server) {
+            let canConnect = true;
+            try {
+                await ajaxHead(`${server}/api/serverState`);
+            } catch (err) {
+                canConnect = false;
+                console.error(err);
+            }
+            return canConnect;
+        }
+
+        // helpers taken from ajax.ts
+
+        function ajaxHead(url) {
+            return doRequest(url, 'HEAD');
+        }
+
+        function doRequest(url, method) {
+            const XMLClass = getXMLHttpRequest();
+            const req = new XMLClass();
+            return new Promise((resolve, reject) => {
+                req.onreadystatechange = () => {
+                    if (req.readyState === XMLHttpRequest.DONE) {
+                        if (req.status !== 200) {
+                            return reject(new Error(req.responseText, req.status.toString()));
+                        }
+                        const contentType = req.getResponseHeader('Content-Type');
+                        if (contentType && contentType.includes('application/json')) {
+                            resolve(JSON.parse(req.responseText));
+                        } else {
+                            resolve(req.responseText);
+                        }
+                    }
+                };
+                req.open(method, url);
+                req.send();
+            });
+        }
+
+        function getXMLHttpRequest() {
+            return XMLHttpRequest;
+        }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

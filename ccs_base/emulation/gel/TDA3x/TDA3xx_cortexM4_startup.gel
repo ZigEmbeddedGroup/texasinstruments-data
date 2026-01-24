@@ -1,0 +1,23 @@
+/*******************************************************************/ 
+/* This GEL file is loaded on the command line of Code Composer    */
+/* The StartUp() function is called every time you start           */
+/* Code Composer.  You can customize this function to              */
+/* initialize wait states or to perform other initialization.      */
+/*                                                                 */
+/* TDA3xx Cortex M4 IPU                                            */
+/*                                                                 */
+/*                                                                 */
+/*******************************************************************/
+
+StartUp()
+{
+    /*------------------ Load Common Gel Files -------------------*/
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_startup_common.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_prcm_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_multicore_reset.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_emif_macros.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_ddr_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_pad_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_i2c.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_PRCM_Get_Config.gel");
+}

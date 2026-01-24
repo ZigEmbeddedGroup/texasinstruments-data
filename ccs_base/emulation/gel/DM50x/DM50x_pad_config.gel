@@ -1,0 +1,643 @@
+/*******************************************************************/
+/* This GEL file is loaded on the command line of Code Composer    */
+/* The StartUp() function is called every time you start           */
+/* Code Composer.  You can customize this function to              */
+/* initialize wait states or to perform other initialization.      */
+/*                                                                 */
+/* DM50x PAD Config                                               */
+/*                                                                 */
+/*                                                                 */
+/*******************************************************************/
+
+#define WR_MEM_32(addr, data)   *(unsigned int*)(addr) =(unsigned int)(data)
+#define RD_MEM_32(addr)         *(unsigned int*)(addr)
+#define uint32_t                unsigned int
+
+/* Pad Configuration Register bit masks */
+#define SYSCFG_MUX_MODE_MASK                    (0x0000000F)
+#define SYSCFG_MUX_MODE_SHIFT                   (0)
+
+#define SYSCFG_PULLUD_ENABLE_MASK               (0x00010000)
+#define SYSCFG_PULLUD_ENABLE_SHIFT              (16)
+
+#define SYSCFG_PULLTYPE_SELECT_MASK             (0x00020000)
+#define SYSCFG_PULLTYPE_SELECT_SHIFT            (17)
+
+#define SYSCFG_INPUT_ENABLE_MASK                (0x00040000)
+#define SYSCFG_INPUT_ENABLE_SHIFT               (18)
+
+#define SYSCFG_SLEW_CONTROL_MASK                (0x00080000)
+#define SYSCFG_SLEW_CONTROL_SHIFT               (19)
+
+#define SYSCFG_WAKEUP_ENABLE_MASK               (0x01000000)
+#define SYSCFG_WAKEUP_ENABLE_SHIFT              (24)
+
+#define SYSCFG_WAKEUP_EVENT_MASK                (0x02000000)
+#define SYSCFG_WAKEUP_EVENT_SHIFT               (25)
+
+/**
+ * @TYPE         SYSCFG_SysIOModes_t
+ *
+ * @BRIEF        Enumerated Type used to specify the System IO Modes
+ *
+ * @DESCRIPTION  Enumerated Type used to specify the System IO Modes
+ *
+ */
+#define SYSCFG_MODE0    (0)
+#define SYSCFG_MODE1    (1)
+#define SYSCFG_MODE2    (2)
+#define SYSCFG_MODE3    (3)
+#define SYSCFG_MODE4    (4)
+#define SYSCFG_MODE5    (5)
+#define SYSCFG_MODE6    (6)
+#define SYSCFG_MODE7    (7)
+#define SYSCFG_MODE8    (8)
+#define SYSCFG_MODE9    (9)
+#define SYSCFG_MODE10   (10)
+#define SYSCFG_MODE11   (11)
+#define SYSCFG_MODE12   (12)
+#define SYSCFG_MODE13   (13)
+#define SYSCFG_MODE14   (14)
+#define SYSCFG_MODE15   (15)
+#define SYSCFG_OFF      (0xFF) /* Leave this - it is used to turn off configuration */
+
+/**
+ * @TYPE         SYSCFG_WakeUpEnable_t
+ *
+ * @BRIEF        Enumerated Type used to specify the pad wake up detection
+ *
+ * @DESCRIPTION  Enumerated Type used to specify the pad wake up detection
+ *
+ */
+#define SYSCFG_WAKEUP_ENABLE_DISABLE        (0x00)
+#define SYSCFG_WAKEUP_ENABLE_ENABLE         (0x01)
+#define SYSCFG_WAKEUP_ENABLE_NA             (0xFF)
+
+/**
+ * @TYPE         SYSCFG_SlewControlSelect_t
+ *
+ * @BRIEF        Enumerated Type used to specify the slew control setting
+ *
+ * @DESCRIPTION  Enumerated Type used to specify the slew control setting
+ *
+ */
+#define SYSCFG_SLEW_CONTROL_SLOW            (0x00)
+#define SYSCFG_SLEW_CONTROL_FAST            (0x01)
+#define SYSCFG_SLEW_CONTROL_NA              (0xFF)
+
+/**
+ * @TYPE         SYSCFG_InputEnable_t
+ *
+ * @BRIEF        Enumerated Type used to specify the input buffer satus of I/O cell
+ *
+ * @DESCRIPTION  Enumerated Type used to specify the input buffer satus of I/O cell
+ *
+ */
+#define SYSCFG_INPUT_ENABLE_DISABLE         (0x00)
+#define SYSCFG_INPUT_ENABLE_ENABLE          (0x01)
+#define SYSCFG_INPUT_ENABLE_NA              (0xFF)
+
+/**
+ * @TYPE         SYSCFG_PullTypeSelect_t
+ *
+ * @BRIEF        Enumerated Type used to specify the pull-Up/Down selection
+ *
+ * @DESCRIPTION  Enumerated Type used to specify the pull-Up/Down selection
+ *
+ */
+#define SYSCFG_PULLTYPE_SELECT_PULLDOWN      (0x00)
+#define SYSCFG_PULLTYPE_SELECT_PULLUP        (0x01)
+#define SYSCFG_PULLTYPE_SELECT_NA            (0xFF)
+
+/**
+ * @TYPE         SYSCFG_PullUDEnable_t
+ *
+ * @BRIEF        Enumerated Type used to specify the pull-Up/Down selection
+ *
+ * @DESCRIPTION  Enumerated Type used to specify the pull-Up/Down selection
+ *
+ */
+#define SYSCFG_PULLUD_ENABLE_DISABLE     (0x00)
+#define SYSCFG_PULLUD_ENABLE_NA          0xFF
+#define SYSCFG_PULLUD_ENABLE_ENABLE 0x01
+
+/**
+ * @TYPE         SYSCFG_Pad_t
+ *
+ * @BRIEF        Enumerated Type used to specify the pad
+ *
+ * @DESCRIPTION  Based on Pad Configuration Tool
+ *
+ * @NOTE         Base addresses are the physical addresses of the registers
+ *                 all depending on the instance they belong to
+ *
+ */
+
+#define SYSCFG_PAD_GPMC_CLK         (0x4A003400)
+
+#define SYSCFG_PAD_MDIO_MCLK        (0x4A003554)
+#define SYSCFG_PAD_MDIO_D           (0x4A003558)
+#define SYSCFG_PAD_RGMII0_TXC       (0x4A00355C)
+#define SYSCFG_PAD_RGMII0_TXCTL     (0x4A003560)
+#define SYSCFG_PAD_RGMII0_TXD3      (0x4A003564)
+#define SYSCFG_PAD_RGMII0_TXD2      (0x4A003568)
+#define SYSCFG_PAD_RGMII0_TXD1      (0x4A00356C)
+#define SYSCFG_PAD_RGMII0_TXD0      (0x4A003570)
+#define SYSCFG_PAD_RGMII0_RXC       (0x4A003574)
+#define SYSCFG_PAD_RGMII0_RXCTL     (0x4A003578)
+#define SYSCFG_PAD_RGMII0_RXD3      (0x4A00357C)
+#define SYSCFG_PAD_RGMII0_RXD2      (0x4A003580)
+#define SYSCFG_PAD_RGMII0_RXD1      (0x4A003584)
+#define SYSCFG_PAD_RGMII0_RXD0      (0x4A003588)
+
+/**
+ * @TYPE         SYSCFG_Pad_XXXXX_t
+ *
+ * @BRIEF        Enumerated Type used to specify mux modes of the pad
+ *
+ * @DESCRIPTION  Automatically generated file from Pad Configuration Tool
+ *
+ */
+
+#define SYSCFG_PAD_GPMC_AD0_RGMII1_RXD2 (0x01)
+
+#define SYSCFG_PAD_GPMC_AD1_RGMII1_RXD1 (0x01)
+
+#define SYSCFG_PAD_GPMC_AD2_RGMII1_RXD0 (0x01)
+
+#define SYSCFG_PAD_GPMC_AD13_RGMII1_RXC (0x01)
+
+#define SYSCFG_PAD_GPMC_CS0_RGMII1_RXCTL (0x01)
+
+#define SYSCFG_PAD_GPMC_CLK_RGMII1_TXC (0x01)
+
+#define SYSCFG_PAD_GPMC_ADVN_ALE_RGMII1_TXD2 (0x01)
+
+#define SYSCFG_PAD_GPMC_OEN_REN_RGMII1_TXD1 (0x01)
+
+#define SYSCFG_PAD_GPMC_WEN_RGMII1_TXD0 (0x01)
+
+#define SYSCFG_PAD_GPMC_BEN0_RGMII1_TXCTL (0x01)
+
+#define SYSCFG_PAD_GPMC_BEN1_RGMII1_TXD3 (0x01)
+
+#define SYSCFG_PAD_GPMC_WAIT0_RGMII1_RXD3 (0x01)
+
+#define SYSCFG_PAD_MDIO_MCLK_MDIO_MCLK (0x00)
+
+#define SYSCFG_PAD_MDIO_D_MDIO_D (0x00)
+
+#define SYSCFG_PAD_RGMII0_TXC_RGMII0_TXC (0x00)
+
+#define SYSCFG_PAD_RGMII0_TXCTL_RGMII0_TXCTL (0x00)
+
+#define SYSCFG_PAD_RGMII0_TXD3_RGMII0_TXD3 (0x00)
+
+#define SYSCFG_PAD_RGMII0_TXD2_RGMII0_TXD2 (0x00)
+
+#define SYSCFG_PAD_RGMII0_TXD1_RGMII0_TXD1 (0x00)
+
+#define SYSCFG_PAD_RGMII0_TXD0_RGMII0_TXD0 (0x00)
+
+#define SYSCFG_PAD_RGMII0_RXC_RGMII0_RXC (0x00)
+
+#define SYSCFG_PAD_RGMII0_RXCTL_RGMII0_RXCTL (0x00)
+
+#define SYSCFG_PAD_RGMII0_RXD3_RGMII0_RXD3 (0x00)
+
+#define SYSCFG_PAD_RGMII0_RXD2_RGMII0_RXD2 (0x00)
+
+#define SYSCFG_PAD_RGMII0_RXD1_RGMII0_RXD1 (0x00)
+
+#define SYSCFG_PAD_RGMII0_RXD0_RGMII0_RXD0 (0x00)
+
+
+/**
+ * @DEFINITION   SYSCFG_WR_CFG_PAD
+ *
+ * @BRIEF        Sets pad configuration
+ *
+ * @DESCRIPTION  Writes the PullUDEnable, PULLTypeSelect, InputEnable,
+ *               WakeUpEnable, SlewControl MuxMode to the
+ *               selected pad configuration register
+ *
+ */
+SYSCFG_WR_CFG_PAD( padX, padXMuxMode, padXPullUDEnable, padXPullTypeSelect, padXInputEnable, padXSlewControl, padXWakeUpEnable )
+{
+    uint32_t padXConfData;
+    padXConfData = RD_MEM_32(padX);
+
+    if ((padXMuxMode) != SYSCFG_OFF)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_MUX_MODE_MASK)) | (padXMuxMode << SYSCFG_MUX_MODE_SHIFT));
+    }
+    else
+    {
+        /* Set pin to Hi-Z, disable the weak pull */
+        padXConfData = ((padXConfData & ~(SYSCFG_MUX_MODE_MASK)) | (0xF << SYSCFG_MUX_MODE_SHIFT));
+        padXPullUDEnable = SYSCFG_PULLUD_ENABLE_DISABLE;
+    }
+
+    if (padXPullUDEnable != SYSCFG_PULLUD_ENABLE_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_PULLUD_ENABLE_MASK)) | (padXPullUDEnable << SYSCFG_PULLUD_ENABLE_SHIFT));
+    }
+
+    if (padXPullTypeSelect != SYSCFG_PULLTYPE_SELECT_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_PULLTYPE_SELECT_MASK)) | (padXPullTypeSelect << SYSCFG_PULLTYPE_SELECT_SHIFT));
+    }
+
+    if (padXInputEnable != SYSCFG_INPUT_ENABLE_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_INPUT_ENABLE_MASK)) | (padXInputEnable << SYSCFG_INPUT_ENABLE_SHIFT));
+    }
+
+    if (padXSlewControl != SYSCFG_SLEW_CONTROL_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_SLEW_CONTROL_MASK)) | (padXSlewControl << SYSCFG_SLEW_CONTROL_SHIFT));
+    }
+
+    if (padXWakeUpEnable != SYSCFG_WAKEUP_ENABLE_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_WAKEUP_ENABLE_MASK)) | (padXWakeUpEnable << SYSCFG_WAKEUP_ENABLE_SHIFT));
+    }
+
+    WR_MEM_32(padX, padXConfData);
+}
+
+/**
+ * @DEFINITION   SYSCFG_WR_CFG_PAD_PULL_UD_ENABLE
+ *
+ * @BRIEF        enables or disables pull up or pull down
+ *
+ * @DESCRIPTION  Writes the PullUDEnable to the
+ *               selected pad configuration register
+ *
+ */
+SYSCFG_WR_CFG_PAD_PULL_UD_ENABLE(padX, padXPullUDEnable)
+{
+    uint32_t padXConfData;
+    padXConfData = RD_MEM_32(padX);
+    if (padXPullUDEnable != SYSCFG_PULLUD_ENABLE_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_PULLUD_ENABLE_MASK)) | (padXPullUDEnable << SYSCFG_PULLUD_ENABLE_SHIFT));
+    }
+    WR_MEM_32(padX, padXConfData);
+}
+
+/**
+ * @DEFINITION   SYSCFG_WR_CFG_PAD_SLEW_CONTROL
+ *
+ * @BRIEF        configures the slew control for slow or fast
+ *
+ * @DESCRIPTION  Writes the SlewControl to the
+ *               selected pad configuration register
+ *
+ */
+SYSCFG_WR_CFG_PAD_SLEW_CONTROL(padX, padXSlewControl)
+{
+    uint32_t padXConfData;
+    padXConfData = RD_MEM_32(padX);
+
+    if (padXSlewControl != SYSCFG_SLEW_CONTROL_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_SLEW_CONTROL_MASK)) | (padXSlewControl << SYSCFG_SLEW_CONTROL_SHIFT));
+    }
+    WR_MEM_32(padX, padXConfData);
+}
+/**
+ * @DEFINITION   SYSCFG_WR_CFG_PAD_PULL_TYPE_SELECT
+ *
+ * @BRIEF        sets pull type select
+ *
+ * @DESCRIPTION  Writes the PULLTypeSelect to the
+ *               selected pad configuration register
+ *
+ */
+SYSCFG_WR_CFG_PAD_PULL_TYPE_SELECT(padX, padXPullTypeSelect)
+{
+    uint32_t padXConfData;
+    padXConfData = RD_MEM_32(padX);
+    if (padXPullTypeSelect != SYSCFG_PULLTYPE_SELECT_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_PULLTYPE_SELECT_MASK)) | (padXPullTypeSelect << SYSCFG_PULLTYPE_SELECT_SHIFT));
+    }
+    WR_MEM_32(padX, padXConfData);
+}
+
+/**
+ * @DEFINITION   SYSCFG_WR_CFG_PAD_INPUT_ENABLE
+ *
+ * @BRIEF        enables or disables input buffer of IO cell
+ *
+ * @DESCRIPTION  Writes the InputEnable
+ *               to the selected pad configuration register
+ *
+ */
+SYSCFG_WR_CFG_PAD_INPUT_ENABLE(padX, padXInputEnable)
+{
+    uint32_t padXConfData;
+    padXConfData = RD_MEM_32(padX);
+    if (padXInputEnable != SYSCFG_INPUT_ENABLE_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_INPUT_ENABLE_MASK)) | (padXInputEnable << SYSCFG_INPUT_ENABLE_SHIFT));
+    }
+    WR_MEM_32(padX, padXConfData);
+}
+
+/**
+ * @DEFINITION   SYSCFG_WR_CFG_PAD_WAKE_UP_ENABLE
+ *
+ * @BRIEF        sets wakeup detection condition
+ *
+ * @DESCRIPTION  Writes the WakeUpEnable
+ *               to the selected pad configuration register
+ *
+ */
+SYSCFG_WR_CFG_PAD_WAKE_UP_ENABLE(padX, padXWakeUpEnable)
+{
+    uint32_t padXConfData;
+    padXConfData = RD_MEM_32(padX);
+    if (padXWakeUpEnable != SYSCFG_WAKEUP_ENABLE_NA)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_WAKEUP_ENABLE_MASK)) | (padXWakeUpEnable << SYSCFG_WAKEUP_ENABLE_SHIFT));
+    }
+    WR_MEM_32(padX, padXConfData);
+}
+
+/**
+ * @DEFINITION   SYSCFG_WR_CFG_PAD_MUX_MODE
+ *
+ * @BRIEF        Selects muxing mode
+ *
+ * @DESCRIPTION  Writes the MuxMode to the
+ *               selected pad configuration register
+ *
+ */
+SYSCFG_WR_CFG_PAD_MUX_MODE(padX, padXMuxMode)
+{
+    uint32_t padXConfData;
+    padXConfData = RD_MEM_32(padX);
+    if ((padXMuxMode) != SYSCFG_OFF)
+    {
+        padXConfData = ((padXConfData & ~(SYSCFG_MUX_MODE_MASK)) | (padXMuxMode << SYSCFG_MUX_MODE_SHIFT));
+    }
+    WR_MEM_32(padX, padXConfData);
+}
+
+
+menuitem "DM50x Pad Configurations"
+
+hotmenu DM50x_PAD_GmacSw_EVM_MDIO_Config()
+{
+    GEL_TextOut("\t--->>> DM50x Begin GMAC_SW MDIO Pad Configuration <<<---\n");
+
+    /* MDIO (2 pads) */
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_MDIO_MCLK,
+        SYSCFG_PAD_MDIO_MCLK_MDIO_MCLK,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLUP,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_MDIO_D,
+        SYSCFG_PAD_MDIO_D_MDIO_D,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLUP,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    GEL_TextOut("\t--->>> DM50x End GMAC_SW MDIO Pad Configuration <<<---\n");
+}
+
+hotmenu DM50x_PAD_GmacSw_RGMII0_Config()
+{
+    GEL_TextOut("\t--->>> DM50x Begin GMAC_SW RGMII0 Pad Configuration <<<---\n");
+
+    /* GMAC Port 0 Tx (6 pads) */
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_TXC,
+        SYSCFG_PAD_RGMII0_TXC_RGMII0_TXC,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_TXCTL,
+        SYSCFG_PAD_RGMII0_TXCTL_RGMII0_TXCTL,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_TXD3,
+        SYSCFG_PAD_RGMII0_TXD3_RGMII0_TXD3,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_TXD2,
+        SYSCFG_PAD_RGMII0_TXD2_RGMII0_TXD2,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_TXD1,
+        SYSCFG_PAD_RGMII0_TXD1_RGMII0_TXD1,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_TXD0,
+        SYSCFG_PAD_RGMII0_TXD0_RGMII0_TXD0,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    /* GMAC Port 0 Rx (6 pads) */
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_RXC,
+        SYSCFG_PAD_RGMII0_RXC_RGMII0_RXC,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_RXCTL,
+        SYSCFG_PAD_RGMII0_RXCTL_RGMII0_RXCTL,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_RXD3,
+        SYSCFG_PAD_RGMII0_RXD3_RGMII0_RXD3,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_RXD2,
+        SYSCFG_PAD_RGMII0_RXD2_RGMII0_RXD2,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_RXD1,
+        SYSCFG_PAD_RGMII0_RXD1_RGMII0_RXD1,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_RGMII0_RXD0,
+        SYSCFG_PAD_RGMII0_RXD0_RGMII0_RXD0,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    GEL_TextOut("\t--->>> DM50x End GMAC_SW RGMII0 Pad Configuration <<<---\n");
+}
+
+hotmenu DM50x_PAD_GmacSw_RGMII1_Config()
+{
+    GEL_TextOut("\t--->>> DM50x Begin GMAC_SW RGMII1 Pad Configuration <<<---\n");
+
+    /* GMAC Port 1 Tx (6 pads) */
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_CLK,
+        SYSCFG_PAD_GPMC_CLK_RGMII1_TXC,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_BEN0,
+        SYSCFG_PAD_GPMC_BEN0_RGMII1_TXCTL,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_BEN1,
+        SYSCFG_PAD_GPMC_BEN1_RGMII1_TXD3,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_ADVN_ALE,
+        SYSCFG_PAD_GPMC_ADVN_ALE_RGMII1_TXD2,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_OEN_REN,
+        SYSCFG_PAD_GPMC_OEN_REN_RGMII1_TXD1,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_WEN,
+        SYSCFG_PAD_GPMC_WEN_RGMII1_TXD0,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_DISABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    /* GMAC Port 1 Rx (6 pads) */
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_AD13,
+        SYSCFG_PAD_GPMC_AD13_RGMII1_RXC,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_CS0,
+        SYSCFG_PAD_GPMC_CS0_RGMII1_RXCTL,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_WAIT0,
+        SYSCFG_PAD_GPMC_WAIT0_RGMII1_RXD3,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_AD0,
+        SYSCFG_PAD_GPMC_AD0_RGMII1_RXD2,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_AD1,
+        SYSCFG_PAD_GPMC_AD1_RGMII1_RXD1,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    SYSCFG_WR_CFG_PAD (SYSCFG_PAD_GPMC_AD2,
+        SYSCFG_PAD_GPMC_AD2_RGMII1_RXD0,
+        SYSCFG_PULLUD_ENABLE_ENABLE,
+        SYSCFG_PULLTYPE_SELECT_PULLDOWN,
+        SYSCFG_INPUT_ENABLE_ENABLE,
+        SYSCFG_SLEW_CONTROL_NA,
+        SYSCFG_WAKEUP_ENABLE_DISABLE);
+
+    GEL_TextOut("\t--->>> DM50x End GMAC_SW RGMII1 Pad Configuration <<<---\n");
+}
+
+hotmenu DM50x_PAD_EVM_RGMII_Config()
+{
+    GEL_TextOut("--->>> DM50x Begin All Pad Configuration for RGMII usage on EVM Platform <<<---\n");
+    DM50x_PAD_GmacSw_EVM_MDIO_Config();
+    DM50x_PAD_GmacSw_RGMII0_Config();
+    /* Below is commented since the second MAC port is not connected on the EVM */
+    /* DM50x_PAD_GmacSw_RGMII1_Config(); */
+    GEL_TextOut("--->>> DM50x End All Pad Configuration for RGMII usage on EVM Platform <<<---\n");
+}
+
+hotmenu DM50x_PAD_VisionAll_Config()
+{
+    GEL_TextOut("--->>> DM50x Begin All Pad Configuration for Vision Platform <<<---\n");
+    DM50x_PAD_EVM_RGMII_Config();
+    GEL_TextOut("--->>> DM50x End All Pad Configuration for Vision Platform <<<---\n");
+}
+
+

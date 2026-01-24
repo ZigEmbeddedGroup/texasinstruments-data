@@ -1,0 +1,401 @@
+/**
+ * \file  J7AEN_PLL_HSDIV_Disable.gel
+ *
+ * \brief GEL File to configure the clocking infrastructure on AM64
+ */
+
+/* Copyright (c) 2022, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*****************************************************************************/
+
+/******* PLL HSDIV disable functions. *****************/
+
+menuitem "PLL Configuration/Disable HSDIV Outputs";
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/Main_PLL0";
+
+hotmenu Main_PLL0_HSDIV1_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (1*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV1 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV2_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (2*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV2 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV3_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (3*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV3 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV4_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (4*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV4 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV5_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (5*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV5 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV6_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (6*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV6 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV7_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (7*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV7 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV8_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (8*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV8 Disabled.\n");
+
+}
+
+hotmenu Main_PLL0_HSDIV9_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (MAIN_PLL_INDEX * 0x1000) + (9*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL0_HSDIV9 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/PER0_PLL";
+
+hotmenu Main_PLL1_HSDIV0_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER0_PLL_INDEX * 0x1000) + (0*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL1_HSDIV0 Disabled.\n");
+
+}
+
+hotmenu Main_PLL1_HSDIV1_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER0_PLL_INDEX * 0x1000) + (1*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL1_HSDIV1 Disabled.\n");
+
+}
+
+hotmenu Main_PLL1_HSDIV2_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER0_PLL_INDEX * 0x1000) + (2*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL1_HSDIV2 Disabled.\n");
+
+}
+
+hotmenu Main_PLL1_HSDIV3_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER0_PLL_INDEX * 0x1000) + (3*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL1_HSDIV3 Disabled.\n");
+
+}
+
+hotmenu Main_PLL1_HSDIV4_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER0_PLL_INDEX * 0x1000) + (4*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL1_HSDIV4 Disabled.\n");
+
+}
+
+hotmenu Main_PLL1_HSDIV5_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER0_PLL_INDEX * 0x1000) + (5*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL1_HSDIV5 Disabled.\n");
+
+}
+
+hotmenu Main_PLL1_HSDIV6_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER0_PLL_INDEX * 0x1000) + (6*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL1_HSDIV6 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/PER1_PLL";
+
+hotmenu Main_PLL2_HSDIV1_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (1*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV1 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV2_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (2*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV2 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV3_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (3*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV3 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV4_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (4*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV4 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV5_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (5*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV5 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV6_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (6*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV6 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV7_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (7*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV7 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV8_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (8*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV8 Disabled.\n");
+
+}
+
+hotmenu Main_PLL2_HSDIV9_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (PER1_PLL_INDEX * 0x1000) + (9*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL2_HSDIV9 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/GPU_PLL";
+
+hotmenu Main_PLL6_HSDIV0_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (GPU_PLL_INDEX * 0x1000) + (0*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL6_HSDIV0 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/SMS_PLL";
+
+hotmenu Main_PLL15_HSDIV0_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (SMS_PLL_INDEX * 0x1000) + (0*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL15_HSDIV0 Disabled.\n");
+
+}
+
+hotmenu Main_PLL15_HSDIV1_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (SMS_PLL_INDEX * 0x1000) + (1*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL15_HSDIV1 Disabled.\n");
+
+}
+
+hotmenu Main_PLL15_HSDIV2_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (SMS_PLL_INDEX * 0x1000) + (2*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL15_HSDIV2 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/DSS_PLL0";
+
+hotmenu Main_PLL16_HSDIV0_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (DSS_PLL0_INDEX * 0x1000) + (0*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL16_HSDIV1 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/DSS_PLL1";
+
+hotmenu Main_PLL17_HSDIV0_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (DSS_PLL1_INDEX * 0x1000) + (0*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL17_HSDIV0 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/DSS_PLL2";
+
+hotmenu Main_PLL18_HSDIV0_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_PLL0_CFG_BASE + address_offset + (DSS_PLL2_INDEX * 0x1000) + (0*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("Main_PLL18_HSDIV0 Disabled.\n");
+
+}
+
+menuitem "PLL Configuration/Disable HSDIV Outputs/MCU_PLL0";
+
+hotmenu MCU_PLL0_HSDIV1_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_MCU_PLL0_CFG_BASE + address_offset + (MCU_PLL_INDEX * 0x1000) + (1*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("MCU_PLL0_HSDIV1 Disabled.\n");
+
+}
+
+hotmenu MCU_PLL0_HSDIV2_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_MCU_PLL0_CFG_BASE + address_offset + (MCU_PLL_INDEX * 0x1000) + (2*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("MCU_PLL0_HSDIV2 Disabled.\n");
+
+}
+
+hotmenu MCU_PLL0_HSDIV3_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_MCU_PLL0_CFG_BASE + address_offset + (MCU_PLL_INDEX * 0x1000) + (3*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("MCU_PLL0_HSDIV3 Disabled.\n");
+
+}
+
+hotmenu MCU_PLL0_HSDIV4_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_MCU_PLL0_CFG_BASE + address_offset + (MCU_PLL_INDEX * 0x1000) + (4*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("MCU_PLL0_HSDIV4 Disabled.\n");
+
+}
+
+hotmenu MCU_PLL0_HSDIV5_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_MCU_PLL0_CFG_BASE + address_offset + (MCU_PLL_INDEX * 0x1000) + (5*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("MCU_PLL0_HSDIV5 Disabled.\n");
+
+}
+
+hotmenu MCU_PLL0_HSDIV6_Disable(){
+
+    address_offset = 0x80000000;
+
+    Write_MMR_Field((CSL_MCU_PLL0_CFG_BASE + address_offset + (MCU_PLL_INDEX * 0x1000) + (6*0x4 + 0x80)), 0, 1, 15);
+    GEL_TextOut("MCU_PLL0_HSDIV6 Disabled.\n");
+
+}

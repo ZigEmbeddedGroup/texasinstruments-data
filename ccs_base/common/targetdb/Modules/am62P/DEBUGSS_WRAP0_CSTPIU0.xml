@@ -1,0 +1,166 @@
+<module name="DEBUGSS_WRAP0_CSTPIU0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CSTPIU_CFG_0_SUPPORTSIZE" acronym="CSTPIU_CFG_0_SUPPORTSIZE" offset="0x0" width="32" description="This register indicates how many trace pins are available for export.  One pin per bit, right justified">
+		<bitfield id="SUPPORTSIZEREG" width="32" begin="31" end="0" resetval="0x0" description="This register indicates how many trace pins are available for export One pin per bit, right justified" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_CURPORTSIZE" acronym="CSTPIU_CFG_0_CURPORTSIZE" offset="0x4" width="32" description="The Current Port Size Register has the same format as the Supported Port Sizes register but only one bit is set, and all others must be zero">
+		<bitfield id="CURRENTPORTSIZE" width="32" begin="31" end="0" resetval="0x0" description="The Current Port Size Register has the same format as the Supported Port Sizes register but only one bit is set, and all others must be zero" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_TRIGMODEREG" acronym="CSTPIU_CFG_0_TRIGMODEREG" offset="0x100" width="32" description="This register indicates the implemented Trigger Counter multipliers and other supported features of the trigger system">
+		<bitfield id="RESERVED" width="14" begin="31" end="18" resetval="0x0" description="Reserved, returns 0" range="31 - 18" rwaccess="R"/> 
+		<bitfield id="TRGRUN" width="1" begin="17" end="17" resetval="0x0" description="Trigger Counter running A trigger has occurred but the counter is not at zero" range="17" rwaccess="R"/> 
+		<bitfield id="TRIGGERED" width="1" begin="16" end="16" resetval="0x0" description="A trigger has occurred and the counter has reached zero" range="16" rwaccess="R"/> 
+		<bitfield id="RESERVED2" width="7" begin="15" end="9" resetval="0x0" description="Reserved, returns 0" range="15 - 9" rwaccess="R"/> 
+		<bitfield id="TCOUNT8" width="1" begin="8" end="8" resetval="0x0" description="An 8-bit wide counter register implemented" range="8" rwaccess="R"/> 
+		<bitfield id="RESERVED1" width="3" begin="7" end="5" resetval="0x0" description="Reserved, returns 0" range="7 - 5" rwaccess="R"/> 
+		<bitfield id="MUILTPLIERS" width="5" begin="4" end="0" resetval="0x0" description="Multiply the Trigger Counter by 2, 4, 16, 256, 64K supported Each bit is a mpy value" range="4 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_TRIGCTRREG" acronym="CSTPIU_CFG_0_TRIGCTRREG" offset="0x104" width="32" description="">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="TRIGCOUNT" width="8" begin="7" end="0" resetval="0x0" description="8-bit counter value for the number of words to be output from the formatter before a trigger is inserted" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_TRIGMPYREG" acronym="CSTPIU_CFG_0_TRIGMPYREG" offset="0x108" width="32" description="">
+		<bitfield id="RESERVED" width="27" begin="31" end="5" resetval="0x0" description="Reserved, returns 0" range="31 - 5" rwaccess="R"/> 
+		<bitfield id="MULTIPLIER" width="5" begin="4" end="0" resetval="0x0" description="Trigger multiply value bit0=x2, bit1=x4, bit2=x16, bit3=x256, bit4=x64K" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_SUPTESTPAT" acronym="CSTPIU_CFG_0_SUPTESTPAT" offset="0x200" width="32" description="This register displays the supported patterns and modes for calibration">
+		<bitfield id="RESERVED" width="14" begin="31" end="18" resetval="0x0" description="Reserved, returns 0" range="31 - 18" rwaccess="R"/> 
+		<bitfield id="MODE" width="2" begin="17" end="16" resetval="0x0" description="bit 16 is Timed Mode, bit 17 is continuous mode" range="17 - 16" rwaccess="R"/> 
+		<bitfield id="RESERVED1" width="12" begin="15" end="4" resetval="0x0" description="Reserved, returns 0" range="15 - 4" rwaccess="R"/> 
+		<bitfield id="PATTERN" width="4" begin="3" end="0" resetval="0x0" description="bit0=Walking 1 pattern, bit1=walking 0, bit2=AA/55 pattern, bit3=FF/00 pattern" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_CURTESTPAT" acronym="CSTPIU_CFG_0_CURTESTPAT" offset="0x204" width="32" description="This register displays the supported patterns and modes for calibration">
+		<bitfield id="RESERVED" width="14" begin="31" end="18" resetval="0x0" description="Reserved, returns 0" range="31 - 18" rwaccess="R"/> 
+		<bitfield id="MODE" width="2" begin="17" end="16" resetval="0x0" description="Select the Pattern Timer Mode, see Supported Patterns reg" range="17 - 16" rwaccess="R/W"/> 
+		<bitfield id="RESERVED1" width="12" begin="15" end="4" resetval="0x0" description="Reserved, returns 0" range="15 - 4" rwaccess="R"/> 
+		<bitfield id="PATTERN" width="3" begin="2" end="0" resetval="0x0" description="Select the pattern to run, set Supported Patterns Reg" range="2 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_TESTPATCNT" acronym="CSTPIU_CFG_0_TESTPATCNT" offset="0x208" width="32" description="This register displays the supported patterns and modes for calibration">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PATTERNCOUNT" width="8" begin="7" end="0" resetval="0x0" description="Number of clocks a pattern should run before going to the next pattern" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_FORMFLUSHSTAT" acronym="CSTPIU_CFG_0_FORMFLUSHSTAT" offset="0x300" width="32" description="This register displays the supported patterns and modes for calibration">
+		<bitfield id="RESERVED" width="29" begin="31" end="3" resetval="0x0" description="Reserved, returns 0" range="31 - 3" rwaccess="R"/> 
+		<bitfield id="TCPRESENT" width="1" begin="2" end="2" resetval="0x0" description="If this bit is set then TRACECTL is present If no TRACECTL pin is present, then the data formatter must be used and only in continuous mode" range="2" rwaccess="R"/> 
+		<bitfield id="FTSTOPPED" width="1" begin="1" end="1" resetval="0x0" description="Formatter stopped The formatter has received a stop request signal and all trace data and post-amble has been output" range="1" rwaccess="R"/> 
+		<bitfield id="FLINPROG" width="1" begin="0" end="0" resetval="0x0" description="Flush In Progress This is an indication of the current state of AFVALIDS" range="0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_FORMFLUSHCTL" acronym="CSTPIU_CFG_0_FORMFLUSHCTL" offset="0x304" width="32" description="This register controls the generation of stop, trigger, and flush events.">
+		<bitfield id="RESERVED" width="18" begin="31" end="14" resetval="0x0" description="Reserved, returns 0" range="31 - 14" rwaccess="R"/> 
+		<bitfield id="STOPTRIG" width="1" begin="13" end="13" resetval="0x0" description="Stop the formatter after a Trigger Event is observed" range="13" rwaccess="R/W"/> 
+		<bitfield id="STOPFL" width="1" begin="12" end="12" resetval="0x0" description="Stop the formatter after a flush completes [return of AFREADYS]" range="12" rwaccess="R/W"/> 
+		<bitfield id="RESERVED3" width="1" begin="11" end="11" resetval="0x0" description="Reserved, returns 0" range="11" rwaccess="R"/> 
+		<bitfield id="TRIGFL" width="1" begin="10" end="10" resetval="0x0" description="Indicates a trigger on Flush completion on AFREADYS being returned" range="10" rwaccess="R/W"/> 
+		<bitfield id="TRIGEVT" width="1" begin="9" end="9" resetval="0x0" description="Indicate a trigger on a Trigger Event" range="9" rwaccess="R/W"/> 
+		<bitfield id="TRIGIN" width="1" begin="8" end="8" resetval="0x0" description="Indicate a trigger on TRIGIN being asserted" range="8" rwaccess="R/W"/> 
+		<bitfield id="RESERVED2" width="1" begin="7" end="7" resetval="0x0" description="Reserved, returns 0" range="7" rwaccess="R"/> 
+		<bitfield id="FONMAN" width="1" begin="6" end="6" resetval="0x0" description="Manually generate a flush of the system It is cleared when this flush has been serviced" range="6" rwaccess="R/W"/> 
+		<bitfield id="FONTRIG" width="1" begin="5" end="5" resetval="0x0" description="Generate flush using Trigger event" range="5" rwaccess="R/W"/> 
+		<bitfield id="FONFIIN" width="1" begin="4" end="4" resetval="0x0" description="Generate flush using the FLUSHIN interface" range="4" rwaccess="R/W"/> 
+		<bitfield id="RESERVED1" width="2" begin="3" end="2" resetval="0x0" description="Reserved, returns 0" range="3 - 2" rwaccess="R"/> 
+		<bitfield id="ENFCONT" width="1" begin="1" end="1" resetval="0x0" description="Continuous Formatting Embed in trigger packets and indicate null cycles using Sync packets" range="1" rwaccess="R/W"/> 
+		<bitfield id="ENFTC" width="1" begin="0" end="0" resetval="0x0" description="Enable Formatting Do not embed Triggers into the formatted stream" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_FORMSYNCCTR" acronym="CSTPIU_CFG_0_FORMSYNCCTR" offset="0x308" width="32" description="This counter is the number of formatter frames since the last synchronization packet of 128 bits, and is a 12-bit counter with a maximum count value of 4096">
+		<bitfield id="RESERVED" width="20" begin="31" end="12" resetval="0x0" description="Reserved, returns 0" range="31 - 12" rwaccess="R"/> 
+		<bitfield id="CYCCOUNT" width="12" begin="11" end="0" resetval="0x0" description="12-bit counter value to indicate the number of complete frames between full sync packets" range="11 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_EXTCTLIN" acronym="CSTPIU_CFG_0_EXTCTLIN" offset="0x400" width="32" description="This register inputs data from an external port (if used)">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="reserved, returns 0" range="31 - 8" rwaccess="R/W"/> 
+		<bitfield id="EXCTL_PORT_INPUT_REGISTER" width="8" begin="7" end="0" resetval="0x0" description="" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_EXTCTLOUT" acronym="CSTPIU_CFG_0_EXTCTLOUT" offset="0x404" width="32" description="This register is output to an external port (if used)">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="returns 0" range="31 - 8" rwaccess="R/W"/> 
+		<bitfield id="EXCTL_PORT_OUTPUT_REGISTER" width="8" begin="7" end="0" resetval="0x0" description="" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_ITTRFLINACK" acronym="CSTPIU_CFG_0_ITTRFLINACK" offset="0xEE4" width="32" description="Integration Test Trigger In and Flush In Acknowledge.">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Reserved, returns 0" range="31 - 2" rwaccess="R"/> 
+		<bitfield id="ATID" width="2" begin="1" end="0" resetval="0x0" description="Writing this register sets the value of ATIDM Reading it returns the value of ATIDS" range="1 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_ITTRFLIN" acronym="CSTPIU_CFG_0_ITTRFLIN" offset="0xEE8" width="32" description="Integration Test Trigger In and Flush In Register.">
+		<bitfield id="INTEGRATIONTRFLIN" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_ITATBDATA0" acronym="CSTPIU_CFG_0_ITATBDATA0" offset="0xEEC" width="32" description="Integration Test ATB Data Register 0">
+		<bitfield id="INTEGRATION_TEST_ATB_REG" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_ITATBCTR2" acronym="CSTPIU_CFG_0_ITATBCTR2" offset="0xEF0" width="32" description="Integration Test ATB Control Register 2.">
+		<bitfield id="INTEGRATION_TEST_ATB_CTL_REG2" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_ITATBCTR1" acronym="CSTPIU_CFG_0_ITATBCTR1" offset="0xEF4" width="32" description="Integration Test ATB Control Register 1.">
+		<bitfield id="INTEGRATION_TEST_ATB_CTL_REG1" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_ITATBCTR0" acronym="CSTPIU_CFG_0_ITATBCTR0" offset="0xEF8" width="32" description="Integration Test ATB Control Register 0">
+		<bitfield id="INTEGRATION_TEST_ATB_CTL_REG0" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_INTCTRL" acronym="CSTPIU_CFG_0_INTCTRL" offset="0xF00" width="32" description="Integration Mode Register">
+		<bitfield id="RESERVED" width="31" begin="31" end="1" resetval="0x0" description="Reserved, returns 0" range="31 - 1" rwaccess="R"/> 
+		<bitfield id="INTEGMODEN" width="1" begin="0" end="0" resetval="0x0" description="Integration Mode Enable" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_CTSET" acronym="CSTPIU_CFG_0_CTSET" offset="0xFA0" width="32" description="Claim Tag Set Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CLAIM_TAG_SET" width="4" begin="3" end="0" resetval="0x0" description="Claim Tag Set Register" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_CTCLR" acronym="CSTPIU_CFG_0_CTCLR" offset="0xFA4" width="32" description="Claim Tag Clear Register">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="CLAIM_TAG_CLEAR" width="4" begin="3" end="0" resetval="0x0" description="Claim Tag Clear Register" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_LAREG" acronym="CSTPIU_CFG_0_LAREG" offset="0xFB0" width="32" description="Software must write 0xCSACCE55 to this register in order for application to gain access to the other registers. If paddrdbg31 is high, this is ignored.">
+		<bitfield id="LOCK_ACCESS_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CSTPIU_CFG_0_LSREG" acronym="CSTPIU_CFG_0_LSREG" offset="0xFB4" width="32" description="The CTI implements two memory maps controlled through PADDRDBG31. When PADDRDBG31 is HIGH, the Lock Status Register reads as 0x0 indicating that no lock exists. When PADDRDBG31 is LOW, the Lock Status Register reads as 0x3 from reset. This indicates a 32-bit lock access mechanism is present and is locked">
+		<bitfield id="RESERVED" width="30" begin="31" end="2" resetval="0x0" description="Reserved, returns 0" range="31 - 2" rwaccess="R"/> 
+		<bitfield id="LOCK_STATUS" width="2" begin="1" end="0" resetval="0x0" description="The CTI implements two memory maps controlled through PADDRDBG31 When PADDRDBG31 is HIGH, the Lock Status Register reads as 0x0 indicating that no lock exists When PADDRDBG31 is LOW, the Lock Status Register reads as 0x3 from reset This indicates a 32-bit lock access mechanism is present and is locked Application must write to the LAREG to gain access" range="1 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_AUTHST" acronym="CSTPIU_CFG_0_AUTHST" offset="0xFB8" width="32" description="Reports the required security level. ">
+		<bitfield id="RESERVED" width="28" begin="31" end="4" resetval="0x0" description="Reserved, returns 0" range="31 - 4" rwaccess="R"/> 
+		<bitfield id="AUTHENTICATION_STATUS" width="4" begin="3" end="0" resetval="0x0" description="Reports the required security level bit 0 indicates Invasive Debug Controlled and bit 1 is the current value Bit 2 indicates non-invasive debug controlled and bit 3 is the current value Returns 0x5" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_DEVID" acronym="CSTPIU_CFG_0_DEVID" offset="0xFC8" width="32" description="This shows the characteristics of the TPIU">
+		<bitfield id="RESERVED" width="20" begin="31" end="12" resetval="0x0" description="Reserved, returns 0" range="31 - 12" rwaccess="R"/> 
+		<bitfield id="SWO_UART" width="1" begin="11" end="11" resetval="0x0" description="Indicates Serial Wire Output [UART/NRZ] is not supported Defaul = 0" range="11" rwaccess="R"/> 
+		<bitfield id="SWO_MANCHESTER" width="1" begin="10" end="10" resetval="0x0" description="Indicates Serial Wire Output [Manchester] is not supported Default = 0" range="10" rwaccess="R"/> 
+		<bitfield id="TRACE_CLOCK_SUP" width="1" begin="9" end="9" resetval="0x0" description="Indicates trace clock + data is supported" range="9" rwaccess="R"/> 
+		<bitfield id="FIFO_SIZE" width="3" begin="8" end="6" resetval="0x0" description="FIFO size in powers of 2 A value of 2 gives a FIFO size of 4 entries, 16 bytes Default is3'b010" range="8 - 6" rwaccess="R"/> 
+		<bitfield id="CLOCK_RELATIONSHIP" width="1" begin="5" end="5" resetval="0x0" description="Indicates the relationship between ATCLK and TRACECLKIN 0x1 indicates asynchronous" range="5" rwaccess="R"/> 
+		<bitfield id="HIDDEN_MUXING" width="5" begin="4" end="0" resetval="0x0" description="When nonzero this value indicates the type/number of ATB multiplexing present on the input to the ATB Currently only 0x00 is supported, that is, no multiplexing present" range="4 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_DEVTYPEID" acronym="CSTPIU_CFG_0_DEVTYPEID" offset="0xFCC" width="32" description="Device Type Identifier Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserveed, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="DEV_TYPE_ID" width="8" begin="7" end="0" resetval="0x0" description="Device Type Identifier" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_PERID4" acronym="CSTPIU_CFG_0_PERID4" offset="0xFD0" width="32" description="Peripheral ID4 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID4" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 4, returns 0x4" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_PERID0" acronym="CSTPIU_CFG_0_PERID0" offset="0xFE0" width="32" description="Peripheral ID0 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID0" width="8" begin="7" end="0" resetval="0x0" description="Perpiheral ID 0, returns 0x06" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_PERID1" acronym="CSTPIU_CFG_0_PERID1" offset="0xFE4" width="32" description="Peripheral ID1 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID1" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 1, returns 0xB9" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_PERID2" acronym="CSTPIU_CFG_0_PERID2" offset="0xFE8" width="32" description="Peripheral ID2 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERIPH_ID2" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID 2, returns 9x2B" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_PERID3" acronym="CSTPIU_CFG_0_PERID3" offset="0xFEC" width="32" description="Peripheral ID3 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Reserved, returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="PERPIH_ID3" width="8" begin="7" end="0" resetval="0x0" description="Peripheral ID3 register, returns 0x00" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_COMPID0" acronym="CSTPIU_CFG_0_COMPID0" offset="0xFF0" width="32" description="Component ID0 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Read returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID0" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_COMPID1" acronym="CSTPIU_CFG_0_COMPID1" offset="0xFF4" width="32" description="Component ID1 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Read returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID1" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_COMPID2" acronym="CSTPIU_CFG_0_COMPID2" offset="0xFF8" width="32" description="Component ID2 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="Returns 0" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID2" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CSTPIU_CFG_0_COMPID3" acronym="CSTPIU_CFG_0_COMPID3" offset="0xFFC" width="32" description="Component ID3 Register">
+		<bitfield id="RESERVED" width="24" begin="31" end="8" resetval="0x0" description="returns 0 when read" range="31 - 8" rwaccess="R"/> 
+		<bitfield id="COMP_ID3" width="8" begin="7" end="0" resetval="0x0" description="A component identification register, that indicates that the identification registers are present This register also indicates the component class" range="7 - 0" rwaccess="R"/>
+	</register>
+</module>

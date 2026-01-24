@@ -1,0 +1,15 @@
+StartUp()
+{
+    string path;
+    /* Load the cc35xx_utils.gel file */
+    GEL_LoadGel("$(GEL_file_dir)/cc35xx_utils.gel");
+
+    GEL_TextOut("DAP on startup CC35X1E\n");
+    // GEL_HandleTargetError(".*-615.*", "", 0, "", "HandleReset()");
+}
+
+OnPreTargetConnect()
+{
+   RunToolbox();
+}
+

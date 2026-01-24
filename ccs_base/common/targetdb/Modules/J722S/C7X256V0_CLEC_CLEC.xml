@@ -1,0 +1,39 @@
+<module name="C7X256V0_CLEC_CLEC" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="C7XV_CLEC_CFG_PID" acronym="C7XV_CLEC_CFG_PID" offset="0x0" width="32" description="Revision parameters">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Scheme" range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Scheme" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="MODULE_ID" width="12" begin="27" end="16" resetval="0x16" description="Module ID" range="27 - 16" rwaccess="R"/> 
+		<bitfield id="REVRTL" width="5" begin="15" end="11" resetval="0x0" description="RTL version" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="REVMAX" width="3" begin="10" end="8" resetval="0x1" description="Major version" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom version" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="REVMIN" width="6" begin="5" end="0" resetval="0x0" description="Minor version" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="C7XV_CLEC_CFG_GELRS" acronym="C7XV_CLEC_CFG_GELRS" offset="0xC000" width="32" description="Event Lock reg for secure claim">
+		<bitfield id="LOCK" width="1" begin="0" end="0" resetval="0x0" description="GELRS.LOCK - event lock register for secure claim" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_CLEC_CFG_GELRNS" acronym="C7XV_CLEC_CFG_GELRNS" offset="0xD000" width="32" description="Event Lock reg for non-secure claim">
+		<bitfield id="LOCK" width="1" begin="0" end="0" resetval="0x0" description="GELRNS.LOCK - event lock register for non-secure claim" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_CLEC_CFG_MRR" acronym="C7XV_CLEC_CFG_MRR" offset="0x80000" width="32" description="Map and routing register ">
+		<bitfield id="S" width="1" begin="31" end="31" resetval="0x0" description="MRR.S - reserved, not used for AM62A since CPU doesn't support secure mode" range="31" rwaccess="R/W"/> 
+		<bitfield id="ESE" width="1" begin="30" end="30" resetval="0x0" description="MRR.ESE - Event-Send enable. Controls whether CLEC sends this event when ESR is written or Event occurred on interrupt line" range="30" rwaccess="R/W"/> 
+		<bitfield id="EVTPF" width="1" begin="25" end="25" resetval="0x0" description="MRR.EPF - same value as EFR, read only pending status of all events regardless of they are enabled or disabled, for pulse events this flag is cleared as soon as event is sent, for level events this flag is cleared when input event is deasserted, writing 1 to ECR_n register also clears this bit in case of pending pulse event" range="25" rwaccess="R"/> 
+		<bitfield id="IS_LVL" width="1" begin="24" end="24" resetval="0x1" description="MRR.IS_LVL - Indicate that input event is level or pulse, event handling is different based on whether event is level or pulse" range="24" rwaccess="R/W"/> 
+		<bitfield id="RTMAP" width="6" begin="21" end="16" resetval="0x1" description="MRR.RTMAP - If Bit [16] = 1  Send to None, If Bit [17] = 1 and bit [16] = 0 Send to System, If [16] = 0 and [17] = 0 send to [21:18] Corepac encoded value - value 1 and 0xF are valid since there is only one CPU" range="21 - 16" rwaccess="R/W"/> 
+		<bitfield id="EXT_EVTNUM" width="8" begin="15" end="8" resetval="0x0" description="MRR.EXT_EVTNUM - encoded external event number, event 0- 63 SOC events, 64-95 DRU events, event 128 ARM event others are reserved for AM62A " range="15 - 8" rwaccess="R/W"/> 
+		<bitfield id="C7X_EVTNUM" width="6" begin="5" end="0" resetval="0x0" description="MRR.C7x_EVTNUM - C7x event number to send when this event is triggered" range="5 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="C7XV_CLEC_CFG_ESR" acronym="C7XV_CLEC_CFG_ESR" offset="0x80004" width="32" description="Event send reg">
+		<bitfield id="ESR_N" width="32" begin="31" end="0" resetval="0x0" description="ESR.ESR_n sends event number n if it is enabled, address offset 0x010000 * n + 0x03000" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="C7XV_CLEC_CFG_ECR" acronym="C7XV_CLEC_CFG_ECR" offset="0x80008" width="32" description="Event clear reg">
+		<bitfield id="ECR_PFLAG" width="1" begin="1" end="1" resetval="0x0" description="ECR.EDR_Clear - clears EDR flag bit when 2 is written" range="1" rwaccess="W"/> 
+		<bitfield id="ECR_FLAG" width="1" begin="0" end="0" resetval="0x0" description="ECR.EFR_Clear - clears EFR flag bit when 1 is written, also clears corresponding SOC level event if sent to system on SOCinterrupt port" range="0" rwaccess="W"/>
+	</register>
+	<register id="C7XV_CLEC_CFG_EFR" acronym="C7XV_CLEC_CFG_EFR" offset="0xA000" width="32" description="CLEC event flags">
+		<bitfield id="EVNTFR" width="32" begin="31" end="0" resetval="0x0" description="event flag register, read only pending status of all events regardless of they are enabled or disabled, for pulse events this flag is cleared as soon as event is sent, for level events this flag is cleared when input event is deasserted, writing 1 to ECR_n register also clears this bit in case of pending pulse event, description in spec section 4.2.2" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="C7XV_CLEC_CFG_EDR" acronym="C7XV_CLEC_CFG_EDR" offset="0xB000" width="32" description="CLEC dropped event flags">
+		<bitfield id="EVNTDR" width="32" begin="31" end="0" resetval="0x0" description="dropped event flags, for input events which are pulse if events are sent back back and second event gets dropped since first event still in the pending event queue, this bit gets set indicating that an event has been dropped, it also generates dropped event interrupt, description in spec section 4.2.3" range="31 - 0" rwaccess="R"/>
+	</register>
+</module>

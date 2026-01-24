@@ -1,0 +1,98 @@
+<module id="pll_sharing_secure" XML_version="1.0" description="">
+	<register acronym="PLLSH_WCS_PLL_M" id="pllsh_wcs_pll_m" width="32" description="WCS PLL M  divider configuration for WCS PLL - primary reference" offset="0x0">
+		<bitfield width="9" end="0" begin="8" rwaccess="RW" description="In all modes value should be 160" id="VAL" resetval="0xa0" />
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved" resetval="0xa0" />
+	</register>
+	<register acronym="PLLSH_WCS_PLL_N" id="pllsh_wcs_pll_n" width="32" description="WCS PLL N  pre divider configuration for WCS PLL - primary reference" offset="0x4">
+		<bitfield width="7" end="0" begin="6" rwaccess="RW" description="10MHz - 5 26MHz - 13 40MHz - 20 52MHz - 26" id="VAL" resetval="0x14" />
+		<bitfield width="24" end="8" begin="31" rwaccess="RO" id="Reserved" resetval="0x14" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="N SELECTOR  '1' - use MMR N value '0' - use HW auto detection (default)" id="NSEL" resetval="0x14" />
+	</register>
+	<register acronym="PLLSH_WCS_PLL_Q_FACTOR_CFG" id="pllsh_wcs_pll_q_factor_cfg" width="32" description="WCS Q FACTOR CONFIG  swallowing logic configuration for WCS PLL for primary reference clock input - 16 LSB : 16.2MHz - 801 : 16.368MHz - 3751 : 16.8MHz - disabled : 19.2MHz - disabled : 26MHz - disabled : 32.736MHz - 3751 : 33.6MHz - disabled : 38.4MHz - disabled : 52MHz - disabled" offset="0x8">
+		<bitfield width="24" end="0" begin="23" rwaccess="RW" description="SWALLOWING  swallowing logic configuration  Q factor" id="SWAL" resetval="0x0" />
+		<bitfield width="8" end="24" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="PLLSH_WCS_PLL_P_FACTOR_CFG" id="pllsh_wcs_pll_p_factor_cfg" width="32" description="WCS P FACTOR CONFIG  swallowing logic configuration for WCS PLL for primary reference clock input - 16 LSB : P factor 16 LSB : 16.2MHz - 4 : 16.368MHz - 4 : 16.8MHz - disabled : 19.2MHz - disabled : 26MHz - disabled : 32.736MHz - 4 : 33.6MHz - disabled : 38.4MHz - disabled : 52MHz - disabled" offset="0xc">
+		<bitfield width="20" end="0" begin="19" rwaccess="RW" description="SWALLOWING   swallowing logic configuration P factor" id="SWAL" resetval="0x0" />
+		<bitfield width="12" end="20" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="PLLSH_WCS_PLL_SWALLOW_EN" id="pllsh_wcs_pll_swallow_en" width="32" description="WCS PLL swallowing logic gen cfg" offset="0x10">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="enable the swallowing logic - disable when not using the bypass option" id="EN" resetval="0x12" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="bypass the swallowing logic" id="BYP" resetval="0x12" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="enable prbs for adding randomization (jittering)- disable by default" id="PRBSEN" resetval="0x12" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="PRBS GAIN  1: prbs addition is 5 bits to the right of MSB  0: prbs addition is 3 bits to the right of MSB" id="PRBSGN" resetval="0x12" />
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="CONSECUTIVE SWALLOWING  valid values (1-3) - number of consecutive clock swallows  once accumulator reached Q value for WCS PLL" id="CONSWAL" resetval="0x12" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x12" />
+	</register>
+	<register acronym="PLLSH_WCS_PLL_CFG" id="pllsh_wcs_pll_cfg" width="32" description="WCS PLL CONFIG  gen cfg for WCS PLL" offset="0x14">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="enable like any other IP request" id="EN" resetval="0x20270" />
+		<bitfield width="2" end="1" begin="2" rwaccess="RW" description="override register for WCS PLL enable" id="OV" resetval="0x20270" />
+		<bitfield width="4" end="3" begin="6" rwaccess="RW" description="LOCK COUNT  time (sclk) from enabling the PLL until valid signal will rise.  Default is 14 since the PLL lock can go up to 200us and assuming   untrimmed slow clk is 15us we need at least 14 cycles This value can be optimized by half  by s/w (Once we have trimmed slow clk)" id="LOCKCNT" resetval="0x20270" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="USE LOCKMON  Do not enable this bit because Analog APLL design might have lock stays '1' even when FREF is dropped to OFF. From safety POV, No DCC is used in Osprey, so having a counter based for PLL assumed Lock is ok for the level of safety required  1: use the PLL lock indication for lock 0: use the timer (mem_pllsh_wcs_pll_lock_cnt) for the lock" id="USELOCKMON" resetval="0x20270" />
+		<bitfield width="3" end="8" begin="10" rwaccess="RW" description="DISABLE COUNTER  time (sclk) from pll request goes low to the time PLL input will go low - keep &gt;= 2" id="DISCNT" resetval="0x20270" />
+		<bitfield width="1" end="11" begin="11" rwaccess="RW" description="FREF CLOCK SELECT  select bypass option to use external clock in case PLL not working" id="FCLKSEL" resetval="0x20270" />
+		<bitfield width="2" end="14" begin="15" rwaccess="RW" description="LOCK OVERRIDE  override option for WCS PLL lock indication - should be used when using the override option for PLL enable" id="LOCKOV" resetval="0x20270" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="LOW FREQUENCY MODE ENABLE  connected to WCS PLL LOWFREQ_MODE_EN input : 0:Normal mode : 1: Divide by 2 the PLL clock out" id="LFREQMODEN" resetval="0x20270" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="HIGH FREQUENCY MODE ENABLE  connected to WCS PLL HIGHFREQ_MODE_EN input : 0: 300M-500M ICO disabled : 1: 300M-400M/400M-500M ICO enabled : based on CONTROL bits [7:6]" id="HFREQMODEN" resetval="0x20270" />
+		<bitfield width="14" end="18" begin="31" rwaccess="RO" id="Reserved" resetval="0x20270" />
+		<bitfield width="1" end="13" begin="13" rwaccess="RW" description="FREF CLOCK FUSE OVERRIDE  '1' - override the PLL_BYPASS fuse with PLL_BYPASS MMR: mem_pllsh_fref_clk_sel; '0' do not override" id="FCLKFSOV" resetval="0x20270" />
+		<bitfield width="1" end="12" begin="12" rwaccess="RW" description="GLITCH LESS MUX FREF CLOCK SELECT  select bypass option to use external clock in case PLL not working" id="GLMFCLKSEL" resetval="0x20270" />
+	</register>
+	<register acronym="PLLSH_CORE_PLL_EN" id="pllsh_core_pll_en" width="32" description="CORE configuration for PLL Sharing" offset="0x18">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="PLL ENABLE  register for Core to enable PLLs according to the type instead of using HW request core_pll_en" id="PLLEN" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="PLLSH_CORE_PLL_DIV_AND_ICG_OV" id="pllsh_core_pll_div_and_icg_ov" width="32" description="GENERAL  PLL divider configuration" offset="0x1c">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="CORE DIVIDER 2 OVERRIDE  1: no division (80MHz clock) : 0: divide by 2 (40MHz clock)" id="CRDIV2OV" resetval="0x8015e" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="CORE M3 DIVIDER OVERRIDE  1: no division (80MHz clock) : 0: divide by 2 (40MHz clock)" id="CRM3DIV2OV" resetval="0x8015e" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="SOC DIVIDER 2 OVERRIDE  1: no division (80MHz clock) : 0: divide by 2 (40MHz clock)" id="SOCDIV2OV" resetval="0x8015e" />
+		<bitfield width="2" end="4" begin="5" rwaccess="RW" description="PSCON PLL DIVIDER OVERRIDE  0: no division (80MHz clock) : PSCON div val. Set the PSCON clock period:  0-1us; 1-2us; 2-4us; 3-16us" id="PPLLDIVVAL" resetval="0x8015e" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" description="CORE M3 ICG OVERRIDE  '0' - No Override '1' - Enables CORE M3 80MHz CLK" id="CRM3ICGOV" resetval="0x8015e" />
+		<bitfield width="1" end="17" begin="17" rwaccess="RW" description="SOC ICG OVERRIDE  '0' - No Override '1' - Enables SOC 80MHz CLK" id="SOCICGOV" resetval="0x8015e" />
+		<bitfield width="1" end="18" begin="18" rwaccess="RW" description="HOST ICG OVERRIDE  '0' - No Override '1' - Enables HOST CLKs" id="HICGOV" resetval="0x8015e" />
+		<bitfield width="1" end="19" begin="19" rwaccess="RW" description="PSCON ICG OVERRIDE  Default is 1" id="PICGOV" resetval="0x8015e" />
+		<bitfield width="1" end="20" begin="20" rwaccess="RW" description="GPADC ICG OVERRIDE  '1' - enable gpadc clk '0' - disable clock" id="GPADCICGOV" resetval="0x8015e" />
+		<bitfield width="1" end="21" begin="21" rwaccess="RW" description="CORE ICG OVERRIDE  1: ICG of PLL to Core is forced enable : 0: ICG is enabled according to elp request and core_pll_en" id="CRICGOV" resetval="0x8015e" />
+		<bitfield width="1" end="23" begin="23" rwaccess="RO" id="Reserved" resetval="0x8015e" />
+		<bitfield width="6" end="10" begin="15" rwaccess="RO" id="Reserved_2" resetval="0x8015e" />
+		<bitfield width="1" end="6" begin="6" rwaccess="RW" description="PSCON PLL LOAD DIVIDER VALUE  Load div value indication. Default is 1" id="PPLLLDDIVV" resetval="0x8015e" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RW" description="PSCON CLOCK SOURCE CHANGE  Change divider input clock" id="PCLKSRCCNG" resetval="0x8015e" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" description="PSCON DIVIDER ENABLE  divider enable. Default is 1. Enabled." id="PDIVEN" resetval="0x8015e" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" id="Reserved_3" resetval="0x8015e" />
+		<bitfield width="1" end="24" begin="24" rwaccess="RW" description="UNALIGNED PHY TO CORE  1: PHY and core clk will get phase difference" id="UALGNPHYCR" resetval="0x8015e" />
+		<bitfield width="7" end="25" begin="31" rwaccess="RO" id="Reserved_4" resetval="0x8015e" />
+		<bitfield width="1" end="22" begin="22" rwaccess="RW" description="PHY ICG OVERRIDE  1: ICG of PLL to PHY is forced enable : 0: ICG is enabled according to elp request and phy_pll_en" id="PHYICGOV" resetval="0x8015e" />
+		<bitfield width="1" end="9" begin="9" rwaccess="RW" description="PHY DIVIDER 2 OVERRIDE  1: no division (80MHz clock) : 0: divide by 2 (40MHz clock)" id="PHYDIV2OV" resetval="0x8015e" />
+	</register>
+	<register acronym="PLLSH_WCS_PLL_CTRL" id="pllsh_wcs_pll_ctrl" width="32" description="WCS CONFIG   WCS PLL control input : Refer to WCSPLL spec" offset="0x20">
+		<bitfield width="32" end="0" begin="31" rwaccess="RW" description="CONTROL" id="CTL" resetval="0x45100" />
+	</register>
+	<register acronym="PLLSH_GEN_CFG" id="pllsh_gen_cfg" width="32" description="GENERAL CONFIGURATION  PLL sharing module general configurations" offset="0x24">
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="DFT WCS PLL ICG OVERRIDE  control WCS PLL clock toward test ctrl" id="DFTWCSPICGOV" resetval="0x0" />
+	</register>
+	<register acronym="PLLSH_LOCK_STATUS" id="pllsh_lock_status" width="32" description="Lock status reg" offset="0x28">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="STATUS  PLL Timer for Lock status register in case MEM_USE_LOCKMON = 1 - this indication is similar to LOCKMON_STS in case MEM_USE_LOCKMON = 0 - this indication reflect the Lock Timer (configured by PLL_LOCK_CNT) status (1 means elapsed)" id="STS" resetval="0x0" />
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="LOCK MONITOR STATUS  PLL Lock status register" id="MONSTS" resetval="0x0" />
+	</register>
+	<register acronym="PLLSH_SOP_MASK" id="pllsh_sop_mask" width="32" description="SOP MASK  PLL sharing module SOP mask config" offset="0x2c">
+		<bitfield width="29" end="3" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="PLL ENABLE  SOP mask - Mask SOPs Bypass so PLL can be enabled. Default is 0  - &quot;do not mask SOP&quot;" id="PLLEN" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="FREF SELECTOR  SOP mask - Mask SOPs Bypass so PLL FREF selected from HFXT over DIO pin. Default is 0 - &quot;do not mask SOP&quot;" id="FREFSEL" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="BYPASS SELECTOR  SOP mask - Mask SOPs Bypass so PLL Bypass can be can be bypassed by SoC PLL. Default is 0 - &quot;do not mask SOP&quot;" id="BYPSEL" resetval="0x0" />
+	</register>
+	<register acronym="PLLSH_DEBUGSS_FAST_SEL" id="pllsh_debugss_fast_sel" width="32" description="DEBUGSS" offset="0x30">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="FAST SELECTOR  Lock status register; clear upon read by S/W" id="FSEL" resetval="0x0" />
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+	</register>
+	<register acronym="PLLSH_ICG_DIS" id="pllsh_icg_dis" width="32" description="ICG" offset="0x34">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="CORE M3 DISABLE  ICG Disable control '1' - disable '0' - enable" id="CRM3DIS" resetval="0x0" />
+		<bitfield width="26" end="6" begin="31" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="CORE ICS DISABLE  ICG Disable control '1' - disable '0' - enable" id="CRDIS" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="SOC DISABLE  ICG Disable control '1' - disable '0' - enable" id="SOCDIS" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="HOST DISABLE  ICG Disable control '1' - disable '0' - enable" id="HDIS" resetval="0x0" />
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="PLL 32  ICG control '0' - disable '1' - enable" id="PLL32" resetval="0x0" />
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="PHY DISABLE  ICG Disable control '1' - disable '0' - enable" id="PHYDIS" resetval="0x0" />
+	</register>
+</module>

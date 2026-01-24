@@ -1,0 +1,97 @@
+#define WR_MEM_32(addr, data)		*(unsigned int*)(addr) = (unsigned int)(data)
+#define RD_MEM_32(addr)			    *(unsigned int*)(addr)
+#define ARM_WR32(addr, data)		*(unsigned int*)(addr) = (unsigned int)(data)
+
+#define CSL_TOP_PRCM_U_BASE                                                                                     (0x5A040000U)
+
+#define CSL_TOP_PRCM_FEC_PWR_REQ_PARAM                                                                          (0x0000000CU)
+#define CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_MODE_MASK                                              (0x00000800U)
+#define CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_MODE_SHIFT                                             (0x0000000BU)
+#define CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE                                                                     (0x00000474U)
+#define CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE_PSCON_FEC_PD_RAM_STATE_FEC_PD_MEM_SLEEP_STATE_MASK                  (0x00000001U)
+#define CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE_PSCON_FEC_PD_RAM_STATE_FEC_PD_MEM_SLEEP_STATE_SHIFT                 (0x00000000U)
+#define CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE                                                                (0x00000478U)
+#define CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE_PSCON_FEC_PD_RAM_GRP4_STATE_FEC_PD_MEM_GRP4_SLEEP_STATE_MASK   (0x00000003U)
+#define CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE_PSCON_FEC_PD_RAM_GRP4_STATE_FEC_PD_MEM_GRP4_SLEEP_STATE_SHIFT  (0x00000000U)
+#define CSL_TOP_PRCM_PSCON_FEC_PD_EN                                                                            (0x00000458U)
+#define CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_MASK                                  (0x00001000U)
+#define CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_SHIFT                                 (0x0000000CU)
+#define CSL_TOP_PRCM_RTC_COUNT_LSB                                                                              (0x0000004CU)
+#define CSL_TOP_PRCM_RTC_COUNT_MSB                                                                              (0x00000050U)
+
+
+OnReset(int nErrorCode)
+{
+    unsigned long long rtcVal = 0;
+    unsigned int fecPdstatus = 0;
+    unsigned int regval = 0;
+    int i = 0;
+
+    if (nErrorCode)
+    {
+	    GEL_TextOut("An error occurred while resetting. -%d-n",,,,, nErrorCode);
+    }
+    else
+    {
+        GEL_TextOut("Reset was successful. -%d-n\n",,,,, nErrorCode);
+
+        /* Halt the FECSS core */
+        WR_MEM_32(0x5a040018, 0x207ff);
+        GEL_TextOut("Halt the FECSS core\n");
+
+        /* Set to Manual Mode in FEC_PWR_REQ_PARAM register */
+        regval = RD_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_FEC_PWR_REQ_PARAM);
+        regval = (regval & ~(CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_MODE_MASK));
+        regval |= (0 << CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_MODE_SHIFT) & CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_MODE_MASK;
+        WR_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_FEC_PWR_REQ_PARAM, regval);
+        GEL_TextOut("FEC set to manual mode\n");
+
+        /* Do not retain any FECSS RAM */
+        regval = RD_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE);
+        regval = (regval & ~(CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE_PSCON_FEC_PD_RAM_STATE_FEC_PD_MEM_SLEEP_STATE_MASK));
+        regval |= (0 << CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE_PSCON_FEC_PD_RAM_STATE_FEC_PD_MEM_SLEEP_STATE_SHIFT) & CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE_PSCON_FEC_PD_RAM_STATE_FEC_PD_MEM_SLEEP_STATE_MASK;
+        WR_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_PSCON_FEC_PD_RAM_STATE, regval);
+
+        regval = RD_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE);
+        regval = (regval & ~(CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE_PSCON_FEC_PD_RAM_GRP4_STATE_FEC_PD_MEM_GRP4_SLEEP_STATE_MASK));
+        regval |= (0 << CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE_PSCON_FEC_PD_RAM_GRP4_STATE_FEC_PD_MEM_GRP4_SLEEP_STATE_SHIFT) & CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE_PSCON_FEC_PD_RAM_GRP4_STATE_FEC_PD_MEM_GRP4_SLEEP_STATE_MASK;
+        WR_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_PSCON_FEC_PD_RAM_GRP4_STATE, regval);
+        GEL_TextOut("Do not retain any FECSS RAM\n");
+
+        /* Switch OFF the Front end */
+        regval = RD_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_FEC_PWR_REQ_PARAM);
+        regval = (regval & ~(CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_MASK));
+        regval |= (0 << CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_SHIFT) & CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_MASK;
+        WR_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_FEC_PWR_REQ_PARAM, regval);
+        do {
+            fecPdstatus = ((RD_MEM_32(CSL_TOP_PRCM_U_BASE+CSL_TOP_PRCM_PSCON_FEC_PD_EN) & 0x200) >> 9);
+        } while(fecPdstatus == 0);
+        GEL_TextOut("Switch OFF the front end\n");
+
+        /* Switch ON the Front end*/
+        regval = RD_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_FEC_PWR_REQ_PARAM);
+        regval = (regval & ~(CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_MASK));
+        regval |= (1 << CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_SHIFT) & CSL_TOP_PRCM_FEC_PWR_REQ_PARAM_FEC_PWR_REQ_PARAM_WAKEUP_OUT_STATE_MASK;
+        WR_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_FEC_PWR_REQ_PARAM, regval);
+        do {
+            fecPdstatus = ((RD_MEM_32(CSL_TOP_PRCM_U_BASE+CSL_TOP_PRCM_PSCON_FEC_PD_EN) & 0x200) >> 9);
+        } while(fecPdstatus == 1);
+        GEL_TextOut("Switch ON the front end\n");
+
+        /* Enable Clock for FECSS */
+        WR_MEM_32(0x56060394, 0);
+
+        GEL_TextOut("Wait for Clock Enable\n");
+
+        /* Wait for Clock enable. The following loop is to give us the necessary delay */
+        for(i = 0; i < 100; i++)
+        {
+            /* Read latched values as 2 32-bit values */
+            rtcVal  = RD_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_RTC_COUNT_MSB);
+            rtcVal  = rtcVal << 32;
+            rtcVal |= RD_MEM_32(CSL_TOP_PRCM_U_BASE + CSL_TOP_PRCM_RTC_COUNT_LSB);
+        }
+        GEL_TextOut("Init Done\n");
+    }
+}
+

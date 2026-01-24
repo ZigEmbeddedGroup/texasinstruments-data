@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device id="C6452" partnum="TMS320C6452" HW_revision="1" XML_version="2" desc="TMS320C6452" description="TMS320C6452&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+	<!-- Filter for Project Wizard -->
+	<property Type="stringfield" Value="C645x High Performance DSP"   id="FilterString" />
+	<instance XML_version="1.2" desc="IcePick_C_0" href="routers/icepick_c.xml" id="IcePick_C_0" xml="icepick_c.xml" xmlpath="routers"/>
+	<router HW_revision="1.0" XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+		<subpath id="subpath_0">
+			<property Type="numericfield" Value="0x10" id="Port Number"/>
+			<property Type="choicelist" Value="1" id="Initial Configuration"/>
+			<property Type="choicelist" Value="1" id="Custom Configuration"/>
+			<property Type="choicelist" Value="0" id="Force Configuration"/>
+			<instance XML_version="1.2" desc="C64XP_0" href="cpus/c64xp.xml" id="C64XP_0" xml="c64xp.xml" xmlpath="cpus"/>
+			<cpu HW_revision="1.0" XML_version="1.2" description="C64x+ CPU" id="C64XP_0" isa="TMS320C64XP">
+				<!-- Project Wizard Settings -->
+				<property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="--silicon_version=64+ -D=c6452" id="CompilerBuildOptions" />
+				<property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+				<property Type="stringfield" Value="C6452.cmd" id="LinkerCmd" />
+				<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+				<!-- End project wizard settigns -->
+			</cpu>
+		</subpath>
+	</router>
+</device>

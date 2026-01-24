@@ -1,0 +1,171 @@
+/********************************************************************************************************/
+/* This GEL file is loaded on the command line of Code Composer                                         */
+/* The StartUp() function is called every time you start                                                */
+/* Code Composer.  You can customize this function to                                                   */
+/* initialize wait states or to perform other initialization.                                           */
+/*                                                                                                      */
+/* File       :DM50x_tpiu.gel                                                                          */
+/* Description:DM50x External Trace Export configurations                                              */
+/* Revision history                                                                                     */
+/* ==================================================================================================== */
+/* Version   Date          Change from previous version                                                 */
+/* ==================================================================================================== */
+/* 0.1       14-Nov'14     First Draft                                                                  */
+/* ==================================================================================================== */
+/********************************************************************************************************/
+
+/*********************************************************************************************************
+*
+*  DEFINITIONS
+*
+********************************************************************************************************/
+
+#define DRM_CLAIM                      0x54160050
+#define DPM_CTRL0                      0x54160080
+#define DPM_CTRL1                      0x54160084
+#define DPM_CTRL2                      0x54160088
+#define DPM_CTRL3                      0x5416008C
+#define DPM_CTRL4                      0x54160090
+
+#define DPM_CTRL5                      0x54160094
+#define DPM_CTRL6                      0x54160098
+#define DPM_CTRL7                      0x5416009C
+#define DPM_CTRL8                      0x541600A0
+#define DPM_CTRL9                      0x541600A4
+#define DPM_CTRL10                     0x541600A8
+#define DPM_CTRL11                     0x541600AC
+#define DPM_CTRL12                     0x541600B0
+#define DPM_CTRL13                     0x541600B4
+#define DPM_CTRL14                     0x541600B8
+#define DPM_CTRL15                     0x541600BC
+#define DPM_CTRL16                     0x541600C0
+#define DPM_CTRL17                     0x541600C4
+#define DPM_CTRL18                     0x541600C8
+#define DPM_CTRL19                     0x541600CC
+
+menuitem "TPIU_Utility";
+
+/*********************************************************************************************************
+Notes
+==========================================================================================================
+*  If Lauterbach expects TRACEDATA[0] to appear on EMU0 use 18 bit configuration
+*  even if Lauterbach trace port is 16 bits wide.
+*
+*  If Lauterbach expects TRACEDATA[0] to appear on EMU4 use 16 bit configuration.
+*
+*********************************************************************************************************/
+
+
+hotmenu Configure_EMU2_19_For_TPIU()
+{
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+    GEL_TextOut("For STM based tracing on TI EVMs, \n");
+    GEL_TextOut("run 'DM50x EVM I2C EXPANDER CONTROL -> Enable_Trace_Pins()' function from Scripts menu on M4/CS_DAP_DebugSS\n ");    
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+    // Configure_DRM_to_assign_TPIU_to_DP2_19();
+    tpiu_config_board_fast();
+    Configure_PADIO_For_TPIU_trace_Pins_EMU2_EMU19_16bitmode();
+}
+
+
+hotmenu Configure_EMU0_19_For_TPIU()
+{
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+    GEL_TextOut("For STM based tracing on TI EVMs, \n");
+    GEL_TextOut("run 'DM50x EVM I2C EXPANDER CONTROL -> Enable_Trace_Pins()' function from Scripts menu on M4/CS_DAP_DebugSS\n ");    
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+    // Configure_DRM_to_assign_TPIU_to_DP0_19();
+    tpiu_config_board_fast();
+    Configure_PADIO_For_TPIU_trace_Pins_EMU0_EMU19_18bitmode();
+}
+
+hotmenu Configure_EMU0_4_For_TPIU()
+{
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+    GEL_TextOut("For STM based tracing on TI EVMs, \n");
+    GEL_TextOut("run 'DM50x EVM I2C EXPANDER CONTROL -> Enable_Trace_Pins()' function from Scripts menu on M4/CS_DAP_DebugSS\n ");    
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+    //    Configure_DRM_to_assign_TPIU_to_DP0_4();
+    tpiu_config_board_fast();
+    Configure_PADIO_For_TPIU_trace_Pins_EMU0_EMU4();
+}
+
+Configure_PADIO_For_TPIU_trace_Pins_EMU0_EMU4()
+{
+    GEL_TextOut("Configure PADIO for TPIU trace pins, EMU0 to EMU4 for 5-bit mode \n ");
+    *(int*)0x4a003604 = 0x000d0000;      //EMU0-tpiu-data0
+    *(int*)0x4a003608 = 0x000d0000;      //EMU1
+    *(int*)0x4a003504 = 0x000d0006;      //EMU2-tpiu-clk
+    *(int*)0x4a003508 = 0x00090006;      //EMU3
+    *(int*)0x4a00350C = 0x00090006;      //EMU4
+    *(int*)0x4a003510 = 0x00090006;      //EMU5
+    *(int*)0x4a003514 = 0x00090006;      //EMU6
+    *(int*)0x4a003518 = 0x00090006;      //EMU7
+
+}
+
+Configure_PADIO_For_TPIU_trace_Pins_EMU2_EMU19_16bitmode()
+{
+    GEL_TextOut("Configure PADIO for TPIU trace pins, EMU2 to EMU19 for 16-bit mode \n ");
+
+    *(int*)0x4a003604 = 0x000d0000;      //EMU0-tpiu-trigger
+    *(int*)0x4a003608 = 0x000d0000;      //EMU1
+    *(int*)0x4a003504 = 0x00090006;      //EMU2-tpiu-clk
+    *(int*)0x4a003508 = 0x00090006;      //EMU3-tpiu-ctrl
+    *(int*)0x4a00350C = 0x00090006;      //EMU4
+    *(int*)0x4a003510 = 0x00090006;      //EMU5
+    *(int*)0x4a003514 = 0x00090006;      //EMU6
+    *(int*)0x4a003518 = 0x00090006;      //EMU7
+    *(int*)0x4a00351C = 0x00090006;      //EMU8
+    *(int*)0x4a003520 = 0x00090006;      //EMU9
+    *(int*)0x4a003524 = 0x00090006;      //EMU10
+    *(int*)0x4a003528 = 0x00090006;      //EMU11
+    *(int*)0x4a00352C = 0x00090006;      //EMU12
+    *(int*)0x4a003530 = 0x00090006;      //EMU13
+    *(int*)0x4a003534 = 0x00090006;      //EMU14
+    *(int*)0x4a003538 = 0x00090006;      //EMU15
+    *(int*)0x4a00353C = 0x00090006;      //EMU16
+    *(int*)0x4a003540 = 0x00090006;      //EMU17
+    *(int*)0x4a003544 = 0x00090006;      //EMU18
+    *(int*)0x4a003548 = 0x00090006;      //EMU19
+
+}
+
+Configure_PADIO_For_TPIU_trace_Pins_EMU0_EMU19_18bitmode()
+{
+    GEL_TextOut("Configure PADIO for TPIU trace pins, EMU0 to EMU19 for 18-bit mode \n ");
+
+    *(int*)0x4a003604 = 0x000d0000;      //EMU0-trigger
+    *(int*)0x4a003608 = 0x000d0000;      //EMU1-trigger
+    *(int*)0x4a003504 = 0x00090006;      //EMU2-tpiu-clk
+    *(int*)0x4a003508 = 0x00090006;      //EMU3-tpiu-ctrl
+    *(int*)0x4a00350C = 0x00090006;      //EMU4-tpiu-data0
+    *(int*)0x4a003510 = 0x00090006;      //EMU5
+    *(int*)0x4a003514 = 0x00090006;      //EMU6
+    *(int*)0x4a003518 = 0x00090006;      //EMU7
+    *(int*)0x4a00351C = 0x00090006;      //EMU8
+    *(int*)0x4a003520 = 0x00090006;      //EMU9
+    *(int*)0x4a003524 = 0x00090006;      //EMU10
+    *(int*)0x4a003528 = 0x00090006;      //EMU11
+    *(int*)0x4a00352C = 0x00090006;      //EMU12
+    *(int*)0x4a003530 = 0x00090006;      //EMU13
+    *(int*)0x4a003534 = 0x00090006;      //EMU14
+    *(int*)0x4a003538 = 0x00090006;      //EMU15
+    *(int*)0x4a00353C = 0x00090006;      //EMU16
+    *(int*)0x4a003540 = 0x00090006;      //EMU17
+    *(int*)0x4a003544 = 0x00090006;      //EMU18
+    *(int*)0x4a003548 = 0x00090006;      //EMU19
+}
+
+hotmenu tpiu_config_board_slow()
+{
+    WR_CM_DIV_H14_DPLL_PER(0x16);
+
+    GEL_TextOut(" Configuring the Trace Export Clock to 96MHz. DPLL_PER is assumed to be locked at 1536MHz \n");
+}
+
+hotmenu tpiu_config_board_fast()
+{
+    WR_CM_DIV_H14_DPLL_PER(0x9);
+    GEL_TextOut(" Configuring the Trace Export Clock to 140MHz. DPLL_PER is assumed to be locked at 1536MHz \n");
+}

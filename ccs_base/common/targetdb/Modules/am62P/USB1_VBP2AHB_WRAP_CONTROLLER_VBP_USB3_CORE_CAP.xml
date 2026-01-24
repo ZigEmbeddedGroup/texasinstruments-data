@@ -1,0 +1,68 @@
+<module name="USB1_VBP2AHB_WRAP_CONTROLLER_VBP_USB3_CORE_CAP" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_CAPLENGTH" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_CAPLENGTH" offset="0x0" width="32" description="Capability Registers Length
+
+Host Controller Operational Registers = Base address + CAPLENGTH
+
+where CAPLENGTH is DWC_USB3_HOST_CAP_REG_LEN whose default value is 20h.">
+		<bitfield id="HCIVERSION" width="16" begin="31" end="16" resetval="0x272" description="HC Interface Version Number [HCIVERSION]" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="CAPLENGTH" width="8" begin="7" end="0" resetval="0x32" description="Capability Registers Length [CAPLENGTH]" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCSPARAMS1" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCSPARAMS1" offset="0x4" width="32" description="Structural Parameters 1 Register
+
+For register definitions, refer to the xHCI specification.">
+		<bitfield id="MAXPORTS" width="8" begin="31" end="24" resetval="0x1" description="Number of Ports [MaxPorts]  - Number of ports implemented is defined by the parameter [DWC_USB3_HOST_NUM_U2_ROOT_PORTS + DWC_USB3_HOST_NUM_U3_ROOT_PORTS]  - Number of ports enabled is controlled by the controller input signals host_num_u2_port[3:0]+host_num_u3_port[3:0] Note:  In USB 2.0-only mode, the host_num_u3_port signal is zero." range="31 - 24" rwaccess="R"/> 
+		<bitfield id="MAXINTRS" width="11" begin="18" end="8" resetval="0x8" description="Number of Interrupters [MaxIntrs]  Defined by the configurable parameter DWC_USB3_HOST_NUM_INTERRUPTER_SUPT" range="18 - 8" rwaccess="R"/> 
+		<bitfield id="MAXSLOTS" width="8" begin="7" end="0" resetval="0x64" description="Number of device slots [MaxSlots]  Defined by configurable parameter DWC_USB3_NUM_DEVICE_SUPT" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCSPARAMS2" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCSPARAMS2" offset="0x8" width="32" description="Structural Parameters 2 Register
+
+For register definitions, refer to the xHCI specification.">
+		<bitfield id="MAXSCRATCHPADBUFS" width="5" begin="31" end="27" resetval="0x2" description="Max Scratchpad Bufs Lo The value is calculated based on chosen configuration parameter values. Possible values are 1-4." range="31 - 27" rwaccess="R"/> 
+		<bitfield id="SPR" width="1" begin="26" end="26" resetval="0x1" description="Scratchpad Restore [SPR]" range="26" rwaccess="R"/> 
+		<bitfield id="MAXSCRATCHPADBUFS_HI" width="5" begin="25" end="21" resetval="0x0" description="Max Scratchpad Bufs HI  The controller automatically updates this field." range="25 - 21" rwaccess="R"/> 
+		<bitfield id="ERSTMAX" width="4" begin="7" end="4" resetval="0x15" description="Event Ring Segment Table Max [ERST Max]" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="IST" width="4" begin="3" end="0" resetval="0x1" description="Isochronous Scheduling Threshold [IST]" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCSPARAMS3" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCSPARAMS3" offset="0xC" width="32" description="Structural Parameters 3 Register
+
+For register definitions, refer to the xHCI specification.">
+		<bitfield id="U2_DEVICE_EXIT_LAT" width="16" begin="31" end="16" resetval="0x2047" description="U2 Device Exit Latency" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="U1_DEVICE_EXIT_LAT" width="8" begin="7" end="0" resetval="0x10" description="U1 Device Exit Latency" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCCPARAMS1" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCCPARAMS1" offset="0x10" width="32" description="Capability Parameters 1 Register
+
+For register definitions, refer to the xHCI specification.">
+		<bitfield id="XECP" width="16" begin="31" end="16" resetval="0x600" description="xHCI Extended Capabilities Pointer [xECP]  Based on configuration, controller automatically updates it.    Refer to &#38;#60;workspace>/src/DWC_usb3_params.v for details on DWC_USB3_HC_XECP." range="31 - 16" rwaccess="R"/> 
+		<bitfield id="MAXPSASIZE" width="4" begin="15" end="12" resetval="0x15" description="Maximum Primary Stream Array Size [MaxPSASize]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="15 - 12" rwaccess="R"/> 
+		<bitfield id="CFC" width="1" begin="11" end="11" resetval="0x1" description="Contiguous Frame ID Capability [CFC]" range="11" rwaccess="R"/> 
+		<bitfield id="SEC" width="1" begin="10" end="10" resetval="0x1" description="Stopped EDLTA Capability [SEC]   For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="10" rwaccess="R"/> 
+		<bitfield id="SPC" width="1" begin="9" end="9" resetval="0x1" description="Short Packet Capability [SPC]   For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="9" rwaccess="R"/> 
+		<bitfield id="PAE" width="1" begin="8" end="8" resetval="0x0" description="Parse All Event Data [PAE]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="8" rwaccess="R"/> 
+		<bitfield id="NSS" width="1" begin="7" end="7" resetval="0x0" description="No Secondary SID Support [NSS]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="7" rwaccess="R"/> 
+		<bitfield id="LTC" width="1" begin="6" end="6" resetval="0x1" description="Latency Tolerance Messaging Capability [LTC]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="6" rwaccess="R"/> 
+		<bitfield id="LHRC" width="1" begin="5" end="5" resetval="0x1" description="Light HC Reset Capability  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="5" rwaccess="R"/> 
+		<bitfield id="PIND" width="1" begin="4" end="4" resetval="0x0" description="Port Indicators [PIND]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="4" rwaccess="R"/> 
+		<bitfield id="PPC" width="1" begin="3" end="3" resetval="0x1" description="Port Power Control  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="3" rwaccess="R"/> 
+		<bitfield id="CSZ" width="1" begin="2" end="2" resetval="0x1" description="Context Size [CSZ]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="2" rwaccess="R"/> 
+		<bitfield id="BNC" width="1" begin="1" end="1" resetval="0x0" description="BW Negotiation Capability [BNC]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="1" rwaccess="R"/> 
+		<bitfield id="AC64" width="1" begin="0" end="0" resetval="0x1" description="64-bit Addressing Capability [AC64]  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="0" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_DBOFF" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_DBOFF" offset="0x14" width="32" description="Doorbell Offset Register
+
+For register definitions, refer to the xHCI specification.">
+		<bitfield id="DOORBELL_ARRAY_OFFSET" width="30" begin="31" end="2" resetval="0x344" description="Doorbell Array Offset - RO  Based on configuration, the controller automatically updates it.  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 2" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_RTSOFF" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_RTSOFF" offset="0x18" width="32" description="Runtime Register Space Offset Register">
+		<bitfield id="RUNTIME_REG_SPACE_OFFSET" width="27" begin="31" end="5" resetval="0x34" description="Runtime Register Space Offset  Based on configuration, the controller automatically updates it.  For a description of this standard USB register field, see the eXtensible Host Controller Interface for Universal Serial Bus [USB] Specification 3.0." range="31 - 5" rwaccess="R"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCCPARAMS2" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_CAP_HCCPARAMS2" offset="0x1C" width="32" description="Host Controller Capability Parameters 2
+
+For register definitions, refer to the xHCI specification.">
+		<bitfield id="CIC" width="1" begin="5" end="5" resetval="0x1" description="Configuration Information Capability [CIC]  For a description of this standard USB register field, see the eXtensible Host Controller I nterface for Universal Serial Bus [USB] Specification 3.0." range="5" rwaccess="R"/> 
+		<bitfield id="LEC" width="1" begin="4" end="4" resetval="0x0" description="Large ESIT Payload Capability [LEC]  For a description of this standard USB register field, see the eXtensible Host Controller I nterface for Universal Serial Bus [USB] Specification 3.0." range="4" rwaccess="R"/> 
+		<bitfield id="CTC" width="1" begin="3" end="3" resetval="0x1" description="Compliance Transition Capability [CTC]  For a description of this standard USB register field, see the eXtensible Host Controller I nterface for Universal Serial Bus [USB] Specification 3.0." range="3" rwaccess="R"/> 
+		<bitfield id="FSC" width="1" begin="2" end="2" resetval="0x1" description="Force Save Context Capability [FSC]  For a description of this standard USB register field, see the eXtensible Host Controller I nterface for Universal Serial Bus [USB] Specification 3.0." range="2" rwaccess="R"/> 
+		<bitfield id="CMC" width="1" begin="1" end="1" resetval="0x1" description="Configure Endpoint Command Max Exit Latency Too Large Capability [CMC]  For a description of this standard USB register field, see the eXtensible Host Controller I nterface for Universal Serial Bus [USB] Specification 3.0." range="1" rwaccess="R"/> 
+		<bitfield id="U3C" width="1" begin="0" end="0" resetval="0x1" description="U3 Entry Capability [U3C]  For a description of this standard USB register field, see the eXtensible Host Controller I nterface for Universal Serial Bus [USB] Specification 3.0." range="0" rwaccess="R"/>
+	</register>
+</module>

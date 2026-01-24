@@ -1,0 +1,97 @@
+/**
+ * \file  AM275x.gel
+ *
+ * \brief GEL File to control and manage other GEL functions for AM275
+ */
+
+/* Copyright (c) 2024, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *notice, this list of conditions and the following disclaimer in the
+ *documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *its contributors may be used to endorse or promote products derived
+ *from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*
+ *Platform: Keystone 3 SoCs
+ * - AM275
+ *Usage: This GEL will be run from CCS upon connection to the Cortex-M4
+ *   (TIFS) CPU.
+ */
+
+
+
+StartUp(){
+
+	//Load the common GEL
+	GEL_LoadGel( "$(GEL_file_dir)/AM275_common/AM275_common.gel");
+
+	//Load the PSC GEL
+	GEL_LoadGel( "$(GEL_file_dir)/AM275_PSC/AM275_PSC.gel");
+
+	//Load the PLL GEL
+	GEL_LoadGel( "$(GEL_file_dir)/AM275_PLL/AM275_PLL_MMR.gel");
+	GEL_LoadGel( "$(GEL_file_dir)/AM275_PLL/AM275_PLL_PARAMS_OFC1.gel");
+	GEL_LoadGel( "$(GEL_file_dir)/AM275_PLL/AM275_PLL.gel");   
+	GEL_LoadGel( "$(GEL_file_dir)/AM275_PLL/AM275_PLL_OFC1.gel");
+
+
+}
+
+// Device onTarget connect sequence function
+OnTargetConnect(){
+	//M4 RAT configs
+	Configure_RAT();
+
+	// Enable ATCM
+	Configure_ATCM();
+
+	// R5 Halt and Boot vectors config
+	Configure_R5F_Halt_Upon_PowerUp();
+	Configure_R5F_Bootvectors();
+	NOBOOT_ROM_safeguard();
+
+	// All PLL configs
+	Set_All_PLL_OFC1_NOM();
+
+	// Set all PSCs power on
+	Set_PSC_All_On();
+
+	GEL_TextOut( "\n Now your able to connect to C7x0, C7X1, WKUP R5 Core and MAIN_R5_0 core \n");
+	GEL_TextOut( "To connect MAIN_R5_1 (R50_1) core run this gel script from SMS_CM4_TIFS core : Initial Device Configuration/Switch_Cluster0_to_Dual_Core \n");
+	GEL_TextOut( "To connect MAIN_R5_2 (R51_0) core run this gel script from SMS_CM4_TIFS core : Initial Device Configuration/Configure_Cluster1_ATCM, Initial Device Configuration/Configure_Cluster1_R5F_Halt_Upon_PowerUp and Device Configuration/Configure_Cluster1_R5F_Bootvectors\n");
+	GEL_TextOut( "To connect MAIN_R5_3 (R51_1) core run this gel script from SMS_CM4_TIFS core : Initial Device Configuration/Switch_Cluster1_to_Dual_Core \n");
+	GEL_TextOut( "To connect BLAZER_Cortex_M4F core run this gel script from SMS_CM4_TIFS_core: Device Configuration/Init_HSM_M4 \n");
+
+	// Un comment below scripts to run as part of onTargetConnect if you want to connect to all cores.
+		//Switch_Cluster0_to_Dual_Core();
+		//Configure_Cluster1_ATCM();
+		//Configure_Cluster1_R5F_Halt_Upon_PowerUp();
+		//Configure_Cluster1_R5F_Bootvectors();
+		//Switch_Cluster1_to_Dual_Core();
+		//Init_HSM_M4();
+
+}
+/* END OF FILE */

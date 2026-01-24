@@ -1,0 +1,164 @@
+<module id="ANALOG_SUBSYS_REGS" HW_revision="" description="ANALOG SUBSYS Registers">
+	<register id="INTERNALTESTCTL" width="32" page="1" offset="0x4a" internal="0" description="INTERNALTEST Node Control Register">
+		<bitfield id="TESTSEL" description="Test Select" begin="5" end="0" width="6" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to Enable writes" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="CONFIGLOCK" width="32" page="1" offset="0x5e" internal="0" description="Lock Register for all the config registers.">
+		<bitfield id="AGPIOFILTER" description="Locks AGPIOFILTER Register" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="AGPIOCTRL" description="Locks all AGPIOCTRL Register" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="GPIOINENACTRL" description="Locks all GPIOINENACTRL Register" begin="6" end="6" width="1" rwaccess="RW"/>
+	</register>
+	<register id="TSNSCTL" width="16" page="1" offset="0x60" internal="0" description="Temperature Sensor Control Register">
+		<bitfield id="ENABLE" description="Temperature Sensor Enable" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="ANAREFPCTL" width="16" page="1" offset="0x68" internal="0" description="Analog Reference Control Register for VREFHI">
+		<bitfield id="REFPMUXSELA" description="Analog Reference Select ADCA" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="REFPMUXSELB" description="Analog Reference Select ADCB" begin="3" end="2" width="2" rwaccess="RW"/>
+		<bitfield id="REFPMUXSELC" description="Analog Reference Select ADCC" begin="5" end="4" width="2" rwaccess="RW"/>
+		<bitfield id="REFPMUXSELD" description="Analog Reference Select ADCD" begin="7" end="6" width="2" rwaccess="RW"/>
+		<bitfield id="REFPMUXSELE" description="Analog Reference Select ADCE" begin="9" end="8" width="2" rwaccess="RW"/>
+		<bitfield id="ANAREFA1P65SEL" description="1.65v Reference Select ADCA" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="ANAREFB1P65SEL" description="1.65v Reference Select ADCB" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="ANAREFC1P65SEL" description="1.65v Reference Select ADCC" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="ANAREFD1P65SEL" description="1.65v Reference Select ADCD" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="ANAREFE1P65SEL" description="1.65v Reference Select ADCE" begin="14" end="14" width="1" rwaccess="RW"/>
+	</register>
+	<register id="ANAREFNCTL" width="16" page="1" offset="0x69" internal="0" description="Analog Reference Control Register for VREFLO">
+		<bitfield id="REFNMUXSELA" description="Analog Reference Select ADCA" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="REFNMUXSELB" description="Analog Reference Select ADCB" begin="3" end="2" width="2" rwaccess="RW"/>
+		<bitfield id="REFNMUXSELC" description="Analog Reference Select ADCC" begin="5" end="4" width="2" rwaccess="RW"/>
+		<bitfield id="REFNMUXSELD" description="Analog Reference Select ADCD" begin="7" end="6" width="2" rwaccess="RW"/>
+		<bitfield id="REFNMUXSELE" description="Analog Reference Select ADCE" begin="9" end="8" width="2" rwaccess="RW"/>
+	</register>
+	<register id="VMONCTL" width="16" page="1" offset="0x70" internal="0" description="Voltage Monitor Control Register">
+		<bitfield id="BORLVMONDIS" description="Disable BORL(ow) feature on VDDIO" begin="8" end="8" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CMPHPMXSEL" width="32" page="1" offset="0x82" internal="0" description="Bits to select one of the many sources on CompHP inputs. Refer to Pimux diagram for details.">
+		<bitfield id="CMP1HPMXSEL" description="CMP1HPMXSEL bits" begin="2" end="0" width="3" rwaccess="RW"/>
+		<bitfield id="CMP2HPMXSEL" description="CMP2HPMXSEL bits" begin="5" end="3" width="3" rwaccess="RW"/>
+		<bitfield id="CMP3HPMXSEL" description="CMP3HPMXSEL bits" begin="8" end="6" width="3" rwaccess="RW"/>
+		<bitfield id="CMP4HPMXSEL" description="CMP4HPMXSEL bits" begin="11" end="9" width="3" rwaccess="RW"/>
+	</register>
+	<register id="CMPLPMXSEL" width="32" page="1" offset="0x84" internal="0" description="Bits to select one of the many sources on CompLP inputs. Refer to Pimux diagram for details.">
+		<bitfield id="CMP1LPMXSEL" description="CMP1LPMXSEL bits" begin="2" end="0" width="3" rwaccess="RW"/>
+		<bitfield id="CMP2LPMXSEL" description="CMP2LPMXSEL bits" begin="5" end="3" width="3" rwaccess="RW"/>
+		<bitfield id="CMP3LPMXSEL" description="CMP3LPMXSEL bits" begin="8" end="6" width="3" rwaccess="RW"/>
+		<bitfield id="CMP4LPMXSEL" description="CMP4LPMXSEL bits" begin="11" end="9" width="3" rwaccess="RW"/>
+	</register>
+	<register id="CMPHNMXSEL" width="16" page="1" offset="0x86" internal="0" description="Bits to select one of the many sources on CompHN inputs. Refer to Pimux diagram for details.">
+		<bitfield id="CMP1HNMXSEL" description="CMP1HNMXSEL bits" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="CMP2HNMXSEL" description="CMP2HNMXSEL bits" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CMP3HNMXSEL" description="CMP3HNMXSEL bits" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="CMP4HNMXSEL" description="CMP4HNMXSEL bits" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CMPLNMXSEL" width="16" page="1" offset="0x87" internal="0" description="Bits to select one of the many sources on CompLN inputs. Refer to Pimux diagram for details.">
+		<bitfield id="CMP1LNMXSEL" description="CMP1LNMXSEL bits" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="CMP2LNMXSEL" description="CMP2LNMXSEL bits" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CMP3LNMXSEL" description="CMP3LNMXSEL bits" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="CMP4LNMXSEL" description="CMP4LNMXSEL bits" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="ADCDACLOOPBACK" width="32" page="1" offset="0x88" internal="0" description="Enabble loopback from DAC to ADCs">
+		<bitfield id="ENLB2ADCA" description="Enable DACA loopback to ADCA" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ENLB2ADCB" description="Enable DACA loopback to ADCB" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="ENLB2ADCC" description="Enable DACA loopback to ADCC" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="ENLB2ADCD" description="Enable DACA loopback to ADCD" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ENLB2ADCE" description="Enable DACA loopback to ADCE" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="Key to enable writes" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="CMPSSCTL" width="16" page="1" offset="0x8b" internal="0" description="CMPSS Control Register">
+		<bitfield id="CMP1LDACOUTEN" description="Enable general purpose DAC functionality for CMPSS1.COMPDACL" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="CMPSSCTLEN" description="Enable the CMPSSCTL Register" begin="15" end="15" width="1" rwaccess="RW"/>
+	</register>
+	<register id="CMPSSDACBUFCONFIG" width="32" page="1" offset="0x8c" internal="0" description="Config bits for CMPSS DAC buffer">
+		<bitfield id="CMPSSADACL" description="Configuration bits for CMPSS DACA" begin="7" end="0" width="8" rwaccess="RW"/>
+	</register>
+	<register id="LOCK" width="32" page="1" offset="0x8e" internal="0" description="Lock Register">
+		<bitfield id="TSNSCTL" description="TSNSCTL Register lock bit" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ANAREFCTL" description="ANAREFCTL Register lock bit" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="VMONCTL" description="VMONCTL Register lock bit" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="CMPHPMXSEL" description="CMPHPMXSEL Register lock bit" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="CMPLPMXSEL" description="CMPLPMXSEL Register lock bit" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="CMPHNMXSEL" description="CMPHNMXSEL Register lock bit" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="CMPLNMXSEL" description="CMPLNMXSEL Register lock bit" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="VREGCTL" description="VREGCTL Register lock bit" begin="9" end="9" width="1" rwaccess="RW"/>
+	</register>
+	<register id="AGPIOFILTER" width="16" page="1" offset="0x108" internal="0" description="AGPIO Filter Control Register">
+		<bitfield id="GROUP1" description="AGPIOFILTER Control for group1 side pins" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="GROUP2" description="AGPIOFILTER Control for group2 side pins" begin="9" end="8" width="2" rwaccess="RW"/>
+	</register>
+	<register id="AGPIOCTRLA" width="32" page="1" offset="0x10a" internal="0" description="AGPIO Control Register">
+		<bitfield id="GPIO11" description="AGPIOCTRL for GPIO11" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO12" description="AGPIOCTRL for GPIO12" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO13" description="AGPIOCTRL for GPIO13" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO16" description="AGPIOCTRL for GPIO16" begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO17" description="AGPIOCTRL for GPIO17" begin="17" end="17" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO20" description="AGPIOCTRL for GPIO20" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO21" description="AGPIOCTRL for GPIO21" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO24" description="AGPIOCTRL for GPIO24" begin="24" end="24" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO28" description="AGPIOCTRL for GPIO28" begin="28" end="28" width="1" rwaccess="RW"/>
+	</register>
+	<register id="AGPIOCTRLB" width="32" page="1" offset="0x10c" internal="0" description="AGPIO Control Register">
+		<bitfield id="GPIO33" description="AGPIOCTRL for GPIO33" begin="1" end="1" width="1" rwaccess="RW"/>
+	</register>
+	<register id="AGPIOCTRLG" width="32" page="1" offset="0x116" internal="0" description="AGPIO Control Register">
+		<bitfield id="GPIO211" description="AGPIOCTRL for GPIO211" begin="19" end="19" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO212" description="AGPIOCTRL for GPIO212" begin="20" end="20" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO213" description="AGPIOCTRL for GPIO213" begin="21" end="21" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO214" description="AGPIOCTRL for GPIO214" begin="22" end="22" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO215" description="AGPIOCTRL for GPIO215" begin="23" end="23" width="1" rwaccess="RW"/>
+	</register>
+	<register id="AGPIOCTRLH" width="32" page="1" offset="0x118" internal="0" description="AGPIO Control Register">
+		<bitfield id="GPIO224" description="AGPIOCTRL for GPIO224" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO226" description="AGPIOCTRL for GPIO226" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO227" description="AGPIOCTRL for GPIO227" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO228" description="AGPIOCTRL for GPIO228" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO230" description="AGPIOCTRL for GPIO230" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO236" description="AGPIOCTRL for GPIO236" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO242" description="AGPIOCTRL for GPIO242" begin="18" end="18" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO247" description="AGPIOCTRL for GPIO247" begin="23" end="23" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO253" description="AGPIOCTRL for GPIO253" begin="29" end="29" width="1" rwaccess="RW"/>
+	</register>
+	<register id="GPIOINENACTRL" width="32" page="1" offset="0x132" internal="0" description="GPIOINENACTRL Control Register">
+		<bitfield id="GPIO20" description="Input Buffer Control for GPIO20" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO21" description="Input Buffer Control for GPIO21" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO62" description="Input Buffer Control for GPIO62" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="GPIO63" description="Input Buffer Control for GPIO63" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="IO_DRVSEL" width="16" page="1" offset="0x134" internal="0" description="IO Drive strength select register">
+		<bitfield id="DRVSEL_GPIO2" description="Drive select for GPIO 2" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="DRVSEL_GPIO3" description="Drive select for GPIO 3" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="DRVSEL_GPIO9" description="Drive select for GPIO 9" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="DRVSEL_GPIO32" description="Drive select for GPIO 32" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="IO_MODESEL" width="16" page="1" offset="0x135" internal="0" description="IO Mode select register">
+		<bitfield id="MODESEL_GPIO2" description="Mode select for GPIO 2" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="MODESEL_GPIO3" description="Mode select for GPIO 3" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="MODESEL_GPIO9" description="Mode select for GPIO 9" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="MODESEL_GPIO32" description="Mode select for GPIO 32" begin="3" end="3" width="1" rwaccess="RW"/>
+	</register>
+	<register id="ADCSOCFRCGB" width="32" page="1" offset="0x136" internal="0" description="ADC Global SOC Force">
+		<bitfield id="SOC0" description="Generate synchronous SW trigger for SOC0" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="SOC1" description="Generate synchronous SW trigger for SOC1" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="SOC2" description="Generate synchronous SW trigger for SOC2" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="SOC3" description="Generate synchronous SW trigger for SOC3" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="SOC4" description="Generate synchronous SW trigger for SOC4" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="SOC5" description="Generate synchronous SW trigger for SOC5" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="SOC6" description="Generate synchronous SW trigger for SOC6" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="SOC7" description="Generate synchronous SW trigger for SOC7" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="SOC8" description="Generate synchronous SW trigger for SOC8" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="SOC9" description="Generate synchronous SW trigger for SOC9" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="SOC10" description="Generate synchronous SW trigger for SOC10" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="SOC11" description="Generate synchronous SW trigger for SOC11" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="SOC12" description="Generate synchronous SW trigger for SOC12" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="SOC13" description="Generate synchronous SW trigger for SOC13" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="SOC14" description="Generate synchronous SW trigger for SOC14" begin="14" end="14" width="1" rwaccess="RW"/>
+		<bitfield id="SOC15" description="Generate synchronous SW trigger for SOC15" begin="15" end="15" width="1" rwaccess="RW"/>
+	</register>
+	<register id="ADCSOCFRCGBSEL" width="16" page="1" offset="0x138" internal="0" description="ADC Global SOC Force Select">
+		<bitfield id="ADCA" description="Generate synchronous SW trigger for ADCA" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ADCB" description="Generate synchronous SW trigger for ADCB" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="ADCC" description="Generate synchronous SW trigger for ADCC" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="ADCD" description="Generate synchronous SW trigger for ADCD" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="ADCE" description="Generate synchronous SW trigger for ADCE" begin="4" end="4" width="1" rwaccess="RW"/>
+	</register>
+</module>

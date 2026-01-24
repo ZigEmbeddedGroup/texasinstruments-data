@@ -1,0 +1,31 @@
+<module name="USB0_VBP2AHB_WRAP_CONTROLLER_VBP_USB3_CORE_LINK" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LU1LFPSRXTIM" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LU1LFPSRXTIM" offset="0x0" width="32" description="U1/U2 LFPS Rx Timer Register
+ - Link Layer Register for U1/U2 LFPS RX Timers. 
+ - This register is common for all SS ports.">
+		<bitfield id="U1U2_LFPS_EXIT_RX_CLK" width="8" begin="15" end="8" resetval="0x31" description="Programmable U1U2 LFPS EXIT RX CLKS  - Applicable to Remote Partner initiated Ux exit: Time to recognize valid Ux exit request from the remote partner.  - This field is encoded as the pipe clk [8ns] count for the LFPS.  -- 1: 8ns  -- 2: 16ns  -- 3: 24ns, and so on" range="15 - 8" rwaccess="R/W"/> 
+		<bitfield id="U1U2_EXIT_RSP_RX_CLK" width="8" begin="7" end="0" resetval="0x31" description="Programmable U1U2 EXIT RESP RX CLKS  - Applicable to locally initiated Ux exit: Minimum LFPS reception from remote to consider Ux exit handshake is successful.  - This field is encoded as the pipe clk [8ns] count for the LFPS.  -- 1: 8ns  -- 2: 16ns  -- 3: 24ns, and so on" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LINK_SETTINGS" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LINK_SETTINGS" offset="0x20" width="32" description="Link Setting Register
+ - Link Layer User Control Register for enabling Link/PHY-specific options. 
+ - This register is common for all SS ports.">
+		<bitfield id="U1_RESID_TIMER_US" width="3" begin="30" end="28" resetval="0x4" description="Programmable U1 MIN RESIDENCY TIMER  This field specifies U1 MIN RESIDENCY TIMER value in us. Set to 0 to disable the timer." range="30 - 28" rwaccess="R/W"/> 
+		<bitfield id="PM_LC_TIMER_US" width="3" begin="26" end="24" resetval="0x5" description="Programmable PM_LC_TIMER  This field specifies PM_LC_TIMER value in us." range="26 - 24" rwaccess="R/W"/> 
+		<bitfield id="PM_ENTRY_TIMER_US" width="4" begin="23" end="20" resetval="0x9" description="Programmable PM_ENTRY_TIMER  This field specifies PM_ENTRY_TIMER value in us." range="23 - 20" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LLUCTL" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LLUCTL" offset="0x24" width="32" description="Link User Control Register
+ - Link Layer User Control Register for enabling Link/PHY-specific options. 
+ - This register is common for all SS ports.">
+		<bitfield id="SUPPORT_P4_PG" width="1" begin="29" end="29" resetval="0x0" description="PHY P4 Power gate mode [PG] is enabled.  Set this bit if the PHY supports PG mode in P4. This bit is used only for Synopsys PHY." range="29" rwaccess="R/W"/> 
+		<bitfield id="SUPPORT_P4" width="1" begin="28" end="28" resetval="0x0" description="Support PHY P3.CPM and P4 Power States.  When this bit is set, the controller puts  the PHY in P3.CPM or P4 in certain states. This bit is used only for Synopsys PHY." range="28" rwaccess="R/W"/> 
+		<bitfield id="DISRXDET_LTSSM_TIMER_OVRRD" width="1" begin="23" end="23" resetval="0x1" description="DisRxDet_LTSSM_Timer_Ovrrd.  When DisRxDetU3RxDet is asserted in Polling or U1, the timeout expires immediately." range="23" rwaccess="R/W"/> 
+		<bitfield id="U2P3CPMOK" width="1" begin="12" end="12" resetval="0x0" description="P3CPM OK for U2/SSInactive [U2P3CPMok]   - 0: During link state U2/SS.Inactive, put PHY in P2 [Default]  - 1: During link state U2/SS.Inactive, put PHY in P3CPM. Note: For a port, if both GUCTL1[25]=1 and LUCTL[12]=1, LUCTL[12]=1 takes priority." range="12" rwaccess="R/W"/> 
+		<bitfield id="EN_RESET_PIPE_AFTER_PHY_MUX" width="1" begin="11" end="11" resetval="0x0" description="en_reset_pipe_after_phy_mux.  The controller issues USB 3.0 PHY reset after DisRxDetU3RxDet is de-asserted." range="11" rwaccess="R/W"/> 
+		<bitfield id="MASK_PIPE_RESET" width="1" begin="7" end="7" resetval="0x1" description="Mask pipe reset.  If this bit is set, controller blocks pipe_reset_n from going to the PHY when DisRxDetU3RxDet=1." range="7" rwaccess="R/W"/> 
+		<bitfield id="NO_UX_EXIT_P0_TRANS" width="1" begin="5" end="5" resetval="0x0" description="no_ux_exit_p0_trans.  Link LTSSM detects Ux_exit LFPS when P0 transition is on-going by default. If this bit is set, Link LTSSM may miss Ux_exit LFPS when P0 transition is happening." range="5" rwaccess="R/W"/>
+	</register>
+	<register id="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LPTMDPDELAY" acronym="VBP2AHB_WRAP__CONTROLLER_VBP__USB3_CORE_LINK_LPTMDPDELAY" offset="0x28" width="32" description="Link Datapath Delay Register
+ - Link Layer Timer Register for P3CPM/P4 Residency.
+ - This register is common for all SS ports.">
+		<bitfield id="P3CPMP4_RESIDENCY" width="12" begin="21" end="10" resetval="0x3" description="p3cpmp4 residency timer value.  Minimum number of suspend_clk periods that the controller needs to stay in P3.CPM or P4 before exiting P3.CPM or P4. This field is used only for Synopsys PHY." range="21 - 10" rwaccess="R/W"/>
+	</register>
+</module>

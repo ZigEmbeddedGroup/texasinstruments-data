@@ -1,0 +1,13 @@
+<module id="MEMSS_M_CONFIG_REGS" HW_revision="" description="MEMSS M CONFIG Registers">
+	<register id="M0_MEM_CONFIG" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="M0 Memory Configuration Register">
+		<bitfield id="TESTMODE" description="M0 Test Mode" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="INIT" description="Triggers memory Initilization " begin="16" end="16" width="1" rwaccess="RW"/>
+		<bitfield id="INIT_STS" description="M0 INIT status" begin="24" end="24" width="1" rwaccess="R"/>
+	</register>
+	<register id="M0_MEM_CONFIG_LOCK" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="Temporary Lock for M0 Memory Configuration Register ">
+		<bitfield id="M0_MEM_CONFIG" description="Temporary Lock" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+	<register id="M0_MEM_CONFIG_COMMIT" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="Permament Lock for M0 Memory Configuration Register ">
+		<bitfield id="M0_MEM_CONFIG_LOCK" description="Permanent Commit" begin="0" end="0" width="1" rwaccess="RW"/>
+	</register>
+</module>

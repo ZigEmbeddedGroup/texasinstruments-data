@@ -1,0 +1,1016 @@
+<?xml version="1.0" encoding="UTF-8"?><module id="TSIP" HW_revision="" XML_version="1" description="TSIP MODULE REGISTERS">
+     <register id="PID" acronym="PID" offset="0x00000000" width="32" description="Peripheral Identification ">
+<bitfield id="MODID" width="16" begin="31" end="16" resetval="96" description="Module Id" range="" rwaccess="R"/>
+<bitfield id="MAJOR" width="8" begin="15" end="8" resetval="1" description="Major Version Value" range="" rwaccess="R"/>
+<bitfield id="MINOR" width="8" begin="7" end="0" resetval="0" description="Minor Version Value" range="" rwaccess="R"/>
+</register>
+     <register id="EMUTST" acronym="EMUTST" offset="0x00000004" width="32" description="Emulation and Test Register">
+<bitfield id="Reserved" width="7" begin="31" end="25" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="TSTDIV" width="5" begin="24" end="20" resetval="0" description="Internal Test Clock Divider Ratio" range="" rwaccess="RW"/>
+<bitfield id="TSTCLK" width="1" begin="19" end="19" resetval="0" description="Test Clock Source Selection" range="" rwaccess="RW">
+<bitenum id="EXTERNAL" value="0" token="EXTERNAL" description=""/>
+<bitenum id="INTERNAL" value="1" token="INTERNAL" description=""/>
+</bitfield>
+<bitfield id="IOLB" width="1" begin="18" end="18" resetval="0" description="Serial Test mode selection" range="" rwaccess="RW">
+<bitenum id="INTERNAL_DLB" value="0" token="INTERNAL_DLB" description=""/>
+<bitenum id="IO_BUF_DLB" value="1" token="IO_BUF_DLB" description=""/>
+</bitfield>
+<bitfield id="LBS" width="1" begin="17" end="17" resetval="0" description="Serial Test mode selection" range="" rwaccess="RW">
+<bitenum id="DLB" value="0" token="DLB" description=""/>
+<bitenum id="LLB" value="1" token="LLB" description=""/>
+</bitfield>
+<bitfield id="SIUTST" width="1" begin="16" end="16" resetval="0" description="Number of MP and Shadow regions" range="" rwaccess="RW">
+<bitenum id="NORMAL_MODE" value="0" token="NORMAL_MODE" description=""/>
+<bitenum id="LOOPBACK_MODE" value="1" token="LOOPBACK_MODE" description=""/>
+</bitfield>
+<bitfield id="TSTKEY" width="8" begin="15" end="8" resetval="0" description="Test key" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="SOFT" width="1" begin="1" end="1" resetval="1" description="Soft run selection" range="" rwaccess="RW">
+<bitenum id="DISABLE" value="0" token="DISABLE" description=""/>
+<bitenum id="ENABLE" value="1" token="ENABLE" description=""/>
+</bitfield>
+<bitfield id="FREE" width="1" begin="0" end="0" resetval="1" description="Free run selection" range="" rwaccess="RW">
+<bitenum id="DISABLE" value="0" token="DISABLE" description=""/>
+<bitenum id="ENABLE" value="1" token="ENABLE" description=""/>
+</bitfield>
+</register>
+     <register id="RST" acronym="RST" offset="0x00000008" width="32" description="Reset Register">
+<bitfield id="Reserved" width="30" begin="31" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DMARST" width="1" begin="1" end="1" resetval="0" description="TDMU and DMATCU Reset" range="" rwaccess="RW">
+<bitenum id="RST" value="1" token="RST" description=""/>
+</bitfield>
+<bitfield id="SIURST" width="1" begin="0" end="0" resetval="0" description="SIU Reset" range="" rwaccess="RW">
+<bitenum id="RST" value="1" token="RST" description=""/>
+</bitfield>
+</register>
+     <register id="SIUCTL" acronym="SIUCTL" offset="0x00000080" width="32" description="SIU Global Control Register">
+<bitfield id="Reserved" width="27" begin="31" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLKD" width="1" begin="4" end="4" resetval="0" description="Clock Reduncy Selection" range="" rwaccess="RW">
+<bitenum id="REDUN" value="0" token="REDUN" description=""/>
+<bitenum id="DUAL" value="1" token="DUAL" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="2" begin="3" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="RCVENB" width="1" begin="1" end="1" resetval="0" description="Receive Enable" range="" rwaccess="RW">
+<bitenum id="ENABLE" value="1" token="ENABLE" description=""/>
+<bitenum id="DISABLE" value="0" token="DISABLE" description=""/>
+</bitfield>
+<bitfield id="XMTENB" width="1" begin="0" end="0" resetval="0" description="Transmit Enable" range="" rwaccess="RW">
+<bitenum id="ENABLE" value="1" token="ENABLE" description=""/>
+<bitenum id="DISABLE" value="0" token="DISABLE" description=""/>
+</bitfield>
+</register>
+     <register id="XCLK" acronym="XCLK" offset="0x000000A0" width="32" description="Transmit Clock Source Register">
+<bitfield id="Reserved" width="31" begin="31" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="XMTSRC" width="1" begin="0" end="0" resetval="0" description="Transmit clock and frame sync selection" range="" rwaccess="RW">
+<bitenum id="ACLK" value="0" token="ACLK" description=""/>
+<bitenum id="BCLK" value="1" token="BCLK" description=""/>
+</bitfield>
+</register>
+     <register id="XCTL" acronym="XCTL" offset="0x000000A4" width="32" description="Transmit Control Register">
+<bitfield id="Reserved" width="2" begin="31" end="30" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DATD" width="14" begin="29" end="16" resetval="0" description="Transmit data delay" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="6" begin="15" end="10" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DIS" width="2" begin="9" end="8" resetval="0" description="Transmit output disable state" range="" rwaccess="RW">
+<bitenum id="HIMPED" value="0" token="HIMPED" description=""/>
+<bitenum id="LOW" value="2" token="LOW" description=""/>
+<bitenum id="HIGH" value="3" token="HIGH" description=""/>
+</bitfield>
+<bitfield id="FSYNCP" width="1" begin="7" end="7" resetval="0" description="Transmit frame sync polarity" range="" rwaccess="RW">
+<bitenum id="ALOW" value="0" token="ALOW" description=""/>
+<bitenum id="AHIGH" value="1" token="AHIGH" description=""/>
+</bitfield>
+<bitfield id="FCLKP" width="1" begin="6" end="6" resetval="0" description="Transmit frame sync clock polarity" range="" rwaccess="RW">
+<bitenum id="RISING" value="0" token="RISING" description=""/>
+<bitenum id="FALLING" value="1" token="FALLING" description=""/>
+</bitfield>
+<bitfield id="DCLKP" width="1" begin="5" end="5" resetval="0" description="Transmit data clock polarity" range="" rwaccess="RW">
+<bitenum id="RISING" value="0" token="RISING" description=""/>
+<bitenum id="FALLING" value="1" token="FALLING" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="2" begin="4" end="3" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DATR" width="2" begin="2" end="1" resetval="0" description="Transmit data rate" range="" rwaccess="RW">
+<bitenum id="8M" value="0" token="8M" description=""/>
+<bitenum id="16M" value="1" token="16M" description=""/>
+<bitenum id="32M" value="2" token="32M" description=""/>
+</bitfield>
+<bitfield id="CLKM" width="1" begin="0" end="0" resetval="0" description="Transmit clock mode" range="" rwaccess="RW">
+<bitenum id="DBL" value="0" token="DBL" description=""/>
+<bitenum id="SGL" value="1" token="SGL" description=""/>
+</bitfield>
+</register>
+     <register id="XSIZE" acronym="XSIZE" offset="0x000000A8" width="32" description="Transmit Size Register">
+<bitfield id="Reserved" width="8" begin="31" end="24" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCNT" width="8" begin="23" end="16" resetval="3" description="Transmit Frame count" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="9" begin="15" end="7" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZ" width="7" begin="6" end="0" resetval="127" description="Transmit Frame Size" range="" rwaccess="RW"/>
+</register>
+     <register id="RCLK" acronym="RCLK" offset="0x000000C0" width="32" description="Receive Clock Source Register">
+<bitfield id="Reserved" width="31" begin="31" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="SRC" width="1" begin="0" end="0" resetval="0" description="Receive clocl and frame sync selection" range="" rwaccess="RW">
+<bitenum id="ACLK" value="0" token="ACLK" description=""/>
+<bitenum id="BCLK" value="1" token="BCLK" description=""/>
+</bitfield>
+</register>
+     <register id="RCTL" acronym="RCTL" offset="0x000000C4" width="32" description="Receive Control Register">
+<bitfield id="Reserved" width="2" begin="31" end="30" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DATD" width="14" begin="29" end="16" resetval="0" description="Receive data delay" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="8" begin="15" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSYNCP" width="1" begin="7" end="7" resetval="0" description="Receive frame sync polarity" range="" rwaccess="RW">
+<bitenum id="ALOW" value="0" token="ALOW" description=""/>
+<bitenum id="AHIGH" value="1" token="AHIGH" description=""/>
+</bitfield>
+<bitfield id="FCLKP" width="1" begin="6" end="6" resetval="0" description="Receive frame sync clock polarity" range="" rwaccess="RW">
+<bitenum id="RISING" value="0" token="RISING" description=""/>
+<bitenum id="FALLING" value="1" token="FALLING" description=""/>
+</bitfield>
+<bitfield id="DCLKP" width="1" begin="5" end="5" resetval="0" description="Receive data clock polarity" range="" rwaccess="RW">
+<bitenum id="RISING" value="0" token="RISING" description=""/>
+<bitenum id="FALLING" value="1" token="FALLING" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="2" begin="4" end="3" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DATR" width="2" begin="2" end="1" resetval="0" description="Receive Data rate" range="" rwaccess="RW">
+<bitenum id="8M" value="0" token="8M" description=""/>
+<bitenum id="16M" value="1" token="16M" description=""/>
+<bitenum id="32M" value="2" token="32M" description=""/>
+</bitfield>
+<bitfield id="CLKM" width="1" begin="0" end="0" resetval="0" description="Receive clock mode" range="" rwaccess="RW">
+<bitenum id="DBL" value="0" token="DBL" description=""/>
+<bitenum id="SGL" value="1" token="SGL" description=""/>
+</bitfield>
+</register>
+     <register id="RSIZE" acronym="RSIZE" offset="0x000000C8" width="32" description="Receive size registers">
+<bitfield id="Reserved" width="8" begin="31" end="24" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCNT" width="8" begin="23" end="16" resetval="3" description="Receive frame count" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="9" begin="15" end="7" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZ" width="7" begin="6" end="0" resetval="127" description="Receive frme size" range="" rwaccess="RW"/>
+</register>
+     <register id="TDMUCTL" acronym="TDMUCTL" offset="0x00000100" width="32" description="TDMU Global Control Register">
+<bitfield id="Reserved" width="31" begin="31" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="DMAENB" width="1" begin="0" end="0" resetval="0" description="TDMU and DMATCU enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+     <register id="XFRFC" acronym="XFRFC" offset="0x00000104" width="32" description="Transmit Free Running Frame Counter">
+<bitfield id="Reserved" width="8" begin="31" end="24" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FRFC" width="24" begin="23" end="0" resetval="0" description="Free Running Frame Counter" range="" rwaccess="R"/>
+</register>
+     <register id="RFRFC" acronym="RFRFC" offset="0x00000108" width="32" description="Receive Free Running Frame Counter">
+<bitfield id="Reserved" width="8" begin="31" end="24" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FRFC" width="24" begin="23" end="0" resetval="0" description="Free Running Frame Counter" range="" rwaccess="R"/>
+</register>
+     <register id="TDMUCFG" acronym="TDMUCFG" offset="0x0000010C" width="32" description="TDMU Global Configuration Register">
+<bitfield id="Reserved" width="31" begin="31" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="BEND" width="1" begin="0" end="0" resetval="0" description="Endian Mode Selection" range="" rwaccess="RW">
+<bitenum id="LITTLE" value="0" token="LITTLE" description=""/>
+<bitenum id="BIG" value="1" token="BIG" description=""/>
+</bitfield>
+</register>
+     <register id="XBMST" acronym="XBMST" offset="0x00000110" width="32" description="Transmit Channel Bitmap Active Status Register">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CH5BMS" width="2" begin="11" end="10" resetval="0" description="Transmit Channel 5 active status" range="" rwaccess="R"/>
+<bitfield id="CH4BMS" width="2" begin="9" end="8" resetval="0" description="Transmit chaneel 4 active status" range="" rwaccess="R"/>
+<bitfield id="CH3BMS" width="2" begin="7" end="6" resetval="0" description="Transmit channel 3 active status" range="" rwaccess="R"/>
+<bitfield id="CH2BMS" width="2" begin="5" end="4" resetval="0" description="Transmit channel 2 active status" range="" rwaccess="R"/>
+<bitfield id="CH1BMS" width="2" begin="3" end="2" resetval="0" description="Transmit channel 1 active status" range="" rwaccess="R"/>
+<bitfield id="CH0BMS" width="2" begin="1" end="0" resetval="0" description="Transmit channel 0 active status" range="" rwaccess="R"/>
+</register>
+     <register id="RBMST" acronym="RBMST" offset="0x00000114" width="32" description="Receive Channel Bitmap Active Status Register">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CH5BMS" width="2" begin="11" end="10" resetval="0" description="Receive Channel 5 status" range="" rwaccess="R"/>
+<bitfield id="CH4BMS" width="2" begin="9" end="8" resetval="0" description="Receive Channel 4 status" range="" rwaccess="R"/>
+<bitfield id="CH3BMS" width="2" begin="7" end="6" resetval="0" description="Receive Channel 3 status" range="" rwaccess="R"/>
+<bitfield id="CH2BMS" width="2" begin="5" end="4" resetval="0" description="Receive Channel 2 status" range="" rwaccess="R"/>
+<bitfield id="CH1BMS" width="2" begin="3" end="2" resetval="0" description="Receive Channel 1 status" range="" rwaccess="R"/>
+<bitfield id="CH0BMS" width="2" begin="1" end="0" resetval="0" description="Receive Channel 0 status" range="" rwaccess="R"/>
+</register>
+     <register id="DMACTL" acronym="DMACTL" offset="0x00000180" width="32" description="DMATCU Global Control Register">
+<bitfield id="Reserved" width="25" begin="31" end="7" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="MAXPRI" width="3" begin="6" end="4" resetval="7" description="Maximum Transfer Priority" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="1" begin="3" end="3" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="PRI" width="3" begin="2" end="0" resetval="7" description="Transfer Priority" range="" rwaccess="RW"/>
+</register>
+     <register id="XDLY" acronym="XDLY" offset="0x00000184" width="32" description="Transmit timeslot delay counter">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="SFINT" width="2" begin="15" end="14" resetval="0" description="Transmit Superframe interrupt selection" range="" rwaccess="R">
+<bitenum id="ACK" value="0" token="ACK" description=""/>
+<bitenum id="DLY" value="1" token="DLY" description=""/>
+<bitenum id="ACKORDLY" value="2" token="ACKORDLY" description=""/>
+<bitenum id="ACKNDLY" value="3" token="ACKNDLY" description=""/>
+</bitfield>
+<bitfield id="FRINT" width="2" begin="13" end="12" resetval="0" description="Transmit Frame interrupt selection" range="" rwaccess="R">
+<bitenum id="ACK" value="0" token="ACK" description=""/>
+<bitenum id="DLY" value="1" token="DLY" description=""/>
+<bitenum id="ACKORDLY" value="2" token="ACKORDLY" description=""/>
+<bitenum id="ACKNDLY" value="3" token="ACKNDLY" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="5" begin="11" end="7" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FDLY" width="7" begin="6" end="0" resetval="127" description="Transmit frame interrupt delay" range="" rwaccess="RW"/>
+</register>
+     <register id="RDLY" acronym="RDLY" offset="0x00000188" width="32" description="Receive Timeslot Delay Counter">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="SFINT" width="2" begin="15" end="14" resetval="0" description="Receive superframe interrupt selection" range="" rwaccess="R">
+<bitenum id="ACK" value="0" token="ACK" description=""/>
+<bitenum id="DLY" value="1" token="DLY" description=""/>
+<bitenum id="ACKORDLY" value="2" token="ACKORDLY" description=""/>
+<bitenum id="ACKNDLY" value="3" token="ACKNDLY" description=""/>
+</bitfield>
+<bitfield id="FRINT" width="2" begin="13" end="12" resetval="0" description="Receive Frame interrupt selection" range="" rwaccess="R">
+<bitenum id="ACK" value="0" token="ACK" description=""/>
+<bitenum id="DLY" value="1" token="DLY" description=""/>
+<bitenum id="ACKORDLY" value="2" token="ACKORDLY" description=""/>
+<bitenum id="ACKNDLY" value="3" token="ACKNDLY" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="5" begin="11" end="7" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FDLY" width="7" begin="6" end="0" resetval="127" description="Receive frame interrupt delay" range="" rwaccess="RW"/>
+</register>
+     <register id="XCHST" acronym="XCHST" offset="0x00000190" width="32" description="Transmit channel Configuration active status register">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CH5CS" width="2" begin="11" end="10" resetval="0" description="Transmit channel 5 active status" range="" rwaccess="R"/>
+<bitfield id="CH4CS" width="2" begin="9" end="8" resetval="0" description="Transmit channel 4 active status" range="" rwaccess="R"/>
+<bitfield id="CH3CS" width="2" begin="7" end="6" resetval="0" description="Transmit channel 3 active status" range="" rwaccess="R"/>
+<bitfield id="CH2CS" width="2" begin="5" end="4" resetval="0" description="Transmit channel 2 active status" range="" rwaccess="R"/>
+<bitfield id="CH1CS" width="2" begin="3" end="2" resetval="0" description="Transmit channel 1 active status" range="" rwaccess="R"/>
+<bitfield id="CH0CS" width="2" begin="1" end="0" resetval="0" description="Transmit channel 0 active status" range="" rwaccess="R"/>
+</register>
+     <register id="RCHST" acronym="RCHST" offset="0x00000194" width="32" description="Receive channel Configuration active status register">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CH5CS" width="2" begin="11" end="10" resetval="0" description="Receive channel 5 active status" range="" rwaccess="R"/>
+<bitfield id="CH4CS" width="2" begin="9" end="8" resetval="0" description="Receive channel 4 active status" range="" rwaccess="R"/>
+<bitfield id="CH3CS" width="2" begin="7" end="6" resetval="0" description="Receiev channel 3 active status" range="" rwaccess="R"/>
+<bitfield id="CH2CS" width="2" begin="5" end="4" resetval="0" description="Receive channel 2 active status" range="" rwaccess="R"/>
+<bitfield id="CH1CS" width="2" begin="3" end="2" resetval="0" description="Receive channel 1 active status" range="" rwaccess="R"/>
+<bitfield id="CH0CS" width="2" begin="1" end="0" resetval="0" description="Receive channel 0 active status" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRCTL0" acronym="ERRCTL0" offset="0x00000200" width="32" description="Transmit/Receive channel error control register {ERR_CTL}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQOV" width="1" begin="8" end="8" resetval="0" description="Clear error queue overflow flag" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQ" width="1" begin="1" end="1" resetval="0" description="Clear error queue" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="POPQ" width="1" begin="0" end="0" resetval="0" description="Pop the top entity off the error queue" range="" rwaccess="RW">
+<bitenum id="POP" value="1" token="POP" description=""/>
+</bitfield>
+</register>
+	     <register id="ERRCTL0" acronym="ERRCTL0" offset="0x00000200" width="32" description="Transmit/Receive channel error control register {ERR_CTL}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQOV" width="1" begin="8" end="8" resetval="0" description="Clear error queue overflow flag" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQ" width="1" begin="1" end="1" resetval="0" description="Clear error queue" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="POPQ" width="1" begin="0" end="0" resetval="0" description="Pop the top entity off the error queue" range="" rwaccess="RW">
+<bitenum id="POP" value="1" token="POP" description=""/>
+</bitfield>
+</register>
+	     <register id="ERRCNT0" acronym="ERRCNT0" offset="0x00000204" width="32" description="Transmit/Receive channel error count register {ERR_CNT}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="EQOV" width="1" begin="8" end="8" resetval="0" description="Error queue overflow" range="" rwaccess="R"/>
+<bitfield id="Reserved" width="3" begin="7" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ECNT" width="5" begin="4" end="0" resetval="0" description="Error count" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRQ0" acronym="ERRQ0" offset="0x00000208" width="32" description="Transmit/Receive channel error queue register">
+<bitfield id="ERRC" width="8" begin="31" end="24" resetval="0" description="Error Code" range="" rwaccess="R"/>
+<bitfield id="INFO" width="24" begin="23" end="0" resetval="0" description="Error information field" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRCTL1" acronym="ERRCTL1" offset="0x00000210" width="32" description="Transmit/Receive channel error control register {ERR_CTL}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQOV" width="1" begin="8" end="8" resetval="0" description="Clear error queue overflow flag" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQ" width="1" begin="1" end="1" resetval="0" description="Clear error queue" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="POPQ" width="1" begin="0" end="0" resetval="0" description="Pop the top entity off the error queue" range="" rwaccess="RW">
+<bitenum id="POP" value="1" token="POP" description=""/>
+</bitfield>
+</register>
+	     <register id="ERRCNT1" acronym="ERRCNT1" offset="0x00000214" width="32" description="Transmit/Receive channel error count register {ERR_CNT}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="EQOV" width="1" begin="8" end="8" resetval="0" description="Error queue overflow" range="" rwaccess="R"/>
+<bitfield id="Reserved" width="3" begin="7" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ECNT" width="5" begin="4" end="0" resetval="0" description="Error count" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRQ1" acronym="ERRQ1" offset="0x00000218" width="32" description="Transmit/Receive channel error queue register">
+<bitfield id="ERRC" width="8" begin="31" end="24" resetval="0" description="Error Code" range="" rwaccess="R"/>
+<bitfield id="INFO" width="24" begin="23" end="0" resetval="0" description="Error information field" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRCTL2" acronym="ERRCTL2" offset="0x00000220" width="32" description="Transmit/Receive channel error control register {ERR_CTL}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQOV" width="1" begin="8" end="8" resetval="0" description="Clear error queue overflow flag" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQ" width="1" begin="1" end="1" resetval="0" description="Clear error queue" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="POPQ" width="1" begin="0" end="0" resetval="0" description="Pop the top entity off the error queue" range="" rwaccess="RW">
+<bitenum id="POP" value="1" token="POP" description=""/>
+</bitfield>
+</register>
+	     <register id="ERRCNT2" acronym="ERRCNT2" offset="0x00000224" width="32" description="Transmit/Receive channel error count register {ERR_CNT}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="EQOV" width="1" begin="8" end="8" resetval="0" description="Error queue overflow" range="" rwaccess="R"/>
+<bitfield id="Reserved" width="3" begin="7" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ECNT" width="5" begin="4" end="0" resetval="0" description="Error count" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRQ2" acronym="ERRQ2" offset="0x00000228" width="32" description="Transmit/Receive channel error queue register">
+<bitfield id="ERRC" width="8" begin="31" end="24" resetval="0" description="Error Code" range="" rwaccess="R"/>
+<bitfield id="INFO" width="24" begin="23" end="0" resetval="0" description="Error information field" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRCTL3" acronym="ERRCTL3" offset="0x00000230" width="32" description="Transmit/Receive channel error control register {ERR_CTL}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQOV" width="1" begin="8" end="8" resetval="0" description="Clear error queue overflow flag" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQ" width="1" begin="1" end="1" resetval="0" description="Clear error queue" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="POPQ" width="1" begin="0" end="0" resetval="0" description="Pop the top entity off the error queue" range="" rwaccess="RW">
+<bitenum id="POP" value="1" token="POP" description=""/>
+</bitfield>
+</register>
+	     <register id="ERRCNT3" acronym="ERRCNT3" offset="0x00000234" width="32" description="Transmit/Receive channel error count register {ERR_CNT}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="EQOV" width="1" begin="8" end="8" resetval="0" description="Error queue overflow" range="" rwaccess="R"/>
+<bitfield id="Reserved" width="3" begin="7" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ECNT" width="5" begin="4" end="0" resetval="0" description="Error count" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRQ3" acronym="ERRQ3" offset="0x00000238" width="32" description="Transmit/Receive channel error queue register">
+<bitfield id="ERRC" width="8" begin="31" end="24" resetval="0" description="Error Code" range="" rwaccess="R"/>
+<bitfield id="INFO" width="24" begin="23" end="0" resetval="0" description="Error information field" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRCTL4" acronym="ERRCTL4" offset="0x00000240" width="32" description="Transmit/Receive channel error control register {ERR_CTL}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQOV" width="1" begin="8" end="8" resetval="0" description="Clear error queue overflow flag" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQ" width="1" begin="1" end="1" resetval="0" description="Clear error queue" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="POPQ" width="1" begin="0" end="0" resetval="0" description="Pop the top entity off the error queue" range="" rwaccess="RW">
+<bitenum id="POP" value="1" token="POP" description=""/>
+</bitfield>
+</register>
+	     <register id="ERRCNT4" acronym="ERRCNT4" offset="0x00000244" width="32" description="Transmit/Receive channel error count register {ERR_CNT}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="EQOV" width="1" begin="8" end="8" resetval="0" description="Error queue overflow" range="" rwaccess="R"/>
+<bitfield id="Reserved" width="3" begin="7" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ECNT" width="5" begin="4" end="0" resetval="0" description="Error count" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRQ4" acronym="ERRQ4" offset="0x00000248" width="32" description="Transmit/Receive channel error queue register">
+<bitfield id="ERRC" width="8" begin="31" end="24" resetval="0" description="Error Code" range="" rwaccess="R"/>
+<bitfield id="INFO" width="24" begin="23" end="0" resetval="0" description="Error information field" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRCTL5" acronym="ERRCTL5" offset="0x00000250" width="32" description="Transmit/Receive channel error control register {ERR_CTL}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQOV" width="1" begin="8" end="8" resetval="0" description="Clear error queue overflow flag" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="Reserved" width="6" begin="7" end="2" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CLRQ" width="1" begin="1" end="1" resetval="0" description="Clear error queue" range="" rwaccess="RW">
+<bitenum id="CLR" value="1" token="CLR" description=""/>
+</bitfield>
+<bitfield id="POPQ" width="1" begin="0" end="0" resetval="0" description="Pop the top entity off the error queue" range="" rwaccess="RW">
+<bitenum id="POP" value="1" token="POP" description=""/>
+</bitfield>
+</register>
+	     <register id="ERRCNT5" acronym="ERRCNT5" offset="0x00000254" width="32" description="Transmit/Receive channel error count register {ERR_CNT}">
+<bitfield id="Reserved" width="23" begin="31" end="9" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="EQOV" width="1" begin="8" end="8" resetval="0" description="Error queue overflow" range="" rwaccess="R"/>
+<bitfield id="Reserved" width="3" begin="7" end="5" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="ECNT" width="5" begin="4" end="0" resetval="0" description="Error count" range="" rwaccess="R"/>
+</register>
+	     <register id="ERRQ5" acronym="ERRQ5" offset="0x00000258" width="32" description="Transmit/Receive channel error queue register">
+<bitfield id="ERRC" width="8" begin="31" end="24" resetval="0" description="Error Code" range="" rwaccess="R"/>
+<bitfield id="INFO" width="24" begin="23" end="0" resetval="0" description="Error information field" range="" rwaccess="R"/>
+</register>
+	     <register id="XCHEN0" acronym="XCHEN0" offset="0x00000800" width="32" description="TDMU Transmit Channel Enable Register {XCHEN_XCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="XCHEN1" acronym="XCHEN1" offset="0x00000820" width="32" description="TDMU Transmit Channel Enable Register {XCHEN_XCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="XCHEN2" acronym="XCHEN2" offset="0x00000840" width="32" description="TDMU Transmit Channel Enable Register {XCHEN_XCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="XCHEN3" acronym="XCHEN3" offset="0x00000860" width="32" description="TDMU Transmit Channel Enable Register {XCHEN_XCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="XCHEN4" acronym="XCHEN4" offset="0x00000880" width="32" description="TDMU Transmit Channel Enable Register {XCHEN_XCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="XCHEN5" acronym="XCHEN5" offset="0x000008A0" width="32" description="TDMU Transmit Channel Enable Register {XCHEN_XCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+
+	     <register id="RCHEN0" acronym="RCHEN0" offset="0x00000C00" width="32" description="TDMU Receive Channel Enable Register {RCHEN_RCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="RCHEN1" acronym="RCHEN1" offset="0x00000C20" width="32" description="TDMU Receive Channel Enable Register {RCHEN_RCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="RCHEN2" acronym="RCHEN2" offset="0x00000C40" width="32" description="TDMU Receive Channel Enable Register {RCHEN_RCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="RCHEN3" acronym="RCHEN3" offset="0x00000C60" width="32" description="TDMU Receive Channel Enable Register {RCHEN_RCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="RCHEN4" acronym="RCHEN4" offset="0x00000C80" width="32" description="TDMU Receive Channel Enable Register {RCHEN_RCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+	     <register id="RCHEN5" acronym="RCHEN5" offset="0x00000CA0" width="32" description="TDMU Receive Channel Enable Register {RCHEN_RCHEN}">
+<bitfield id="Reserved" width="16" begin="31" end="16" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CID" width="8" begin="15" end="8" resetval="0" description="configuration Identification" range="" rwaccess="RW"/>
+<bitfield id="Reserved" width="7" begin="7" end="1" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="CHENB" width="1" begin="0" end="0" resetval="0" description="Channel n enable" range="" rwaccess="RW">
+<bitenum id="ENB" value="1" token="ENB" description=""/>
+<bitenum id="DIS" value="0" token="DIS" description=""/>
+</bitfield>
+</register>
+
+	     <register id="DXCH_ABASE0" acronym="DXCH_ABASE0" offset="0x00001000" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DXCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFALLOC0" acronym="DXCH_AFALLOC0" offset="0x00001004" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DXCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_AFSIZE0" acronym="DXCH_AFSIZE0" offset="0x00001008" width="32" description="DMATCU Receive Channel Frame Size Register A {DXCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFCNT0" acronym="DXCH_AFCNT0" offset="0x0000100C" width="32" description="DMATCU Receive Channel Frame Count Register A {DXCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BBASE0" acronym="DXCH_BBASE0" offset="0x00001020" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DXCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFALLOC0" acronym="DXCH_BFALLOC0" offset="0x00001024" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DXCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_BFSIZE0" acronym="DXCH_BFSIZE0" offset="0x00001028" width="32" description="DMATCU Receive Channel Frame Size Register B {DXCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFCNT0" acronym="DXCH_BFCNT0" offset="0x0000102C" width="32" description="DMATCU Receive Channel Frame Count Register B {DXCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_ABASE1" acronym="DXCH_ABASE1" offset="0x00001040" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DXCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFALLOC1" acronym="DXCH_AFALLOC1" offset="0x00001044" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DXCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_AFSIZE1" acronym="DXCH_AFSIZE1" offset="0x00001048" width="32" description="DMATCU Receive Channel Frame Size Register A {DXCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFCNT1" acronym="DXCH_AFCNT1" offset="0x0000104C" width="32" description="DMATCU Receive Channel Frame Count Register A {DXCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BBASE1" acronym="DXCH_BBASE1" offset="0x00001060" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DXCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFALLOC1" acronym="DXCH_BFALLOC1" offset="0x00001064" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DXCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_BFSIZE1" acronym="DXCH_BFSIZE1" offset="0x00001068" width="32" description="DMATCU Receive Channel Frame Size Register B {DXCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFCNT1" acronym="DXCH_BFCNT1" offset="0x0000106C" width="32" description="DMATCU Receive Channel Frame Count Register B {DXCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_ABASE2" acronym="DXCH_ABASE2" offset="0x00001080" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DXCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFALLOC2" acronym="DXCH_AFALLOC2" offset="0x00001084" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DXCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_AFSIZE2" acronym="DXCH_AFSIZE2" offset="0x00001088" width="32" description="DMATCU Receive Channel Frame Size Register A {DXCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFCNT2" acronym="DXCH_AFCNT2" offset="0x0000108C" width="32" description="DMATCU Receive Channel Frame Count Register A {DXCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BBASE2" acronym="DXCH_BBASE2" offset="0x000010A0" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DXCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFALLOC2" acronym="DXCH_BFALLOC2" offset="0x000010A4" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DXCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_BFSIZE2" acronym="DXCH_BFSIZE2" offset="0x000010A8" width="32" description="DMATCU Receive Channel Frame Size Register B {DXCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFCNT2" acronym="DXCH_BFCNT2" offset="0x000010AC" width="32" description="DMATCU Receive Channel Frame Count Register B {DXCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_ABASE3" acronym="DXCH_ABASE3" offset="0x000010C0" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DXCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFALLOC3" acronym="DXCH_AFALLOC3" offset="0x000010C4" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DXCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_AFSIZE3" acronym="DXCH_AFSIZE3" offset="0x000010C8" width="32" description="DMATCU Receive Channel Frame Size Register A {DXCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFCNT3" acronym="DXCH_AFCNT3" offset="0x000010CC" width="32" description="DMATCU Receive Channel Frame Count Register A {DXCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BBASE3" acronym="DXCH_BBASE3" offset="0x000010E0" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DXCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFALLOC3" acronym="DXCH_BFALLOC3" offset="0x000010E4" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DXCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_BFSIZE3" acronym="DXCH_BFSIZE3" offset="0x000010E8" width="32" description="DMATCU Receive Channel Frame Size Register B {DXCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFCNT3" acronym="DXCH_BFCNT3" offset="0x000010EC" width="32" description="DMATCU Receive Channel Frame Count Register B {DXCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_ABASE4" acronym="DXCH_ABASE4" offset="0x00001100" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DXCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFALLOC4" acronym="DXCH_AFALLOC4" offset="0x00001104" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DXCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_AFSIZE4" acronym="DXCH_AFSIZE4" offset="0x00001108" width="32" description="DMATCU Receive Channel Frame Size Register A {DXCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFCNT4" acronym="DXCH_AFCNT4" offset="0x0000110C" width="32" description="DMATCU Receive Channel Frame Count Register A {DXCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BBASE4" acronym="DXCH_BBASE4" offset="0x00001120" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DXCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFALLOC4" acronym="DXCH_BFALLOC4" offset="0x00001124" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DXCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_BFSIZE4" acronym="DXCH_BFSIZE4" offset="0x00001128" width="32" description="DMATCU Receive Channel Frame Size Register B {DXCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFCNT4" acronym="DXCH_BFCNT4" offset="0x0000112C" width="32" description="DMATCU Receive Channel Frame Count Register B {DXCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_ABASE5" acronym="DXCH_ABASE5" offset="0x00001140" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DXCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFALLOC5" acronym="DXCH_AFALLOC5" offset="0x00001144" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DXCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_AFSIZE5" acronym="DXCH_AFSIZE5" offset="0x00001148" width="32" description="DMATCU Receive Channel Frame Size Register A {DXCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_AFCNT5" acronym="DXCH_AFCNT5" offset="0x0000114C" width="32" description="DMATCU Receive Channel Frame Count Register A {DXCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BBASE5" acronym="DXCH_BBASE5" offset="0x00001160" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DXCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFALLOC5" acronym="DXCH_BFALLOC5" offset="0x00001164" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DXCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DXCH_BFSIZE5" acronym="DXCH_BFSIZE5" offset="0x00001168" width="32" description="DMATCU Receive Channel Frame Size Register B {DXCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DXCH_BFCNT5" acronym="DXCH_BFCNT5" offset="0x0000116C" width="32" description="DMATCU Receive Channel Frame Count Register B {DXCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_ABASE0" acronym="DRCH_ABASE0" offset="0x00001800" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DRCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFALLOC0" acronym="DRCH_AFALLOC0" offset="0x00001804" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DRCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_AFSIZE0" acronym="DRCH_AFSIZE0" offset="0x00001808" width="32" description="DMATCU Receive Channel Frame Size Register A {DRCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFCNT0" acronym="DRCH_AFCNT0" offset="0x0000180C" width="32" description="DMATCU Receive Channel Frame Count Register A {DRCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BBASE0" acronym="DRCH_BBASE0" offset="0x00001820" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DRCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFALLOC0" acronym="DRCH_BFALLOC0" offset="0x00001824" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DRCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_BFSIZE0" acronym="DRCH_BFSIZE0" offset="0x00001828" width="32" description="DMATCU Receive Channel Frame Size Register B {DRCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFCNT0" acronym="DRCH_BFCNT0" offset="0x0000182C" width="32" description="DMATCU Receive Channel Frame Count Register B {DRCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_ABASE1" acronym="DRCH_ABASE1" offset="0x00001840" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DRCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFALLOC1" acronym="DRCH_AFALLOC1" offset="0x00001844" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DRCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_AFSIZE1" acronym="DRCH_AFSIZE1" offset="0x00001848" width="32" description="DMATCU Receive Channel Frame Size Register A {DRCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFCNT1" acronym="DRCH_AFCNT1" offset="0x0000184C" width="32" description="DMATCU Receive Channel Frame Count Register A {DRCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BBASE1" acronym="DRCH_BBASE1" offset="0x00001860" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DRCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFALLOC1" acronym="DRCH_BFALLOC1" offset="0x00001864" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DRCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_BFSIZE1" acronym="DRCH_BFSIZE1" offset="0x00001868" width="32" description="DMATCU Receive Channel Frame Size Register B {DRCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFCNT1" acronym="DRCH_BFCNT1" offset="0x0000186C" width="32" description="DMATCU Receive Channel Frame Count Register B {DRCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_ABASE2" acronym="DRCH_ABASE2" offset="0x00001880" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DRCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFALLOC2" acronym="DRCH_AFALLOC2" offset="0x00001884" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DRCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_AFSIZE2" acronym="DRCH_AFSIZE2" offset="0x00001888" width="32" description="DMATCU Receive Channel Frame Size Register A {DRCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFCNT2" acronym="DRCH_AFCNT2" offset="0x0000188C" width="32" description="DMATCU Receive Channel Frame Count Register A {DRCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BBASE2" acronym="DRCH_BBASE2" offset="0x000018A0" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DRCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFALLOC2" acronym="DRCH_BFALLOC2" offset="0x000018A4" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DRCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_BFSIZE2" acronym="DRCH_BFSIZE2" offset="0x000018A8" width="32" description="DMATCU Receive Channel Frame Size Register B {DRCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFCNT2" acronym="DRCH_BFCNT2" offset="0x000018AC" width="32" description="DMATCU Receive Channel Frame Count Register B {DRCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_ABASE3" acronym="DRCH_ABASE3" offset="0x000018C0" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DRCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFALLOC3" acronym="DRCH_AFALLOC3" offset="0x000018C4" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DRCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_AFSIZE3" acronym="DRCH_AFSIZE3" offset="0x000018C8" width="32" description="DMATCU Receive Channel Frame Size Register A {DRCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFCNT3" acronym="DRCH_AFCNT3" offset="0x000018CC" width="32" description="DMATCU Receive Channel Frame Count Register A {DRCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BBASE3" acronym="DRCH_BBASE3" offset="0x000018E0" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DRCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFALLOC3" acronym="DRCH_BFALLOC3" offset="0x000018E4" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DRCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_BFSIZE3" acronym="DRCH_BFSIZE3" offset="0x000018E8" width="32" description="DMATCU Receive Channel Frame Size Register B {DRCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFCNT3" acronym="DRCH_BFCNT3" offset="0x000018EC" width="32" description="DMATCU Receive Channel Frame Count Register B {DRCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_ABASE4" acronym="DRCH_ABASE4" offset="0x00001900" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DRCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFALLOC4" acronym="DRCH_AFALLOC4" offset="0x00001904" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DRCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_AFSIZE4" acronym="DRCH_AFSIZE4" offset="0x00001908" width="32" description="DMATCU Receive Channel Frame Size Register A {DRCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFCNT4" acronym="DRCH_AFCNT4" offset="0x0000190C" width="32" description="DMATCU Receive Channel Frame Count Register A {DRCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BBASE4" acronym="DRCH_BBASE4" offset="0x00001920" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DRCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFALLOC4" acronym="DRCH_BFALLOC4" offset="0x00001924" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DRCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_BFSIZE4" acronym="DRCH_BFSIZE4" offset="0x00001928" width="32" description="DMATCU Receive Channel Frame Size Register B {DRCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFCNT4" acronym="DRCH_BFCNT4" offset="0x0000192C" width="32" description="DMATCU Receive Channel Frame Count Register B {DRCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_ABASE5" acronym="DRCH_ABASE5" offset="0x00001940" width="32" description="DMATCU Receive Channel Memory Base Address Register A {DRCH_ABASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFALLOC5" acronym="DRCH_AFALLOC5" offset="0x00001944" width="32" description="DMATCU Receive Channel Frame Allocation Register A {DRCH_AFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_AFSIZE5" acronym="DRCH_AFSIZE5" offset="0x00001948" width="32" description="DMATCU Receive Channel Frame Size Register A {DRCH_AFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_AFCNT5" acronym="DRCH_AFCNT5" offset="0x0000194C" width="32" description="DMATCU Receive Channel Frame Count Register A {DRCH_AFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BBASE5" acronym="DRCH_BBASE5" offset="0x00001960" width="32" description="DMATCU Receive Channel Memory Base Address Register B {DRCH_BBASE}">
+<bitfield id="BADDR" width="32" begin="31" end="0" resetval="0" description="Memory Buffer Base Address" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFALLOC5" acronym="DRCH_BFALLOC5" offset="0x00001964" width="32" description="DMATCU Receive Channel Frame Allocation Register B {DRCH_BFALLOC}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FALLOC" width="12" begin="11" end="0" resetval="0" description="Frame Buffer Allocation" range="" rwaccess=" RW"/>
+</register>
+	     <register id="DRCH_BFSIZE5" acronym="DRCH_BFSIZE5" offset="0x00001968" width="32" description="DMATCU Receive Channel Frame Size Register B {DRCH_BFSIZE}">
+<bitfield id="Reserved" width="20" begin="31" end="12" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FSIZE" width="12" begin="11" end="0" resetval="0" description="Frame Size" range="" rwaccess="RW"/>
+</register>
+	     <register id="DRCH_BFCNT5" acronym="DRCH_BFCNT5" offset="0x0000196C" width="32" description="DMATCU Receive Channel Frame Count Register B {DRCH_BFCNT}">
+<bitfield id="Reserved" width="24" begin="31" end="8" resetval="0" description="" range="" rwaccess="N"/>
+<bitfield id="FCOUNT" width="8" begin="7" end="0" resetval="0" description="Frame count" range="" rwaccess="RW"/>
+</register>
+
+	     <register id="XBM_RBMA0[64]" acronym="XBM_RBMA0[64]" offset="0x00008000" width="32" description="Transmit Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMB0[64]" acronym="XBM_RBMB0[64]" offset="0x00008100" width="32" description="Transmit Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMA1[64]" acronym="XBM_RBMA1[64]" offset="0x00008200" width="32" description="Transmit Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMB1[64]" acronym="XBM_RBMB1[64]" offset="0x00008300" width="32" description="Transmit Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMA2[64]" acronym="XBM_RBMA2[64]" offset="0x00008400" width="32" description="Transmit Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMB2[64]" acronym="XBM_RBMB2[64]" offset="0x00008500" width="32" description="Transmit Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMA3[64]" acronym="XBM_RBMA3[64]" offset="0x00008600" width="32" description="Transmit Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMB3[64]" acronym="XBM_RBMB3[64]" offset="0x00008700" width="32" description="Transmit Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMA4[64]" acronym="XBM_RBMA4[64]" offset="0x00008800" width="32" description="Transmit Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMB4[64]" acronym="XBM_RBMB4[64]" offset="0x00008900" width="32" description="Transmit Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMA5[64]" acronym="XBM_RBMA5[64]" offset="0x00008A00" width="32" description="Transmit Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="XBM_RBMB5[64]" acronym="XBM_RBMB5[64]" offset="0x00008B00" width="32" description="Transmit Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+
+
+
+	     <register id="RBM_RBMA0[64]" acronym="RBM_RBMA0[64]" offset="0x0000C000" width="32" description="Receive Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMB0[64]" acronym="RBM_RBMB0[64]" offset="0x0000C100" width="32" description="Receive Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMA1[64]" acronym="RBM_RBMA1[64]" offset="0x0000C200" width="32" description="Receive Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMB1[64]" acronym="RBM_RBMB1[64]" offset="0x0000C300" width="32" description="Receive Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMA2[64]" acronym="RBM_RBMA2[64]" offset="0x0000C400" width="32" description="Receive Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMB2[64]" acronym="RBM_RBMB2[64]" offset="0x0000C500" width="32" description="Receive Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMA3[64]" acronym="RBM_RBMA3[64]" offset="0x0000C600" width="32" description="Receive Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMB3[64]" acronym="RBM_RBMB3[64]" offset="0x0000C700" width="32" description="Receive Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMA4[64]" acronym="RBM_RBMA4[64]" offset="0x0000C800" width="32" description="Receive Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMB4[64]" acronym="RBM_RBMB4[64]" offset="0x0000C900" width="32" description="Receive Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMA5[64]" acronym="RBM_RBMA5[64]" offset="0x0000CA00" width="32" description="Receive Channel Bitmap A">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+	     <register id="RBM_RBMB5[64]" acronym="RBM_RBMB5[64]" offset="0x0000CB00" width="32" description="Receive Channel Bitmap B">
+<bitfield id="CH" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+
+
+     <register id="XPING0" acronym="XPING0" offset="0x00010000" width="32" description="Transmit Channel 0 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPONG0" acronym="XPONG0" offset="0x00010400" width="32" description="Transmit Channel 0 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPING1" acronym="XPING1" offset="0x00010800" width="32" description="Transmit Channel 1 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPONG1" acronym="XPONG1" offset="0x00010C00" width="32" description="Transmit Channel 1 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPING2" acronym="XPING2" offset="0x00011000" width="32" description="Transmit Channel 2 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPONG2" acronym="XPONG2" offset="0x00011400" width="32" description="Transmit Channel 2 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPING3" acronym="XPING3" offset="0x00011800" width="32" description="Transmit Channel 0 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPONG3" acronym="XPONG3" offset="0x00011C00" width="32" description="Transmit Channel 0 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPING4" acronym="XPING4" offset="0x00012000" width="32" description="Transmit Channel 4 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPONG4" acronym="XPONG4" offset="0x00012400" width="32" description="Transmit Channel 4 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPING5" acronym="XPING5" offset="0x00012800" width="32" description="Transmit Channel 5 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="XPONG5" acronym="XPONG5" offset="0x00012C00" width="32" description="Transmit Channel 5 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPING0" acronym="RPING0" offset="0x00018000" width="32" description="Receive Channel 0 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPONG0" acronym="RPONG0" offset="0x00018400" width="32" description="Receive Channel 0 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPING1" acronym="RPING1" offset="0x00018800" width="32" description="Receive Channel 1 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPONG1" acronym="RPONG1" offset="0x00018C00" width="32" description="Receive Channel 1 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPING2" acronym="RPING2" offset="0x00019000" width="32" description="Receive Channel 2 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPONG2" acronym="RPONG2" offset="0x00019400" width="32" description="Receive Channel 2 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPING3" acronym="RPING3" offset="0x00019800" width="32" description="Receive Channel 0 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPONG3" acronym="RPONG3" offset="0x00019C00" width="32" description="Receive Channel 0 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPING4" acronym="RPING4" offset="0x0001A000" width="32" description="Receive Channel 4 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPONG4" acronym="RPONG4" offset="0x0001A400" width="32" description="Receive Channel 4 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPING5" acronym="RPING5" offset="0x0001A800" width="32" description="Receive Channel 5 Ping buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+     <register id="RPONG5" acronym="RPONG5" offset="0x0001AC00" width="32" description="Receive Channel 5 Pong buffer">
+<bitfield id="DAT" width="32" begin="31" end="0" resetval="0" description="Reserved" range="" rwaccess="RW"/>
+</register>
+</module>

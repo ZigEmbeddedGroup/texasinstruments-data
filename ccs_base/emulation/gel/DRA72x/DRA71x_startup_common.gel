@@ -1,0 +1,254 @@
+/*******************************************************************/
+/* This GEL file is loaded on the command line of Code Composer    */
+/* The StartUp() function is called every time you start           */
+/* Code Composer.  You can customize this function to              */
+/* initialize wait states or to perform other initialization.      */
+/*                                                                 */
+/* DRA72x startup common                                           */
+/*                                                                 */
+/*                                                                 */
+/*******************************************************************/
+
+
+#define WR_MEM_32(addr, data)   *(unsigned int*)(addr) =(unsigned int)(data)
+#define RD_MEM_32(addr)         *(unsigned int*)(addr)
+#define uint32_t                unsigned int
+
+#define DEBUG_PRINT     (1)
+
+menuitem "DRA72x Misc Module configurations"
+hotmenu OnTargetConnect_API()
+{
+    OnTargetConnect();
+}
+
+UnlockMMR()
+{
+    WR_MEM_32(0x4A002540, 0x2FF1AC2B);
+    WR_MEM_32(0x4A002544, 0xF757FDC0);
+    WR_MEM_32(0x4A002548, 0xE2BC3A6D);
+    WR_MEM_32(0x4A00254C, 0x1EBF131D);
+    WR_MEM_32(0x4A002550, 0x6F361E05);
+}
+
+OnTargetConnect()
+{
+    GEL_TextOut("--->>> DRA72x Target Connect Sequence Begins ... <<<---\n");
+    UnlockMMR(); //Required for TEST/non-fused samples - to remove later
+    DRA72x_target_connect_sequence();
+
+    /* Choose based on DEVICE and OPP */
+    DRA72x_PRCM_Clock_Config_OPPNOM_DRA72x_GENERIC();
+
+    DRA72x_PRCM_Module_AllEnable_Config();
+
+    DRA72x_DDR3_666MHz_Config();
+
+    GEL_TextOut("--->>> DRA72x Target Connect Sequence DONE !!!!!  <<<---\n");
+}
+
+OnResetDetected()
+{
+    GEL_TextOut( "Core Reset has occurred.\n\n" );
+}
+
+OnReset()
+{
+    int device_type;
+
+    device_type = (RD_MEM_32(0x4A002134) & 0x1C0) >> 6;
+
+    GEL_TextOut("--->>> Reset occurs <<<---\n");
+
+    DRA72x_show_device_info();
+
+    if (device_type == 0x3)
+    {
+        PC=0x30000;
+        CPSR=0x193;
+    }
+    else if (device_type == 0x1)
+    {
+        CPSR=0x1D3;
+    }
+    else if (device_type == 0x0)
+    {
+        CPSR=0x1D3;
+    }
+}
+
+DRA72x_target_connect_sequence()
+{
+    int reg;
+
+    DRA72x_show_device_info();
+
+    /* Disable Watchdog timer WDT2 */
+    Watchdog_disable(1);
+
+    reg = REG_TZ_SECURE;
+
+    if (reg == 0)
+    {
+        GEL_TextOut("\t--->>> The core is in non-SECURE state. <<<---\n");
+    }
+    else
+    {
+        GEL_TextOut("\t--->>> The core is in SECURE state! <<<---\n");
+    }
+}
+
+DRA72x_show_device_info()
+{
+    int silicon_rev, silicon_rev_major, silicon_rev_minor;
+    int device_type;
+    int status = 0;
+
+    silicon_rev = (RD_MEM_32(0x4AE0C204) & 0xF0000000) >> 28;
+    device_type = (RD_MEM_32(0x4A002134) & 0x1C0) >> 6;
+
+    if(silicon_rev == 0x0)
+    {
+        silicon_rev_major = 1;
+        silicon_rev_minor = 0;
+    }
+    else if(silicon_rev == 0x1)
+    {
+        silicon_rev_major = 2;
+        silicon_rev_minor = 0;
+    }
+    else if(silicon_rev == 0x2)
+    {
+        silicon_rev_major = 2;
+        silicon_rev_minor = 1;
+    }
+
+    if ( status == 0)
+    {
+        if (device_type == 0x3)
+        {
+            GEL_TextOut("\t--->>> DRA72x PG%d.%d GP device <<<---\n",,,,, silicon_rev_major, silicon_rev_minor);
+        }
+        else if (device_type == 0x2)
+        {
+            GEL_TextOut("\t--->>> DRA72x PG%d.%d HS device <<<---\n",,,,, silicon_rev_major, silicon_rev_minor);
+        }
+        else if (device_type == 0x1)
+        {
+            GEL_TextOut("\t--->>> DRA72x PG%d.%d EMU device <<<---\n",,,,, silicon_rev_major, silicon_rev_minor);
+        }
+        else if (device_type == 0x0)
+        {
+            GEL_TextOut("\t--->>> DRA72x TEST / NON-FUSED device <<<---\n");
+        }
+        else
+        {
+            GEL_TextOut("\t--->>> ERROR!!! UNKNOWN device type! <<<---\n");
+        }
+    }
+    else
+    {
+        GEL_TextOut("\t--->>> ERROR!!! UNKNOWN silicon revision! <<<---\n");
+    }
+
+}
+
+menuitem "DRA72x EMU Utilities"
+
+hotmenu Enter_Non_Secure_Mode()
+{
+    int reg;
+    GEL_TextOut("--->>> Enter Non secure Mode <<<---\n");
+
+    REG_TZ_SECURE = 0;
+    reg = REG_TZ_SECURE;
+
+    if (reg == 0)
+    {
+        GEL_TextOut("The core is in non-SECURE state. \n");
+    }
+    else
+    {
+        GEL_TextOut("The core is still in SECURE state!\n");
+    }
+}
+
+hotmenu Enter_Secure_Mode()
+{
+    int reg;
+    GEL_TextOut("--->>> Enter secure Mode <<<---\n");
+
+    REG_TZ_SECURE = 1;
+    reg = REG_TZ_SECURE;
+
+    if (reg == 0)
+    {
+        GEL_TextOut("The core is still in non-SECURE state. \n");
+    }
+    else
+    {
+        GEL_TextOut("The core is in SECURE state!\n");
+    }
+}
+
+hotmenu Watchdog_disable(int print_off)
+{
+    if (print_off == 0)
+    {
+        if (DEBUG_PRINT)
+        {
+            GEL_TextOut("--->>> Start WDT2 Watchdog Timer is disabled <<<---\n");
+        }
+    }
+
+    /* Enable clock */
+    WR_MEM_32(0x4AE07830, 0x02);
+
+    /* Check that module is Idle */
+    while (((*(int *)0x4AE07830) & 0x20000));
+
+    /* Disable  watchdog 2 */
+    /* Wait until reset complete */
+    while (!((*(int *)0x4AE14014) & 0x01));
+
+    /* Disable watchdog timer */
+    WR_MEM_32(0x4AE14048, 0x0000AAAA);
+
+    while (((*(int *)0x4AE14034) & 0x10));
+
+    /* Disable 32Khz watchdog timer */
+    WR_MEM_32(0x4AE14048, 0x00005555);
+
+    while (((*(int *)0x4AE14034) & 0x10));
+
+    if (print_off == 0)
+    {
+        if (DEBUG_PRINT)
+        {
+            GEL_TextOut("--->>> End WDT2 Watchdog Timer is disabled <<<---\n");
+        }
+    }
+}
+
+hotmenu Secure_Watchdog_disable()
+{
+    if (DEBUG_PRINT)
+    {
+        GEL_TextOut("--->>> Start Secure Watchdog Timer is disabled <<<---\n");
+    }
+
+    /* Disable watchdog timer */
+    WR_MEM_32(0x4AE22048, 0x0000AAAA);
+
+    while (((*(int *)0x4A322034) & 0x10));
+
+    /* Disable 32Khz watchdog timer */
+    WR_MEM_32(0x4AE22048, 0x00005555);
+
+    //while (((*(int *)0x4AE22034) & 0x10));
+
+    if (DEBUG_PRINT)
+    {
+        GEL_TextOut("--->>> End Secure Watchdog Timer is disabled <<<---\n");
+    }
+}

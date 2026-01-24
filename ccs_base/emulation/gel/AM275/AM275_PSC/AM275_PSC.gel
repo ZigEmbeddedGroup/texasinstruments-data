@@ -1,0 +1,1924 @@
+/**
+ * File  AM275_PSC.gel
+ *
+ * GEL File to control the power sleep controller on the M4
+*
+ */
+
+/* Copyright (c) 2024, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+
+/*** macro definitions for the MAIN_PSC ***/
+
+/* power domain indices */ /* Updated as per am275*/
+#define GP_CORE_CTL                 0
+#define PD_MAIN_SRAM0               1
+#define PD_MAIN_SRAM1               2
+#define PD_MAIN_SRAM2               3
+#define PD_R5SS0                    4
+#define PD_R5SS1                    5
+#define PD_C7X0                     6
+#define PD_C7X1                     7
+#define PD_RSVD0                    8
+#define PD_RSVD1                    9
+#define PD_RSVD2                    10
+#define PD_RSVD3                    11
+
+/* lpsc indices update as per AM275*/
+#define LPSC_MAIN_ALWAYSON  0
+#define LPSC_MAIN_DM    1
+#define LPSC_MAIN_DM_PBIST0 2
+#define LPSC_MAIN_MAIN2DM_ISO   3
+#define LPSC_MAIN_DM2MAIN_ISO   4
+#define LPSC_MAIN_DM2MAIN_INFRA_ISO 5
+#define LPSC_MAIN_DM2CENTRAL_ISO    6
+#define LPSC_MAIN_CENTRAL2DM_ISO    7
+#define LPSC_MAIN_DM_PBIST1 8
+#define LPSC_MAIN_TEST  9
+#define LPSC_MAIN_DEBUGSS   10
+#define LPSC_MAIN_PBIST0    11
+#define LPSC_MAIN_USB0  12
+#define LPSC_MAIN_USB0_ISO  13
+#define LPSC_MAIN_SMS_COM   14
+#define LPSC_MAIN_TIFS  15
+#define LPSC_MAIN_HSM   16
+#define LPSC_MAIN_HSM_ISO   17
+#define LPSC_MAIN_IP0   18
+#define LPSC_MAIN_IP1   19
+#define LPSC_MAIN_EMMC8B    20
+#define LPSC_MAIN_CPSW  21
+#define LPSC_MAIN_OSPI2_RSVD    22
+#define LPSC_MAIN_MCAN0 23
+#define LPSC_MAIN_MCAN1 24
+#define LPSC_MAIN_MCAN2 25
+#define LPSC_MAIN_MCAN3 26
+#define LPSC_MAIN_MCAN4 27
+#define LPSC_MAIN_OSPI0 28
+#define LPSC_MAIN_OSPI1 29
+#define LPSC_MAIN_HYPERBUS  30
+#define LPSC_MAIN_SA3UL 31
+#define LPSC_MAIN_MCASP0    32
+#define LPSC_MAIN_MCASP1    33
+#define LPSC_MAIN_MCASP2    34
+#define LPSC_MAIN_MCASP3    35
+#define LPSC_MAIN_MCASP4    36
+#define LPSC_MAIN_ATL   37
+#define LPSC_MAIN_ASRC0 38
+#define LPSC_MAIN_ASRC1 39
+#define LPSC_MAIN_MLB   40
+#define LPSC_MAIN_ADC   41
+#define LPSC_MAIN_GPCORE_RSVD0  42
+#define LPSC_MAIN_SRAM_0_1  43
+#define LPSC_MAIN_SRAM_PBIST0   44
+#define LPSC_MAIN_SRAM_PBIST1   45
+#define LPSC_MAIN_SRAM_2_3  46
+#define LPSC_MAIN_SRAM_PBIST2   47
+#define LPSC_MAIN_SRAM_PBIST3   48
+#define LPSC_MAIN_SRAM_4_5  49
+#define LPSC_MAIN_SRAM_PBIST4   50
+#define LPSC_MAIN_SRAM_PBIST5   51
+#define LPSC_MAIN_R5SS0_CORE0   52
+#define LPSC_MAIN_R5SS0_CORE1   53
+#define LPSC_MAIN_R5SS0_PBIST   54
+#define LPSC_MAIN_R5SS1_CORE0   55
+#define LPSC_MAIN_R5SS1_CORE1   56
+#define LPSC_MAIN_R5SS1_PBIST   57
+#define LPSC_MAIN_C7X0_COMMON   58
+#define LPSC_MAIN_C7X0_CORE 59
+#define LPSC_MAIN_C7X0_PBIST    60
+#define LPSC_MAIN_C7X1_COMMON   61
+#define LPSC_MAIN_C7X1_CORE 62
+#define LPSC_MAIN_C7X1_PBIST    63
+#define LPSC_MAIN_PDRSVD0_RSVD0 64
+#define LPSC_MAIN_PDRSVD0_RSVD1 65
+#define LPSC_MAIN_PDRSVD0_RSVD2 66
+#define LPSC_MAIN_PDRSVD0_RSVD3 67
+#define LPSC_MAIN_PDRSVD1_RSVD0 68
+#define LPSC_MAIN_PDRSVD1_RSVD1 69
+#define LPSC_MAIN_PDRSVD2_RSVD0 70
+#define LPSC_MAIN_PDRSVD3_RSVD0 71
+
+/*
+ * macro definitions for the MCU_PSC
+*/
+
+/* power domain indices */
+#define GP_CORE_CTL_MCU             0
+#define PD_MCUSS                    1
+
+/* lpsc indices */
+#define LPSC_MCU_ALWAYSON           0
+#define LPSC_MAIN2MCU_ISO           1
+#define LPSC_DM2MCU_ISO             2
+#define LPSC_DM2SAFE_ISO            3
+#define LPSC_MCU2DM_ISO             4
+#define LPSC_MCU_TEST               5
+#define LPSC_MCU_R5                 6
+#define LPSC_MCU_MCANSS_0           7
+#define LPSC_MCU_MCANSS_1           8
+#define LPSC_MCU_COMMON             9
+#define LPSC_MCU_PBIST              10
+
+
+/*Base address for MCU/WKUP and MAIN domain*/
+#define MCU_PSC_BASE            (0x4000000UL) // WKUP_PSC0_BASE
+#define MAIN_PSC_BASE           (0x0400000UL)
+
+// PSC reg offsets
+#define PSC_MDCTL00           	(0xA00)
+#define PSC_MDSTAT00          	(0x800)
+#define PSC_PDCTL00           	(0x300)
+#define PSC_PDSTAT00          	(0x200)
+#define PSC_PTCMD 				(0x120)
+#define PSC_PTSTAT 				(0x128)
+
+#define PSC_PD_OFF				(0x0)
+#define PSC_PD_ON				(0x1)
+
+#define PSC_SYNCRESETDISABLE	(0x0)
+#define PSC_SYNCRESET 			(0x1)
+#define PSC_DISABLE   			(0x2)
+#define PSC_ENABLE    			(0x3)
+
+#define PSC_TIMEOUT				(10000)
+
+#define MCU_PSC_MDCTL_BASE      MCU_PSC_BASE + PSC_MDCTL00
+#define MCU_PSC_MDSTAT_BASE     MCU_PSC_BASE + PSC_MDSTAT00
+#define MCU_PSC_PDCTL_BASE      MCU_PSC_BASE + PSC_PDCTL00
+#define MCU_PSC_PDSTAT_BASE     MCU_PSC_BASE + PSC_PDSTAT00
+#define MCU_PSC_PTCMD_BASE	    MCU_PSC_BASE + PSC_PTCMD
+#define MCU_PSC_PTSTAT_BASE	    MCU_PSC_BASE + PSC_PTSTAT
+#define MCU_PSC_PTCMD           MCU_PSC_PTCMD_BASE
+#define MCU_PSC_PTSTAT          MCU_PSC_PTSTAT_BASE
+
+#define MAIN_PSC_MDCTL_BASE    	MAIN_PSC_BASE + PSC_MDCTL00
+#define MAIN_PSC_MDSTAT_BASE    MAIN_PSC_BASE + PSC_MDSTAT00
+#define MAIN_PSC_PDCTL_BASE     MAIN_PSC_BASE + PSC_PDCTL00
+#define MAIN_PSC_PDSTAT_BASE    MAIN_PSC_BASE + PSC_PDSTAT00
+#define MAIN_PSC_PTCMD_BASE		MAIN_PSC_BASE + PSC_PTCMD
+#define MAIN_PSC_PTSTAT_BASE	MAIN_PSC_BASE + PSC_PTSTAT
+#define MAIN_PSC_PTCMD          MAIN_PSC_PTCMD_BASE
+#define MAIN_PSC_PTSTAT 		MAIN_PSC_PTSTAT_BASE
+
+/******************************************************************************
+ *
+ * NAME:
+ *      Set_MAIN_PSC_State
+ *
+ * PURPOSE:
+ *      Set a new power state for the specified power domain pd_id and module 
+ *		domain md_id. Wait for the power transition to complete.
+ *
+ * USAGE:
+ *      This routine can be called as:
+ *
+ *      Set_MAIN_PSC_State(unsigned int pd_id, unsigned int md_id, unsigned int pd_state, unsigned int md_state)
+ *
+ *      pd_id - (i) power domain id
+ *
+ *      md_id - (i) module domain id
+ *
+ *		pd_state - (i) new power domain state value to set
+ *					0 = PSC_PD_OFF
+ *					1 = PSC_PD_ON
+ *
+ *      md_state - (i) new module domain state value to set
+ *                  0 = PSC_SYNCRESETDISABLE (IP reset asserted and clock gated)
+ *                  1 = PSC_SYNCRESET (IP reset asserted and clock running)
+ *                  2 = PSC_DISABLE (IP reset released and clock gated, MMRs retained)
+ *                  3 = PSC_ENABLE (IP reset released and clock running)
+ * 
+ * RETURN VALUE:
+ *      1 if ok, 0 for error
+ *
+ * REFERENCE:
+ *
+ *****************************************************************************/
+ Set_MAIN_PSC_State(unsigned int pd_id, unsigned int md_id, unsigned int pd_state, unsigned int md_state)
+{
+	unsigned int* mdctl;
+	unsigned int* mdstat;
+	unsigned int* pdctl;
+	unsigned int* pdstat;	
+	
+	unsigned int loop_cnt = 0;
+	unsigned int ret = 1;
+    
+	unsigned int address_offset = 0;
+	address_offset = 0x80000000;
+
+	mdctl = (unsigned int*)(MAIN_PSC_MDCTL_BASE + ( 4 * md_id ) + address_offset);
+	mdstat = (unsigned int*)(MAIN_PSC_MDSTAT_BASE + ( 4 * md_id )+ address_offset);
+	pdctl = (unsigned int*)(MAIN_PSC_PDCTL_BASE + ( 4 * pd_id ) + address_offset);
+	pdstat = (unsigned int*)(MAIN_PSC_PDSTAT_BASE + ( 4 * pd_id )+ address_offset);	
+
+	// If state is already set, do nothing
+	if ( (( *pdstat & 0x1 ) == pd_state) && (( *mdstat & 0x1f ) == md_state) )
+	{
+        
+		GEL_TextOut( "No change needed.\n");
+		ret = 1;
+		return ret;
+	}
+
+	// Wait for GOSTAT to clear
+	while( (loop_cnt < PSC_TIMEOUT) && (*(unsigned int*)(MAIN_PSC_PTSTAT+address_offset) & (0x1 << pd_id)) != 0 )
+	{
+		loop_cnt++;
+	}
+	
+	// Check if we got timeout error while waiting
+	if (loop_cnt >= PSC_TIMEOUT)
+	{
+		GEL_TextOut( "Timeout Error. State not changed.\n");
+		ret = 0;
+		return ret;
+	}
+	
+	// Set PDCTL NEXT to new state
+	*pdctl = ((*pdctl) & ~(0x1)) | pd_state;	
+
+	// Set MDCTL NEXT to new state
+	*mdctl = ((*mdctl) & ~(0x1f)) | md_state;
+	
+	// Start power transition by setting PTCMD GO to 1
+	*((unsigned int*)(MAIN_PSC_PTCMD+address_offset)) = (*(unsigned int*)(MAIN_PSC_PTCMD+address_offset)) | (0x1<<pd_id);
+	
+	loop_cnt = 0;
+
+	// Wait for PTSTAT GOSTAT to clear
+	while( (loop_cnt < PSC_TIMEOUT) && (*(unsigned int*)(MAIN_PSC_PTSTAT+address_offset) & (0x1 << pd_id)) != 0 )
+	{
+		loop_cnt++;
+	}			
+
+	// Check if we got timeout error while waiting
+	if (loop_cnt >= PSC_TIMEOUT)
+	{
+		GEL_TextOut( "Timeout Error. State not changed.\n");
+		ret = 0;
+		return ret;		
+	}
+
+	// Verify power domain and module domain state got changed
+	if ( (( *pdstat & 0x1 ) == pd_state) && (( *mdstat & 0x1f ) == md_state) )
+	{
+		GEL_TextOut( "Power domain and module state changed successfully.\n");
+		ret = 1;
+	}
+	if (( *pdstat & 0x1 ) != pd_state)
+	{
+		GEL_TextOut( "ERROR: PSC power domain state NOT changed!\n");
+		ret = 0;
+	}
+	if (( *mdstat & 0x1f ) != md_state)
+	{
+		GEL_TextOut( "ERROR: module state NOT changed!\n");
+		ret = 0;
+	}
+	
+	return ret;
+}
+
+/******************************************************************************
+ *
+ * NAME:
+ *      Set_MCU_PSC_State
+ *
+ * PURPOSE:
+ *      Set a new power state for the specified power domain pd_id and module 
+ *		domain md_id. Wait for the power transition to complete.
+ *
+ * USAGE:
+ *      This routine can be called as:
+ *
+ *      Set_MCU_PSC_State(unsigned int pd_id, unsigned int md_id, unsigned int pd_state, unsigned int md_state)
+ *
+ *      pd_id - (i) power domain id
+ *
+ *      md_id - (i) module domain id
+ *
+ *		pd_state - (i) new power domain state value to set
+ *					0 = PSC_PD_OFF
+ *					1 = PSC_PD_ON
+ *
+ *      md_state - (i) new module domain state value to set
+ *                  0 = PSC_SYNCRESETDISABLE (IP reset asserted and clock gated)
+ *                  1 = PSC_SYNCRESET (IP reset asserted and clock running)
+ *                  2 = PSC_DISABLE (IP reset released and clock gated, MMRs retained)
+ *                  3 = PSC_ENABLE (IP reset released and clock running)
+ * 
+ * RETURN VALUE:
+ *      1 if ok, 0 for error
+ *
+ * REFERENCE:
+ *
+ *****************************************************************************/
+ Set_MCU_PSC_State(unsigned int pd_id, unsigned int md_id, unsigned int pd_state, unsigned int md_state)
+{
+	unsigned int* mdctl;
+	unsigned int* mdstat;
+	unsigned int* pdctl;
+	unsigned int* pdstat;	
+	
+	unsigned int loop_cnt = 0;
+	unsigned int ret = 1;
+    
+	unsigned int address_offset = 0;
+	address_offset = 0x80000000;
+
+	mdctl  = (unsigned int*)(MCU_PSC_MDCTL_BASE + ( 4 * md_id ) + address_offset);
+	mdstat = (unsigned int*)(MCU_PSC_MDSTAT_BASE + ( 4 * md_id ) + address_offset);
+	pdctl  = (unsigned int*)(MCU_PSC_PDCTL_BASE + ( 4 * pd_id ) + address_offset);
+	pdstat = (unsigned int*)(MCU_PSC_PDSTAT_BASE + ( 4 * pd_id ) + address_offset);	
+
+	// If state is already set, do nothing
+	if ( (( *pdstat & 0x1 ) == pd_state) && (( *mdstat & 0x1f ) == md_state) )
+	{
+		GEL_TextOut( "No change needed.\n");
+		ret = 1;
+		return ret;
+	}
+
+	// Wait for GOSTAT to clear
+	while( (loop_cnt < PSC_TIMEOUT) && (*((unsigned int*)(MCU_PSC_PTSTAT+address_offset)) & (0x1 << pd_id)) != 0 )
+	{
+		loop_cnt++;
+	}
+	
+	// Check if we got timeout error while waiting
+	if (loop_cnt >= PSC_TIMEOUT)
+	{
+		GEL_TextOut( "ERROR: Timeout. You are likely attempting to modify the Power Sleep Controller\n");
+		GEL_TextOut( "       across a voltage crossing which is currently powered off.\n");
+        GEL_TextOut( "       Consult the CBASS connectivity diagram and the PSC IP dictionary for more\n");
+        GEL_TextOut( "       information.\n");      
+        ret = 0;
+		return ret;
+	}
+	
+	// Set PDCTL NEXT to new state
+	*pdctl = ((*pdctl) & ~(0x1)) | pd_state;	
+
+	// Set MDCTL NEXT to new state
+	*mdctl = ((*mdctl) & ~(0x1f)) | md_state;
+	
+	// Start power transition by setting PTCMD GO to 1
+	(*(unsigned int*)(MCU_PSC_PTCMD + address_offset)) = (*(unsigned int*)(MCU_PSC_PTCMD + address_offset)) | (0x1<<pd_id);
+	
+	loop_cnt = 0;
+
+	// Wait for PTSTAT GOSTAT to clear
+	while( (loop_cnt < PSC_TIMEOUT) && (*((unsigned int*)(MCU_PSC_PTSTAT+address_offset)) & (0x1 << pd_id)) != 0 )
+	{
+		loop_cnt++;
+	}			
+
+	// Check if we got timeout error while waiting
+	if (loop_cnt >= PSC_TIMEOUT)
+	{
+		GEL_TextOut( "Timeout Error. State not changed.\n");
+		ret = 0;
+		return ret;		
+	}
+
+	// Verify power domain and module domain state got changed
+	if ( (( *pdstat & 0x1 ) == pd_state) && (( *mdstat & 0x1f ) == md_state) )
+	{
+		GEL_TextOut( "Power domain and module state changed successfully.\n");
+		ret = 1;
+	}
+	if (( *pdstat & 0x1 ) != pd_state)
+	{
+		GEL_TextOut( "ERROR: PSC power domain state NOT changed!\n");
+		ret = 0;
+	}
+	if (( *mdstat & 0x1f ) != md_state)
+	{
+		GEL_TextOut( "ERROR: module state NOT changed!\n");
+		ret = 0;
+	}
+	
+	return ret;
+}
+
+ Get_MAIN_PSC_State( unsigned int pd_id, unsigned int md_id )
+{
+	unsigned int* mdctl;
+	unsigned int* mdstat;
+	unsigned int* pdstat;	
+
+	unsigned int pt_state;			
+	unsigned int pd_state;
+	unsigned int md_state;
+    
+	unsigned int address_offset = 0;
+	address_offset = 0x80000000;
+    
+	
+	mdstat = (unsigned int*)(MAIN_PSC_MDSTAT_BASE + ( 4 * md_id ) + address_offset);
+	pdstat = (unsigned int*)(MAIN_PSC_PDSTAT_BASE + ( 4 * pd_id ) + address_offset);	
+	
+	pt_state = *(unsigned int*)(MAIN_PSC_PTSTAT+address_offset) & (0x1 << pd_id);	
+	pd_state = *pdstat & 0x1;	
+	md_state = *mdstat & 0x1f;
+    
+	if (pd_state == PSC_PD_OFF)
+	{
+		GEL_TextOut( "Power Domain: Off\n ");
+	}
+	else if (pd_state == PSC_PD_ON)
+	{
+        	GEL_TextOut( "Power Domain: On\n ");
+	}
+	else
+	{
+		GEL_TextOut( "Power Domain: ERR\n ");
+	}
+    
+	if (md_state == PSC_SYNCRESETDISABLE)
+	{
+		GEL_TextOut( "Module State: SyncResetDisable\n ");
+	}
+	else if (md_state == PSC_SYNCRESET)
+	{   
+        	GEL_TextOut( "Module State: SyncReset\n ");
+	}
+	else if (md_state == PSC_DISABLE)
+	{
+        	GEL_TextOut( "Module State: Disable\n ");
+	}
+	else if (md_state == PSC_ENABLE)
+	{
+        	GEL_TextOut( "Module State: Enable\n ");
+	}
+	else
+	{
+        	GEL_TextOut( "Module State: Error\n ");
+	}
+    
+	return 1;
+}
+
+ Get_MCU_PSC_State( unsigned int pd_id, unsigned int md_id )
+{
+	unsigned int* mdctl;
+	unsigned int* mdstat;
+	unsigned int* pdstat;	
+
+	unsigned int pt_state;			
+	unsigned int pd_state;
+	unsigned int md_state;
+    
+	unsigned int address_offset = 0;
+	address_offset = 0x80000000;
+    
+	
+	mdstat = (unsigned int*)(MCU_PSC_MDSTAT_BASE + ( 4 * md_id ) + address_offset);
+	pdstat = (unsigned int*)(MCU_PSC_PDSTAT_BASE + ( 4 * pd_id ) + address_offset);	
+	
+	pt_state = *((unsigned int*)(MCU_PSC_PTSTAT+address_offset)) & (0x1 << pd_id);	
+	pd_state = *pdstat & 0x1;	
+	md_state = *mdstat & 0x1f;
+
+	if (pd_state == PSC_PD_OFF)
+	{
+        	GEL_TextOut( "Power Domain: Off\n");
+	}
+	else if (pd_state == PSC_PD_ON)
+	{
+        	GEL_TextOut( "Power Domain: On\n");
+	}
+	else
+	{
+		GEL_TextOut( "Power Domain: ERR\n");
+	}
+    
+	if (md_state == PSC_SYNCRESETDISABLE)
+	{
+        	GEL_TextOut( "Module State: SyncResetDisable\n ");
+	}
+    	else if (md_state == PSC_SYNCRESET)
+	{   
+        	GEL_TextOut( "Module State: SyncReset\n ");
+	}
+    	else if (md_state == PSC_DISABLE)
+	{
+        	GEL_TextOut( "Module State: Disable\n ");
+	}
+	else if (md_state == PSC_ENABLE)
+    	{
+		GEL_TextOut( "Module State: Enable\n ");
+    	}
+	else
+	{
+        	GEL_TextOut( "Module State: Error\n ");
+	}
+    
+	return 1;
+}
+
+
+menuitem "Power Sleep Controller/PSC Version: 2024-03-28  \n";
+hotmenu PSC_Get_Version()
+{
+	int status = 1;    
+	GEL_TextOut( "This version of the PSC gel file generated on: 2024-03-28");
+	return status;
+}
+
+
+
+// Common PSC Power Controls
+menuitem "Power Sleep Controller/Common PSC Power Controls";
+
+hotmenu Set_PSC_All_On()
+{
+	int status = 1;    GEL_TextOut( "Powering up all PSC power domains in progress...\n");
+	status &= MAIN_PSC_Peripheral_PowerUp();
+	status &= MCU_PSC_Peripheral_PowerUp();
+	GEL_TextOut( "Powering up all PSC power domains done!\n");
+
+	if(status){
+		GEL_TextOut( "Powering up all PSC power domains done! \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up all PSC power domains.\n");
+	}
+
+	return status;
+}
+
+hotmenu Get_PSC_All_States()
+{
+	int status = 0;    GEL_TextOut( "Getting all PSC power states in progress... \n");
+	status &= Get_MAIN_PSC_Peripheral_States();
+	status &= Get_MCU_PSC_Peripheral_States();
+	GEL_TextOut( "Getting all PSC power states done. \n");
+	return status;
+}
+
+menuitem "Power Sleep Controller/MAIN PSC Controls";
+
+hotmenu MAIN_PSC_Peripheral_PowerUp()
+{	
+	int status = 1;    
+
+	GEL_TextOut( "Powering up MAIN domain peripherals...\n");
+	status &= GP_CORE_CTL_PowerUp();
+	status &= MAIN_SRAM0_PowerUp();
+	status &= MAIN_SRAM1_PowerUp();
+	status &= MAIN_SRAM2_PowerUp();
+	status &= MAIN_R5SS0_PowerUp();
+	status &= MAIN_R5SS1_PowerUp();
+	status &= PD_C7X0_PowerUp();
+	status &= PD_C7X1_PowerUp();
+
+	if(status){
+		GEL_TextOut( "Powering up MAIN Domain peripherals done.. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MAIN Domain peripherals.\n");
+	}
+	return status;
+}
+
+
+hotmenu Get_MAIN_PSC_Peripheral_States()
+{
+	int status = 1;    
+	GEL_TextOut( "Getting all MAIN PSC peripheral states in progress......\n");
+
+	GEL_TextOut( "State of LPSC_MAIN_ALWAYSON \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ALWAYSON);
+	GEL_TextOut( "State of LPSC_MAIN_DM \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM);
+	GEL_TextOut( "State of LPSC_MAIN_DM_PBIST0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST0);
+
+	GEL_TextOut( "State of LPSC_MAIN_MAIN2DM_ISO \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MAIN2DM_ISO);
+	GEL_TextOut( "State of LPSC_MAIN_DM2MAIN_ISO \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_ISO);
+	GEL_TextOut( "State of LPSC_MAIN_DM2MAIN_INFRA_ISO \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_INFRA_ISO);
+
+	GEL_TextOut( "State of LPSC_MAIN_DM2CENTRAL_ISO \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2CENTRAL_ISO);
+	GEL_TextOut( "State of LPSC_MAIN_CENTRAL2DM_ISO \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CENTRAL2DM_ISO);
+	GEL_TextOut( "State of LPSC_MAIN_DM_PBIST1 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST1);
+
+	GEL_TextOut( "State of LPSC_MAIN_TEST \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TEST);
+	GEL_TextOut( "State of LPSC_MAIN_DEBUGSS \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DEBUGSS);
+	GEL_TextOut( "State of LPSC_MAIN_PBIST0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_PBIST0);
+
+	GEL_TextOut( "State of LPSC_MAIN_USB0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0);
+	GEL_TextOut( "State of LPSC_MAIN_USB0_ISO \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0_ISO);
+	GEL_TextOut( "State of LPSC_MAIN_SMS_COM \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SMS_COM);
+
+	GEL_TextOut( "State of LPSC_MAIN_TIFS \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TIFS);
+	GEL_TextOut( "State of LPSC_MAIN_HSM \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM);
+	GEL_TextOut( "State of LPSC_MAIN_HSM_ISO \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM_ISO);
+
+	GEL_TextOut( "State of LPSC_MAIN_IP0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP0);
+	GEL_TextOut( "State of LPSC_MAIN_IP1 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP1);
+	GEL_TextOut( "State of LPSC_MAIN_EMMC8B \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_EMMC8B);
+
+	GEL_TextOut( "State of LPSC_MAIN_CPSW \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CPSW);
+	GEL_TextOut( "State of LPSC_MAIN_OSPI2_RSVD \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI2_RSVD);
+	GEL_TextOut( "State of LPSC_MAIN_MCAN0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN0);
+
+	GEL_TextOut( "State of LPSC_MAIN_MCAN1 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN1);
+	GEL_TextOut( "State of LPSC_MAIN_MCAN2 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN2);
+	GEL_TextOut( "State of LPSC_MAIN_MCAN3 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN3);
+
+	GEL_TextOut( "State of LPSC_MAIN_MCAN4 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN4);
+	GEL_TextOut( "State of LPSC_MAIN_OSPI0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI0);
+	GEL_TextOut( "State of LPSC_MAIN_OSPI1 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI1);
+
+	GEL_TextOut( "State of LPSC_MAIN_HYPERBUS \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HYPERBUS);
+	GEL_TextOut( "State of LPSC_MAIN_SA3UL \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SA3UL);
+	GEL_TextOut( "State of LPSC_MAIN_MCASP0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP0);
+
+	GEL_TextOut( "State of LPSC_MAIN_MCASP1 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP1);
+	GEL_TextOut( "State of LPSC_MAIN_MCASP2 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP2);
+	GEL_TextOut( "State of LPSC_MAIN_MCASP3 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP3);
+
+	GEL_TextOut( "State of LPSC_MAIN_MCASP4 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP4);
+	GEL_TextOut( "State of LPSC_MAIN_ATL \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ATL);
+	GEL_TextOut( "State of LPSC_MAIN_ASRC0 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC0);
+
+	GEL_TextOut( "State of LPSC_MAIN_ASRC1 \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC1);
+	GEL_TextOut( "State of LPSC_MAIN_MLB \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MLB);
+	GEL_TextOut( "State of LPSC_MAIN_ADC \n");
+	status &= Get_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ADC);
+
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_0_1 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_0_1);
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_PBIST0 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST0);
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_PBIST1 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST1);
+
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_2_3 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_2_3);
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_PBIST2 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST2);
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_PBIST3 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST3);
+
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_4_5 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_4_5);
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_PBIST4 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST4);
+	GEL_TextOut( "State of LPSC_MAIN_SRAM_PBIST5 \n");
+	status &= Get_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST5);
+
+   	GEL_TextOut( "State of LPSC_C7X0_CORE\n");
+	status &= Get_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_CORE);
+	GEL_TextOut( "State of LPSC_C7X0_PBIST\n");
+	status &= Get_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_PBIST);
+	GEL_TextOut( "State of LPSC_C7X0_COMMON\n");
+  	status &= Get_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_COMMON);
+
+	GEL_TextOut( "State of LPSC_MAIN_R5SS0_CORE0 \n");
+	status &= Get_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE0);
+	GEL_TextOut( "State of LPSC_MAIN_R5SS0_CORE1 \n");
+        status &= Get_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE1);
+	GEL_TextOut( "State of LPSC_MAIN_R5SS0_PBIST \n");
+        status &= Get_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_PBIST);
+
+        GEL_TextOut( "State of LPSC_MAIN_R5SS1_CORE0 \n");
+	status &= Get_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE0);
+	GEL_TextOut( "State of LPSC_MAIN_R5SS1_CORE1 \n");
+	status &= Get_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE1);
+ 	GEL_TextOut( "State of LPSC_MAIN_R5SS1_PBIST \n");
+	status &= Get_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_PBIST);
+
+	GEL_TextOut( "State of LPSC_C7X1_CORE\n");
+	status &= Get_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_CORE);
+	GEL_TextOut( "State of LPSC_C7X1_PBIST\n");
+	status &= Get_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_PBIST);
+	GEL_TextOut( "State of LPSC_C7X1_COMMON\n");
+	status &= Get_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_COMMON);
+
+	GEL_TextOut( "Getting the state of all MAIN peripherals done. \n");
+	return status;
+
+}
+
+
+hotmenu Get_MAIN_PSC_C7X01_States()
+{
+    int status = 1;    GEL_TextOut( "Getting C7X01 MAIN PSC states in progress......\n");
+
+	GEL_TextOut( "State of LPSC_C7X0_CORE\n");
+	status &= Get_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_CORE);	
+	GEL_TextOut( "State of LPSC_C7X0_PBIST\n");
+	status &= Get_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_PBIST);
+	GEL_TextOut( "State of LPSC_C7X0_COMMON\n");
+	status &= Get_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_COMMON);
+
+	GEL_TextOut( "State of LPSC_C7X1_CORE\n");
+	status &= Get_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_CORE);
+	GEL_TextOut( "State of LPSC_C7X1_PBIST\n");
+	status &= Get_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_PBIST);
+	GEL_TextOut( "State of LPSC_C7X1_COMMON\n");
+	status &= Get_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_COMMON);
+
+	GEL_TextOut( "Getting C7X01 MAIN PSC states done. \n");
+	return status;
+
+}
+
+menuitem "Power Sleep Controller/MCU PSC Controls";
+
+hotmenu MCU_PSC_Peripheral_PowerUp()
+{
+	int status = 1;    GEL_TextOut( "Powering up MCU Domain peripherals. \n");
+	status &= PD_GP_CORE_CTL_MCU_PowerUp();
+	status &= PD_MCUSS_PowerUp();
+
+	if(status){
+		GEL_TextOut( "Powering up MCU Domain peripherals done.. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MCU Domain peripherals.\n");
+	}
+	return status;
+}
+
+hotmenu Get_MCU_PSC_Peripheral_States()
+{
+	int status = 1;    GEL_TextOut( "Getting all MCU peripheral states in progress......\n");
+	GEL_TextOut( "State of LPSC_MCU_ALWAYSON\n");
+	status &= Get_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_MCU_ALWAYSON);
+
+	GEL_TextOut( "State of LPSC_DM2SAFE_ISO\n");
+	status &= Get_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_DM2SAFE_ISO);
+
+	GEL_TextOut( "State of LPSC_MCU_TEST\n");
+	status &= Get_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_MCU_TEST);
+
+	GEL_TextOut( "State of LPSC_MCU_COMMON\n");
+	status &= Get_MCU_PSC_State( PD_MCUSS, LPSC_MCU_COMMON);
+	GEL_TextOut( "State of LPSC_MCU_PBIST\n");
+	status &= Get_MCU_PSC_State( PD_MCUSS, LPSC_MCU_PBIST);
+	GEL_TextOut( "Getting the state of all MCU peripherals done. \n");
+	return status;
+}
+
+
+
+menuitem "Power Sleep Controller/Main and MCU PSC Power Up by Power Domain Controls";
+
+hotmenu GP_CORE_CTL_PowerUp()
+{
+	int status = 1;    GEL_TextOut( "Powering up GP_CORE_CTL. \n");
+
+	GEL_TextOut( "Powering up LPSC_MAIN_ALWAYSON \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ALWAYSON, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_DM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_DM_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST0, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MAIN2DM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MAIN2DM_ISO, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_DM2MAIN_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_ISO, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_DM2MAIN_INFRA_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_INFRA_ISO, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_DM2CENTRAL_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2CENTRAL_ISO, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_CENTRAL2DM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CENTRAL2DM_ISO, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_DM_PBIST1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST1, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_TEST \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TEST, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_DEBUGSS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DEBUGSS, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_PBIST0, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_USB0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_USB0_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0_ISO, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SMS_COM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SMS_COM, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_TIFS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TIFS, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_HSM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_HSM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM_ISO, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_IP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_IP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_EMMC8B \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_EMMC8B, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_CPSW \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CPSW, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN2, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN3, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN4, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_OSPI0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI0, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_OSPI1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_HYPERBUS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HYPERBUS, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SA3UL \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SA3UL, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP2, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP3, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP4, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_ATL \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ATL, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_ASRC0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_ASRC1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MLB \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MLB, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_ADC \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ADC, PSC_PD_ON, PSC_ENABLE);
+
+
+	if(status){
+		GEL_TextOut( "Powering up GP_CORE_CTL done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up GP_CORE_CTL.\n");
+	}
+	return status;
+}
+
+
+
+
+hotmenu GP_CORE_CTL_PowerUp_I2C_LPSCs()
+{
+	int status = 1;    GEL_TextOut( "Powering up GP_CORE_CTL only off lpscs. \n");
+	GEL_TextOut( "Powering up LPSC_MAIN_IP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP0, PSC_PD_ON, PSC_ENABLE);
+        GEL_TextOut( "Powering up LPSC_MAIN_IP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP1, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up GP_CORE_CTL I2C all done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up GP_CORE_CTL I2C.\n");
+	}
+	return status;
+}
+
+hotmenu GP_CORE_CTL_PowerUp_MCAN_LPSCs()
+{
+	int status = 1;    
+	GEL_TextOut( "Powering up GP_CORE_CTL only off lpscs. \n");
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN2, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN3, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN4, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up GP_CORE_CTL MCAN all done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up GP_CORE_CTL MCAN.\n");
+	}
+	return status;
+}
+
+hotmenu GP_CORE_CTL_PowerUp_ASRC_LPSCs()
+{
+
+	int status = 1;
+
+	GEL_TextOut( "Powering up ASRC0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up ASRC1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC1, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up GP_CORE_CTL done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up GP_CORE_CTL MCASP.\n");
+	}
+	return status;
+}
+
+
+hotmenu GP_CORE_CTL_PowerUp_MCASP_LPSCs()
+{
+	int status = 1;
+	GEL_TextOut( "Powering up GP_CORE_CTL only off lpscs. \n");
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP2, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP3, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP4, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up GP_CORE_CTL done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up GP_CORE_CTL MCASP.\n");
+	}
+	return status;
+}
+
+hotmenu GP_CORE_CTL_PowerUp_off_lpscs()
+{
+	int status = 1;    
+	GEL_TextOut( "Powering up GP_CORE_CTL only off lpscs. \n");
+
+
+	GEL_TextOut( "Powering up LPSC_MAIN_USB0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_USB0_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0_ISO, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_EMMC8B \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_EMMC8B, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_CPSW \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CPSW, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN2 \n");
+ 	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN2, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN3, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCAN4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN4, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP0, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP2, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP3, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MAIN_MCASP4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP4, PSC_PD_ON, PSC_ENABLE);
+	
+	if(status){
+		GEL_TextOut( "Powering up GP_CORE_CTL all done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up GP_CORE_CTL.\n");
+	}
+	return status;
+}
+
+
+
+hotmenu MAIN_SRAM0_PowerUp()
+{
+	int status = 1;		
+	GEL_TextOut( "Powering up MAIN_SRAM0. \n");
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_0_1 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_0_1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_PBIST1 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST1, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up MAIN_SRAM0 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MAIN_SRAM0.\n");
+	}
+	return status;
+}
+
+
+hotmenu MAIN_SRAM1_PowerUp()
+{
+	int status = 1;     
+	GEL_TextOut( "Powering up MAIN_SRAM1. \n");
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_2_3 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_2_3, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_PBIST2 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST2, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_PBIST3 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST3, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up MAIN_SRAM1 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MAIN_SRAM1.\n");
+	}
+	return status;
+}
+
+hotmenu MAIN_SRAM2_PowerUp()
+{
+	int status = 1;     
+	GEL_TextOut( "Powering up MAIN_SRAM1. \n");
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_4_5 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_4_5, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_PBIST4 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST4, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_SRAM_PBIST5 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST5, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up MAIN_SRAM2 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MAIN_SRAM2.\n");
+	}
+
+	return status;
+}
+
+
+hotmenu MAIN_R5SS0_PowerUp()
+{
+	int status = 1;     
+	GEL_TextOut( "Powering up MAIN_R5SS0. \n");
+
+	GEL_TextOut( "Powering up LPSC_MAIN_R5SS0_CORE0 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_R5SS0_CORE1 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_R5SS0_PBIST \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_PBIST, PSC_PD_ON, PSC_ENABLE);
+
+
+	if(status){
+		GEL_TextOut( "Powering up MAIN_R5SS0 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MAIN_R5SS0.\n");
+	}
+
+	return status;
+}
+
+
+hotmenu MAIN_R5SS1_PowerUp()
+{
+	int status = 1;
+	GEL_TextOut( "Powering up MAIN_R5SS1. \n");
+
+	GEL_TextOut( "Powering up LPSC_MAIN_R5SS1_CORE0 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE0, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_R5SS1_CORE1 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE1, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_MAIN_R5SS1_PBIST \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_PBIST, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up MAIN_R5SS1 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MAIN_R5SS1. Please check your OPN to see if item is supported before debuging.\n");
+	}
+
+	return status;
+}
+
+
+hotmenu PD_C7X0_PowerUp()
+{
+	int status = 1;
+
+	GEL_TextOut( "Powering up PD_C7X0. \n");
+	GEL_TextOut( "Powering up LPSC_C7X0_COMMON\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_COMMON, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_C7X0_CORE\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_CORE, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_C7X0_PBIST\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_PBIST, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut( "Powering up PD_C7X0 done. \n");
+	}else{
+               GEL_TextOut("********Error: Failed while Powering up PD_C7X0.\n");
+	}
+
+	return status;
+}
+
+
+hotmenu PD_C7X1_PowerUp()
+{
+	int status = 1;
+
+	GEL_TextOut( "Powering up PD_C7X1. \n");
+	GEL_TextOut( "Powering up LPSC_C7X1_COMMON\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_COMMON, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_C7X1_CORE\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_CORE, PSC_PD_ON, PSC_ENABLE);
+	GEL_TextOut( "Powering up LPSC_C7X1_PBIST\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_PBIST, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+        	GEL_TextOut( "Powering up PD_C7X1 done. \n");
+ 	}else{
+		GEL_TextOut("********Error: Failed while Powering up PD_C7X1. Please check your OPN to see if item is supported before debugging.\n");
+	}
+	return status;
+}
+
+
+
+
+hotmenu PD_GP_CORE_CTL_MCU_PowerUp()
+{
+	int status = 1;
+	GEL_TextOut( "Powering up GP_CORE_CTL_MCU. \n");
+
+	GEL_TextOut( "Powering up LPSC_DM2SAFE_ISO\n");
+	status &= Set_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_DM2SAFE_ISO, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut( "Powering up LPSC_MCU_TEST\n");
+	status &= Set_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_MCU_TEST, PSC_PD_ON, PSC_ENABLE);
+
+
+	if(status){
+		GEL_TextOut( "Powering up GP_CORE_CTL_MCU done. \n");
+	}else{
+		GEL_TextOut( "********Error: Failed while Powering up GP_CORE_CTL_MCU. \n");
+	}
+	return status;
+}
+
+
+hotmenu PD_MCUSS_PowerUp()
+{
+	int status = 1;
+	GEL_TextOut("Powering up PD_MCUSS.\n");
+	GEL_TextOut("Powering up LPSC_MCU_COMMON\n");
+	status &= Set_MCU_PSC_State( PD_MCUSS, LPSC_MCU_COMMON, PSC_PD_ON, PSC_ENABLE);
+
+	GEL_TextOut("Powering up LPSC_MCU_PBIST\n");
+	status &= Set_MCU_PSC_State( PD_MCUSS, LPSC_MCU_PBIST, PSC_PD_ON, PSC_ENABLE);
+
+	if(status){
+		GEL_TextOut("Powering up PD_MCUSS done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up PD_MCUSS.\n");
+	}
+	return status;
+}
+
+
+
+menuitem "Power Sleep Controller/Power Down/Clock Gate by Power Domain Controls";
+
+hotmenu GP_CORE_CTL_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down GP_CORE_CTL. \n");
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_ALWAYSON \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ALWAYSON, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_DM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_DM_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST0, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_MAIN2DM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MAIN2DM_ISO, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_DM2MAIN_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_ISO, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_DM2MAIN_INFRA_ISO \n");
+ 	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_INFRA_ISO, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_DM2CENTRAL_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2CENTRAL_ISO, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_CENTRAL2DM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CENTRAL2DM_ISO, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_DM_PBIST1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST1, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_TEST \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TEST, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_DEBUGSS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DEBUGSS, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_PBIST0, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_USB0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_USB0_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0_ISO, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_SMS_COM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SMS_COM, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_TIFS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TIFS, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_HSM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_HSM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM_ISO, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_IP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_IP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP1, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_EMMC8B \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_EMMC8B, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_CPSW \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CPSW, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCAN0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCAN1 \n");
+ 	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN1, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCAN2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN2, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCAN3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN3, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCAN4 \n");
+ 	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN4, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_OSPI0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_OSPI1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI1, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_HYPERBUS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HYPERBUS, PSC_PD_ON, PSC_DISABLE);
+
+ 	GEL_TextOut( "Powering Down LPSC_MAIN_SA3UL \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SA3UL, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCASP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCASP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP1, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCASP2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP2, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_MCASP3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP3, PSC_PD_ON, PSC_DISABLE);
+ 	GEL_TextOut( "Powering Down LPSC_MAIN_MCASP4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP4, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_ATL \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ATL, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_ASRC0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_ASRC1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC1, PSC_PD_ON, PSC_DISABLE);
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_MLB \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MLB, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_ADC \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ADC, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down GP_CORE_CTL done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down GP_CORE_CTL.\n");
+	}
+	return status;
+}
+
+
+hotmenu MAIN_SRAM0_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down MAIN_SRAM0. \n");
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_0_1 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_0_1, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_PBIST1 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST1, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down MAIN_SRAM0 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down MAIN_SRAM0.\n");
+	}
+	return status;
+}
+
+
+hotmenu MAIN_SRAM1_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down MAIN_SRAM1. \n");
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_2_3 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_2_3, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_PBIST2 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST2, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_PBIST3 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST3, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down MAIN_SRAM1 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down MAIN_SRAM1.\n");
+	}
+	return status;
+}
+
+hotmenu MAIN_SRAM2_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down MAIN_SRAM1. \n");
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_4_5 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_4_5, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_PBIST4 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST4, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_SRAM_PBIST5 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST5, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down MAIN_SRAM2 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down MAIN_SRAM2.\n");
+	}
+
+	return status;
+}
+
+/* Note: Powering down the R5FSS0 can only be done if the cores are in WFI */
+hotmenu MAIN_R5SS0_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down MAIN_R5SS0. \n");
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_R5SS0_CORE0 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_R5SS0_CORE1 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE1, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_R5SS0_PBIST \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_PBIST, PSC_PD_ON, PSC_DISABLE);
+
+
+	if(status){
+		GEL_TextOut( "Powering Down MAIN_R5SS0 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down MAIN_R5SS0. Please check your OPN to see if item is supported before debuging.\n");
+	}
+
+	return status;
+}
+
+
+/* Note: Powering down the R5FSS1 can only be done if the cores are in WFI */
+hotmenu MAIN_R5SS1_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down MAIN_R5SS1. \n");
+
+	GEL_TextOut( "Powering Down LPSC_MAIN_R5SS1_CORE0 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE0, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_R5SS1_CORE1 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE1, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MAIN_R5SS1_PBIST \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_PBIST, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down MAIN_R5SS1 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down MAIN_R5SS1. Please check your OPN to see if item is supported before debuging.\n");
+	}
+
+	return status;
+}
+
+
+/* Note: Powering down the C7X0 can only be done if the cores are in WFI */
+hotmenu PD_C7X0_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down PD_C7X0. \n");
+
+	GEL_TextOut( "Powering Down LPSC_C7X0_COMMON\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_COMMON, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_C7X0_CORE\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_CORE, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_C7X0_PBIST\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_PBIST, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down PD_C7X0 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down PD_C7X0.\n");
+	}
+
+	return status;
+}
+
+
+/* Note: Powering down the C7X0 can only be done if the cores are in WFI */
+hotmenu PD_C7X1_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut( "Powering Down PD_C7X1. \n");
+
+	GEL_TextOut( "Powering Down LPSC_C7X1_COMMON\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_COMMON, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_C7X1_CORE\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_CORE, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_C7X1_PBIST\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_PBIST, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down PD_C7X1 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering Down PD_C7X1. Please check your OPN to see if item is supported before debuging.\n");
+	}
+
+	return status;
+}
+
+
+hotmenu PD_GP_CORE_CTL_MCU_PowerDown()
+{
+	int status = 1;    
+	GEL_TextOut( "Powering Down GP_CORE_CTL_MCU. \n");
+
+	
+	GEL_TextOut( "Powering Down LPSC_DM2SAFE_ISO\n");
+	status &= Set_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_DM2SAFE_ISO, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut( "Powering Down LPSC_MCU_TEST\n");
+	status &= Set_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_MCU_TEST, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut( "Powering Down GP_CORE_CTL_MCU done. \n");
+	}else{
+		GEL_TextOut( "********Error: Failed while Powering Down GP_CORE_CTL_MCU. \n");
+ 	}
+	return status;
+}
+
+
+hotmenu PD_MCUSS_PowerDown()
+{
+	int status = 1;
+	GEL_TextOut("Powering Down PD_MCUSS.\n");
+
+	GEL_TextOut("Powering Down LPSC_MCU_COMMON\n");
+	status &= Set_MCU_PSC_State( PD_MCUSS, LPSC_MCU_COMMON, PSC_PD_ON, PSC_DISABLE);
+	GEL_TextOut("Powering Down LPSC_MCU_PBIST\n");
+	status &= Set_MCU_PSC_State( PD_MCUSS, LPSC_MCU_PBIST, PSC_PD_ON, PSC_DISABLE);
+
+	if(status){
+		GEL_TextOut("Powering Down PD_MCUSS done. \n");
+	}else{
+	GEL_TextOut("********Error: Failed while Powering Down PD_MCUSS.\n");
+	}
+	 return status;
+}
+
+
+
+menuitem "Power Sleep Controller/Reset by Power Domain Controls";
+
+hotmenu GP_CORE_CTL_Reset()
+{
+	int status = 1;
+	GEL_TextOut( "Reseting GP_CORE_CTL. \n");
+
+	GEL_TextOut( "Reseting LPSC_MAIN_ALWAYSON \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ALWAYSON, PSC_PD_ON, PSC_SYNCRESET);
+ 	GEL_TextOut( "Reseting LPSC_MAIN_DM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_DM_PBIST0 \n");
+ 	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST0, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_MAIN2DM_ISO \n");
+ 	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MAIN2DM_ISO, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_DM2MAIN_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_ISO, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_DM2MAIN_INFRA_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2MAIN_INFRA_ISO, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_DM2CENTRAL_ISO \n");
+ 	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM2CENTRAL_ISO, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_CENTRAL2DM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CENTRAL2DM_ISO, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_DM_PBIST1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DM_PBIST1, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_TEST \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TEST, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_DEBUGSS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_DEBUGSS, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_PBIST0, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_USB0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_USB0_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_USB0_ISO, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_SMS_COM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SMS_COM, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_TIFS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_TIFS, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_HSM \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_HSM_ISO \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HSM_ISO, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_IP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP0, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_IP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_IP1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_EMMC8B \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_EMMC8B, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_CPSW \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_CPSW, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_MCAN0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN0, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_MCAN1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_MCAN2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN2, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_MCAN3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN3, PSC_PD_ON, PSC_SYNCRESET);
+ 	GEL_TextOut( "Reseting LPSC_MAIN_MCAN4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCAN4, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_OSPI0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI0, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_OSPI1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_OSPI1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_HYPERBUS \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_HYPERBUS, PSC_PD_ON, PSC_SYNCRESET);
+ 	GEL_TextOut( "Reseting LPSC_MAIN_SA3UL \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_SA3UL, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_MCASP0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP0, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_MCASP1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_MCASP2 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP2, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_MCASP3 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP3, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_MCASP4 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MCASP4, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_ATL \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ATL, PSC_PD_ON, PSC_SYNCRESET);
+
+	GEL_TextOut( "Reseting LPSC_MAIN_ASRC0 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC0, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_ASRC1 \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ASRC1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_MLB \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_MLB, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_ADC \n");
+	status &= Set_MAIN_PSC_State( GP_CORE_CTL, LPSC_MAIN_ADC, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting GP_CORE_CTL done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Reseting GP_CORE_CTL.\n");
+	}
+	return status;
+}
+
+
+hotmenu MAIN_SRAM0_Reset()
+{
+	int status = 1;     
+	GEL_TextOut( "Reseting MAIN_SRAM0. \n");
+
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_0_1 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_0_1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_PBIST0 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST0, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_PBIST1 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM0, LPSC_MAIN_SRAM_PBIST1, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting MAIN_SRAM0 done. \n");
+  	}else{
+		GEL_TextOut("********Error: Failed while Reseting MAIN_SRAM0.\n");
+	}
+	return status;
+}
+
+
+hotmenu MAIN_SRAM1_Reset()
+{
+	int status = 1;     
+	GEL_TextOut( "Reseting MAIN_SRAM1. \n");
+
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_2_3 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_2_3, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_PBIST2 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST2, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_PBIST3 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM1, LPSC_MAIN_SRAM_PBIST3, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting MAIN_SRAM1 done. \n");
+ 	}else{
+		GEL_TextOut("********Error: Failed while Reseting MAIN_SRAM1.\n");
+	}
+	return status;
+}
+
+hotmenu MAIN_SRAM2_Reset()
+{
+	int status = 1;
+	GEL_TextOut( "Reseting MAIN_SRAM1. \n");
+
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_4_5 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_4_5, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_PBIST4 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST4, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_SRAM_PBIST5 \n");
+	status &= Set_MAIN_PSC_State( PD_MAIN_SRAM2, LPSC_MAIN_SRAM_PBIST5, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting MAIN_SRAM2 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Reseting MAIN_SRAM2.\n");
+	}
+    	return status;
+}
+
+
+hotmenu MAIN_R5SS0_Reset()
+{
+	int status = 1;     
+	GEL_TextOut( "Reseting MAIN_R5SS0. \n");
+
+	GEL_TextOut( "Reseting LPSC_MAIN_R5SS0_CORE0 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE0, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_R5SS0_CORE1 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_CORE1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_R5SS0_PBIST \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS0, LPSC_MAIN_R5SS0_PBIST, PSC_PD_ON, PSC_SYNCRESET);
+
+
+	if(status){
+		GEL_TextOut( "Reseting MAIN_R5SS0 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Reseting MAIN_R5SS0. Please check your OPN to see if item is supported before debuging.\n");
+ 	}
+
+	return status;
+}
+
+
+hotmenu MAIN_R5SS1_Reset()
+{
+	int status = 1;
+	GEL_TextOut( "Reseting MAIN_R5SS1. \n");
+
+	GEL_TextOut( "Reseting LPSC_MAIN_R5SS1_CORE0 \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE0, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_R5SS1_CORE1 \n");
+ 	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_CORE1, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MAIN_R5SS1_PBIST \n");
+	status &= Set_MAIN_PSC_State( PD_R5SS1, LPSC_MAIN_R5SS1_PBIST, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting MAIN_R5SS1 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Reseting MAIN_R5SS1. Please check your OPN to see if item is supported before debuging. \n");
+	}
+
+	return status;
+}
+
+
+hotmenu PD_C7X0_Reset()
+{
+	int status = 1;
+	GEL_TextOut( "Reseting PD_C7X0. \n");
+
+	GEL_TextOut( "Reseting LPSC_C7X0_COMMON\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_COMMON, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_C7X0_CORE\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_CORE, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_C7X0_PBIST\n");
+	status &= Set_MAIN_PSC_State( PD_C7X0, LPSC_MAIN_C7X0_PBIST, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting PD_C7X0 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Reseting PD_C7X0.\n");
+	}
+
+	return status;
+}
+
+
+hotmenu PD_C7X1_Reset()
+{
+	int status = 1;
+	GEL_TextOut( "Reseting PD_C7X1. \n");
+
+	GEL_TextOut( "Reseting LPSC_C7X1_COMMON\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_COMMON, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_C7X1_CORE\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_CORE, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_C7X1_PBIST\n");
+	status &= Set_MAIN_PSC_State( PD_C7X1, LPSC_MAIN_C7X1_PBIST, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting PD_C7X1 done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Reseting PD_C7X1. Please check your OPN to see if item is supported before debuging.\n");
+	}
+	return status;
+}
+
+
+hotmenu PD_GP_CORE_CTL_MCU_Reset()
+{
+	int status = 1;    
+	GEL_TextOut( "Reseting GP_CORE_CTL_MCU. \n");
+
+	GEL_TextOut( "Reseting LPSC_MCU_ALWAYSON\n");
+	status &= Set_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_MCU_ALWAYSON, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_DM2SAFE_ISO\n");
+	status &= Set_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_DM2SAFE_ISO, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut( "Reseting LPSC_MCU_TEST\n");
+	status &= Set_MCU_PSC_State( GP_CORE_CTL_MCU, LPSC_MCU_TEST, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut( "Reseting GP_CORE_CTL_MCU done. \n");
+	}else{
+        	GEL_TextOut( "********Error: Failed while Reseting GP_CORE_CTL_MCU. \n");
+	}
+	return status;
+    
+}
+
+
+hotmenu PD_MCUSS_Reset()
+{
+	int status = 1;
+	 GEL_TextOut("Reseting PD_MCUSS.\n");
+
+	GEL_TextOut("Reseting LPSC_MCU_COMMON\n");
+	status &= Set_MCU_PSC_State( PD_MCUSS, LPSC_MCU_COMMON, PSC_PD_ON, PSC_SYNCRESET);
+	GEL_TextOut("Reseting LPSC_MCU_PBIST\n");
+	status &= Set_MCU_PSC_State( PD_MCUSS, LPSC_MCU_PBIST, PSC_PD_ON, PSC_SYNCRESET);
+
+	if(status){
+		GEL_TextOut("Reseting PD_MCUSS done. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Reseting PD_MCUSS.\n");
+	}
+	return status;
+}
+
+hotmenu MAIN_PSC_C7X01_Reset()
+{
+	int status = 1;
+	GEL_TextOut( "Powering up MAIN domain peripherals...\n");
+
+	status &= PD_C7X0_Reset();
+	status &= PD_C7X1_Reset();
+
+	if(status){
+		GEL_TextOut( "Powering up MAIN Domain peripherals done.. \n");
+	}else{
+		GEL_TextOut("********Error: Failed while Powering up MAIN Domain peripherals.\n");
+	}
+	return status;
+}
+
+change_HSM_M4_LRST(int enable) {
+	unsigned int* mdctl;
+
+	unsigned int loop_cnt = 0;
+	unsigned int ret = 1;
+
+	unsigned int* mdstat;
+	unsigned int mdstat_lrstz=0;
+
+	unsigned int address_offset = 0;
+	address_offset = 0x80000000;
+
+	//LPSC_HSM
+	mdctl  = (unsigned int*)(MAIN_PSC_MDCTL_BASE + ( 4 * LPSC_MAIN_HSM ) + address_offset);
+
+	if(enable==1) {
+        	*mdctl = ((*mdctl) & ~(0x100));
+	} else {
+		*mdctl = ((*mdctl) | (0x100));
+	}
+
+	mdstat = (unsigned int*)(MAIN_PSC_MDSTAT_BASE + ( 4 * LPSC_MAIN_HSM )+ address_offset);
+	mdstat_lrstz = (*mdstat >> 8) & 0x1;
+
+	if(mdstat_lrstz == 1)
+		GEL_TextOut( "LPSC_HSM: Local Reset Released\n");
+	else
+		GEL_TextOut( "LPSC_HSM: Local Reset Asserted\n");
+}

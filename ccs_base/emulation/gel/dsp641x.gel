@@ -1,0 +1,216 @@
+/*--------------------------------------------------------------*/
+/* DSP641x.gel                                                  */
+/* version 1.07                                                 */
+/*                                                              */
+/* This GEL file is to be used with the TMS320C6416 DSP.        */
+/* Changes may be required to support specific hardware designs */
+/*--------------------------------------------------------------*/
+
+
+/*
+ ***********************************************************************
+ * OnPreFileLoaded()
+ *	If defined, this is executed before all file loads
+ *
+ * OnFileLoaded(int nErrorCode, int bSymbolsOnly)
+ *	If defined, this is executed after all file loads
+ *
+ * OnReset(int nErrorCode)
+ *	If defined, this is executed after "Reset DSP'
+ *
+ * OnRestart(int nErrorCode)
+ *	If defined, this is executed after "Restart'
+ * 
+ * OnTargetConnect()
+ * 	If defined, this is executed after "Connect"
+ ***********************************************************************
+*/
+
+/*--------------------------------------------------------------*/
+/* The StartUp() function is called each time CCS is started.   */
+/* Customize this function to perform desired initialization.   */
+/*--------------------------------------------------------------*/
+
+StartUp()
+{
+/*  setup_memory_map(); this will be hardware specific */
+} 
+
+/*--------------------------------------------------------------*/
+/* OnTargetConnect() -- this function is called after a target  */
+/* connect.                                                     */
+/*--------------------------------------------------------------*/
+OnTargetConnect()
+{
+	/* 	GEL_Reset is used to deal with the worst case senario of
+		unknown target state.  If for some reason a reset is not
+		desired upon target connection, GEL_Reset may be removed 
+		and replaced with something "less brutal" like a cache
+		initialization function
+	GEL_Reset();  
+	*/
+}
+
+/*--------------------------------------------------------------*/
+/* init_emif() 		                                        */
+/*--------------------------------------------------------------*/
+init_emif()
+{
+
+#define EMIFA_GCTL       0x01800000
+#define EMIFA_CE1        0x01800004
+#define EMIFA_CE0        0x01800008
+#define EMIFA_CE2        0x01800010
+#define EMIFA_CE3        0x01800014
+#define EMIFA_SDRAMCTL   0x01800018
+#define EMIFA_SDRAMREF   0x0180001c
+#define EMIFA_SDRAMEXT   0x01800020
+#define EMIFA_CE1SECCTL  0x01800044
+#define EMIFA_CE0SECCTL  0x01800048
+#define EMIFA_CE2SECCTL  0x01800050
+#define EMIFA_CE3SECCTL  0x01800054
+
+#define EMIFB_GCTL       0x01A80000
+#define EMIFB_CE1        0x01A80004
+#define EMIFB_CE0        0x01A80008
+#define EMIFB_CE2        0x01A80010
+#define EMIFB_CE3        0x01A80014
+#define EMIFB_SDRAMCTL   0x01A80018
+#define EMIFB_SDRAMREF   0x01A8001c
+#define EMIFB_SDRAMEXT   0x01A80020
+#define EMIFB_CE1SECCTL  0x01A80044
+#define EMIFB_CE0SECCTL  0x01A80048
+#define EMIFB_CE2SECCTL  0x01A80050
+#define EMIFB_CE3SECCTL  0x01A80054
+
+/*  
+	Put your memory system initialization here
+
+	*(int *)EMIFA_GCTL     = 0x0001307c; 
+	
+	///EMIFA CE0 SDRAM
+	*(int *)EMIFA_CE0      = 0xffffffdf;
+	*(int *)EMIFA_SDRAMCTL = 0x47116000;
+	*(int *)EMIFA_SDRAMREF = 0x00000600;
+	*(int *)EMIFA_SDRAMEXT = 0x00054549;
+	
+	*(int *)EMIFB_GCTL     = 0x0001307c; 
+	
+	///EMIFB CE0 CPLD, 8 Bit
+	*(int *)EMIFB_CE0      = 0xffffff0F;
+	///EMIFB CE1 FLASH, 8 Bit
+	*(int *)EMIFB_CE1      = 0xffffff0F;
+*/
+
+}
+ 
+/*--------------------------------------------------------------*/
+/* OnReset()                                                    */
+/*--------------------------------------------------------------*/
+
+OnReset(int nErrorCode)
+{
+	init_emif();
+}
+
+/*--------------------------------------------------------------*/
+/* FlushCache()                                                 */
+/*--------------------------------------------------------------*/ 
+
+FlushCache()   
+{ 
+	/* Invalidate L1I and L1D via CCFG */
+	*(int *)0x01840000 = (*(int *)0x01840000 | 0x00000300);  
+
+	/* Clean L2 via L2CLEAN */
+	*(int *)0x01845004 = 0x1; 
+}   
+
+
+/*
+ * OnPreFileLoaded()
+ * This function is called automatically when the 'Load Program'
+ * Menu item is selected  .....
+ */
+OnPreFileLoaded()
+{
+	FlushCache();
+	init_emif();
+}
+
+
+/*--------------------------------------------------------------*/
+/* RESET MENU                                                   */
+/*--------------------------------------------------------------*/ 
+menuitem "Resets";
+
+hotmenu Reset_BreakPts_and_EMIF()
+{
+	GEL_BreakPtReset();
+	GEL_Reset();
+} 
+/*
+hotmenu Flush_Cache() 
+{ 
+	FlushCache();
+} 
+*/
+
+/*--------------------------------------------------------------*/
+/* MEMORY MAP MENU                                              */
+/*--------------------------------------------------------------*/ 
+menuitem "Memory Map";
+
+hotmenu SetMemoryMap()
+{
+	setup_memory_map();
+}
+
+hotmenu ClearMemoryMap()
+{
+	clear_memory_map();
+}
+
+/*--------------------------------------------------------------*/
+/* clear_memory_map()                                           */
+/*--------------------------------------------------------------*/
+clear_memory_map()
+{
+    GEL_MapOff();
+}
+
+/*--------------------------------------------------------------*/
+/* setup memory map                                             */
+/*--------------------------------------------------------------*/
+setup_memory_map()
+{
+	GEL_MapOn();
+	GEL_MapReset();
+/*
+ put hardware specific info here
+	GEL_MapAdd(0x00000000, 0, 0x00100000, 1, 1);
+	GEL_MapAdd(0x01800000, 0, 0x00000058, 1, 1);		
+	GEL_MapAdd(0x01A80000, 0, 0x00000058, 1, 1);
+	GEL_MapAdd(0x01A40000, 0, 0x00001000, 1, 1);
+	GEL_MapAdd(0x80000000, 0, 0x00080000, 1, 1); 	
+	GEL_MapAdd(0x60000000, 0, 0x00800000, 1, 1); 
+    GEL_MapAdd(0x64000000, 0, 0x00800000, 1, 1); 
+*/
+
+}
+
+
+ 
+
+
+	
+
+
+
+
+
+
+
+
+
+

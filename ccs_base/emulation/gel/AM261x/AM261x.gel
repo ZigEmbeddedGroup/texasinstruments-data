@@ -1,0 +1,145 @@
+/**
+ * \file  AM261x.gel
+ *
+ * \brief Main AM261x GEL File, used to control and manage other GEL functions.
+ */
+
+/* Copyright (c) 2021, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*
+ * Platform: AM261x Sitara MCU SoCs - AM261x
+ * Usage: This GEL will be run from CCS upon connection to the AM261x Device - "Cortex_R5_0" Core.
+ *        Comment this GEL_RESET() api in onTargetConnnect() if running AM261x.gel from DAP.
+ */
+
+
+StartUp(){
+    //Load Register offsets
+    GEL_LoadGel( "$(GEL_file_dir)/AM261x_common/AM261x_reg_offsets.gel");
+
+    //Load the common GEL
+    GEL_LoadGel( "$(GEL_file_dir)/AM261x_common/AM261x_common.gel");
+
+    //Load the PLL GEL
+    GEL_LoadGel( "$(GEL_file_dir)/AM261x_PLL/AM261x_PLL.gel");
+
+    //Load Peripheral clocks gel file
+    GEL_LoadGel( "$(GEL_file_dir)/AM261x_PLL/AM261x_Peripheral_Clocks.gel");
+
+    //Load the PRU GEL.
+    GEL_LoadGel( "$(GEL_file_dir)/AM261x_PRU/AM261x_PRU.gel");
+
+	//Load Diagnostics gel file
+	GEL_LoadGel("$(GEL_file_dir)/AM261x_Diagnostics/AM261x_Diagnostics.gel");
+}
+
+
+OnTargetConnect(){
+    GEL_TextOut("***OnTargetConnect() Launched***\n");
+    GEL_TextOut("AM261x Initialization Scripts Launched. \nPlease Wait...\n");
+
+    GEL_TextOut("***AM261x Checks sequence Launched...\n");
+    GEL_TextOut("AM261x_Cryst_Clock_Loss_Status() Launched\n");
+    AM261x_Cryst_Clock_Loss_Status();
+
+    GEL_TextOut("AM261x_SOP_Mode() Launched\n");
+    AM261x_SOP_Mode();
+
+    GEL_TextOut("AM261x_Read_Device_Type() Launched\n");
+    AM261x_Read_Device_Type();
+
+    GEL_TextOut("AM261x_dual_or_lockstep_mode() Launched\n");
+    AM261x_dual_or_lockstep_mode();
+
+    GEL_TextOut("*** Note:Please call this function for Dual Core switch: Dual_core_switch() \n\n");
+
+    GEL_TextOut("Control_MMR_Register_Unlock() Launched\n");
+    Control_MMR_Register_Unlock();
+
+    GEL_TextOut("Configure_R5F0() Launched\n");
+    Core_Frequency_Select(); 
+
+    //Configure_R5F0_400MHZ(); //uncomment this, to configure R5F at 400MHZ
+    //Configure_R5F0_500MHZ(); //uncomment this, to configure R5F at 500MHZ
+
+   /* Comment this GEL_Reset() api if running AM261x.gel from DAP */
+    GEL_Reset();
+}
+
+OnPreFileLoaded()
+{
+   GEL_Reset();
+   GEL_TextOut("CPU reset (soft reset) has been issued through GEL on program load.\n");
+}
+
+
+menuitem "AM261x Device Initialization";
+
+hotmenu Configure_R5F0_400MHZ()
+{
+    Program_R5FCLK_400M_SYSCLK_200M();
+    GEL_TextOut("AM261x R5F running at 400Mhz\n");
+
+    Dual_core_switch();
+    GEL_TextOut("AM261x Dual core switch\n");
+
+    R5F_ROM_eclipse();
+    R5F_SS0_Core0_unhalt();
+    R5F_SS0_Core1_unhalt();
+
+    TCM_MEM_Init();
+    MSS_L2_Mem_Init();
+    MailBox_MEM_Init();
+    AM261x_dual_or_lockstep_mode();
+
+	Configure_All_Peripheral_Clks_400MHzPLL();
+}
+
+
+hotmenu Configure_R5F0_500MHZ()
+{
+    Program_R5FCLK_500M_SYSCLK_250M();
+    GEL_TextOut("AM261x R5F running at 500Mhz\n");
+
+    Dual_core_switch();
+    GEL_TextOut("AM261x Dual core switch\n");
+
+    R5F_ROM_eclipse();
+    R5F_SS0_Core0_unhalt();
+    R5F_SS0_Core1_unhalt();
+
+    TCM_MEM_Init();
+    MSS_L2_Mem_Init();
+    MailBox_MEM_Init();
+    AM261x_dual_or_lockstep_mode();
+
+	Configure_All_Peripheral_Clks_500MHzPLL();
+}

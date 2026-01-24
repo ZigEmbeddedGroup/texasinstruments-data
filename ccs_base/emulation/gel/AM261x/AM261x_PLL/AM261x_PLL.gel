@@ -1,0 +1,676 @@
+/**
+ * \file  AM261_PLL.gel
+ *
+ * \brief GEL File to configure the clocking infrastructure on AM261x
+ */
+
+/* Copyright (c) 2021, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/* Revision history:
+ * 
+ * [04/03/2025] 500MHz CORE_PLL configuration Updated
+ * [09/15/2025]
+ * 1. Update the divider value for MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3 to 0xE to get 133MHz
+ * 2. Update the value of SD to 4 in Program_Eth_PLL_500MHZ
+ *
+ */
+
+
+
+menuitem "AM261x PLLs Initialization";
+hotmenu Program_Core_PLL_500MHZ()
+{
+    unsigned int val_pll_core_stat = 0;
+    unsigned int val_pll_per_stat = 0;
+    unsigned int val_hsdiv_clkout;
+
+    val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+    if((val_pll_core_stat & 0x00000400) != 0x00000400)
+    {
+        //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 9, 8, 0);
+
+        //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 1, 7, 16);
+
+        //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x190, 12, 0);
+
+        //N2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x0, 4, 16);
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 0,1, 23);        //Idle
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 1,1,0);          //PLL_CORE_TENABLE = 1;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 1,1,0);          //Soft Reset
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 0,1,0);          //PLL_CORE_TENABLE = 0;
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 1);                 //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 0);                 //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+        }while( ((val_pll_core_stat & 0x00000400) != 0x00000400));
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x1, 5, 0);//CLKOUT0 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x1, 5, 0);//CLKOUT1 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x1, 5, 0);//CLKOUT2 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0x5, 5, 0);//CLKOUT2 166.67
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 1,1,2);            //PLL_CORE_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 0,1,2);            //PLL_CORE_HSDIV_TENABLEDIV = 0;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x1, 1, 8);//CLKOUT0
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x1, 1, 8);//CLKOUT1
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x1, 1, 8);//CLKOUT2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0x1, 1, 8);//CLKOUT3
+
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 1, 9) != 1);//CLKOUT0 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 1, 9) != 1);//CLKOUT1 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 1, 9) != 1);//CLKOUT2 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 1, 9) != 1);//CLKOUT3 status
+
+        GEL_TextOut("CORE PLL Configuration Complete for 500MHz\n");
+    }
+
+else{
+        val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_R5SS_CLK_SRC_SEL, 0x0);
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 0x0);
+
+        //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 9, 8, 0);
+
+        //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 1, 7, 16);
+
+        //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x190, 12, 0);
+
+        //N2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x0, 4, 16);
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_FRACDIV,0x04, 8, 24); //PLL_PER_FRACDIV.REGSD = 0x04
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 0x94800);
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 0,1, 23);        //Idle
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 1,1,0);          //PLL_CORE_TENABLE = 1;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 1,1,0);          //Soft Reset
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 0,1,0);          //PLL_CORE_TENABLE = 0;
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 1);                 //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 0);                 //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+        }while(((val_pll_core_stat & 0x00000400) != 0x00000400));
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x1, 5, 0);//CLKOUT0 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x1, 5, 0);//CLKOUT1 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x1, 5, 0);//CLKOUT2 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0x5, 5, 0);//CLKOUT2 166.67
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 1,1,2);            //PLL_CORE_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 0,1,2);            //PLL_CORE_HSDIV_TENABLEDIV = 0;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x1, 1, 8);//CLKOUT0
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x1, 1, 8);//CLKOUT1
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x1, 1, 8);//CLKOUT2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0x1, 1, 8);//CLKOUT3
+
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 1, 9) != 1);//CLKOUT0 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 1, 9) != 1);//CLKOUT1 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 1, 9) != 1);//CLKOUT2 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 1, 9) != 1);//CLKOUT3 status
+
+        GEL_TextOut("CORE PLL Configuration Complete for 500MHZ\n");
+	}
+}
+
+
+hotmenu Program_Core_PLL_400MHZ()
+{
+    unsigned int val_pll_core_stat = 0;
+    unsigned int val_pll_per_stat = 0;
+    unsigned int val_hsdiv_clkout;
+
+    val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+    if((val_pll_core_stat & 0x00000400) != 0x00000400)
+    {
+        //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 9, 8, 0);
+        //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 1, 7, 16);
+        //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x320, 12, 0);
+        //N2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x0, 4, 16);
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 0,1, 23);        //Idle
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 1,1,0);          //PLL_CORE_TENABLE = 1;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 1,1,0);          //Soft Reset
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 0,1,0);          //PLL_CORE_TENABLE = 0;
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 1);                 //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 0);                 //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+        }while(((val_pll_core_stat & 0x00000400) != 0x00000400));
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x4, 5, 0);//CLKOUT0 400
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x3, 5, 0);//CLKOUT1 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x4, 5, 0);//CLKOUT2 400
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0xE, 5, 0);//CLKOUT3 133.33
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 1,1,2);   //PLL_CORE_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 0,1,2);   //PLL_CORE_HSDIV_TENABLEDIV = 0;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x1, 1, 8);//CLKOUT0
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x1, 1, 8);//CLKOUT1
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x1, 1, 8);//CLKOUT2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0x1, 1, 8);//CLKOUT3
+
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 1, 9) != 1);//CLKOUT0 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 1, 9) != 1);//CLKOUT1 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 1, 9) != 1);//CLKOUT2 status
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 1, 9) != 1);//CLKOUT3 status
+
+        GEL_TextOut("CORE PLL Configuration Complete for 400MHz\n");
+    }
+
+    else
+    {
+        val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_R5SS_CLK_SRC_SEL, 0x0);
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 0x0);
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 9,     8,   0); //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_M2NDIV, 1,     7,  16); //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x320, 12,  0); //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_MN2DIV, 0x0  , 4,  16); //N2 
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_FRACDIV,0x08, 8, 24); //PLL_PER_FRACDIV.REGSD = 0x08 (400MHz)
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 0x95000);
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 1,1, 0);         //PLL_CORE_TENABLE = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_CLKCTRL, 1,1, 0);         //Soft Reset
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLE, 0,1, 0);         //PLL_CORE_TENABLE = 0;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 1);                 //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_TENABLEDIV, 0);                 //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_core_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_STATUS);
+        }while( ((val_pll_core_stat & 0x00000400) != 0x00000400));
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x4, 5, 0);//CLKOUT0 2G/(4+1) = 400
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x3, 5, 0);//CLKOUT1 2G/(3+1) = 500
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x4, 5, 0);//CLKOUT2 2G/(4+1) = 400
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0xE, 5, 0);//CLKOUT2 2G/(14+1) = 133.33
+
+        
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 1,1,2);   //PLL_CORE_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER, 0,1,2);   //PLL_CORE_HSDIV_TENABLEDIV = 0;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT0, 0x1, 1, 8);//CLKOUT0
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT1, 0x1, 1, 8);//CLKOUT1
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT2, 0x1, 1, 8);//CLKOUT1
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_CORE_HSDIVIDER_CLKOUT3, 0x1, 1, 8);//CLKOUT3
+
+        GEL_TextOut("CORE PLL Configuration Complete 400MHZ\n"); 
+    }
+}
+
+
+hotmenu Program_Per_PLL_400MHZ()
+{
+    unsigned int  val_pll_core_stat = 0;
+    unsigned int val_pll_per_stat = 0;
+    unsigned int val_hsdiv_clkout;
+
+    val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_STATUS);
+    if((val_pll_per_stat & 0x00000400) != 0x00000400)
+    {
+        //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_M2NDIV, 9, 8, 0);
+        //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_M2NDIV, 1, 7, 16);
+        //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_MN2DIV, 0x180, 12, 0);
+        //N2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_MN2DIV, 0x0,4,16);
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_FRACDIV,0x08, 8, 24); //PLL_PER_FRACDIV.REGSD = 0x08 (400MHz)
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_CLKCTRL, 0x200B4800U);
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_CLKCTRL, 0,1,23);  //Idle
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLE,1,1,0);    //PLL_CORE_TENABLE = 1;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_CLKCTRL, 1,1,0);   //Soft Reset
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLE,0,1,0);    //PLL_CORE_TENABLE = 0;
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLEDIV,1);           //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLEDIV,0);           //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_STATUS);
+        }while( ((val_pll_per_stat & 0x00000400) != 0x00000400));
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0, 0x4, 5, 0); //CLKOUT0 192Mhz
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT2, 0x5, 5, 0); //CLKOUT2 160Mhz
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT3, 0x7, 5, 0); //CLKOUT3 120Mhz
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER, 1,1,2);   //PLL_PER_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER, 0,1,2);   //PLL_PER_HSDIV_TENABLEDIV = 0;
+
+        //Ungate
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0, 0x1, 1, 8); //CLKOUT0
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT2, 0x1, 1, 8); //CLKOUT2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT3, 0x1, 1, 8); //CLKOUT3
+
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0, 1, 9) != 1); //CLKOUT0
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT2, 1, 9) != 1); //CLKOUT2
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT3, 1, 9) != 1); //CLKOUT3
+
+        GEL_TextOut("PER PLL Configuration Complete\n");
+    }
+}
+
+
+hotmenu Program_Per_PLL_500MHZ()
+{
+    unsigned int  val_pll_core_stat = 0;
+    unsigned int val_pll_per_stat = 0;
+    unsigned int val_hsdiv_clkout;
+
+    val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_STATUS);
+    if((val_pll_per_stat & 0x00000400) != 0x00000400)
+    {
+        //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_M2NDIV, 9, 8, 0);
+        //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_M2NDIV, 1, 7, 16);
+        //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_MN2DIV, 0x180, 12, 0);
+        //N2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_MN2DIV, 0x0,4,16);
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_FRACDIV,0x04, 8, 24); //PLL_PER_FRACDIV.REGSD = 0x04 
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_CLKCTRL, 0x200B4800U);
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_CLKCTRL, 0,1,23);  //Idle
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLE,1,1,0);    //PLL_CORE_TENABLE = 1;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_CLKCTRL, 1,1,0);   //Soft Reset
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLE,0,1,0);    //PLL_CORE_TENABLE = 0;
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLEDIV,1);           //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_TENABLEDIV,0);           //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_STATUS);
+        }while( ((val_pll_per_stat & 0x00000400) != 0x00000400));
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0, 0x3, 5, 0);//CLKOUT0 240Mhz
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT2, 0x5, 5, 0);//CLKOUT2 160Mhz
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER, 1,1,2);   //PLL_PER_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER, 0,1,2);   //PLL_PER_HSDIV_TENABLEDIV = 0;
+
+        //Ungate
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0, 0x1, 1, 8);//CLKOUT0
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT2, 0x1, 1, 8);//CLKOUT2
+
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT0, 1, 9) != 1);//CLKOUT0
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_PER_HSDIVIDER_CLKOUT2, 1, 9) != 1);//CLKOUT2
+
+        GEL_TextOut("PER PLL Configuration Completed\n");
+    }
+}
+
+
+hotmenu Program_Eth_PLL_400MHZ()
+{
+    unsigned int  val_pll_core_stat = 0;
+    unsigned int val_pll_per_stat = 0;
+    unsigned int val_hsdiv_clkout;
+
+    val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_STATUS);
+    if((val_pll_per_stat & 0x00000400) != 0x00000400)
+    {
+        //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_M2NDIV, 9, 8, 0);
+        //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_M2NDIV, 1, 7, 16);
+        //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_MN2DIV, 0x168, 12, 0);
+        //N2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_MN2DIV, 0x0,4,16);
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_FRACDIV,0x04, 8, 24); //PLL_ETH_FRACDIV.REGSD = 0x04 
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_CLKCTRL, 0,1,23);  //Idle
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLE,1,1,0);    //PLL_CORE_TENABLE = 1;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_CLKCTRL, 1,1,0);   //Soft Reset
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLE,0,1,0);    //PLL_CORE_TENABLE = 0;
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLEDIV,1);           //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLEDIV,0);           //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_STATUS);
+        }while( ((val_pll_per_stat & 0x00000400) != 0x00000400));
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT0, 0x1, 5, 0);//CLKOUT0 450Mhz
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT2, 0x5, 5, 0);//CLKOUT2 150Mhz
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER, 1,1,2);   //PLL_ETH_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER, 0,1,2);   //PLL_ETH_HSDIV_TENABLEDIV = 0;
+
+        //Ungate
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT0, 0x1, 1, 8);//CLKOUT0
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT2, 0x1, 1, 8);//CLKOUT2
+
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT0, 1, 9) != 1);//CLKOUT0
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT2, 1, 9) != 1);//CLKOUT2
+        GEL_TextOut("ETH PLL Configuration Complete\n");
+    }
+}
+
+
+hotmenu Program_Eth_PLL_500MHZ()
+{
+    unsigned int  val_pll_core_stat = 0;
+    unsigned int val_pll_per_stat = 0;
+    unsigned int val_hsdiv_clkout;
+
+    val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_STATUS);
+    if((val_pll_per_stat & 0x00000400) != 0x00000400)
+    {
+        //N
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_M2NDIV, 9, 8, 0);
+        //M2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_M2NDIV, 1, 7, 16);
+        //M
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_MN2DIV, 0x168, 12, 0);
+        //N2
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_MN2DIV, 0x0,4,16);
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_FRACDIV,0x04, 8, 24); //PLL_ETH_FRACDIV.REGSD = 0x4 (500MHz)
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_CLKCTRL, 0,1,23);  //Idle
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLE,1,1,0);    //PLL_CORE_TENABLE = 1;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_CLKCTRL, 1,1,0);   //Soft Reset
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLE,0,1,0);    //PLL_CORE_TENABLE = 0;
+
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLEDIV,1);           //PLL_CORE_TENABLEDIV = 1;
+        Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_TENABLEDIV,0);           //PLL_CORE_TENABLEDIV = 0;
+
+        do{val_pll_per_stat = Read_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_STATUS);
+        }while( ((val_pll_per_stat & 0x00000400) != 0x00000400) ) ;
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT0, 0x1, 5, 0);//CLKOUT0 450Mhz
+
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER, 1,1,2);   //PLL_ETH_HSDIV_TENABLEDIV = 1;
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER, 0,1,2);   //PLL_ETH_HSDIV_TENABLEDIV = 0;
+
+        //Ungate
+        Write_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT0, 0x1, 1, 8);//CLKOUT0
+
+        while(Read_MMR_Field(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_PLL_ETH_HSDIVIDER_CLKOUT0, 1, 9) != 1);//CLKOUT0
+        GEL_TextOut("ETH PLL Configuration Completed\n");
+    }
+}
+
+
+hotmenu Program_R5FCLK_400M_SYSCLK_200M()
+{
+    GEL_TextOut("***PLL lock sequence Launched\n");
+    Program_Core_PLL_400MHZ();
+    Program_Per_PLL_400MHZ();
+    Program_Eth_PLL_400MHZ();
+    Program_SYS_CLK_DIVBY2();
+    Program_R5F_SYS_CLK_SRC();
+    GEL_TextOut("**Clocks Programmed**   R5F=400MHz and SYS_CLK=200MHz\n");
+}
+
+
+hotmenu Program_R5FCLK_500M_SYSCLK_250M()
+{
+    GEL_TextOut("***PLL lock sequence Launched\n");
+    Program_Core_PLL_500MHZ();
+    Program_Per_PLL_500MHZ();
+    Program_Eth_PLL_500MHZ();
+    Program_SYS_CLK_DIVBY2();
+    Program_R5F_SYS_CLK_SRC();
+    GEL_TextOut("**Clocks Programmed**   R5F=500MHz and SYS_CLK=250MHz\n");
+}
+
+
+hotmenu Program_R5FCLK_200M_SYSCLK_200M()
+{
+    Program_Core_PLL_400MHZ();
+    Program_Per_PLL_400MHZ();
+    Program_Eth_PLL_400MHZ();
+    Program_SYS_CLK_DIVBY2();
+    Program_R5FSS0_CLK_DIVBY2();
+    //Switch R5SS and SYS_CLK to Core PLL, so that R5 run at 200MHz
+    Program_R5F_SYS_CLK_SRC();
+    GEL_TextOut("**Clock Programmed**  R5F=200MHz and SYS_CLK=200MHz\n\n");
+}
+
+
+hotmenu Program_SYS_CLK_DIVBY2()
+{
+     //Enable DIV BY 2 on SYS_CLK (GCM)
+     Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_SYS_CLK_DIV_VAL, 0x111);//DIV val=1 means divide by 2
+     GEL_TextOut("SYS_CLK DIVBY2 \n");
+}
+
+
+hotmenu Program_R5F_SYS_CLK_SRC()
+{
+    //Select DPLL_CORE_HSDIV0_CLKOUT0 as source for R5SS clock and SYS_CLK
+    unsigned int src_sel_val = 0x222;
+    Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_R5SS_CLK_SRC_SEL, src_sel_val);   //MSS_CR5_CLK_SRC_SEL = 0x222;
+
+    GEL_TextOut("DPLL_CORE_HSDIV0_CLKOUT0 selected as CLK source for R5FSS & SYS CLKs\n");
+}
+
+
+hotmenu Program_R5FSS0_CLK_DIVBY2()
+{
+    //Enable DIV BY 2 on R5SS0_CLK (GCM)
+    Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_R5SS0_CLK_DIV_SEL, 0x7);
+    GEL_TextOut("R5FSS0 CLK DIVBY2\n");
+}
+
+
+hotmenu Configure_All_Peripheral_Clks_500MHzPLL()
+{
+    GEL_TextOut("*** Enabling Peripheral Clocks *** \n");
+    GEL_TextOut("Enabling RTI[0:3] Clocks \n");
+	Program_RTI0_Clocks();
+	Program_RTI1_Clocks();
+	Program_RTI2_Clocks();
+	Program_RTI3_Clocks();
+
+    GEL_TextOut("Enabling RTI_WDT[0:3] Clocks \n");
+	Program_RTI_WDT0_Clocks();
+	Program_RTI_WDT1_Clocks();
+
+    GEL_TextOut("Enabling UART[0:5]/LIN[0:5] Clocks \n");
+	Program_LIN0_UART0_Clocks();
+	Program_LIN1_UART1_Clocks();
+	Program_LIN2_UART2_Clocks();
+	Program_LIN3_UART3_Clocks();
+
+    GEL_TextOut("Enabling OSPI Clocks \n");
+	Program_OSPI0_Clocks();
+	Program_OSPI1_Clocks();
+
+    GEL_TextOut("Enabling ICSSM0/1 Core Clocks \n");
+    	Program_ICSSM0_Core_Clocks();
+    	Program_ICSSM1_Core_Clocks();
+
+    GEL_TextOut("Enabling ICSSM0/1 UART0 Clocks \n");
+	Program_ICSSM0_UART0_Clocks();
+	Program_ICSSM1_UART0_Clocks();
+
+    GEL_TextOut("Enabling I2C Clocks \n");
+	Program_I2C_Clocks();
+
+    GEL_TextOut("Enabling TRACE Clocks \n");
+	Program_Trace_Clocks();
+
+    GEL_TextOut("Enabling MCAN[0:1] Clocks \n");
+	Program_MCAN0_Clocks();
+	Program_MCAN1_Clocks();
+
+    GEL_TextOut("Enabling GPMC Clocks \n");
+	Program_GPMC_Clocks();
+
+    GEL_TextOut("Enabling ELM Clocks \n");
+   	 Program_MSS_ELM_Clocks();
+
+	GEL_TextOut("Enabling MMCSD Clocks \n");
+	Program_MMCSD_Clocks();
+
+    GEL_TextOut("Enabling MCSPI[0:4] Clocks \n");
+	Program_MCSPI0_Clocks();
+	Program_MCSPI1_Clocks();
+	Program_MCSPI2_Clocks();
+	Program_MCSPI3_Clocks();
+
+    GEL_TextOut("Enabling CONTROLSS Clocks \n");
+	Program_CONTROLSS_Clocks();
+
+    GEL_TextOut("Enabling CPTS Clocks \n");
+	Program_CPTS_Clocks();
+
+    GEL_TextOut("Enabling RGMI[5,50,250] Clocks \n");
+	Program_RGMII5_Clocks();
+	Program_RGMII50_Clocks();
+	Program_RGMII250_Clocks();
+
+    GEL_TextOut("Enabling XTAL_TEMPSENSE_32K Clocks \n");
+	Program_XTAL_TEMPSENSE_32K_Clocks();
+
+    GEL_TextOut("Enabling XTAL_MMC_32K Clocks \n");
+	Program_XTAL_MMC_32K_Clocks();
+
+	GEL_TextOut("***All IP Clocks are Enabled for 500MHz PLL Configuration*** \n\n");
+}
+
+
+hotmenu Configure_All_Peripheral_Clks_400MHzPLL()
+{
+    GEL_TextOut("*** Enabling Peripheral Clocks *** \n");
+    GEL_TextOut("Enabling RTI[0:3] Clocks \n");
+	Program_RTI0_Clocks_400MHzPLL();
+	Program_RTI1_Clocks_400MHzPLL();
+	Program_RTI2_Clocks_400MHzPLL();
+	Program_RTI3_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling RTI_WDT[0:3] Clocks \n");
+	Program_RTI_WDT0_Clocks_400MHzPLL();
+	Program_RTI_WDT1_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling UART[0:5]/LIN[0:5] Clocks \n");
+	Program_LIN0_UART0_Clocks_400MHzPLL();
+	Program_LIN1_UART1_Clocks_400MHzPLL();
+	Program_LIN2_UART2_Clocks_400MHzPLL();
+	Program_LIN3_UART3_Clocks_400MHzPLL();
+
+
+    GEL_TextOut("Enabling I2C Clocks \n");
+	Program_I2C_Clocks_400MHzPLL();
+
+   GEL_TextOut("Enabling MCAN[0:1] Clocks \n");
+	Program_MCAN0_Clocks_400MHzPLL();
+	Program_MCAN1_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling OSPI Clocks \n");
+	Program_OSPI0_Clocks_400MHzPLL();
+	Program_OSPI1_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling ICSSM0/1 Core Clocks \n");
+    	Program_ICSSM0_Core_Clocks_400MHzPLL();
+    	Program_ICSSM1_Core_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling ICSSM0/1 UART0 Clocks \n");
+	Program_ICSSM0_UART0_Clocks_400MHzPLL();
+	Program_ICSSM1_UART0_Clocks_400MHzPLL();
+
+
+    GEL_TextOut("Enabling TRACE Clocks \n");
+	Program_Trace_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling GPMC Clocks \n");
+	Program_GPMC_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling ELM Clocks \n");
+        Program_MSS_ELM_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling MMCSD Clocks \n");
+	Program_MMCSD_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling MCSPI[0:4] Clocks \n");
+	Program_MCSPI0_Clocks_400MHzPLL();
+	Program_MCSPI1_Clocks_400MHzPLL();
+	Program_MCSPI2_Clocks_400MHzPLL();
+	Program_MCSPI3_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling CONTROLSS Clocks \n");
+	Program_CONTROLSS_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling CPTS Clocks \n");
+	Program_CPTS_Clocks_400MHzPLL();
+
+    GEL_TextOut("Enabling RGMI[5,50,250] Clocks \n");
+	Program_RGMII5_Clocks();
+	Program_RGMII50_Clocks();
+	Program_RGMII250_Clocks();
+
+    GEL_TextOut("Enabling XTAL_TEMPSENSE_32K Clocks \n");
+	Program_XTAL_TEMPSENSE_32K_Clocks();
+
+    GEL_TextOut("Enabling XTAL_MMC_32K Clocks \n");
+	Program_XTAL_MMC_32K_Clocks();
+
+    GEL_TextOut("***All IP Clocks are Enabled for 400MHz PLL Configuration*** \n\n");
+}
+
+

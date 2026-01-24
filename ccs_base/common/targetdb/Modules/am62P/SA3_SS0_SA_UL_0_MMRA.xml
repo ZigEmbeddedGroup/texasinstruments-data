@@ -1,0 +1,120 @@
+<module name="SA3_SS0_SA_UL_0_MMRA" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="MMRA_REGS_engine_enable" acronym="MMRA_REGS_engine_enable" offset="0x0" width="32" description="This register controls the enable of each crypto engine">
+		<bitfield id="CPPI_OUT_EN" width="1" begin="11" end="11" resetval="0x0" description="cppi out enable" range="11" rwaccess="R/W"/> 
+		<bitfield id="CPPI_IN_EN" width="1" begin="9" end="9" resetval="0x0" description="cppi in enable" range="9" rwaccess="R/W"/> 
+		<bitfield id="CTX_EN" width="1" begin="7" end="7" resetval="0x0" description="ctxcach enable" range="7" rwaccess="R/W"/> 
+		<bitfield id="PKA_EN" width="1" begin="4" end="4" resetval="0x0" description="pka enable" range="4" rwaccess="R/W"/> 
+		<bitfield id="TRNG_EN" width="1" begin="3" end="3" resetval="0x0" description="trng enable" range="3" rwaccess="R/W"/> 
+		<bitfield id="AUTHSS_EN" width="1" begin="1" end="1" resetval="0x0" description="authss enable" range="1" rwaccess="R/W"/> 
+		<bitfield id="ENCSS_EN" width="1" begin="0" end="0" resetval="0x0" description="encss enable" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRA_REGS_scptr_promote_low_range_l" acronym="MMRA_REGS_scptr_promote_low_range_l" offset="0x10" width="32" description="This register contains bit 31:0 of the SCPTR lower limit for promotion check">
+		<bitfield id="BIT_31_0" width="32" begin="31" end="0" resetval="0x0" description="The lower 32-bits of SCPTR lower limit" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRA_REGS_scptr_promote_low_range_h" acronym="MMRA_REGS_scptr_promote_low_range_h" offset="0x14" width="32" description="This register contains bit 47:32 of the SCPTR lower limit for promotion check">
+		<bitfield id="BIT_47_32" width="16" begin="15" end="0" resetval="0x0" description="The upper 16-bits of SCPTR lower limit" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRA_REGS_scptr_promote_hi_range_l" acronym="MMRA_REGS_scptr_promote_hi_range_l" offset="0x18" width="32" description="This register contains bit 31:0 of the SCPTR upper limit for promotion check">
+		<bitfield id="BIT_31_0" width="32" begin="31" end="0" resetval="0x0" description="The lower 32-bits of SCPTR upper limit" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRA_REGS_scptr_promote_hi_range_h" acronym="MMRA_REGS_scptr_promote_hi_range_h" offset="0x1C" width="32" description="This register contains bit 47:32 of the SCPTR upper limit for promotion check">
+		<bitfield id="BIT_47_32" width="16" begin="15" end="0" resetval="0x0" description="The upper 16-bits of SCPTR upper limit" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRA_REGS_exception_logging_control" acronym="MMRA_REGS_exception_logging_control" offset="0x20" width="32" description="The Exception Logging Control Register controls the exception logging.">
+		<bitfield id="DISABLE_PEND" width="1" begin="1" end="1" resetval="0x0" description="Disables logging pending when set." range="1" rwaccess="R/W"/> 
+		<bitfield id="DISABLE_LOG" width="1" begin="0" end="0" resetval="0x0" description="Disables logging when set." range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRA_REGS_exception_logging_header0" acronym="MMRA_REGS_exception_logging_header0" offset="0x24" width="32" description="The Exception Logging Header 0 Register contains the first word of the header.">
+		<bitfield id="TYPE_LOG" width="8" begin="31" end="24" resetval="0x0" description="Type." range="31 - 24" rwaccess="R"/> 
+		<bitfield id="SRC_ID" width="16" begin="23" end="8" resetval="0x0" description="Source ID." range="23 - 8" rwaccess="R"/>
+	</register>
+	<register id="MMRA_REGS_exception_logging_header1" acronym="MMRA_REGS_exception_logging_header1" offset="0x28" width="32" description="The Exception Logging Header 1 Register contains the second word of the header.">
+		<bitfield id="GROUP" width="8" begin="31" end="24" resetval="0x0" description="Group." range="31 - 24" rwaccess="R"/> 
+		<bitfield id="CODE" width="8" begin="23" end="16" resetval="0x0" description="Code." range="23 - 16" rwaccess="R"/>
+	</register>
+	<register id="MMRA_REGS_exception_logging_data0" acronym="MMRA_REGS_exception_logging_data0" offset="0x2C" width="32" description="The Exception Logging Data 0 Register contains the first word of the data.">
+		<bitfield id="ADDR_L" width="32" begin="31" end="0" resetval="0x0" description="SCPTR lower 32 bits." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMRA_REGS_exception_logging_data1" acronym="MMRA_REGS_exception_logging_data1" offset="0x30" width="32" description="The Exception Logging Data 1 Register contains the second word of the data.">
+		<bitfield id="ADDR_H" width="16" begin="15" end="0" resetval="0x0" description="SCPTR upper 16 bits." range="15 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMRA_REGS_exception_logging_data2" acronym="MMRA_REGS_exception_logging_data2" offset="0x34" width="32" description="The Exception Logging Data 2 Register contains the third word of the data.">
+		<bitfield id="PRIV_ID" width="8" begin="23" end="16" resetval="0x0" description="Ingress Packet Priv ID attribute." range="23 - 16" rwaccess="R"/> 
+		<bitfield id="PRIV" width="2" begin="9" end="8" resetval="0x0" description="Ingress Packet Priv attribute." range="9 - 8" rwaccess="R"/> 
+		<bitfield id="ALLOWNS" width="1" begin="7" end="7" resetval="0x0" description="Ingress Packet AllowNS attribute." range="7" rwaccess="R"/> 
+		<bitfield id="DEMOTE" width="1" begin="6" end="6" resetval="0x0" description="Ingress Packet Demote attribute." range="6" rwaccess="R"/> 
+		<bitfield id="PROMOTE" width="1" begin="5" end="5" resetval="0x0" description="Ingress Packet Promote attribute." range="5" rwaccess="R"/> 
+		<bitfield id="SECURE" width="1" begin="0" end="0" resetval="0x0" description="Ingress Packet Secure attribute." range="0" rwaccess="R"/>
+	</register>
+	<register id="MMRA_REGS_exception_logging_data3" acronym="MMRA_REGS_exception_logging_data3" offset="0x38" width="32" description="The Exception Logging Data 3 Register contains the fourth word of the data.">
+		<bitfield id="PRIV_ID" width="8" begin="23" end="16" resetval="0x0" description="Context Priv ID." range="23 - 16" rwaccess="R"/> 
+		<bitfield id="PRIV" width="2" begin="9" end="8" resetval="0x0" description="Context Priv." range="9 - 8" rwaccess="R"/> 
+		<bitfield id="ALLOWNS" width="1" begin="7" end="7" resetval="0x0" description="Context AllowNS." range="7" rwaccess="R"/> 
+		<bitfield id="DEMOTE" width="1" begin="6" end="6" resetval="0x0" description="Context Demote." range="6" rwaccess="R"/> 
+		<bitfield id="PROMOTE" width="1" begin="5" end="5" resetval="0x0" description="Context Promote." range="5" rwaccess="R"/> 
+		<bitfield id="SECURE" width="1" begin="0" end="0" resetval="0x0" description="Context Secure." range="0" rwaccess="R"/>
+	</register>
+	<register id="MMRA_REGS_exception_pend_set" acronym="MMRA_REGS_exception_pend_set" offset="0x40" width="32" description="The Exception Logging Pending Set Register allows to set the pend signal.">
+		<bitfield id="PEND_SET" width="1" begin="0" end="0" resetval="0x0" description="Write a 1 to set the exception pend signal." range="0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="MMRA_REGS_exception_pend_clear" acronym="MMRA_REGS_exception_pend_clear" offset="0x44" width="32" description="The Exception Logging Pending Clear Register allows to clear the pend signal.">
+		<bitfield id="PEND_CLR" width="1" begin="0" end="0" resetval="0x0" description="Write a 1 to clear the exception pend signal." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="MMRA_REGS_trng_intr_set" acronym="MMRA_REGS_trng_intr_set" offset="0x50" width="32" description="The TRNG Interrupt Set Register allows to set trng_intr output for testing purpose.">
+		<bitfield id="TRNG_SET" width="1" begin="0" end="0" resetval="0x0" description="Write a 1 to set the interrupt." range="0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="MMRA_REGS_trng_intr_clear" acronym="MMRA_REGS_trng_intr_clear" offset="0x54" width="32" description="The TRNG Interrupt Clear Register allows to clear the trng_intr output for testing purpose.">
+		<bitfield id="TRNG_CLR" width="1" begin="0" end="0" resetval="0x0" description="Write a 1 to clear the exception pend signal." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="MMRA_REGS_pka_intr_set" acronym="MMRA_REGS_pka_intr_set" offset="0x60" width="32" description="The PKA Interrupt Set Register allows to set pka_intr output for testing purpose.">
+		<bitfield id="PKA_SET" width="1" begin="0" end="0" resetval="0x0" description="Write a 1 to set the interrupt." range="0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="MMRA_REGS_pka_intr_clear" acronym="MMRA_REGS_pka_intr_clear" offset="0x64" width="32" description="The PKA Interrupt Clear Register allows to clear the pka_intr output for testing purpose.">
+		<bitfield id="PKA_CLR" width="1" begin="0" end="0" resetval="0x0" description="Write a 1 to clear the exception pend signal." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="MMRA_REGS_kek_0" acronym="MMRA_REGS_kek_0" offset="0x100" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 31:0 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_1" acronym="MMRA_REGS_kek_1" offset="0x104" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 63:32 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_2" acronym="MMRA_REGS_kek_2" offset="0x108" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 95:64 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_3" acronym="MMRA_REGS_kek_3" offset="0x10C" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 127:96 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_4" acronym="MMRA_REGS_kek_4" offset="0x110" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 159:128 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_5" acronym="MMRA_REGS_kek_5" offset="0x114" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 191:160 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_6" acronym="MMRA_REGS_kek_6" offset="0x118" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 223:192 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_7" acronym="MMRA_REGS_kek_7" offset="0x11C" width="32" description="DKEK key is used as AES key only when Use_DKEK bit in the context is set to 1.">
+		<bitfield id="KEYS" width="32" begin="31" end="0" resetval="0x0" description="bit 255:224 of DKEK keys" range="31 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_kek_lock" acronym="MMRA_REGS_kek_lock" offset="0x120" width="32" description="This register can be written to lock and prevent further write access to  kek_0 - kek_7 registers.">
+		<bitfield id="LOCK" width="1" begin="0" end="0" resetval="0x0" description="The lock bit is only writable once. Once set, the kek registers cannot be reprogrammed without resetting the device" range="0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_dkek_privid" acronym="MMRA_REGS_dkek_privid" offset="0x124" width="32" description="Only packet with privid matching any one of the programmed four privid values in this write-only register is allowed to use the encryption engine with D-KEK key. This feature is only enabled if the Use_DKEK bit in the context is set.">
+		<bitfield id="PRIVID3" width="8" begin="31" end="24" resetval="0x202" description="slot3 of privid that is allowed to use D-KEK" range="31 - 24" rwaccess="W"/> 
+		<bitfield id="PRIVID2" width="8" begin="23" end="16" resetval="0x202" description="slot2 of privid that is allowed to use D-KEK" range="23 - 16" rwaccess="W"/> 
+		<bitfield id="PRIVID1" width="8" begin="15" end="8" resetval="0x202" description="slot1 of privid that is allowed to use D-KEK" range="15 - 8" rwaccess="W"/> 
+		<bitfield id="PRIVID0" width="8" begin="7" end="0" resetval="0x202" description="slot0 of privid that is allowed to use D-KEK" range="7 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_dkek_priv" acronym="MMRA_REGS_dkek_priv" offset="0x128" width="32" description="Only packet with priv matching any one of the programmed four priv values in this write-only register will be allowed to use the encryption engine with D-KEK key. This feature is only enabled if the Use_DKEK bit in the context is set.">
+		<bitfield id="PRIV3" width="2" begin="25" end="24" resetval="0x0" description="slot3 of priv that is allowed to use D-KEK" range="25 - 24" rwaccess="W"/> 
+		<bitfield id="PRIV2" width="2" begin="17" end="16" resetval="0x0" description="slot2 of priv that is allowed to use D-KEK" range="17 - 16" rwaccess="W"/> 
+		<bitfield id="PRIV1" width="2" begin="9" end="8" resetval="0x0" description="slot1 of priv that is allowed to use D-KEK" range="9 - 8" rwaccess="W"/> 
+		<bitfield id="PRIV0" width="2" begin="1" end="0" resetval="0x0" description="slot0 of priv that is allowed to use D-KEK" range="1 - 0" rwaccess="W"/>
+	</register>
+	<register id="MMRA_REGS_dkek_secure" acronym="MMRA_REGS_dkek_secure" offset="0x12C" width="32" description="Only packet with secure matching any one of the programmed four secure values in this write-only register will be allowed to use the encryption engine with D-KEK key. This feature is only enabled if the Use_DKEK bit in the context is set.">
+		<bitfield id="SECURE3" width="1" begin="24" end="24" resetval="0x0" description="slot3 of secure that is allowed to use D-KEK" range="24" rwaccess="W"/> 
+		<bitfield id="SECURE2" width="1" begin="16" end="16" resetval="0x0" description="slot2 of secure that is allowed to use D-KEK" range="16" rwaccess="W"/> 
+		<bitfield id="SECURE1" width="1" begin="8" end="8" resetval="0x0" description="slot1 of secure that is allowed to use D-KEK" range="8" rwaccess="W"/> 
+		<bitfield id="SECURE0" width="1" begin="0" end="0" resetval="0x0" description="slot0 of secure that is allowed to use D-KEK" range="0" rwaccess="W"/>
+	</register>
+</module>

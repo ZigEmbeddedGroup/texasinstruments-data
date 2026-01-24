@@ -1,0 +1,86 @@
+/********************************************************************/
+/*                                                                  */
+/* This GEL file is to be used with the f29h85x devices  .          */
+/* Changes may be required to support specific hardware designs.    */
+/*                                                                  */
+/* Code Composer Studio supports six reserved GEL functions that    */
+/* automatically get executed if they are defined. They are:        */
+/*                                                                  */
+/* StartUp()              - Executed whenever CCS is invoked        */
+/* OnReset()              - Executed after Debug->Reset CPU         */
+/* OnRestart()            - Executed after Debug->Restart           */
+/* OnPreFileLoaded()      - Executed before File->Load Program      */
+/* OnFileLoaded()         - Executed after File->Load Program       */
+/* OnTargetConnect()      - Executed after Debug->Connect           */
+/*                                                                  */
+/********************************************************************/
+
+
+StartUp()
+{
+}
+
+OnReset(int nErrorCode)
+{
+    GEL_TextOut("Reset Done\n");
+}
+
+OnRestart(int nErrorCode)
+{
+}
+
+OnPreFileLoaded()
+{  
+}
+
+OnFileLoaded(int nErrorCode, int bSymbolsOnly)
+{
+    // check for errors in loading program
+    if (nErrorCode)
+    {
+        GEL_TextOut("An error occurred while loading a file. -%d-\n",,,,, nErrorCode);
+    }
+    else
+    {
+        GEL_TextOut("File was loaded successfully. -%d-\n",,,,, nErrorCode);
+    }
+
+    // Check to see if only symbols are loaded
+    if (bSymbolsOnly)
+    {
+        GEL_TextOut("Only symbols were loaded.\n");
+    }
+    else
+    {
+        GEL_TextOut("Full load.\n");
+    }
+}
+
+OnTargetConnect()
+{
+    GEL_TextOut("Executing On Target Connect Functions\n");
+
+    setup_Memory_Map();
+
+    GEL_TextOut("Device Ready\n");
+}
+
+/*************************************************************************************************/
+/*                                F29H850TU9 Memory Map                                         */
+/*                                                                                               */
+/*************************************************************************************************/
+setup_Memory_Map()
+{
+    GEL_MapReset();
+    GEL_MapOn();
+
+    GEL_MapAddStr(0x00000000,0, 0x00008000, "R|AS4",0);                 /* ROM */
+    GEL_MapAddStr(0x00008000,0, 0x0FFF8000, "R|W|AS4",0);               /* RAM */
+    GEL_MapAddStr(0x10000000,0, 0x10000000, "R|AS4",0);                 /* Flash*/
+    GEL_MapAddStr(0x20000000,0, 0xE0000000, "R|W|AS4",0);               /* RAM */
+
+
+    GEL_TextOut("Memory Map Initialization Completed for HSM\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/

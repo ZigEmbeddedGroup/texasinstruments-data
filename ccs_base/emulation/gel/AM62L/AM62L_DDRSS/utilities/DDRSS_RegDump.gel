@@ -1,0 +1,686 @@
+/* Copyright (c) 2022, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+
+#define uint32_t                  unsigned int
+#define HW_WR_REG32(addr, data)   *(uint32_t *) (addr) = (uint32_t) (data)
+#define HW_RD_REG32(addr)         *(uint32_t *) (addr)
+#define u32                       unsigned int
+#define readl(addr) *(uint32_t *) (addr)
+#define writel(data,addr)         *(uint32_t *) (addr) = (uint32_t) (data)
+
+
+
+
+menuitem "Memory debug"
+
+read_phy_regs_dataslice(u32 freq_set,u32 rank_set,u32 slice,u32 num_of_regs)
+{
+        unsigned int i;
+        //PHY: data_slice_registers
+        for(i=0;i<=num_of_regs;i++)
+                GEL_TextOut("%x %x  //DDRSS_PHY_%d_DATA_F%d_R%d\n",,,,,(0x0F30C000 + (slice*0x400) + (i*4)),readl(0x0F30C000 + (slice*0x400) + (i*4)),i+(slice*0x100),freq_set,rank_set);
+}
+
+read_phy_regs_addrslice(u32 freq_set,u32 slice,u32 num_of_regs,u32 base)
+{
+        unsigned int i,index;
+        //PHY: address_slice_registers
+        if(base == 0x0F30C800)
+                index = 512;
+        else
+                index = 1024;
+        for(i=0;i<=num_of_regs;i++)
+                GEL_TextOut("%x %x  //DDRSS_PHY_%d_DATA_F%d\n",,,,,(base + (slice*256) + (i*4)),readl(base + (slice*256) + (i*4)),index+i+(slice*256),freq_set);
+
+}
+
+read_phy_regs_core(u32 freq_set,u32 num_of_regs,u32 base)
+{
+        unsigned int i,index;
+        if(base == 0x0F30D400)
+                index = 1280;
+        else
+                index = 1792;
+
+        for(i=0;i<=num_of_regs;i++)
+                GEL_TextOut("%x %x  //DDRSS_PHY_%d_DATA_F%d\n",,,,,base + (i*4),readl(base + (i*4)),index+i,freq_set);
+
+}
+
+hotmenu k3_ddrss_reg_dump()
+{
+        unsigned int i,freq_idx,rank_idx;
+        unsigned int dram_class;
+        unsigned int phy_1281,phy_1793,phy_5,phy_6,phy_262,phy_518,phy_774;
+        unsigned int freq_map,rank_map;
+        unsigned int pi_version;
+        unsigned int ctrl_regs=0,pi_regs=0,data_slice_regs=0,addr_slice_regs=0,phy_regs=0,addr_slice_base=0,phy_core_base=0;
+
+        GEL_TextOut("Begin DDR Register Dump\n");
+
+        GEL_TextOut("0x43000014 %x  //CTRLMMR_JTAGID\n",,,,,HW_RD_REG32(0x43000014));
+        GEL_TextOut("0x43000018 %x  //CTRLMMR_JTAG_USER_ID\n",,,,,HW_RD_REG32(0x43000018));
+        GEL_TextOut("0x0F300020 %x  //SSCFG_V2A_CTL_REG\n",,,,,HW_RD_REG32(0x0F300020));
+        GEL_TextOut("0x0F3000A0 %x  //SSCFG_V2A_INT_RAW_REG\n",,,,,HW_RD_REG32(0x0F3000A0));
+
+
+
+        //Which Sitara device?
+        pi_version = HW_RD_REG32(0x0F30A004);
+        if(pi_version == 0xAE8D79E2)
+        { //AM64x/AM62x
+                ctrl_regs = 422;
+                pi_regs = 344;
+                data_slice_regs = 125;
+                addr_slice_regs = 42;
+                addr_slice_base = 0x0F30C800;
+                phy_regs = 125;
+                phy_core_base = 0x0F30D400;
+        }
+
+        else if (pi_version == 0xB0BD08BA)
+        { //AM62A/AM62P
+                ctrl_regs = 434;
+                pi_regs = 423;
+                data_slice_regs = 136;
+                addr_slice_regs = 48;
+                addr_slice_base = 0x0F30D000;
+                phy_regs = 131;
+                phy_core_base = 0xF30DC00;
+        }
+        else
+                GEL_TextOut("ERROR: Device not recognized.  Register dump skipped.");
+
+        for(i=0;i<=ctrl_regs;i++)
+                GEL_TextOut("%x %x  //DDRSS_CTL_%d_DATA\n",,,,,(0x0F308000 + (i*4) ),HW_RD_REG32(0x0F308000 + (i*4)),i);
+
+        for(i=0;i<=pi_regs;i++)
+                GEL_TextOut("%x %x  //DDRSS_PI_%d_DATA\n",,,,,(0x0F30A000 + (i*4) ),HW_RD_REG32(0x0F30A000 + (i*4)),i);
+
+        dram_class = (HW_RD_REG32(0x0F308000) >> 8) & 0xF;
+        if(dram_class == 0xA)
+        {//DDR4
+            //Set FREQ_SEL_INDEX = 0 to read F0
+            //and set PHY_FREQ_SEL_MULTICAST_EN=0
+            HW_WR_REG32(0x0F30D404,HW_RD_REG32(0x0F30D404) & ~0x30100UL);  //PHY_1281
+            GEL_TextOut("data slice 0\n");
+            read_phy_regs_dataslice(0,0,0,data_slice_regs);
+            GEL_TextOut("data slice 1\n");
+            read_phy_regs_dataslice(0,0,1,data_slice_regs);
+            GEL_TextOut("addr slice 0\n");
+            read_phy_regs_addrslice(0,0,addr_slice_regs,addr_slice_base);
+            GEL_TextOut("data slice 1\n");
+            read_phy_regs_addrslice(0,1,addr_slice_regs,addr_slice_base);
+            GEL_TextOut("data slice 2\n");
+            read_phy_regs_addrslice(0,2,addr_slice_regs,addr_slice_base);
+			read_phy_regs_core(0,phy_regs,phy_core_base);
+        }
+        else if (dram_class == 0xB)
+        {//LPDDR4
+            if(pi_version == 0xAE8D79E2)
+            { //AM64x/AM62x
+                //save off regs that are written
+                phy_1281 = HW_RD_REG32(0x0F30D404);
+                //cycle through the frequencies being used based on PI_FREQ_MAP
+                for(freq_idx = 1;freq_idx <= 2;freq_idx++)
+                {
+                    freq_map = 1 << freq_idx;
+                    //if the frequency is active
+                    if(((HW_RD_REG32(0x0F30A030)) & freq_map) == freq_map)  //PI_12, PI_FREQ_MAP
+                    {
+                        //set PHY_1281,PHY_FREQ_SEL_INDEX to choose the frequency set  (in PHY, freq0 corresponds to F1, freq1 corresponds to F2)
+                        //and set PHY_FREQ_SEL_MULTICAST_EN=0
+                        HW_WR_REG32(0x0F30DC04,(HW_RD_REG32(0x0F30DC04) & ~0x30100UL) | ((freq_idx-1)<<16));
+						
+                        //cycle through each rank being used based on PI_CS_MAP
+                        //(PI_CS_MAP will be 0x5 for single rank x32, 0xF for dual rank x32)
+                        //(PI_CS_MAP will be 0x1 for single rank x16, 0x3 for dual rank x16)
+                        //so rank0 is 0x5 for x32, rank1 is 0xA for x32
+                        //and rank0 is 0x1 for x16, rank1 is 0x2 for x16
+                        //16bit data
+                        GEL_TextOut("data slice 0\n");
+                        read_phy_regs_dataslice(freq_idx,0,0,data_slice_regs);
+                        GEL_TextOut("data slice 1\n");
+                        read_phy_regs_dataslice(freq_idx,0,1,data_slice_regs);
+                        GEL_TextOut("addr slice 0\n");
+                        read_phy_regs_addrslice(freq_idx,0,addr_slice_regs,addr_slice_base);
+                        GEL_TextOut("phy core regs\n");
+                        read_phy_regs_core(freq_idx,phy_regs,phy_core_base);
+                    }
+                }
+                //put the regs back the way they were
+                HW_WR_REG32(0x0F30D404,phy_1281);
+            }
+            else if (pi_version == 0xB0BD08BA)
+            { //AM62A/AM62P
+                    //save off regs that are written
+                    phy_1793 = HW_RD_REG32(0x0F30DC04);
+                    phy_5 = HW_RD_REG32(0x0F30C014);
+                    phy_6 = HW_RD_REG32(0x0F30C018);
+                    phy_262 = HW_RD_REG32(0x0F30C418);
+                    phy_518 = HW_RD_REG32(0x0F30C818);
+                    phy_774 = HW_RD_REG32(0x0F30CC18);
+                    //cycle through the frequencies being used based on PI_FREQ_MAP
+                    for(freq_idx = 1;freq_idx <= 2;freq_idx++)
+                    {
+                            freq_map = 1 << freq_idx;
+                            //if the frequency is active
+                            if(((HW_RD_REG32(0x0F30A030)) & freq_map) == freq_map)  //PI_12,PI_FREQ_MAP
+                            {
+                                    //set PHY_1793,PHY_FREQ_SEL_INDEX to choose the frequency set  (in PHY, freq0 corresponds to F1, freq1 corresponds to F2)
+                                    //and set PHY_FREQ_SEL_MULTICAST_EN=0 (bit8)
+                                    HW_WR_REG32(0x0F30DC04,(HW_RD_REG32(0x0F30DC04) & ~0x30100UL) | ((freq_idx-1)<<16));
+                                    //cycle through each rank being used based on PI_CS_MAP
+                                    //(PI_CS_MAP will be 0x5 for single rank x32, 0xF for dual rank x32)
+                                    //(PI_CS_MAP will be 0x1 for single rank x16, 0x3 for dual rank x16)
+                                    //so rank0 is 0x5 for x32, rank1 is 0xA for x32
+                                    //and rank0 is 0x1 for x16, rank1 is 0x2 for x16
+                                    if(((HW_RD_REG32(0x0F30A068)>>24) & 0x1) == 0x1)  //PI_26, PI_16BIT_DRAM_CONNECT = 0 for 16bit, 1 for 32-bit
+                                    {//if 32bit data
+                                            for(rank_idx = 0;rank_idx <= 1;rank_idx++)
+                                            {
+                                                    GEL_TextOut("32-bit data\n");
+                                                    rank_map = 0x5 << rank_idx;
+                                                    if(((HW_RD_REG32(0x0F30A034)>>16) & rank_map) == rank_map) //PI_13, PI_CS_MAP, if CS is active
+                                                    {
+                                                            //Rank parameter index
+                                                            //set PHY_PER_CS_TRAINING_INDEX to the rank for each data slice
+                                                            //PHY only recognizes CS0 and CS1
+                                                            //disable PER_CS_TRAINING_MULTICAST
+                                                            HW_WR_REG32(0x0F30C014,HW_RD_REG32(0x0F30C014) & ~((1UL)<<24));
+                                                            HW_WR_REG32(0x0F30C414,HW_RD_REG32(0x0F30C414) & ~((1UL)<<24));
+                                                            HW_WR_REG32(0x0F30C814,HW_RD_REG32(0x0F30C814) & ~((1UL)<<24));
+                                                            HW_WR_REG32(0x0F30CC14,HW_RD_REG32(0x0F30CC14) & ~((1UL)<<24));
+                                                            HW_WR_REG32(0x0F30C018,(HW_RD_REG32(0x0F30C018) & ~(0x1UL)) | rank_idx);
+                                                            HW_WR_REG32(0x0F30C418,(HW_RD_REG32(0x0F30C418) & ~(0x1UL)) | rank_idx);
+                                                            HW_WR_REG32(0x0F30C818,(HW_RD_REG32(0x0F30C818) & ~(0x1UL)) | rank_idx);
+                                                            HW_WR_REG32(0x0F30CC18,(HW_RD_REG32(0x0F30CC18) & ~(0x1UL)) | rank_idx);
+                                                            GEL_TextOut("per_cs_training_index = %d\n",rank_idx);
+                                                            GEL_TextOut("data slice 0\n");
+                                                            read_phy_regs_dataslice(freq_idx,rank_idx,0,data_slice_regs);
+                                                            GEL_TextOut("data slice 1\n");
+                                                            read_phy_regs_dataslice(freq_idx,rank_idx,1,data_slice_regs);
+                                                            GEL_TextOut("data slice 2\n");
+                                                            read_phy_regs_dataslice(freq_idx,rank_idx,2,data_slice_regs);
+                                                            GEL_TextOut("data slice 3\n");
+                                                            read_phy_regs_dataslice(freq_idx,rank_idx,3,data_slice_regs);
+                                                    }
+                                            }
+                                    }
+                                    else
+                                    {//if 16bit data
+                                            for(rank_idx = 0;rank_idx <= 1;rank_idx++)
+                                            {
+                                                    GEL_TextOut("16-bit data\n");
+                                                    rank_map = 0x1 << rank_idx;
+                                                    if(((HW_RD_REG32(0x0F30A034)>>16) & rank_map) == rank_map) //PI_13, PI_CS_MAP, if CS is active
+                                                    {
+                                                            //Rank parameter index
+                                                            //set PHY_PER_CS_TRAINING_INDEX to the rank for each data slice
+                                                            //PHY only recognizes CS0 and CS1
+                                                            //disable PER_CS_TRAINING_MULTICAST
+                                                            HW_WR_REG32(0x0F30C014,HW_RD_REG32(0x0F30C014) & ~((1UL)<<24));
+                                                            HW_WR_REG32(0x0F30C414,HW_RD_REG32(0x0F30C414) & ~((1UL)<<24));
+			
+                                                            HW_WR_REG32(0x0F30C018,(HW_RD_REG32(0x0F30C018) & ~0x1UL) | rank_idx);
+                                                            HW_WR_REG32(0x0F30C418,(HW_RD_REG32(0x0F30C418) & ~0x1UL) | rank_idx);
+                                                            GEL_TextOut("per_cs_training_index = %d\n",rank_idx);
+                                                            GEL_TextOut("data slice 0\n");
+                                                            read_phy_regs_dataslice(freq_idx,rank_idx,0,data_slice_regs);
+                                                            GEL_TextOut("data slice 1\n");
+                                                            read_phy_regs_dataslice(freq_idx,rank_idx,1,data_slice_regs);
+                                                    }
+                                            }
+                                    }
+                                    GEL_TextOut("addr slice 0\n");
+                                    read_phy_regs_addrslice(freq_idx,0,addr_slice_regs,addr_slice_base);
+                                    GEL_TextOut("phy core regs\n");
+                                    read_phy_regs_core(freq_idx,phy_regs,phy_core_base);
+                            }
+                    } //end of frequency set loop
+                    //put the regs back the way they were
+                    HW_WR_REG32(0x0F30DC04,phy_1793);
+                    HW_WR_REG32(0x0F30C014,phy_5   );
+                    HW_WR_REG32(0x0F30C018,phy_6   );
+                    HW_WR_REG32(0x0F30C418,phy_262 );
+                    HW_WR_REG32(0x0F30C818,phy_518 );
+                    HW_WR_REG32(0x0F30CC18,phy_774 );
+            }//end of AM62A/P dump
+        }
+        else
+                GEL_TextOut("ERROR: DDR type not recognized.  RegDump not executed\n");
+
+        GEL_TextOut("End of DDR Register Dump\n\n");
+}
+
+
+
+
+hotmenu DDRSS_SS_RegDump()   
+{
+	// DDR Subsystem registers
+	GEL_TextOut(" DDRSS: Subsystem ID and Revision Register (offset 0x000)          = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x000));
+	GEL_TextOut(" DDRSS: Subsystem Control Register (offset 0x004)                  = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x004));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Control Register (offset 0x020)                  = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x020));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Range 1 Match Register (offset 0x024)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x024));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Range 2 Match Register (offset 0x028)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x028));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Range 3 Match Register (offset 0x02C)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x02C));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Default Priority Mapping Register (offset 0x030) = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x030));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Range 1 Priority Map Register (offset 0x034)     = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x034));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Range 2 Priority Map Register (offset 0x038)     = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x038));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Range 3 Priority Map Register (offset 0x03C)     = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x03C));
+	GEL_TextOut(" DDRSS: VBUSM2AXI HPT Default Priority Mapping Register (offset 0x4C)  = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x04C));
+	GEL_TextOut(" DDRSS: VBUSM2AXI HPT Range 1 Priority Map Register (offset 0x50       = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x050));
+	GEL_TextOut(" DDRSS: VBUSM2AXI HPT Range 2 Priority Map Register (offset 0x54)      = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x054));
+	GEL_TextOut(" DDRSS: VBUSM2AXI HPT Range 3 Priority Map Register (offset 0x58)      = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x058));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Oldest Command Priority Raise Register (offset 0x5C) = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x05C));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Leaky Bucket Threshold Register (offset 0x68)    = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x068));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Drain Threshold Register (offset 0x6C)           = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x06C));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Address Error Log 1 Register (offset 0x070)      = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x070));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Address Error Log 2 Register (offset 0x074)      = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x074));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Bus Timeout Register (offset 0x09C)              = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x09C));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Interrupt Raw Status Register (offset 0x0A0)     = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x0A0));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Interrupt Status Register (offset 0x0A4)         = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x0A4));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Interrupt Enable Set Register (offset 0x0A8)     = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x0A8));
+	GEL_TextOut(" DDRSS: VBUSM2AXI Interrupt Enable Clear Register (offset 0x0AC)   = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x0AC));
+	GEL_TextOut(" DDRSS: VBUSM2AXI End of Interrupt Register (offset 0x0B0)         = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x0B0));
+	GEL_TextOut(" DDRSS: Performance Counter Select Register (offset 0x100)         = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x100));
+	GEL_TextOut(" DDRSS: Performance Counter 1 Register (offset 0x104)              = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x104));
+	GEL_TextOut(" DDRSS: Performance Counter 2 Register (offset 0x108)              = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x108));
+	GEL_TextOut(" DDRSS: Performance Counter 3 Register (offset 0x10C)              = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x10C));
+	GEL_TextOut(" DDRSS: Performance Counter 4 Register (offset 0x110)              = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x110));
+	GEL_TextOut(" DDRSS: ECC Control Register (offset 0x120)                        = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x120));
+	GEL_TextOut(" DDRSS: ECC Cache RouteID Index Register (offset 0x124)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x124));
+	GEL_TextOut(" DDRSS: ECC Cache RouteID Value Register (offset 0x128)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x128));
+	GEL_TextOut(" DDRSS: ECC Range 0 Start Address Register (offset 0x130)          = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x130));
+	GEL_TextOut(" DDRSS: ECC Range 0 End Address Register (offset 0x134)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x134));
+	GEL_TextOut(" DDRSS: ECC Range 1 Start Address Register (offset 0x138)          = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x138));
+	GEL_TextOut(" DDRSS: ECC Range 1 End Address Register (offset 0x13C)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x13C));
+	GEL_TextOut(" DDRSS: ECC Range 2 Start Address Register (offset 0x140)          = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x140));
+	GEL_TextOut(" DDRSS: ECC Range 2 End Address Register (offset 0x144)            = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x144));
+	GEL_TextOut(" DDRSS: ECC 1-Bit Error Count Register (offset 0x150)              = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x150));
+	GEL_TextOut(" DDRSS: ECC 1-Bit Error Threshold Register (offset 0x154)          = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x154));
+	GEL_TextOut(" DDRSS: ECC 1-Bit Error Address Log Register (offset 0x158)        = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x158));
+	GEL_TextOut(" DDRSS: ECC 1-Bit Error Mask Log Register (offset 0x15C)           = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x15C));
+	GEL_TextOut(" DDRSS: ECC 2-Bit Error Address Log Register (offset 0x160)        = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x160));
+	GEL_TextOut(" DDRSS: ECC 2-Bit Error Mask Log Register (offset 0x164)           = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x164));
+	GEL_TextOut(" DDRSS: PHY Test Control 1 Register (offset 0x184)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x184));
+	GEL_TextOut(" DDRSS: PHY Test Control 2 Register (offset 0x188)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x188));
+	GEL_TextOut(" DDRSS: PHY Test Control 3 Register (offset 0x18C)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x18C));
+	GEL_TextOut(" DDRSS: PHY Test Control 4 Register (offset 0x190)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x190));
+	GEL_TextOut(" DDRSS: PHY Test Control 5 Register (offset 0x194)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x194));
+	GEL_TextOut(" DDRSS: PHY Test Control 6 Register (offset 0x198)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x198));
+	GEL_TextOut(" DDRSS: PHY Test Control 7 Register (offset 0x19C)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x19C));
+	GEL_TextOut(" DDRSS: PHY Test Control 8 Register (offset 0x1A0)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1A0));
+	GEL_TextOut(" DDRSS: PHY Test Control 9 Register (offset 0x1A4)                 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1A4));
+	GEL_TextOut(" DDRSS: PHY Test Control 10 Register (offset 0x1A8)                = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1A8));
+	GEL_TextOut(" DDRSS: PHY Test Control 11 Register (offset 0x1AC)                = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1AC));
+	GEL_TextOut(" DDRSS: PHY Test Control 12 Register (offset 0x1B0)                = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1B0));
+	GEL_TextOut(" DDRSS: PHY Test Status 1 Register (offset 0x1C0)                  = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1C0));
+	GEL_TextOut(" DDRSS: PHY Test Status 2 Register (offset 0x1C4)                  = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1C4));
+	GEL_TextOut(" DDRSS: PHY Test Status 3 Register (offset 0x1C8)                  = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_SS_BASE + 0x1C8));
+
+}
+
+hotmenu Memory_RegDump()
+{
+    //MR0
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000000 ); //CS0 MR0
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000000 ); //trigger read
+    GEL_TextOut("MR0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+    //MR1 is write only, read from controller register
+    GEL_TextOut("MR1_DATA_F1_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_337__SFR_OFFS));
+    GEL_TextOut("MR1_DATA_F2_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_345__SFR_OFFS));
+        
+    //MR2 is write only, read from controller register
+    GEL_TextOut("MR2_DATA_F1_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_338__SFR_OFFS));
+    GEL_TextOut("MR2_DATA_F2_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_346__SFR_OFFS));
+
+    //MR3 is write only, read from controller register
+    GEL_TextOut("MR3_DATA_F1_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_339__SFR_OFFS));
+    GEL_TextOut("MR3_DATA_F2_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_347__SFR_OFFS));
+
+    //MR4
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000400 ); //CS0 MR4
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000400 ); //trigger read
+    GEL_TextOut("MR4 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //MR5
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000500 ); //CS0 MR5
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000500 ); //trigger read
+    GEL_TextOut("MR5 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+    //MR6
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000600 ); //CS0 MR6
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000600 ); //trigger read
+    GEL_TextOut("MR6 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+    //MR7
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000700 ); //CS0 MR7
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000700 ); //trigger read
+    GEL_TextOut("MR7 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //MR8
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000800 ); //CS0 MR8
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000800 ); //trigger read
+    GEL_TextOut("MR8 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //MR9 not used
+    
+    //MR10 is write only, read from controller register
+    //GEL_TextOut("MR10_DATA_F1_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_336__SFR_OFFS));
+    //GEL_TextOut("MR10_DATA_F2_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_250__SFR_OFFS));
+
+    //MR11 is write only, read from PI register
+    GEL_TextOut("MR11_DATA_F1_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_342__SFR_OFFS) >> 24);
+    GEL_TextOut("MR11_DATA_F2_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_350__SFR_OFFS) >> 24);
+
+    //MR12, value is trained
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //MR13 is write only, read from controller register
+    GEL_TextOut("MR13_DATA_0 = %x\n",,,,,((HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_306__SFR_OFFS) >> 16) & 0xFF));
+    GEL_TextOut("MR13_DATA_1 = %x\n",,,,,((HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_309__SFR_OFFS) >> 0) & 0xFF));
+    GEL_TextOut("MR13_DATA_2 = %x\n",,,,,((HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_311__SFR_OFFS) >> 8) & 0xFF));
+    GEL_TextOut("MR13_DATA_3 = %x\n",,,,,((HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_314__SFR_OFFS) >> 0) & 0xFF));
+
+    //MR14, value is trained
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000E00 ); //CS0 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000E00 ); //trigger read
+    GEL_TextOut("MR14 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010E00 ); //CS1 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010E00 ); //trigger read
+    GEL_TextOut("MR14 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00020E00 ); //CS2 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01020E00 ); //trigger read
+    GEL_TextOut("MR14 CS2 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00030E00 ); //CS3 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01030E00 ); //trigger read
+    GEL_TextOut("MR14 CS3 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //MR15 not used
+    //MR16 is write only, read from controller register
+    //GEL_TextOut("MR16_DATA_0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_268__SFR_OFFS) >> 24);
+
+    //MR17 is write only, read from controller register
+    //GEL_TextOut("MR17_DATA_0 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_269__SFR_OFFS) >> 8) & 0xFF);
+
+    //MR18
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00001200 ); //CS0 MR18
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01001200 ); //trigger read
+    GEL_TextOut("MR18 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //MR19
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00001300 ); //CS0 MR19
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01001300 ); //trigger read
+    GEL_TextOut("MR19 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+    //MR20 is write only, read from controller register
+    //GEL_TextOut("MR20_DATA_0 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_269__SFR_OFFS) >> 24));
+    
+    //MR22 is write only, read from controller register
+    GEL_TextOut("MR22_DATA_F1_0 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_343__SFR_OFFS) >> 16) & 0xFF);
+    GEL_TextOut("MR22_DATA_F2_0 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_351__SFR_OFFS) >> 16) & 0xFF);
+    GEL_TextOut("MR22_DATA_F1_1 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_367__SFR_OFFS) >> 16) & 0xFF);
+    GEL_TextOut("MR22_DATA_F2_1 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_375__SFR_OFFS) >> 16) & 0xFF);
+    GEL_TextOut("MR22_DATA_F1_2 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_391__SFR_OFFS) >> 16) & 0xFF);
+    GEL_TextOut("MR22_DATA_F2_2 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_399__SFR_OFFS) >> 16) & 0xFF);
+    GEL_TextOut("MR22_DATA_F1_3 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_415__SFR_OFFS) >> 16) & 0xFF);
+    GEL_TextOut("MR22_DATA_F2_3 = %x\n",,,,,(HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_PI_REGISTER_BLOCK__OFFS + DDRSS_PI_423__SFR_OFFS) >> 16) & 0xFF);
+
+}
+
+hotmenu MR_reads_CS0_Freq0()
+{
+    //set FSP_WR_CURRENT = 0
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS, HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS) & ~0x1);
+    GEL_TextOut("Setting FSP_WR_CURRENT = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS));
+
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    GEL_TextOut("CS = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_193__SFR_OFFS));
+
+    //read MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000E00 ); //CS0 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000E00 ); //trigger read
+    GEL_TextOut("MR14 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+}
+hotmenu MR_reads_CS1_Freq0()
+{
+    //set FSP_WR_CURRENT = 0
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS, HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS) & ~0x1);
+    GEL_TextOut("Setting FSP_WR_CURRENT = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS));
+
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    GEL_TextOut("CS = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_193__SFR_OFFS));
+    
+    //read MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010E00 ); //CS1 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010E00 ); //trigger read
+    GEL_TextOut("MR14 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+}
+
+hotmenu MR_reads_CS2_Freq0()
+{
+    //set FSP_WR_CURRENT = 0
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS, HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS) & ~0x1);
+    GEL_TextOut("Setting FSP_WR_CURRENT = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS));
+
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00020C00 ); //CS2 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01020C00 ); //trigger read
+    GEL_TextOut("MR12 CS2 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    GEL_TextOut("CS = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_193__SFR_OFFS));
+    
+    //read MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00020E00 ); //CS1 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01020E00 ); //trigger read
+    GEL_TextOut("MR14 CS2 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+}
+
+
+hotmenu MR_reads_Freq1()
+{
+   //set FSP_WR_CURRENT = 1
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS, HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS) | 0x1);
+    GEL_TextOut("Setting FSP_WR_CURRENT = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS));
+
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //read MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000E00 ); //CS0 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000E00 ); //trigger read
+    GEL_TextOut("MR14 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010E00 ); //CS1 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010E00 ); //trigger read
+    GEL_TextOut("MR14 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    
+}
+
+hotmenu MR_testing()
+{   
+    //set FSP_WR_CURRENT = 0
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS, HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS) & ~0x1);
+    GEL_TextOut("Setting FSP_WR_CURRENT = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS));
+
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    
+    //read MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000E00 ); //CS1 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000E00 ); //trigger read
+    GEL_TextOut("MR14 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010E00 ); //CS1 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010E00 ); //trigger read
+    GEL_TextOut("MR14 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //write unique values to MR12 and read back
+    
+    //write MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0080000C); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_225__SFR_OFFS, 0x1F);       //data
+    
+    //trigger write
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0280000C);
+    
+    GEL_TextOut("Writing 0x1F to MR12 CS0\n");
+    
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+
+    //write MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0080010C); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_226__SFR_OFFS, 0x29);       //data
+        
+    //trigger write
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0280010C);
+        
+    GEL_TextOut("Writing 0x29 to MR12 CS1\n");
+        
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+}
+
+
+hotmenu MR_testing_FSP()
+{   
+    //set FSP_WR_CURRENT = 0
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS, HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS) & ~0x1);
+    GEL_TextOut("Setting FSP_WR_CURRENT = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS));
+
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    
+    //read MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000E00 ); //CS01 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000E00 ); //trigger read
+    GEL_TextOut("MR14 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010E00 ); //CS1 MR14
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010E00 ); //trigger read
+    GEL_TextOut("MR14 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    //write unique values to MR12 and read back
+    
+    //write MRW_DFS_UPDATE_FRC
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_194__SFR_OFFS, 0x01000000); //freq1
+        
+    //write MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0080000C); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_225__SFR_OFFS, 0x11);       //data
+    
+    //trigger write
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0280000C);
+    
+    GEL_TextOut("Writing 0x11 to MR12 CS0, freq 1\n");
+    
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+    //write MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0080010C); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_226__SFR_OFFS, 0x5);       //data
+        
+    //trigger write
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_190__SFR_OFFS, 0x0280010C);
+        
+    GEL_TextOut("Writing 0x5 to MR12 CS1\n");
+        
+    
+    //set FSP_WR_CURRENT = 1
+        HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS, HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS) | 0x1);
+        GEL_TextOut("Setting FSP_WR_CURRENT = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_282__SFR_OFFS));
+
+    //read MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00000C00 ); //CS0 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01000C00 ); //trigger read
+    GEL_TextOut("MR12 CS0 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x00010C00 ); //CS1 MR12
+    HW_WR_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_191__SFR_OFFS, 0x01010C00 ); //trigger read
+    GEL_TextOut("MR12 CS1 = %x\n",,,,,HW_RD_REG32(AM62A_DDRSS_CTL_BASE + DDRSS_CTL_192__SFR_OFFS));
+    
+}
+
+

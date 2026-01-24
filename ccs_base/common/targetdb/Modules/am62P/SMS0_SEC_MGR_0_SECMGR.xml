@@ -1,0 +1,447 @@
+<module name="SMS0_SEC_MGR_0_SECMGR" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="TIFS_SECMGR_SEC_MGR_ID" acronym="TIFS_SECMGR_SEC_MGR_ID" offset="0x0" width="32" description="This is the standard TI peripheral ID register that exists at address 0 in the peripheral space">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Used to distinguish which ID numbering scheme is used." range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x1" description="BU identifier" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="FUNC" width="12" begin="27" end="16" resetval="0x3968" description="Module family." range="27 - 16" rwaccess="R"/> 
+		<bitfield id="RTL_VER" width="5" begin="15" end="11" resetval="0x12" description="RTL version. R of X.Y.R.Z" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="MAJOR_REV" width="3" begin="10" end="8" resetval="0x1" description="Major revision. X of X.Y.R.Z" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Special version number" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="MINOR_REV" width="6" begin="5" end="0" resetval="0x1" description="Minor revision. Y of X.Y.R.Z" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_SYS_STATUS" acronym="TIFS_SECMGR_SYS_STATUS" offset="0x100" width="32" description="The System Status Register contains status information on the state of the security system. This is the only register that must be read to determine the status of the entire system. It is a readonly register and some bit will be replicated in other registers. This register is reset on POR only.">
+		<bitfield id="HS_SUBTYPE" width="4" begin="11" end="8" resetval="0x0" description="HS/EMU Sub-type. 0xA = Field Securable. Else = Security Enforced" range="11 - 8" rwaccess="R"/> 
+		<bitfield id="DEVICE_TYPE" width="4" begin="3" end="0" resetval="0x0" description="Decoded device type" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_FSM_STATUS" acronym="TIFS_SECMGR_FSM_STATUS" offset="0x150" width="32" description="The FSM Status Register contains Secure FSM state machine information">
+		<bitfield id="OVERRIDE_STATE" width="2" begin="9" end="8" resetval="0x0" description="This is the override status" range="9 - 8" rwaccess="R"/> 
+		<bitfield id="FSM_CURRENT_STATE" width="8" begin="7" end="0" resetval="0x0" description="This is the state machine FSM current state variable" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_EFUSE_STATUS" acronym="TIFS_SECMGR_EFUSE_STATUS" offset="0x200" width="32" description="The EFUSE Status register contains status information on the state of the EFUSE scan chains. It is a read-only register with values from input ports.">
+		<bitfield id="SEC_EFUSE_ERROR" width="5" begin="28" end="24" resetval="0x0" description="These bits reflect the value on the sec_efuse_error port" range="28 - 24" rwaccess="R"/> 
+		<bitfield id="SEC_EFUSE_READY" width="1" begin="16" end="16" resetval="0x0" description="These bits reflect the value on the sec_efuse_ready port" range="16" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_RESET_STATUS" acronym="TIFS_SECMGR_RESET_STATUS" offset="0x210" width="32" description="The Reset Status Register provides visibility of resets within the system. These bits are read-only and will be cleared when a 1 is written to a given bit location. They will record the fact that a given reset occurred.">
+		<bitfield id="CUST_EFUSE_RST" width="1" begin="5" end="5" resetval="0x0" description="Captures reset events on port: sec_efc_fclrz" range="5" rwaccess="R"/> 
+		<bitfield id="POR" width="1" begin="0" end="0" resetval="0x0" description="Captures reset events on port: por_rst_n" range="0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_WRITE_ONCE_ONLY_STATUS" acronym="TIFS_SECMGR_WRITE_ONCE_ONLY_STATUS" offset="0x300" width="32" description="As a debug aid we need to be able to read the write-once only bits to know their state. This register makes all these write-once only flags visible in current state.">
+		<bitfield id="MSV_ACCESS_CONTROL_LOCKED" width="1" begin="31" end="31" resetval="0x1" description="" range="31" rwaccess="R"/> 
+		<bitfield id="SWRV_ACCESS_CONTROL_LOCKED" width="1" begin="30" end="30" resetval="0x1" description="" range="30" rwaccess="R"/> 
+		<bitfield id="BMEK_ACCESS_CONTROL_LOCKED" width="1" begin="29" end="29" resetval="0x1" description="" range="29" rwaccess="R"/> 
+		<bitfield id="BMPK_PT2_ACCESS_CONTROL_LOCKED" width="1" begin="28" end="28" resetval="0x1" description="" range="28" rwaccess="R"/> 
+		<bitfield id="BMPK_PT1_ACCESS_CONTROL_LOCKED" width="1" begin="27" end="27" resetval="0x1" description="" range="27" rwaccess="R"/> 
+		<bitfield id="SMEK_ACCESS_CONTROL_LOCKED" width="1" begin="26" end="26" resetval="0x1" description="" range="26" rwaccess="R"/> 
+		<bitfield id="SMPK_PT2_ACCESS_CONTROL_LOCKED" width="1" begin="25" end="25" resetval="0x1" description="" range="25" rwaccess="R"/> 
+		<bitfield id="SMPK_PT1_ACCESS_CONTROL_LOCKED" width="1" begin="24" end="24" resetval="0x1" description="" range="24" rwaccess="R"/> 
+		<bitfield id="KEK_ACCESS_CONTROL_LOCKED" width="1" begin="19" end="19" resetval="0x1" description="" range="19" rwaccess="R"/> 
+		<bitfield id="TIMEK_ACCESS_CONTROL_LOCKED" width="1" begin="18" end="18" resetval="0x1" description="" range="18" rwaccess="R"/> 
+		<bitfield id="TIMPK_PT2_ACCESS_CONTROL_LOCKED" width="1" begin="17" end="17" resetval="0x1" description="" range="17" rwaccess="R"/> 
+		<bitfield id="TIMPK_PT1_ACCESS_CONTROL_LOCKED" width="1" begin="16" end="16" resetval="0x1" description="" range="16" rwaccess="R"/> 
+		<bitfield id="SEC_TRACE_ENABLE" width="1" begin="14" end="14" resetval="0x1" description="" range="14" rwaccess="R"/> 
+		<bitfield id="SEC_DEBUG_ENABLE" width="1" begin="13" end="13" resetval="0x1" description="" range="13" rwaccess="R"/> 
+		<bitfield id="SEC_EMU_ENABLE" width="1" begin="12" end="12" resetval="0x1" description="" range="12" rwaccess="R"/> 
+		<bitfield id="SMS_DBGEN" width="1" begin="11" end="11" resetval="0x1" description="" range="11" rwaccess="R"/> 
+		<bitfield id="SEC_OVERRIDE" width="1" begin="10" end="10" resetval="0x1" description="" range="10" rwaccess="R"/> 
+		<bitfield id="SEC_ROM_ACCESS" width="1" begin="9" end="9" resetval="0x1" description="" range="9" rwaccess="R"/> 
+		<bitfield id="FW_BYPASS_ACCESS_REG" width="1" begin="8" end="8" resetval="0x1" description="" range="8" rwaccess="R"/> 
+		<bitfield id="SEC_TEST_EN" width="1" begin="5" end="5" resetval="0x1" description="" range="5" rwaccess="R"/> 
+		<bitfield id="BSC_ENABLE" width="1" begin="4" end="4" resetval="0x1" description="" range="4" rwaccess="R"/> 
+		<bitfield id="CATSCAN_ENABLE" width="1" begin="3" end="3" resetval="0x1" description="" range="3" rwaccess="R"/> 
+		<bitfield id="DMLED_CORE" width="1" begin="2" end="2" resetval="0x1" description="" range="2" rwaccess="R"/> 
+		<bitfield id="SEC_EFUSE_RD_DISABLE" width="1" begin="1" end="1" resetval="0x1" description="" range="1" rwaccess="R"/> 
+		<bitfield id="SEC_EFUSE_WR_DISABLE" width="1" begin="0" end="0" resetval="0x1" description="" range="0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_OVERRIDE_STATUS" acronym="TIFS_SECMGR_OVERRIDE_STATUS" offset="0x400" width="32" description="This Register reflects the status of Override request.">
+		<bitfield id="OVERRIDE_SEQ_COMPLETE" width="1" begin="2" end="2" resetval="0x0" description="" range="2" rwaccess="R"/> 
+		<bitfield id="SMS_OVERRIDE_IN_SCOPE" width="1" begin="1" end="1" resetval="0x0" description="" range="1" rwaccess="R"/> 
+		<bitfield id="OVERRIDE_ACTIVE" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_EFUSE_JTAG_DISABLE_STATUS" acronym="TIFS_SECMGR_EFUSE_JTAG_DISABLE_STATUS" offset="0x500" width="32" description="This Register reflects the status of efuse based JTAG disable feature. Once JTAG has been disabled via Efuse, there can be no debug and TI cannot do any RMA.">
+		<bitfield id="JTAG_DISABLE" width="4" begin="3" end="0" resetval="0x0" description="" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PART1_STATUS_REG" acronym="TIFS_SECMGR_TI_MPK_PART1_STATUS_REG" offset="0x700" width="32" description="This register echoes the TI MPK-Part1 value, the MPK value can be muted via MPK Access control register.">
+		<bitfield id="TI_MPK" width="32" begin="31" end="0" resetval="0x0" description="TI MP value as read from TI MPK Data Reg. This register is mere echo of Data Register" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PART2_STATUS_REG" acronym="TIFS_SECMGR_TI_MPK_PART2_STATUS_REG" offset="0x750" width="32" description="This register echoes the TI MPK-Part2 value, the MPK value can be muted via MPK Access control register.">
+		<bitfield id="TI_MPK" width="32" begin="31" end="0" resetval="0x0" description="TI MP value as read from TI MPK Data Reg. This register is mere echo of Data Register" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MEK_ID_STATUS_REG" acronym="TIFS_SECMGR_TI_MEK_ID_STATUS_REG" offset="0x780" width="32" description="This register echoes the TI MEK ID value, this is used to ID the key used for MEK.">
+		<bitfield id="TI_MEK_ID" width="32" begin="31" end="0" resetval="0x0" description="TI MEK ID value as read from TI MEK ID data register, this is mere echo of TI MEK ID Register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PART1_STATUS_REG" acronym="TIFS_SECMGR_SMPK_PART1_STATUS_REG" offset="0x800" width="32" description="This register echoes the SMPK-Part1 value, the MPK value can be muted via MPK Access control register.">
+		<bitfield id="SMPK" width="32" begin="31" end="0" resetval="0x0" description="SMPK value as read from SMPK Data Register. This register is mere echo of SMPK Data register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PART2_STATUS_REG" acronym="TIFS_SECMGR_SMPK_PART2_STATUS_REG" offset="0x850" width="32" description="This register echoes the SMPK-Part2 value, the MPK value can be muted via MPK Access control register.">
+		<bitfield id="SMPK" width="32" begin="31" end="0" resetval="0x0" description="SMPK value as read from SMPK Data Register. This register is mere echo of SMPK Data register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_SMEK_ID_STATUS_REG" acronym="TIFS_SECMGR_SMEK_ID_STATUS_REG" offset="0x880" width="32" description="This register echoes the SMEK ID value, this is used to ID the key used for SMEK.">
+		<bitfield id="SMEK" width="32" begin="31" end="0" resetval="0x0" description="SMEK ID value as read from SMEK ID data register, this is mere echo of SMEK ID Register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PART1_STATUS_REG" acronym="TIFS_SECMGR_BMPK_PART1_STATUS_REG" offset="0x900" width="32" description="This register echoes the BMPK-Part1 value, the MPK value can be muted via MPK Access control register.">
+		<bitfield id="BMPK" width="32" begin="31" end="0" resetval="0x0" description="BMPK value as read from BMPK Data Register. This register is mere echo of BMPK Data register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PART2_STATUS_REG" acronym="TIFS_SECMGR_BMPK_PART2_STATUS_REG" offset="0x950" width="32" description="This register echoes the BMPK-Part2 value, the MPK value can be muted via MPK Access control register.">
+		<bitfield id="BMPK" width="32" begin="31" end="0" resetval="0x0" description="BMPK value as read from BMPK Data Register. This register is mere echo of BMPK Data register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_BMEK_ID_STATUS_REG" acronym="TIFS_SECMGR_BMEK_ID_STATUS_REG" offset="0x980" width="32" description="This register echoes the BMEK ID value, this is used to ID the key used for BMEK.">
+		<bitfield id="BMEK" width="32" begin="31" end="0" resetval="0x0" description="BMEK ID value as read from BMEK ID data register, this is mere echo of BMEK ID Register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_SWRV_STATUS_REG" acronym="TIFS_SECMGR_SWRV_STATUS_REG" offset="0xD00" width="32" description="This register echoes the SWRV value, the SWRV value can be muted via SWRV Access control register.">
+		<bitfield id="SWRV" width="32" begin="31" end="0" resetval="0x0" description="SWRV value as read from SWRV Data Register. This register is mere echo of SWRV Data register." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_MSV_STATUS_REG" acronym="TIFS_SECMGR_MSV_STATUS_REG" offset="0xD50" width="32" description="This register echoes the MSV value, the MSV value can be muted via MSV Access control register.">
+		<bitfield id="MSV" width="24" begin="23" end="0" resetval="0x0" description="MSV value as read from MSV Data Register. This register is mere echo of MSV Data register." range="23 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_FIREWALL_BYPASS_CONTROL" acronym="TIFS_SECMGR_FIREWALL_BYPASS_CONTROL" offset="0x1000" width="32" description="This register controls the bypass feature for all SoC firewall. Once locked, the register cannot be changed till POR.">
+		<bitfield id="LOCK_REGISTER" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="SMS_FIREWALL_BYPASS" width="4" begin="11" end="8" resetval="0x0" description="Writing code 0xA will put SMS firewall in bypass mode. Please refer to firewall spec for bypass mode operation." range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SOC_FIREWALL_BYPASS" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will put all SoC firewall in bypass mode, excluding SMS. Please refer to firewall spec for bypass mode operation" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_PVU_CONTROL" acronym="TIFS_SECMGR_PVU_CONTROL" offset="0x1010" width="32" description="This register controls the security of PVU/IO-MMU module. Once locked, the register cannot be changed till POR.">
+		<bitfield id="LOCK_REGISTER" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="PVU_SEC_MODE_EN" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA allows PVC to operate in secure mode." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_OVERRIDE_CNTL" acronym="TIFS_SECMGR_OVERRIDE_CNTL" offset="0x1100" width="32" description="Override sequence start register, writing 0xA start the override sequence as documented. This register can only be written once during each POR and the value is sticky.">
+		<bitfield id="SMS_IN_SCOPE" width="4" begin="11" end="8" resetval="0x0" description="Writing code 0xA will put SMS also in in scope of override, please refer to flow in previous section. This must be set along with override_sequence_start." range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OVERRIDE_SEQUENCE_START" width="4" begin="3" end="0" resetval="0x0" description="Override sequence start bit, writing 0xA starts the operation" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_OVERRIDE_DELAY_LOOP" acronym="TIFS_SECMGR_OVERRIDE_DELAY_LOOP" offset="0x1104" width="32" description="This register holds delay loop counter to allow SMS to enter WFI before SMS override is effeictive.">
+		<bitfield id="SMS_OVERRIDE_DELAY_LOOP_CNT" width="32" begin="31" end="0" resetval="0x65535" description="SMS Delay loop counter, override is effective when counter reaches Zero. This counter is running on PLL output clock , hence ROM/SW must ensure delay based on system PLL SMS clock." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SRAM_ERASE" acronym="TIFS_SECMGR_SRAM_ERASE" offset="0x1150" width="32" description="This register control the Erase function of SRAM and ROM access control.">
+		<bitfield id="SMS_ERASE_ASSERT_CYCLES" width="8" begin="31" end="24" resetval="0x255" description="This MMR control the assertion time of SMS Erase signal. This is required as certain SRAM erase logic may have time requirement to keep signal asserted. Runs as same clock as Sec-mgr clock." range="31 - 24" rwaccess="R/W"/> 
+		<bitfield id="ERASE_SMS_SRAMS" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will send signal to erase SMS SRAM, this will erase all SMS SRAM including data and code SRAM. Care must be taken to ensure SMS Cortex-M4F is in not executing from SRAM when this signal is asserted." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SOC_ERASE_ASSERT_CYCLES" width="8" begin="15" end="8" resetval="0x255" description="This MMR control the assertion time of SOC Erase signal. This is required as certain SRAM erase logic may have time requirement to keep signal asserted. Runs as same clock as Sec-mgr clock." range="15 - 8" rwaccess="R/W"/> 
+		<bitfield id="ERASE_SRAMS" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will send signal to all SoC level SRAM to erase the RAM. This bit does not erase SMS internal SRAM." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SECROM_ACCESS_CNTL" acronym="TIFS_SECMGR_SECROM_ACCESS_CNTL" offset="0x1180" width="32" description="This register controls the Erase function of SRAM and ROM access control.">
+		<bitfield id="LOCK_REGISTER" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="SEC_ROM_ENABLE" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will enable access to secure ROM, for all other value the secure ROM is disabled." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMS_DEBUG_CNTL" acronym="TIFS_SECMGR_SMS_DEBUG_CNTL" offset="0x1200" width="32" description="This register controls the SMS Debug TAP. This register can be locked. This is pure SW managed register with NO initial value from Efuses.">
+		<bitfield id="SMS_DBGEN_ENABLE" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will enable Debug for SMS. SW/ROM must be very careful using this. This is set for EMU mode." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SOC_SEC_DBG_CNTL" acronym="TIFS_SECMGR_SOC_SEC_DBG_CNTL" offset="0x1210" width="32" description="This register controls the SoC Debug TAP. This register can be locked. This is pure SW managed register with NO initial value from Efuses.">
+		<bitfield id="SEC_TRACE_ENABLE" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will allow Trace for SoC. This assert Trace signals that are also controlled by SoC Debug/trace control register. Once set all security emulation are active. SW/ROM must be very careful using this." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SEC_EMU_ENABLE" width="4" begin="11" end="8" resetval="0x0" description="Writing code 0xA will allow Secure Emulation for All SoC. Once set all security emulation are active. SW/ROM must be very careful using this." range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SEC_DBG_ENABLE" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will enable full Debug for SoC. This open complete SoC Debug TAPs, except SMS." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DEBUGSS_DOM" acronym="TIFS_SECMGR_DEBUGSS_DOM" offset="0x1220" width="32" description="This register controls the DebugSS DOM">
+		<bitfield id="DEBUGSS_SEC_CTL_DOM" width="11" begin="10" end="0" resetval="0x974" description="DOM value as per DebugSS spec" range="10 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DEBUGSS_CNTL" acronym="TIFS_SECMGR_DEBUGSS_CNTL" offset="0x1230" width="32" description="This register controls DebugSS Internal Firewall. This register can be locked. Once locked, the register cannot be changed until POR">
+		<bitfield id="DEBUGSS_AUX_FT3" width="4" begin="31" end="28" resetval="0x0" description="Writing code 0xA will assert signal debugss_aux_ft_signals bit 3" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="DEBUGSS_AUX_FT2" width="4" begin="27" end="24" resetval="0x0" description="Writing code 0xA will assert signal debugss_aux_ft_signals bit 2" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="DEBUGSS_AUX_FT1" width="4" begin="23" end="20" resetval="0x0" description="Writing code 0xA will assert signal debugss_aux_ft_signals bit 1" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="DEBUGSS_AUX_FT0" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will assert signal debugss_aux_ft_signals bit 0" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="DEBUGSS_SEC_VBUSM_FW_EN" width="4" begin="15" end="12" resetval="0x0" description="Writing code 0xA will enable DebugSS internal VBUSM firewall interface, else it is disabled" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="DEBUGSS_SEC_AXIAP_FW_EN" width="4" begin="11" end="8" resetval="0x0" description="Writing code 0xA will enable DebugSS internal AXI AP firewall interface, else it is disabled" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="DEBUGSS_APBAP_FW_EN" width="4" begin="7" end="4" resetval="0x0" description="Writing code 0xA will enable DebugSS internal APB AP firewall interface, else it is disabled" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="DEBUGSS_JTAGAP_FW_EN" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will enable DebugSS internal JTAG firewall interface, else it is disabled" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DEBUGSS_DBG_TAP_FW_EN" acronym="TIFS_SECMGR_DEBUGSS_DBG_TAP_FW_EN" offset="0x1234" width="32" description="This register controls the DebugSS Debug Tap. This register can be locked. Once locked, the register cannot be changed till POR. This register gets NO initial value from Efuses">
+		<bitfield id="DEBUGSS_DBG_TAP_FW_EN" width="32" begin="31" end="0" resetval="0x0" description="DebugSS Debug Tap Firewall Enable" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DEBUGSS_TEST_TAP_FW_EN" acronym="TIFS_SECMGR_DEBUGSS_TEST_TAP_FW_EN" offset="0x1238" width="32" description="This register controls the DebugSS Test Tap. This register can be locked. Once locked, the register cannot be changed till POR. This register gets NO initial value from Efuses">
+		<bitfield id="DEBUGSS_TEST_TAP_FW_EN" width="32" begin="31" end="0" resetval="0x0" description="DebugSS Test Tap Firewall Enable" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DEBUGSS_PWR_FW_EN" acronym="TIFS_SECMGR_DEBUGSS_PWR_FW_EN" offset="0x123C" width="32" description="This register controls the DebugSS Firewall Enable. This register can be locked. Once locked, the register cannot be changed till POR. This register gets NO initial value from Efuses">
+		<bitfield id="DEBUGSS_PWR_FW_EN" width="32" begin="31" end="0" resetval="0x0" description="DebugSS Security Firewall Enable" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DEBUGSS_CMX_FW_EN" acronym="TIFS_SECMGR_DEBUGSS_CMX_FW_EN" offset="0x1240" width="32" description="This register controls the DebugSS Core Enable. This register can be locked. Once locked, the register cannot be changed till POR. This register gets NO initial value from Efuses">
+		<bitfield id="DEBUGSS_CMX_FW_EN" width="32" begin="31" end="0" resetval="0x0" description="DebugSS Core Enable" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DEBUGSS_AUX" acronym="TIFS_SECMGR_DEBUGSS_AUX" offset="0x1244" width="32" description="This register controls the Debugss aux signals. This register can be locked. Once locked, the register cannot be changed till POR. This register gets NO initial value from Efuses.">
+		<bitfield id="DEBUGSS_AUX" width="32" begin="31" end="0" resetval="0x0" description="DebugSS aux reserved signals" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SOC_TRACE_CNTL" acronym="TIFS_SECMGR_SOC_TRACE_CNTL" offset="0x1250" width="32" description="This register controls SoC Trace. This register can be locked. Once locked, the register cannot be changed till POR. This register gets NO initial value from Efuses.">
+		<bitfield id="SPNIDEN" width="4" begin="15" end="12" resetval="0x0" description="Writing 0xA will enable spniden" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="SPIDEN" width="4" begin="11" end="8" resetval="0x0" description="Writing 0xA will enable spiden" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="NIDEN" width="4" begin="7" end="4" resetval="0x0" description="Writing 0xA will enable niden" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="DBGEN" width="4" begin="3" end="0" resetval="0x0" description="Writing 0xA will enable dbgen" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_DFT_CNTL" acronym="TIFS_SECMGR_DFT_CNTL" offset="0x1280" width="32" description="This register controls the DFT access of the device. These bits can only be written once during each POR.">
+		<bitfield id="SEC_TEST_ENABLE" width="4" begin="23" end="20" resetval="0x0" description="Control the use of Test Enable. Writing a 0xA will enable test" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="BSC_ENABLE" width="4" begin="19" end="16" resetval="0x0" description="Control the use of Boundary Scan Chain. Writing a 0xA will enable BSCAN" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="CATSCAN_ENABLE" width="4" begin="11" end="8" resetval="0x0" description="Control the use of the CatScan module. Writing a 0xA will enable CATSCAN" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="DMLED_CORE_EN" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will allow DMLED module to operate. Else DMLED mode is disabled." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_EFUSE_FROM_CNTL" acronym="TIFS_SECMGR_EFUSE_FROM_CNTL" offset="0x12A0" width="32" description="This register controls the Efuse access of the device. These bits can only be written once during each POR. This is pure SW managed register with NO initial value from Efuses.">
+		<bitfield id="SECURITY_EFUSE_FROM_RD_ENABLE_BIT2" width="4" begin="27" end="24" resetval="0x0" description="Customer General OTP Programmable FROM EFUSE Read Disable. 0xA - Reads allowed to Customer General OTP EFUSE FROM. Else - Reads not allowed to Customer General OTP EFUSE FROM." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="SECURITY_EFUSE_FROM_RD_ENABLE_BIT1" width="4" begin="23" end="20" resetval="0x0" description="Customer Key Material Programmable FROM EFUSE Read Disable. 0xA - Reads allowed to Customer Key Material EFUSE FROM. Else - Reads not allowed to Customer Key Material EFUSE FROM." range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="SECURITY_EFUSE_FROM_RD_ENABLE_BIT0" width="4" begin="19" end="16" resetval="0x0" description="TI Key Material Programmable FROM EFUSE Read Disable. 0xA - Reads allowed to TI Key Material EFUSE FROM. Else - Reads not allowed to TI Key Material EFUSE FROM." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SECURITY_EFUSE_FROM_WR_ENABLE_BIT2" width="4" begin="11" end="8" resetval="0x0" description="Customer General OTP Programmable FROM EFUSE Write Disable. 0xA - Writes allowed to Customer General OTP EFUSE FROM. Else - Writes not allowed to Customer General OTP EFUSE FROM." range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SECURITY_EFUSE_FROM_WR_ENABLE_BIT1" width="4" begin="7" end="4" resetval="0x0" description="Customer Key Material Programmable FROM EFUSE Write Disable. 0xA - Writes allowed to Customer Key Material EFUSE FROM. Else - Writes not allowed to Customer Key Material EFUSE FROM." range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="SECURITY_EFUSE_FROM_WR_ENABLE_BIT0" width="4" begin="3" end="0" resetval="0x0" description="TI Key Material Programmable FROM EFUSE Write Disable. 0xA - Writes allowed to TI Key Material EFUSE FROM. Else - Writes not allowed to TI Key Material EFUSE FROM." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_FAULT_TOLERANT_EFUSE_OPTS" acronym="TIFS_SECMGR_FAULT_TOLERANT_EFUSE_OPTS" offset="0x1500" width="32" description="This register holds the fault tolerant options that are sensitive from security standpoint. ROM defines these options, ROM can choose to use this option as single bit flag, however for security options fault tolerant field must be used. This register gets initial value from Security Efuse FROM.">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, then selected option is enabled. Else: Selected option is disabled. ROM code defines this option bit" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_NON_FAULT_TOLERANT_EFUSE_OPTS" acronym="TIFS_SECMGR_NON_FAULT_TOLERANT_EFUSE_OPTS" offset="0x1510" width="32" description="This register holds device config, these are non-fault tolerant. This register gets initial value from Security Efuse FROM.">
+		<bitfield id="OPTS" width="32" begin="31" end="0" resetval="0x0" description="This register holds device config data. ROM code defines these fields" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_FAULT_TOLERANT_HW_EFUSE_OPTS" acronym="TIFS_SECMGR_FAULT_TOLERANT_HW_EFUSE_OPTS" offset="0x1600" width="32" description="This register control external signals that can be used to control various/misc security knobs at SoC, it is not defined by security Manager. This register gets initial value from Security Efuse FROM.">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, then bit[7] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, then bit[6] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="27 - 24" rwaccess="R"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, then bit[5] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="23 - 20" rwaccess="R"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, then bit[4] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="19 - 16" rwaccess="R"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, then bit[3] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="15 - 12" rwaccess="R"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, then bit[2] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="11 - 8" rwaccess="R"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, then bit[1] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, then bit[0] of ft_hw_efuse_security_ctrl is set (asserted), else it remain clear (de-asserted). ROM/SW cannot change this config, this is true HW config" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_NON_FAULT_TOLERANT_HW_EFUSE_OPTS" acronym="TIFS_SECMGR_NON_FAULT_TOLERANT_HW_EFUSE_OPTS" offset="0x1610" width="32" description="This register holds device config, these are non-fault tolerant. This register gets initial value from Security
+Efuse FROM.">
+		<bitfield id="OPTS" width="32" begin="31" end="0" resetval="0x0" description="This register holds device config data. HW uses this to enable/disable security feature. This drives output signal nonft_hw_efuse_security_ctrl[31:0]. ROM/SW cannot change this config, this is true HW config" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_EXT_SEC_CNTL_SIG" acronym="TIFS_SECMGR_EXT_SEC_CNTL_SIG" offset="0x1650" width="32" description="This register holds device config, these are non-fault tolerant. This is pure SW managed register with NO initial value from Efuses.">
+		<bitfield id="CNTL" width="32" begin="31" end="0" resetval="0x0" description="This register holds device config data. SW/ROM can write this value that drives  the external pins on IP. This drives nonft_hw_regs_security_ctrl[31:0]" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_EXT_SEC_DATA_CNTL" acronym="TIFS_SECMGR_EXT_SEC_DATA_CNTL" offset="0x1660" width="32" description="These set of 4 registers hold the value to be driven on ext_security_data_signal[127:0], security manager takes no action on this data signals. This is pure SW managed register with NO initial value from Efuses.">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="These set of 4 registers drive the output signal nonft_hw_regs_security_data[127:0], security manager do not take any action based on value of this signal, it is purely for SoC level security data." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SEC_RAM_ACCESS_CNTL" acronym="TIFS_SECMGR_SEC_RAM_ACCESS_CNTL" offset="0x1700" width="32" description="This register controls access to the secure RAM, driving the secure_ram_read_access and secure_ram_write_access pins. Once locked, the register cannot be changed until warm reset or POR. This register gets NO initial value from Efuses. These registers defaults to reset state in case of a warm reset, including unlocking of Lock.">
+		<bitfield id="LOCK_REGISTER" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed until POR or warm reset" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="WRITE_ACCESS" width="4" begin="11" end="8" resetval="0x0" description="Writing code 0xA will make the secure RAM writeable" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="READ_ACCESS" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will make the secure RAM readable" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SEC_RAM_INDEX_CNTL" acronym="TIFS_SECMGR_SEC_RAM_INDEX_CNTL" offset="0x1704" width="32" description="This register controls the index for the secure RAM, driving the secure_ram_index pins. Once locked, the register cannot be changed until warm reset or POR. This register gets NO initial value from Efuses. This register defaults to reset state in case of a warm reset, including unlocking of Lock.">
+		<bitfield id="LOCK_REGISTER" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed until POR or warm reset" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="INDEX" width="16" begin="15" end="0" resetval="0x0" description="This drives the sec_ram_index output to the external secure RAM" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SEC_RAM_MUXSEL_CNTL" acronym="TIFS_SECMGR_SEC_RAM_MUXSEL_CNTL" offset="0x1708" width="32" description="This register controls the mux selection for the secure RAM, driving the secure_ram_mux_sel pin. Once locked, the register cannot be changed until warm reset or POR. This register gets NO initial value from Efuses. This register defaults to reset state in case of a warm reset, including unlocking of Lock.">
+		<bitfield id="LOCK_REGISTER" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed until POR or warm reset" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="MUX_SEL" width="4" begin="3" end="0" resetval="0x0" description="Writing code 0xA will make the sec_ram_mux_sel output go high" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PT1_ACCESS_CNTL" acronym="TIFS_SECMGR_TI_MPK_PT1_ACCESS_CNTL" offset="0x1800" width="32" description="This Register controls the access/permission of all TI MPK-Part1 Data Registers. If both Read and Write access are not selected, than all TI MPK-Part1 Data registers become invisible both in control and status section. This is pure SW managed register with NO initial value from Efuses.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA. If value is anything else the register locks. Once locked this register cannot be changed til POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_TI_MPK" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo TI MPK value in TI MPK read only Status registers." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="TI_MPK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="TI_MPK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PT1_DATA_REG" acronym="TIFS_SECMGR_TI_MPK_PT1_DATA_REG" offset="0x1810" width="32" description="This register hold the TI MPK-Part1 value, the TI MPK-Part1 access/permission is controlled TI MPK-Part1 Access control register.">
+		<bitfield id="TI_MPK" width="32" begin="31" end="0" resetval="0x0" description="TI MPK-Part1 value as read from Efuses." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PT1_BCH" acronym="TIFS_SECMGR_TI_MPK_PT1_BCH" offset="0x1850" width="32" description="This register holds BCH value for TI MPK-Part1. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="TI MPK-Part1 BCH Register. Initial value is loaded by HW, ROM reads Raw TI MPK-Part1 data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the raw data as golden." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PT2_ACCESS_CNTL" acronym="TIFS_SECMGR_TI_MPK_PT2_ACCESS_CNTL" offset="0x1900" width="32" description="This Register controls the access/permission of all TI MPK-Part2 Data Registers. If both Read and Write access are not selected, than all TI MPK-Part2 Data registers become invisible both in control and status section. This is pure SW managed register with NO initial value from Efuses.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA. If value is anything else the register locks. Once locked this register cannot be changed til POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_TI_MPK" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo TI MPK value in TI MPK read only Status registers." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="TI_MPK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="TI_MPK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PT2_DATA_REG" acronym="TIFS_SECMGR_TI_MPK_PT2_DATA_REG" offset="0x1910" width="32" description="This register hold the TI MPK-Part2 value, the TI MPK-Part2 access/permission is controlled TI MPK-Part2 Access control register.">
+		<bitfield id="TI_MPK" width="32" begin="31" end="0" resetval="0x0" description="TI MPK-Part2 value as read from Efuses." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MPK_PT2_BCH" acronym="TIFS_SECMGR_TI_MPK_PT2_BCH" offset="0x1950" width="32" description="This register holds BCH value for TI MPK-Part2. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="TI MPK-Part2 BCH Register. Initial value is loaded by HW, ROM reads Raw TI MPK-Part2 data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the raw data as golden." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MEK_ACCESS_CNTL" acronym="TIFS_SECMGR_TI_MEK_ACCESS_CNTL" offset="0x1A00" width="32" description="This Register controls the access/permission of all TI MEK Data Registers. If both Read and Write access are not selected, than all TI MEK Data registers become invisible.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA. If value is anything else the register locks, once locked this register cannot be changed til POR" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_TI_MEK" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo TI MEK ID value in status register, this can used by public code to check the key used for Encryption. This must NOT be function of actual TI MEK value, rather a mere index." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="TI_MEK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="TI_MEK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MEK_ID" acronym="TIFS_SECMGR_TI_MEK_ID" offset="0x1A04" width="32" description="TI MEK ID Data Register">
+		<bitfield id="TI_MEK_ID" width="32" begin="31" end="0" resetval="0x0" description="TI MEK ID, used by public code to check the key used for Encryption. This must NOT be function of actual TI MEK value, rather a mere index. SW has full flexibility to use these 32-bits as desired to ID the TI MEK key." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MEK_DATA_REG" acronym="TIFS_SECMGR_TI_MEK_DATA_REG" offset="0x1A10" width="32" description="This register hold the TI MEK value, the TI MEK access/permission is controlled MEK Access control register.">
+		<bitfield id="TI_MEK" width="32" begin="31" end="0" resetval="0x0" description="TI MEK value as read from Efuses." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_MEK_BCH" acronym="TIFS_SECMGR_TI_MEK_BCH" offset="0x1A50" width="32" description="This register holds BCH value for TI MEK. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="TI MEK BCH Register. Initial value is loaded by HW, ROM reads Raw TI MEK data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the data as golden." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_KEY_OPTS_PT1" acronym="TIFS_SECMGR_TI_KEY_OPTS_PT1" offset="0x1A80" width="32" description="This field is TI defined Keys options">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_TI_KEY_OPTS_PT2" acronym="TIFS_SECMGR_TI_KEY_OPTS_PT2" offset="0x1A84" width="32" description="This field is TI defined Keys options">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, option is active. Else option is de-activated" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_KEK_ACCESS_CNTL" acronym="TIFS_SECMGR_KEK_ACCESS_CNTL" offset="0x1C00" width="32" description="This Register controls the access/permission of all KEK Data Registers. If both Read and Write access are not selected, than all KEK Data registers become invisible.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed til POR" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="KEK_OVERRIDE_CONTROL" width="4" begin="19" end="16" resetval="0x0" description="0xA Override KEK output to value from KEK override registers. Else KEK is as coming from KEK Efuses" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SWKEK_WA" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed to SW KEK register. Else No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SWKEK_RA" width="4" begin="3" end="0" resetval="0x10" description="0xA Write Access allowed to SW KEK register. Else No write access" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SW_KEK_DATA_REG" acronym="TIFS_SECMGR_SW_KEK_DATA_REG" offset="0x1C10" width="32" description="These 8 registers register hold the KEK override value. This is pure SW managed register with NO initial value from Efuses">
+		<bitfield id="SW_KEK" width="32" begin="31" end="0" resetval="0x0" description="SW defined KEK override value." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_CUST_KEY_COUNT" acronym="TIFS_SECMGR_CUST_KEY_COUNT" offset="0x2000" width="32" description="This register hold the number Keys that has been provisioned, this register must be written upfront during customer initial keys provisioning. This register must not be written in field else there can be security breach. This register gets initial value from Security Efuse FROM">
+		<bitfield id="CUST_KEY_OPTS" width="16" begin="31" end="16" resetval="0x0" description="Customer defined efuse bits." range="31 - 16" rwaccess="R"/> 
+		<bitfield id="CUST_KEY_COUNT" width="16" begin="15" end="0" resetval="0x0" description="16-bit for field, double redundancy, that is used to keep count of keys provisioned in device. 0 - No customer keys present the system will boot from TI keys. Customer key Count must be non-zero for HS/EMU device to transaction from HS-FS/EMU-FS (Field Securable) to HS-SE/EMU-SE (Security Enforced)" range="15 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_CUST_KEY_REV" acronym="TIFS_SECMGR_CUST_KEY_REV" offset="0x2010" width="32" description="This register holds what key (TI Key, SMPK and BMPK) is active at this point. This register gets initial value from Security Efuse FROM.">
+		<bitfield id="CUST_KEY_OPTS" width="16" begin="31" end="16" resetval="0x0" description="Customer defined efuse bits." range="31 - 16" rwaccess="R"/> 
+		<bitfield id="CUST_KEY_REVISION" width="16" begin="15" end="0" resetval="0x0" description="16-bit for field , double redundancy. 0 - Use TI keys as root-of-trust. Else use Customer keys (SMPK/BMPK). Customer key Revision must be non-zero for HS/EMU device to transaction from HS-FS/EMU-FS (Field Securable) to HS-SE/EMU-SE (Security Enforced)" range="15 - 0" rwaccess="R"/>
+	</register>
+	<register id="TIFS_SECMGR_CUST_MISC_DATA" acronym="TIFS_SECMGR_CUST_MISC_DATA" offset="0x2100" width="32" description="This Register controls the access/permission of all Customer Misc Data Registers. If both Read and Write access are not selected, than all CUST MISC Data registers become invisible.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="CUST_MISC_WR_ACCESS" width="4" begin="11" end="8" resetval="0x0" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="CUST_MISC_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_CUST_MISC_DATA_REG" acronym="TIFS_SECMGR_CUST_MISC_DATA_REG" offset="0x2110" width="32" description="This register hold the CUST MISC value, the CUST MISC access/permission is controlled CUST MISC Access control register. This can be used by customer to store critical security flags/data.">
+		<bitfield id="CUST_MISC" width="32" begin="31" end="0" resetval="0x0" description="CUST MISC value. ROM/HW does no action based on value of this register." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PT1_ACCESS_CNTL" acronym="TIFS_SECMGR_SMPK_PT1_ACCESS_CNTL" offset="0x2200" width="32" description="This Register controls the access/permission of all SMPK-Part1 Data Registers. If both Read and Write access are not selected, than all SMPK Data registers become invisible.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_SMPK" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo SMPK value in SMPK read only Status registers." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SMPK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SMPK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PT1_DATA_REG" acronym="TIFS_SECMGR_SMPK_PT1_DATA_REG" offset="0x2210" width="32" description="This register hold the SMPK-Part1 value, the SMPK-Part1 access/permission is controlled SMPK-Part1 Access control register.">
+		<bitfield id="SMPK" width="32" begin="31" end="0" resetval="0x0" description="SMPK-Part1 value as read from Efuses" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PT1_BCH" acronym="TIFS_SECMGR_SMPK_PT1_BCH" offset="0x2250" width="32" description="This register holds BCH value for SMPK-Part1. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="SMPK-Part1 BCH Register. Initial value is loaded by HW, ROM reads Raw SMPK-Part1 data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the data as golden" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PT2_ACCESS_CNTL" acronym="TIFS_SECMGR_SMPK_PT2_ACCESS_CNTL" offset="0x2300" width="32" description="This Register controls the access/permission of all SMPK-Part2 Data Registers. If both Read and Write access are not selected, than all SMPK-Part2 Data registers become invisible in both control and status sections.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_SMPK" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo SMPK value in SMPK read only Status registers." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SMPK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SMPK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PT2_DATA_REG" acronym="TIFS_SECMGR_SMPK_PT2_DATA_REG" offset="0x2310" width="32" description="This register hold the SMPK-Part2 value, the SMPK-Part2 access/permission is controlled SMPK-Part2 Access control register.">
+		<bitfield id="SMPK" width="32" begin="31" end="0" resetval="0x0" description="SMPK-Part2 value as read from Efuses" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMPK_PT2_BCH" acronym="TIFS_SECMGR_SMPK_PT2_BCH" offset="0x2350" width="32" description="This register holds BCH value for SMPK-Part2. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="SMPK-Part2 BCH Register. Initial value is loaded by HW, ROM reads Raw SMPK-Part2 data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the data as golden" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMEK_ACCESS_CNTL" acronym="TIFS_SECMGR_SMEK_ACCESS_CNTL" offset="0x2400" width="32" description="This Register controls the access/permission of all SMEK Data Registers. If both Read and Write access are not selected, than all SMEK Data registers become invisible.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Writing code 0xA lock the config, once locked TI MPK access as set in this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_SMEK_ID" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo SMEK ID value in status register, this can used by public code to check the key used for Encryption. This must NOT be function of actual SMEK value, rather a mere index." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SMEK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SMEK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMEK_ID" acronym="TIFS_SECMGR_SMEK_ID" offset="0x2404" width="32" description="SMEK ID Data Register">
+		<bitfield id="SMEK_ID" width="32" begin="31" end="0" resetval="0x0" description="SMEK ID, used by public code to check the key used for Encryption. This must NOT be function of actual SMEK value, rather a mere index. SW has full flexibility to use these 32-bits as desired to ID the SMEK key." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMEK_DATA_REG" acronym="TIFS_SECMGR_SMEK_DATA_REG" offset="0x2410" width="32" description="This register hold the SMEK value, the SMEK access/permission is controlled MEK Access control register.">
+		<bitfield id="SMEK" width="32" begin="31" end="0" resetval="0x0" description="SMEK value as read from Efuses" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SMEK_BCH" acronym="TIFS_SECMGR_SMEK_BCH" offset="0x2450" width="32" description="This register holds BCH value for SMEK-BCH. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="SMEK BCH Register. Initial value is loaded by HW, ROM reads Raw SMEK data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the data as golden" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SKEY_OPTS_PT1" acronym="TIFS_SECMGR_SKEY_OPTS_PT1" offset="0x2480" width="32" description="This field is Customer defined Keys options. This register is populated by ROM code, with NO initial from Efuses.">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SKEY_OPTS_PT2" acronym="TIFS_SECMGR_SKEY_OPTS_PT2" offset="0x2484" width="32" description="This field is Customer defined Keys options. This register is populated by ROM code, with NO initial from Efuses.">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PT1_ACCESS_CNTL" acronym="TIFS_SECMGR_BMPK_PT1_ACCESS_CNTL" offset="0x2500" width="32" description="This Register controls the access/permission of all BMPK-Part1 Data Registers. If both Read and Write access are not selected, than all BMPK-Part1 Data registers become invisible in both status and control sections.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_BMPK" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo BMPK value in BMPK read only Status registers" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="BMPK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access." range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="BMPK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PT1_DATA_REG" acronym="TIFS_SECMGR_BMPK_PT1_DATA_REG" offset="0x2510" width="32" description="This register hold the BMPK-Part1 value, the BMPK-Part1 access/permission is controlled BMPK-Part1 Access control register.">
+		<bitfield id="BMPK" width="32" begin="31" end="0" resetval="0x0" description="BMPK-Part1 value as read from Efuses" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PT1_BCH" acronym="TIFS_SECMGR_BMPK_PT1_BCH" offset="0x2550" width="32" description="This register holds BCH value for BMPK-Part1. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="BMPK-Part1 BCH Register. Initial value is loaded by HW, ROM reads Raw BMPK-Part1 data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the data as golden" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PT2_ACCESS_CNTL" acronym="TIFS_SECMGR_BMPK_PT2_ACCESS_CNTL" offset="0x2600" width="32" description="This Register controls the access/permission of all BMPK-Part2 Data Registers. If both Read and Write access are not selected, than all BMPK-Part2 Data registers become invisible in both status and control sections.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_BMPK" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo BMPK value in BMPK read only Status registers" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="BMPK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access." range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="BMPK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PT2_DATA_REG" acronym="TIFS_SECMGR_BMPK_PT2_DATA_REG" offset="0x2610" width="32" description="This register hold the BMPK-Part2 value, the BMPK-Part2 access/permission is controlled BMPK-Part2 Access control register.">
+		<bitfield id="BMPK" width="32" begin="31" end="0" resetval="0x0" description="BMPK-Part2 value as read from Efuses" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMPK_PT2_BCH" acronym="TIFS_SECMGR_BMPK_PT2_BCH" offset="0x2650" width="32" description="This register holds BCH value for BMPK-Part2. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="BMPK-Part2 BCH Register. Initial value is loaded by HW, ROM reads Raw BMPK-Part2 data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the data as golden" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMEK_ACCESS_CNTL" acronym="TIFS_SECMGR_BMEK_ACCESS_CNTL" offset="0x2700" width="32" description="This Register controls the access/permission of all BMEK Data Registers. If both Read and Write access are not selected, than all BMEK Data registers become invisible.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR." range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_BMEK_ID" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo BMEK ID value in status register, this can used by public code to check the key used for Encryption. This must NOT be function of actual BMEK value, rather a mere index." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="BMEK_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="BMEK_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMEK_ID" acronym="TIFS_SECMGR_BMEK_ID" offset="0x2704" width="32" description="BMEK ID Data Register">
+		<bitfield id="BMEK_ID" width="32" begin="31" end="0" resetval="0x0" description="BMEK ID, used by public code to check the key used for Encryption. This must NOT be function of actual BMEK value, rather a mere index. SW has full flexibility to use these 32-bits as desired to ID the BMEK key." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMEK_DATA_REG" acronym="TIFS_SECMGR_BMEK_DATA_REG" offset="0x2710" width="32" description="This register hold the BMEK value, the BMEK access/permission is controlled MEK Access control register.">
+		<bitfield id="BMEK" width="32" begin="31" end="0" resetval="0x0" description="BMEK value as read from Efuses" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BMEK_BCH" acronym="TIFS_SECMGR_BMEK_BCH" offset="0x2750" width="32" description="This register holds BCH value for BMEK-BCH. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="32" begin="31" end="0" resetval="0x0" description="BMEK BCH Register. Initial value is loaded by HW, ROM reads Raw BMEK data and BCH register to carry out error correction. If the BCH register is Zero, then ROM must ignore BCH check and treat the raw data as golden" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BKEY_OPTS_PT1" acronym="TIFS_SECMGR_BKEY_OPTS_PT1" offset="0x2780" width="32" description="This field is Customer defined Keys options. This register is populated by ROM code, with NO initial from Efuses.">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_BKEY_OPTS_PT2" acronym="TIFS_SECMGR_BKEY_OPTS_PT2" offset="0x2784" width="32" description="This field is Customer defined Keys options. This register is populated by ROM code, with NO initial from Efuses.">
+		<bitfield id="OPT7" width="4" begin="31" end="28" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="31 - 28" rwaccess="R/W"/> 
+		<bitfield id="OPT6" width="4" begin="27" end="24" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="OPT5" width="4" begin="23" end="20" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="23 - 20" rwaccess="R/W"/> 
+		<bitfield id="OPT4" width="4" begin="19" end="16" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="OPT3" width="4" begin="15" end="12" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="OPT2" width="4" begin="11" end="8" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="OPT1" width="4" begin="7" end="4" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="7 - 4" rwaccess="R/W"/> 
+		<bitfield id="OPT0" width="4" begin="3" end="0" resetval="0x0" description="If the value is 0xA, option is active. Else, option is deactivated" range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SWRV_ACCESS_CNTL" acronym="TIFS_SECMGR_SWRV_ACCESS_CNTL" offset="0x2B00" width="32" description="This Register controls the access/permission of all SWRV Data Registers. If both Read and Write access are not selected, than all SWRV Data registers become invisible.">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_SWRV_ID" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo SWRV ID value in status register, this can used by public code to check the key used for Encryption. This must NOT be function of actual SWRV value, rather a mere index." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="SWRV_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="SWRV_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_SWRV_DATA_REG" acronym="TIFS_SECMGR_SWRV_DATA_REG" offset="0x2B10" width="32" description="This register hold the SWRV value, the SWRV access/permission is controlled SWRV Access control register.">
+		<bitfield id="SWRV" width="32" begin="31" end="0" resetval="0x0" description="SWRV value as read from efuse. ROM/SW does triple redundancy on these bits." range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_MSV_ACCESS_CNTL" acronym="TIFS_SECMGR_MSV_ACCESS_CNTL" offset="0x2B50" width="32" description="This Register controls the access/permission of all MSV Data Registers. If both Read and Write access are not selected, than all MSV Data registers become invisible. This is pure SW managed register with NO initial value from Efuses">
+		<bitfield id="LOCK_CONFIG" width="4" begin="27" end="24" resetval="0x10" description="Unlock code is 0xA, if value is anything else the register locks, once locked this register cannot be changed till POR" range="27 - 24" rwaccess="R/W"/> 
+		<bitfield id="ECHO_MSV_ID" width="4" begin="19" end="16" resetval="0x0" description="Writing code 0xA will echo MSV ID value in status register, this can used by public code to check the key used for Encryption. This must NOT be function of actual MSV value, rather a mere index." range="19 - 16" rwaccess="R/W"/> 
+		<bitfield id="MSV_WR_ACCESS" width="4" begin="11" end="8" resetval="0x10" description="0xA Write Access allowed. Else: No write access" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="MSV_R_ACCESS" width="4" begin="3" end="0" resetval="0x10" description="0xA Read Access allowed. Else: No Read access." range="3 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_MSV_DATA_REG" acronym="TIFS_SECMGR_MSV_DATA_REG" offset="0x2B60" width="32" description="This registers hold the MSV value, the MSV access/permission is controlled MSV Access control register. This register gets initial value from Security Efuse FROM">
+		<bitfield id="BCH" width="8" begin="31" end="24" resetval="0x0" description="BCH value of MSV register[23:0]. If the BCH register is Zero, then ROM must ignore BCH check and treat the raw data as golden" range="31 - 24" rwaccess="R/W"/> 
+		<bitfield id="MSV" width="24" begin="23" end="0" resetval="0x0" description="MSV value. ROM/SW does BCH" range="23 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="TIFS_SECMGR_OTP_VAL_REG" acronym="TIFS_SECMGR_OTP_VAL_REG" offset="0x3000" width="32" description="General purpose OTP is array of efuses that is defined by customer, ROM or HW takes no action based on values of these OTP, customer can use these OTP to create customer specific data. The amount of OTP bits are defined at time of RTL generation via parameter. Security manager supports min 128 bits to - max 1Kbits. As part of PORz, Security Manager scans the customer OTP and loads vlaues into Registers for ease of SW use. Security Manager does not provide any feature to write data to Efuses based on register value. Firewall at SMS level provides protection for OTP MMR space">
+		<bitfield id="OTP_DATA" width="32" begin="31" end="0" resetval="0x0" description="OTP data as read from Efuses" range="31 - 0" rwaccess="R"/>
+	</register>
+</module>

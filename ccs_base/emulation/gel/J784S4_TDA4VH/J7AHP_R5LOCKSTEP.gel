@@ -1,0 +1,63 @@
+
+
+
+#define MCU_SEC_MMR_BASE  (0x45A50000)
+#define MAIN_SEC_MMR_BASE (0x45A40000)
+
+menuitem "R5 Lockstep Control"
+
+hotmenu MCU_R5_Cluster_0_split() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MCU_SEC_MMR_BASE +  0x40);
+    *sec_mmr = 0x00000008;
+    GEL_TextOut("MCU R5F Cluster set to split mode.\n");
+}
+
+hotmenu MCU_R5_Cluster_0_lock() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MCU_SEC_MMR_BASE +  0x40);
+    *sec_mmr = 0x00000009;
+    GEL_TextOut("MCU R5F Cluster set to lockstep mode.\n");
+}
+
+hotmenu MAIN_R5_Cluster_0_split() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MAIN_SEC_MMR_BASE +  0x40);
+    *sec_mmr = 0x00000008;
+    GEL_TextOut("Main R5F Cluster 0 set to split mode.\n");
+}
+
+hotmenu MAIN_R5_Cluster_0_lock() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MAIN_SEC_MMR_BASE +  0x40);
+    *sec_mmr = 0x00000009;
+    GEL_TextOut("Main R5F Cluster 0 set to lockstep mode.\n");
+}
+
+hotmenu MAIN_R5_Cluster_1_split() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MAIN_SEC_MMR_BASE +  0x1040);
+    *sec_mmr = 0x00000008;
+    GEL_TextOut("Main R5F Cluster 1 set to split mode.\n");
+}
+
+hotmenu MAIN_R5_Cluster_1_lock() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MAIN_SEC_MMR_BASE +  0x1040);
+    *sec_mmr = 0x00000009;
+    GEL_TextOut("Main R5F Cluster 1 set to lockstep mode.\n");
+}
+
+hotmenu MAIN_R5_Cluster_2_split() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MAIN_SEC_MMR_BASE +  0x2040);
+    *sec_mmr = 0x00000008;
+    GEL_TextOut("Main R5F Cluster 2 set to split mode.\n");
+}
+
+hotmenu MAIN_R5_Cluster_2_lock() {
+    unsigned int * sec_mmr;
+    sec_mmr = (unsigned int *) (MAIN_SEC_MMR_BASE +  0x2040);
+    *sec_mmr = 0x00000009;
+    GEL_TextOut("Main R5F Cluster 2 set to lockstep mode.\n");
+}

@@ -1,0 +1,67 @@
+<module name="CPT2_AGGR1_MMR" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="MMR__SLV__REGS_AGGREGATOR_ID" acronym="MMR__SLV__REGS_AGGREGATOR_ID" offset="0x0" width="32" description="This is the standard TI peripheral ID register that exists at address 0 in the preipheral space">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="" range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="FUNCTION" width="12" begin="27" end="16" resetval="0x641" description="" range="27 - 16" rwaccess="R"/> 
+		<bitfield id="RTL_VER" width="5" begin="15" end="11" resetval="0x0" description="" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="MAJOR_REV" width="3" begin="10" end="8" resetval="0x1" description="" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="MINOR_REV" width="6" begin="5" end="0" resetval="0x0" description="" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__SLV__REGS_AGGREGATOR_CNTL" acronym="MMR__SLV__REGS_AGGREGATOR_CNTL" offset="0x4" width="32" description="This register contains the controls for serial indrect access and trace processing">
+		<bitfield id="RSVD1" width="21" begin="31" end="11" resetval="0x0" description="" range="31 - 11" rwaccess="R"/> 
+		<bitfield id="CONTINUOUS_READ_NUM" width="2" begin="10" end="9" resetval="0x0" description="" range="10 - 9" rwaccess="R/W"/> 
+		<bitfield id="CONTINUOUS_READ_MODE" width="1" begin="8" end="8" resetval="0x0" description="" range="8" rwaccess="R/W"/> 
+		<bitfield id="RSVD0" width="7" begin="7" end="1" resetval="0x0" description="" range="7 - 1" rwaccess="R"/> 
+		<bitfield id="TRACE_EN" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_AGGREGATOR_OWN" acronym="MMR__SLV__REGS_AGGREGATOR_OWN" offset="0x8" width="32" description="Module Ownership Control and Status Register">
+		<bitfield id="RSVD" width="29" begin="31" end="3" resetval="0x0" description="" range="31 - 3" rwaccess="R"/> 
+		<bitfield id="OWN" width="2" begin="2" end="1" resetval="0x0" description="" range="2 - 1" rwaccess="R"/> 
+		<bitfield id="CLAIM" width="1" begin="0" end="0" resetval="0x0" description="" range="0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_PORT0" acronym="MMR__SLV__REGS_CONT_READ_PORT0" offset="0x20" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="" range="31 - 5" rwaccess="R"/> 
+		<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_ADDR0" acronym="MMR__SLV__REGS_CONT_READ_ADDR0" offset="0x24" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_DATA0" acronym="MMR__SLV__REGS_CONT_READ_DATA0" offset="0x28" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_PORT1" acronym="MMR__SLV__REGS_CONT_READ_PORT1" offset="0x30" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="" range="31 - 5" rwaccess="R"/> 
+		<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_ADDR1" acronym="MMR__SLV__REGS_CONT_READ_ADDR1" offset="0x34" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_DATA1" acronym="MMR__SLV__REGS_CONT_READ_DATA1" offset="0x38" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_PORT2" acronym="MMR__SLV__REGS_CONT_READ_PORT2" offset="0x40" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="" range="31 - 5" rwaccess="R"/> 
+		<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_ADDR2" acronym="MMR__SLV__REGS_CONT_READ_ADDR2" offset="0x44" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_DATA2" acronym="MMR__SLV__REGS_CONT_READ_DATA2" offset="0x48" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_PORT3" acronym="MMR__SLV__REGS_CONT_READ_PORT3" offset="0x50" width="32" description="Designates which port (peripheral) is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="27" begin="31" end="5" resetval="0x0" description="" range="31 - 5" rwaccess="R"/> 
+		<bitfield id="PORT" width="5" begin="4" end="0" resetval="0x0" description="" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_ADDR3" acronym="MMR__SLV__REGS_CONT_READ_ADDR3" offset="0x54" width="32" description="Designates the offest (in peripheral space) that is the target of this port, address, data register group">
+		<bitfield id="RSVD" width="16" begin="31" end="16" resetval="0x0" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="ADDR" width="16" begin="15" end="0" resetval="0x0" description="" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMR__SLV__REGS_CONT_READ_DATA3" acronym="MMR__SLV__REGS_CONT_READ_DATA3" offset="0x58" width="32" description="Provides the continuous read data for this port, address, data register group">
+		<bitfield id="DATA" width="32" begin="31" end="0" resetval="0x0" description="" range="31 - 0" rwaccess="R"/>
+	</register>
+</module>

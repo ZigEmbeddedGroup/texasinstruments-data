@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!--
+	NOTE: To run the baremetal script J7AEN_SI.gel on a:
+	- GP device: set DIP switches for NOBOOT mode.
+	- HS-FS device: set DIP swtich SW2:8=OFF,7=ON for WIR mode.
+	- HS-SE device: set DIP swtich SW2:8=OFF,7=ON for WIR mode, and send an unlock certificate using dbgauth before running. 
+-->
+<board 	id="EVM_J722S_TDA4VEN_TDA4AEN_AM67" XML_version="1" desc="EVM_J722S_TDA4VEN_TDA4AEN_AM67" description="J722S_TDA4VEN_TDA4AEN_AM67 General Purpose Evaluation Module">
+                <instance XML_version="1.2" desc="J722S_TDA4VEN_0" href="devices/J722S_TDA4VEN_TDA4AEN_AM67.xml" id="J722S_TDA4VEN_0" xml="J722S_TDA4VEN_TDA4AEN_AM67.xml" xmlpath="devices"/>
+				<device id="J722S_TDA4VEN_0" partnum="J722S_TDA4VEN_TDA4AEN_AM67" HW_revision="1" XML_version="2" desc="J722S_TDA4VEN_TDA4AEN_AM67" description="J722S_TDA4VEN_TDA4AEN_AM67">
+					<router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">					
+                        <subpath id="SMS_CM4_0_TIFS">
+							<cpu HW_revision="1.0" XML_version="1.2" desc="SMS_CM4_0_TIFS" description="Cortex_M4F CPU" deviceSim="false" id="SMS_CM4_0_TIFS" isa="Cortex_M4F">
+							<property Type="filepathfield" Value="../../emulation/gel/J7AEN/J7AEN_SI.gel" id="GEL File"/>
+                            </cpu>
+                        </subpath>
+                    </router>
+                </device>
+</board>

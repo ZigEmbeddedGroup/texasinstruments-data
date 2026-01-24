@@ -1,0 +1,148 @@
+#define WSOC_COMMON_SPARE_A7_M33   0x408200c0
+#define WSOC_COMMON_SPARE_A7_M3    0x458200c0
+#define APP_RESET_MASK             0x8
+#define MAC_RESET_MASK             0x2
+#define PHY_RESET_MASK             0x4
+#define BLE_RESET_MASK             0x1
+#define APP_ID                     0
+#define MAC_ID                     1
+#define PHY_ID                     2
+#define BLE_ID                     3
+
+
+int DELAY = 2000;
+
+getDelay(){
+    if (DELAY) {
+        return DELAY;
+    }
+    else {
+         int delay = GEL_EvalOnTarget("MAC_MCU", "GetUserDelay()");
+         DELAY = delay;
+         return delay;
+    }
+}
+
+/* The function gets a cortext and return the path to the select outfile (if valid). */
+getFirmwarePath(int cortext){
+    if (cortext == MAC_ID) {
+        return GEL_EvalOnTarget("MAC_MCU", "GetMACPath()");
+    }
+    if (cortext == PHY_ID) {
+        return GEL_EvalOnTarget("MAC_MCU", "GetPHYPath()");
+    }
+    if (cortext == BLE_ID) {
+        return GEL_EvalOnTarget("MAC_MCU", "GetBLEPath()");
+    }
+    return "";
+}
+
+sw_wait()
+{
+    int delay;
+    int count;
+    delay = getDelay();
+    for( count = delay ; count > 0 ; count-- ){ }
+}
+
+write_register(address, value, size)
+{
+    //GEL_TextOut("Write register at %x with %x\n",,,,,address, value);
+    if (size == 32) {
+        *(unsigned int*) (address) = value;
+        sw_wait();
+    }
+    else if (size == 8) {
+        *(unsigned char*) (address) = value;
+        sw_wait();
+    }
+    else if (size == 16) {
+        *(unsigned short*) (address) = value;
+        sw_wait();
+    }
+}
+
+
+read_register(address)
+{
+    return (*((unsigned int *)  address));
+}
+
+
+/* The function gets a cortext and checks if load program is needed or already has been made. */
+GetResetRegisterAddress(int cortext) {
+    // APP
+    if (cortext == APP_ID) {
+        return WSOC_COMMON_SPARE_A7_M33;
+    }
+    // MAC, PHY, BLE
+    else {
+        return WSOC_COMMON_SPARE_A7_M3;
+    }
+}
+
+GetResetValue(int cortext){
+    int address = GetResetRegisterAddress(cortext);
+    return read_register(address);
+}
+
+IsProgramLoaded(int cortext) {
+    int resetValue = GetResetValue(cortext);
+    // APP
+    if (cortext == APP_ID){
+        return resetValue & APP_RESET_MASK;
+    }
+    // MAC
+    else if (cortext == MAC_ID){
+        return resetValue & MAC_RESET_MASK;
+    }
+    // PHY
+    else if (cortext == PHY_ID){
+        return resetValue & PHY_RESET_MASK;
+    }
+    // BLE
+    else if (cortext == BLE_ID){
+        return resetValue & BLE_RESET_MASK;
+    }
+}
+
+UpdateResetRegisterValue(int cortext, int value){
+    int address = GetResetRegisterAddress(cortext);
+    write_register(address, value, 32);
+    sw_wait();
+}
+
+UpdateProgramLoaded(int cortext){
+    int resetValue = GetResetValue(cortext);
+    if (cortext == APP_ID){
+        UpdateResetRegisterValue(cortext, resetValue | APP_RESET_MASK);
+    }
+    else if (cortext == MAC_ID){
+        UpdateResetRegisterValue(cortext, resetValue | MAC_RESET_MASK);
+    }
+    else if (cortext == PHY_ID){
+        UpdateResetRegisterValue(cortext, resetValue | PHY_RESET_MASK);
+    }
+    else {
+        UpdateResetRegisterValue(cortext, resetValue | BLE_RESET_MASK);
+    }
+
+    return GetResetValue(cortext);
+}
+
+UpdateResetOccurred(int cortext){
+    int resetValue = GetResetValue(cortext);
+    if (cortext == APP_ID){
+        UpdateResetRegisterValue(cortext, resetValue & ~APP_RESET_MASK);
+    }
+    else if (cortext == MAC_ID){
+        UpdateResetRegisterValue(cortext, resetValue & ~MAC_RESET_MASK);
+    }
+    else if (cortext == PHY_ID){
+        UpdateResetRegisterValue(cortext, resetValue & ~PHY_RESET_MASK);
+    }
+    else {
+        UpdateResetRegisterValue(cortext, resetValue & ~BLE_RESET_MASK);
+    }
+    return GetResetValue(cortext);
+}

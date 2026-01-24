@@ -1,0 +1,182 @@
+<module name="PADCFG_CTRL0_CFG0" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CFG0_PID" acronym="CFG0_PID" offset="0x0" width="32" description="">
+		<bitfield id="PID_MSB16" width="16" begin="31" end="16" resetval="0x24960" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="PID_MISC" width="5" begin="15" end="11" resetval="0x0" description="" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="PID_MAJOR" width="3" begin="10" end="8" resetval="0x2" description="" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="PID_CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="PID_MINOR" width="6" begin="5" end="0" resetval="0x21" description="" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_MMR_CFG0" acronym="CFG0_MMR_CFG0" offset="0x4" width="32" description="">
+		<bitfield id="MMR_CFG0_CFG_REV" width="16" begin="31" end="16" resetval="0x4096" description="Major configuration release" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="MMR_CFG0_SPEC_REV" width="16" begin="15" end="0" resetval="0x1" description="Minor spec-only revision.  Doesn't change RTL release" range="15 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_MMR_CFG1" acronym="CFG0_MMR_CFG1" offset="0x8" width="32" description="">
+		<bitfield id="MMR_CFG1_PROXY_EN" width="1" begin="31" end="31" resetval="0x1" description="Proxy addressing enabled" range="31" rwaccess="R"/> 
+		<bitfield id="MMR_CFG1_PARTITIONS" width="8" begin="7" end="0" resetval="0x191" description="Indicates present partitions" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_LOCK0_KICK0" acronym="CFG0_LOCK0_KICK0" offset="0x1008" width="32" description="">
+		<bitfield id="LOCK0_KICK0" width="32" begin="31" end="0" resetval="0x0" description=" - KICK0 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_LOCK0_KICK1" acronym="CFG0_LOCK0_KICK1" offset="0x100C" width="32" description="">
+		<bitfield id="LOCK0_KICK1" width="32" begin="31" end="0" resetval="0x0" description=" - KICK1 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_intr_raw_status" acronym="CFG0_intr_raw_status" offset="0x1010" width="32" description="">
+		<bitfield id="PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="3" rwaccess="R/W1TS"/> 
+		<bitfield id="KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="2" rwaccess="R/W1TS"/> 
+		<bitfield id="ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/> 
+		<bitfield id="PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="CFG0_intr_enabled_status_clear" acronym="CFG0_intr_enabled_status_clear" offset="0x1014" width="32" description="">
+		<bitfield id="ENABLED_PROXY_ERR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="3" rwaccess="R/W1TC"/> 
+		<bitfield id="ENABLED_KICK_ERR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="2" rwaccess="R/W1TC"/> 
+		<bitfield id="ENABLED_ADDR_ERR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="1" rwaccess="R/W1TC"/> 
+		<bitfield id="ENABLED_PROT_ERR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="CFG0_intr_enable" acronym="CFG0_intr_enable" offset="0x1018" width="32" description="">
+		<bitfield id="PROXY_ERR_EN" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="3" rwaccess="R/W1TS"/> 
+		<bitfield id="KICK_ERR_EN" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="2" rwaccess="R/W1TS"/> 
+		<bitfield id="ADDR_ERR_EN" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/> 
+		<bitfield id="PROT_ERR_EN" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="CFG0_intr_enable_clear" acronym="CFG0_intr_enable_clear" offset="0x101C" width="32" description="">
+		<bitfield id="PROXY_ERR_EN_CLR" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="3" rwaccess="R/W1TC"/> 
+		<bitfield id="KICK_ERR_EN_CLR" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="2" rwaccess="R/W1TC"/> 
+		<bitfield id="ADDR_ERR_EN_CLR" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="1" rwaccess="R/W1TC"/> 
+		<bitfield id="PROT_ERR_EN_CLR" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="CFG0_eoi" acronym="CFG0_eoi" offset="0x1020" width="32" description="">
+		<bitfield id="EOI_VECTOR" width="8" begin="7" end="0" resetval="0x0" description="EOI vector value. Write this with interrupt distribution value in the chip." range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_fault_address" acronym="CFG0_fault_address" offset="0x1024" width="32" description="">
+		<bitfield id="FAULT_ADDR" width="32" begin="31" end="0" resetval="0x0" description="Fault Address." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_fault_type_status" acronym="CFG0_fault_type_status" offset="0x1028" width="32" description="">
+		<bitfield id="FAULT_NS" width="1" begin="6" end="6" resetval="0x0" description="Non-secure access." range="6" rwaccess="R"/> 
+		<bitfield id="FAULT_TYPE" width="6" begin="5" end="0" resetval="0x0" description="Fault Type   10_0000 = Supervisor read  fault  - priv = 1 dir = 1 dtype != 1    01_0000 = Supervisor write fault  - priv = 1 dir = 0   00_1000 = Supervisor execute fault - priv = 1 dir = 1 dtype = 1   00_0100 = User read  fault - priv = 0 dir = 1 dtype = 1   00_0010 = User write fault - priv = 0 dir = 0   00_0001 = User execute fault - priv = 0 dir = 1 dtype = 1   00_0000 = No fault" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_fault_attr_status" acronym="CFG0_fault_attr_status" offset="0x102C" width="32" description="">
+		<bitfield id="FAULT_XID" width="12" begin="31" end="20" resetval="0x0" description="XID." range="31 - 20" rwaccess="R"/> 
+		<bitfield id="FAULT_ROUTEID" width="12" begin="19" end="8" resetval="0x0" description="Route ID." range="19 - 8" rwaccess="R"/> 
+		<bitfield id="FAULT_PRIVID" width="8" begin="7" end="0" resetval="0x0" description="Privilege ID." range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_fault_clear" acronym="CFG0_fault_clear" offset="0x1030" width="32" description="">
+		<bitfield id="FAULT_CLR" width="1" begin="0" end="0" resetval="0x0" description="Fault clear. Writing a 1 clears the current fault. Writing a 0 has no effect." range="0" rwaccess="W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P0_R0_READONLY" acronym="CFG0_CLAIMREG_P0_R0_READONLY" offset="0x1100" width="32" description="">
+		<bitfield id="CLAIMREG_P0_R0_READONLY" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 0" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_PID_PROXY" acronym="CFG0_PID_PROXY" offset="0x2000" width="32" description="">
+		<bitfield id="PID_MSB16_PROXY" width="16" begin="31" end="16" resetval="0x24960" description="" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="PID_MISC_PROXY" width="5" begin="15" end="11" resetval="0x0" description="" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="PID_MAJOR_PROXY" width="3" begin="10" end="8" resetval="0x2" description="" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="PID_CUSTOM_PROXY" width="2" begin="7" end="6" resetval="0x0" description="" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="PID_MINOR_PROXY" width="6" begin="5" end="0" resetval="0x21" description="" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_MMR_CFG0_PROXY" acronym="CFG0_MMR_CFG0_PROXY" offset="0x2004" width="32" description="">
+		<bitfield id="MMR_CFG0_CFG_REV_PROXY" width="16" begin="31" end="16" resetval="0x4096" description="Major configuration release" range="31 - 16" rwaccess="R"/> 
+		<bitfield id="MMR_CFG0_SPEC_REV_PROXY" width="16" begin="15" end="0" resetval="0x1" description="Minor spec-only revision.  Doesn't change RTL release" range="15 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_MMR_CFG1_PROXY" acronym="CFG0_MMR_CFG1_PROXY" offset="0x2008" width="32" description="">
+		<bitfield id="MMR_CFG1_PROXY_EN_PROXY" width="1" begin="31" end="31" resetval="0x1" description="Proxy addressing enabled" range="31" rwaccess="R"/> 
+		<bitfield id="MMR_CFG1_PARTITIONS_PROXY" width="8" begin="7" end="0" resetval="0x191" description="Indicates present partitions" range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_LOCK0_KICK0_PROXY" acronym="CFG0_LOCK0_KICK0_PROXY" offset="0x3008" width="32" description="">
+		<bitfield id="LOCK0_KICK0_PROXY" width="32" begin="31" end="0" resetval="0x0" description=" - KICK0 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_LOCK0_KICK1_PROXY" acronym="CFG0_LOCK0_KICK1_PROXY" offset="0x300C" width="32" description="">
+		<bitfield id="LOCK0_KICK1_PROXY" width="32" begin="31" end="0" resetval="0x0" description=" - KICK1 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_intr_raw_status_PROXY" acronym="CFG0_intr_raw_status_PROXY" offset="0x3010" width="32" description="">
+		<bitfield id="PROXY_ERR_PROXY" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="3" rwaccess="R/W1TS"/> 
+		<bitfield id="KICK_ERR_PROXY" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="2" rwaccess="R/W1TS"/> 
+		<bitfield id="ADDR_ERR_PROXY" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/> 
+		<bitfield id="PROT_ERR_PROXY" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Raw status is read. Write a 1 to set the status. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="CFG0_intr_enabled_status_clear_PROXY" acronym="CFG0_intr_enabled_status_clear_PROXY" offset="0x3014" width="32" description="">
+		<bitfield id="ENABLED_PROXY_ERR_PROXY" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="3" rwaccess="R/W1TC"/> 
+		<bitfield id="ENABLED_KICK_ERR_PROXY" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="2" rwaccess="R/W1TC"/> 
+		<bitfield id="ENABLED_ADDR_ERR_PROXY" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="1" rwaccess="R/W1TC"/> 
+		<bitfield id="ENABLED_PROT_ERR_PROXY" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error. Enabled status is read. Write a 1 to clear the status. Writing a 0 has no effect." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="CFG0_intr_enable_PROXY" acronym="CFG0_intr_enable_PROXY" offset="0x3018" width="32" description="">
+		<bitfield id="PROXY_ERR_EN_PROXY" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="3" rwaccess="R/W1TS"/> 
+		<bitfield id="KICK_ERR_EN_PROXY" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="2" rwaccess="R/W1TS"/> 
+		<bitfield id="ADDR_ERR_EN_PROXY" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="1" rwaccess="R/W1TS"/> 
+		<bitfield id="PROT_ERR_EN_PROXY" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable. Write a 1 to set the enable. Writing a 0 has no effect." range="0" rwaccess="R/W1TS"/>
+	</register>
+	<register id="CFG0_intr_enable_clear_PROXY" acronym="CFG0_intr_enable_clear_PROXY" offset="0x301C" width="32" description="">
+		<bitfield id="PROXY_ERR_EN_CLR_PROXY" width="1" begin="3" end="3" resetval="0x0" description="Proxy0 access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="3" rwaccess="R/W1TC"/> 
+		<bitfield id="KICK_ERR_EN_CLR_PROXY" width="1" begin="2" end="2" resetval="0x0" description="Kick access violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="2" rwaccess="R/W1TC"/> 
+		<bitfield id="ADDR_ERR_EN_CLR_PROXY" width="1" begin="1" end="1" resetval="0x0" description="Addressing violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="1" rwaccess="R/W1TC"/> 
+		<bitfield id="PROT_ERR_EN_CLR_PROXY" width="1" begin="0" end="0" resetval="0x0" description="Protection violation error enable clear. Write a 1 to clear the enable. Writing a 0 has no effect." range="0" rwaccess="R/W1TC"/>
+	</register>
+	<register id="CFG0_eoi_PROXY" acronym="CFG0_eoi_PROXY" offset="0x3020" width="32" description="">
+		<bitfield id="EOI_VECTOR_PROXY" width="8" begin="7" end="0" resetval="0x0" description="EOI vector value. Write this with interrupt distribution value in the chip." range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_fault_address_PROXY" acronym="CFG0_fault_address_PROXY" offset="0x3024" width="32" description="">
+		<bitfield id="FAULT_ADDR_PROXY" width="32" begin="31" end="0" resetval="0x0" description="Fault Address." range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_fault_type_status_PROXY" acronym="CFG0_fault_type_status_PROXY" offset="0x3028" width="32" description="">
+		<bitfield id="FAULT_NS_PROXY" width="1" begin="6" end="6" resetval="0x0" description="Non-secure access." range="6" rwaccess="R"/> 
+		<bitfield id="FAULT_TYPE_PROXY" width="6" begin="5" end="0" resetval="0x0" description="Fault Type   10_0000 = Supervisor read  fault  - priv = 1 dir = 1 dtype != 1    01_0000 = Supervisor write fault  - priv = 1 dir = 0   00_1000 = Supervisor execute fault - priv = 1 dir = 1 dtype = 1   00_0100 = User read  fault - priv = 0 dir = 1 dtype = 1   00_0010 = User write fault - priv = 0 dir = 0   00_0001 = User execute fault - priv = 0 dir = 1 dtype = 1   00_0000 = No fault" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_fault_attr_status_PROXY" acronym="CFG0_fault_attr_status_PROXY" offset="0x302C" width="32" description="">
+		<bitfield id="FAULT_XID_PROXY" width="12" begin="31" end="20" resetval="0x0" description="XID." range="31 - 20" rwaccess="R"/> 
+		<bitfield id="FAULT_ROUTEID_PROXY" width="12" begin="19" end="8" resetval="0x0" description="Route ID." range="19 - 8" rwaccess="R"/> 
+		<bitfield id="FAULT_PRIVID_PROXY" width="8" begin="7" end="0" resetval="0x0" description="Privilege ID." range="7 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_fault_clear_PROXY" acronym="CFG0_fault_clear_PROXY" offset="0x3030" width="32" description="">
+		<bitfield id="FAULT_CLR_PROXY" width="1" begin="0" end="0" resetval="0x0" description="Fault clear. Writing a 1 clears the current fault. Writing a 0 has no effect." range="0" rwaccess="W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P0_R0" acronym="CFG0_CLAIMREG_P0_R0" offset="0x3100" width="32" description="">
+		<bitfield id="CLAIMREG_P0_R0" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 0" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_LOCK1_KICK0" acronym="CFG0_LOCK1_KICK0" offset="0x5008" width="32" description="">
+		<bitfield id="LOCK1_KICK0" width="32" begin="31" end="0" resetval="0x0" description=" - KICK0 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_LOCK1_KICK1" acronym="CFG0_LOCK1_KICK1" offset="0x500C" width="32" description="">
+		<bitfield id="LOCK1_KICK1" width="32" begin="31" end="0" resetval="0x0" description=" - KICK1 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R0_READONLY" acronym="CFG0_CLAIMREG_P1_R0_READONLY" offset="0x5100" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R0_READONLY" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R1_READONLY" acronym="CFG0_CLAIMREG_P1_R1_READONLY" offset="0x5104" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R1_READONLY" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R2_READONLY" acronym="CFG0_CLAIMREG_P1_R2_READONLY" offset="0x5108" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R2_READONLY" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R3_READONLY" acronym="CFG0_CLAIMREG_P1_R3_READONLY" offset="0x510C" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R3_READONLY" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R4_READONLY" acronym="CFG0_CLAIMREG_P1_R4_READONLY" offset="0x5110" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R4_READONLY" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R5_READONLY" acronym="CFG0_CLAIMREG_P1_R5_READONLY" offset="0x5114" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R5_READONLY" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CFG0_LOCK1_KICK0_PROXY" acronym="CFG0_LOCK1_KICK0_PROXY" offset="0x7008" width="32" description="">
+		<bitfield id="LOCK1_KICK0_PROXY" width="32" begin="31" end="0" resetval="0x0" description=" - KICK0 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_LOCK1_KICK1_PROXY" acronym="CFG0_LOCK1_KICK1_PROXY" offset="0x700C" width="32" description="">
+		<bitfield id="LOCK1_KICK1_PROXY" width="32" begin="31" end="0" resetval="0x0" description=" - KICK1 component" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R0" acronym="CFG0_CLAIMREG_P1_R0" offset="0x7100" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R0" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R1" acronym="CFG0_CLAIMREG_P1_R1" offset="0x7104" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R1" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R2" acronym="CFG0_CLAIMREG_P1_R2" offset="0x7108" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R2" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R3" acronym="CFG0_CLAIMREG_P1_R3" offset="0x710C" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R3" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R4" acronym="CFG0_CLAIMREG_P1_R4" offset="0x7110" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R4" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CFG0_CLAIMREG_P1_R5" acronym="CFG0_CLAIMREG_P1_R5" offset="0x7114" width="32" description="">
+		<bitfield id="CLAIMREG_P1_R5" width="32" begin="31" end="0" resetval="0x0" description="Claim bits for Partition 1" range="31 - 0" rwaccess="R/W"/>
+	</register>
+</module>

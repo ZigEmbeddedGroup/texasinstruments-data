@@ -1,0 +1,34 @@
+<module id="wl_phy_rx_dfe_secure" XML_version="1.0" description="">
+	<register acronym="RX_RESAMP_CONFIG_1" id="rx_resamp_config_1" width="32" offset="0x0">
+		<bitfield width="27" end="0" begin="26" rwaccess="RW" id="MEM_RX_RESAMP_DELTA_PHASE" resetval="0x4000000" />
+		<bitfield width="5" end="27" begin="31" rwaccess="RO" id="Reserved" resetval="0x4000000" />
+	</register>
+	<register acronym="RX_RESAMP_CONFIG_2" id="rx_resamp_config_2" width="32" offset="0x4">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" id="MEM_RX_RESAMP_GAIN_COMP" resetval="0x800" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" id="MEM_RX_RESAMP_RD_PTR_START" resetval="0x800" />
+		<bitfield width="4" end="8" begin="11" rwaccess="RW" id="MEM_RX_RESAMP_WR_PTR_START" resetval="0x800" />
+		<bitfield width="15" end="16" begin="30" rwaccess="RW" id="MEM_RX_RESAMP_FORCE_SFO_CORRECTION_VALUE" resetval="0x800" />
+		<bitfield width="1" end="31" begin="31" rwaccess="RW" id="MEM_RX_RESAMP_FORCE_SFO_CORRECTION_EN" resetval="0x800" />
+		<bitfield width="4" end="12" begin="15" rwaccess="RO" id="Reserved" resetval="0x800" />
+	</register>
+	<register acronym="RX_RESAMP_CONFIG_3" id="rx_resamp_config_3" width="32" offset="0x8">
+		<bitfield width="4" end="0" begin="3" rwaccess="RW" id="MEM_RX_RESAMP_UNDERRUN_TH" resetval="0xa4" />
+		<bitfield width="4" end="4" begin="7" rwaccess="RW" id="MEM_RX_RESAMP_OVERRUN_TH" resetval="0xa4" />
+		<bitfield width="7" end="9" begin="15" rwaccess="RO" id="Reserved" resetval="0xa4" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="0xa4" />
+		<bitfield width="1" end="16" begin="16" rwaccess="RW" id="MEM_RX_RESAMP_INIT_WRCL" resetval="0xa4" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_RX_RESAMP_ENABLE_SKIP_ADD" resetval="0xa4" />
+	</register>
+	<register acronym="RX_CIC_CFG" id="rx_cic_cfg" width="32" offset="0xc">
+		<bitfield width="2" end="0" begin="1" rwaccess="RW" description="0: Listen Mode,  1: Normal Mode,  2: Calibration Mode" id="MEM_CIC_MODE" resetval="0x1" />
+		<bitfield width="6" end="2" begin="7" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RW" id="MEM_CIC_DIFF_DLY" resetval="0x0" />
+	</register>
+	<register acronym="RX_RESAMP_STATUS" id="rx_resamp_status" width="32" offset="0x10">
+		<bitfield width="1" end="16" begin="16" rwaccess="RO" description="0: Listen Mode,  1: Normal Mode,  2: Calibration Mode" id="RESAMP_PTR_DELTA_FFTP_EN" resetval="0x0" />
+		<bitfield width="5" end="11" begin="15" rwaccess="RO" id="Reserved" resetval="0x0" />
+		<bitfield width="15" end="17" begin="31" rwaccess="RO" id="Reserved_2" resetval="0x0" />
+		<bitfield width="11" end="0" begin="10" rwaccess="RO" description="0: Listen Mode,  1: Normal Mode,  2: Calibration Mode" id="RESAMP_PTR_DELTA_FFTP" resetval="0x0" />
+	</register>
+</module>

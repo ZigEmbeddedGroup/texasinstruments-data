@@ -1,0 +1,301 @@
+/* Copyright (c) 2021, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+
+#define DEBUG 	  0 //turn on this for debugging messages
+#define GEL_TRACE 0 //turn this on for gel_trace debug messages
+
+
+/* ************************************************************************* */
+/* Global Helper Functions */
+/* ************************************************************************* */
+
+/* Read from an MMR. */
+Read_MMR(unsigned int mmr_address){
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    return *p_mmr;
+}
+
+/* Write to an MMR. */
+Write_MMR(unsigned int mmr_address, unsigned int mmr_value){
+    unsigned int * p_mmr;
+    p_mmr = (unsigned int *) mmr_address;
+    *p_mmr = mmr_value;
+}
+
+/* Write to a specific field in an MMR. */
+Write_MMR_Field(unsigned int mmr_address, unsigned int field_value, unsigned int width, unsigned int leftshift){
+    unsigned int * p_mmr;
+    unsigned int mask;
+    p_mmr = (unsigned int *) mmr_address;   //Grab the MMR value
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field. 
+    mask = ~(mask); //Invert the mask so that the field will be zero'd out with the AND operation.
+    *p_mmr &= mask; //Zero out the field in the register.
+    *p_mmr |= (field_value << leftshift); //Assign the value to that specific field.
+}
+
+/* Read from a specific field in an MMR. */
+Read_MMR_Field(unsigned int mmr_address, unsigned int width, unsigned int leftshift){
+    unsigned int * p_mmr;
+    unsigned int mask;
+    unsigned int retval;
+    p_mmr = (unsigned int *) mmr_address;
+    mask = (1 << width) - 1 << leftshift; //Build a mask of 1s for the field. 
+    retval = (*p_mmr & mask) >> leftshift; //Bitwise AND the mask with the register value, and then shift the field back down to the LSB
+    return retval;
+}
+
+
+/*=========CCS Scripts Tab - Gel Functions===========*/
+menuitem "AM261x Device Configuration";
+	
+hotmenu MSS_IOMUX_Unlock()
+{
+    Write_MMR(IOMUX_U_BASE + IOMUX_IO_CFG_KICK0, 0x83E70B13);
+    Write_MMR(IOMUX_U_BASE + IOMUX_IO_CFG_KICK1, 0x95A4F1E0);
+    GEL_TextOut("MSS_IOMUX Control Registers Unlocked\n");
+}
+
+hotmenu MSS_CTRL_unlock()
+{
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_LOCK0_KICK0,0x01234567);
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_LOCK0_KICK1,0xFEDCBA8);
+	GEL_TextOut("MSS_CTRL Control Registers Unlocked\n");
+}
+
+hotmenu MSS_TOPRCM_unlock()
+{
+    Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_LOCK0_KICK0,0x01234567);
+    Write_MMR(MSS_TOP_RCM_U_BASE + MSS_TOP_RCM_LOCK0_KICK1,0xFEDCBA8);
+    GEL_TextOut("MSS_TOP_RCM Control Registers Unlocked\n");
+}
+
+hotmenu MSS_RCM_unlock()
+{
+    Write_MMR(MSS_RCM_U_BASE + MSS_RCM_LOCK0_KICK0,0x01234567);
+    Write_MMR(MSS_RCM_U_BASE + MSS_RCM_LOCK0_KICK1 ,0xFEDCBA8);
+    GEL_TextOut("MSS_RCM Control Registers Unlocked\n");
+}
+
+
+
+hotmenu TOP_CTRL_unlock()
+{
+    Write_MMR(TOP_CTRL_U_BASE + TOP_CTRL_LOCK0_KICK0,0x01234567);
+    Write_MMR(TOP_CTRL_U_BASE + TOP_CTRL_LOCK0_KICK1,0xFEDCBA8);
+    GEL_TextOut("TOP_CTRL Control Registers Unlocked\n");
+}
+	
+
+hotmenu C2K_CTRL_unlock()
+{
+    Write_MMR(CONTROLSS_CTRL_U_BASE + CONTROLSS_CTRL_LOCK0_KICK0,0x01234567);
+    Write_MMR(CONTROLSS_CTRL_U_BASE + CONTROLSS_CTRL_LOCK0_KICK1,0xFEDCBA8);
+    GEL_TextOut("CONTROLSS_CTRL Control Registers Unlocked\n");
+}	
+    
+hotmenu R5F_ROM_eclipse()
+{
+	Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_ROM_ECLIPSE,0x7);
+	 while( ((Read_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_STATUS_REG) & 0x1)   != 0x1) ) {
+	       }	
+    GEL_TextOut("R5F ROM Eclipse\n");
+}
+
+
+hotmenu R5F_SS0_Core0_unhalt()
+{
+	Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_CORE0_HALT,0x00000000);
+	GEL_TextOut("R5FSS0_0 Released\n");
+}
+
+
+hotmenu R5F_SS0_Core1_unhalt()
+{
+//	Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_CONTROL,0x00000000);
+	Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_CORE1_HALT,0x00000000);
+    GEL_TextOut("R5FSS0_1 Released\n");
+}
+
+
+
+hotmenu R5F_SS0_Reset()
+{
+  Write_MMR(MSS_RCM_U_BASE+MSS_RCM_R5SS0_RST2ASSERTDLY, 0x0);  
+  Write_MMR(MSS_RCM_U_BASE+MSS_RCM_R5SS0_RST_WFICHECK, 0x00000707);  
+  Write_MMR(MSS_CTRL_U_BASE+MSS_CTRL_R5SS0_CONTROL, 0x707);
+  Write_MMR(MSS_CTRL_U_BASE+MSS_CTRL_R5SS0_CONTROL, 0x700);
+//  Write_MMR(MSS_CTRL_U_BASE+MSS_CTRL_R5SS0_CONTROL, 0x70700);
+  Write_MMR(MSS_CTRL_U_BASE+MSS_CTRL_R5SS0_CONTROL, 0x70000);
+  Write_MMR(MSS_CTRL_U_BASE+MSS_CTRL_R5SS0_FORCE_WFI, 0x7); 
+
+  GEL_TextOut("\n\n***R5FSS0 Reset Complete***\n");
+}
+
+
+
+hotmenu R5F_SS0_POR_Reset()
+{
+	Write_MMR(MSS_RCM_U_BASE + MSS_RCM_R5SS0_POR_RST_CTRL, 0x7);
+	Write_MMR(MSS_RCM_U_BASE + MSS_RCM_R5SS0_POR_RST_CTRL, 0x0);
+	GEL_TextOut("\n*R5FSS0 POR Complete*\n");
+}
+
+
+
+hotmenu MSS_L2_Mem_Init()
+{
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_L2IOCRAM_MEM_INIT,0x7);
+    while( ((Read_MMR(MSS_CTRL_U_BASE + MSS_CTRL_L2OCRAM_MEM_INIT_DONE) & 0x7)   != 0x7)) {
+           }
+    GEL_TextOut("L2 Mem Init Complete\n");
+}
+
+hotmenu MSS_TPCC_Mem_Init()
+{
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_TPCC_MEM_INIT,0x1);
+    while( ((Read_MMR(MSS_CTRL_U_BASE + MSS_CTRL_TPCC_MEM_INIT_DONE) & 0x1)   != 0x1) ) {
+        }
+    GEL_TextOut("TPCC Mem Init Complete\n");
+}
+
+hotmenu MailBox_MEM_Init()
+{
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_MAILBOXRAM_MEM_INIT , 0x1);
+
+    while( ((Read_MMR(MSS_CTRL_U_BASE + MSS_CTRL_MAILBOXRAM_MEM_INIT_DONE) & 0x1)   != 0x1) ) {
+    }
+    GEL_TextOut("MailBox Mem Init Complete\n");
+}
+
+
+hotmenu Dual_core_switch()
+
+{
+ 
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_CONTROL,0x00000000);
+    while( ((Read_MMR_Field(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_STATUS_REG,1,8) & 0x1)   != 0x0) ) {
+       }
+    GEL_TextOut("Switch to dual core mode \n");
+
+}
+
+
+hotmenu TCM_MEM_Init()
+
+{
+
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_ATCM_MEM_INIT, 0x1); //TCMA0
+    Write_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_BTCM_MEM_INIT, 0x1); //TCMB0
+
+    while( ((Read_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_ATCM_MEM_INIT_DONE) & 0x1)   != 0x1) ) {
+       }
+    while( ((Read_MMR(MSS_CTRL_U_BASE + MSS_CTRL_R5SS0_BTCM_MEM_INIT_DONE) & 0x1)   != 0x1) ) {
+           }
+
+    GEL_TextOut("AM261x TCM MEM init Done\n");
+
+}
+
+hotmenu R5F_SS0_Reset_Lockstep()
+{
+    
+  Write_MMR(MSS_RCM_U_BASE+MSS_RCM_R5SS0_RST2ASSERTDLY, 0x0);
+  Write_MMR(MSS_RCM_U_BASE+MSS_RCM_R5SS0_RST_WFICHECK, 0x00000707);
+  Write_MMR(MSS_CTRL_U_BASE+MSS_CTRL_R5SS0_FORCE_WFI, 0x7);
+
+  GEL_TextOut("\n\n***R5FSS0 Reset for Lockstep ***\n\n");
+  
+}
+
+hotmenu read_tcm()
+{
+    Read_MMR(0x00000000);    
+}
+
+hotmenu Core_Frequency_Select()
+
+{
+    //This API identifies the AM261x Package and calls Configure_R5F0_400MHZ for Automotive package and Configure_R5F0_500MHZ for Industrial package.
+
+  if( ((Read_MMR( TOP_CTRL_U_BASE + TOP_CTRL_EFUSE_JTAG_USERCODE_ID ) & 0x7)   == 0x6) ) {
+	 GEL_TextOut("ZCZ - 15 mm x 15 mm Package \n");
+	 Configure_R5F0_400MHZ();
+       }
+ if( ((Read_MMR( TOP_CTRL_U_BASE  + TOP_CTRL_EFUSE_JTAG_USERCODE_ID ) & 0x7)   == 0x2) ) {
+ 	GEL_TextOut("ZFG - 13.25 mm x 13.25 mm Package\n");
+	Configure_R5F0_500MHZ();
+           }
+ if( ((Read_MMR( TOP_CTRL_U_BASE  + TOP_CTRL_EFUSE_JTAG_USERCODE_ID ) & 0x7)   == 0x4) ) {
+	GEL_TextOut("ZEJ - 13 mm x 13 mm Package\n");
+    Configure_R5F0_400MHZ();
+           }
+ if( ((Read_MMR( TOP_CTRL_U_BASE  + TOP_CTRL_EFUSE_JTAG_USERCODE_ID ) & 0x7)   == 0x1) ) {
+	GEL_TextOut("ZNC - 10 mm x 10 mm Package\n");
+	Configure_R5F0_500MHZ();
+           }
+
+}
+
+hotmenu Control_MMR_Register_Unlock()
+
+{
+    MSS_CTRL_unlock();
+    MSS_TOPRCM_unlock();
+    MSS_RCM_unlock();
+    MSS_IOMUX_Unlock();
+    TOP_CTRL_unlock();
+    C2K_CTRL_unlock();
+    
+}
+
+
+dialog read_32b_value_32b_address(address "Address: " )
+{
+        unsigned int * p_address;
+        p_address = (unsigned int *) address;
+
+        GEL_TextOut("Address %x:      %x\n",,,,,
+        address,
+        *p_address) ;
+}
+
+dialog write_32b_value_32b_address(address "Address: ", value "Value:" )
+{
+        unsigned int * p_address;
+        p_address = (unsigned int *) address;
+        *p_address = value;
+        GEL_TextOut("writing %x to address: %x\n",,,,,
+        value,
+        address) ;
+}
+
+

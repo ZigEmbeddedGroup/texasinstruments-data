@@ -1,0 +1,57 @@
+<module name="SA3_SS0_SA_UL_0_REGS" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="MMRS_revision" acronym="MMRS_revision" offset="0x0" width="32" description="Version and Identification Register">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Scheme" range="31 - 30" rwaccess="R"/> 
+		<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Business Unit" range="29 - 28" rwaccess="R"/> 
+		<bitfield id="MODID" width="12" begin="27" end="16" resetval="0x2992" description="Module ID" range="27 - 16" rwaccess="R"/> 
+		<bitfield id="REVRTL" width="5" begin="15" end="11" resetval="0x1" description="RTL revision" range="15 - 11" rwaccess="R"/> 
+		<bitfield id="REVMAJ" width="3" begin="10" end="8" resetval="0x3" description="Major revision" range="10 - 8" rwaccess="R"/> 
+		<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom revision" range="7 - 6" rwaccess="R"/> 
+		<bitfield id="REVMIN" width="6" begin="5" end="0" resetval="0x1" description="Minor Revision" range="5 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMRS_efuse_enable" acronym="MMRS_efuse_enable" offset="0x4" width="32" description="The efuse_enable register contains the disable of the countermeasure/dpa feature, and the enable for the AES,SHA,SM3,SM4,PKA crypto cores in the device">
+		<bitfield id="DIS_CM" width="1" begin="4" end="4" resetval="0x0" description="Disable for the countermeasure feature which is driven by Security Manager of the SMS IP. Value of 1 means feature is disabled." range="4" rwaccess="R"/> 
+		<bitfield id="EFUSE_EN" width="4" begin="3" end="0" resetval="0x0" description="Efuse crypto enable must be set high to enable crypto core, bit3=sm3_sm4_en, bit2=pka_en, bit1=encr_drbg_en, bit0=sha_en" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="MMRS_engine_status" acronym="MMRS_engine_status" offset="0x8" width="32" description="The engine_status register contains the enable and busy status for every crypto core">
+		<bitfield id="CPPI_OUT_PORT_BUSY" width="1" begin="27" end="27" resetval="0x0" description="PSI output port busy status bit" range="27" rwaccess="R"/> 
+		<bitfield id="CPPI_IN_PORT_BUSY" width="1" begin="25" end="25" resetval="0x0" description="PSI input port busy status bit" range="25" rwaccess="R"/> 
+		<bitfield id="CTXCACH_BUSY" width="1" begin="23" end="23" resetval="0x0" description="ContextCache module busy status bit" range="23" rwaccess="R"/> 
+		<bitfield id="PKA_BUSY" width="1" begin="20" end="20" resetval="0x0" description="PKA module busy status bit" range="20" rwaccess="R"/> 
+		<bitfield id="TRNG_BUSY" width="1" begin="19" end="19" resetval="0x0" description="Random number generator module busy status bit" range="19" rwaccess="R"/> 
+		<bitfield id="AUTHSS_BUSY" width="1" begin="17" end="17" resetval="0x0" description="Authentication module busy status bit" range="17" rwaccess="R"/> 
+		<bitfield id="ENCSS_BUSY" width="1" begin="16" end="16" resetval="0x0" description="Encryption module busy status bit" range="16" rwaccess="R"/> 
+		<bitfield id="CPPI_OUT_PORT_EN" width="1" begin="11" end="11" resetval="0x0" description="Enable indicator for the output streaming interface" range="11" rwaccess="R"/> 
+		<bitfield id="CPPI_IN_PORT_EN" width="1" begin="9" end="9" resetval="0x0" description="Enable indicator for the input streaming interface" range="9" rwaccess="R"/> 
+		<bitfield id="CTXCACH_EN" width="1" begin="7" end="7" resetval="0x0" description="Enable indicator for context cache engine" range="7" rwaccess="R"/> 
+		<bitfield id="PKA_EN" width="1" begin="4" end="4" resetval="0x0" description="Enable indicator for PKA engine" range="4" rwaccess="R"/> 
+		<bitfield id="TRNG_EN" width="1" begin="3" end="3" resetval="0x0" description="Enable indicator for TRNG engine" range="3" rwaccess="R"/> 
+		<bitfield id="AUTHSS_EN" width="1" begin="1" end="1" resetval="0x0" description="Enable indicator for authentication engine" range="1" rwaccess="R"/> 
+		<bitfield id="ENCSS_EN" width="1" begin="0" end="0" resetval="0x0" description="Enable indicator for encryption engine" range="0" rwaccess="R"/>
+	</register>
+	<register id="MMRS_cppi_flowid" acronym="MMRS_cppi_flowid" offset="0x14" width="32" description="The flowid register is no longer used as the DMA software info word 2 must carry this information">
+		<bitfield id="CPPI_FLOWID" width="8" begin="7" end="0" resetval="0x0" description="cppi default flow id" range="7 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRS_default_eng_id" acronym="MMRS_default_eng_id" offset="0x1C" width="32" description="The default_eng_id contains the first engine only if default engine id code is in the DMA software info word 0">
+		<bitfield id="DEFAULT_ENG_ID" width="5" begin="4" end="0" resetval="0x20" description="default engine id" range="4 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRS_ctxcach_ctrl" acronym="MMRS_ctxcach_ctrl" offset="0x100" width="32" description="The ctxcach_ctrl contains some control and status of the context cache engine">
+		<bitfield id="CTX_BUSY" width="1" begin="31" end="31" resetval="0x0" description="context busy" range="31" rwaccess="R"/> 
+		<bitfield id="CTX_CNT" width="7" begin="30" end="24" resetval="0x0" description="context counts" range="30 - 24" rwaccess="R"/> 
+		<bitfield id="CLR_STATS" width="1" begin="4" end="4" resetval="0x0" description="clear stats" range="4" rwaccess="R/W"/> 
+		<bitfield id="CPPI_PORT_EN" width="1" begin="3" end="3" resetval="0x1" description="enable cppi ctxcach port" range="3" rwaccess="R/W"/> 
+		<bitfield id="CLR_CACHE_TABLE" width="1" begin="1" end="1" resetval="0x0" description="clear cache table" range="1" rwaccess="R"/> 
+		<bitfield id="AUTO_FETCH_EN" width="1" begin="0" end="0" resetval="0x1" description="enable auto fetch" range="0" rwaccess="R"/>
+	</register>
+	<register id="MMRS_ctxcach_scid" acronym="MMRS_ctxcach_scid" offset="0x108" width="32" description="The ctxcach_scid register is no longer used as context operation is fully under hardware control">
+		<bitfield id="SC_DONE" width="1" begin="31" end="31" resetval="0x0" description="done bit indicator" range="31" rwaccess="R"/> 
+		<bitfield id="SC_ERRCODE" width="3" begin="30" end="28" resetval="0x0" description="pass / error code result" range="30 - 28" rwaccess="R"/> 
+		<bitfield id="SC_RAMIDX" width="8" begin="27" end="20" resetval="0x0" description="ram index result" range="27 - 20" rwaccess="R"/> 
+		<bitfield id="GO" width="1" begin="19" end="19" resetval="0x0" description="execute" range="19" rwaccess="R/W"/> 
+		<bitfield id="SC_TEAR" width="1" begin="17" end="17" resetval="0x0" description="1:tear" range="17" rwaccess="R/W"/> 
+		<bitfield id="SC_FETCH_EVICT" width="1" begin="16" end="16" resetval="0x1" description="always read 1:evict" range="16" rwaccess="R"/> 
+		<bitfield id="SCID" width="16" begin="15" end="0" resetval="0x0" description="SCID for mmr based evict" range="15 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="MMRS_ctxcach_misscnt" acronym="MMRS_ctxcach_misscnt" offset="0x10C" width="32" description="The ctxcach_misscnt contains the number of how many misses that trigger context fetch">
+		<bitfield id="CTX_MISSCNT" width="32" begin="31" end="0" resetval="0x0" description="cache miss counter" range="31 - 0" rwaccess="R"/>
+	</register>
+</module>

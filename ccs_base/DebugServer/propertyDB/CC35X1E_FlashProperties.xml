@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<PropertyList>
+    <!--Nodes-->
+	<node id="FlashProgrammerNode">
+		<name>Ext Tools Settings</name>
+		<children>
+			<child>FlashSettingsGroup</child>
+		</children>
+	</node>
+	<!--Groups -->
+	<group id="FlashSettingsGroup">
+		<name>Settings</name>
+		<children>
+			<child>INVOKE_TOOLBOX</child>
+			<child>TOOLBOX_PATH</child>
+			<child>SERIAL_NUMBER</child>
+			<child>ACTION</child>
+			<child>USE_CUSTOM_TOOL_SETTINGS</child>
+			<child>CUSTOM_TOOL_SETTINGS</child>
+		</children>
+	</group>
+	<!--Categories -->
+	<categories>
+		<category>Program Load</category>
+    </categories>
+	<!--Property Definitions -->
+	<property id="INVOKE_TOOLBOX">
+        <target>CS_DAP</target>
+        <name>Invoke Toolbox on DAP Connect</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>1</defaultValue>
+        <categories>
+            <category>Program Load</category>
+        </categories>
+    </property>
+	<property id="TOOLBOX_PATH">
+		<target>CS_DAP</target>
+		<name>Toolbox Path</name>
+		<valueType>String</valueType>
+		<defaultValue>${COM_TI_SIMPLELINK_WIFI_TOOLBOX_INSTALL_DIR}</defaultValue>
+		<enableIf>
+            <property id="INVOKE_TOOLBOX">1</property>
+        </enableIf>
+		<categories>
+			<category>Program Load</category>
+		</categories>
+	</property>
+	<property id="SERIAL_NUMBER">
+		<target>CS_DAP</target>
+		<name>XDS110 Serial Number</name>
+		<valueType>String</valueType>
+		<defaultValue>auto_ide</defaultValue>
+		<enableIf>
+            <property id="INVOKE_TOOLBOX">1</property>
+        </enableIf>
+		<categories>
+			<category>Program Load</category>
+		</categories>
+	</property>
+	<property id="ACTION">
+		<target>CS_DAP</target>
+		<name>Actions</name>
+		<valueType>ChoiceList</valueType>
+		<values>
+			<value>Program and Debug</value>
+			<value>Debug Only</value>
+			<value>Program Only</value>
+		</values>
+		<defaultValue>Program and Debug</defaultValue>
+		<enableIf>
+            <property id="INVOKE_TOOLBOX">1</property>
+        </enableIf>
+		<categories>
+			<category>Program Load</category>
+		</categories>
+	</property>
+	<property id="USE_CUSTOM_TOOL_SETTINGS">
+        <target>CS_DAP</target>
+        <name>Use custom "tool_settings.json"</name>
+        <valueType>Boolean</valueType>
+        <defaultValue>1</defaultValue>
+		<enableIf>
+            <property id="INVOKE_TOOLBOX">1</property>
+        </enableIf>
+        <categories>
+            <category>Program Load</category>
+        </categories>
+    </property>
+	<property id="CUSTOM_TOOL_SETTINGS">
+		<target>CS_DAP</target>
+		<name>Custom "tool_settings.json" Path</name>
+		<valueType>String</valueType>
+		<defaultValue>${PROJECT_BUILD_DIR}/toolbox/tool_settings.json</defaultValue>
+		<enableIf>
+            <property id="USE_CUSTOM_TOOL_SETTINGS">1</property>
+        </enableIf>
+		<categories>
+			<category>Program Load</category>
+		</categories>
+	</property>
+</PropertyList>

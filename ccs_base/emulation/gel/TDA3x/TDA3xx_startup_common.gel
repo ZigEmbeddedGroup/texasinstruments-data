@@ -1,0 +1,239 @@
+/*******************************************************************/
+/* This GEL file is loaded on the command line of Code Composer    */
+/* The StartUp() function is called every time you start           */
+/* Code Composer.  You can customize this function to              */
+/* initialize wait states or to perform other initialization.      */
+/*                                                                 */
+/* TDA3xx startup common                                           */
+/*                                                                 */
+/*                                                                 */
+/*******************************************************************/
+/********************************************************************************************************/
+/* This GEL file is loaded on the command line of Code Composer                                         */
+/* The StartUp() function is called every time you start                                                */
+/* Code Composer.  You can customize this function to                                                   */
+/* initialize wait states or to perform other initialization.                                           */
+/*                                                                                                      */
+/* File       :TDA3xx_startup_common.gel                                                                */
+/* Description:Common startup routines                                                                  */
+/* Revision history                                                                                     */
+/* ==================================================================================================== */
+/* Version   Date      Change from previous version                                                     */
+/* ==================================================================================================== */
+/* 0.1       31-July   First release for TDA3xx- DDR3 only                                              */
+/* 0.2       12-Nov    Added DPLL and DDR configuration based on 15x15 or 12x12 device                  */
+/* ==================================================================================================== */
+/********************************************************************************************************/
+
+#define WR_MEM_32(addr, data)   *(unsigned int*)(addr) =(unsigned int)(data)
+#define RD_MEM_32(addr)         *(unsigned int*)(addr)
+#define uint32_t                unsigned int
+
+#define TDA3XX_EVM      (1)       /* PAB users should make this be 0 */
+#define DEBUG_PRINT     (1)
+
+#define CONTROL_CORE_STATUS          0x4A002134
+#define CTRL_CORE_EFUSE_DISABLE_SW_1 0x4A002688
+
+#define CONTROL_CORE_MMR_LOCK_1 0x4A002540
+#define CONTROL_CORE_MMR_LOCK_2 0x4A002544
+#define CONTROL_CORE_MMR_LOCK_3 0x4A002548
+#define CONTROL_CORE_MMR_LOCK_4 0x4A00254C
+#define CONTROL_CORE_MMR_LOCK_5 0x4A002550
+
+#define CONTROL_CORE_MMR_LOCK_1_UNLOCK_VAL 0x2FF1AC2B
+#define CONTROL_CORE_MMR_LOCK_2_UNLOCK_VAL 0xF757FDC0
+#define CONTROL_CORE_MMR_LOCK_3_UNLOCK_VAL 0xE2BC3A6D
+#define CONTROL_CORE_MMR_LOCK_4_UNLOCK_VAL 0x2FFA927C
+#define CONTROL_CORE_MMR_LOCK_5_UNLOCK_VAL 0x6F361E05
+
+menuitem "TDA3xx Misc Module configurations"
+hotmenu OnTargetConnect_API()
+{
+    OnTargetConnect();
+}
+
+OnTargetConnect()
+{
+    int silicon_package_type;
+
+    GEL_TextOut("--->>> TDA3xx Target Connect Sequence Begins ... <<<---\n");
+
+    GEL_AdvancedReset("CPU Reset");
+
+    TDA3xx_show_device_info();
+
+    /* Unlock all Control module Lock Registers */
+    Unlock_Control_Module_MMR();
+
+    /* Change RTI reaction to avoid reset in 3 mins */
+    RTI1_Reset_Disable();
+
+    /* Setting AMMU config first - if not done it seems to cause errors on */
+    /* some CCS versions. Observed on XDS200+TI Emulator 6.0.407.3         */
+    AMMU_config();
+
+    GEL_TextOut("------------------------------------------------------------------------------------------\n");
+    GEL_TextOut("--->>> DDR and DPLL configuration Based on Package selection pin status(Sysboot[7]) <<<---\n");
+    GEL_TextOut("------------------------------------------------------------------------------------------\n");
+
+    silicon_package_type = (RD_MEM_32(0x4A0026C4) & 0x80)>>7;
+
+    if(silicon_package_type==0)
+    {
+        GEL_TextOut("--->>> 15x15 Package Detected(SYSBOOT[7]=0)... <<<---\n");
+        /* Choose based on DEVICE and OPP */
+        TDA3xx_PRCM_Clock_Config_OPPNOM_TDA3xx_15x15();
+        TDA3xx_PRCM_Module_AllEnable_Config();
+        GEL_TextOut("--->>> DDR3 initialization starts (TI 15x15 EVM)... <<<---\n");
+        TDA3xx_DDR3_532MHz_Config();
+    }
+    else
+    {
+        GEL_TextOut("--->>> 12x12 Package Detected(SYSBOOT[7]=1)... <<<---\n");
+        /* Choose based on DEVICE and OPP */
+        TDA3xx_PRCM_Clock_Config_OPPNOM_TDA3xx_12x12();
+        TDA3xx_PRCM_Module_AllEnable_Config();
+        GEL_TextOut("--->>> POP LPDDR2 initialization starts (TI 12x12 EVM)... <<<---\n");
+        TDA3xx_LPDDR2_400MHz_Config();
+    }
+
+    TDA3xx_PAD_VisionAll_Config();
+
+    DummyLoopM4();
+
+    GEL_TextOut("--->>> TDA3xx Target Connect Sequence DONE !!!!!  <<<---\n");
+
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+    GEL_TextOut("For STM based tracing on TI EVMs, \n");
+    GEL_TextOut("run 'TDA3x EVM I2C EXPANDER CONTROL -> Enable_Trace_Pins()' function from Scripts menu on M4/CS_DAP_DebugSS\n ");
+    GEL_TextOut("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n ");
+
+}
+
+OnResetDetected()
+{
+    GEL_TextOut( "Core Reset has occurred.\n\n" );
+}
+
+OnReset()
+{
+    int device_type;
+
+    device_type = (RD_MEM_32(CONTROL_CORE_STATUS) & 0x1C0) >> 6;
+
+    GEL_TextOut("--->>> A device reset occurred <<<---\n");
+
+//    OnTargetConnect();
+
+    TDA3xx_show_device_info();
+
+}
+menuitem "Device Info"
+hotmenu TDA3xx_show_device_info()
+{
+    int silicon_package_type;
+    int silicon_rev;
+    int device_type, rev_id;
+
+    device_type = (RD_MEM_32(CONTROL_CORE_STATUS) & 0x1C0) >> 6;
+    silicon_rev = (RD_MEM_32(0x4AE0C204) & 0xF0000000) >> 28;
+    rev_id      = (RD_MEM_32(0x4AE0C210) & 0x1F);
+    silicon_package_type = (RD_MEM_32(0x4A0026C4) & 0x80)>>7;
+    if(0 == rev_id)
+    {
+        /* ID_CODE does not work correctly on SR 1.0/1.0A */
+        silicon_rev = 1;
+    }
+
+    GEL_TextOut(" ==================================================\n");
+    GEL_TextOut(" ========= TDA3xx PG%d.0 device detected   =========\n",,,,, silicon_rev);
+
+    if (device_type == 0x3)
+    {
+        device_type = (RD_MEM_32(CTRL_CORE_EFUSE_DISABLE_SW_1) & 0x3);
+        if (device_type == 0x3)
+        {
+            GEL_TextOut(" ========= TDA3xx GP-Prime Device detected    =====\n");
+        }
+        else
+        {
+            GEL_TextOut(" ========= TDA3xx GP Device detected    ===========\n");
+        }
+    }
+    else if (device_type == 0x0)
+    {
+        GEL_TextOut(" ========= TDA3xx TEST Device detected  ===========\n");
+    }
+    else
+    {
+        GEL_TextOut(" ========= TDA3xx BAD Device detected   ===========\n");
+    }
+
+    if(silicon_package_type==0)
+    {
+        GEL_TextOut(" ========= TDA3xx 15x15 Device detected ===========\n");
+    }
+    else
+    {
+        GEL_TextOut(" ========= TDA3xx 12x12 Device detected ===========\n");
+    }
+    GEL_TextOut(" ==================================================\n");
+
+}
+
+hotmenu TDA3xx_show_EFUSE_info()
+{
+    GEL_TextOut(" ==================================================\n");
+    GEL_TextOut(" ========= DIE_ID0   = %x    ===========\n",,,,, (RD_MEM_32(0x4AE0C200)));
+    GEL_TextOut(" ========= DIE_ID1   = %x    ===========\n",,,,, (RD_MEM_32(0x4AE0C208)));
+    GEL_TextOut(" ========= DIE_ID2   = %x    ===========\n",,,,, (RD_MEM_32(0x4AE0C20C)));
+    GEL_TextOut(" ========= DIE_ID3   = %x    ===========\n",,,,, (RD_MEM_32(0x4AE0C210)));
+    GEL_TextOut(" ========= ID_CODE   = %x    ===========\n",,,,, (RD_MEM_32(0x4AE0C204)));
+    GEL_TextOut(" ========= PROD_ID   = %x    ===========\n",,,,, (RD_MEM_32(0x4AE0C214)));
+    GEL_TextOut(" ========= STD FUSE  = %x    ===========\n",,,,, (RD_MEM_32(0x4AE0C13C)));
+    GEL_TextOut(" ==================================================\n");
+
+}
+#define SOC_RTI_1_BASE                                             (0x4AE31000U)
+#define RTI_RTIWWDRXNCTRL                                          (0xA4U)
+#define RTI_RTIWDKEY                                               (0x9CU)
+#define RTI_RTIWWDSIZECTRL                                         (0xA8U)
+
+RTI1_Reset_Disable()
+{
+    uint32_t regAddr;
+
+    if(RD_MEM_32(SOC_RTI_1_BASE+0x90)==0x5312ACED)
+    {
+        GEL_TextOut("--->>> RTI is not currently enabled, so not doing anything  <<<---\n");
+    }
+    else
+    {
+        /* Configuring DWWD Window size */
+        regAddr = SOC_RTI_1_BASE + RTI_RTIWWDSIZECTRL;
+        WR_MEM_32(regAddr, 0x00000050);
+
+        /* Servicing DWWD */
+        regAddr = SOC_RTI_1_BASE + RTI_RTIWDKEY;
+        WR_MEM_32(regAddr, 0x0000E51AU);
+        WR_MEM_32(regAddr, 0x0000A35CU);
+
+        /* Configuring DWWD reaction */
+        regAddr = SOC_RTI_1_BASE + RTI_RTIWWDRXNCTRL;
+        WR_MEM_32(regAddr, 0x0000000A);
+
+        GEL_TextOut("--->>> Changing RTI1 reaction type to avoid RTI1 resetting the device after 3 minutes... <<<---\n");
+    }
+}
+
+Unlock_Control_Module_MMR()
+{
+    WR_MEM_32(CONTROL_CORE_MMR_LOCK_1, CONTROL_CORE_MMR_LOCK_1_UNLOCK_VAL);
+    WR_MEM_32(CONTROL_CORE_MMR_LOCK_2, CONTROL_CORE_MMR_LOCK_2_UNLOCK_VAL);
+    WR_MEM_32(CONTROL_CORE_MMR_LOCK_3, CONTROL_CORE_MMR_LOCK_3_UNLOCK_VAL);
+    WR_MEM_32(CONTROL_CORE_MMR_LOCK_4, CONTROL_CORE_MMR_LOCK_4_UNLOCK_VAL);
+    WR_MEM_32(CONTROL_CORE_MMR_LOCK_5, CONTROL_CORE_MMR_LOCK_5_UNLOCK_VAL);
+
+    GEL_TextOut("--->>> All Control module lock registers are UNLOCKED <<<---\n");
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="FRI" HW_revision="1.0">
+    <register id="FRI_FRDCNTL_M33" width="32" offset="0x1000" description="Flash Read Control Register">
+        <bitfield id="WS0_MODE" description="When set, waitstate of the flash will be forced to 0 Waitstate. #br#When this bit is set, RWAIT and TRIMENGRRWAIT values will be ignored." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="RWAIT" description="Random read waitstate #br# #br#These bits indicate how many waitstates are added to a flash read/fetch access.  The RWAIT value can be set anywhere from 0 to 0xF. For a flash access, data is returned in RWAIT+1 SYSCLK cycles. #br#Note: The required wait states for each SYSCLK frequency can be found in the device data manual." begin="11" end="8" width="4" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="TRIMENGRRWAIT" description="Random read waitstate of Trim and ENGR sectors #br# #br#These bits indicate how many waitstates are added to a flash read/fetch access.  The TRIMENGRRWAIT value can be set anywhere from 0 to 0xF. For a flash access from TRIM or ENGR sectors, data is returned in RWAIT+1 SYSCLK cycles. #br#Note: The required wait states for each SYSCLK frequency can be found in the device data manual." begin="27" end="24" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="FRI_FLPROT" width="32" offset="0x1004" description="Flash program/erase protect register">
+        <bitfield id="FLWEPROT" description="Flash program/erase protect bit. #br#0 : Program erase operation allowed subject to security settings. #br#1 : Program erase operation blocked in hardware." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="FRI_FLCLKCTL" width="32" offset="0x1008" description="Flash NW clock control register.">
+        <bitfield id="KDIV" description="FCLKfrequency = (SYSCLKfrequency) / (KDIV/MDIV) #br#KDIV encoding: #br#0x0 :  = 1 #br#0x1 :  = 2 #br#0x2 :  = 3 #br#0x3 :  = 4 #br#0x4 :  = 5 #br#0x5 :  = 6 #br#0x6 :  = 10 #br#0x7 :  = 12 #br#0x8 :  = 15 #br#0x9 :  = 20 #br#0xA :  = 30 #br#0xB :  = 60 #br#0xC - 0xF :  = 30 #br# #br#Note: KDIV value should be less than or equal to KDIV value." begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="MDIV" description="FCLKfrequency = (SYSCLKfrequency) / (KDIV/MDIV) #br#MDIV encoding: #br#0x0 :  = 1 #br#0x1 :  = 2 #br#0x2 :  = 3 #br#0x3 :  = 4 #br#0x4 :  = 5 #br#0x5 - 0xF :  = 6 #br# #br#Note: MDIV value should be less than or equal to KDIV value." begin="7" end="4" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="FRI_FRD_INTF_CTRL_M33" width="32" offset="0x100C" description="Flash Read Interface Control Register">
+        <bitfield id="PREFETCH_EN" description="Prefetch enable. #br# 0 A value of 0 disables prefetch mechanism. #br#1 A value of 1 enables pre-fetch mechanism." begin="0" end="0" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="DATA_CACHE_EN" description="Data cache enable. #br#0 A value of 0 disables the data cache. #br#1 A value of 1 enables the data cache." begin="1" end="1" width="1" rwaccess="R/W">
+        </bitfield>
+        <bitfield id="CODE_CACHE_EN" description="Code cache enable. #br#0 A value of 0 disables the Code cache. #br#1 A value of 1 enables the Code cache." begin="2" end="2" width="1" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="FRI_DTB_MUXSEL" width="32" offset="0x1010" description="Flash Read Interface DTB Mux select">
+        <bitfield id="DTB_MUX_SEL_FRI" description="DTB Mux Select for Flash read interface signals to be exported out on DTB bus. Based on the MUXSELECT value, corresponding banks' DTB signals will be exported out. #br#00 - Bank0 #br#01 - Bank1 #br#10 - Bank2 #br#11 - Reserved" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="FRI_ECC_ENABLE" width="32" offset="0x1100" description="ECC Enable">
+        <bitfield id="ENABLE" description="ECC enable. A value of 0xA would enable ECC. Any other value would disable ECC." begin="3" end="0" width="4" rwaccess="R/W">
+        </bitfield>
+    </register>
+    <register id="FRI_FECC_CTRL_TOPOARIA" width="32" offset="0x1104" description="ECC Control">
+        <bitfield id="ECC_TEST_EN" description="ECC test mode enable. #br#00 ECC test mode disabled #br#01 ECC test mode enabled, one of the 64 data bits is flipped and fed to the redundant ECC logic (on both ECC logic low and ECC logc high blocks). #br#11 ECC test mode enabled, Two of the 64 data bits are flipped and fed to the redundant ECC logic (on both ECC logic low and ECC logc high blocks). #br#10 Reserved" begin="1" end="0" width="2" rwaccess="R/W">
+        </bitfield>
+    </register>
+
+</module>

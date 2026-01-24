@@ -1,0 +1,652 @@
+/*****************************************************************************
+
+  Copyright (C) 2025 Texas Instruments Incorporated - http://www.ti.com/
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+   Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+   Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the
+   distribution.
+
+   Neither the name of Texas Instruments Incorporated nor the names of
+   its contributors may be used to endorse or promote products derived
+   from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*****************************************************************************/
+
+/* StartUp()              - Executed whenever CCS is invoked         */
+/* OnReset()              - Executed after Debug->Reset CPU          */
+/* OnRestart()            - Executed after Debug->Restart            */
+/* OnPreFileLoaded()      - Executed before File->Load Program       */
+/* OnFileLoaded()         - Executed after File->Load Program        */
+/* OnTargetConnect()      - Executed after Debug->Connect            */
+
+#define PWRAP_DPREC0                            (0x0U)
+#define PWRAP_SPREC                             (0x00F0U)
+
+int gGEL_Reset_Done;
+int gGEL_ResetCalled = 0;
+int gGEL_RemoteCmd_Done;
+
+menuitem "MSPM33C321A_Commands"
+
+/* initialize CCS debugger memory map                                */
+hotmenu memorymap_init()
+{
+    /*
+     * Syntax for GEL_MapAddStr.
+     * GEL_MapAddStr(address, page, length, "attribute", waitstate);
+
+    Basic Attribute Types           Derived Attribute Types
+    String      Description         String      Description
+    R           Read                NONE        No memory/protected
+    W           Write               RAM         Read and write
+    P           Port                ROM         Read only
+    EX          External            WOM         Write only
+    EM          Emulator            INPORT      Port read only
+    PR          Programmable        OUTPORT     Port write only
+    ER          Erasable            IOPORT      Port read and write
+    DA          Dual access         SARAM       Single access RAM
+    ASn         Access size         DARAM       Dual access RAM
+    SHnC        Shared              FLASH       Flash ROM
+    CACHE       Cache               EXRAM       External RAM
+    TX          Text                EXROM       External ROM
+    MN          Monitor             EPROM       Erasable write-able EPROM
+    SA          Single access       MONITOR     Monitor ROM
+    FL          Flash               PRAM        Program RAM
+    MR          Memory mapped       PROM        Program ROM
+    NULL        NULL                NULL        NULL
+    */
+
+    GEL_MapAddStr(0x00000000, 0, 0x00100000, "R|AS4", 0);   /* FLASH_Main_ECC_Corrected */
+    GEL_MapAddStr(0x40028000, 0, 0x00002000, "R|W|AS4", 0); /* FRI */
+    GEL_MapAddStr(0x4002D000, 0, 0x00002000, "R|W|AS4", 0); /* EAM */
+    GEL_MapAddStr(0x4002B000, 0, 0x00002000, "R|W|AS4", 0); /* MEMCFG */
+    GEL_MapAddStr(0x40020000, 0, 0x00001F00, "R|W|AS4", 0); /* DMA0 */
+    GEL_MapAddStr(0x40022000, 0, 0x00001F00, "R|W|AS4", 0); /* DMA1 */
+    /* GEL_MapAddStr(0x01000000, 0, 0x11FFFFFF, "R|W|AS4", 0); */
+
+    GEL_MapAddStr(0x20000000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM */
+    GEL_MapAddStr(0x20100000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM_Parity */
+    GEL_MapAddStr(0x20200000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM_No_Parity */
+    GEL_MapAddStr(0x20300000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM_Parity_Code */
+    GEL_MapAddStr(0x40000000, 0, 0x00002000, "R|W|AS4", 0); /* ADC0_ADC_LITE_REGS */
+    GEL_MapAddStr(0x40002000, 0, 0x00002000, "R|W|AS4", 0); /* ADC1_ADC_LITE_REGS */
+    GEL_MapAddStr(0x40004000, 0, 0x00002000, "R|W|AS4", 0); /* ADC0_ADC_LITE_RESULT_REGS */
+    GEL_MapAddStr(0x40006000, 0, 0x00002000, "R|W|AS4", 0); /* ADC1_ADC_LITE_RESULT_REGS */
+    GEL_MapAddStr(0x40010000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMA0_0 */
+    GEL_MapAddStr(0x40012000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMA0_1 */
+    GEL_MapAddStr(0x40032000, 0, 0x00001F00, "R|W|AS4", 0); /* QSPI */
+    GEL_MapAddStr(0x40042000, 0, 0x00002000, "R|W|AS4", 0); /* FLASHCTL */
+    GEL_MapAddStr(0x40044000, 0, 0x00001E00, "R|W|AS4", 0); /* TRNG */
+    GEL_MapAddStr(0x40046000, 0, 0x00002000, "R|W|AS4", 0); /* GSC */
+    GEL_MapAddStr(0x400AF000, 0, 0x00786818, "R|W|AS4", 0); /* SYSCTL */
+    GEL_MapAddStr(0x400C0000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_0 */
+    GEL_MapAddStr(0x400C2000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_1 */
+    GEL_MapAddStr(0x400C7000, 0, 0x00001F00, "R|W|AS4", 0); /* DEBUGSS */
+    GEL_MapAddStr(0x400CC000, 0, 0x00002000, "R|W|AS4", 0); /* IOMUX */
+    GEL_MapAddStr(0x400D0000, 0, 0x00001500, "R|W|AS2", 0); /* WWDT0 */
+    GEL_MapAddStr(0x400D8000, 0, 0x00001600, "R|W|AS4", 0); /* LFSS */
+    GEL_MapAddStr(0x400E0000, 0, 0x00001F00, "R|W|AS4", 0); /* ANACOMP0 */
+    GEL_MapAddStr(0x400E2000, 0, 0x00001F00, "R|W|AS4", 0); /* ANACOMP1 */
+    GEL_MapAddStr(0x400E8000, 0, 0x00001F00, "R|W|AS4", 0); /* VREF */
+    GEL_MapAddStr(0x400F0000, 0, 0x00001F00, "R|W|AS4", 0); /* GPIOA */
+    GEL_MapAddStr(0x400F2000, 0, 0x00001F00, "R|W|AS4", 0); /* GPIOB */
+    GEL_MapAddStr(0x400F4000, 0, 0x00001F00, "R|W|AS4", 0); /* GPIOC */
+    GEL_MapAddStr(0x40110000, 0, 0x00008000, "R|W|AS4", 0); /* MCAN0 */
+    GEL_MapAddStr(0x40118000, 0, 0x00008000, "R|W|AS4", 0); /* MCAN1 */
+    GEL_MapAddStr(0x40180000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_2 */
+    GEL_MapAddStr(0x40182000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_3 */
+    GEL_MapAddStr(0x40184000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG8_0 */
+    GEL_MapAddStr(0x40186000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG8_1 */
+    GEL_MapAddStr(0x40188000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG12_0 */
+    GEL_MapAddStr(0x401A0000, 0, 0x00001F00, "R|W|AS4", 0); /* I2S0 */
+    GEL_MapAddStr(0x401A2000, 0, 0x00001F00, "R|W|AS4", 0); /* I2S1 */
+    GEL_MapAddStr(0x401B0000, 0, 0x00001200, "R|W|AS4", 0); /* AESADVHP */
+    GEL_MapAddStr(0x401B2000, 0, 0x00002000, "R|W|AS4", 0); /* CRCP0 */
+    GEL_MapAddStr(0x401B4000, 0, 0x00002000, "R|W|AS4", 0); /* SHAW */
+    GEL_MapAddStr(0x401B6000, 0, 0x00002000, "R|W|AS4", 0); /* KEYSTORECTL */
+    GEL_MapAddStr(0x401C0000, 0, 0x0001C000, "R|W|AS4", 0); /* PKA */
+    GEL_MapAddStr(0x40424000, 0, 0x00000500, "R|W|AS4", 0); /* WUC */
+    GEL_MapAddStr(0x40500000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0 */
+    GEL_MapAddStr(0x40502000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1_UART */
+    GEL_MapAddStr(0x40504000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2_UART */
+    GEL_MapAddStr(0x40522000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1_I2CC */
+    GEL_MapAddStr(0x40524000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2_I2CC */
+    GEL_MapAddStr(0x40542000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1_I2CT */
+    GEL_MapAddStr(0x40544000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2_I2CT */
+    GEL_MapAddStr(0x40582000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1 */
+    GEL_MapAddStr(0x40584000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2 */
+    GEL_MapAddStr(0x40600000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1 */
+    GEL_MapAddStr(0x40608000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC4_UART */
+    GEL_MapAddStr(0x4060A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_UART */
+    GEL_MapAddStr(0x40624000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC2_I2CC */
+    GEL_MapAddStr(0x40626000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC3_I2CC */
+    GEL_MapAddStr(0x4062A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_I2CC */
+    GEL_MapAddStr(0x40644000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC2_I2CT */
+    GEL_MapAddStr(0x40646000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC3_I2CT */
+    GEL_MapAddStr(0x4064A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_I2CT */
+    GEL_MapAddStr(0x40660000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC0_SPI */
+    GEL_MapAddStr(0x4066A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_SPI */
+    GEL_MapAddStr(0x40680000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC0 */
+    GEL_MapAddStr(0x40684000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC2 */
+    GEL_MapAddStr(0x40686000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC3 */
+    GEL_MapAddStr(0x40688000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC4 */
+    GEL_MapAddStr(0x4068A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5 */
+    GEL_MapAddStr(0x40700000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_UART */
+    GEL_MapAddStr(0x40700000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2 */
+    GEL_MapAddStr(0x40702000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_UART */
+    GEL_MapAddStr(0x40704000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_UART */
+    GEL_MapAddStr(0x40706000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3_UART */
+    GEL_MapAddStr(0x40720000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_I2CC */
+    GEL_MapAddStr(0x40722000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_I2CC */
+    GEL_MapAddStr(0x40724000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_I2CC */
+    GEL_MapAddStr(0x40726000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3_I2CC */
+    GEL_MapAddStr(0x40740000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_I2CT */
+    GEL_MapAddStr(0x40742000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_I2CT */
+    GEL_MapAddStr(0x40744000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_I2CT */
+    GEL_MapAddStr(0x40746000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3_I2CT */
+    GEL_MapAddStr(0x40760000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_SPI */
+    GEL_MapAddStr(0x40762000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_SPI */
+    GEL_MapAddStr(0x40764000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_SPI */
+    GEL_MapAddStr(0x40780000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0 */
+    GEL_MapAddStr(0x40782000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1 */
+    GEL_MapAddStr(0x40784000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2 */
+    GEL_MapAddStr(0x40786000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3 */
+    GEL_MapAddStr(0x80100000, 0, 0x00004000, "R|AS4", 0);   /* FLASH_NonMain_ECC_Corrected */
+    GEL_MapAddStr(0x80110000, 0, 0x00002000, "R|AS4", 0);   /* FLASH_Factory_ECC_Corrected */
+    GEL_MapAddStr(0x80200000, 0, 0x00020000, "R|AS4", 0);   /* FLASH_Main_ECC_Code */
+    GEL_MapAddStr(0x80260000, 0, 0x00000800, "R|AS4", 0);   /* FLASH_NonMain_ECC_Code */
+    GEL_MapAddStr(0x80270000, 0, 0x00000400, "R|AS4", 0);   /* FLASH_Factory_ECC_Code */
+    GEL_MapAddStr(0x80000000, 0, 0x00008000, "R|AS4", 0);   /* FLASH_Data_Main_ECC_Corrected */
+    GEL_MapAddStr(0x80100000, 0, 0x00008000, "R|AS4", 0);   /* FLASH_Data_Main_ECC_Corrected */
+    GEL_MapAddStr(0x8010C000, 0, 0x00002000, "R|AS4", 0);   /* FLASH_Data_NonMain_ECC_Corrected */
+    GEL_MapAddStr(0x80240000, 0, 0x00001000, "R|AS4", 0);   /* FLASH_Data_Main_ECC_Code */
+    GEL_MapAddStr(0x80261800, 0, 0x00000400, "R|AS4", 0);   /* FLASH_Data_NonMain_ECC_Code */
+    GEL_MapAddStr(0x80118000, 0, 0x00002000, "R|AS4", 0);   /* FLASH_Engr_ECC_Corrected */
+    GEL_MapAddStr(0x80120000, 0, 0x00001000, "R|AS4", 0);   /* FLASH_Data_Engr_ECC_Corrected */
+    GEL_MapAddStr(0x80280000, 0, 0x00000400, "R|AS4", 0);   /* FLASH_Engr_ECC_Code */
+    GEL_MapAddStr(0x80281000, 0, 0x00000200, "R|AS4", 0);   /* FLASH_Data_Engr_ECC_Code */
+
+
+    GEL_MapAddStr(0x10000000, 0, 0x00100000, "R|AS4", 0);   /* FLASH_Main_ECC_Corrected */
+    GEL_MapAddStr(0x50028000, 0, 0x00002000, "R|W|AS4", 0); /* FRI */
+    GEL_MapAddStr(0x5002D000, 0, 0x00002000, "R|W|AS4", 0); /* EAM */
+    GEL_MapAddStr(0x5002B000, 0, 0x00002000, "R|W|AS4", 0); /* MEMCFG */
+    GEL_MapAddStr(0x50020000, 0, 0x00001F00, "R|W|AS4", 0); /* DMA0 */
+    GEL_MapAddStr(0x50022000, 0, 0x00001F00, "R|W|AS4", 0); /* DMA1 */
+    /*GEL_MapAddStr(0x11000000, 0, 0x11FFFFFF, "R|W|AS4", 0); */
+    GEL_MapAddStr(0x30000000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM */
+    GEL_MapAddStr(0x30100000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM_Parity */
+    GEL_MapAddStr(0x30200000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM_No_Parity */
+    GEL_MapAddStr(0x30300000, 0, 0x00040000, "R|W|AS4", 0); /* SRAM_Parity_Code */
+    GEL_MapAddStr(0x50000000, 0, 0x00002000, "R|W|AS4", 0); /* ADC0_ADC_LITE_REGS */
+    GEL_MapAddStr(0x50002000, 0, 0x00002000, "R|W|AS4", 0); /* ADC1_ADC_LITE_REGS */
+    GEL_MapAddStr(0x50004000, 0, 0x00002000, "R|W|AS4", 0); /* ADC0_ADC_LITE_RESULT_REGS */
+    GEL_MapAddStr(0x50006000, 0, 0x00002000, "R|W|AS4", 0); /* ADC1_ADC_LITE_RESULT_REGS */
+    GEL_MapAddStr(0x50010000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMA0_0 */
+    GEL_MapAddStr(0x50012000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMA0_1 */
+    GEL_MapAddStr(0x50032000, 0, 0x00001F00, "R|W|AS4", 0); /* QSPI */
+    GEL_MapAddStr(0x50042000, 0, 0x00002000, "R|W|AS4", 0); /* FLASHCTL */
+    GEL_MapAddStr(0x50044000, 0, 0x00001E00, "R|W|AS4", 0); /* TRNG */
+    GEL_MapAddStr(0x50046000, 0, 0x00002000, "R|W|AS4", 0); /* GSC */
+    GEL_MapAddStr(0x500AF000, 0, 0x00786818, "R|W|AS4", 0); /* SYSCTL */
+    GEL_MapAddStr(0x500C0000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_0 */
+    GEL_MapAddStr(0x500C2000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_1 */
+    GEL_MapAddStr(0x500C7000, 0, 0x00001F00, "R|W|AS4", 0); /* DEBUGSS */
+    GEL_MapAddStr(0x500CC000, 0, 0x00002000, "R|W|AS4", 0); /* IOMUX */
+    GEL_MapAddStr(0x500D0000, 0, 0x00001500, "R|W|AS2", 0); /* WWDT0 */
+    GEL_MapAddStr(0x500D8000, 0, 0x00001600, "R|W|AS4", 0); /* LFSS */
+    GEL_MapAddStr(0x500E0000, 0, 0x00001F00, "R|W|AS4", 0); /* ANACOMP0 */
+    GEL_MapAddStr(0x500E2000, 0, 0x00001F00, "R|W|AS4", 0); /* ANACOMP1 */
+    GEL_MapAddStr(0x500E8000, 0, 0x00001F00, "R|W|AS4", 0); /* VREF */
+    GEL_MapAddStr(0x500F0000, 0, 0x00001F00, "R|W|AS4", 0); /* GPIOA */
+    GEL_MapAddStr(0x500F2000, 0, 0x00001F00, "R|W|AS4", 0); /* GPIOB */
+    GEL_MapAddStr(0x500F4000, 0, 0x00001F00, "R|W|AS4", 0); /* GPIOC */
+    GEL_MapAddStr(0x50110000, 0, 0x00008000, "R|W|AS4", 0); /* MCAN0 */
+    GEL_MapAddStr(0x50118000, 0, 0x00008000, "R|W|AS4", 0); /* MCAN1 */
+    GEL_MapAddStr(0x50180000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_2 */
+    GEL_MapAddStr(0x50182000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG4_3 */
+    GEL_MapAddStr(0x50184000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG8_0 */
+    GEL_MapAddStr(0x50186000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG8_1 */
+    GEL_MapAddStr(0x50188000, 0, 0x00001F00, "R|W|AS4", 0); /* TIMG12_0 */
+    GEL_MapAddStr(0x501A0000, 0, 0x00001F00, "R|W|AS4", 0); /* I2S0 */
+    GEL_MapAddStr(0x501A2000, 0, 0x00001F00, "R|W|AS4", 0); /* I2S1 */
+    GEL_MapAddStr(0x501B0000, 0, 0x00001200, "R|W|AS4", 0); /* AESADVHP */
+    GEL_MapAddStr(0x501B2000, 0, 0x00002000, "R|W|AS4", 0); /* CRCP0 */
+    GEL_MapAddStr(0x501B4000, 0, 0x00002000, "R|W|AS4", 0); /* SHAW */
+    GEL_MapAddStr(0x501B6000, 0, 0x00002000, "R|W|AS4", 0); /* KEYSTORECTL */
+    GEL_MapAddStr(0x501C0000, 0, 0x00001C00, "R|W|AS4", 0); /* PKA */
+    GEL_MapAddStr(0x50424000, 0, 0x00000500, "R|W|AS4", 0); /* WUC */
+    GEL_MapAddStr(0x50500000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0 */
+    GEL_MapAddStr(0x50502000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1_UART */
+    GEL_MapAddStr(0x50504000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2_UART */
+    GEL_MapAddStr(0x50522000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1_I2CC */
+    GEL_MapAddStr(0x50524000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2_I2CC */
+    GEL_MapAddStr(0x50542000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1_I2CT */
+    GEL_MapAddStr(0x50544000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2_I2CT */
+    GEL_MapAddStr(0x50582000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC1 */
+    GEL_MapAddStr(0x50584000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS0_UC2 */
+    GEL_MapAddStr(0x50600000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1 */
+    GEL_MapAddStr(0x50608000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC4_UART */
+    GEL_MapAddStr(0x5060A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_UART */
+    GEL_MapAddStr(0x50624000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC2_I2CC */
+    GEL_MapAddStr(0x50626000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC3_I2CC */
+    GEL_MapAddStr(0x5062A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_I2CC */
+    GEL_MapAddStr(0x50644000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC2_I2CT */
+    GEL_MapAddStr(0x50646000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC3_I2CT */
+    GEL_MapAddStr(0x5064A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_I2CT */
+    GEL_MapAddStr(0x50660000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC0_SPI */
+    GEL_MapAddStr(0x5066A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5_SPI */
+    GEL_MapAddStr(0x50680000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC0 */
+    GEL_MapAddStr(0x50684000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC2 */
+    GEL_MapAddStr(0x50686000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC3 */
+    GEL_MapAddStr(0x50688000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC4 */
+    GEL_MapAddStr(0x5068A000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS1_UC5 */
+    GEL_MapAddStr(0x50700000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_UART */
+    GEL_MapAddStr(0x50700000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2 */
+    GEL_MapAddStr(0x50702000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_UART */
+    GEL_MapAddStr(0x50704000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_UART */
+    GEL_MapAddStr(0x50706000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3_UART */
+    GEL_MapAddStr(0x50720000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_I2CC */
+    GEL_MapAddStr(0x50722000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_I2CC */
+    GEL_MapAddStr(0x50724000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_I2CC */
+    GEL_MapAddStr(0x50726000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3_I2CC */
+    GEL_MapAddStr(0x50740000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_I2CT */
+    GEL_MapAddStr(0x50742000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_I2CT */
+    GEL_MapAddStr(0x50744000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_I2CT */
+    GEL_MapAddStr(0x50746000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3_I2CT */
+    GEL_MapAddStr(0x50760000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0_SPI */
+    GEL_MapAddStr(0x50762000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1_SPI */
+    GEL_MapAddStr(0x50764000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2_SPI */
+    GEL_MapAddStr(0x50780000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC0 */
+    GEL_MapAddStr(0x50782000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC1 */
+    GEL_MapAddStr(0x50784000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC2 */
+    GEL_MapAddStr(0x50786000, 0, 0x000A0D00, "R|W|AS4", 0); /* SPGSS2_UC3 */
+    GEL_MapAddStr(0x90100000, 0, 0x00004000, "R|AS4", 0);   /* FLASH_NonMain_ECC_Corrected */
+    GEL_MapAddStr(0x90110000, 0, 0x00002000, "R|AS4", 0);   /* FLASH_Factory_ECC_Corrected */
+    GEL_MapAddStr(0x90200000, 0, 0x00020000, "R|AS4", 0);   /* FLASH_Main_ECC_Code */
+    GEL_MapAddStr(0x90260000, 0, 0x00000800, "R|AS4", 0);   /* FLASH_NonMain_ECC_Code */
+    GEL_MapAddStr(0x90270000, 0, 0x00000400, "R|AS4", 0);   /* FLASH_Factory_ECC_Code */
+    GEL_MapAddStr(0x90000000, 0, 0x00008000, "R|AS4", 0);   /* FLASH_Data_Main_ECC_Corrected */
+    GEL_MapAddStr(0x9010C000, 0, 0x00002000, "R|AS4", 0);   /* FLASH_Data_NonMain_ECC_Corrected */
+    GEL_MapAddStr(0x90240000, 0, 0x00001000, "R|AS4", 0);   /* FLASH_Data_Main_ECC_Code */
+    GEL_MapAddStr(0x90261800, 0, 0x00000400, "R|AS4", 0);   /* FLASH_Data_NonMain_ECC_Code */
+    GEL_MapAddStr(0x90118000, 0, 0x00002000, "R|AS4", 0);   /* FLASH_Engr_ECC_Corrected */
+    GEL_MapAddStr(0x90120000, 0, 0x00001000, "R|AS4", 0);   /* FLASH_Data_Engr_ECC_Corrected */
+    GEL_MapAddStr(0x90280000, 0, 0x00000400, "R|AS4", 0);   /* FLASH_Engr_ECC_Code */
+    GEL_MapAddStr(0x90281000, 0, 0x00000200, "R|AS4", 0);   /* FLASH_Data_Engr_ECC_Code */
+
+
+
+    /* ARM standard IPs */
+    GEL_MapAddStr(0xE0000000, 0, 0x00001000, "R|W|AS4", 0);       /* itm */
+    GEL_MapAddStr(0xE0001000, 0, 0x00001000, "R|W|AS4", 0);       /* dwt */
+    GEL_MapAddStr(0xE0002000, 0, 0x00001000, "R|W|AS4", 0);       /* fpb */
+    GEL_MapAddStr(0xE000EDF0, 0, 0x00000018, "R|W|AS4", 0);       /* dcb */
+    GEL_MapAddStr(0xE0040000, 0, 0x00001000, "R|W|AS4", 0);       /* tpiu */
+    GEL_MapAddStr(0xE0041004, 0, 0x00001000, "R|W|AS4", 0);       /* etm */
+    GEL_MapAddStr(0xE0042000, 0, 0x00001000, "R|W|AS4", 0);       /* cti */
+    GEL_MapAddStr(0xE0043000, 0, 0x00001000, "R|W|AS4", 0);       /* mtb */
+    GEL_MapAddStr(0xE000E004, 0, 0x00000008, "R|W|AS4", 0);       /* icb */
+    GEL_MapAddStr(0xE000E010, 0, 0x00000010, "R|W|AS4", 0);       /* systick */
+    GEL_MapAddStr(0xE000E100, 0, 0x00000448, "R|W|AS4", 0);       /* nvic */
+    GEL_MapAddStr(0xE000ED00, 0, 0x00000074, "R|W|AS4", 0);       /* cpuidbr, icsr, vtor, aircr, scr */
+    GEL_MapAddStr(0xE002ED00, 0, 0x00000074, "R|W|AS4", 0);       /* cpuidbr, icsr, vtor, aircr, scr */
+    GEL_MapAddStr(0xE000ED90, 0, 0x00000034, "R|W|AS4", 0);       /* mpu */
+    GEL_MapAddStr(0xE000EDD0, 0, 0x00000028, "R|W|AS4", 0);       /* sau */
+    GEL_MapAddStr(0xE000EF00, 0, 0x00000004, "R|W|AS4", 0);       /* sig */
+    GEL_MapAddStr(0xE000EF34, 0, 0x00000018, "R|W|AS4", 0);       /* fpu */
+
+    GEL_TextOut("Memory Map Initialization Complete\n");
+}
+
+hotmenu Software_SYSreset()
+{
+    *(unsigned int *) (0x400B0300) = 0x0 ;
+    *(unsigned int *) (0x400B0304) = 0xE4000001 ;
+}
+hotmenu Software_BOOTreset()
+{
+    *(unsigned int *) (0x500B0300) = 0x1 ;
+    *(unsigned int *) (0x500B0304) = 0xE4000001 ;
+}
+hotmenu Software_SYSRST_with_BSL()
+{
+    *(unsigned int *) (0x400B0300) = 0x2 ;
+    *(unsigned int *) (0x400B0304) = 0xE4000001 ;
+}
+hotmenu Software_POR()
+{
+    *(unsigned int *) (0x400B0300) = 0x3 ;
+    *(unsigned int *) (0x400B0304) = 0xE4000001 ;
+}
+
+DefineResets()
+{
+    DEBUG_RemoveResets(0);
+    DEBUG_DefineReset( "Software_SYSreset", "Perform a CPU Reset", 0, " Software_SYSreset()" );
+    DEBUG_DefineReset( "Software_POR", "Perform a software POR", 0, "Software_POR()" );
+    DEBUG_DefineReset( "Software_SYSRST_with_BSL", "Peform Software SYSRST with BSL", 0, "Software_SYSRST_with_BSL()");
+    DEBUG_DefineReset( "Software_BOOTreset", "Perform a Software BOOTreset", 0, "Software_BOOTreset()" );
+}
+
+StartUp(major, minor, revision, build)
+{
+    DefineResets();
+    /*GEL_TextOut("In StartUp\n");*/
+    GEL_HandleTargetError(
+        ".*-613.*",
+        "\nConnection to MSPM33 core failed.\n
+Possible root causes:
+1) Debug access within NONMAIN was disabled or enabled with password.\n2) Peripheral mis-configuration (e.g improper watchdog or clock).\n
+To see a more detailed diagnostic of the issue, please press the 'Read boot diagnostic' button.",
+        1,
+        "Read boot diagnostic",
+        "MSPM33_BootDiag_DebugRead()"
+    );
+
+    GEL_HandleTargetError(
+        ".*-6305.*",
+        "\nConnection to MSPM33 core failed.\n
+Possible root causes:
+1) Debug access within NONMAIN was disabled or enabled with password.\n2) Peripheral mis-configuration (e.g improper watchdog or clock).\n
+To see a more detailed diagnostic of the issue, please press the 'Read boot diagnostic' button.",
+        1,
+        "Read boot diagnostic",
+        "MSPM33_BootDiag_DebugRead()"
+    );
+
+    GEL_HandleTargetError(
+        ".*-614.*",
+        "\nConnection to MSPM33 core failed.\n
+Possible root causes:
+1) Debug access within NONMAIN was disabled or enabled with password.\n2) Peripheral mis-configuration (e.g improper watchdog or clock).\n
+To see a more detailed diagnostic of the issue, please press the 'Read boot diagnostic' button.",
+        1,
+        "Read boot diagnostic",
+        "MSPM33_BootDiag_DebugRead()"
+    );
+
+    GEL_HandleTargetError( ".*-614.*", "\nDevice Connection Error.
+This could be caused by the device having gone to low power mode.
+Try forcing an external reset pressing the 'Force Reset' button.
+If the error persists, try:
+    1) Invoking BSL,
+    2) Calling a DSSM Mass erase, or,
+    3) Calling a DSSM Factory Reset.
+Check device FAQs for more information.",
+1, "Force Reset", "GEL_MSPM33_Board_Reset()" );
+}
+
+/*
+ * Starts a board reset from the device
+ *  It will call a function from CS_DAP to trigger the reset.
+ *  Function won't return until reset is done.
+ */
+GEL_MSPM33_Board_Reset()
+{
+    if ('GEL'::gGEL_ResetCalled == 0)
+    {
+        'GEL'::gGEL_ResetCalled = 1;
+        'GEL'::gGEL_Reset_Done = 0;
+        GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remotePORReset()", 0 );
+        while(!'GEL'::gGEL_Reset_Done)
+            ;
+        'GEL'::gGEL_ResetCalled = 0;
+    }
+}
+
+/*
+ * Called every time a target is connected.
+ *  Validates the device ID and initializes the memory map.
+ */
+OnTargetConnect()
+{
+    DefineResets();
+    GEL_MapReset();
+    memorymap_init();
+    GEL_MapOn();
+}
+
+/*
+ * Called after the parent router is connected, but before the target is connected.
+ */
+OnPreTargetConnect()
+{
+    if (GEL_MatchesConnection(".*XDS.*")) {
+        if (GEL_GetBoolDebugProperty("EnableWaitForDebug") == 1) {
+            MSPM33_ResetCtl_WaitForDebug();
+            GEL_EvalOnTarget("CS_DAP_0", "PWRAP_DPREC0 = 0x00120008", 0);
+        }
+    }
+}
+
+OnPreFileLoaded()
+{
+    if (GEL_MatchesConnection(".*XDS.*")) {
+        if (GEL_GetBoolDebugProperty("EnableWaitForDebug") == 1) {
+            MSPM33_ResetCtl_WaitForDebug();
+            GEL_EvalOnTarget("CS_DAP_0", "PWRAP_DPREC0 = 0x00120008", 0);
+            GEL_Halt();
+        }
+    }
+}
+
+/*
+ * GEL callback function called when the program is restarted.
+ */
+OnRestart()
+{
+    if (GEL_MatchesConnection(".*XDS.*")) {
+        GEL_Halt();
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_DPREC0 = PWRAP_DPREC0 | 0x00020000", 0);
+        // This will result in 0x1A reset cause. Same as in M0.
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_SPREC = PWRAP_SPREC | 0x00000001", 0);
+    }
+}
+
+OnReset()
+{
+    if (GEL_MatchesConnection(".*XDS.*")) {
+        // SYSRST through debugger
+        string resetType = GEL_GetStringDebugProperty("FlashResetType");
+        if (resetType == "Hard reset") {
+            GEL_EvalOnTarget("CS_DAP_0", "PWRAP_SPREC = PWRAP_SPREC | 0x00000001", 0);
+        }
+
+        // Setting INRST bit
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_DPREC0 = PWRAP_DPREC0 | 0x00020000", 0);
+    }
+}
+
+MSPM33_ResetCtl_WaitForDebug()
+{
+    int loop = 10; //to ensure it catches
+
+    do
+    {
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_SPREC = PWRAP_SPREC | 0x00000001", 0);
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_DPREC0 = PWRAP_DPREC0 | 0x00004000", 0);
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_SPREC = PWRAP_SPREC | 0x00000001", 0);
+        loop--;
+    }while(loop != 0);
+
+    loop = 10000; //inserting artificial delay to ensure device his able to reinit before connect
+
+    do
+    {
+        loop--;
+    }while(loop != 0);
+
+    return;
+}
+
+hotmenu MSPM33_Mailbox_MassErase_Manual()
+{
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remoteMassErase(0)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Mass Erase executed. Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_MassErase_Auto()
+{
+    if(GEL_IsConnected() == 1)
+    {
+        GEL_Disconnect();
+    }
+
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remoteMassErase(1)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Mass Erase executed. Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_FactoryReset_Manual()
+{
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remoteFactoryReset(0)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Factory Reset executed. Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_FactoryReset_Auto()
+{
+    if(GEL_IsConnected() == 1)
+    {
+        GEL_Disconnect();
+    }
+
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remoteFactoryReset(1)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Factory Reset executed. Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_Password_Authentication()
+{
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remotePasswordAuth(0, 0)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Password authentication executed.\n");
+    GEL_TextOut("Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_MassErasePasswordAuthentication_Manual()
+{
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remotePasswordAuth(0, 1)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Mass erase with password authentication executed.\n");
+    GEL_TextOut("Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_FactoryResetPasswordAuthentication_Manual()
+{
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remotePasswordAuth(0, 2)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Factory reset with password authentication executed.\n");
+    GEL_TextOut("Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_ResetCtl_WaitForDebug_NoNRST()
+{
+    //WFD alternative if user does not have nRST connected
+    int loop = 10; //to ensure it catches
+
+    if(GEL_EvalOnTarget("CS_DAP_0", "GEL_IsConnected()", 1) == 0)
+    {
+        GEL_EvalOnTarget("CS_DAP_0", "GEL_Connect()", 1);
+    }
+
+    do
+    {
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_SPREC = PWRAP_SPREC | 0x00000001", 0);
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_DPREC0 = PWRAP_DPREC0 | 0x00004000", 0);
+        GEL_EvalOnTarget("CS_DAP_0", "PWRAP_SPREC = PWRAP_SPREC | 0x00000001", 0);
+        loop--;
+    }while(loop != 0);
+
+    loop = 10000; //inserting artificial delay to ensure device his able to reinit before connect
+
+    do
+    {
+        loop--;
+    }while(loop != 0);
+
+    GEL_TextOut("Device is now in the reset handler.\n");
+}
+
+hotmenu MSPM33_Mailbox_BootDiag_Read()
+{
+    /* Debug version*/
+    GEL_EvalOnTarget("CS_DAP_0", "MSPM33_BootDiag_Read()", 0);
+}
+
+hotmenu MSPM33_Mailbox_DebugNonSecure()
+{
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remotePasswordAuth(0, 3)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Debug Non Secure executed.\n");
+    GEL_TextOut("Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_DebugSecure()
+{
+    'GEL'::gGEL_RemoteCmd_Done = 0;
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remotePasswordAuth(0, 4)", 0 );
+    while(!'GEL'::gGEL_RemoteCmd_Done)
+        ;
+    GEL_TextOut("Debug Secure executed. This will also enable Non Secure Debug.\n");
+    GEL_TextOut("Please terminate debug session, power-cycle and restart debug session.\n");
+}
+
+hotmenu MSPM33_Mailbox_Read_Lifecycle()
+{
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remoteReadLifecycle(1)", 0 );
+}
+
+hotmenu MSPM33_Mailbox_Read_ID()
+{
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remoteReadID(1)", 0 );
+}
+
+hotmenu MSPM33_Mailbox_BL_Start()
+{
+    GEL_EvalOnTarget( "CS_DAP_0", "GEL_DAPInit_remoteBLStart()", 0 );
+}
+
+MSPM33_BootDiag_DebugRead()
+{
+    /* Debug version*/
+    GEL_EvalOnTarget("CS_DAP_0", "MSPM33_BootDiag_DebugRead()", 0);
+}

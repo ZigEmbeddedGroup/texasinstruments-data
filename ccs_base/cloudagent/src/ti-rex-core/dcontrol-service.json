@@ -1,0 +1,39 @@
+{
+  "roles": [
+    "content"
+  ],
+  "invocation": {
+    "version": "20.12.2",
+    "directory": "tirex4/ti-rex-core",
+    "file": "app.js"
+  },
+  "docker": {
+    "imageName": "tirex4",
+    "repo": "artifactory.itg.ti.com/docker-sdto-tidl-cloud-production-local",
+    "ubuntuVersion": "24.04",
+    "imageTag": "4.22.0-202507141559"
+  },
+  "steps": [
+    {},
+    {
+      "name": "tirex-content",
+      "to": "<data>",
+      "overlay": true,
+      "filters": [
+        {
+          "exclude": "ti-rex/db"
+        },
+        {
+          "exclude": "ti-rex/db.bkup"
+        },
+        {
+          "exclude": "ti-rex/db-tirex0"
+        },
+        {
+          "exclude": "ti-rex/db-tirex1"
+        }
+      ],
+      "copy": "ti-rex"
+    }
+  ]
+}

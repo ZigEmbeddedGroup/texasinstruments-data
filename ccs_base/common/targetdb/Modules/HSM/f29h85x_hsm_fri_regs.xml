@@ -1,0 +1,209 @@
+<module id="HSM_FRI" HW_revision="" description="HSM FRI Registers">
+	<register id="FRDCNTL" width="32" page="0" offset="0" internal="0" description="">
+		<bitfield id="RESERVED_1" description="" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="RWAIT" description="" begin="11" end="8" width="4" rwaccess="RW"/>
+		<bitfield id="RESERVED_2" description="" begin="15" end="12" width="4" rwaccess="R"/>
+		<bitfield id="RESERVED_3" description="" begin="23" end="16" width="8" rwaccess="R"/>
+		<bitfield id="TRIMENGRRWAIT" description="" begin="27" end="24" width="4" rwaccess="RW"/>
+		<bitfield id="RESERVED_4" description="" begin="31" end="28" width="4" rwaccess="R"/>
+	</register>
+	<register id="FLCLKCTL" width="32" page="0" offset="4" internal="0" description="">
+		<bitfield id="KDIV" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="31" end="8" width="24" rwaccess="R"/>
+	</register>
+	<register id="FRD_INTF_CTRL" width="32" page="0" offset="8" internal="0" description="">
+		<bitfield id="CPUPREFETCH_EN" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="CPUDATA_CACHE_EN" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="RTDMADATA_CACHE_EN" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="3" width="13" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="FLPROT" width="32" page="0" offset="12" internal="0" description="">
+		<bitfield id="FLWEPROT" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="31" end="1" width="31" rwaccess="R"/>
+	</register>
+	<register id="RESERVED_1" width="32" page="0" offset="16" instances="4" instaddr="4" internal="0" description="">
+		<bitfield id="RESERVED" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="ECC_ENABLE" width="32" page="0" offset="32" internal="0" description="">
+		<bitfield id="ENABLE" description="" begin="3" end="0" width="4" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="4" width="12" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="FECC_CTRL" width="32" page="0" offset="36" internal="0" description="">
+		<bitfield id="ECC_TEST_EN" description="" begin="1" end="0" width="2" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="2" width="14" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="RESERVED_2" width="32" page="0" offset="40" instances="6" instaddr="4" internal="0" description="">
+		<bitfield id="RESERVED" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="UC_ERRFLG" width="32" page="0" offset="64" internal="0" description="">
+		<bitfield id="CPURDERR" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="RTDMARDERR" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="CTLRDERR" description="" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="3" width="13" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="UC_ERRSET" width="32" page="0" offset="68" internal="0" description="">
+		<bitfield id="CPURDERR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RTDMARDERR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CTLRDERR" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="3" width="13" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="UC_ERRCLR" width="32" page="0" offset="72" internal="0" description="">
+		<bitfield id="CPURDERR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RTDMARDERR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CTLRDERR" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="3" width="13" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="UC_CPUREADDR" width="32" page="0" offset="76" internal="0" description="">
+		<bitfield id="UC_CPUREADDR" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="UC_RTDMAREADDR" width="32" page="0" offset="80" internal="0" description="">
+		<bitfield id="UC_RTDMAREADDR" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="UC_CTLREADDR" width="32" page="0" offset="84" internal="0" description="">
+		<bitfield id="UC_CTLREADDR" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RESERVED_3" width="32" page="0" offset="88" instances="2" instaddr="4" internal="0" description="">
+		<bitfield id="RESERVED" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="FLUC_CPUERRSTATUS" width="32" page="0" offset="96" internal="0" description="">
+		<bitfield id="UNC_ERR_L" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_L_FAIL" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="7" end="2" width="6" rwaccess="R"/>
+		<bitfield id="UNC_ERR_H" description="" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_H_FAIL" description="" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="10" width="22" rwaccess="R"/>
+	</register>
+	<register id="FLUC_RTDMAERRSTATUS" width="32" page="0" offset="100" internal="0" description="">
+		<bitfield id="UNC_ERR_L" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_L_FAIL" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="7" end="2" width="6" rwaccess="R"/>
+		<bitfield id="UNC_ERR_H" description="" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_H_FAIL" description="" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="10" width="22" rwaccess="R"/>
+	</register>
+	<register id="FLUC_CTLERRSTATUS" width="32" page="0" offset="104" internal="0" description="">
+		<bitfield id="UNC_ERR_L" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_L_FAIL" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="7" end="2" width="6" rwaccess="R"/>
+		<bitfield id="UNC_ERR_H" description="" begin="8" end="8" width="1" rwaccess="R"/>
+		<bitfield id="DIAG_H_FAIL" description="" begin="9" end="9" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="10" width="22" rwaccess="R"/>
+	</register>
+	<register id="RESERVED_4" width="32" page="0" offset="108" instances="5" instaddr="4" internal="0" description="">
+		<bitfield id="RESERVED" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="C_ERRFLG" width="32" page="0" offset="128" internal="0" description="">
+		<bitfield id="CPURDERR" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="RTDMARDERR" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="CTLRDERR" description="" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="3" width="13" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="C_ERRSET" width="32" page="0" offset="132" internal="0" description="">
+		<bitfield id="CPURDERR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RTDMARDERR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CTLRDERR" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="3" width="13" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="C_ERRCLR" width="32" page="0" offset="136" internal="0" description="">
+		<bitfield id="CPURDERR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RTDMARDERR" description="" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="CTLRDERR" description="" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="3" width="13" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="C_CPUREADDR" width="32" page="0" offset="140" internal="0" description="">
+		<bitfield id="C_CPUREADDR" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="C_RTDMAREADDR" width="32" page="0" offset="144" internal="0" description="">
+		<bitfield id="C_RTDMAREADDR" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="C_CTLREADDR" width="32" page="0" offset="148" internal="0" description="">
+		<bitfield id="C_CTLREADDR" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="RESERVED_5" width="32" page="0" offset="152" instances="2" instaddr="4" internal="0" description="">
+		<bitfield id="RESERVED" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="FLC_CPUERRSTATUS" width="32" page="0" offset="160" internal="0" description="">
+		<bitfield id="FAIL_0_L" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_1_L" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_0_H" description="" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_1_H" description="" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_3" description="" begin="15" end="6" width="10" rwaccess="R"/>
+		<bitfield id="ERR_POS_L" description="" begin="21" end="16" width="6" rwaccess="R"/>
+		<bitfield id="ERR_TYPE_L" description="" begin="22" end="22" width="1" rwaccess="R"/>
+		<bitfield id="ERR_POS_H" description="" begin="28" end="23" width="6" rwaccess="R"/>
+		<bitfield id="ERR_TYPE_H" description="" begin="29" end="29" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_4" description="" begin="31" end="30" width="2" rwaccess="R"/>
+	</register>
+	<register id="FLC_RTDMAERRSTATUS" width="32" page="0" offset="164" internal="0" description="">
+		<bitfield id="FAIL_0_L" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_1_L" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_0_H" description="" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_1_H" description="" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_3" description="" begin="15" end="6" width="10" rwaccess="R"/>
+		<bitfield id="ERR_POS_L" description="" begin="21" end="16" width="6" rwaccess="R"/>
+		<bitfield id="ERR_TYPE_L" description="" begin="22" end="22" width="1" rwaccess="R"/>
+		<bitfield id="ERR_POS_H" description="" begin="28" end="23" width="6" rwaccess="R"/>
+		<bitfield id="ERR_TYPE_H" description="" begin="29" end="29" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_4" description="" begin="31" end="30" width="2" rwaccess="R"/>
+	</register>
+	<register id="FLC_CTLERRSTATUS" width="32" page="0" offset="168" internal="0" description="">
+		<bitfield id="FAIL_0_L" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_1_L" description="" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_0_H" description="" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="FAIL_1_H" description="" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="5" end="5" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_3" description="" begin="15" end="6" width="10" rwaccess="R"/>
+		<bitfield id="ERR_POS_L" description="" begin="21" end="16" width="6" rwaccess="R"/>
+		<bitfield id="ERR_TYPE_L" description="" begin="22" end="22" width="1" rwaccess="R"/>
+		<bitfield id="ERR_POS_H" description="" begin="28" end="23" width="6" rwaccess="R"/>
+		<bitfield id="ERR_TYPE_H" description="" begin="29" end="29" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_4" description="" begin="31" end="30" width="2" rwaccess="R"/>
+	</register>
+	<register id="RESERVED_6" width="32" page="0" offset="172" instances="5" instaddr="4" internal="0" description="">
+		<bitfield id="RESERVED" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="C_ERRCNT" width="32" page="0" offset="192" internal="0" description="">
+		<bitfield id="C_ERRCNT" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+	<register id="C_ERRTHRES" width="32" page="0" offset="196" internal="0" description="">
+		<bitfield id="C_ERRTHRES" description="" begin="15" end="0" width="16" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="C_EINTFLG" width="32" page="0" offset="200" internal="0" description="">
+		<bitfield id="C_EINTFLAG" description="" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="1" width="15" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="C_EINTCLR" width="32" page="0" offset="204" internal="0" description="">
+		<bitfield id="C_EINTCLR" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="1" width="15" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="C_EINTSET" width="32" page="0" offset="208" internal="0" description="">
+		<bitfield id="C_EINTSET" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="1" width="15" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="C_EINTEN" width="32" page="0" offset="212" internal="0" description="">
+		<bitfield id="C_EINTEN" description="" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="RESERVED_1" description="" begin="15" end="1" width="15" rwaccess="R"/>
+		<bitfield id="RESERVED_2" description="" begin="31" end="16" width="16" rwaccess="R"/>
+	</register>
+	<register id="RESERVED_7" width="32" page="0" offset="216" instances="970" instaddr="4" internal="0" description="">
+		<bitfield id="RESERVED" description="" begin="31" end="0" width="32" rwaccess="R"/>
+	</register>
+</module>

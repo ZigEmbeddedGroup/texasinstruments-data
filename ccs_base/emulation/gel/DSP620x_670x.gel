@@ -1,0 +1,110 @@
+/* 
+ * This GEL file (DSP620x_670x.gel) provides example code on how to 
+ * reset the C6x DSP and initialize the External Memory Interface.
+ *
+ * You will have to edit settings in emif_init() to your own 
+ * specifications as the example is applicable to the C6x EVM.
+ *
+ * This file is has minimal functionality and is designed to be used
+ * as a starting point for custom GEL files.
+ *
+ * Refer to CCS Help for detailed information on GEL commands.
+ *
+ */
+
+/*
+ * The StartUp() function is called every time you start Code Composer.
+ * It should only include functions that do not "touch the hardware" -
+ * Hardware initialization should be invoked from the OnTargetConnect() 
+ * function or the GEL menu.
+ */ 
+StartUp()
+{
+
+	/* setMemoryMap;  this should be a function to init the mem map*/
+}
+
+/*--------------------------------------------------------------*/
+/* OnTargetConnect() -- this function is called after a target  */
+/* connect.                                                     */
+/*--------------------------------------------------------------*/
+OnTargetConnect()
+{
+		/* 	GEL_Reset is used to deal with the worst case senario of
+		unknown target state.  If for some reason a reset is not
+		desired upon target connection, GEL_Reset may be removed 
+		and replaced with something "less brutal" like a cache
+		initialization function
+	GEL_Reset();  
+	*/
+}
+
+/*
+ * OnReset(int nErrorCode)
+ *	If defined, this is executed after "Reset DSP'
+ */
+OnReset(int nErrorCode){
+	/* emif_init(); */
+}
+
+/*
+ * OnPreFileLoaded()
+ * This function is called automatically when the 'Load Program'
+ * Menu item is selected  .....
+ */
+OnPreFileLoaded()
+{
+	/* 	GEL_Reset is used to deal with the worst case senario of
+		unknown target state.  If for some reason a reset is not
+		desired upon target connection, GEL_Reset may be removed 
+		and replaced with something "less brutal" like a cache
+		initialization function
+	GEL_Reset();
+	*/
+}
+
+
+/*********************************************/
+
+
+emif_init()
+{
+/*---------------------------------------------------------------------------*/
+/* EMIF REGISTER VALUES FROM SPRU269B                                        */
+/*---------------------------------------------------------------------------*/
+
+	#define EMIF_GCTL       0x01800000
+	#define EMIF_CE1        0x01800004
+	#define EMIF_CE0        0x01800008
+	#define EMIF_CE2        0x01800010
+	#define EMIF_CE3        0x01800014
+	#define EMIF_SDRAMCTL   0x01800018
+	#define EMIF_SDRAMREF   0x0180001c
+
+
+
+/***********************************************************
+ * Edit values below to conform to your specifications
+ * The following assumes the EVM6x memory configuration
+ ***********************************************************/
+
+        /* OK for 133, 160 MHK CPU clock rate */
+        *(int *)EMIF_GCTL = 0x3060;
+
+        /* CE1 */
+        *(int *)EMIF_CE1 = 0x40f40323;
+
+        /* CE0 SBSRAM */
+        *(int *)EMIF_CE0 = 0x40;
+
+        /* CE2 and CE3 SDRAM */
+        *(int *)EMIF_CE2 = 0x30;
+        *(int *)EMIF_CE3 = 0x30;
+
+        /* 133 MHz, use 0x7227000 for 160 MHz */
+        *(int *)EMIF_SDRAMCTL = 0x7116000;
+
+        /* 133 MHz, use 0x4e1 for 160 MHz */
+        *(int *)EMIF_SDRAMREF = 0x410;
+}
+

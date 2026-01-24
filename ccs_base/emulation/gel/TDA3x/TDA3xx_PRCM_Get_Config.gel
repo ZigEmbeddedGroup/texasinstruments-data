@@ -1,0 +1,1679 @@
+#define WR_MEM_32(addr, data)       *(unsigned int*)(addr) =(unsigned int)(data)
+#define RD_MEM_32(addr)             *(unsigned int*)(addr)
+#define uint32_t                    unsigned int
+
+/* Standby Modes Available */
+#define STBY_FUNCTIONAL              (0)
+#define STBY_STANDBY                 (1)
+
+/* Idle Modes Available */
+#define IDLE_FUNCTIONAL              (0)
+#define IDLE_INTRANSITION            (1)
+#define IDLE_INTERFACE_IDLE          (2)
+#define IDLE_DISABLED                (3)
+
+#define PWRST_OFF                    (0)
+#define PWRST_RET                    (1)
+#define PWRST_ON_INACTIVE            (2)
+#define PWRST_ON_ACTIVE              (3)
+
+#define FINALST_INVALID              (0xFFFF)
+#define FINALST_ALWAYS_EN            (0x1)
+#define FINALST_AUTO_CG              (0x2)
+#define FINALST_DISABLED             (0x3)
+uint32_t moduleState, clockState, powerState;
+
+getModuleState(uint32_t addr)
+{
+    uint32_t regval = RD_MEM_32(addr);
+    uint32_t standbySt;
+    uint32_t idleSt;
+
+    standbySt = (regval & 0x40000) >> 18;
+    idleSt = (regval & 0x30000) >> 16;
+
+    if (idleSt == IDLE_DISABLED)
+    {
+        moduleState = IDLE_DISABLED;
+        GEL_TextOut("\tModule State : DISABLED\n");
+    }
+    else if (idleSt == IDLE_INTERFACE_IDLE)
+    {
+        moduleState = IDLE_INTERFACE_IDLE;
+        GEL_TextOut("\tModule State : IDLE\n");
+    }
+    else if (idleSt == IDLE_INTRANSITION)
+    {
+        GEL_TextOut("\tModule State : IN TRANSITION\n");
+        moduleState = IDLE_INTRANSITION;
+    }
+    else
+    {
+        if (standbySt == STBY_STANDBY)
+        {
+            GEL_TextOut("\tModule State : STANDBY\n");
+            moduleState = IDLE_INTERFACE_IDLE;
+        }
+        else
+        {
+            GEL_TextOut("\tModule State : ON\n");
+            moduleState = IDLE_FUNCTIONAL;
+        }
+    }
+}
+
+getClockState(uint32_t addr, uint32_t mask)
+{
+    uint32_t regval;
+    regval = RD_MEM_32(addr);
+    if ((regval & mask) != 0)
+    {
+        GEL_TextOut("\tClock State : ON\n");
+        clockState = 1;
+    }
+    else
+    {
+        GEL_TextOut("\tClock State : OFF\n");
+        clockState = 0;
+    }
+}
+
+getPowerState(uint32_t addr)
+{
+    uint32_t regval = RD_MEM_32(addr);
+    regval = regval & 0x3;
+    if (regval == PWRST_OFF)
+    {
+        GEL_TextOut("\tPower State : OFF\n");
+        powerState = PWRST_OFF;
+    }
+    else if (regval == PWRST_RET)
+    {
+        GEL_TextOut("\tPower State : RETENTION\n");
+        powerState = PWRST_RET;
+    }
+    else if (regval == PWRST_ON_INACTIVE)
+    {
+        GEL_TextOut("\tPower State : ON INACTIVE\n");
+        powerState = PWRST_ON_INACTIVE;
+    }
+    else
+    {
+        GEL_TextOut("\tPower State : ON\n");
+        powerState = PWRST_ON_ACTIVE;
+    }
+}
+
+getFinalState(uint32_t moduleState, uint32_t clockState, uint32_t powerState)
+{
+    uint32_t finalSt = FINALST_INVALID;
+    if (powerState == PWRST_OFF)
+    {
+        if (clockState == 0)
+        {
+            finalSt = FINALST_DISABLED;
+        }
+    }
+    else if (powerState == PWRST_RET)
+    {
+        if (moduleState == IDLE_INTERFACE_IDLE)
+        {
+            if (clockState == 0)
+                finalSt = FINALST_AUTO_CG;
+        }
+        else if (moduleState == IDLE_DISABLED)
+        {
+            if (clockState == 0)
+                finalSt = FINALST_DISABLED;
+        }
+    }
+    else if (powerState == PWRST_ON_INACTIVE)
+    {
+        if (clockState == 0)
+        {
+            if (moduleState == IDLE_INTERFACE_IDLE)
+                finalSt = FINALST_AUTO_CG;
+            else if (moduleState == IDLE_DISABLED)
+                finalSt = FINALST_DISABLED;
+        }
+    }
+    else
+    {
+        if (moduleState == IDLE_INTERFACE_IDLE)
+            finalSt = FINALST_AUTO_CG;
+        else if (moduleState == IDLE_DISABLED)
+            finalSt = FINALST_DISABLED;
+        else if (moduleState == IDLE_FUNCTIONAL)
+        {
+            if (clockState == 1)
+                finalSt = FINALST_ALWAYS_EN;
+            else
+                finalSt = FINALST_DISABLED;
+        }
+    }
+    if (finalSt == FINALST_DISABLED)
+        GEL_TextOut("\tFinal State : MODULE DISABLED \n");
+    else if (finalSt == FINALST_AUTO_CG)
+        GEL_TextOut("\tFinal State : MODULE AUTO CLOCK GATED \n");
+    else if (finalSt == FINALST_ALWAYS_EN)
+        GEL_TextOut("\tFinal State : MODULE ALWAYS ENABLED \n");
+    else
+        GEL_TextOut("\tFinal State : INVALID MODULE STATE \n");
+}
+
+menuitem "TDA3xx PRCM Get Configuration";
+
+hotmenu PRCM_GetConfig()
+{
+    uint32_t addr;
+    uint32_t mask;
+
+    GEL_TextOut("-------------------------------------------------------\n");
+    GEL_TextOut(" PRCM State of all modules on the device\n");
+    GEL_TextOut("-------------------------------------------------------\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : CRC, Clock Domain: CD_CRC, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : CRC (CD_CRC, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008C00;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008C20;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : EFUSE_CTRL_CUST, Clock Domain: CD_CUSTEFUSE, Power Domain: PD_CUSTEFUSE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : EFUSE_CTRL_CUST (CD_CUSTEFUSE, PD_CUSTEFUSE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009620;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009600;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE07604;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DSP1, Clock Domain: CD_DSP1, Power Domain: PD_DSP1 */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DSP1 (CD_DSP1, PD_DSP1)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005420;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005400;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE06404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DSP2, Clock Domain: CD_DSP2, Power Domain: PD_DSP2 */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DSP2 (CD_DSP2, PD_DSP2)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005620;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005600;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07B04;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DSS, Clock Domain: CD_DSS, Power Domain: PD_DSS */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DSS (CD_DSS, PD_DSS)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009120;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009100;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE07104;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DLL, Clock Domain: CD_EMIF, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DLL (CD_EMIF, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008B40;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008B00;
+    mask = 0x200;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : EMIF1, Clock Domain: CD_EMIF, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : EMIF1 (CD_EMIF, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008B30;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008B00;
+    mask = 0x700;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : EVE1, Clock Domain: CD_EVE1, Power Domain: PD_EVE1 */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : EVE1 (CD_EVE1, PD_EVE1)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005660;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005640;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07B44;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : CPGMAC, Clock Domain: CD_GMAC, Power Domain: PD_L3INIT */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : CPGMAC (CD_GMAC, PD_L3INIT)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0093D0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0093C0;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    addr = 0x4AE07304;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCASP1, Clock Domain: CD_IPU, Power Domain: PD_IPU */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCASP1 (CD_IPU, PD_IPU)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005550;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005540;
+    mask = 0x70100;
+    getClockState(addr, mask);
+    addr = 0x4AE06504;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER5, Clock Domain: CD_IPU, Power Domain: PD_IPU */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER5 (CD_IPU, PD_IPU)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005558;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005540;
+    mask = 0x200;
+    getClockState(addr, mask);
+    addr = 0x4AE06504;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER6, Clock Domain: CD_IPU, Power Domain: PD_IPU */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER6 (CD_IPU, PD_IPU)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005560;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005540;
+    mask = 0x400;
+    getClockState(addr, mask);
+    addr = 0x4AE06504;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER7, Clock Domain: CD_IPU, Power Domain: PD_IPU */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER7 (CD_IPU, PD_IPU)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005568;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005540;
+    mask = 0x800;
+    getClockState(addr, mask);
+    addr = 0x4AE06504;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER8, Clock Domain: CD_IPU, Power Domain: PD_IPU */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER8 (CD_IPU, PD_IPU)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005570;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005540;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    addr = 0x4AE06504;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : IPU1, Clock Domain: CD_IPU1, Power Domain: PD_IPU */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : IPU1 (CD_IPU1, PD_IPU)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A005520;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005500;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE06504;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : IEEE1500_2_OCP, Clock Domain: CD_L3INIT, Power Domain: PD_L3INIT */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : IEEE1500_2_OCP (CD_L3INIT, PD_L3INIT)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009378;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009300;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE07304;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : CTRL_MODULE_BANDGAP, Clock Domain: CD_L3INSTR, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : CTRL_MODULE_BANDGAP (CD_L3INSTR, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008E50;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008E00;
+    mask = 0x400;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DLL_AGING, Clock Domain: CD_L3INSTR, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DLL_AGING (CD_L3INSTR, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008E48;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008E00;
+    mask = 0x200;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L3_INSTR, Clock Domain: CD_L3INSTR, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L3_INSTR (CD_L3INSTR, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008E28;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008E00;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L3_MAIN_2, Clock Domain: CD_L3INSTR, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L3_MAIN_2 (CD_L3INSTR, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008E20;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008E00;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : OCP_WP_NOC, Clock Domain: CD_L3INSTR, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : OCP_WP_NOC (CD_L3INSTR, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008E40;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008E00;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : GPMC, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : GPMC (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008728;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L3_MAIN_1, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L3_MAIN_1 (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008720;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MMU_EDMA, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MMU_EDMA (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008730;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : OCMC_RAM1, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : OCMC_RAM1 (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008750;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TESOC, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TESOC (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008758;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TPCC, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TPCC (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008770;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TPTC1, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TPTC1 (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008778;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TPTC2, Clock Domain: CD_L3MAIN1, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TPTC2 (CD_L3MAIN1, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008780;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008700;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L4_CFG, Clock Domain: CD_L4CFG, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L4_CFG (CD_L4CFG, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008D20;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008D00;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : SPINLOCK, Clock Domain: CD_L4CFG, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : SPINLOCK (CD_L4CFG, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008D28;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008D00;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MAILBOX1, Clock Domain: CD_L4CFG, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MAILBOX1 (CD_L4CFG, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008D30;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008D00;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MAILBOX2, Clock Domain: CD_L4CFG, Power Domain: PD_CORE */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MAILBOX2 (CD_L4CFG, PD_CORE)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A008D48;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A008D00;
+    mask = 0x300;
+    getClockState(addr, mask);
+    addr = 0x4AE06704;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : I2C1, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : I2C1 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0097A0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x200100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : I2C2, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : I2C2 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0097A8;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x200100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L4_PER1, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L4_PER1 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0097C0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x8280100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCC6, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCC6 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009728;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCC7, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCC7 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009730;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER2, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER2 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009738;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x800;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER3, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER3 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009740;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER4, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER4 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009748;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x2000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCC5, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCC5 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009750;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : ELM, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : ELM (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009758;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : ESM, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : ESM (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009788;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCSPI1, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCSPI1 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0097F0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCSPI2, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCSPI2 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0097F8;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCSPI3, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCSPI3 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009800;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCSPI4, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCSPI4 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009808;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x100100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : UART1, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : UART1 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009840;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x8000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : UART2, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : UART2 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009848;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x10000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : UART3, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : UART3 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009850;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x20000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : GPIO2, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : GPIO2 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009760;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x1000100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : GPIO3, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : GPIO3 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009768;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x1000100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : GPIO4, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : GPIO4 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009770;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x1000100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MMC4, Clock Domain: CD_L4PER1, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MMC4 (CD_L4PER1, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009828;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009700;
+    mask = 0x8800100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCAN2 (SR1.0 Only), Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCAN2 (SR1.0 Only) (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0098F0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x18000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L4_PER2, Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L4_PER2 (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A00970C;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x10000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : ADC, Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : ADC (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009860;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x10000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : PWMSS1, Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : PWMSS1 (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009790;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x10000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : QSPI, Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : QSPI (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009838;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x11000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L4_PER3, Clock Domain: CD_L4PER3, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L4_PER3 (CD_L4PER3, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009714;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009910;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCC1, Clock Domain: CD_L4PER3, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCC1 (CD_L4PER3, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4a0097C8;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009910;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCC2, Clock Domain: CD_L4PER3, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCC2 (CD_L4PER3, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4a0097D0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009910;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCC3, Clock Domain: CD_L4PER3, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCC3 (CD_L4PER3, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4a0097D8;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009910;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCC4, Clock Domain: CD_L4PER3, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCC4 (CD_L4PER3, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4a009830;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009910;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : VIP1, Clock Domain: CD_CAM, Power Domain: PD_CAM */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : VIP1 (CD_CAM, PD_CAM)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4a009020;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A009000;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07004;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : ISS, Clock Domain: CD_ISS, Power Domain: PD_ISS */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : ISS (CD_ISS, PD_ISS)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4a005764;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A005760;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07C84;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DEBUG_LOGIC, Clock Domain: CD_EMU, Power Domain: PD_EMU */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DEBUG_LOGIC (CD_EMU, PD_EMU)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4AE07A04;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07A00;
+    mask = 0x100;
+    getClockState(addr, mask);
+    addr = 0x4AE07904;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : COUNTER_32K, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : COUNTER_32K (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae07850;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : CTRL_MODULE_WKUP, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : CTRL_MODULE_WKUP (CD_WKUPAON, PD_WKUPAON)\n");
+    /* For these modules the clock domain status
+     * determines the module status.
+     */
+     GEL_TextOut("\tModule State : Determined by Clock State\n");
+     moduleState = IDLE_FUNCTIONAL;
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : DCAN1, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : DCAN1 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae07888;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x11000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : GPIO1, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : GPIO1 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae07838;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1800;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : L4_WKUP, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : L4_WKUP (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae07820;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : RTI1, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : RTI1 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae078B8;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : RTI2, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : RTI2 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae078C0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : RTI3, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : RTI3 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae078C8;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : RTI4, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : RTI4 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae078D0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : RTI5, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : RTI5 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae078D8;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x1000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : TIMER1, Clock Domain: CD_WKUPAON, Power Domain: PD_WKUPAON */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : TIMER1 (CD_WKUPAON, PD_WKUPAON)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4ae07840;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4AE07800;
+    mask = 0x20000;
+    getClockState(addr, mask);
+    /* These Power Domains are always ON */
+    GEL_TextOut("\tPower State : ALWAYS ON\n");
+    powerState = PWRST_ON_ACTIVE;
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCAN (SR2.0 Only), Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCAN (SR2.0 Only) (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A0098F0;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x18000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : ATL (SR2.0 Only), Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : ATL (SR2.0 Only) (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009868;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x10000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCASP2 (SR2.0 Only), Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCASP2 (SR2.0 Only) (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009904;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x4C00000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+
+    /*--------------------------------------------------------------------------------------------*/
+    /* Module : MCASP3 (SR2.0 Only), Clock Domain: CD_L4PER2, Power Domain: PD_L4PER */
+    /*--------------------------------------------------------------------------------------------*/
+    GEL_TextOut("Module : MCASP3 (SR2.0 Only) (CD_L4PER2, PD_L4PER)\n");
+    /* Checking the CLKCTRL register to see if the module is Functional
+     * or in standby/idle state.
+     */
+    addr = 0x4A009908;
+    getModuleState(addr);
+    /* Checking the CLKSTCTRL register to see if the module has clocks*/
+    addr = 0x4A0098FC;
+    mask = 0x13000000;
+    getClockState(addr, mask);
+    addr = 0x4AE07404;
+    getPowerState(addr);
+    getFinalState(moduleState, clockState, powerState);
+    GEL_TextOut("==========================================\n");
+}

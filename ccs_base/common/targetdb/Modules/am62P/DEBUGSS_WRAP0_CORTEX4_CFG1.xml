@@ -1,0 +1,36 @@
+<module name="DEBUGSS_WRAP0_CORTEX4_CFG1" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="CORTEX4_CFG_1_CSWREG" acronym="CORTEX4_CFG_1_CSWREG" offset="0x0" width="32" description="This register contains the Addressing control bit">
+		<bitfield id="RESERVED1" width="27" begin="31" end="5" resetval="0x0" description="Reserved, returns 0" range="31 - 5" rwaccess="R"/> 
+		<bitfield id="ADDR_INC" width="1" begin="4" end="4" resetval="0x0" description="Address Increment Enable" range="4" rwaccess="R/W"/> 
+		<bitfield id="RESERVED0" width="4" begin="3" end="0" resetval="0x0" description="reserved, returns 0" range="3 - 0" rwaccess="R"/>
+	</register>
+	<register id="CORTEX4_CFG_1_TAREG" acronym="CORTEX4_CFG_1_TAREG" offset="0x4" width="32" description="This register contains the address to write to or read from.">
+		
+	</register>
+	<register id="CORTEX4_CFG_1_DRWREG" acronym="CORTEX4_CFG_1_DRWREG" offset="0xC" width="32" description="This register is used to write data to the TA location or read it back from the TA location.">
+		<bitfield id="DATA_READ_WRITE_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to read or write data" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CORTEX4_CFG_1_BD0REG" acronym="CORTEX4_CFG_1_BD0REG" offset="0x10" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_0_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CORTEX4_CFG_1_BD1REG" acronym="CORTEX4_CFG_1_BD1REG" offset="0x14" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_1_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CORTEX4_CFG_1_BD2REG" acronym="CORTEX4_CFG_1_BD2REG" offset="0x18" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_2_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CORTEX4_CFG_1_BD3REG" acronym="CORTEX4_CFG_1_BD3REG" offset="0x1C" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_3_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="CORTEX4_CFG_1_ROM_Register" acronym="CORTEX4_CFG_1_ROM_Register" offset="0xF8" width="32" description="Reading this register returns the AHB ROM Address.">
+		<bitfield id="ROM_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="Reading this register returns the ROM Address" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="CORTEX4_CFG_1_ID_Register" acronym="CORTEX4_CFG_1_ID_Register" offset="0xFC" width="32" description="Reading this register returns the ID information for this AP.">
+		<bitfield id="REVISION" width="4" begin="31" end="28" resetval="0x0" description="Device Revision [4]" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="JEP_CODE" width="11" begin="27" end="17" resetval="0x0" description="Device JEP Code [0x23B]" range="27 - 17" rwaccess="R"/> 
+		<bitfield id="CLASS" width="1" begin="16" end="16" resetval="0x0" description="Device Class[1] [a memory access port]" range="16" rwaccess="R"/> 
+		<bitfield id="SPARE" width="8" begin="15" end="8" resetval="0x0" description="Spare, returns 0" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="VARIANT" width="4" begin="7" end="4" resetval="0x0" description="Device Variant [1]" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="TYPE" width="4" begin="3" end="0" resetval="0x0" description="Device Type: 0=JTAG, 1=AHB, 2=APB [1]" range="3 - 0" rwaccess="R"/>
+	</register>
+</module>

@@ -1,0 +1,50 @@
+<module id="hsm_non_sec_secure" XML_version="1.0" description="">
+	<register acronym="CLK_MEM_CTRL" id="clk_mem_ctrl" width="32" description="This register is used for enabling clock to the module" offset="0x0">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Write this bit to enable clock to the module" id="MEM_CLK_GO" resetval="0x0">
+			<bitenum id="EN" value="1" token="Write 1b to enable clock" description="Write 1b to enable clock" />
+			<bitenum id="DIS" value="0" token="Write 0b to disable clock" description="Write 0b to disable clock" />
+		</bitfield>
+		<bitfield width="1" end="1" begin="1" rwaccess="RW" description="Write this bit to enable host interface clock" id="MEM_SLV_CLK_GO" resetval="0x0">
+			<bitenum id="EN" value="1" token="Write 1b to enable clock" description="Write 1b to enable clock" />
+			<bitenum id="DIS" value="0" token="Write 0b to disable clock" description="Write 0b to disable clock" />
+		</bitfield>
+		<bitfield width="1" end="2" begin="2" rwaccess="RW" description="Write this bit to enable counter clock" id="MEM_CTR_CLK_GO" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Write 0b to disable clock" description="Write 0b to disable clock" />
+			<bitenum id="EN" value="1" token="Write 1b to enable clock" description="Write 1b to enable clock" />
+		</bitfield>
+		<bitfield width="1" end="3" begin="3" rwaccess="RW" description="M3 writes this bit to enable clock to the module" id="MEM_CLK_GO_M3" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Write 0b to disable clock" description="Write 0b to disable clock" />
+			<bitenum id="EN" value="1" token="Write 1b to enable clock" description="Write 1b to enable clock" />
+		</bitfield>
+		<bitfield width="1" end="4" begin="4" rwaccess="RW" description="Write this bit to enable host interface clock" id="MEM_SLV_CLK_GO_M3" resetval="0x0">
+			<bitenum id="EN" value="1" token="Write 1b to enable clock" description="Write 1b to enable clock" />
+			<bitenum id="DIS" value="0" token="Write 0b to disable clock" description="Write 0b to disable clock" />
+		</bitfield>
+		<bitfield width="1" end="5" begin="5" rwaccess="RW" description="Write this bit to enable counter clock" id="MEM_CTR_CLK_GO_M3" resetval="0x0">
+			<bitenum id="DIS" value="0" token="Write 0b to disable clock" description="Write 0b to disable clock" />
+			<bitenum id="EN" value="1" token="Write 1b to enable clock" description="Write 1b to enable clock" />
+		</bitfield>
+		<bitfield width="1" end="6" begin="6" rwaccess="RO" description="when 1b, indicates that the module is active and busy with processing data and tokens." id="CLK_BUSY" resetval="0x0" />
+		<bitfield width="1" end="7" begin="7" rwaccess="RO" description="When 1b indicates the Host interface is active and busy with Host bus transfers." id="SLV_CLK_BUSY" resetval="0x0" />
+		<bitfield width="1" end="8" begin="8" rwaccess="RO" description="When 1b, indicates that the counter clock domain is active. This signal is always asserted (set to '1'), except when the  counter module is in reset (ctr_reset_n set to '0')." id="CTR_CLK_BUSY" resetval="0x0" />
+		<bitfield width="23" end="9" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved9" resetval="0x0" />
+	</register>
+	<register acronym="PKA_ABORT_CTRL" id="pka_abort_ctrl" width="32" description="This register is used for aborting PKA operation." offset="0x4">
+		<bitfield width="1" end="0" begin="0" rwaccess="RW" description="Write 1 to this bit to abort PKA operation" id="MEM_PKA_ABORT_NS" resetval="0x0">
+			<bitenum id="ABORT" value="1" token="Set to 1, to abort PKA operation" description="Set to 1, to abort PKA operation" />
+		</bitfield>
+		<bitfield width="31" end="1" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved1" resetval="0x0" />
+	</register>
+	<register acronym="HSM_STA_REG" id="hsm_sta_reg" width="32" description="This register provides EIP130 status" offset="0x8">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="If active (set to 1b), EIP130 is in FIPS mode" id="FIPS_MODE" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="If active (set to 1b), EIP130 is in NON-FIPS mode" id="NON_FIPS_MODE" resetval="0x0" />
+		<bitfield width="1" end="2" begin="2" rwaccess="RO" description="If active (set to 1b), EIP130 detected a fatal error and stops operation. fatal error can happen when CRC on firmware ROM fails or selftest fails." id="FATAL_ERROR" resetval="0x0" />
+		<bitfield width="28" end="4" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved4" resetval="0x0" />
+		<bitfield width="1" end="3" begin="3" rwaccess="RO" description="Power mode value 1'b1 indicates hsm is in sleep and value 1'b0 indicates hsm is out of sleep." id="POWER_MODE" resetval="0x0" />
+	</register>
+	<register acronym="RAM_CLR_STA" id="ram_clr_sta" width="32" description="This register stores status of asset clear indication." offset="0xc">
+		<bitfield width="1" end="0" begin="0" rwaccess="RO" description="If active (set to 1b), it indicates that auto clear of OTP on reset release has been completed." id="OTP_CLR_DONE" resetval="0x0" />
+		<bitfield width="30" end="2" begin="31" rwaccess="RO" description="Reads to this field return zero, writes to this field are ignored." id="Reserved2" resetval="0x0" />
+		<bitfield width="1" end="1" begin="1" rwaccess="RO" description="If active (set to 1b), it indicates that auto clear of Dataram on reset release has been completed." id="DATARAM_CLR_DONE" resetval="0x0" />
+	</register>
+</module>

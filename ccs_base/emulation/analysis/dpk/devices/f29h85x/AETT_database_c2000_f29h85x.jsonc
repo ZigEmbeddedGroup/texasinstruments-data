@@ -1,0 +1,522 @@
+// C29x
+{
+    "aett_schema_rev": 3,
+
+    "g_map_cluster_table": [
+        [
+            "eCluster_0",
+            {
+                "name": "SOC",
+                "type": "eGenericCluster",
+                "listOfComponents": [
+                    "eCsDap_0",
+                    "eIcePickC_0"
+                ]
+            }
+        ],
+        [
+            "eCluster_1",
+            {
+                "name": "MCU",
+                "type": "eGenericCluster",
+                "listOfComponents": [
+                    "eC29x_0",
+                    "eC29x_1",
+                    "eC29x_2",
+                    "eArmv7m4_0"
+                ]
+            }
+        ]
+    ],
+    "g_map_component_table": [
+        [
+            "eC29x_0",
+            {
+                "name": "C29xx_0",
+                "type": "eTargetC29",
+                "type_index": 0
+            }
+        ],
+        [
+            "eC29x_1",
+            {
+                "name": "C29xx_1",
+                "type": "eTargetC29",
+                "type_index": 1
+            }
+        ],
+        [
+            "eC29x_2",
+            {
+                "name": "C29xx_2",
+                "type": "eTargetC29",
+                "type_index": 2
+            }
+        ],
+        [
+            "eArmv7m4_0",
+            {
+                "name": "Armv7m4_0",
+                "type": "eTargetArmv7mIC,",
+                "type_index": 0,
+                "access_page": 0
+            }
+        ],
+        [
+            "eTpiu_0",
+            {
+                "name": "Tpiu_0",
+                "type": "eTargetTpiu",
+                "type_index": 0,
+                "base_address": "0xe0040000",
+                "access_page": 0
+            }
+        ],
+        [
+            "eSwo_0",
+            {
+                "name": "Swo_0",
+                "type": "eTargetSwo",
+                "type_index": 0,
+                "base_address": "0xe0040000",
+                "access_page": 0
+            }
+        ],
+        [
+            "eCsDap_0",
+            {
+                "name": "CsDap_0",
+                "type": "eTargetDap",
+                "type_index": 0,
+                "base_address": "0",
+                "access_page": 0
+            }
+        ],
+        [
+            "eIcePickC_0",
+            {
+                "name": "IcePickC",
+                "type": "eTargetIcePickC",
+                "type_index": 0
+            }
+        ]
+    ],
+    "g_map_source_to_swo": [
+        [
+            "eArmv7m4_0",
+            "eSwo_0"
+        ]
+    ],
+    "g_map_arm_v7m4": [
+        [
+            "eArmv7m4_0",
+            {
+                "dwt_base_address": "0xe0001000",
+                "fpb_base_address": "0xe0002000",
+                "itm_base_address": "0xe0000000",
+                "cti_base_address": "0x0",
+                "etm_base_address": "0x0",
+                "dap_ap_page": 1
+
+            }
+        ]
+    ],
+    "g_map_dsp_c29": [
+        [
+            "eC29x_0",
+            {
+                "core_access_page": 0,
+                "core_access_id": "eC29x_0",
+                "core_access_type": "eDebugAccess",
+                "erad_base_address": "0x30030000"
+            }
+        ],
+        [
+            "eC29x_1",
+            {
+                "core_access_page": 0,
+                "core_access_id": "eC29x_1",
+                "core_access_type": "eDebugAccess",
+                "erad_base_address": "0x30030000"
+            }
+        ],
+        [
+            "eC29x_2",
+            {
+                "core_access_page": 0,
+                "core_access_id": "eC29x_2",
+                "core_access_type": "eDebugAccess",
+                "erad_base_address": "0x30030000"
+            }
+        ]
+    ],
+    "g_map_arm_v7m4_component_mapping": [
+        [
+            "eArmv7m4_0",
+            [
+                {
+                    "key": "MODULE$MOD_ITM$MAPPING$masterid.decoder$1",
+                    "value": "ItmDWTDecodeUnit"
+                },
+                {
+                    "key": "MODULE$MOD_ITM$MAPPING$masterid.decoder$2",
+                    "value": "ItmSWDecodeUnit"
+                },
+                {
+                    "key": "1",
+                    "value": "Reset"
+                },
+                {
+                    "key": "2",
+                    "value": "NMI"
+                },
+                {
+                    "key": "3",
+                    "value": "HardFault"
+                },
+                {
+                    "key": "4",
+                    "value": "MemManage"
+                },
+                {
+                    "key": "5",
+                    "value": "BusFault"
+                },
+                {
+                    "key": "6",
+                    "value": "UsageFault"
+                },
+                {
+                    "key": "7",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "8",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "9",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "10",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "11",
+                    "value": "SVCall"
+                },
+                {
+                    "key": "12",
+                    "value": "Debug Monitor"
+                },
+                {
+                    "key": "13",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "14",
+                    "value": "PendSV"
+                },
+                {
+                    "key": "15",
+                    "value": "SysTick"
+                },
+                {
+                    "key": "16",
+                    "value": "MCANSSINT0"
+                },
+                {
+                    "key": "17",
+                    "value": "MCANSSINT1"
+                },
+                {
+                    "key": "18",
+                    "value": "MCANSSWAKE"
+                },
+                {
+                    "key": "19",
+                    "value": "MCANSSECC"
+                },
+                {
+                    "key": "20",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "21",
+                    "value": "ECATINT"
+                },
+                {
+                    "key": "22",
+                    "value": "ECATSYNC0INT"
+                },
+                {
+                    "key": "23",
+                    "value": "ECATSYNC1INT"
+                },
+                {
+                    "key": "24",
+                    "value": "ECATRSTINT"
+                },
+                {
+                    "key": "25",
+                    "value": "DCAN0INT0"
+                },
+                {
+                    "key": "26",
+                    "value": "DCAN0INT1"
+                },
+                {
+                    "key": "27",
+                    "value": "DCAN1INT0"
+                },
+                {
+                    "key": "28",
+                    "value": "DCAN1INT1"
+                },
+                {
+                    "key": "29",
+                    "value": "EMACINT"
+                },
+                {
+                    "key": "30",
+                    "value": "EMACTXINT0"
+                },
+                {
+                    "key": "31",
+                    "value": "EMACTXINT1"
+                },
+                {
+                    "key": "32",
+                    "value": "EMACRXINT0"
+                },
+                {
+                    "key": "33",
+                    "value": "EMACRXINT1"
+                },
+                {
+                    "key": "34",
+                    "value": "UART0INT"
+                },
+                {
+                    "key": "35",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "36",
+                    "value": "SSI0INT"
+                },
+                {
+                    "key": "37",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "38",
+                    "value": "I2C0INT"
+                },
+                {
+                    "key": "39",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "40",
+                    "value": "USBINT"
+                },
+                {
+                    "key": "41",
+                    "value": "UDMASWINT"
+                },
+                {
+                    "key": "42",
+                    "value": "UDMAERRINT"
+                },
+                {
+                    "key": "43",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "44",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "45",
+                    "value": "CPU1TOCMIPCINT0"
+                },
+                {
+                    "key": "46",
+                    "value": "CPU1TOCMIPCINT1"
+                },
+                {
+                    "key": "47",
+                    "value": "CPU1TOCMIPCINT2"
+                },
+                {
+                    "key": "48",
+                    "value": "CPU1TOCMIPCINT3"
+                },
+                {
+                    "key": "49",
+                    "value": "CPU1TOCMIPCINT4"
+                },
+                {
+                    "key": "50",
+                    "value": "CPU1TOCMIPCINT5"
+                },
+                {
+                    "key": "51",
+                    "value": "CPU1TOCMIPCINT6"
+                },
+                {
+                    "key": "52",
+                    "value": "CPU1TOCMIPCINT7"
+                },
+                {
+                    "key": "53",
+                    "value": "CPU2TOCMIPCINT0"
+                },
+                {
+                    "key": "54",
+                    "value": "CPU2TOCMIPCINT1"
+                },
+                {
+                    "key": "55",
+                    "value": "CPU2TOCMIPCINT2"
+                },
+                {
+                    "key": "56",
+                    "value": "CPU2TOCMIPCINT3"
+                },
+                {
+                    "key": "57",
+                    "value": "CPU2TOCMIPCINT4"
+                },
+                {
+                    "key": "58",
+                    "value": "CPU2TOCMIPCINT5"
+                },
+                {
+                    "key": "59",
+                    "value": "CPU2TOCMIPCINT6"
+                },
+                {
+                    "key": "60",
+                    "value": "CPU2TOCMIPCINT7"
+                },
+                {
+                    "key": "61",
+                    "value": "FMCFSMDONEINT"
+                },
+                {
+                    "key": "62",
+                    "value": "FMCCORRINT"
+                },
+                {
+                    "key": "63",
+                    "value": "AESINT"
+                },
+                {
+                    "key": "64",
+                    "value": "TINT1"
+                },
+                {
+                    "key": "65",
+                    "value": "TINT2"
+                },
+                {
+                    "key": "66",
+                    "value": "TINT3"
+                },
+                {
+                    "key": "67",
+                    "value": "CMRAMTESTERROR"
+                },
+                {
+                    "key": "68",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "69",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "70",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "71",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "72",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "73",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "74",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "75",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "76",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "77",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "78",
+                    "value": "Reserved"
+                },
+                {
+                    "key": "79",
+                    "value": "Reserved"
+                }
+            ]
+        ]
+    ],
+    "g_vec_xtrig_routes": [
+        {
+            "directon": "eXtrigEvent",
+            "type": "eXtrigHalted",
+            "comp_id": "eArmv7m4_0",
+            "infra_type": "eXtrigInfraIC",
+            "infra_id": "eArmv7m4_0",
+            "trig_index": 0,
+            "channel_group": 0
+        },
+        {
+            "directon": "eXtrigEvent",
+            "type": "eXtrigHalted",
+            "comp_id": "eC29x_0",
+            "infra_type": "eXtrigInfraACU",
+            "infra_id": "eC29x_0",
+            "trig_index": 0,
+            "channel_group": 0
+        },
+        {
+            "directon": "eXtrigAction",
+            "type": "eXtrigHaltReq",
+            "comp_id": "eArmv7m4_0",
+            "infra_type": "eXtrigInfraIC",
+            "infra_id": "eArmv7m4_0",
+            "trig_index": 0,
+            "channel_group": 0
+        },
+        {
+            "directon": "eXtrigAction",
+            "type": "eXtrigHaltReq",
+            "comp_id": "eC29x_0",
+            "infra_type": "eXtrigInfraACU",
+            "infra_id": "eC29x_0",
+            "trig_index": 0,
+            "channel_group": 0
+        }
+    ]
+}

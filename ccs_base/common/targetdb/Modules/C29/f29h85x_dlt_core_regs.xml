@@ -1,0 +1,101 @@
+<module id="DLT_CORE_REGS" HW_revision="" description="DLT CORE Registers">
+	<register id="ERAD_START_MASK_L" width="32" page="0" offset="0x0" instances="1" instaddr="4" internal="0" description="ERAD Start Mask for Lower 32 lines">
+		<bitfield id="START_MASK" description="Mask for first 32 ERAD events" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="ERAD_START_MASK_H" width="32" page="0" offset="0x4" instances="1" instaddr="4" internal="0" description="ERAD Start Mask for Higher 32 lines">
+		<bitfield id="START_MASK" description="Mask for last 32 ERAD events" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="ERAD_END_MASK_L" width="32" page="0" offset="0x8" instances="1" instaddr="4" internal="0" description="ERAD End Mask for Lower 32 lines">
+		<bitfield id="END_MASK" description="Mask for first 32 ERAD events" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="ERAD_END_MASK_H" width="32" page="0" offset="0xc" instances="1" instaddr="4" internal="0" description="ERAD End Mask for Higher 32 lines">
+		<bitfield id="END_MASK" description="Mask for last 32 ERAD events" begin="31" end="0" width="32" rwaccess="RW"/>
+	</register>
+	<register id="TAG_FILTER_START_REF" width="32" page="0" offset="0x10" instances="1" instaddr="4" internal="0" description="Tag Filer Start Reference">
+		<bitfield id="START_REF" description="Reference for TAG start comparison" begin="15" end="0" width="16" rwaccess="RW"/>
+	</register>
+	<register id="TAG_FILTER_START_MASK" width="32" page="0" offset="0x14" instances="1" instaddr="4" internal="0" description="Tag Filer Start Mask">
+		<bitfield id="START_MASK" description="MASK for TAG start comparison" begin="15" end="0" width="16" rwaccess="RW"/>
+	</register>
+	<register id="TAG_FILTER_END_REF" width="32" page="0" offset="0x18" instances="1" instaddr="4" internal="0" description="Tag Filer End Reference">
+		<bitfield id="END_REF" description="Reference for TAG end comparison" begin="15" end="0" width="16" rwaccess="RW"/>
+	</register>
+	<register id="TAG_FILTER_END_MASK" width="32" page="0" offset="0x1c" instances="1" instaddr="4" internal="0" description="Tag Filer End Mask">
+		<bitfield id="END_MASK" description="MASK for TAG end comparison" begin="15" end="0" width="16" rwaccess="RW"/>
+	</register>
+	<register id="LINK_EN" width="32" page="0" offset="0x20" instances="1" instaddr="4" internal="0" description="Link Enable">
+		<bitfield id="LINK0_EN" description="LINK permissions to write to FIFO" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="LINK1_EN" description="LINK permissions to write to FIFO" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="LINK2_EN" description="LINK permissions to write to FIFO" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="LINK3_EN" description="LINK permissions to write to FIFO" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="LINK4_EN" description="LINK permissions to write to FIFO" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="LINK5_EN" description="LINK permissions to write to FIFO" begin="5" end="5" width="1" rwaccess="RW"/>
+		<bitfield id="LINK6_EN" description="LINK permissions to write to FIFO" begin="6" end="6" width="1" rwaccess="RW"/>
+		<bitfield id="LINK7_EN" description="LINK permissions to write to FIFO" begin="7" end="7" width="1" rwaccess="RW"/>
+		<bitfield id="LINK8_EN" description="LINK permissions to write to FIFO" begin="8" end="8" width="1" rwaccess="RW"/>
+		<bitfield id="LINK9_EN" description="LINK permissions to write to FIFO" begin="9" end="9" width="1" rwaccess="RW"/>
+		<bitfield id="LINK10_EN" description="LINK permissions to write to FIFO" begin="10" end="10" width="1" rwaccess="RW"/>
+		<bitfield id="LINK11_EN" description="LINK permissions to write to FIFO" begin="11" end="11" width="1" rwaccess="RW"/>
+		<bitfield id="LINK12_EN" description="LINK permissions to write to FIFO" begin="12" end="12" width="1" rwaccess="RW"/>
+		<bitfield id="LINK13_EN" description="LINK permissions to write to FIFO" begin="13" end="13" width="1" rwaccess="RW"/>
+		<bitfield id="LINK14_EN" description="LINK permissions to write to FIFO" begin="14" end="14" width="1" rwaccess="RW"/>
+		<bitfield id="LINK15_EN" description="LINK permissions to write to FIFO" begin="15" end="15" width="1" rwaccess="RW"/>
+	</register>
+	<register id="DLT_CONTROL" width="32" page="0" offset="0x24" instances="1" instaddr="4" internal="0" description="DLT Control Register">
+		<bitfield id="DLT_EN" description="DLTAG Enable" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="ERAD_FILTER_EN" description="ERAD Filter Enable" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="TAG_FILTER_EN" description="TAG Filter Enable" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="CAP_MODE" description="Capture mode" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="FILTER_RST" description="Filter Reset" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="KEY" description="key to enable write to lower [15:0] bit fileds" begin="31" end="16" width="16" rwaccess="RW"/>
+	</register>
+	<register id="FIFO_CONTROL" width="32" page="0" offset="0x28" instances="1" instaddr="4" internal="0" description="FIFO Control Register">
+		<bitfield id="DMA_EN" description="Trigger DMA on FIFO level" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_RST" description="Initialize pointers of FIFO to 0" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="WR_CTR_TRIG_LEVEL" description="Level of FIFO writes required to trigger INT/DMA" begin="15" end="8" width="8" rwaccess="RW"/>
+	</register>
+	<register id="TIMER_CONTROL" width="32" page="0" offset="0x2c" instances="1" instaddr="4" internal="0" description="Timer Control Register">
+		<bitfield id="TIMER2_RST" description="Timer 2 is reset " begin="1" end="1" width="1" rwaccess="RW"/>
+	</register>
+	<register id="FIFO_STS" width="32" page="0" offset="0x30" instances="1" instaddr="4" internal="0" description="Number of entries in FIFO">
+		<bitfield id="WORD_CTR" description="Number of 64-bit words to be read in the FIFO" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="WR_CTR" description="Write counter of FIFO after last trigger" begin="23" end="16" width="8" rwaccess="R"/>
+	</register>
+	<register id="FIFO_PTR" width="32" page="0" offset="0x34" instances="1" instaddr="4" internal="0" description="Pointer locations in FIFO">
+		<bitfield id="RD_PTR" description="Read pointer location of FIFO" begin="7" end="0" width="8" rwaccess="R"/>
+		<bitfield id="WR_PTR" description="Write pointer location of FIFO" begin="23" end="16" width="8" rwaccess="R"/>
+	</register>
+	<register id="TIMER2_COUNT" width="32" page="0" offset="0x38" instances="1" instaddr="4" internal="0" description="Timer2 Status">
+		<bitfield id="COUNT" description="Current value of TIMER2" begin="28" end="0" width="29" rwaccess="R"/>
+	</register>
+	<register id="INT_FLG" width="32" page="0" offset="0x3c" instances="1" instaddr="4" internal="0" description="Interrupt Flag">
+		<bitfield id="INT" description="Global Interrupt Status" begin="0" end="0" width="1" rwaccess="R"/>
+		<bitfield id="TIMER1_OVF" description="TIMER1 overflow status" begin="1" end="1" width="1" rwaccess="R"/>
+		<bitfield id="TIMER2_OVF" description="TIMER2 overflow status" begin="2" end="2" width="1" rwaccess="R"/>
+		<bitfield id="FIFO_OVF" description="FIFO overflow status" begin="3" end="3" width="1" rwaccess="R"/>
+		<bitfield id="FIFO_UF" description="FIFO underflow status" begin="4" end="4" width="1" rwaccess="R"/>
+		<bitfield id="FIFO_TRIG" description="FIFO reached Trigger level status" begin="5" end="5" width="1" rwaccess="R"/>
+	</register>
+	<register id="INT_EN" width="32" page="0" offset="0x40" instances="1" instaddr="4" internal="0" description="Interrupt Enable">
+		<bitfield id="TIMER1_OVF" description="TIMER1 overflow enable" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="TIMER2_OVF" description="TIMER2 overflow enable" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_OVF" description="FIFO overflow enable" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_UF" description="FIFO underflow enable" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_TRIG" description="FIFO reached Trigger level enable" begin="5" end="5" width="1" rwaccess="RW"/>
+	</register>
+	<register id="INT_FRC" width="32" page="0" offset="0x44" instances="1" instaddr="4" internal="0" description="Interrupt Force">
+		<bitfield id="TIMER1_OVF" description="TIMER1 overflow force" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="TIMER2_OVF" description="TIMER2 overflow force" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_OVF" description="FIFO overflow force" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_UF" description="FIFO underflow force" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_TRIG" description="FIFO reached Trigger level force" begin="5" end="5" width="1" rwaccess="RW"/>
+	</register>
+	<register id="INT_CLR" width="32" page="0" offset="0x48" instances="1" instaddr="4" internal="0" description="Interrupt Clear">
+		<bitfield id="INT" description="Global Interrupt clear" begin="0" end="0" width="1" rwaccess="RW"/>
+		<bitfield id="TIMER1_OVF" description="TIMER1 overflow clear" begin="1" end="1" width="1" rwaccess="RW"/>
+		<bitfield id="TIMER2_OVF" description="TIMER2 overflow clear" begin="2" end="2" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_OVF" description="FIFO overflow clear" begin="3" end="3" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_UF" description="FIFO underflow clear" begin="4" end="4" width="1" rwaccess="RW"/>
+		<bitfield id="FIFO_TRIG" description="FIFO reached Trigger level clear" begin="5" end="5" width="1" rwaccess="RW"/>
+	</register>
+</module>

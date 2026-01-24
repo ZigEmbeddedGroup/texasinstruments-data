@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright Texas Instruments 20256 -->
+<device description="ARM Cortex-M33 MCU" id="MSPM33C321A" partnum="MSPM33C321A" HW_revision="1" desc="MSPM33C321A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- Filter to list device under in project wizard -->
+    <property Type="stringfield" Value="MSPM33" id="FilterString" />
+    <property Type="stringfield" Value="cmcu" id="AETT Platform"/>
+    <property Type="filepathfield" Value="../../emulation/analysis/dpk/devices/mspm33/AETT_database_cmcu_mspm33.jsonc" id="AETT Database File"/>
+    <property Type="stringfield" Value="TICLANG" id="DefaultToolChain" />
+    <property Type="stringfield" Value="true" id="PromoteSDKExamples" />
+    <property Type="stringfield" Value="--romwidth=8 --memwidth=8 --intel" id="HexBuildOptions" />
+    <property Type="stringfield" Value="--romwidth=8 --memwidth=8 --intel" id="TICLANGHexBuildOptions" />
+    <property Type="choicelist" Name="Enable SWD Password" Value="0" id="EnableSWDPassword" />
+    <property Name="SWD Password [0] (32-bit HEX format)" Type="numericfield" Value="0" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" id="MSPM33SWDPassword0" />
+    <property Name="SWD Password [1] (32-bit HEX format)" Type="numericfield" Value="0" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" id="MSPM33SWDPassword1" />
+    <property Name="SWD Password [2] (32-bit HEX format)" Type="numericfield" Value="0" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" id="MSPM33SWDPassword2" />
+    <property Name="SWD Password [3] (32-bit HEX format)" Type="numericfield" Value="0" NumericType="HEX" UpperBound="0xFFFFFFFF" LowerBound="0" id="MSPM33SWDPassword3" />
+    <instance XML_revision="1.2" desc="CS_DAP_0" href="routers/cs_dap.xml" id="CS_DAP_0" xml="cs_dap.xml" xmlpath="Routers"/>
+    <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+        <property Type="hiddenfield" Value="1" id="Use Board Reset" />
+        <property Type="filepathfield" Value="../../../emulation/gel/mspm33_cs_dap_init.gel" id="GEL File"/>
+        <instance href="../Modules/msp/CFGAP.xml" id="" xml="CFGAP.xml" xmlpath="../Modules/msp/" HW_version="CS_DAP" description="CFGAP" requestor="MSP" baseaddr="0x00020100" endaddr="0x000201FC" size="0x100" accessnumbytes="4" permissions="p"/>
+        <instance href="../Modules/AP/SECAP.xml" id="" xml="SECAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="SECAP" requestor="MSP" baseaddr="0x00020200" endaddr="0x000202FC" size="0x100" accessnumbytes="4" permissions="p"/>
+        <instance href="../Modules/AP/PWRAP.xml" id="" xml="PWRAP.xml" xmlpath="../Modules/AP/" HW_version="CS_DAP" description="PWRAP" requestor="MSP" baseaddr="0x00020400" endaddr="0x000204FC" size="0x100" accessnumbytes="4" permissions="p"/>
+        <instance href="../Modules/msp/ETAP_AP.xml" id="etap" xml="ETAP_AP.xml" xmlpath="../Modules/msp/" HW_version="CS_DAP" description="ETAP" requestor="MSP" baseaddr="0x00020300" endaddr="0x000203FC"  size="0x100" accessnumbytes="4" permissions="p"/>
+        <property Type="choicelist" Value="1" id="Device Management"/>
+        <jtag>
+            <property Type="choicelist" Value="0" id="Power Selection">
+                <choice Name="Target supplied power" value="0">
+                    <property Type="choicelist" Value="0" id="Voltage Selection" />
+                </choice>
+            </property>
+            <property Type="choicelist" Value="0" id="The JTAG TCLK Frequency (MHz)">
+                <choice Name="Fixed with user specified value" value="SPECIFIC">
+                    <property Type="stringfield" Value="100kHz" id="-- Enter a value from 100.0kHz to 2.5MHz" />
+                </choice>
+            </property>
+
+            <property Type="choicelist" Value="2" id="SWD Mode Settings">
+                <choice Name="cJTAG (1149.7) 2-pin advanced modes" value="enable">
+                    <property Type="choicelist" Value="1" id="XDS110 Aux Port" />
+                    <property Type="choicelist" Value="0" id="Target Scan Format" />
+                </choice>
+            </property>
+        </jtag>
+        <subpath id="subpath_0">
+            <property Type="numericfield" Value="0" id="Port Number"/>
+            <property Type="choicelist" Value="1" id="Initial Configuration"/>
+            <property Type="choicelist" Value="1" id="Customer Configuration"/>
+            <property Type="choicelist" Value="1" id="Pseudo"/>
+            <property Type="choicelist" Value="0" id="Type"/>
+            <instance XML_version="1.2" desc="CORTEX_M33" href="cpus/cortex_m33.xml" id="CORTEX_M33" xml="cortex_m33.xml" xmlpath="cpus"/>
+            <cpu HW_revision="1.0" XML_version="1.2" description="Cortex M33 CPU" id="CORTEX_M33" isa="CORTEX_M33">
+             <property Type="hiddenfield" Value="1" id="Use CPU Reset" />
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40000000" description=""  href="../Modules/msp/mspm33c321x/ADC0_0.0.xml" id="ADC0" xml="ADC0_0.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40002000" description=""  href="../Modules/msp/mspm33c321x/ADC1_0.0.xml" id="ADC1" xml="ADC1_0.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x401B0000" description=""  href="../Modules/msp/mspm33c321x/AESADV_1.0.xml" id="AESADV" xml="AESADV_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40110000" description=""  href="../Modules/msp/mspm33c321x/CANFD0_1.0.xml" id="CANFD0" xml="CANFD0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40118000" description=""  href="../Modules/msp/mspm33c321x/CANFD1_1.0.xml" id="CANFD1" xml="CANFD1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400E0000" description=""  href="../Modules/msp/mspm33c321x/COMP0_1.0.xml" id="COMP0" xml="COMP0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400E2000" description=""  href="../Modules/msp/mspm33c321x/COMP1_1.0.xml" id="COMP1" xml="COMP1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x401B2000" description=""  href="../Modules/msp/mspm33c321x/CRCP0_1.0.xml" id="CRCP0" xml="CRCP0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0xE000ED00" description=""  href="../Modules/msp/mspm33c321x/CPU_SCS.xml" id="CPU_SCB" xml="CPU_SCS.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400C7000" description=""  href="../Modules/msp/mspm33c321x/DEBUGSS_1.0.xml" id="DEBUGSS" xml="DEBUGSS_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40034000" description=""  href="../Modules/msp/mspm33c321x/DFTSS_1.0.xml" id="DFTSS" xml="DFTSS_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40020000" description=""  href="../Modules/msp/mspm33c321x/DMA0_1.0.xml" id="DMA0" xml="DMA0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40022000" description=""  href="../Modules/msp/mspm33c321x/DMA1_1.0.xml" id="DMA1" xml="DMA1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4002C000" description=""  href="../Modules/msp/mspm33c321x/EAM_0.2.xml" id="EAM" xml="EAM_0.2.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x00000000" description=""  href="../Modules/msp/mspm33c321x/FLASH_1.0.xml" id="FLASH" xml="FLASH_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40042000" description=""  href="../Modules/msp/mspm33c321x/FLASHCTL_1.0.xml" id="FLASHCTL" xml="FLASHCTL_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40028000" description=""  href="../Modules/msp/mspm33c321x/FRI_1.0.xml" id="FRI" xml="FRI_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400F0000" description=""  href="../Modules/msp/mspm33c321x/GPIOA_1.0.xml" id="GPIOA" xml="GPIOA_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400F2000" description=""  href="../Modules/msp/mspm33c321x/GPIOB_1.0.xml" id="GPIOB" xml="GPIOB_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400F4000" description=""  href="../Modules/msp/mspm33c321x/GPIOC_1.0.xml" id="GPIOC" xml="GPIOC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40046000" description=""  href="../Modules/msp/mspm33c321x/GSC_0.1.xml" id="GSC" xml="GSC_0.1.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400CC000" description=""  href="../Modules/msp/mspm33c321x/IOMUX_1.0.xml" id="IOMUX" xml="IOMUX_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x401A0000" description=""  href="../Modules/msp/mspm33c321x/I2S0_1.0.xml" id="I2S0" xml="I2S0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x401A2000" description=""  href="../Modules/msp/mspm33c321x/I2S1_1.0.xml" id="I2S1" xml="I2S1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x401B6000" description=""  href="../Modules/msp/mspm33c321x/KEYSTORECTL_1.0.xml" id="KEYSTORECTL" xml="KEYSTORECTL_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400D8000" description=""  href="../Modules/msp/mspm33c321x/LFSS_1.0.xml" id="LFSS" xml="LFSS_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4002A000" description=""  href="../Modules/msp/mspm33c321x/MEMCFG_0.5.xml" id="MEMCFG" xml="MEMCFG_0.5.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x00000000" description=""  href="../Modules/msp/NVIC_1.0.xml" id="NVIC" xml="NVIC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x401C0000" description=""  href="../Modules/msp/mspm33c321x/PKA_0.0.xml" id="PKA" xml="PKA_0.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40032000" description=""  href="../Modules/msp/mspm33c321x/QSPI_1.0.xml" id="QSPI" xml="QSPI_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x00000000" description=""  href="../Modules/msp/SAU_1.0.xml" id="SAU" xml="SAU_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x401B4000" description=""  href="../Modules/msp/mspm33c321x/SHAW_0.0.xml" id="SHAW" xml="SHAW_0.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40502000" description=""  href="../Modules/msp/mspm33c321x/UC1_0_UART_1.0.xml" id="SPG0_UC1_UART" xml="UC1_0_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40504000" description=""  href="../Modules/msp/mspm33c321x/UC1_1_UART_1.0.xml" id="SPG0_UC2_UART" xml="UC1_1_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40522000" description=""  href="../Modules/msp/mspm33c321x/UC1_0_I2CC_1.0.xml" id="SPG0_UC1_I2CC" xml="UC1_0_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40524000" description=""  href="../Modules/msp/mspm33c321x/UC1_1_I2CC_1.0.xml" id="SPG0_UC2_I2CC" xml="UC1_1_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40542000" description=""  href="../Modules/msp/mspm33c321x/UC1_0_I2CT_1.0.xml" id="SPG0_UC1_I2CT" xml="UC1_0_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40544000" description=""  href="../Modules/msp/mspm33c321x/UC1_1_I2CT_1.0.xml" id="SPG0_UC2_I2CT" xml="UC1_1_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40582000" description=""  href="../Modules/msp/mspm33c321x/UC1_0_1.0.xml" id="SPG0_UC1" xml="UC1_0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40584000" description=""  href="../Modules/msp/mspm33c321x/UC1_1_1.0.xml" id="SPG0_UC2" xml="UC1_1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4059F000" description=""  href="../Modules/msp/mspm33c321x/SPG0_1.0.xml" id="SPG0" xml="SPG0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40608000" description=""  href="../Modules/msp/mspm33c321x/UC12_UART_1.0.xml" id="SPG1_UC4_UART" xml="UC12_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4060A000" description=""  href="../Modules/msp/mspm33c321x/UC13_0_UART_1.0.xml" id="SPG1_UC5_UART" xml="UC13_0_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40624000" description=""  href="../Modules/msp/mspm33c321x/UC15_0_I2CC_1.0.xml" id="SPG1_UC2_I2CC" xml="UC15_0_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40626000" description=""  href="../Modules/msp/mspm33c321x/UC15_1_I2CC_1.0.xml" id="SPG1_UC3_I2CC" xml="UC15_1_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4062A000" description=""  href="../Modules/msp/mspm33c321x/UC13_0_I2CC_1.0.xml" id="SPG1_UC5_I2CC" xml="UC13_0_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40644000" description=""  href="../Modules/msp/mspm33c321x/UC15_0_I2CT_1.0.xml" id="SPG1_UC2_I2CT" xml="UC15_0_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40646000" description=""  href="../Modules/msp/mspm33c321x/UC15_1_I2CT_1.0.xml" id="SPG1_UC3_I2CT" xml="UC15_1_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4064A000" description=""  href="../Modules/msp/mspm33c321x/UC13_0_I2CT_1.0.xml" id="SPG1_UC5_I2CT" xml="UC13_0_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40660000" description=""  href="../Modules/msp/mspm33c321x/UC2_SPI_1.0.xml" id="SPG1_UC0_SPI" xml="UC2_SPI_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4066A000" description=""  href="../Modules/msp/mspm33c321x/UC13_0_SPI_1.0.xml" id="SPG1_UC5_SPI" xml="UC13_0_SPI_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40680000" description=""  href="../Modules/msp/mspm33c321x/UC2_1.0.xml" id="SPG1_UC0" xml="UC2_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40684000" description=""  href="../Modules/msp/mspm33c321x/UC15_0_1.0.xml" id="SPG1_UC2" xml="UC15_0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40686000" description=""  href="../Modules/msp/mspm33c321x/UC15_1_1.0.xml" id="SPG1_UC3" xml="UC15_1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40688000" description=""  href="../Modules/msp/mspm33c321x/UC12_1.0.xml" id="SPG1_UC4" xml="UC12_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4068A000" description=""  href="../Modules/msp/mspm33c321x/UC13_0_1.0.xml" id="SPG1_UC5" xml="UC13_0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4069F000" description=""  href="../Modules/msp/mspm33c321x/SPG1_1.0.xml" id="SPG1" xml="SPG1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40700000" description=""  href="../Modules/msp/mspm33c321x/UC13_1_UART_1.0.xml" id="SPG2_UC0_UART" xml="UC13_1_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40702000" description=""  href="../Modules/msp/mspm33c321x/UC13_2_UART_1.0.xml" id="SPG2_UC1_UART" xml="UC13_2_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40704000" description=""  href="../Modules/msp/mspm33c321x/UC13_3_UART_1.0.xml" id="SPG2_UC2_UART" xml="UC13_3_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40706000" description=""  href="../Modules/msp/mspm33c321x/UC14_UART_1.0.xml" id="SPG2_UC3_UART" xml="UC14_UART_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40720000" description=""  href="../Modules/msp/mspm33c321x/UC13_1_I2CC_1.0.xml" id="SPG2_UC0_I2CC" xml="UC13_1_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40722000" description=""  href="../Modules/msp/mspm33c321x/UC13_2_I2CC_1.0.xml" id="SPG2_UC1_I2CC" xml="UC13_2_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40724000" description=""  href="../Modules/msp/mspm33c321x/UC13_3_I2CC_1.0.xml" id="SPG2_UC2_I2CC" xml="UC13_3_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40726000" description=""  href="../Modules/msp/mspm33c321x/UC14_I2CC_1.0.xml" id="SPG2_UC3_I2CC" xml="UC14_I2CC_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40740000" description=""  href="../Modules/msp/mspm33c321x/UC13_1_I2CT_1.0.xml" id="SPG2_UC0_I2CT" xml="UC13_1_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40742000" description=""  href="../Modules/msp/mspm33c321x/UC13_2_I2CT_1.0.xml" id="SPG2_UC1_I2CT" xml="UC13_2_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40744000" description=""  href="../Modules/msp/mspm33c321x/UC13_3_I2CT_1.0.xml" id="SPG2_UC2_I2CT" xml="UC13_3_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40746000" description=""  href="../Modules/msp/mspm33c321x/UC14_I2CT_1.0.xml" id="SPG2_UC3_I2CT" xml="UC14_I2CT_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40760000" description=""  href="../Modules/msp/mspm33c321x/UC13_1_SPI_1.0.xml" id="SPG2_UC0_SPI" xml="UC13_1_SPI_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40762000" description=""  href="../Modules/msp/mspm33c321x/UC13_2_SPI_1.0.xml" id="SPG2_UC1_SPI" xml="UC13_2_SPI_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40764000" description=""  href="../Modules/msp/mspm33c321x/UC13_3_SPI_1.0.xml" id="SPG2_UC2_SPI" xml="UC13_3_SPI_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40780000" description=""  href="../Modules/msp/mspm33c321x/UC13_1_1.0.xml" id="SPG2_UC0" xml="UC13_1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40782000" description=""  href="../Modules/msp/mspm33c321x/UC13_2_1.0.xml" id="SPG2_UC1" xml="UC13_2_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40784000" description=""  href="../Modules/msp/mspm33c321x/UC13_3_1.0.xml" id="SPG2_UC2" xml="UC13_3_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40786000" description=""  href="../Modules/msp/mspm33c321x/UC14_1.0.xml" id="SPG2_UC3" xml="UC14_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x4079F000" description=""  href="../Modules/msp/mspm33c321x/SPG2_1.0.xml" id="SPG2" xml="SPG2_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40046000" description=""  href="../Modules/msp/mspm33c321x/GSC_0.1.xml" id="GSC" xml="GSC_0.1.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400AF000" description=""  href="../Modules/msp/mspm33c321x/SYSCTL_1.0.xml" id="SYSCTL" xml="SYSCTL_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x20000000" description=""  href="../Modules/msp/mspm33c321x/SYSMEM_1.0.xml" id="SYSMEM" xml="SYSMEM_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x00000000" description=""  href="../Modules/msp/SYSTICK_1.0.xml" id="systick" xml="SYSTICK_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40012000" description=""  href="../Modules/msp/mspm33c321x/TIMA0_1_1.0.xml" id="TIMA0_1" xml="TIMA0_1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40010000" description=""  href="../Modules/msp/mspm33c321x/TIMA0_0_1.0.xml" id="TIMA0_0" xml="TIMA0_0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400C0000" description=""  href="../Modules/msp/mspm33c321x/TIMG4_0_1.0.xml" id="TIMG4_0" xml="TIMG4_0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400C2000" description=""  href="../Modules/msp/mspm33c321x/TIMG4_1_1.0.xml" id="TIMG4_1" xml="TIMG4_1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40180000" description=""  href="../Modules/msp/mspm33c321x/TIMG4_2_1.0.xml" id="TIMG4_2" xml="TIMG4_2_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40182000" description=""  href="../Modules/msp/mspm33c321x/TIMG4_3_1.0.xml" id="TIMG4_3" xml="TIMG4_3_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40184000" description=""  href="../Modules/msp/mspm33c321x/TIMG8_0_1.0.xml" id="TIMG8_0" xml="TIMG8_0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40186000" description=""  href="../Modules/msp/mspm33c321x/TIMG8_1_1.0.xml" id="TIMG8_1" xml="TIMG8_1_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40188000" description=""  href="../Modules/msp/mspm33c321x/TIMG12_0_1.0.xml" id="TIMG12_0" xml="TIMG12_0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x40044000" description=""  href="../Modules/msp/mspm33c321x/TRNG_1.0.xml" id="TRNG" xml="TRNG_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400E8000" description=""  href="../Modules/msp/mspm33c321x/VREF_1.0.xml" id="VREF" xml="VREF_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <instance HW_revision="1.0" accessnumbytes="4" baseaddr="0x400D0000" description=""  href="../Modules/msp/mspm33c321x/WWDT0_1.0.xml" id="WWDT0" xml="WWDT0_1.0.xml" permissions="p" requestor="MSP" size="10" xmlpath="../Modules/msp/mspm33c321x/"></instance>
+                <!-- Project Wizard Settings -->
+                <property Type="filepathfield" Value="../../../emulation/gel/mspm33c321a.gel" id="GEL File"/>
+                <property Type="numericfield" Value="0x02000001" id="Access Port Designator"/>
+                <property Type="stringfield" Value=" -I${PROJECT_ROOT} -D__MSPM33C321A__ -gdwarf-3 -mcpu=cortex-m33 -march=thumbv8m.main  -mfloat-abi=soft -mthumb" id="TICLANGCompilerBuildOptions"/>
+                <property Type="stringfield" Value=" -Wl,--stack_size=256 -heap=0" id="TICLANGLinkerBuildOptions"/>
+                <property Type="stringfield" Value="--romwidth=8 --memwidth=8 --intel" id="TICLANGHexBuildOptions"/>
+                <property Type="stringfield" Value=" -I${PROJECT_ROOT} -D__MSPM33C321A__ -mcpu=cortex-m33 -march=armv8-m.main -mthumb -std=c99 -std=c++11 -mfloat-abi=soft -ffunction-sections -fdata-sections -g -gstrict-dwarf -Wall -I${CG_TOOL_ROOT}/arm-none-eabi/include/newlib-nano -I${CG_TOOL_ROOT}/arm-none-eabi/include" id="GNUCompilerBuildOptions"/>
+                <property Type="stringfield" Value="-march=armv8-m.main -mthumb" id="GNULinkerBuildOptions"/>
+                <property Type="stringfield" Value="-O ihex" id="GNUHexBuildOptions"/>
+                <property Type="stringfield" Value="" id="GNUFilesToCopy"/>
+                <property Type="stringfield" Value=" -stack=256 -heap=0" id="LinkerBuildOptions"/>
+                <property Type="stringfield" Value="--romwidth=8 --memwidth=8 --intel" id="HexBuildOptions"/>
+                <property Type="stringfield" Value="libc.a" id="RTSlib"/>
+                <property Type="stringfield" Value="true" id="IsElfDefault"/>
+                <property Type="stringfield" Value="little" id="Endianness"/>
+                <property Type="stringfield" Value="6.3.1" id="MinCodegenVersion"/>
+                <property Type="stringfield" Value="TIXDS110_Connection.xml" id="DefaultConnection"/>
+                <property Type="numericfield" Value="0x02000000" id="Access Port Designator" />
+                <property Type="numericfield" Value="0x0" id="TraceDeviceId" />
+            </cpu>
+        </subpath>
+
+        <subpath id="subpath_1">
+            <property Type="numericfield" Value="1" id="Port Number" />
+            <instance XML_version="1.2" desc="SEC_AP_0" href="cpus/sec_ap.xml" id="SEC_AP_0" xml="sec_ap.xml" xmlpath="cpus" />
+            <cpu HW_revision="1.0" XML_version="1.2" description="SEC_AP" deviceSim="false" id="SEC_AP_0" isa="SEC_AP">
+                <property Type="numericfield" Value="0x02000002" id="Access Port Designator" />
+            </cpu>
+        </subpath>
+        <property Type="numericfield" Value="0x0" id="DAP TAP ID" />
+        <property Type="choicelist" Value="1" id="Device Management" />
+
+    </router>
+</device>

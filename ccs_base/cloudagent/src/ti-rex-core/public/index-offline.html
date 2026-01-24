@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- Load this html file to display a REX view without a connection, intended to work in CCS Theia -->
+<html>
+  <head>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="server-config" style="display: none">
+      {"role":"","rootNodeDbId":"","softwareNodePublicId":"","version":"","offline":true,"mode":"localserver"}
+    </div>
+    <div id="index"></div>
+    <div id="tempMountPoint"></div>
+    <div id="tempMountPoint2"></div>
+    <div id="tiPrivacy" ></div>
+
+    <script type="text/javascript" src="/ticloudagent/q.js"></script>
+    <script type="text/javascript" src="/ticloudagent/agent.js"></script>
+    <script type="module" src="built/bundle.js"></script>
+    <script nomodule>
+      document.getElementById('index').innerHTML =
+    'Browser not supported. Please use an up to date version of Chrome, Firefox, Safari, or Edge';
+    </script>
+  </body>
+</html>

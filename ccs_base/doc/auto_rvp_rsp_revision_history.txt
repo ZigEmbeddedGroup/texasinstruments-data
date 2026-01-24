@@ -1,0 +1,200 @@
+Automotive Processors, Radar & Vision analytics Processors (RVP), and Radio Sound Processor (RSP)
+=================================================================================================
+
+1.1.16 (Jul, 2024)
+------
+J722S_AM67 (J7AEN) board & register XML added, C75X_1 port # fix, GEL update {HSM-M4, C75halt, OBSCLK}
+J721S1 make device path to Module XML uppercase
+J7AHP add TBR_2 into device XML in zip
+J7AHP/J721S2/J721E: gel update {Fix Obsclk & padconf gel extension case} 
+
+1.1.15 (Mar, 2024)
+------
+J7AHP CP Tracer support added
+
+1.1.14 (Mar, 2024)
+------
+J722S_AM67 (J7AEN) device support added
+
+1.1.12/13 (Dec, 2022)
+------
+J721S2_TDA4VL (J7_AEP) DPK files added to enable advanced features
+J721S2_TDA4VH (J7_AHP) DPK files added to enable advanced features
+J7ES_TDA4VM (J7ES) GEL update {DDR timings from v0.2 to v0.9.1}
+
+1.1.11 (Nov, 2022)
+------
+J721S2_TDA4VL (J7_AEP) register XML added, GEL update {HSM-M4, DDR tool.91, fix OBSCLK, C7halt, rm-dv-fixture}
+J721S2_TDA4VH (J7_AHP) register XML added, GEL update {fix OBSCLK, C7halt, rm-dv-fixture}
+J7ES_TDA4VM (J7ES) GEL update {OBSCLK}
+J7200_DRA821 (J7_VCL) GEL rm-dv-fixture
+
+1.1.10 (Oct, 2022)
+------
+J721S2_TDA4VL (J7_AEP) device support added
+J721S2_TDA4VH (J7_AHP) device support added
+
+1.1.9 (Sep, 2020)
+-----
+J7200_DRA821 (J7_VCL) device support added
+- Aligned with "J7200_DRA821_SR1.0_NDA_TRM_vInitial__draft"
+
+1.1.8 (Fev, 2020)
+-----
+DRA80xM Rev 2.0 device peripherals aligned with latest: (on Shared support package 1.1.6)
+ - AM65x_DRA80xM_Maxwell_Public_TRM_vE
+Aligned DRA80xM.xml device file with AM65x latest version
+Changed device XML filename from DM80xM.xml to DRA80xM.xml
+ - THIS BREAKS COMPATIBILITY WITH EXISTING CONFIGURATIONS
+Fixed CR/LF in GEL files
+
+1.1.7 (Fev, 2020)
+-----
+Fixed DBGTRC-5424 (Enable SL2 view for VPAC and DMPAC)
+   - Requires Emulation Software Package version 9.1.0.00001 or newer.
+
+1.1.6 (Jan, 2020)
+-----
+J721E registers/peripherals aligned with latest:
+   - J721E_DRA829_TDA4VM_AM752x_SR1.0_PUBLIC_TRM_vA
+
+1.1.5
+-----
+Changed DMSC_FLOW flag to enable DMSC firmware (J721E)
+
+1.1.4
+-----
+Added EVM_J721E Beta board GEL files
+
+1.1.3
+-----
+Added J721E/DRA829/TDA4VM support
+
+1.1.2
+-----
+Updated AM65x/DRA80xM GEL files (on Shared support package 1.1.3)
+
+1.1.1 (Jan, 2019)
+-----
+	- Removed common files between AM65x and DRA80xM. Moved to Shared Device support.
+
+1.1.0 (Nov, 2018)
+-----
+	- Fixed re-connect error in the DMSC M3 core of DRA80xM
+
+1.0.9 (Out, 2018)
+-----
+	- Updated DM80xM GEL files.
+
+1.0.8 (Out, 2018)
+-----
+	- DM80xM device support added.
+
+1.0.7 (Set, 2018)
+-----
+	- DRA79x device support added.
+	- Corrected filename on VIP1_TOP_LEVEL.xml for DRA74xP_75xP_76xP_77xP
+	- Removed duplicate "Trace STM" core on DM50x.xml
+	- Removed duplicate "Trace STM" core on TDA3x and DRA78x
+	- Corrected IPU base addresses for TDA3x/DRA78x/DM50x
+	- Updates part of Vision SDK 3.05 release:
+		- Added support for SMP mode on A15 and IPU (This contains xml file updates and GEL file updates)
+		- Added support for OPP_PLUS on TDA3x for DSP at 1 GHz and EVE at 900 MHz.
+		- Added support for IVA at 617 MHz on TDA2EE device
+		- Added support for speed grades on TDA2Ex.
+		- Added support for DSP at 1 GHz on TDA2, TDA2px and DRA7x.
+
+
+1.0.6 (Out, 2017)
+-----
+	- J6Plus (TDA2px and DRA76x) device support added.
+	- Bug fixes for bad lexical errors in XML files in J6eco, Vayu, TDA3.
+	- Bug Fixes for PRCM get configuration module addresses for TDA3x.
+	- Automatic CPU reset for EVE when connecting.
+
+
+Registers aligned with latest:
+	- TDA2x_SR2.0_SR1.x_Public_TRM_vC
+	- TDA2Ex_SR2.1_SR2.0_SR1.0_Public_TRM_vA
+	- TDA3x_SR2.0_SR1.0A_SR1.0_NDA_TRM_vN
+	- DRA75x_DRA74x_SR2.0_SR1.x_Public_TRM_vC
+	- DRA72x_SR2.0_SR1.0_DRA71x_SR2.1_SR2.0_Public_TRM_vB
+	- DRA78x_SR2.0_NDA_TRM_vA
+	- DM50x_SR2.0_Public_TRM_vInitial
+	- DRA77xP_76xP_75xP_74xP_SR1.0_Public_TRM_vInitial
+	- TDA2Px_SR1.0_Public_TRM_vInitial
+	
+	
+1.0.5 (Mar, 2017)
+-----
+DRA75x_DRA74x:
+	- Gel files updates for DPLL EVE configuration as per latest data manual.
+TDA2x:
+	- Gel files updates for DPLL EVE configuration as per latest data manual.
+
+Registers aligned with latest:
+	- TDA2x_SR2.0_SR1.x_Public_TRM_vC
+	- TDA2Ex_SR2.0_SR1.0_NDA_TRM_vS
+	- TDA3x_SR2.0_SR1.0A_SR1.0_NDA_TRM_vN
+	- DRA75x_DRA74x_SR2.0_SR1.x_Public_TRM_vC
+	- DRA72x_SR2.0_SR1.0_DRA71x_SR2.0_NDA_TRM_vS
+	- DRA78x_SR2.0_NDA_TRM_vA
+	- DM50x_SR2.0_Public_TRM_vInitial
+	
+
+1.0.4 (Dez, 2016)
+-----
+Added DM50x (Radar & Vision analytics Processors (RVP)) device support.
+Added DRA78x (Radio Sound Processor (RSP)) device support.
+
+1.0.3 (Out, 2016)
+-----
+
+	- Minor fixes for “device_type” prints
+	- Add EFUSE VPP enable script for TDA3x
+	- Updated AMMU table for VisionSDK configuration for TDA3x to match SBL.
+	- DDR configuration sequence update for TDA3x
+	- DRA71x behavior is same as before – points to DRA72x gels.
+
+
+1.0.2 (Ago, 2016)
+-----
+Added DRA71x device device support.
+
+Registers aligned with latest:
+	- TDA2x_SR2.0_SR1.x_NDA_TRM_vAD
+	- TDA2Ex_SR2.0_SR1.0_NDA_TRM_vS
+	- TDA3x_SR2.0_SR1.0A_SR1.0_NDA_TRM_vN
+	- DRA75x_DRA74x_SR2.0_SR1.x_NDA_TRM_vAD
+	- DRA72x_SR2.0_SR1.0_DRA71x_SR2.0_NDA_TRM_vS
+
+TDA2x:
+	-	RGMII half cycle delay for SR2.0
+	-	EVE MMU updates to add 0x4000_0000 and 0x4800_0000 pages
+	-	EVE MMU updates to add 0x4A00_0000 and 0x4200_0000 for IPCLIB examples
+TDA2Ex:
+	-	Force Ethernet pad-mux in OnTargetConnect in sync with starterware
+TDA3x:
+	- 	Added TDA3x SR2.0 device support
+	-	Added a flag for D3-RVP in DDR configuration
+	-	EVE MMU updates to add 0x4000_0000 and 0x4800_0000 pages
+	-	EVE MMU updates to add 0x4A00_0000 and 0x4200_0000 for IPCLIB examples
+	-	Adding PRCM enables for MCASP2/3 for SR2.0
+	-	Fix IPU MMU configuration to support SR2.0
+	-	LPDDR2 updates for DDR
+	-	PHY reset addition for DDR config as required by multiple EVM at customer sites.
+	-	Add I2C GEL to DAP startup to allow board-pin-mux via scripts
+	-	Added ISS XMLs to M4.
+
+
+1.0.1 (Abr, 2012)
+-----
+Added DRA75x_DRA74x and DRA72x devices.
+Aligned with latest DRA72x_SR2.0_SR1.0_NDA_TRM_vR and CCS_CSP _DRA75x_DRA74x_SR1.1_NDA_TRM_vAA
+
+1.0.0 (Fev, 2016)
+-----
+Initial public release
+
+
+

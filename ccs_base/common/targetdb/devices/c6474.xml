@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device id="TMS320C6474" partnum="TMS320C6474" HW_revision="1" XML_version="2" desc="TMS320C6474" description="3 C64x+ Cores&#xA;END OF SUPPORT NOTICE:&#xA; This device has no direct TI support and will be removed in a future release.">
+	<!-- Filter for Project Wizard -->
+	<property Type="stringfield" Value="C64xx Multicore DSP"   id="FilterString" />
+	<property Type="stringfield" Value="real time" id="Startup Mode" />
+	<instance href="../routers/icepick_c.xml" desc="ICEPICK_C" description="" id="device_1" isa="ICEPICK_C" xml="icepick_c.xml" xmlpath="../cpus/" />
+	<router HW_revision="" XML_version="1.2" desc="ICEPICK_C" description="" id="device_1" isa="ICEPICK_C">
+		<property Type="stringfield" Value="real time" id="Startup Mode" />
+		<subpath desc="Subpath_0" id="device_3">
+			<property Type="stringfield" Value="real time" id="Startup Mode" />
+			<property ID="subpath.address" Type="numericfield" Value="16" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance href="../cpus/c64xp.xml" desc="C64XP" description="" id="device_4" isa="TMS320C64XP" xml="c64xp.xml" xmlpath="../cpus/" />
+			<cpu HW_revision="" XML_version="1.2" desc="C64XP" description="" id="device_4" isa="TMS320C64XP">
+				<!-- Project Wizard Settings, only listed once for homogeneous multicore devices -->
+				<property Type="stringfield" Value="little" id="Endianness" />
+				<property Type="stringfield" Value="--silicon_version=64+ -D=c6474" id="CompilerBuildOptions" />
+				<property Type="stringfield" Value="--stack_size=0x800 --heap_size=0x800" id="LinkerBuildOptions" />
+				<property Type="stringfield" Value="C6474_unified.cmd" id="LinkerCmd" />
+				<property Type="stringfield" Value="8.0.0" id="EndCodegenVersion" />
+				<!-- End project wizard settigns -->
+				<instance href="../Modules/cslr_intc.xml" id="INTCGEM" xml="cslr_intc.xml" xmlpath="../Modules/" description="System Interrupt Controller " baseaddr="0x1800000" endaddr="0x180ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwrdwnPdc.xml" id="PDCGEM" xml="cslr_pwrdwnPdc.xml" xmlpath="../Modules/" description="System Power Down Controller" baseaddr="0x1810000" endaddr="0x1810fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_idma.xml" id="IDMAGEM" xml="cslr_idma.xml" xmlpath="../Modules/" description="Internal DMA" baseaddr="0x1820000" endaddr="0x18201ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_bwmngmt.xml" id="BWMNGMTGEM" xml="cslr_bwmngmt.xml" xmlpath="../Modules/" description="Bandwidth Management Module" baseaddr="0x1820200" endaddr="0x18202ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_config.xml" id="MEMPROT_CONFIGGEM" xml="cslr_memprot_config.xml" xmlpath="../Modules/" description="Memory Protection Configuration Registers" baseaddr="0x1820300" endaddr="0x182040f" size="0x110" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_cache.xml" id="CACHEGEM" xml="cslr_cache.xml" xmlpath="../Modules/" description="L1P, L1D &amp; L2 Cache Modules" baseaddr="0x1840000" endaddr="0x1845fff" size="0x6000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edc.xml" id="EDCGEM" xml="cslr_edc.xml" xmlpath="../Modules/" description="Error Detection and Correction" baseaddr="0x1846000" endaddr="0x1849fff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L2.xml" id="MEMPROT_L2GEM" xml="cslr_memprot_L2.xml" xmlpath="../Modules/" description="Memory Protection for L2" baseaddr="0x184a000" endaddr="0x184a3ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L1P.xml" id="MEMPROT_L1PGEM" xml="cslr_memprot_L1P.xml" xmlpath="../Modules/" description="Memory Protection for L1P" baseaddr="0x184a400" endaddr="0x184abff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L1D.xml" id="MEMPROT_L1DGEM" xml="cslr_memprot_L1D.xml" xmlpath="../Modules/" description="Memory Protection for L1D" baseaddr="0x184ac00" endaddr="0x184afff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwrdwnL2.xml" id="Power Down L2GEM" xml="cslr_pwrdwnL2.xml" xmlpath="../Modules/" description="L2 Power Down Registers " baseaddr="0x184c000" endaddr="0x184ffff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_fsync.xml" id="FSYNCGEM" xml="cslr_fsync.xml" xmlpath="../Modules/" description="Frame Sync" baseaddr="0x2800000" endaddr="0x28003ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF0GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880400" endaddr="0x2880403" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF1GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880404" endaddr="0x2880407" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF2GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880408" endaddr="0x288040b" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp.xml" id="MCBSP0GEM" xml="cslr_mcbsp.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x28c0000" endaddr="0x28c00ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp.xml" id="MCBSP1GEM" xml="cslr_mcbsp.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x28d0000" endaddr="0x28d00ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tpmgr.xml" id="TPMGRGEM" xml="cslr_tpmgr.xml" xmlpath="../Modules/" description="Timer Pin Manager Registers" baseaddr="0x2900000" endaddr="0x290003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR0GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2910000" endaddr="0x291003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR1GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2920000" endaddr="0x292003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR2GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2930000" endaddr="0x293003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR3GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2940000" endaddr="0x294003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR4GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2950000" endaddr="0x295003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR5GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2960000" endaddr="0x296003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc.xml" id="PLLC0GEM" xml="cslr_pllc.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x29a0000" endaddr="0x29a01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc.xml" id="PLLC1GEM" xml="cslr_pllc.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x29c0000" endaddr="0x29c01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3cc.xml" id="EDMA3CCGEM" xml="cslr_edma3cc.xml" xmlpath="../Modules/" description="3PCC" baseaddr="0x2a00000" endaddr="0x2a0ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC0GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a20000" endaddr="0x2a27fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC1GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a28000" endaddr="0x2a2ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC2GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a30000" endaddr="0x2a37fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC3GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a38000" endaddr="0x2a3ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC4GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a40000" endaddr="0x2a47fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC5GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a48000" endaddr="0x2a4ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_psc.xml" id="PSCGEM" xml="cslr_psc.xml" xmlpath="../Modules/" description="PSC Registers" baseaddr="0x2ac0000" endaddr="0x2ac0fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_gpio.xml" id="GPIOGEM" xml="cslr_gpio.xml" xmlpath="../Modules/" description="GPIO Registers" baseaddr="0x2b00000" endaddr="0x2b000ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_i2c.xml" id="I2CGEM" xml="cslr_i2c.xml" xmlpath="../Modules/" description="I2C" baseaddr="0x2b04000" endaddr="0x2b0407f" size="0x80" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sem.xml" id="SEMGEM" xml="cslr_sem.xml" xmlpath="../Modules/" description="Semaphore" baseaddr="0x2b40000" endaddr="0x2b407ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vcp2_config_bus.xml" id="VCP2GEM" xml="cslr_vcp2_config_bus.xml" xmlpath="../Modules/" description="VCP2" baseaddr="0x2b80000" endaddr="0x2b801ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vcp2_edma_bus.xml" id="VCP2_DATAGEM" xml="cslr_vcp2_edma_bus.xml" xmlpath="../Modules/" description="VCP2 Data Registers" baseaddr="0x58000000" endaddr="0x5fffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tcp2_config_bus.xml" id="TCP2GEM" xml="cslr_tcp2_config_bus.xml" xmlpath="../Modules/" description="TCP2" baseaddr="0x2ba0000" endaddr="0x2ba01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tcp2_edma_bus.xml" id="TCP2_DATAGEM" xml="cslr_tcp2_edma_bus.xml" xmlpath="../Modules/" description="TCP2 Data Registers" baseaddr="0x50000000" endaddr="0x57ffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_aif.xml" id="AIFGEM" xml="cslr_aif.xml" xmlpath="../Modules/" description="Antenna Interface" baseaddr="0x2bc0000" endaddr="0x2bfffff" size="0x40000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sgmii.xml" id="SGMIIGEM" xml="cslr_sgmii.xml" xmlpath="../Modules/" description="SGMII Gasket" baseaddr="0x2c40000" endaddr="0x2c400ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_emac.xml" id="EMACGEM" xml="cslr_emac.xml" xmlpath="../Modules/" description="EMAC" baseaddr="0x2c80000" endaddr="0x2c807ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ectl.xml" id="ECTLGEM" xml="cslr_ectl.xml" xmlpath="../Modules/" description="EMAC Wrapper Control" baseaddr="0x2c81000" endaddr="0x2c817ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mdio.xml" id="MDIOGEM" xml="cslr_mdio.xml" xmlpath="../Modules/" description="MDIO" baseaddr="0x2c81800" endaddr="0x2c81fff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_srio.xml" id="SRIOGEM" xml="cslr_srio.xml" xmlpath="../Modules/" description="Rapid IO" baseaddr="0x2d00000" endaddr="0x2d3ffff" size="0x40000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ddr2.xml" id="DDR2GEM" xml="cslr_ddr2.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" baseaddr="0x70000000" endaddr="0x700000ff" size="0x100" accessnumbytes="4" permissions="p" />
+			</cpu>
+		</subpath>
+		<subpath desc="Subpath_1" id="device_5">
+			<property Type="stringfield" Value="real time" id="Startup Mode" />
+			<property ID="subpath.address" Type="numericfield" Value="17" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance href="../cpus/c64xp.xml" desc="C64XP_1" description="" id="device_6" isa="TMS320C64XP" xml="c64xp.xml" xmlpath="../cpus/" />
+			<cpu HW_revision="" XML_version="1.2" desc="C64XP_1" description="" id="device_6" isa="TMS320C64XP">
+				<instance href="../Modules/cslr_intc.xml" id="INTCGEM" xml="cslr_intc.xml" xmlpath="../Modules/" description="System Interrupt Controller " baseaddr="0x1800000" endaddr="0x180ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwrdwnPdc.xml" id="PDCGEM" xml="cslr_pwrdwnPdc.xml" xmlpath="../Modules/" description="System Power Down Controller" baseaddr="0x1810000" endaddr="0x1810fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_idma.xml" id="IDMAGEM" xml="cslr_idma.xml" xmlpath="../Modules/" description="Internal DMA" baseaddr="0x1820000" endaddr="0x18201ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_bwmngmt.xml" id="BWMNGMTGEM" xml="cslr_bwmngmt.xml" xmlpath="../Modules/" description="Bandwidth Management Module" baseaddr="0x1820200" endaddr="0x18202ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_config.xml" id="MEMPROT_CONFIGGEM" xml="cslr_memprot_config.xml" xmlpath="../Modules/" description="Memory Protection Configuration Registers" baseaddr="0x1820300" endaddr="0x182040f" size="0x110" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_cache.xml" id="CACHEGEM" xml="cslr_cache.xml" xmlpath="../Modules/" description="L1P, L1D &amp; L2 Cache Modules" baseaddr="0x1840000" endaddr="0x1845fff" size="0x6000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edc.xml" id="EDCGEM" xml="cslr_edc.xml" xmlpath="../Modules/" description="Error Detection and Correction" baseaddr="0x1846000" endaddr="0x1849fff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L2.xml" id="MEMPROT_L2GEM" xml="cslr_memprot_L2.xml" xmlpath="../Modules/" description="Memory Protection for L2" baseaddr="0x184a000" endaddr="0x184a3ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L1P.xml" id="MEMPROT_L1PGEM" xml="cslr_memprot_L1P.xml" xmlpath="../Modules/" description="Memory Protection for L1P" baseaddr="0x184a400" endaddr="0x184abff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L1D.xml" id="MEMPROT_L1DGEM" xml="cslr_memprot_L1D.xml" xmlpath="../Modules/" description="Memory Protection for L1D" baseaddr="0x184ac00" endaddr="0x184afff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwrdwnL2.xml" id="Power Down L2GEM" xml="cslr_pwrdwnL2.xml" xmlpath="../Modules/" description="L2 Power Down Registers " baseaddr="0x184c000" endaddr="0x184ffff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_fsync.xml" id="FSYNCGEM" xml="cslr_fsync.xml" xmlpath="../Modules/" description="Frame Sync" baseaddr="0x2800000" endaddr="0x28003ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF0GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880400" endaddr="0x2880403" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF1GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880404" endaddr="0x2880407" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF2GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880408" endaddr="0x288040b" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp.xml" id="MCBSP0GEM" xml="cslr_mcbsp.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x28c0000" endaddr="0x28c00ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp.xml" id="MCBSP1GEM" xml="cslr_mcbsp.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x28d0000" endaddr="0x28d00ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tpmgr.xml" id="TPMGRGEM" xml="cslr_tpmgr.xml" xmlpath="../Modules/" description="Timer Pin Manager Registers" baseaddr="0x2900000" endaddr="0x290003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR0GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2910000" endaddr="0x291003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR1GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2920000" endaddr="0x292003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR2GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2930000" endaddr="0x293003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR3GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2940000" endaddr="0x294003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR4GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2950000" endaddr="0x295003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR5GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2960000" endaddr="0x296003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc.xml" id="PLLC0GEM" xml="cslr_pllc.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x29a0000" endaddr="0x29a01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc.xml" id="PLLC1GEM" xml="cslr_pllc.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x29c0000" endaddr="0x29c01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3cc.xml" id="EDMA3CCGEM" xml="cslr_edma3cc.xml" xmlpath="../Modules/" description="3PCC" baseaddr="0x2a00000" endaddr="0x2a0ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC0GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a20000" endaddr="0x2a27fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC1GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a28000" endaddr="0x2a2ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC2GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a30000" endaddr="0x2a37fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC3GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a38000" endaddr="0x2a3ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC4GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a40000" endaddr="0x2a47fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC5GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a48000" endaddr="0x2a4ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_psc.xml" id="PSCGEM" xml="cslr_psc.xml" xmlpath="../Modules/" description="PSC Registers" baseaddr="0x2ac0000" endaddr="0x2ac0fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_gpio.xml" id="GPIOGEM" xml="cslr_gpio.xml" xmlpath="../Modules/" description="GPIO Registers" baseaddr="0x2b00000" endaddr="0x2b000ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_i2c.xml" id="I2CGEM" xml="cslr_i2c.xml" xmlpath="../Modules/" description="I2C" baseaddr="0x2b04000" endaddr="0x2b0407f" size="0x80" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sem.xml" id="SEMGEM" xml="cslr_sem.xml" xmlpath="../Modules/" description="Semaphore" baseaddr="0x2b40000" endaddr="0x2b407ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vcp2_config_bus.xml" id="VCP2GEM" xml="cslr_vcp2_config_bus.xml" xmlpath="../Modules/" description="VCP2" baseaddr="0x2b80000" endaddr="0x2b801ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vcp2_edma_bus.xml" id="VCP2_DATAGEM" xml="cslr_vcp2_edma_bus.xml" xmlpath="../Modules/" description="VCP2 Data Registers" baseaddr="0x58000000" endaddr="0x5fffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tcp2_config_bus.xml" id="TCP2GEM" xml="cslr_tcp2_config_bus.xml" xmlpath="../Modules/" description="TCP2" baseaddr="0x2ba0000" endaddr="0x2ba01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tcp2_edma_bus.xml" id="TCP2_DATAGEM" xml="cslr_tcp2_edma_bus.xml" xmlpath="../Modules/" description="TCP2 Data Registers" baseaddr="0x50000000" endaddr="0x57ffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_aif.xml" id="AIFGEM" xml="cslr_aif.xml" xmlpath="../Modules/" description="Antenna Interface" baseaddr="0x2bc0000" endaddr="0x2bfffff" size="0x40000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sgmii.xml" id="SGMIIGEM" xml="cslr_sgmii.xml" xmlpath="../Modules/" description="SGMII Gasket" baseaddr="0x2c40000" endaddr="0x2c400ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_emac.xml" id="EMACGEM" xml="cslr_emac.xml" xmlpath="../Modules/" description="EMAC" baseaddr="0x2c80000" endaddr="0x2c807ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ectl.xml" id="ECTLGEM" xml="cslr_ectl.xml" xmlpath="../Modules/" description="EMAC Wrapper Control" baseaddr="0x2c81000" endaddr="0x2c817ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mdio.xml" id="MDIOGEM" xml="cslr_mdio.xml" xmlpath="../Modules/" description="MDIO" baseaddr="0x2c81800" endaddr="0x2c81fff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_srio.xml" id="SRIOGEM" xml="cslr_srio.xml" xmlpath="../Modules/" description="Rapid IO" baseaddr="0x2d00000" endaddr="0x2d3ffff" size="0x40000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ddr2.xml" id="DDR2GEM" xml="cslr_ddr2.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" baseaddr="0x70000000" endaddr="0x700000ff" size="0x100" accessnumbytes="4" permissions="p" />
+			</cpu>
+		</subpath>
+		<subpath desc="Subpath_2" id="device_7">
+			<property Type="stringfield" Value="real time" id="Startup Mode" />
+			<property ID="subpath.address" Type="numericfield" Value="18" id="Port Number" />
+			<property Type="choicelist" Value="1" id="Initial Configuration" />
+			<property Type="choicelist" Value="1" id="Custom Configuration" />
+			<property Type="choicelist" Value="0" id="Force Configuration" />
+			<instance href="../cpus/c64xp.xml" desc="C64XP_2" description="" id="device_8" isa="TMS320C64XP" xml="c64xp.xml" xmlpath="../cpus/" />
+			<cpu HW_revision="" XML_version="1.2" desc="C64XP_2" description="" id="device_8" isa="TMS320C64XP">
+				<instance href="../Modules/cslr_intc.xml" id="INTCGEM" xml="cslr_intc.xml" xmlpath="../Modules/" description="System Interrupt Controller " baseaddr="0x1800000" endaddr="0x180ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwrdwnPdc.xml" id="PDCGEM" xml="cslr_pwrdwnPdc.xml" xmlpath="../Modules/" description="System Power Down Controller" baseaddr="0x1810000" endaddr="0x1810fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_idma.xml" id="IDMAGEM" xml="cslr_idma.xml" xmlpath="../Modules/" description="Internal DMA" baseaddr="0x1820000" endaddr="0x18201ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_bwmngmt.xml" id="BWMNGMTGEM" xml="cslr_bwmngmt.xml" xmlpath="../Modules/" description="Bandwidth Management Module" baseaddr="0x1820200" endaddr="0x18202ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_config.xml" id="MEMPROT_CONFIGGEM" xml="cslr_memprot_config.xml" xmlpath="../Modules/" description="Memory Protection Configuration Registers" baseaddr="0x1820300" endaddr="0x182040f" size="0x110" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_cache.xml" id="CACHEGEM" xml="cslr_cache.xml" xmlpath="../Modules/" description="L1P, L1D &amp; L2 Cache Modules" baseaddr="0x1840000" endaddr="0x1845fff" size="0x6000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edc.xml" id="EDCGEM" xml="cslr_edc.xml" xmlpath="../Modules/" description="Error Detection and Correction" baseaddr="0x1846000" endaddr="0x1849fff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L2.xml" id="MEMPROT_L2GEM" xml="cslr_memprot_L2.xml" xmlpath="../Modules/" description="Memory Protection for L2" baseaddr="0x184a000" endaddr="0x184a3ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L1P.xml" id="MEMPROT_L1PGEM" xml="cslr_memprot_L1P.xml" xmlpath="../Modules/" description="Memory Protection for L1P" baseaddr="0x184a400" endaddr="0x184abff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_memprot_L1D.xml" id="MEMPROT_L1DGEM" xml="cslr_memprot_L1D.xml" xmlpath="../Modules/" description="Memory Protection for L1D" baseaddr="0x184ac00" endaddr="0x184afff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pwrdwnL2.xml" id="Power Down L2GEM" xml="cslr_pwrdwnL2.xml" xmlpath="../Modules/" description="L2 Power Down Registers " baseaddr="0x184c000" endaddr="0x184ffff" size="0x4000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_fsync.xml" id="FSYNCGEM" xml="cslr_fsync.xml" xmlpath="../Modules/" description="Frame Sync" baseaddr="0x2800000" endaddr="0x28003ff" size="0x400" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF0GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880400" endaddr="0x2880403" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF1GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880404" endaddr="0x2880407" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_dtf.xml" id="DTF2GEM" xml="cslr_dtf.xml" xmlpath="../Modules/" description="DTF" baseaddr="0x2880408" endaddr="0x288040b" size="0x4" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp.xml" id="MCBSP0GEM" xml="cslr_mcbsp.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x28c0000" endaddr="0x28c00ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mcbsp.xml" id="MCBSP1GEM" xml="cslr_mcbsp.xml" xmlpath="../Modules/" description="McBSP" baseaddr="0x28d0000" endaddr="0x28d00ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tpmgr.xml" id="TPMGRGEM" xml="cslr_tpmgr.xml" xmlpath="../Modules/" description="Timer Pin Manager Registers" baseaddr="0x2900000" endaddr="0x290003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR0GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2910000" endaddr="0x291003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR1GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2920000" endaddr="0x292003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR2GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2930000" endaddr="0x293003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR3GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2940000" endaddr="0x294003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR4GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2950000" endaddr="0x295003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tmr.xml" id="TMR5GEM" xml="cslr_tmr.xml" xmlpath="../Modules/" description="TIMER" baseaddr="0x2960000" endaddr="0x296003f" size="0x40" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc.xml" id="PLLC0GEM" xml="cslr_pllc.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x29a0000" endaddr="0x29a01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_pllc.xml" id="PLLC1GEM" xml="cslr_pllc.xml" xmlpath="../Modules/" description="PLL Controller" baseaddr="0x29c0000" endaddr="0x29c01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3cc.xml" id="EDMA3CCGEM" xml="cslr_edma3cc.xml" xmlpath="../Modules/" description="3PCC" baseaddr="0x2a00000" endaddr="0x2a0ffff" size="0x10000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC0GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a20000" endaddr="0x2a27fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC1GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a28000" endaddr="0x2a2ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC2GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a30000" endaddr="0x2a37fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC3GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a38000" endaddr="0x2a3ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC4GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a40000" endaddr="0x2a47fff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_edma3tc.xml" id="EDMA3TC5GEM" xml="cslr_edma3tc.xml" xmlpath="../Modules/" description="3PTC0" baseaddr="0x2a48000" endaddr="0x2a4ffff" size="0x8000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_psc.xml" id="PSCGEM" xml="cslr_psc.xml" xmlpath="../Modules/" description="PSC Registers" baseaddr="0x2ac0000" endaddr="0x2ac0fff" size="0x1000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_gpio.xml" id="GPIOGEM" xml="cslr_gpio.xml" xmlpath="../Modules/" description="GPIO Registers" baseaddr="0x2b00000" endaddr="0x2b000ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_i2c.xml" id="I2CGEM" xml="cslr_i2c.xml" xmlpath="../Modules/" description="I2C" baseaddr="0x2b04000" endaddr="0x2b0407f" size="0x80" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sem.xml" id="SEMGEM" xml="cslr_sem.xml" xmlpath="../Modules/" description="Semaphore" baseaddr="0x2b40000" endaddr="0x2b407ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vcp2_config_bus.xml" id="VCP2GEM" xml="cslr_vcp2_config_bus.xml" xmlpath="../Modules/" description="VCP2" baseaddr="0x2b80000" endaddr="0x2b801ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_vcp2_edma_bus.xml" id="VCP2_DATAGEM" xml="cslr_vcp2_edma_bus.xml" xmlpath="../Modules/" description="VCP2 Data Registers" baseaddr="0x58000000" endaddr="0x5fffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tcp2_config_bus.xml" id="TCP2GEM" xml="cslr_tcp2_config_bus.xml" xmlpath="../Modules/" description="TCP2" baseaddr="0x2ba0000" endaddr="0x2ba01ff" size="0x200" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_tcp2_edma_bus.xml" id="TCP2_DATAGEM" xml="cslr_tcp2_edma_bus.xml" xmlpath="../Modules/" description="TCP2 Data Registers" baseaddr="0x50000000" endaddr="0x57ffffff" size="0x8000000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_aif.xml" id="AIFGEM" xml="cslr_aif.xml" xmlpath="../Modules/" description="Antenna Interface" baseaddr="0x2bc0000" endaddr="0x2bfffff" size="0x40000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_sgmii.xml" id="SGMIIGEM" xml="cslr_sgmii.xml" xmlpath="../Modules/" description="SGMII Gasket" baseaddr="0x2c40000" endaddr="0x2c400ff" size="0x100" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_emac.xml" id="EMACGEM" xml="cslr_emac.xml" xmlpath="../Modules/" description="EMAC" baseaddr="0x2c80000" endaddr="0x2c807ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ectl.xml" id="ECTLGEM" xml="cslr_ectl.xml" xmlpath="../Modules/" description="EMAC Wrapper Control" baseaddr="0x2c81000" endaddr="0x2c817ff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_mdio.xml" id="MDIOGEM" xml="cslr_mdio.xml" xmlpath="../Modules/" description="MDIO" baseaddr="0x2c81800" endaddr="0x2c81fff" size="0x800" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_srio.xml" id="SRIOGEM" xml="cslr_srio.xml" xmlpath="../Modules/" description="Rapid IO" baseaddr="0x2d00000" endaddr="0x2d3ffff" size="0x40000" accessnumbytes="4" permissions="p" />
+				<instance href="../Modules/cslr_ddr2.xml" id="DDR2GEM" xml="cslr_ddr2.xml" xmlpath="../Modules/" description="DDR2 EMIF CTRL" baseaddr="0x70000000" endaddr="0x700000ff" size="0x100" accessnumbytes="4" permissions="p" />
+			</cpu>
+		</subpath>
+	</router>
+</device>

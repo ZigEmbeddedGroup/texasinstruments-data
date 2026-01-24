@@ -1,0 +1,23 @@
+/*******************************************************************/ 
+/* This GEL file is loaded on the command line of Code Composer    */
+/* The StartUp() function is called every time you start           */
+/* Code Composer.  You can customize this function to              */
+/* initialize wait states or to perform other initialization.      */
+/*                                                                 */
+/* DM50x Cortex M4 IPU                                            */
+/*                                                                 */
+/*                                                                 */
+/*******************************************************************/
+
+StartUp()
+{
+    /*------------------ Load Common Gel Files -------------------*/
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_startup_common.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_prcm_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_multicore_reset.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_emif_macros.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_ddr_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_pad_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_i2c.gel");
+    GEL_LoadGel("$(GEL_file_dir)//DM50x_PRCM_Get_Config.gel");
+}

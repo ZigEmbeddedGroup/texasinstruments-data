@@ -1,0 +1,35 @@
+<module name="mcan" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="mcan_PID" acronym="mcan_PID" offset="0" width="32" description="The Revision Register contains the major and minor revisions for the module.">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="Scheme   Reset Source: hsrst_n" range="31:30" rwaccess="R"/>
+	<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Business Unit 2h     Processors" range="29:28" rwaccess="R"/>
+	<bitfield id="MODULE_ID" width="12" begin="27" end="16" resetval="0x2272" description="Module ID   Reset Source: hsrst_n" range="27:16" rwaccess="R"/>
+	<bitfield id="RTL" width="5" begin="15" end="11" resetval="0x11" description="RTL Revision   Reset Source: hsrst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="MAJOR" width="3" begin="10" end="8" resetval="0x1" description="Major Revision   Reset Source: hsrst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom   Reset Source: hsrst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="MINOR" width="6" begin="5" end="0" resetval="0x1" description="Minor Revision   Reset Source: hsrst_n" range="5:0" rwaccess="R"/>
+	</register><register id="mcan_CTRL" acronym="mcan_CTRL" offset="4" width="32" description="The Control Register contains general control bits for the MCANSS">
+		<bitfield id="EXT_TS_CNTR_EN" width="1" begin="6" end="6" resetval="0x0" description="External Timestamp Counter Enable   Reset Source: hsrst_n" range="6" rwaccess="R/W"/>
+	<bitfield id="AUTOWAKEUP" width="1" begin="5" end="5" resetval="0x0" description="Automatic Wakeup Enable   Reset Source: hsrst_n" range="5" rwaccess="R/W"/>
+	<bitfield id="WAKEUPREQEN" width="1" begin="4" end="4" resetval="0x0" description="Wakeup Request Enable   Reset Source: hsrst_n" range="4" rwaccess="R/W"/>
+	<bitfield id="DBGSUSP_FREE" width="1" begin="3" end="3" resetval="0x1" description="Debug Suspend 0h     Honor debug suspend1h     Disregard debug suspend" range="3" rwaccess="R/W"/>
+	</register><register id="mcan_STAT" acronym="mcan_STAT" offset="8" width="32" description="The Status register provide general status bits for the MCANSS">
+		<bitfield id="ENABLE_FDOE" width="1" begin="2" end="2" resetval="0x0" description="Enable FD (Flexible Data-Rate) ConfigurationReflects the value of mcanss_enable_fdoe configuration port,  xh     mcanss_enable_fdoe." range="2" rwaccess="R"/>
+	<bitfield id="MEM_INIT_DONE" width="1" begin="1" end="1" resetval="0x0" description="Memory Initialization 0h     Memory initialization is in progress1h     Memory intialization done" range="1" rwaccess="R"/>
+	</register><register id="mcan_ICS" acronym="mcan_ICS" offset="12" width="32" description="Write to clear interrupt bits">
+		<bitfield id="EXT_TS_CNTR_OVFL" width="1" begin="0" end="0" resetval="0x0" description="External Timestamp Counter Overflow Interrupt Status Write 1h to clear bits.   Reset Source: hsrst_n" range="0" rwaccess="W"/>
+	</register><register id="mcan_IRS" acronym="mcan_IRS" offset="16" width="32" description="Read raw interrupt status. Write '1' to set interrupt bits.">
+		<bitfield id="EXT_TS_CNTR_OVFL" width="1" begin="0" end="0" resetval="0x0" description="External Timestamp Counter Overflow Interrupt Status Write 1h to set bits.   Reset Source: hsrst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="mcan_IECS" acronym="mcan_IECS" offset="20" width="32" description="Write to clear interrupt enable bits">
+		<bitfield id="EXT_TS_CNTR_OVFL" width="1" begin="0" end="0" resetval="0x0" description="External Timestamp Counter Overflow Interrupt Write 1h to clear bits.   Reset Source: hsrst_n" range="0" rwaccess="W1TC"/>
+	</register><register id="mcan_IE" acronym="mcan_IE" offset="24" width="32" description="Read interrupt Enable">
+		<bitfield id="EXT_TS_CNTR_OVFL" width="1" begin="0" end="0" resetval="0x0" description="External Timestamp Counter Overflow Interrupt Write 1h to set bits.   Reset Source: hsrst_n" range="0" rwaccess="R/W1TS"/>
+	</register><register id="mcan_IES" acronym="mcan_IES" offset="28" width="32" description="Read Enabled Interrupts">
+		<bitfield id="EXT_TS_CNTR_OVFL" width="1" begin="0" end="0" resetval="0x0" description="External Timestamp Counter Overflow Interrupt   Reset Source: hsrst_n" range="0" rwaccess="R"/>
+	</register><register id="mcan_EOI" acronym="mcan_EOI" offset="32" width="32" description="End of Interrupt Register">
+		<bitfield id="EOI" width="8" begin="7" end="0" resetval="0x0" description="End Of Interrupt Write with bit position of the targeted interrupt (example: external timestamp is bit 0). Upon write, level interrupt will clear and if unserviced interrupt counter > 1h will issue another pulse interrupt. 0h     EOI value for external timestamp interrupt1h     EOI value for mcan[0] interrupt2h     EOI value for mcan[1] interrupt" range="7:0" rwaccess="W"/>
+	</register><register id="mcan_EXT_TS_PRESCALER" acronym="mcan_EXT_TS_PRESCALER" offset="36" width="32" description="External TImeStamp PreScaler">
+		<bitfield id="PRESCALER" width="24" begin="23" end="0" resetval="0x0" description="External Timestamp Prescaler Reload Value External timestamp count rate is host clock rate divided by this value with one exception - a value of 0h has the same effect as 1h.   Reset Source: hsrst_n" range="23:0" rwaccess="R/W"/>
+	</register><register id="mcan_EXT_TS_UNSERVICED_INTR_CNTR" acronym="mcan_EXT_TS_UNSERVICED_INTR_CNTR" offset="40" width="32" description="External TImeStamp Unserviced Interrupts Counter">
+		<bitfield id="EXT_TS_INTR_CNTR" width="5" begin="4" end="0" resetval="0x0" description="Number of Unserviced Rollover Interrupts If > 1h an EOI write will issue another pulse interrupt.   Reset Source: hsrst_n" range="4:0" rwaccess="R"/>
+	</register>
+</module>

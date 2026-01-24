@@ -1,0 +1,62 @@
+<module name="DEBUGSS_WRAP0_AXIAP1" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="AXIAP_CFG_1_CSWREG" acronym="AXIAP_CFG_1_CSWREG" offset="0x0" width="32" description="This is the control/status register">
+		<bitfield id="DBGSWEN" width="1" begin="31" end="31" resetval="0x0" description="Indicates whether accesses should treated as application or debug" range="31" rwaccess="R/W"/> 
+		<bitfield id="TYPEEXT" width="7" begin="30" end="24" resetval="0x0" description="" range="30 - 24" rwaccess="R/W"/> 
+		<bitfield id="SPIDEN" width="1" begin="23" end="23" resetval="0x0" description="When 1, secure accesses are enabled" range="23" rwaccess="R"/> 
+		<bitfield id="RESERVED2" width="7" begin="22" end="16" resetval="0x0" description="Reserved, reads return 0" range="22 - 16" rwaccess="R"/> 
+		<bitfield id="TYPE" width="4" begin="15" end="12" resetval="0x0" description="Sets Prot, Type attributes for the access" range="15 - 12" rwaccess="R/W"/> 
+		<bitfield id="MODE" width="4" begin="11" end="8" resetval="0x0" description="Sets mode of operation 0000=basic, 0001=Barrier extensions, all other values reserved" range="11 - 8" rwaccess="R/W"/> 
+		<bitfield id="TRINPROG" width="1" begin="7" end="7" resetval="0x0" description="This bit is set to 1 while a transfer is in progress on the connection to the memory system, and is set to 0 while the connection is idle" range="7" rwaccess="R"/> 
+		<bitfield id="RESERVED1" width="1" begin="6" end="6" resetval="0x0" description="This bit is reserved and reads return 0" range="6" rwaccess="R"/> 
+		<bitfield id="ADDR_INC" width="2" begin="5" end="4" resetval="0x0" description="Address Auto Increment and packing mode" range="5 - 4" rwaccess="R/W"/> 
+		<bitfield id="RESERVED0" width="1" begin="3" end="3" resetval="0x0" description="reserved, returns 0" range="3" rwaccess="R"/> 
+		<bitfield id="SIZE" width="3" begin="2" end="0" resetval="0x0" description="This specifies the size of the access For this implementation, the access is always 32 bits [010]" range="2 - 0" rwaccess="R"/>
+	</register>
+	<register id="AXIAP_CFG_1_TAREGL" acronym="AXIAP_CFG_1_TAREGL" offset="0x4" width="32" description="This register contains the lower 32-bits of address to write to or read from.">
+		<bitfield id="TAL" width="32" begin="31" end="0" resetval="0x0" description="This register contains the lower 32-bits of address" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_TAREGH" acronym="AXIAP_CFG_1_TAREGH" offset="0x8" width="32" description="This register contains the upper 32-bits of address to write to or read from.">
+		<bitfield id="TAH" width="32" begin="31" end="0" resetval="0x0" description="This register contains the upper 32-bits of address" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_DRWREG" acronym="AXIAP_CFG_1_DRWREG" offset="0xC" width="32" description="This register is used to write data to the TA location or read it back from the TA location.">
+		<bitfield id="DATA_READ_WRITE_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to read or write data" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_BD0REG" acronym="AXIAP_CFG_1_BD0REG" offset="0x10" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_0_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_BD1REG" acronym="AXIAP_CFG_1_BD1REG" offset="0x14" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_1_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_BD2REG" acronym="AXIAP_CFG_1_BD2REG" offset="0x18" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_2_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_BD3REG" acronym="AXIAP_CFG_1_BD3REG" offset="0x1C" width="32" description="This register is used to transfer data when doing banked data operations.">
+		<bitfield id="BANKED_DATA_3_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register is used to transfer data when doing banked data operations" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_MBT_Register" acronym="AXIAP_CFG_1_MBT_Register" offset="0x20" width="32" description="This register sets memory barrier attributes">
+		<bitfield id="MEMORY_BARRIER_TRANSFER_REGISTER" width="32" begin="31" end="0" resetval="0x0" description="This register sets memory barrier attributes" range="31 - 0" rwaccess="R/W"/>
+	</register>
+	<register id="AXIAP_CFG_1_ROM_Hi_Register" acronym="AXIAP_CFG_1_ROM_Hi_Register" offset="0xF0" width="32" description="Reading this register returns the AXI ROM Address (63-32).">
+		<bitfield id="ROM_HI_REGISTER_ADDRESS" width="32" begin="31" end="0" resetval="0x0" description="Reading this register returns the upper ROM Address" range="31 - 0" rwaccess="R"/>
+	</register>
+	<register id="AXIAP_CFG_1_CFG_Register" acronym="AXIAP_CFG_1_CFG_Register" offset="0xF4" width="32" description="The CFG register provides information about how the MEM-AP implementation is configured.">
+		<bitfield id="RESERVED" width="29" begin="31" end="3" resetval="0x0" description="Reserved bit, return 0" range="31 - 3" rwaccess="R"/> 
+		<bitfield id="LD" width="1" begin="2" end="2" resetval="0x0" description="This bit indicates whether the MEM-AP implementation includes the Large Data Extension, that provides support for data items larger than 32-bits, it is 0" range="2" rwaccess="R"/> 
+		<bitfield id="LA" width="1" begin="1" end="1" resetval="0x0" description="This bit indicates whether the MEM-AP implementation includes the Large Physical Address Extension, that supports physical addresses of more than 32-bits:" range="1" rwaccess="R"/> 
+		<bitfield id="BE" width="1" begin="0" end="0" resetval="0x0" description="ADIv52 obsoletes support for big-endian MEM-AP, and this bit must RAZ" range="0" rwaccess="R"/>
+	</register>
+	<register id="AXIAP_CFG_1_ROM_Lo_Register" acronym="AXIAP_CFG_1_ROM_Lo_Register" offset="0xF8" width="32" description="Reading this register returns the AXI ROM Address (31:12) .">
+		<bitfield id="LOWBASE" width="20" begin="31" end="12" resetval="0x0" description="Bits 31:12 of the base address" range="31 - 12" rwaccess="R"/> 
+		<bitfield id="RESERVED" width="10" begin="11" end="2" resetval="0x0" description="Reserved, returns 0" range="11 - 2" rwaccess="R"/> 
+		<bitfield id="FORMAT" width="1" begin="1" end="1" resetval="0x0" description="Base address register format [0]" range="1" rwaccess="R"/> 
+		<bitfield id="PRESENT" width="1" begin="0" end="0" resetval="0x0" description="This field indicates whether a debug entry is present for this MEM-AP: 0 No debug entry present 1 Debug entry present" range="0" rwaccess="R"/>
+	</register>
+	<register id="AXIAP_CFG_1_ID_Register" acronym="AXIAP_CFG_1_ID_Register" offset="0xFC" width="32" description="Reading this register returns the ID information for this AP.">
+		<bitfield id="REVISION" width="4" begin="31" end="28" resetval="0x0" description="Device Revision [4]" range="31 - 28" rwaccess="R"/> 
+		<bitfield id="JEP_CODE" width="11" begin="27" end="17" resetval="0x0" description="Device JEP Code [0x23B]" range="27 - 17" rwaccess="R"/> 
+		<bitfield id="CLASS" width="1" begin="16" end="16" resetval="0x0" description="Device Class[1] [a memory access port]" range="16" rwaccess="R"/> 
+		<bitfield id="SPARE" width="8" begin="15" end="8" resetval="0x0" description="Spare, returns 0" range="15 - 8" rwaccess="R"/> 
+		<bitfield id="VARIANT" width="4" begin="7" end="4" resetval="0x0" description="Device Variant [0]" range="7 - 4" rwaccess="R"/> 
+		<bitfield id="TYPE" width="4" begin="3" end="0" resetval="0x0" description="Device Type: 0=JTAG, 1=AHB, 2=APB, 4=AXI [4]" range="3 - 0" rwaccess="R"/>
+	</register>
+</module>

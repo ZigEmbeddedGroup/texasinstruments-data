@@ -1,0 +1,1701 @@
+/********************************************************************/
+/*                                                                  */
+/* This GEL file is to be used with the f29h85x devices  .          */
+/* Changes may be required to support specific hardware designs.    */
+/*                                                                  */
+/* Code Composer Studio supports six reserved GEL functions that    */
+/* automatically get executed if they are defined. They are:        */
+/*                                                                  */
+/* StartUp()              - Executed whenever CCS is invoked        */
+/* OnReset()              - Executed after Debug->Reset CPU         */
+/* OnRestart()            - Executed after Debug->Restart           */
+/* OnPreFileLoaded()      - Executed before File->Load Program      */
+/* OnFileLoaded()         - Executed after File->Load Program       */
+/* OnTargetConnect()      - Executed after Debug->Connect           */
+/*                                                                  */
+/********************************************************************/
+
+#define TIMER_RESET_FREERUN     1
+
+StartUp()
+{
+}
+
+OnPreReset(int resetIndex)
+{
+    int apCnt;
+
+    'REG'::DevCfgRegs.SOC_SECURE_BOOT_INFO_REG6 = 0xA1B2C3D4;
+    //
+    //  Disable FRI prefetch only if REVID is less than 3
+    //
+    if('REG'::DevCfgRegs.REVID.REVID < 3)
+    {
+        if('REG'::SsuGenRegs.CPUID.CPUID == 1)
+        {
+            'REG'::Fri1Regs.FRI1_INTF_CTRL.PREFETCH_EN = 0;
+        }
+
+        if('REG'::SsuGenRegs.CPUID.CPUID == 3)
+        {
+            'REG'::Fri1Regs.FRI2_INTF_CTRL.PREFETCH_EN = 0;
+        }
+    }
+    //
+    //  Disable APRs in SSUMODE2 and 3 so that LINK0 can acquire required APRs without conflict
+    //
+    if('REG'::SsuGenRegs.CPUID.CPUID == 1)
+    {
+        if('REG'::SsuGenRegs.SSUMODE.OPMODE != 0x30)
+        {
+            for(apCnt = 0;apCnt < 64;apCnt++)
+            {
+                'REG'::SsuCpu1ApRegs.SSU_CPU1_AP_REGS_RegisterFile0[apCnt].AP_CFG.APD = 0x1;
+            }
+        }
+        // Reset MCUCNF Regs corresponding to ADC and DAC
+        'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFFFFF;
+        'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFF;
+    }
+}
+
+bool wasReset = false;
+OnReset(int nErrorCode)
+{
+    'GEL'::wasReset = true;
+    GEL_SetTimer(1000 /* ms */, TIMER_RESET_FREERUN, "StuckInReset()", /* count = */ 1);
+
+    GEL_TextOut("Reset Done\n");
+
+}
+
+OnHalt()
+{
+    if ('GEL'::wasReset)
+    {
+        GEL_CancelTimer(TIMER_RESET_FREERUN);
+        'GEL'::wasReset = false;
+
+        // If CPU1, clear RAMOPEN
+        if('REG'::SsuGenRegs.CPUID.CPUID == 1)
+        {
+            'REG'::SsuCpu1CfgRegs.RAMOPENCLR.CLEAR_LINK1 = 1;
+            GEL_TextOut("RAMOPEN Cleared\n");
+        }
+        disable_wd();
+    }
+}
+
+StuckInReset()
+{
+    // Handle case where user does 'reset > disconnect' before timer ends
+    if(GEL_IsConnected())
+    {
+        GEL_TextOut("Stuck in free-running state after reset\n");
+    }
+    'GEL'::wasReset = false;
+}
+
+OnRestart(int nErrorCode)
+{
+    DebugControllerConfig();
+    CheckInterruptStatus();
+    if('REG'::SsuGenRegs.CPUID.CPUID == 1)
+    {
+        'REG'::SsuCpu2CfgRegs.CPU_RST_CTRL.SW_SYSRSN = 0xC9;
+        'REG'::SsuCpu3CfgRegs.CPU_RST_CTRL.SW_SYSRSN = 0xC9;
+        GEL_TextOut("CPU2/3 is held in reset.\n\n");
+    }
+}
+
+OnPreFileLoaded()
+{
+    DebugControllerConfig();
+
+    // If CPU1, Initialize M0 RAM
+    if('REG'::SsuGenRegs.CPUID.CPUID == 1)
+    {
+        GEL_MemoryFill(0x20000000, 0, 0x200, 0x0, 0x13);
+        GEL_MemoryFill(0x20000A7C, 0, 0xBD, 0x0, 0x13);
+        GEL_MemoryFill(0x20000D80, 0, 0x68, 0x0, 0x13);
+        GEL_TextOut("M0 RAM initialization complete.\n\n");
+
+        'REG'::SsuCpu2CfgRegs.CPU_RST_CTRL.SW_SYSRSN = 0xC9;
+        'REG'::SsuCpu3CfgRegs.CPU_RST_CTRL.SW_SYSRSN = 0xC9;
+        GEL_TextOut("CPU2/3 is held in reset.\n\n");
+    }
+    CheckFlash();
+}
+
+OnFileLoaded(int nErrorCode, int bSymbolsOnly)
+{
+    // check for errors in loading program
+    if (nErrorCode)
+    {
+        GEL_TextOut("An error occurred while loading a file. -%d-\n",,,,, nErrorCode);
+    }
+    else
+    {
+        GEL_TextOut("File was loaded successfully. -%d-\n",,,,, nErrorCode);
+    }
+
+    // Check to see if only symbols are loaded
+    if (bSymbolsOnly)
+    {
+        GEL_TextOut("Only symbols were loaded.\n");
+    }
+    else
+    {
+        GEL_TextOut("Full load.\n");
+    }
+}
+
+OnTargetConnect()
+{
+    GEL_TextOut("Executing On Target Connect Functions\n");
+    FindDevice();
+
+    // In case user disconnects and reconnects before reset timer ends
+    GEL_CancelTimer(TIMER_RESET_FREERUN, /* throwIfNotSet = */ false);
+    'GEL'::wasReset = false;
+
+    // Disable watchdog and setup memory map */
+    disable_wd();
+    setup_Memory_Map();
+
+    // Connect to SEC_AP_C29 on CPU1 connection
+    if(GEL_EvalOnTarget("SEC_AP_C29", "!GEL_IsConnected()"))
+    {
+        GEL_EvalOnTarget("SEC_AP_C29", "GEL_Connect()");
+    }
+
+    GEL_TextOut("Device Ready\n");
+}
+
+/*------------------------------------------------------------------------------------------------
+*
+* Check the Interrupt Status
+*
+* ----------------------------------------------------------------------------------------------*/
+CheckInterruptStatus()
+{
+    int intrSts = DSTS.INTS;
+    if (intrSts == 0)
+        GEL_TextOut("CPU is in Main code.\n");
+    else
+    {
+        if(intrSts == 1)
+            GEL_TextOut("Warning: CPU is in INT Handler (normal interrupt service routine). Kindly perform a CPU Reset to execute from main loop.\n");
+        else if(intrSts == 2)
+            GEL_TextOut("Warning: CPU is in RTINT Handler (real-time interrupt service routine). Kindly perform a CPU Reset to execute from main loop.\n");
+        else if(intrSts == 3)
+            GEL_TextOut("Warning: CPU is in NMI Handler routine. Kindly perform a CPU Reset to execute from main loop.\n");
+    }
+}
+
+
+/*************************************************************************************************/
+/*                                F29H850TU9 Memory Map                                         */
+/*                                                                                               */
+/*************************************************************************************************/
+setup_Memory_Map()
+{
+    GEL_MapReset();
+    GEL_MapOn();
+
+    GEL_MapAddStr(0x00000000,0, 0x10000000, "R|AS4",0);                 /* ROM */
+    GEL_MapAddStr(0x10000000,0, 0x10000000, "R|AS4",0);                 /* Flash*/
+    GEL_MapAddStr(0x20000000,0, 0x10000000, "R|W|AS4",0);               /* RAM */
+    GEL_MapAddStr(0x30000000,0, 0x208C00,   "R|W|AS4",0);               /* Peripherals */
+    GEL_MapAddStr(0x30208C00,0, 0x1400,     "R|W|AS2",0);               /* WD Regs */
+    GEL_MapAddStr(0x3020A000,0, 0x66000,    "R|W|AS4",0);               /* Peripherals */
+    GEL_MapAddStr(0x30270000,0, 0x1000,     "R|W|AS2",0);               /* XINT Regs */
+    GEL_MapAddStr(0x30271000,0, 0xFD8F000,  "R|W|AS4",0);               /* Peripherals */
+    GEL_MapAddStr(0x60000000,0, 0x10000000, "R|W|AS4",0);               /* Peripherals */
+    GEL_MapAddStr(0x70000000,0, 0x150000,   "R|W|AS4",0);               /* Peripherals */
+    GEL_MapAddStr(0x70150000,0, 0x70000,    "R|W|AS2",0);               /* I2C, SPI, FSI */
+    GEL_MapAddStr(0x701C0000,0, 0xFE40000,  "R|W|AS4",0);               /* Peripherals */
+    GEL_MapAddStr(0x80000000,0, 0x10000000, "R|W|AS4",0);               /* EMIF */
+    GEL_MapAddStr(0x90000000,0, 0x10000000, "R|W|AS4",0);               /* EMIF */
+    GEL_MapAddStr(0xA0000000,0, 0x10000000, "R|W|AS4",0);               /* EMIF */
+    GEL_MapAddStr(0xB0000000,0, 0x10000000, "R|W|AS4",0);               /* EMIF */
+
+    GEL_TextOut("Memory Map Initialization Complete\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+menuitem "Initialize RAM";
+hotmenu ram_init()
+{
+    GEL_TextOut("RAM initialization Started\n");
+
+    'REG'::MemssLCfgRegs.LPA0_MEM_CONFIG.INIT = 1;  //LPA0
+    while('REG'::MemssLCfgRegs.LPA0_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LPA0 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LPA1_MEM_CONFIG.INIT = 1;  //LPA1
+    while('REG'::MemssLCfgRegs.LPA1_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LPA1 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA0_MEM_CONFIG.INIT = 1;  //LDA0
+    while('REG'::MemssLCfgRegs.LDA0_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA0 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA1_MEM_CONFIG.INIT = 1;  //LDA1
+    while('REG'::MemssLCfgRegs.LDA1_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA1 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA2_MEM_CONFIG.INIT = 1;  //LDA2
+    while('REG'::MemssLCfgRegs.LDA2_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA2 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA3_MEM_CONFIG.INIT = 1;  //LDA3
+    while('REG'::MemssLCfgRegs.LDA3_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA3 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA4_MEM_CONFIG.INIT = 1;  //LDA4
+    while('REG'::MemssLCfgRegs.LDA4_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA4 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA5_MEM_CONFIG.INIT = 1;  //LDA5
+    while('REG'::MemssLCfgRegs.LDA5_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA5 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA6_MEM_CONFIG.INIT = 1;  //LDA6
+    while('REG'::MemssLCfgRegs.LDA6_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA6 initialization done\n");
+
+    'REG'::MemssLCfgRegs.LDA7_MEM_CONFIG.INIT = 1;  //LDA7
+    while('REG'::MemssLCfgRegs.LDA7_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("LDA7 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CPA0_MEM_CONFIG.INIT = 1;  //CPA0
+    while('REG'::MemssCCfgRegs.CPA0_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CPA0 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CPA1_MEM_CONFIG.INIT = 1;  //CPA1
+    while('REG'::MemssCCfgRegs.CPA1_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CPA1 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA0_MEM_CONFIG.INIT = 1;  //CDA0
+    while('REG'::MemssCCfgRegs.CDA0_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA0 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA1_MEM_CONFIG.INIT = 1;  //CDA1
+    while('REG'::MemssCCfgRegs.CDA1_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA1 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA2_MEM_CONFIG.INIT = 1;  //CDA2
+    while('REG'::MemssCCfgRegs.CDA2_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA2 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA3_MEM_CONFIG.INIT = 1;  //CDA3
+    while('REG'::MemssCCfgRegs.CDA3_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA3 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA4_MEM_CONFIG.INIT = 1;  //CDA4
+    while('REG'::MemssCCfgRegs.CDA4_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA4 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA5_MEM_CONFIG.INIT = 1;  //CDA5
+    while('REG'::MemssCCfgRegs.CDA5_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA5 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA6_MEM_CONFIG.INIT = 1;  //CDA6
+    while('REG'::MemssCCfgRegs.CDA6_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA6 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA7_MEM_CONFIG.INIT = 1;  //CDA7
+    while('REG'::MemssCCfgRegs.CDA7_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA7 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA8_MEM_CONFIG.INIT = 1;  //CDA8
+    while('REG'::MemssCCfgRegs.CDA8_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA8 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA9_MEM_CONFIG.INIT = 1;  //CDA9
+    while('REG'::MemssCCfgRegs.CDA9_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA9 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA10_MEM_CONFIG.INIT = 1;  //CDA10
+    while('REG'::MemssCCfgRegs.CDA10_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA10 initialization done\n");
+
+    'REG'::MemssCCfgRegs.CDA11_MEM_CONFIG.INIT = 1;  //CDA11
+    while('REG'::MemssCCfgRegs.CDA0_MEM_CONFIG.INIT_STS != 1); //Wait for InitDone Status
+    GEL_TextOut("CDA11 initialization done\n");
+
+
+    GEL_TextOut("RAM initialization done\n");
+}
+
+/*------------------------------------------------------------------------------------------------
+*
+* Disabling Watchdog
+*
+* ----------------------------------------------------------------------------------------------*/
+menuitem "Disable Watchdog";
+hotmenu disable_wd()
+{
+    //Disables watchdog
+    'REG'::WdRegs.WDCR = 0x0068;
+    GEL_TextOut("Watchdog Timer Disabled\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+menuitem "CPU Reset Handling"
+hotmenu Release_CPU2_Reset()
+{
+    unsigned int addrResetVect;
+
+    if ('REG'::SsuGenRegs.CPUID.CPUID != 1)
+    {
+        GEL_TextOut("The CPU2 reset release function can only be executed from CPU1.\n");
+        return;
+    }
+
+    GEL_TextOut("CPU2 reset release in progress.\n");
+
+    /* Load reset vector from symbol in currently loaded .out */
+    //addrResetVect = ptrCPU2ResetVector;
+    addrResetVect = 0x20107FE0; // use last addresses in LPA1
+
+    //GEL_TextOut("CPU2 Reset Vector Address: %x\n",,,,, ptrCPU2ResetVector);
+
+    /* Write dummy loop opcodes to this address */
+    if (true) //(((unsigned int)addrResetVect >> 28) == 2) // Only RAM supported
+    {
+        GEL_TextOut("Writing op codes to memory.\n");
+        *(addrResetVect) = 0x0c319002;
+        *(addrResetVect + 4) = 0x0b52117f;
+        *(addrResetVect + 8) = 0x0b52117f;
+        *(addrResetVect + 12) = 0x3510;
+
+        /* Disable Lockstep Mode */
+        GEL_TextOut("Disabling CPU1/CPU2 lockstep mode.\n");
+        'REG'::DevCfgRegs.LSEN = 0;
+
+        /* Update SSU registers with reset vector */
+        'REG'::SsuCpu2CfgRegs.RST_VECT.ADDR = addrResetVect;
+        'REG'::SsuCpu2CfgRegs.RST_LINK.LINK = 2;
+        'REG'::SsuCpu2CfgRegs.DEF_NMI_VECT.ADDR = addrResetVect;
+        'REG'::SsuCpu2CfgRegs.DEF_NMI_LINK.LINK = 2;
+
+        /* Release CPU reset */
+        'REG'::SsuCpu2CfgRegs.CPU_RST_CTRL.SW_SYSRSN = 0x36;
+        GEL_TextOut("Released CPU2 from reset.\n");
+    }
+    else
+    {
+        GEL_TextOut("Reset vector address is not in RAM and cannot be modified. Operation cancelled.\n");
+    }
+}
+
+hotmenu Release_CPU3_Reset()
+{
+    unsigned int addrResetVect;
+
+    if ('REG'::SsuGenRegs.CPUID.CPUID != 1)
+    {
+        GEL_TextOut("The CPU3 reset release function can only be executed from CPU1.\n");
+        return;
+    }
+
+    GEL_TextOut("CPU3 reset release in progress.\n");
+
+    /* Load reset vector from symbol in currently loaded .out */
+    //addrResetVect = ptrCPU3ResetVector;
+
+    //GEL_TextOut("CPU3 Reset Vector Address: %x\n",,,,, ptrCPU3ResetVector);
+
+    if (true) //(((unsigned int)addrResetVect >> 28) == 1)
+    {
+        GEL_TextOut("Reset vector address is in Flash. Writing init function to CPA0 RAM.\n");
+        addrResetVect = 0x20110000;
+    }
+
+    /* Write dummy loop opcodes to this address */
+    if (((unsigned int)addrResetVect >> 28) == 2) // Only RAM supported
+    {
+        GEL_TextOut("Writing op codes to memory.\n");
+        *(addrResetVect) = 0x0c319002;
+        *(addrResetVect + 4) = 0x0b52117f;
+        *(addrResetVect + 8) = 0x0b52117f;
+        *(addrResetVect + 12) = 0x3510;
+
+        /* Update SSU registers with reset vector */
+        'REG'::SsuCpu3CfgRegs.RST_VECT.ADDR = addrResetVect;
+        'REG'::SsuCpu3CfgRegs.RST_LINK.LINK = 2;
+        'REG'::SsuCpu3CfgRegs.DEF_NMI_VECT.ADDR = addrResetVect;
+        'REG'::SsuCpu3CfgRegs.DEF_NMI_LINK.LINK = 2;
+
+        /* Release CPU reset */
+        'REG'::SsuCpu3CfgRegs.CPU_RST_CTRL.SW_SYSRSN = 0x36;
+        GEL_TextOut("Released CPU3 from reset.\n");
+    }
+    else
+    {
+        GEL_TextOut("Reset vector address is not in RAM and cannot be modified. Operation cancelled.\n");
+    }
+}
+hotmenu Device_Reset_XRSn()
+{
+    'REG'::DevCfgRegs.SOC_SECURE_BOOT_INFO_REG7 = 0x00000000;
+    'REG'::CpuSysRegs.SIMRESET = 0xA5A50002;
+    GEL_TextOut("Issued XRSn reset pulse to device.\n");
+}
+
+menuitem "Emulation Boot Mode Select"
+hotmenu Enable_RAM_Emulation_Boot()
+{
+    // Override boot modes with RAM boot
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_LOW = 0x05050505;
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_HIGH = 0x05050505;
+    'REG'::SsuGenRegs.EMU_BOOTPIN_CONFIG = 0x5A020100;
+    'REG'::SsuGenRegs.EMU_BOOTEN = 1;
+}
+
+hotmenu Enable_Flash_Emulation_Boot()
+{
+    // Override boot modes with Flash boot
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_LOW = 0x03030303;
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_HIGH = 0x03030303;
+    'REG'::SsuGenRegs.EMU_BOOTPIN_CONFIG = 0x5A020100;
+    'REG'::SsuGenRegs.EMU_BOOTEN = 1;
+}
+
+hotmenu Default_Emulation_Boot_Mode()
+{
+    // Reset to default behavior
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_LOW = 0;
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_HIGH = 0;
+    'REG'::SsuGenRegs.EMU_BOOTPIN_CONFIG = 0;
+    'REG'::SsuGenRegs.EMU_BOOTEN = 1;
+}
+
+hotmenu Disable_Emulation_Boot()
+{
+    // Reset to default behavior
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_LOW = 0;
+    'REG'::SsuCpu1CfgRegs.EMU_BOOTDEF_HIGH = 0;
+    'REG'::SsuGenRegs.EMU_BOOTPIN_CONFIG = 0;
+    // Disable EMU boot
+    'REG'::SsuGenRegs.EMU_BOOTEN = 0;
+}
+
+/*------------------------------------------------------------------------------------------------
+*
+* CPU2/3 Reset
+*
+* ----------------------------------------------------------------------------------------------*/
+
+// menuitem "CPU Reset control";
+// hotmenu CPU2_releaseFromReset()
+// {
+//     'REG'::DevCfgRegs.LSEN = 0;
+//     GEL_TextOut("CPU1-CPU2 Lock step disabled\n");
+//     'REG'::SsuCpu2CfgRegs.CPU_RST_CTRL = 0x00000036;
+//     GEL_TextOut("CPU2 Out of Reset\n");
+// }
+// hotmenu CPU3_releaseFromReset()
+// {
+//     'REG'::SsuCpu3CfgRegs.CPU_RST_CTRL = 0x00000036;
+//     GEL_TextOut("CPU3 Out of Reset\n");
+// }
+
+
+/*------------------------------------------------------------------------------------------------*/
+
+DebugControllerConfig()
+{
+    //DBG_CNTL0 |= 0x00008000;
+}
+
+
+/*------------------------------------------------------------------------------------------------
+*
+* Error Handling
+*
+* ----------------------------------------------------------------------------------------------*/
+menuitem "Error Handling/CPU Reset Cause";
+hotmenu Get_ResetCause()
+{
+    string reset = "ResetCauses = ";
+    if('REG'::CpuSysRegs.RESC.ESMRESET == 1)       reset = GEL_StrCat(reset, " ESM_Reset,");
+    if('REG'::CpuSysRegs.RESC.SIMRESET_XRSn == 1)  reset = GEL_StrCat(reset, " XRSN_SimReset,");
+    if('REG'::CpuSysRegs.RESC.ECAT_RESET_OUT == 1) reset = GEL_StrCat(reset, " Ethercat_Reset,");
+    if('REG'::CpuSysRegs.RESC.NMIWDRSn == 1)       reset = GEL_StrCat(reset, " NMI_Watchdog_Reset,");
+    if('REG'::CpuSysRegs.RESC.WDRSn == 1)          reset = GEL_StrCat(reset, " XRSn,");
+    if('REG'::CpuSysRegs.RESC.XRSn == 1)           reset = GEL_StrCat(reset, " POR,");
+
+    GEL_TextOut("%s\n",,,,,GEL_SubStr(reset, 0, GEL_StrLen(reset)-1));
+}
+hotmenu Clear_ResetCause()
+{
+    'REG'::CpuSysRegs.RESCCLR = 0x1A0F;
+    GEL_TextOut("Reset Causes Cleared\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+menuitem "Error Handling/Missing Clock Detection";
+hotmenu MCD_Get_Status()
+{
+    GEL_TextOut("MCD Enable = %d, OSC Connection = %d, MCD Flag = %d\n",,,,, 'REG'::DevCfgRegs.MCDCR.MCLKOFF == 0, 'REG'::DevCfgRegs.MCDCR.OSCOFF == 0, 'REG'::DevCfgRegs.MCDCR.MCLKSTS);
+}
+hotmenu MCD_Clear_Status()
+{
+    'REG'::DevCfgRegs.MCDCR.OSCOFF = 0;
+    'REG'::DevCfgRegs.MCDCR.MCLKOFF = 0;
+    'REG'::DevCfgRegs.MCDCR.MCLKCLR = 1;
+    GEL_TextOut("MCD Flag Cleared\n");
+    MCD_Get_Status();
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+menuitem "Error Handling/ESM_CPU1";
+hotmenu ESM_CPU1_Check_Status()
+{
+    GEL_TextOut("ESM_CPU1 Status : \n");
+    GEL_TextOut("  All Active/Pending Error Events : \n");
+    readESMStatus('REG'::EsmCpu1Regs, 2);
+
+    GEL_TextOut("  Active/Pending and Enabled Error Events : \n");
+    readESMStatus('REG'::EsmCpu1Regs, 1);
+    GEL_TextOut("ESM_CPU1 Status Done \n");
+}
+hotmenu ESM_CPU1_Clear_Raw_Status()
+{
+    'REG'::EsmCpu1Regs.ERR_GRP[0].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu1Regs.ERR_GRP[1].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu1Regs.ERR_GRP[2].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu1Regs.ERR_GRP[3].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu1Regs.ERR_GRP[4].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu1Regs.ERR_GRP[5].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu1Regs.ERR_GRP[6].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu1Regs.ERR_GRP[7].STS = 0xFFFFFFFF;
+    GEL_TextOut("ESM_CPU1 Raw Status Cleared \n");
+}
+hotmenu ESM_CPU1_SoftReset()
+{
+    'REG'::EsmCpu1Regs.SFT_RST = 0x0000000F;
+    GEL_TextOut("Soft Reset to ESM_CPU1 Done\n");
+    'REG'::EsmCpu1Regs.EOI = 0x00000004;
+    'REG'::EsmCpu1Regs.EOI = 0x00000002;
+    GEL_TextOut("ESM EOI Clear Done\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+menuitem "Error Handling/ESM_CPU2";
+hotmenu ESM_CPU2_Check_Status()
+{
+    GEL_TextOut("ESM_CPU2 Status : \n");
+    GEL_TextOut("  All Active/Pending Error Events : \n");
+    readESMStatus('REG'::EsmCpu2Regs, 2);
+
+    GEL_TextOut("  Active/Pending and Enabled Error Events : \n");
+    readESMStatus('REG'::EsmCpu2Regs, 1);
+    GEL_TextOut("ESM_CPU2 Status Done \n");
+}
+hotmenu ESM_CPU2_Clear_Raw_Status()
+{
+    'REG'::EsmCpu2Regs.ERR_GRP[0].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu2Regs.ERR_GRP[1].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu2Regs.ERR_GRP[2].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu2Regs.ERR_GRP[3].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu2Regs.ERR_GRP[4].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu2Regs.ERR_GRP[5].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu2Regs.ERR_GRP[6].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu2Regs.ERR_GRP[7].STS = 0xFFFFFFFF;
+    GEL_TextOut("ESM_CPU2 Raw Status Cleared \n");
+}
+hotmenu ESM_CPU2_SoftReset()
+{
+    'REG'::EsmCpu2Regs.SFT_RST = 0x0000000F;
+    GEL_TextOut("Soft Reset to ESM_CPU2 Done\n");
+    'REG'::EsmCpu2Regs.EOI = 0x00000002;
+    'REG'::EsmCpu2Regs.EOI = 0x00000004;
+    GEL_TextOut("ESM_CPU2 EOI Clear Done\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+menuitem "Error Handling/ESM_CPU3";
+hotmenu ESM_CPU3_Check_Status()
+{
+    GEL_TextOut("ESM_CPU3 Status : \n");
+    GEL_TextOut("  All Active/Pending Error Events : \n");
+    readESMStatus('REG'::EsmCpu3Regs, 2);
+
+    GEL_TextOut("  Active/Pending and Enabled Error Events : \n");
+    readESMStatus('REG'::EsmCpu3Regs, 1);
+    GEL_TextOut("ESM_CPU3 Status Done \n");
+}
+hotmenu ESM_CPU3_Clear_Raw_Status()
+{
+    'REG'::EsmCpu3Regs.ERR_GRP[0].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu3Regs.ERR_GRP[1].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu3Regs.ERR_GRP[2].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu3Regs.ERR_GRP[3].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu3Regs.ERR_GRP[4].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu3Regs.ERR_GRP[5].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu3Regs.ERR_GRP[6].STS = 0xFFFFFFFF;
+    'REG'::EsmCpu3Regs.ERR_GRP[7].STS = 0xFFFFFFFF;
+    GEL_TextOut("ESM_CPU3 Raw Status Cleared \n");
+}
+hotmenu ESM_CPU3_SoftReset()
+{
+    'REG'::EsmCpu3Regs.SFT_RST = 0x0000000F;
+    GEL_TextOut("Soft Reset to ESM_CPU3 Done\n");
+    'REG'::EsmCpu3Regs.EOI = 0x00000002;
+    'REG'::EsmCpu3Regs.EOI = 0x00000004;
+    GEL_TextOut("ESM_CPU3 EOI Clear Done\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+menuitem "Error Handling/ESM_SYS";
+hotmenu ESM_SYS_Check_Status()
+{
+    GEL_TextOut("ESM_SYS Status : \n");
+    GEL_TextOut("  All Active/Pending Error Events : \n");
+    readESMStatus('REG'::EsmSystemRegs, 2);
+
+    GEL_TextOut("  Active/Pending and Enabled Error Events : \n");
+    readESMStatus('REG'::EsmSystemRegs, 1);
+    GEL_TextOut("ESM_SYS Status Done \n");
+}
+hotmenu ESM_SYS_Clear_Raw_Status()
+{
+    'REG'::EsmSystemRegs.ERR_GRP[0].STS = 0xFFFFFFFF;
+    'REG'::EsmSystemRegs.ERR_GRP[1].STS = 0xFFFFFFFF;
+    'REG'::EsmSystemRegs.ERR_GRP[2].STS = 0xFFFFFFFF;
+    'REG'::EsmSystemRegs.ERR_GRP[3].STS = 0xFFFFFFFF;
+    'REG'::EsmSystemRegs.ERR_GRP[4].STS = 0xFFFFFFFF;
+    'REG'::EsmSystemRegs.ERR_GRP[5].STS = 0xFFFFFFFF;
+    'REG'::EsmSystemRegs.ERR_GRP[6].STS = 0xFFFFFFFF;
+    'REG'::EsmSystemRegs.ERR_GRP[7].STS = 0xFFFFFFFF;
+    GEL_TextOut("ESM_SYS Raw Status Cleared \n");
+}
+hotmenu ESM_SYS_SoftReset()
+{
+    'REG'::EsmSystemRegs.SFT_RST = 0x0000000F;
+    GEL_TextOut("Soft Reset to ESM_SYS Done\n");
+    'REG'::EsmSystemRegs.EOI = 0x00000002;
+    'REG'::EsmSystemRegs.EOI = 0x00000004;
+    GEL_TextOut("ESM_SYS EOI Clear Done\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+#define GelMacro_Prog 1
+#define GelMacro_Data 2
+#define GelMacro_Int  3
+#define GelMacro_SSU  4
+#define GelMacro_Ecat 5
+
+menuitem "Error Handling/Error Aggregator";
+hotmenu Error_Agg_Check_Status()
+{
+    GEL_TextOut("Error Aggregator Status :\n");
+
+    readErrAggStatus(&ErrorAggregatorRegs.CPU1_PR_HIGHPRIO_ERROR_ADDRESS,  "CPU1_PR",  GelMacro_Prog);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU1_DR1_HIGHPRIO_ERROR_ADDRESS, "CPU1_DR1", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU1_DR2_HIGHPRIO_ERROR_ADDRESS, "CPU1_DR2", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU1_DW_HIGHPRIO_ERROR_ADDRESS,  "CPU1_DW",  GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU1_INT_HIGHPRIO_ERROR_ADDRESS, "CPU1_INT", GelMacro_Int);
+
+    readErrAggStatus(&ErrorAggregatorRegs.CPU2_PR_HIGHPRIO_ERROR_ADDRESS,  "CPU2_PR",  GelMacro_Prog);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU2_DR1_HIGHPRIO_ERROR_ADDRESS, "CPU2_DR1", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU2_DR2_HIGHPRIO_ERROR_ADDRESS, "CPU2_DR2", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU2_DW_HIGHPRIO_ERROR_ADDRESS,  "CPU2_DW",  GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU2_INT_HIGHPRIO_ERROR_ADDRESS, "CPU2_INT", GelMacro_Int);
+
+    readErrAggStatus(&ErrorAggregatorRegs.CPU3_PR_HIGHPRIO_ERROR_ADDRESS,  "CPU3_PR",  GelMacro_Prog);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU3_DR1_HIGHPRIO_ERROR_ADDRESS, "CPU3_DR1", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU3_DR2_HIGHPRIO_ERROR_ADDRESS, "CPU3_DR2", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU3_DW_HIGHPRIO_ERROR_ADDRESS,  "CPU3_DW",  GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.CPU3_INT_HIGHPRIO_ERROR_ADDRESS, "CPU3_INT", GelMacro_Int);
+
+    readErrAggStatus(&ErrorAggregatorRegs.RTDMA1_DR_HIGHPRIO_ERROR_ADDRESS,  "RTDMA1_DR", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.RTDMA1_DW_HIGHPRIO_ERROR_ADDRESS,  "RTDMA1_DW", GelMacro_Data);
+
+    readErrAggStatus(&ErrorAggregatorRegs.RTDMA2_DR_HIGHPRIO_ERROR_ADDRESS,  "RTDMA2_DR", GelMacro_Data);
+    readErrAggStatus(&ErrorAggregatorRegs.RTDMA2_DW_HIGHPRIO_ERROR_ADDRESS,  "RTDMA2_DW", GelMacro_Data);
+
+    readErrAggStatus(&ErrorAggregatorRegs.SSU_HIGHPRIO_ERROR_ADDRESS,  "SSU", GelMacro_SSU);
+
+    readErrAggStatus(&ErrorAggregatorRegs.ETHERCAT_HIGHPRIO_ERROR_ADDRESS,  "Ethercat", GelMacro_Ecat);
+
+    GEL_TextOut("Error Aggregator Status Done\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+hotmenu Error_Agg_Clear_Status()
+{
+    'REG'::ErrorAggregatorRegs.CPU1_PR_ERROR_TYPE_CLR  = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU1_DR1_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU1_DR2_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU1_DW_ERROR_TYPE_CLR  = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU1_INT_ERROR_TYPE_CLR = 0xFFFFFFFF;
+
+    'REG'::ErrorAggregatorRegs.CPU2_PR_ERROR_TYPE_CLR  = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_DR1_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_DR2_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_DW_ERROR_TYPE_CLR  = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_INT_ERROR_TYPE_CLR = 0xFFFFFFFF;
+
+    'REG'::ErrorAggregatorRegs.CPU2_PR_ERROR_TYPE_CLR  = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_DR1_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_DR2_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_DW_ERROR_TYPE_CLR  = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.CPU2_INT_ERROR_TYPE_CLR = 0xFFFFFFFF;
+
+    'REG'::ErrorAggregatorRegs.RTDMA1_DR_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.RTDMA1_DW_ERROR_TYPE_CLR = 0xFFFFFFFF;
+
+    'REG'::ErrorAggregatorRegs.RTDMA2_DR_ERROR_TYPE_CLR = 0xFFFFFFFF;
+    'REG'::ErrorAggregatorRegs.RTDMA2_DW_ERROR_TYPE_CLR = 0xFFFFFFFF;
+
+    'REG'::ErrorAggregatorRegs.SSU_ERROR_TYPE_CLR = 0xFFFFFFFF;
+
+    'REG'::ErrorAggregatorRegs.ETHERCAT_ERROR_TYPE_CLR = 0xFFFFFFFF;
+
+    GEL_TextOut("Error Aggregator Status Cleared\n");
+}
+
+/*------------------------------------------------------------------------------------------------
+*
+* Interrupts Handling
+*
+* ----------------------------------------------------------------------------------------------*/
+
+menuitem "Interrupts";
+hotmenu Check_Interrupt_Status()
+{
+    int i = 0;
+    unsigned int ctl, prio, context, linkOwner, isr;
+
+    unsigned int cpuIntState = DSTS.INTS;
+
+    GEL_TextOut("CPU State :\n");
+    GEL_TextOut("    INT Enable : %d\n",,,,, DSTS.INTE);
+    if(cpuIntState == 0) GEL_TextOut("    Interrupt Status : Main code\n");
+    if(cpuIntState == 1) GEL_TextOut("    Interrupt Status : INT Handler, Priority : %d\n",,,,,(unsigned int)DSTS.ISR_PRIORITY);
+    if(cpuIntState == 2) GEL_TextOut("    Interrupt Status : RTINT Handler, Priority : %d\n",,,,,(unsigned int)DSTS.ISR_PRIORITY);
+    if(cpuIntState == 3) GEL_TextOut("    Interrupt Status : NMI Handler\n");
+    GEL_TextOut("    NMI Flag : %d, RTINT Flag : %d, INT Flag : %d\n",,,,, ISTS.NMIF, ISTS.RTINTF, ISTS.INTF);
+    GEL_TextOut("    INTSP : %d, CURRSP : %d\n",,,,, ISTS.INTSP, ISTS.CURRSP);
+
+    GEL_TextOut("PIPE State :\n");
+    GEL_TextOut("    INT/RTINT Enable       : %d\n",,,,, 'REG'::PipeRegs.GLOBAL_EN==3);
+    GEL_TextOut("    Current context        : %d\n",,,,, 'REG'::PipeRegs.TASK_CTRL.ACTIVE_CONTEXT_ID==3);
+    GEL_TextOut("    Supervisor INT Enable  : %d\n",,,,, 'REG'::PipeRegs.TASK_CTRL.SUP_IGN_INTE_EN);
+    GEL_TextOut("    RTINT Threshold        : %d\n",,,,, 'REG'::PipeRegs.RTINT_THRESHOLD);
+    GEL_TextOut("    Nesting group Mask     : %x\n",,,,, 'REG'::PipeRegs.INT_GRP_MASK.INT_GRP_MASK);
+
+    GEL_TextOut("Pending interrupts in PIPE :\n");
+
+    while(i < 256)
+    {
+        ctl       = 'REG'::PipeRegs.INT_CTL_L[i];
+        prio      = 'REG'::PipeRegs.INT_CONFIG[i] & 0xFF;3;
+        context   = 'REG'::PipeRegs.INT_CONFIG[i] >> 16;
+        linkOwner = 'REG'::PipeRegs.INT_LINK_OWNER[i] & 0xFF;
+        isr       = 'REG'::PipeRegs.INT_VECT_ADDR[i];
+
+        if(ctl & 0x2)
+        {
+            string info = GEL_StrCat(getIntName(i), " - ");
+
+            if(ctl & 0x4)
+                info = GEL_StrCat(info, "Overflowed, ");
+
+            if(ctl & 0x1)
+                info = GEL_StrCat(info, "Enabled, ");
+            else
+                info = GEL_StrCat(info, "Disabled, ");
+
+
+            GEL_TextOut("  - [%d] %s Link = %d, ISR = %x, Priority = %d, ContextID = %d\n",,,,,i, info, linkOwner, isr, prio, context);
+        }
+        i += 1;
+    }
+    GEL_TextOut("Interrupt Status Check Done\n");
+}
+
+hotmenu Clear_Pending_Interrupts()
+{
+    'REG'::PipeRegs.ALL_FLAG_CLR = 0xFEED0003;
+    'REG'::PipeRegs.ALL_FLAG_CLR = 0xFEED0000;
+}
+
+
+/*------------------------------------------------------------------------------------------------*/
+
+readESMStatus(esmRegs, reg)
+{
+    int group = 0;
+    int ch    = 0;
+    int errNo;
+    unsigned int groupStatus;
+
+    while(group < 8)
+    {
+        if(reg == 1) groupStatus = esmRegs.ERR_GRP[group].STS;
+        else         groupStatus = esmRegs.ERR_GRP[group].RAW;
+
+        ch = 0;
+        while(ch < 32)
+        {
+            if(((groupStatus >> ch) & 1) == 1)
+            {
+                errNo = group * 32 + ch;
+                printESMErrorName(errNo);
+            }
+            ch = ch + 1;
+        }
+        group = group + 1;
+    }
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+readErrAggStatus(baseAddr, name, type)
+{
+    unsigned int hpAddr  = *(baseAddr + 0);
+    unsigned int lpAddr  = *(baseAddr + 1);
+    unsigned int errType = *(baseAddr + 2);
+    unsigned int pc      = *(baseAddr + 5);
+
+    if(errType != 0)
+    {
+        GEL_TextOut("  - %s Errors (HP Error Addr = %x, LP Error Addr = %x, PC = %x)\n",,,,,name, hpAddr, lpAddr, pc);
+        printErrAggErrorName(errType, type);
+    }
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+printESMErrorName(errNo)
+{
+	if(errNo == 0)    GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU1_HPERR\n");
+    if(errNo == 1)    GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU2_HPERR\n");
+    if(errNo == 2)    GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU3_HPERR\n");
+    if(errNo == 3)    GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU1_INT_HPERR\n");
+    if(errNo == 4)    GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU2_INT_HPERR\n");
+    if(errNo == 5)    GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU3_INT_HPERR\n");
+    if(errNo == 32)   GEL_TextOut("  - ESM_EVENT_CLOCKFAIL\n");
+    if(errNo == 33)   GEL_TextOut("  - ESM_EVENT_DCC1_ERR\n");
+    if(errNo == 34)   GEL_TextOut("  - ESM_EVENT_DCC2_ERR\n");
+    if(errNo == 35)   GEL_TextOut("  - ESM_EVENT_DCC3_ERR\n");
+    if(errNo == 36)   GEL_TextOut("  - ESM_EVENT_SYS_PLL_SLIP\n");
+    if(errNo == 37)   GEL_TextOut("  - ESM_EVENT_CPU1RSn\n");
+    if(errNo == 38)   GEL_TextOut("  - ESM_EVENT_CPU1WD\n");
+    if(errNo == 39)   GEL_TextOut("  - ESM_EVENT_CPU1_ERAD_INT\n");
+    if(errNo == 40)   GEL_TextOut("  - ESM_EVENT_CPU1_ERAD_NMI\n");
+    if(errNo == 41)   GEL_TextOut("  - ESM_EVENT_ESM_CPU1_LOW_PRIORITY_INT\n");
+    if(errNo == 42)   GEL_TextOut("  - ESM_EVENT_ESM_CPU1_HIGH_PRIORITY_INT\n");
+    if(errNo == 43)   GEL_TextOut("  - ESM_EVENT_LCM_CPU1SS_LCMPERR\n");
+    if(errNo == 44)   GEL_TextOut("  - ESM_EVENT_CPU2RSn\n");
+    if(errNo == 45)   GEL_TextOut("  - ESM_EVENT_CPU2WD\n");
+    if(errNo == 46)   GEL_TextOut("  - ESM_EVENT_CPU2_ERAD_INT\n");
+    if(errNo == 47)   GEL_TextOut("  - ESM_EVENT_CPU2_ERAD_NMI\n");
+    if(errNo == 48)   GEL_TextOut("  - ESM_EVENT_ESM_CPU2_LOW_PRIORITY_INT\n");
+    if(errNo == 49)   GEL_TextOut("  - ESM_EVENT_ESM_CPU2_HIGH_PRIORITY_INT\n");
+    if(errNo == 50)   GEL_TextOut("  - ESM_EVENT_CPU3RSn\n");
+    if(errNo == 51)   GEL_TextOut("  - ESM_EVENT_CPU3WD\n");
+    if(errNo == 52)   GEL_TextOut("  - ESM_EVENT_CPU3_ERAD_INT\n");
+    if(errNo == 53)   GEL_TextOut("  - ESM_EVENT_CPU3_ERAD_NMI\n");
+    if(errNo == 54)   GEL_TextOut("  - ESM_EVENT_ESM_CPU3_LOW_PRIORITY_INT\n");
+    if(errNo == 55)   GEL_TextOut("  - ESM_EVENT_ESM_CPU3_HIGH_PRIORITY_INT\n");
+    if(errNo == 56)   GEL_TextOut("  - ESM_EVENT_RTDMA_LCM_CMP_ERR\n");
+    if(errNo == 58)   GEL_TextOut("  - ESM_EVENT_ESM_ERRPIN_MON_EVT\n");
+    if(errNo == 59)   GEL_TextOut("  - ESM_EVENT_ESM_PARITY_ERROR\n");
+    if(errNo == 63)   GEL_TextOut("  - ESM_EVENT_HSM_HEA_INT_LO\n");
+    if(errNo == 64)   GEL_TextOut("  - ESM_EVENT_HSM_HEA_INT_HI\n");
+    if(errNo == 65)   GEL_TextOut("  - ESM_EVENT_INPUTXBAR63\n");
+    if(errNo == 66)   GEL_TextOut("  - ESM_EVENT_INPUTXBAR64\n");
+    if(errNo == 67)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR1\n");
+    if(errNo == 68)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR2\n");
+    if(errNo == 69)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR3\n");
+    if(errNo == 70)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR4\n");
+    if(errNo == 71)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR5\n");
+    if(errNo == 72)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR6\n");
+    if(errNo == 73)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR7\n");
+    if(errNo == 74)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR8\n");
+    if(errNo == 75)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR9\n");
+    if(errNo == 76)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR10\n");
+    if(errNo == 77)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR11\n");
+    if(errNo == 78)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR12\n");
+    if(errNo == 79)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR13\n");
+    if(errNo == 80)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR14\n");
+    if(errNo == 81)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR15\n");
+    if(errNo == 82)   GEL_TextOut("  - ESM_EVENT_EPWMXBAR16\n");
+    if(errNo == 83)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR1\n");
+    if(errNo == 84)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR2\n");
+    if(errNo == 85)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR3\n");
+    if(errNo == 86)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR4\n");
+    if(errNo == 87)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR5\n");
+    if(errNo == 88)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR6\n");
+    if(errNo == 89)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR7\n");
+    if(errNo == 90)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR8\n");
+    if(errNo == 91)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR9\n");
+    if(errNo == 92)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR10\n");
+    if(errNo == 93)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR11\n");
+    if(errNo == 94)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR12\n");
+    if(errNo == 95)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR13\n");
+    if(errNo == 96)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR14\n");
+    if(errNo == 97)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR15\n");
+    if(errNo == 98)   GEL_TextOut("  - ESM_EVENT_OUTPUTXBAR16\n");
+    if(errNo == 99)   GEL_TextOut("  - ESM_EVENT_WADI1_INTN_O\n");
+    if(errNo == 100)  GEL_TextOut("  - ESM_EVENT_WADI2_INTN_O\n");
+    if(errNo == 102)  GEL_TextOut("  - ESM_EVENT_CLB1_NMI\n");
+    if(errNo == 103)  GEL_TextOut("  - ESM_EVENT_CLB2_NMI\n");
+    if(errNo == 104)  GEL_TextOut("  - ESM_EVENT_CLB3_NMI\n");
+    if(errNo == 105)  GEL_TextOut("  - ESM_EVENT_CLB4_NMI\n");
+    if(errNo == 106)  GEL_TextOut("  - ESM_EVENT_CLB5_NMI\n");
+    if(errNo == 107)  GEL_TextOut("  - ESM_EVENT_CLB6_NMI\n");
+    if(errNo == 108)  GEL_TextOut("  - ESM_EVENT_EPG_INT\n");
+    if(errNo == 109)  GEL_TextOut("  - ESM_EVENT_ECAT_NMIn\n");
+    if(errNo == 110)  GEL_TextOut("  - ESM_EVENT_MCANA_ECC_CORR_PLS\n");
+    if(errNo == 111)  GEL_TextOut("  - ESM_EVENT_MCANA_ECC_UNCORR_TS_PLS\n");
+    if(errNo == 112)  GEL_TextOut("  - ESM_EVENT_MCANB_ECC_CORR_PLS\n");
+    if(errNo == 113)  GEL_TextOut("  - ESM_EVENT_MCANB_ECC_UNCORR_TS_PLS\n");
+    if(errNo == 114)  GEL_TextOut("  - ESM_EVENT_MCANC_ECC_CORR_PLS\n");
+    if(errNo == 115)  GEL_TextOut("  - ESM_EVENT_MCANC_ECC_UNCORR_TS_PLS\n");
+    if(errNo == 116)  GEL_TextOut("  - ESM_EVENT_MCAND_ECC_CORR_PLS\n");
+    if(errNo == 117)  GEL_TextOut("  - ESM_EVENT_MCAND_ECC_UNCORR_TS_PLS\n");
+    if(errNo == 118)  GEL_TextOut("  - ESM_EVENT_MCANE_ECC_CORR_PLS\n");
+    if(errNo == 119)  GEL_TextOut("  - ESM_EVENT_MCANE_ECC_UNCORR_TS_PLS\n");
+    if(errNo == 120)  GEL_TextOut("  - ESM_EVENT_MCANF_ECC_CORR_PLS\n");
+    if(errNo == 121)  GEL_TextOut("  - ESM_EVENT_MCANF_ECC_UNCORR_TS_PLS\n");
+    if(errNo == 122)  GEL_TextOut("  - ESM_EVENT_EMIF1_ERR\n");
+    if(errNo == 123)  GEL_TextOut("  - ESM_EVENT_ADC_SAFETY_CHECK_INT_CPU1\n");
+    if(errNo == 124)  GEL_TextOut("  - ESM_EVENT_ADC_SAFETY_CHECK_INT_CPU2\n");
+    if(errNo == 125)  GEL_TextOut("  - ESM_EVENT_ADC_SAFETY_CHECK_INT_CPU3\n");
+    if(errNo == 128)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU1_LPERR\n");
+    if(errNo == 130)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU2_LPERR\n");
+    if(errNo == 132)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU3_LPERR\n");
+    if(errNo == 134)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU1_INT_LPERR\n");
+    if(errNo == 136)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU2_INT_LPERR\n");
+    if(errNo == 138)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_CPU3_INT_LPERR\n");
+    if(errNo == 139)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_RTDMA1_HPERR\n");
+    if(errNo == 140)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_RTDMA1_LPERR\n");
+    if(errNo == 141)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_RTDMA2_HPERR\n");
+    if(errNo == 142)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_RTDMA2_LPERR\n");
+    if(errNo == 143)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_SSU_HPERR\n");
+    if(errNo == 146)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_ECAT_MEM_HPERR\n");
+    if(errNo == 147)  GEL_TextOut("  - ESM_EVENT_ErrorAggregator_ECAT_MEM_LPERR\n");
+    if(errNo == 162)  GEL_TextOut("  - ESM_EVENT_MCANA_FEVT0\n");
+    if(errNo == 163)  GEL_TextOut("  - ESM_EVENT_MCANA_FEVT1\n");
+    if(errNo == 164)  GEL_TextOut("  - ESM_EVENT_MCANA_FEVT2\n");
+    if(errNo == 165)  GEL_TextOut("  - ESM_EVENT_MCANB_FEVT0\n");
+    if(errNo == 166)  GEL_TextOut("  - ESM_EVENT_MCANB_FEVT1\n");
+    if(errNo == 167)  GEL_TextOut("  - ESM_EVENT_MCANB_FEVT2\n");
+    if(errNo == 168)  GEL_TextOut("  - ESM_EVENT_MCANC_FEVT0\n");
+    if(errNo == 169)  GEL_TextOut("  - ESM_EVENT_MCANC_FEVT1\n");
+    if(errNo == 170)  GEL_TextOut("  - ESM_EVENT_MCANC_FEVT2\n");
+    if(errNo == 171)  GEL_TextOut("  - ESM_EVENT_MCAND_FEVT0\n");
+    if(errNo == 172)  GEL_TextOut("  - ESM_EVENT_MCAND_FEVT1\n");
+    if(errNo == 173)  GEL_TextOut("  - ESM_EVENT_MCAND_FEVT2\n");
+    if(errNo == 174)  GEL_TextOut("  - ESM_EVENT_MCANE_FEVT0\n");
+    if(errNo == 175)  GEL_TextOut("  - ESM_EVENT_MCANE_FEVT1\n");
+    if(errNo == 176)  GEL_TextOut("  - ESM_EVENT_MCANE_FEVT2\n");
+    if(errNo == 177)  GEL_TextOut("  - ESM_EVENT_MCANF_FEVT0\n");
+    if(errNo == 178)  GEL_TextOut("  - ESM_EVENT_MCANF_FEVT1\n");
+    if(errNo == 179)  GEL_TextOut("  - ESM_EVENT_MCANF_FEVT2\n");
+    if(errNo == 180)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK1_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 181)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK1_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 182)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK1_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 183)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK2_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 184)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK2_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 185)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK2_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 186)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK3_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 187)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK3_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 188)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK3_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 189)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK4_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 190)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK4_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 191)  GEL_TextOut("  - ESM_EVENT_WADI1_BLOCK4_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 192)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK1_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 193)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK1_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 194)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK1_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 195)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK2_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 196)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK2_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 197)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK2_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 198)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK3_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 199)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK3_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 200)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK3_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 201)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK4_SIG1ERROR_BUS_O_0\n");
+    if(errNo == 202)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK4_SIG2ERROR_BUS_O_1\n");
+    if(errNo == 203)  GEL_TextOut("  - ESM_EVENT_WADI2_BLOCK4_SIG_TO_SIGERROR_BUS_O_2\n");
+    if(errNo == 233)  GEL_TextOut("  - ESM_EVENT_EQEPERR\n");
+    if(errNo == 235)  GEL_TextOut("  - ESM_EVENT_CPU1_OVFINT\n");
+    if(errNo == 236)  GEL_TextOut("  - ESM_EVENT_CPU1_UVFINT\n");
+    if(errNo == 237)  GEL_TextOut("  - ESM_EVENT_CPU1_DOVINT\n");
+    if(errNo == 238)  GEL_TextOut("  - ESM_EVENT_CPU2_OVFINT\n");
+    if(errNo == 239)  GEL_TextOut("  - ESM_EVENT_CPU2_UVFINT\n");
+    if(errNo == 240)  GEL_TextOut("  - ESM_EVENT_CPU2_DOVINT\n");
+    if(errNo == 241)  GEL_TextOut("  - ESM_EVENT_CPU3_OVFINT\n");
+    if(errNo == 242)  GEL_TextOut("  - ESM_EVENT_CPU3_UVFINT\n");
+    if(errNo == 243)  GEL_TextOut("  - ESM_EVENT_CPU3_DOVINT\n");
+    if(errNo == 244)  GEL_TextOut("  - ESM_EVENT_MEMSS_REG_PAR_ERR\n");
+    if(errNo == 245)  GEL_TextOut("  - ESM_EVENT_FRI_REG_PAR_ERR\n");
+    if(errNo == 246)  GEL_TextOut("  - ESM_EVENT_SYSCTL_REG_PAR_ERR\n");
+    if(errNo == 247)  GEL_TextOut("  - ESM_EVENT_LCM_CPU1SS_REG_PAR_ERR\n");
+    if(errNo == 248)  GEL_TextOut("  - ESM_EVENT_LCM_RTDMA_REG_PAR_ERR\n");
+    if(errNo == 249)  GEL_TextOut("  - ESM_EVENT_WADI_REG_PAR_ERR\n");
+    if(errNo == 250)  GEL_TextOut("  - ESM_EVENT_CPU1_TMUROM_PAR_ERR\n");
+    if(errNo == 251)  GEL_TextOut("  - ESM_EVENT_CPU2_TMUROM_PAR_ERR\n");
+    if(errNo == 252)  GEL_TextOut("  - ESM_EVENT_CPU3_TMUROM_PAR_ERR\n");
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+printErrAggErrorName(typeRegVal, type)
+{
+    if(type == GelMacro_Prog)
+    {
+        if((typeRegVal >> 0)  & 1)   GEL_TextOut("      - INSTR_SECURITY_VIO\n");
+        if((typeRegVal >> 1)  & 1)   GEL_TextOut("      - SEC_ENTRY_VIO\n");
+        if((typeRegVal >> 2)  & 1)   GEL_TextOut("      - SEC_EXIT_VIO\n");
+        if((typeRegVal >> 3)  & 1)   GEL_TextOut("      - MAX_PSP_ERR\n");
+        if((typeRegVal >> 4)  & 1)   GEL_TextOut("      - ACC_TIMEOUT_ERR\n");
+        if((typeRegVal >> 5)  & 1)   GEL_TextOut("      - ACC_ACK_ERR\n");
+        if((typeRegVal >> 6)  & 1)   GEL_TextOut("      - UNCERR\n");
+        if((typeRegVal >> 7)  & 1)   GEL_TextOut("      - CERR\n");
+        if((typeRegVal >> 8)  & 1)   GEL_TextOut("      - WARN_PSP_ERR\n");
+        if((typeRegVal >> 9)  & 1)   GEL_TextOut("      - SW_BREAKPOINT_ERR\n");
+        if((typeRegVal >> 10) & 1)   GEL_TextOut("      - ILLEGAL_INSTRUCTION\n");
+        if((typeRegVal >> 11) & 1)   GEL_TextOut("      - INSTRUCTION_TIMEOUT\n");
+        if((typeRegVal >> 30) & 1)   GEL_TextOut("      - LP_SOFTWARE_ERR\n");
+        if((typeRegVal >> 31) & 1)   GEL_TextOut("      - HP_SOFTWARE_ERR\n");
+    }
+    if(type == GelMacro_Data)
+    {
+        if((typeRegVal >> 0)  & 1)  GEL_TextOut("      - SECURITY_VIO\n");
+        if((typeRegVal >> 4)  & 1)  GEL_TextOut("      - ACC_TIMEOUT_ERR\n");
+        if((typeRegVal >> 5)  & 1)  GEL_TextOut("      - ACC_ACK_ERR\n");
+        if((typeRegVal >> 6)  & 1)  GEL_TextOut("      - UNCERR\n");
+        if((typeRegVal >> 7)  & 1)  GEL_TextOut("      - CERR\n");
+        if((typeRegVal >> 8)  & 1)  GEL_TextOut("      - UNALIGNED_ADDR_ERR\n");
+        if((typeRegVal >> 30) & 1)  GEL_TextOut("      - LP_SOFTWARE_ERR\n");
+        if((typeRegVal >> 31) & 1)  GEL_TextOut("      - HP_SOFTWARE_ERR\n");
+    }
+    if(type == GelMacro_Int)
+    {
+        if((typeRegVal >> 0)  & 1)  GEL_TextOut("      - MAIN_ISR_ENTRY_ERR\n");
+        if((typeRegVal >> 1)  & 1)  GEL_TextOut("      - MAIN_VECT_CERR\n");
+        if((typeRegVal >> 2)  & 1)  GEL_TextOut("      - MAIN_VECT_UNCERR\n");
+        if((typeRegVal >> 3)  & 1)  GEL_TextOut("      - MAIN_INTERRUPT_RETURN_ERR\n");
+        if((typeRegVal >> 4)  & 1)  GEL_TextOut("      - INT_ISR_ENTRY_ERR\n");
+        if((typeRegVal >> 5)  & 1)  GEL_TextOut("      - INT_VECT_CERR\n");
+        if((typeRegVal >> 6)  & 1)  GEL_TextOut("      - INT_VECT_UNCERR\n");
+        if((typeRegVal >> 7)  & 1)  GEL_TextOut("      - INT_INTERRUPT_RETURN_ERR\n");
+        if((typeRegVal >> 8)  & 1)  GEL_TextOut("      - RTINT_ISR_ENTRY_ERR\n");
+        if((typeRegVal >> 9)  & 1)  GEL_TextOut("      - RTINT_VECT_CERR\n");
+        if((typeRegVal >> 10) & 1)  GEL_TextOut("      - RTINT_VECT_UNCERR\n");
+        if((typeRegVal >> 11) & 1)  GEL_TextOut("      - RTINT_INTERRUPT_RETURN_ERR\n");
+        if((typeRegVal >> 12) & 1)  GEL_TextOut("      - RTINT_CONTEXT_RESTORE_VECT_CERR\n");
+        if((typeRegVal >> 13) & 1)  GEL_TextOut("      - RTINT_CONTEXT_RESTORE_VECT_UNCERR\n");
+        if((typeRegVal >> 15) & 1)  GEL_TextOut("      - NMI_MAXISP_ERR\n");
+        if((typeRegVal >> 16) & 1)  GEL_TextOut("      - NMI_ISR_ENTRY_ERR\n");
+        if((typeRegVal >> 17) & 1)  GEL_TextOut("      - NMI_VECT_CERR\n");
+        if((typeRegVal >> 18) & 1)  GEL_TextOut("      - NMI_VECT_UNCERR\n");
+        if((typeRegVal >> 19) & 1)  GEL_TextOut("      - NMI_INTERRUPT_RETURN_ERR\n");
+        if((typeRegVal >> 20) & 1)  GEL_TextOut("      - NMI_CONTEXT_RESTORE_VECT_CERR\n");
+        if((typeRegVal >> 21) & 1)  GEL_TextOut("      - NMI_CONTEXT_RESTORE_VECT_UNCERR\n");
+        if((typeRegVal >> 22) & 1)  GEL_TextOut("      - SCRUB_VECT_CERR\n");
+        if((typeRegVal >> 23) & 1)  GEL_TextOut("      - SCRUB_VECT_UNCERR\n");
+        if((typeRegVal >> 24) & 1)  GEL_TextOut("      - WARNISP\n");
+        if((typeRegVal >> 25) & 1)  GEL_TextOut("      - MAXISP\n");
+        if((typeRegVal >> 26) & 1)  GEL_TextOut("      - PIPE_SECURITY_VIO\n");
+        if((typeRegVal >> 27) & 1)  GEL_TextOut("      - REG_PARITY_ERR\n");
+        if((typeRegVal >> 28) & 1)  GEL_TextOut("      - REG_PARITY_DIAG_ERR\n");
+        if((typeRegVal >> 29) & 1)  GEL_TextOut("      - PIPE_LOCK_KEY_ERR\n");
+        if((typeRegVal >> 30) & 1)  GEL_TextOut("      - LP_SOFTWARE_ERR\n");
+        if((typeRegVal >> 31) & 1)  GEL_TextOut("      - HP_SOFTWARE_ERR\n");
+    }
+    if(type == GelMacro_SSU)
+    {
+        if((typeRegVal >> 1)  & 1)  GEL_TextOut("      - CPU1_SSU_MMR_ACCESS_ERROR\n");
+        if((typeRegVal >> 2)  & 1)  GEL_TextOut("      - CPU2_SSU_MMR_ACCESS_ERROR\n");
+        if((typeRegVal >> 3)  & 1)  GEL_TextOut("      - CPU3_SSU_MMR_ACCESS_ERROR\n");
+        if((typeRegVal >> 7)  & 1)  GEL_TextOut("      - MODE_INVALID\n");
+        if((typeRegVal >> 12) & 1)  GEL_TextOut("      - FLC1_MMR_ACCESS_ERROR\n");
+        if((typeRegVal >> 17) & 1)  GEL_TextOut("      - FLC2_MMR_ACCESS_ERROR\n");
+        if((typeRegVal >> 31) & 1)  GEL_TextOut("      - HP_SOFTWARE_ERR\n");
+
+        if((typeRegVal >> 8) & 1)
+        {
+            int err = (typeRegVal >> 9) & 0xF;
+            if(err == 0)   GEL_TextOut("      - FLC1_ILLADDR\n");
+            if(err == 1)   GEL_TextOut("      - FLC1_ILLPROG\n");
+            if(err == 2)   GEL_TextOut("      - FLC1_ILLERASE\n");
+            if(err == 3)   GEL_TextOut("      - FLC1_ILLRDVER\n");
+            if(err == 4)   GEL_TextOut("      - FLC1_ILLMODECH\n");
+            if(err == 5)   GEL_TextOut("      - FLC1_ILLCMD\n");
+            if(err == 6)   GEL_TextOut("      - FLC1_ILLSIZE\n");
+            if(err == 7)   GEL_TextOut("      - FLC1_ILLBANKERASE\n");
+        }
+        if((typeRegVal >> 13) & 1)
+        {
+            int err = (typeRegVal >> 14) & 0xF;
+            if(err == 0)   GEL_TextOut("      - FLC1_ILLADDR\n");
+            if(err == 1)   GEL_TextOut("      - FLC1_ILLPROG\n");
+            if(err == 2)   GEL_TextOut("      - FLC1_ILLERASE\n");
+            if(err == 3)   GEL_TextOut("      - FLC1_ILLRDVER\n");
+            if(err == 4)   GEL_TextOut("      - FLC1_ILLMODECH\n");
+            if(err == 5)   GEL_TextOut("      - FLC1_ILLCMD\n");
+            if(err == 6)   GEL_TextOut("      - FLC1_ILLSIZE\n");
+            if(err == 7)   GEL_TextOut("      - FLC1_ILLBANKERASE\n");
+        }
+    }
+    if(type == GelMacro_Ecat)
+    {
+        if((typeRegVal >> 6)  & 1)  GEL_TextOut("      - UNCERR\n");
+        if((typeRegVal >> 31) & 1)  GEL_TextOut("      - HP_SOFTWARE_ERR\n");
+    }
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+getIntName(intNum)
+{
+    if(intNum == 0) return "INT_CPU_OVF";
+    if(intNum == 1) return "INT_CPU_UVF";
+    if(intNum == 2) return "INT_CPU_DOV";
+    if(intNum == 3) return "INT_WD";
+    if(intNum == 4) return "INT_ERAD";
+    if(intNum == 5) return "INT_DLT";
+    if(intNum == 6) return "INT_TIMER0";
+    if(intNum == 7) return "INT_TIMER1";
+    if(intNum == 8) return "INT_TIMER2";
+    if(intNum == 9) return "INT_DEBUGSS";
+    if(intNum == 10) return "INT_ESM_LOWPRI";
+    if(intNum == 11) return "INT_ESM_PARITYERR";
+    if(intNum == 12) return "INT_IPC_1_1";
+    if(intNum == 13) return "INT_IPC_1_2";
+    if(intNum == 14) return "INT_IPC_1_3";
+    if(intNum == 15) return "INT_IPC_1_4";
+    if(intNum == 16) return "INT_IPC_2_1";
+    if(intNum == 17) return "INT_IPC_2_2";
+    if(intNum == 18) return "INT_IPC_2_3";
+    if(intNum == 19) return "INT_IPC_2_4";
+    if(intNum == 20) return "INT_IPC_HSM_RACK";
+    if(intNum == 21) return "INT_IPC_HSM_WDONE";
+    if(intNum == 26) return "INT_DTHE_TRNG";
+    if(intNum == 27) return "INT_DTHE_PKAE";
+    if(intNum == 28) return "INT_DTHE_SHA_S";
+    if(intNum == 29) return "INT_DTHE_SHA_P";
+    if(intNum == 30) return "INT_DTHE_AES_S";
+    if(intNum == 31) return "INT_DTHE_AES_P";
+    if(intNum == 32) return "INT_DTHE_SM3";
+    if(intNum == 33) return "INT_DTHE_SM4";
+    if(intNum == 34) return "INT_FLC1";
+    if(intNum == 35) return "INT_FLC2";
+    if(intNum == 36) return "INT_EPWM1";
+    if(intNum == 37) return "INT_EPWM1_TZ";
+    if(intNum == 38) return "INT_EPWM2";
+    if(intNum == 39) return "INT_EPWM2_TZ";
+    if(intNum == 40) return "INT_EPWM3";
+    if(intNum == 41) return "INT_EPWM3_TZ";
+    if(intNum == 42) return "INT_EPWM4";
+    if(intNum == 43) return "INT_EPWM4_TZ";
+    if(intNum == 44) return "INT_EPWM5";
+    if(intNum == 45) return "INT_EPWM5_TZ";
+    if(intNum == 46) return "INT_EPWM6";
+    if(intNum == 47) return "INT_EPWM6_TZ";
+    if(intNum == 48) return "INT_EPWM7";
+    if(intNum == 49) return "INT_EPWM7_TZ";
+    if(intNum == 50) return "INT_EPWM8";
+    if(intNum == 51) return "INT_EPWM8_TZ";
+    if(intNum == 52) return "INT_EPWM9";
+    if(intNum == 53) return "INT_EPWM9_TZ";
+    if(intNum == 54) return "INT_EPWM10";
+    if(intNum == 55) return "INT_EPWM10_TZ";
+    if(intNum == 56) return "INT_EPWM11";
+    if(intNum == 57) return "INT_EPWM11_TZ";
+    if(intNum == 58) return "INT_EPWM12";
+    if(intNum == 59) return "INT_EPWM12_TZ";
+    if(intNum == 60) return "INT_EPWM13";
+    if(intNum == 61) return "INT_EPWM13_TZ";
+    if(intNum == 62) return "INT_EPWM14";
+    if(intNum == 63) return "INT_EPWM14_TZ";
+    if(intNum == 64) return "INT_EPWM15";
+    if(intNum == 65) return "INT_EPWM15_TZ";
+    if(intNum == 66) return "INT_EPWM16";
+    if(intNum == 67) return "INT_EPWM16_TZ";
+    if(intNum == 68) return "INT_EPWM17";
+    if(intNum == 69) return "INT_EPWM17_TZ";
+    if(intNum == 70) return "INT_EPWM18";
+    if(intNum == 71) return "INT_EPWM18_TZ";
+    if(intNum == 72) return "INT_EQEP1";
+    if(intNum == 73) return "INT_EQEP2";
+    if(intNum == 74) return "INT_EQEP3";
+    if(intNum == 75) return "INT_EQEP4";
+    if(intNum == 76) return "INT_EQEP5";
+    if(intNum == 77) return "INT_EQEP6";
+    if(intNum == 78) return "INT_ECAP1";
+    if(intNum == 79) return "INT_ECAP2";
+    if(intNum == 80) return "INT_ECAP3";
+    if(intNum == 81) return "INT_ECAP4";
+    if(intNum == 82) return "INT_ECAP5";
+    if(intNum == 83) return "INT_HRCAP5";
+    if(intNum == 84) return "INT_ECAP6";
+    if(intNum == 85) return "INT_HRCAP6";
+    if(intNum == 86) return "INT_ADCA_EVT";
+    if(intNum == 87) return "INT_ADCA1";
+    if(intNum == 88) return "INT_ADCA2";
+    if(intNum == 89) return "INT_ADCA3";
+    if(intNum == 90) return "INT_ADCA4";
+    if(intNum == 91) return "INT_ADCB_EVT";
+    if(intNum == 92) return "INT_ADCB1";
+    if(intNum == 93) return "INT_ADCB2";
+    if(intNum == 94) return "INT_ADCB3";
+    if(intNum == 95) return "INT_ADCB4";
+    if(intNum == 96) return "INT_ADCC_EVT";
+    if(intNum == 97) return "INT_ADCC1";
+    if(intNum == 98) return "INT_ADCC2";
+    if(intNum == 99) return "INT_ADCC3";
+    if(intNum == 100) return "INT_ADCC4";
+    if(intNum == 101) return "INT_ADCD_EVT";
+    if(intNum == 102) return "INT_ADCD1";
+    if(intNum == 103) return "INT_ADCD2";
+    if(intNum == 104) return "INT_ADCD3";
+    if(intNum == 105) return "INT_ADCD4";
+    if(intNum == 106) return "INT_ADCE_EVT";
+    if(intNum == 107) return "INT_ADCE1";
+    if(intNum == 108) return "INT_ADCE2";
+    if(intNum == 109) return "INT_ADCE3";
+    if(intNum == 110) return "INT_ADCE4";
+    if(intNum == 112) return "INT_SD1_ERR";
+    if(intNum == 113) return "INT_SD1_FLT1_DR";
+    if(intNum == 114) return "INT_SD1_FLT2_DR";
+    if(intNum == 115) return "INT_SD1_FLT3_DR";
+    if(intNum == 116) return "INT_SD1_FLT4_DR";
+    if(intNum == 117) return "INT_SD2_ERR";
+    if(intNum == 118) return "INT_SD2_FLT1_DR";
+    if(intNum == 119) return "INT_SD2_FLT2_DR";
+    if(intNum == 120) return "INT_SD2_FLT3_DR";
+    if(intNum == 121) return "INT_SD2_FLT4_DR";
+    if(intNum == 122) return "INT_SD3_ERR";
+    if(intNum == 123) return "INT_SD3_FLT1_DR";
+    if(intNum == 124) return "INT_SD3_FLT2_DR";
+    if(intNum == 125) return "INT_SD3_FLT3_DR";
+    if(intNum == 126) return "INT_SD3_FLT4_DR";
+    if(intNum == 127) return "INT_SD4_ERR";
+    if(intNum == 128) return "INT_SD4_FLT1_DR";
+    if(intNum == 129) return "INT_SD4_FLT2_DR";
+    if(intNum == 130) return "INT_SD4_FLT3_DR";
+    if(intNum == 131) return "INT_SD4_FLT4_DR";
+    if(intNum == 132) return "INT_CLB1";
+    if(intNum == 133) return "INT_CLB2";
+    if(intNum == 134) return "INT_CLB3";
+    if(intNum == 135) return "INT_CLB4";
+    if(intNum == 136) return "INT_CLB5";
+    if(intNum == 137) return "INT_CLB6";
+    if(intNum == 138) return "INT_UARTA";
+    if(intNum == 139) return "INT_UARTB";
+    if(intNum == 140) return "INT_UARTC";
+    if(intNum == 141) return "INT_UARTD";
+    if(intNum == 142) return "INT_UARTE";
+    if(intNum == 143) return "INT_UARTF";
+    if(intNum == 144) return "INT_LINA_0";
+    if(intNum == 145) return "INT_LINA_1";
+    if(intNum == 146) return "INT_LINB_0";
+    if(intNum == 147) return "INT_LINB_1";
+    if(intNum == 148) return "INT_PMBUSA";
+    if(intNum == 149) return "INT_I2CA";
+    if(intNum == 150) return "INT_I2CA_FIFO";
+    if(intNum == 151) return "INT_I2CB";
+    if(intNum == 152) return "INT_I2CB_FIFO";
+    if(intNum == 153) return "INT_SPIA_TX";
+    if(intNum == 154) return "INT_SPIA_RX";
+    if(intNum == 155) return "INT_SPIB_TX";
+    if(intNum == 156) return "INT_SPIB_RX";
+    if(intNum == 157) return "INT_SPIC_TX";
+    if(intNum == 158) return "INT_SPIC_RX";
+    if(intNum == 159) return "INT_SPID_TX";
+    if(intNum == 160) return "INT_SPID_RX";
+    if(intNum == 161) return "INT_SPIE_TX";
+    if(intNum == 162) return "INT_SPIE_RX";
+    if(intNum == 163) return "INT_FSITXA1";
+    if(intNum == 164) return "INT_FSITXA2";
+    if(intNum == 165) return "INT_FSITXB1";
+    if(intNum == 166) return "INT_FSITXB2";
+    if(intNum == 167) return "INT_FSITXC1";
+    if(intNum == 168) return "INT_FSITXC2";
+    if(intNum == 169) return "INT_FSITXD1";
+    if(intNum == 170) return "INT_FSITXD2";
+    if(intNum == 171) return "INT_FSIRXA1";
+    if(intNum == 172) return "INT_FSIRXA2";
+    if(intNum == 173) return "INT_FSIRXB1";
+    if(intNum == 174) return "INT_FSIRXB2";
+    if(intNum == 175) return "INT_FSIRXC1";
+    if(intNum == 176) return "INT_FSIRXC2";
+    if(intNum == 177) return "INT_FSIRXD1";
+    if(intNum == 178) return "INT_FSIRXD2";
+    if(intNum == 179) return "INT_SENTA";
+    if(intNum == 180) return "INT_SENTB";
+    if(intNum == 181) return "INT_SENTC";
+    if(intNum == 182) return "INT_SENTD";
+    if(intNum == 183) return "INT_SENTE";
+    if(intNum == 184) return "INT_SENTF";
+    if(intNum == 186) return "INT_MCANA_WAKE";
+    if(intNum == 187) return "INT_MCANA_1";
+    if(intNum == 188) return "INT_MCANA_0";
+    if(intNum == 190) return "INT_MCANB_WAKE";
+    if(intNum == 191) return "INT_MCANB_1";
+    if(intNum == 192) return "INT_MCANB_0";
+    if(intNum == 194) return "INT_MCANC_WAKE";
+    if(intNum == 195) return "INT_MCANC_1";
+    if(intNum == 196) return "INT_MCANC_0";
+    if(intNum == 198) return "INT_MCAND_WAKE";
+    if(intNum == 199) return "INT_MCAND_1";
+    if(intNum == 200) return "INT_MCAND_0";
+    if(intNum == 202) return "INT_MCANE_WAKE";
+    if(intNum == 203) return "INT_MCANE_1";
+    if(intNum == 204) return "INT_MCANE_0";
+    if(intNum == 206) return "INT_MCANF_WAKE";
+    if(intNum == 207) return "INT_MCANF_1";
+    if(intNum == 208) return "INT_MCANF_0";
+    if(intNum == 209) return "INT_ECAT";
+    if(intNum == 210) return "INT_ECATSYNC0";
+    if(intNum == 211) return "INT_ECATSYNC1";
+    if(intNum == 212) return "INT_ECATRST";
+    if(intNum == 213) return "INT_RTDMA1CH1";
+    if(intNum == 214) return "INT_RTDMA1CH2";
+    if(intNum == 215) return "INT_RTDMA1CH3";
+    if(intNum == 216) return "INT_RTDMA1CH4";
+    if(intNum == 217) return "INT_RTDMA1CH5";
+    if(intNum == 218) return "INT_RTDMA1CH6";
+    if(intNum == 219) return "INT_RTDMA1CH7";
+    if(intNum == 220) return "INT_RTDMA1CH8";
+    if(intNum == 221) return "INT_RTDMA1CH9";
+    if(intNum == 222) return "INT_RTDMA1CH10";
+    if(intNum == 223) return "INT_RTDMA2CH1";
+    if(intNum == 224) return "INT_RTDMA2CH2";
+    if(intNum == 225) return "INT_RTDMA2CH3";
+    if(intNum == 226) return "INT_RTDMA2CH4";
+    if(intNum == 227) return "INT_RTDMA2CH5";
+    if(intNum == 228) return "INT_RTDMA2CH6";
+    if(intNum == 229) return "INT_RTDMA2CH7";
+    if(intNum == 230) return "INT_RTDMA2CH8";
+    if(intNum == 231) return "INT_RTDMA2CH9";
+    if(intNum == 232) return "INT_RTDMA2CH10";
+    if(intNum == 233) return "INT_WADI1";
+    if(intNum == 234) return "INT_WADI2";
+    if(intNum == 235) return "INT_XINT1";
+    if(intNum == 236) return "INT_XINT2";
+    if(intNum == 237) return "INT_XINT3";
+    if(intNum == 238) return "INT_XINT4";
+    if(intNum == 239) return "INT_XINT5";
+    if(intNum == 240) return "INT_DCC1";
+    if(intNum == 241) return "INT_DCC2";
+    if(intNum == 242) return "INT_DCC3";
+    if(intNum == 243) return "INT_LPM_WAKE";
+    if(intNum == 244) return "INT_SW12";
+    if(intNum == 245) return "INT_SW11";
+    if(intNum == 246) return "INT_SW10";
+    if(intNum == 247) return "INT_SW9";
+    if(intNum == 248) return "INT_SW8";
+    if(intNum == 249) return "INT_SW7";
+    if(intNum == 250) return "INT_SW6";
+    if(intNum == 251) return "INT_SW5";
+    if(intNum == 252) return "INT_SW4";
+    if(intNum == 253) return "INT_SW3";
+    if(intNum == 254) return "INT_SW2";
+    if(intNum == 255) return "INT_SW1";
+}
+
+/*------------------------------------------------------------------------------------------------
+*
+* Device Emulation
+*
+* ----------------------------------------------------------------------------------------------*/
+menuitem "F29H85x Device Emulation";
+hotmenu Emulate_F29H859TU8()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF81 = 0xFFFFU;
+    GEL_TextOut("F29H859TU8 is emulated.\n");
+}
+hotmenu Emulate_F29H859TM8()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF81 = 0x00FFU;
+    GEL_TextOut("F29H859TM8 is emulated.\n");
+}
+hotmenu Emulate_F29H850DM7()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFF7U;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF81 = 0x00FFU;
+    GEL_TextOut("F29H850DM7 is emulated.\n");
+}
+hotmenu Emulate_F29H850DU7()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFF7U;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF81 = 0xFFFFU;
+    GEL_TextOut("F29H850DU7 is emulated.\n");
+}
+hotmenu Emulate_F29H859DM6()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFF7U;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0x00FFU;
+    'REG'::DevCfgRegs.MCUCNF81 = 0x00FFU;
+    GEL_TextOut("F29H859DM6 is emulated.\n");
+}
+hotmenu Emulate_F29H859DU6()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFF7U;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF81 = 0xFFFFU;
+    GEL_TextOut("F29H859DU6 is emulated.\n");
+}
+
+menuitem "F29P58x Device Emulation";
+hotmenu Emulate_F29P580DM5()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFC01FFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFCFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFCFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFCFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xF0FFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFC7U;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFF7FFF7U;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFDU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFEFU;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xF000FFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0x0000U;
+    'REG'::DevCfgRegs.MCUCNF81 = 0x0000U;
+    GEL_TextOut("F29P580DM5 is emulated.\n");
+}
+hotmenu Emulate_F29P589DM5()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFC01FFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFCFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFCFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFCFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xF0FFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFC7U;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFF7FFF7U;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFDU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFEFU;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xF000FFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0x0000U;
+    'REG'::DevCfgRegs.MCUCNF81 = 0x0000U;
+    GEL_TextOut("F29P589DM5 is emulated.\n");
+}
+hotmenu Emulate_F29P589DU5()
+{
+    'REG'::DevCfgRegs.MCUCNF1 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF2 = 0xFFFC01FFU;
+    'REG'::DevCfgRegs.MCUCNF4 = 0xFFCFU;
+    'REG'::DevCfgRegs.MCUCNF7 = 0xFFCFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF10 = 0xFCFFU;
+    'REG'::DevCfgRegs.MCUCNF13 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF14 = 0xF0FFU;
+    'REG'::DevCfgRegs.MCUCNF16 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF17 = 0xFFC7U;
+    'REG'::DevCfgRegs.MCUCNF18 = 0xFFF7FFF7U;
+    'REG'::DevCfgRegs.MCUCNF19 = 0xFFFDU;
+    'REG'::DevCfgRegs.MCUCNF23 = 0xFFFEU;
+    'REG'::DevCfgRegs.MCUCNF26 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF31 = 0xFFFFFFFFU;
+    'REG'::DevCfgRegs.MCUCNF64 = 0xFFEFU;
+    'REG'::DevCfgRegs.MCUCNF65 = 0xF000FFFFU;
+    'REG'::DevCfgRegs.MCUCNF74 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF76 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF78 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF79 = 0xFFFFU;
+    'REG'::DevCfgRegs.MCUCNF81 = 0xFFFFU;
+    GEL_TextOut("F29P589DU5 is emulated.\n");
+}
+
+menuitem "F29P32x Device Emulation";
+hotmenu Emulate_F29P329SM2()
+{
+    'REG'::DevCfgRegs.MCUCNF1   = 0xFFFFFFFEU;              //  EMIF is not preent
+    'REG'::DevCfgRegs.MCUCNF2   = 0xFFFC00FFU;              //  EPWM        = 8/18
+    'REG'::DevCfgRegs.MCUCNF4   = 0xFFFFFFCFU;              //  EQEP        = 4/6
+    'REG'::DevCfgRegs.MCUCNF7   = 0xFFC3FFFFU;              //  UART        = 2/6
+    'REG'::DevCfgRegs.MCUCNF10  = 0xFFFFFC7FU;              //  MCAN        = 3/6
+    'REG'::DevCfgRegs.MCUCNF13  = 0xFFFFFFEFU;              //  ADC         = 4/5
+    'REG'::DevCfgRegs.MCUCNF14  = 0xFFFFF00FU;              //  CMPSS       = 4/12
+    'REG'::DevCfgRegs.MCUCNF16  = 0xFFFCFFFFU;              //  DAC         = 0/2
+    'REG'::DevCfgRegs.MCUCNF17  = 0xFFFFFFC0U;              //  CLB         = 0/6
+    'REG'::DevCfgRegs.MCUCNF18  = 0xFFF3FFF3U;              //  FSI         = 2/4
+    'REG'::DevCfgRegs.MCUCNF19  = 0xFFFFFFFFU;              //  LIN         = 2/2
+    'REG'::DevCfgRegs.MCUCNF23  = 0xFFFFFFFEU;              //  Ethercat is not present
+    'REG'::DevCfgRegs.MCUCNF26  = 0xFFFFFFFFU;              //  AES, SHA, PKA and TRNG
+    'REG'::DevCfgRegs.MCUCNF31  = 0xFFFFFFFFU;              //  SM2, SM3 and SM4
+    'REG'::DevCfgRegs.MCUCNF64  = 0xFFFFFFEFU;              //  CPU3 is not present
+    'REG'::DevCfgRegs.MCUCNF65  = 0xF000FFFFU;              //  CDA0-11 are absent
+    'REG'::DevCfgRegs.MCUCNF74  = 0xFFFFFFFFU;              //  FLC1B0/B1 flash
+    'REG'::DevCfgRegs.MCUCNF76  = 0xFFFFFFFFU;              //  FLC1B2/B3 flash
+    'REG'::DevCfgRegs.MCUCNF78  = 0xFFFFFF0FU;              //  FLC1B4 flash
+    'REG'::DevCfgRegs.MCUCNF79  = 0xFFFF0000U;              //  FLC2B0/B1 flash is not present
+    'REG'::DevCfgRegs.MCUCNF81  = 0xFFFF0000U;              //  FLC2B2/B3 flash is not present
+    GEL_TextOut("F29P329SM2 is emulated.\n");
+}
+
+FindDevice()
+{
+    unsigned int partid = 'REG'::DevCfgRegs.PARTIDH;
+
+    if(partid == 0x0DFF0C00)   GEL_TextOut("The connected device is F29H850TU9\n");
+    if(partid == 0x0DDE0C00)   GEL_TextOut("The connected device is F29H859TU8\n");
+    if(partid == 0x0DDC0C00)   GEL_TextOut("The connected device is F29H859TM8\n");
+    if(partid == 0x0DE90C00)   GEL_TextOut("The connected device is F29H850DM7\n");
+    if(partid == 0x0DEB0C00)   GEL_TextOut("The connected device is F29H850DU7\n");
+    if(partid == 0x0DC80C00)   GEL_TextOut("The connected device is F29H859DM6\n");
+    if(partid == 0x0DCA0C00)   GEL_TextOut("The connected device is F29H859DU6\n");
+    if(partid == 0x0CBE0C00)   GEL_TextOut("The connected device is F29P580DM5\n");
+    if(partid == 0x0C9E0C00)   GEL_TextOut("The connected device is F29P589DM5\n");
+    if(partid == 0x0C9F0C00)   GEL_TextOut("The connected device is F29P589DU5\n");
+    if(partid == 0x0C4F0C00)   GEL_TextOut("The connected device is F29P329SM2\n");
+}
+
+CheckFlash()
+{
+    if((*(unsigned int*)0x10001000) != 0xFFFFFFFF)
+    {
+        GEL_TextOut("Program found in Flash memory. Make sure to erase Flash if loading an application to RAM. If loading to Flash, Flash Plugin will erase the selected banks.\n");
+    }
+}

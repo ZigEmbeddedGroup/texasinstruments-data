@@ -1,0 +1,423 @@
+/**
+ * \file  AM275_PLL_OFC1.gel
+ *
+ * \brief GEL File to configure the clocking infrastructure on AM275
+ */
+
+/* Copyright (c) 2024, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*****************************************************************************/
+/* PLL functions. */
+#define OPP_HIGH 0x1
+
+menuitem "PLL Configuration/OFC1";
+
+menuitem "PLL Configuration/OFC1/Standard Configuration";
+
+/**
+ * \brief  Set all PLLs on 
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_All_PLL_OFC1_NOM(){
+	int debug_info = DEBUG;
+	int gel_trace_on  = GEL_TRACE;
+	address_offset = 0x80000000;
+
+	//for debugging only: 
+	if(debug_info){
+		GEL_TextOut("Debugging enabled\n");
+	}
+	if(gel_trace_on){
+		GEL_Trace(1);
+		GEL_TextOut("GEL_trace enabled\n");
+	}
+	else{
+		GEL_Trace(0);
+	}
+
+	
+	//Turn on the PLLs.
+	GEL_TextOut("Programming all PLLs.\n");
+
+	
+	GEL_TextOut("Programming Main PLL 0 (Main PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_PLL_INDEX, OFC1, NONE);
+	//if you want to set PLL0 with different div value ,reffere mmr and pass some value instead of NONE (same as below line )
+	//Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_PLL_INDEX,OFC1, 1);
+	GEL_TextOut("Main PLL 0 (Main PLL) Set.\n");
+
+
+	GEL_TextOut("Programming Main PLL 1 (Peripheral 0 PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, PER0_PLL_INDEX, OFC1, NONE);
+	//if you want to set PLL0 with different div value ,reffere mmr and pass some value instead of NONE (same as below line )
+	//Setup(CSL_PLL0_CFG_BASE, address_offset, PER0_PLL_INDEX , OFC1,11);
+	GEL_TextOut("Main PLL 1 (Peripheral 1 PLL) Set.\n");
+
+	
+	GEL_TextOut("Programming Main PLL 2 (Peripheral 1 PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, PER1_PLL_INDEX, OFC1, NONE);
+	//if you want to set PLL0 with different div value ,reffere mmr and pass some value instead of NONE (same as below line )
+	//Setup(CSL_PLL0_CFG_BASE, address_offset, PER1_PLL_INDEX, OFC1,18);
+	GEL_TextOut("Main PLL 2 (Peripheral 2 PLL) Set.\n");
+
+
+	GEL_TextOut("Programming Main PLL 4 (McASP/CPSW/ATL/DMTIMER/ASRC PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, AUDIO_PLL_INDEX, OFC1, NONE);
+	//if you want to set PLL0 with different div value ,reffere mmr and pass some value instead of NONE (same as below line )
+        // Setup(CSL_PLL0_CFG_BASE, address_offset, AUDIO_PLL_INDEX , OFC1,25 );
+	GEL_TextOut("Main PLL 4 (McASP/CPSW/ATL/DMTIMER/ASRC PLL) Set.\n");
+
+
+	GEL_TextOut("Programming Main PLL 7 (Cx7 PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, C7X_PLL_INDEX, OFC1, NONE);
+        // Setup(CSL_PLL0_CFG_BASE, address_offset, C7X_PLL_INDEX , OFC1,28);
+	GEL_TextOut("Main PLL 7 (Cx7 PLL) Set to nominal.\n");
+
+	
+	GEL_TextOut("Programming Main PLL 14 (R5F PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_R5SS_INDEX,OFC1, NONE);
+	//if you want to set PLL0 with different div value ,reffere mmr and pass some value instead of NONE (same as below line )
+        // Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_R5SS_INDEX ,OFC1, 30);
+	GEL_TextOut("Main PLL 14 (R5F PLL) Set to nominal.\n");
+
+
+	GEL_TextOut("Programming Main PLL 15 (SMS/PKA/DM R5F PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_SMS_INDEX, OFC1, NONE);
+	//if you want to set PLL0 with different div value ,reffere mmr and pass some value instead of NONE (same as below line )
+        //Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_SMS_INDEX,OFC1, 32);
+	GEL_TextOut("Main PLL 15 (SMS/PKA/DM R5F) Set.\n");
+
+	GEL_TextOut("Programming MCU PLL 0 (MCU PLL)\n");
+	Setup(CSL_MCU_PLL0_CFG_BASE, address_offset, MCU_PLL_INDEX, OFC1, NONE);
+	//if you want to set PLL0 with different div value ,reffere mmr and pass some value instead of NONE (same as below line )
+	//Setup(CSL_MCU_PLL0_CFG_BASE, address_offset, MCU_PLL_INDEX, OFC1, 34);
+	GEL_TextOut("MCU PLL 0 (MCU PLL) Set.\n");
+
+	GEL_TextOut("All PLL are programmed.\n");
+
+    return 0;
+
+}
+
+
+menuitem "PLL Configuration/OFC1/Individual Standard Configurations"
+/**
+ * \brief  Set Main 0 PLL on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+
+hotmenu Set_Main_PLL_OFC1(){
+	int debug_info = DEBUG;
+	int gel_trace_on  = GEL_TRACE;
+    	address_offset = 0x80000000;
+
+	//for debugging only: 
+	if(debug_info){
+		GEL_TextOut("Debugging enabled\n");
+	}
+	if(gel_trace_on){
+		GEL_Trace(1);
+		GEL_TextOut("GEL_trace enabled\n");
+	}
+	else{
+		GEL_Trace(0);
+	}
+	//Main PLL
+	GEL_TextOut("Programming Main PLL 0 (Main PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_PLL_INDEX, OFC1, NONE);
+	GEL_TextOut("Main PLL 0 (Main PLL) Set.\n");
+}
+
+
+
+
+
+
+/**
+ * \brief  Set Peripheral 0 PLL on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_Peripheral_0_PLL_OFC1(){
+	int debug_info = DEBUG;
+	int gel_trace_on  = GEL_TRACE;
+    	address_offset = 0x80000000;
+    
+	//for debugging only: 
+	if(debug_info){
+		GEL_TextOut("Debugging enabled\n");
+	}
+	if(gel_trace_on){
+		GEL_Trace(1);
+		GEL_TextOut("GEL_trace enabled\n");
+	}
+	else{
+		GEL_Trace(0);
+	}
+	//Per0 PLL
+	GEL_TextOut("Programming Main PLL 1 (Peripheral 0 PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, PER0_PLL_INDEX , OFC1,NONE );
+	GEL_TextOut("Main PLL 1 (Peripheral 0 PLL) Set.\n");
+}
+
+/**
+ * \brief  Set Peripheral 1 PLL on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_Peripheral_1_PLL_OFC1(){
+	int debug_info = DEBUG;
+	int gel_trace_on  = GEL_TRACE;
+    	address_offset = 0x80000000;
+    
+	//for debugging only: 
+	if(debug_info){
+		GEL_TextOut("Debugging enabled\n");
+	}
+	if(gel_trace_on){
+		GEL_Trace(1);
+		GEL_TextOut("GEL_trace enabled\n");
+	}
+	else{
+		GEL_Trace(0);
+	}
+    	//Per1 PLL
+	GEL_TextOut("Programming Main PLL 2 (Peripheral 1 PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, PER1_PLL_INDEX, OFC1,NONE);
+	GEL_TextOut("Main PLL 2 (Peripheral 1 PLL) Set.\n");
+}
+
+/**
+ * \brief  Set Main PLL4 on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_Main_PLL4_OFC1(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    
+    //for debugging only:
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main PLL
+    GEL_TextOut("Programming Main PLL 4 (Main PLL)\n");
+    Setup(CSL_PLL0_CFG_BASE, address_offset, AUDIO_PLL_INDEX, OFC1, NONE);
+//    Setup(CSL_PLL0_CFG_BASE, address_offset,  AUDIO_PLL_INDEX , OFC1, NONE);
+    GEL_TextOut("Main PLL 4 (Main PLL) Set.\n");
+}
+
+
+/**
+ * \brief  Set Main PLL7 on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_Main_PLL7_OFC1_OPP_HIGH_1000_MHZ(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+
+    //for debugging only:
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main PLL7
+    GEL_TextOut("Programming Main PLL 7 (Main PLL)\n");
+    Setup(CSL_PLL0_CFG_BASE, address_offset, C7X_PLL_INDEX, OFC1, OPP_HIGH);
+    GEL_TextOut("Main PLL 7 (Main PLL) Set to 1000 MHz.\n");
+}
+
+
+hotmenu Set_Main_PLL7_OFC1_OPP_NOM(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+
+    //for debugging only:
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main PLL7
+    GEL_TextOut("Programming Main PLL 7 (Main PLL)\n");
+    Setup(CSL_PLL0_CFG_BASE, address_offset, C7X_PLL_INDEX, OFC1, NONE);
+    GEL_TextOut("Main PLL 7 (Main PLL) Set to 850 MHz.\n");
+}
+
+
+
+/**
+ * \brief  Set Main PLL14 on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_Main_PLL14_OFC1_OPP_HIGH_1000_MHZ(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only:
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main PLL
+    GEL_TextOut("Programming Main PLL 14 (Main PLL)\n");
+    Setup(CSL_PLL0_CFG_BASE, address_offset,MAIN_R5SS_INDEX , OFC1, OPP_HIGH);
+    GEL_TextOut("Main PLL 14 (Main PLL) Set to 1000 MHz.\n");
+}
+
+hotmenu Set_Main_PLL14_OFC1_OPP_NOM(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    
+    //for debugging only:
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main PLL
+    GEL_TextOut("Programming Main PLL 14 (Main PLL)\n");
+    Setup(CSL_PLL0_CFG_BASE, address_offset,MAIN_R5SS_INDEX , OFC1, NONE);
+    GEL_TextOut("Main PLL 14 (Main PLL) Set to 800 MHz.\n");
+}
+
+/**
+ * \brief  Set SMS PLL on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_Main_PLL15_OFC1(){
+	int debug_info = DEBUG;
+	int gel_trace_on  = GEL_TRACE;
+   	 address_offset = 0x80000000;
+    
+	//for debugging only: 
+	if(debug_info){
+		GEL_TextOut("Debugging enabled\n");
+	}
+	if(gel_trace_on){
+		GEL_Trace(1);
+		GEL_TextOut("GEL_trace enabled\n");
+	}
+	else{
+		GEL_Trace(0);
+	}
+	//SMS PLL
+	GEL_TextOut("Programming Main PLL 15 (SMS PLL)\n");
+	Setup(CSL_PLL0_CFG_BASE, address_offset, MAIN_SMS_INDEX ,OFC1,NONE);
+	GEL_TextOut("Main PLL 15 (SMS PLL) Set.\n");
+}
+
+
+/**
+ * \brief  Set MCU PLL on
+ *
+ * \param   none
+ *
+ * \return  none
+ */
+hotmenu Set_MCU_PLL_OFC1(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+  
+    address_offset = 0x80000000;
+    
+    //for debugging only:
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //MCU PLL
+    GEL_TextOut("Programming MCU PLL 0 (MCU PLL)\n");
+    Setup(CSL_MCU_PLL0_CFG_BASE, address_offset, MCU_PLL_INDEX, OFC1, NONE);
+    GEL_TextOut("MCU PLL 0 (MCU PLL) Set.\n");
+}
+
+

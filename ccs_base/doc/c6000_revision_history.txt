@@ -1,0 +1,160 @@
+C6000 Device Support Package
+============================
+
+1.1.7
+-----
+Added "end of support" notice to obsolete and unsupported devices. 
+Added "limited support" notice to limited and third party supported devices. 
+
+1.1.6
+-----
+Added DSP Debug GEL files (CATAPPS-917)
+Removal of duplicate register instantiations in C6457, C6472, C6474, TCI6484, TCI6486, TCI6487, TCI6488
+
+1.1.5
+-----
+Merged C6000 Multicore, Keystone 1 into C6000 Device Support package
+Merged Spectrum Digital board and GEL files
+
+1.1.4
+-----
+Updated GEL file for C6748 LCDK board
+
+1.1.3
+-----
+Added PRU cores to Freon devices (C6748, C6746, C6742)
+THIS BREAKS COMPATIBILITY WITH EXISTING CONFIGURATIONS
+
+1.1.2
+-----
+Added the compiler end-of-life project wizard property for legacy devices.
+
+1.1.1
+-----
+Fixed SDSCM00051077
+
+1.1.0
+-----
+Fixed SDSCM00050343
+
+COMPATIBILITY NOTE: New projects for C674x devices use ELF instead of COFF
+
+1.0.9
+-----
+Fixed CR/LF in several files
+
+1.0.8
+-----
+Fixed SDSCM00046934.
+
+1.0.7
+-----
+Fixed the bitfield order of files cslr_gpio.xml of C645x devices.
+
+1.0.6
+-----
+Fixed evm6457.xml and added EVMC6457.gel
+
+1.0.5
+-----
+Directory naming issue with c6748 evm GEL folder corrected
+
+1.0.4
+-----
+Fixed several uppercase/lowercase issues in board files
+Fixed CR/LF in several files
+Removed <processors> directive in several files
+Repaired paths to GEL files from ../../emulation to ../../../emulation
+Added author information to Linker CMD files
+Linker command files added for remaining devices
+Device xml files updated to reference linker command files
+
+
+1.0.3
+-----
+Removed c647x files as they are in the multicore package
+Linker command files added for c6416, c6455, c6713, c6747 and c6748
+
+
+1.0.2
+-----
+Revision history file moved to /doc folder
+SDSCM00041865 Fixed base address of Device Control Registers in TCI6484 & C6457
+
+
+1.0.1
+-----
+Added board and GEL files for low cost C6748 and OMAPL138 boards
+Fixed issue with 2 cpus showing up in C6701, C6711, C6712, C6713 files
+Pulled out multicore C6000 files into a separate package
+Added C6472, TCI6484 and TCI6484_C6457 folders under modules
+Added DSP620x_670x.gel
+Added DSP621x_671x.gel
+Added dsp641x.gel
+Added init6484.gel
+Added C6472.gel
+
+
+1.0.0
+-----
+Added device files for each C6000 single core and "C" multi-core device
+
+==============================
+Keystone1 Device Support Files
+==============================
+1.0.13
+------
+DDR register view in CCS enabled for KS1 devices by adjusting .xmls for 36-bit physical addresses(EMUPACK-64).
+
+1.0.12
+------
+Addition of C6652/54 Gels, and C6652.xml.
+Updated C6657l gel DDR Write levelling and Gate levelling ratios as per PHY Calc V11.
+
+1.0.11
+------
+SDOCM00121448. C6657 GEL incorrect EDMA3 register definition overwrites the IER register.
+SDOCM00121449. C6657 GEL Incorrect Set_Psc_All_On() the power domain of VCP2-A.
+CATREQ-656. Inclusion of GEL file for low power variants of C665x.
+
+======================================
+C6000 multicore Device Support Package
+======================================
+
+1.0.5
+-----
+Added the compiler end-of-life project wizard property for legacy devicess
+General cleanup of unused XML properties
+
+1.0.4
+-----
+Fixed the bitfield order of files cslr_gpio.xml of C647x devices.
+
+1.0.3
+-----
+Added more Linker CMD files
+Added project options to device XML files 
+Converted CR/LF (DOS) to LF (UNIX) in several files
+
+
+1.0.2
+-----
+Added c6472.gel file
+Added linker command files for c6472, c6474, c6678
+
+
+1.0.1
+-----
+Moved revision history to /doc
+
+
+1.0.0
+-----
+[tci6464 files]
+cslr_hpi.xml - fixed space in HPIAW
+cslr_gpio.xml - naming and bitfield overlap issues fixed
+cslr_ectl.xml - naming issues with [] fixed
+slr_srio.xml - fixed issues with bitfield end values
+slr_srio.xml - fixed naming issues with starting with a number
+
+

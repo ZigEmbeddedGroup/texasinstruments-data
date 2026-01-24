@@ -1,0 +1,173 @@
+/* J7_OBSCLK.GEL */
+/* Copyright (c) 2019, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+#define CSL_MAIN_CTRL_MMR_CFG0_OBSCLK_CTRL                         (0x00008000U)
+#define CSL_WKUP_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL                     (0x00008000U)
+#define WAKEUP_PSC_BASE				                   (0x42000000U)
+#define PSC_PID                                                    (0x44827A00U)
+#define CSL_MAIN_CTRL_MMR0_CFG0_BASE    		           (0x100000ul)
+
+//Main Control MMR Lock Registers
+#define CSL_MAIN_CTRL_MMR_CFG0_LOCK2_KICK0                                     (0x00009008U)
+#define CSL_MAIN_CTRL_MMR_CFG0_LOCK2_KICK1                                     (0x0000900CU)
+#define CSL_WKUP_CTRL_MMR0_CFG0_BASE                                           (0x43000000ul)
+#define CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK0                                     (0x00009008U)
+#define CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK1                                     (0x0000900CU)
+
+//MMR unlock keys
+#define KICK0_UNLOCK_VAL                                                       (0x68EF3490)
+#define KICK1_UNLOCK_VAL                                                       (0xD172BC5A)
+#define KICK_LOCK_VAL                                                          (0x00000000)
+
+menuitem "Observation Clock"
+dialog Configure_OBSCLK(Clock_mux_index "Observation Clock Multiplexer Index: ", divider_value "Output Divider Value (+1 factored in already): "){
+	//Internal variables
+	unsigned int temp_val;
+	unsigned int temp_val2;
+	unsigned int temp_val3;
+	unsigned int reg_val;
+	unsigned int LOAD;
+	unsigned int address_offset;
+
+	//Initialization of internal variables
+	temp_val = 0; 
+	temp_val2 = 0;
+	temp_val3 = 0;
+	reg_val = 0;
+	LOAD = 0x10000; //Bit 16 is the load bit.
+	//address_offset = 0x80000000; //This is the address offset of any peripherals in the main domain.
+
+	//If this statement is true we're running from the CM3 DMSC.
+	//Make sure to account for the address offset.
+	if (*((unsigned int*)WAKEUP_PSC_BASE) != PSC_PID)
+    {
+        address_offset = 0x80000000;
+    } //Main Control MMRs use the offset of 0x8000_0000.
+
+	//Error checking against user input. This should be taken care of anyhow.
+	if(divider_value > 0xFF){
+		GEL_TextOut("********ERROR: Divider Value is too large.\n");
+		return;
+	}
+	if(Clock_mux_index >= 32){
+		GEL_TextOut("********ERROR: Invalid observation clock multiplexer selection.\n");
+		return;
+	}
+
+	//Unlock Main CTRL MMR Partition 2
+	Write_MMR(CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_LOCK2_KICK0 + address_offset, KICK0_UNLOCK_VAL);
+	Write_MMR(CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_LOCK2_KICK1 + address_offset, KICK1_UNLOCK_VAL);
+
+	//Read the MMR
+	temp_val = Read_MMR(CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK_CTRL + address_offset);
+	GEL_TextOut("OBSCLK control MMR value: %x\n",,,,, temp_val); //just for debugging
+
+	//Write to the actual obsclk the actual obsclk value.
+	//First, pack the register value we want to write.
+	reg_val = Clock_mux_index;
+	temp_val = divider_value << 8; //The divider value goes in bits 8-15.
+	reg_val |= temp_val;
+	Write_MMR(CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK_CTRL + address_offset, reg_val);
+
+	//Now load the divider value into the programmable divider.
+	reg_val |= LOAD;
+	Write_MMR(CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK_CTRL + address_offset, reg_val);
+
+	//Read the MMR
+	temp_val = Read_MMR(CSL_MAIN_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_OBSCLK_CTRL + address_offset);
+	GEL_TextOut("OBSCLK control MMR value: %x\n",,,,, temp_val); //just for debugging
+
+	GEL_TextOut("Main OBSCLK successfully programmed.\n");
+
+}
+
+//for MCU Obsclk
+dialog Configure_MCU_OBSCLK(Clock_mux_index "Observation Clock Multiplexer Index: ", divider_value "Output Divider Value (+1 factored in already): "){
+	//Internal variables
+	unsigned int temp_val;
+	unsigned int temp_val2;
+	unsigned int temp_val3;
+	unsigned int reg_val;
+	unsigned int LOAD;
+	unsigned int address_offset;
+
+	//Initialization of internal variables
+	temp_val = 0; 
+	temp_val2 = 0;
+	temp_val3 = 0;
+	reg_val = 0;
+	LOAD = 0x10000; //Bit 16 is the load bit.
+	//address_offset = 0x20000000; //This is the address offset of any peripherals in the WKUP domain outside of the DMSC.
+
+	//If this statement is true we're running from the CM3 DMSC.
+	//Make sure to account for the address offset.
+	if (*((unsigned int*)WAKEUP_PSC_BASE) != PSC_PID)
+    {
+        address_offset = 0x20000000;
+    } //WKUP Control MMRs use the offset of 0x8000_0000.
+
+    //Error checking against user input. This should be taken care of anyhow.
+	if(divider_value > 0xF){
+		GEL_TextOut("********ERROR: Divider Value is too large.\n");
+		return;
+	}
+	if(Clock_mux_index >= 16){
+		GEL_TextOut("********ERROR: Invalid observation clock multiplexer selection.\n");
+		return;
+	}
+
+	//Unlock WKUP CTRL MMR Partition 2
+	Write_MMR(CSL_WKUP_CTRL_MMR0_CFG0_BASE + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK0 + address_offset, KICK0_UNLOCK_VAL);
+	Write_MMR(CSL_WKUP_CTRL_MMR0_CFG0_BASE + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK1 + address_offset, KICK1_UNLOCK_VAL);
+
+	//Read the MMR
+	temp_val = Read_MMR(CSL_WKUP_CTRL_MMR0_CFG0_BASE + CSL_WKUP_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL + address_offset);
+	GEL_TextOut("MCU OBSCLK control MMR value: %x\n",,,,, temp_val); //just for debugging
+
+	//Write to the actual obsclk the actual obsclk value.
+	//First, pack the register value we want to write.
+	reg_val = Clock_mux_index;
+	temp_val = divider_value << 8; //The divider value goes in bits 8-15.
+	reg_val |= temp_val;
+	Write_MMR(CSL_WKUP_CTRL_MMR0_CFG0_BASE + CSL_WKUP_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL + address_offset, reg_val);
+
+	//Now load the divider value into the programmable divider.
+	reg_val |= LOAD;
+	Write_MMR(CSL_WKUP_CTRL_MMR0_CFG0_BASE + CSL_WKUP_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL + address_offset, reg_val);
+
+	//Read the MMR
+	temp_val = Read_MMR(CSL_WKUP_CTRL_MMR0_CFG0_BASE + CSL_WKUP_CTRL_MMR_CFG0_MCU_OBSCLK_CTRL + address_offset);
+	GEL_TextOut("MCU OBSCLK control MMR value: %x\n",,,,, temp_val); //just for debugging
+
+	GEL_TextOut("MCU OBSCLK successfully programmed.\n");
+}
+
+/* END OF FILE */

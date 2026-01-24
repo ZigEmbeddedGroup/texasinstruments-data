@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="SPG1" HW_revision="1.0">
+    <group id="SPG1_UNICOMM_LPBK" name="SPG1_UNICOMM_LPBK" instances="1" offset="0x1120" instaddr="0x20" description="">
+        <register id="SPG1_LPBK0" width="32" offset="0x0" description="Loopback between SPG instances
+User has to ensure that the SPGs looped back have the same underlying IP instantiated; i.e. both UART, both SPI, both I2C, etc.,">
+            <bitfield id="CONTROLLER" description="Select SPG controller for loopback. 
+Signals invovled in loopback based on interface chosen
+1. SPI : CS, SCLK, SDI, SDO 
+2. I2C : SCL, SDA
+3. UART : TX, RX" begin="11" end="8" width="4" rwaccess="R/W">
+                <bitenum id="SPG1" value="0x0" description="SPG commander select for loopback."/>
+                <bitenum id="SPG2" value="0x1" description="SPG commander select for loopback."/>
+                <bitenum id="SPG3" value="0x2" description="SPG commander select for loopback."/>
+                <bitenum id="SPG4" value="0x3" description="SPG commander select for loopback."/>
+                <bitenum id="SPG5" value="0x4" description="SPG commander select for loopback."/>
+                <bitenum id="SPG6" value="0x5" description="SPG commander select for loopback."/>
+                <bitenum id="SPG7" value="0x6" description="SPG commander select for loopback."/>
+                <bitenum id="SPG8" value="0x7" description="SPG commander select for loopback."/>
+                <bitenum id="SPG9" value="0x8" description="SPG commander select for loopback."/>
+                <bitenum id="SPG10" value="0x9" description="SPG commander select for loopback."/>
+                <bitenum id="SPG11" value="0xA" description="SPG commander select for loopback."/>
+                <bitenum id="SPG12" value="0xB" description="SPG commander select for loopback."/>
+                <bitenum id="SPG13" value="0xC" description="SPG commander select for loopback."/>
+                <bitenum id="SPG14" value="0xD" description="SPG commander select for loopback."/>
+                <bitenum id="SPG15" value="0xE" description="SPG commander select for loopback."/>
+                <bitenum id="SPG16" value="0xF" description="SPG commander select for loopback."/>
+            </bitfield>
+            <bitfield id="EN" description="Loopback  enable" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="Does not select this clock as a source"/>
+                <bitenum id="ENABLE" value="0x1" description="Select this clock as a source"/>
+            </bitfield>
+            <bitfield id="PERIPHERAL" description="Select SPG peripheral for loopback. 
+Signals invovled in loopback based on interface chosen
+1. SPI : CS, SCLK, SDI, SDO 
+2. I2C : SCL, SDA
+3. UART : TX, RX" begin="15" end="12" width="4" rwaccess="R/W">
+                <bitenum id="SPG1" value="0x0" description="SPG responder select for loopback."/>
+                <bitenum id="SPG2" value="0x1" description="SPG responder select for loopback."/>
+                <bitenum id="SPG3" value="0x2" description="SPG responder select for loopback."/>
+                <bitenum id="SPG4" value="0x3" description="SPG responder select for loopback."/>
+                <bitenum id="SPG5" value="0x4" description="SPG responder select for loopback."/>
+                <bitenum id="SPG6" value="0x5" description="SPG responder select for loopback."/>
+                <bitenum id="SPG7" value="0x6" description="SPG responder select for loopback."/>
+                <bitenum id="SPG8" value="0x7" description="SPG responder select for loopback."/>
+                <bitenum id="SPG9" value="0x8" description="SPG responder select for loopback."/>
+                <bitenum id="SPG10" value="0x9" description="SPG responder select for loopback."/>
+                <bitenum id="SPG11" value="0xA" description="SPG responder select for loopback."/>
+                <bitenum id="SPG12" value="0xB" description="SPG responder select for loopback."/>
+                <bitenum id="SPG13" value="0xC" description="SPG responder select for loopback."/>
+                <bitenum id="SPG14" value="0xD" description="SPG responder select for loopback."/>
+                <bitenum id="SPG15" value="0xE" description="SPG responder select for loopback."/>
+                <bitenum id="SPG16" value="0xF" description="SPG responder select for loopback."/>
+            </bitfield>
+        </register>
+        </group>
+    <group id="SPG1_I2C_PAIR" name="SPG1_I2C_PAIR" instances="1" offset="0x11C0" instaddr="0x20" description="">
+        <register id="SPG1_PAIR0" width="32" offset="0x0" description="Pairing of I2C for MULTI-MASTER/SMBUS applications">
+            <bitfield id="CTL" description="UNICOMM instance for loopback. This instance will be treated as the controller." begin="11" end="8" width="4" rwaccess="R/W">
+                <bitenum id="SPG1" value="0x0" description="SPG commander select for loopback."/>
+                <bitenum id="SPG2" value="0x1" description="SPG commander select for loopback."/>
+                <bitenum id="SPG3" value="0x2" description="SPG commander select for loopback."/>
+                <bitenum id="SPG4" value="0x3" description="SPG commander select for loopback."/>
+                <bitenum id="SPG5" value="0x4" description="SPG commander select for loopback."/>
+                <bitenum id="SPG6" value="0x5" description="SPG commander select for loopback."/>
+                <bitenum id="SPG7" value="0x6" description="SPG commander select for loopback."/>
+                <bitenum id="SPG8" value="0x7" description="SPG commander select for loopback."/>
+                <bitenum id="SPG9" value="0x8" description="SPG commander select for loopback."/>
+                <bitenum id="SPG10" value="0x9" description="SPG commander select for loopback."/>
+                <bitenum id="SPG11" value="0xA" description="SPG commander select for loopback."/>
+                <bitenum id="SPG12" value="0xB" description="SPG commander select for loopback."/>
+                <bitenum id="SPG13" value="0xC" description="SPG commander select for loopback."/>
+                <bitenum id="SPG14" value="0xD" description="SPG commander select for loopback."/>
+                <bitenum id="SPG15" value="0xE" description="SPG commander select for loopback."/>
+                <bitenum id="SPG16" value="0xF" description="SPG commander select for loopback."/>
+            </bitfield>
+            <bitfield id="TARGET" description="UNICOMM instance for loopback. This instance will be treated as the target" begin="15" end="12" width="4" rwaccess="R/W">
+                <bitenum id="SPG1" value="0x0" description="SPG responder select for loopback."/>
+                <bitenum id="SPG2" value="0x1" description="SPG responder select for loopback."/>
+                <bitenum id="SPG3" value="0x2" description="SPG responder select for loopback."/>
+                <bitenum id="SPG4" value="0x3" description="SPG responder select for loopback."/>
+                <bitenum id="SPG5" value="0x4" description="SPG responder select for loopback."/>
+                <bitenum id="SPG6" value="0x5" description="SPG responder select for loopback."/>
+                <bitenum id="SPG7" value="0x6" description="SPG responder select for loopback."/>
+                <bitenum id="SPG8" value="0x7" description="SPG responder select for loopback."/>
+                <bitenum id="SPG9" value="0x8" description="SPG responder select for loopback."/>
+                <bitenum id="SPG10" value="0x9" description="SPG responder select for loopback."/>
+                <bitenum id="SPG11" value="0xA" description="SPG responder select for loopback."/>
+                <bitenum id="SPG12" value="0xB" description="SPG responder select for loopback."/>
+                <bitenum id="SPG13" value="0xC" description="SPG responder select for loopback."/>
+                <bitenum id="SPG14" value="0xD" description="SPG responder select for loopback."/>
+                <bitenum id="SPG15" value="0xE" description="SPG responder select for loopback."/>
+                <bitenum id="SPG16" value="0xF" description="SPG responder select for loopback."/>
+            </bitfield>
+            <bitfield id="EN" description="Enable" begin="0" end="0" width="1" rwaccess="R/W">
+                <bitenum id="DISABLE" value="0x0" description="Does not select this clock as a source"/>
+                <bitenum id="ENABLE" value="0x1" description="Select this clock as a source"/>
+            </bitfield>
+        </register>
+        </group>
+
+</module>

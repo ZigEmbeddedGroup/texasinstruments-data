@@ -1,0 +1,36 @@
+/*******************************************************************/
+/* This GEL file is loaded for the first IPU instance on the       */
+/* device in order to provide instance awareness for the shared M4 */
+/* GEL scripts.  This enables conditional execution based on IPU   */
+/* instance.                                                       */
+/*                                                                 */
+/* TDA3xx Cortex M4 IPU1                                           */
+/*                                                                 */
+/*******************************************************************/
+
+int IPU_INSTANCE = 1;
+
+StartUp()
+{
+    GEL_TextOut("--->>> TDA3xx Cortex M4 Startup Sequence In Progress... <<<---\n");
+
+    /*------------------ Load Common Gel Files -------------------*/
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_startup_common.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_prcm_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_multicore_reset.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_emif_macros.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_ddr_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_pad_config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_i2c.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_PRCM_Get_Config.gel");
+    GEL_LoadGel("$(GEL_file_dir)//TDA3xx_SMP_config.gel");
+	GEL_LoadGel("$(GEL_file_dir)//TDA3xx_cortexM4_common.gel");
+
+    /*------------------ Memory Map Config -------------------*/
+    GEL_MapOff();
+    GEL_MapReset();
+    memorymap_init();
+    GEL_MapOn();
+
+    GEL_TextOut("--->>> TDA3xx Cortex M4 Startup Sequence DONE! <<<---\n");
+}

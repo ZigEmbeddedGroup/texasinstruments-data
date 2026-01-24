@@ -1,0 +1,19 @@
+<module name="psilss" acronym="" XML_version="1.0" HW_revision="n/a" description="">
+	<register id="PSILSS_PID" acronym="PSILSS_PID" offset="0" width="32" description="The Revision Register contains the major and minor revisions for the module.">
+		<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="0x1" description="PID register scheme   Reset Source: rst_mod_g_rst_n" range="31:30" rwaccess="R"/>
+	<bitfield id="BU" width="2" begin="29" end="28" resetval="0x2" description="Business Unit: 10 = Processors   Reset Source: rst_mod_g_rst_n" range="29:28" rwaccess="R"/>
+	<bitfield id="FUNC" width="12" begin="27" end="16" resetval="0x1732" description="Module ID   Reset Source: rst_mod_g_rst_n" range="27:16" rwaccess="R"/>
+	<bitfield id="RTL" width="5" begin="15" end="11" resetval="0x26" description="RTL revision. Will vary depending on release.   Reset Source: rst_mod_g_rst_n" range="15:11" rwaccess="R"/>
+	<bitfield id="MAJOR" width="3" begin="10" end="8" resetval="0x1" description="Major revision   Reset Source: rst_mod_g_rst_n" range="10:8" rwaccess="R"/>
+	<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0x0" description="Custom   Reset Source: rst_mod_g_rst_n" range="7:6" rwaccess="R"/>
+	<bitfield id="MINOR" width="6" begin="5" end="0" resetval="0x0" description="Minor revision   Reset Source: rst_mod_g_rst_n" range="5:0" rwaccess="R"/>
+	</register><register id="PSILSS_CONFIG" acronym="PSILSS_CONFIG" offset="4" width="32" description="The Config Register shows configured params.">
+		<bitfield id="ENDPOINTS" width="16" begin="15" end="0" resetval="0x29" description="Number of endpoints supported.   Reset Source: rst_mod_g_rst_n" range="15:0" rwaccess="R"/>
+	</register><register id="PSILSS_EVENT" acronym="PSILSS_EVENT" offset="16" width="32" description="The Event Register defines the event to produce for a link down event.">
+		<bitfield id="EVT" width="16" begin="15" end="0" resetval="0x65535" description="The event to produce.   Reset Source: rst_mod_g_rst_n" range="15:0" rwaccess="R/W"/>
+	</register><register id="PSILSS_LINK" acronym="PSILSS_LINK" offset="32" width="32" description="The Link Register shows the current status of the endpoint links.">
+		<bitfield id="STATUS" width="32" begin="31" end="0" resetval="0x0" description="The status of the endpoint links. Indices:0: .saul0_psil 1:  .pdma_main0_psil 2:  .pdma_main1_psil 3:  .pdma_main2_psil 4:  .pdma_mcasp_psil 5:  .pdma_mcasp1_psil 6:  .pdma_adc_psil 7:  .pdma_asrc0_psil 8:  .pdma_asrc1_psil 9:  .cpsw_psil 10:  .dru0_i_etl 11:  .dru0_o_etl 12:  .dru1_i_etl 13:  .dru1_o_etl 14:  pktdma.strm 15:  pktdma.cfgstrm 16:  bcdma.cfgstrm 17:  bcdma.strm 18:  bcdma.trig 19:  intaggr.evt 20:  intaggr.cevt 21:  intaggr.cevt_out 22:  intaggr.mevt_in 23:  intaggr.mevt_out 24:  intaggr.evto 25:  intaggr.levt_out 26:  psilcfg.cfgstrm 27:  ipcss.sec_proxy_evt 28:  ipcss.ringacc_evt   Reset Source: rst_mod_g_rst_n" range="31:0" rwaccess="R"/>
+	</register><register id="PSILSS_DOWN" acronym="PSILSS_DOWN" offset="64" width="32" description="The Link Down Register shows which links are down for the endpoints.">
+		<bitfield id="STATUS" width="32" begin="31" end="0" resetval="0x0" description="The down status of the endpoint links. Indices:0: .saul0_psil 1:  .pdma_main0_psil 2:  .pdma_main1_psil 3:  .pdma_main2_psil 4:  .pdma_mcasp_psil 5:  .pdma_mcasp1_psil 6:  .pdma_adc_psil 7:  .pdma_asrc0_psil 8:  .pdma_asrc1_psil 9:  .cpsw_psil 10:  .dru0_i_etl 11:  .dru0_o_etl 12:  .dru1_i_etl 13:  .dru1_o_etl 14:  pktdma.strm 15:  pktdma.cfgstrm 16:  bcdma.cfgstrm 17:  bcdma.strm 18:  bcdma.trig 19:  intaggr.evt 20:  intaggr.cevt 21:  intaggr.cevt_out 22:  intaggr.mevt_in 23:  intaggr.mevt_out 24:  intaggr.evto 25:  intaggr.levt_out 26:  psilcfg.cfgstrm 27:  ipcss.sec_proxy_evt 28:  ipcss.ringacc_evt   Reset Source: rst_mod_g_rst_n" range="31:0" rwaccess="R/W1TC"/>
+	</register>
+</module>

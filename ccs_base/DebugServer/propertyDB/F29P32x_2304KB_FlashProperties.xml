@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!-- Nodes -->
+	<node id="FlashProgrammerNode">
+		<name>Flash Settings</name>
+		<children>
+			<child>FlashCoreGroup</child>
+			<child>FlashSettingsGroup</child>
+			<child>FlashUserConfigSettingGroup</child>
+			<child>FlashDownloadSettingGroup</child>
+			<child>FlashRangeGroup</child>
+			<child>FlashEraseGroup</child>
+			<child>FlashNonMainSECCFGGroup</child>
+			<child>FlashChecksumGroup</child>
+			<child>FlashResetOnConnect</child>
+		</children>
+	</node>
+
+	<!-- Groups -->
+	<group id="FlashCoreGroup">
+		<name></name>
+		<children>
+			<child>FlashCoreSelection</child>
+		</children>
+		<hidden />
+	</group>
+
+	<group id="FlashSettingsGroup">
+		<name>Clock/PLL Settings</name>
+		<children>
+			<child>FlashOSCCLK</child>
+			<child>FlashCPUCLK</child>
+			<child>FlashClockText</child>
+			<child>FlashClockButton</child>
+		</children>
+	</group>
+
+	<group id="FlashUserConfigSettingGroup">
+		<name>User Config Settings</name>
+		<children>
+			<child>FlashBankModeText</child>
+			<child>FlashBankHSMText</child>
+			<child>BANKMGMTEraseGroup</child>
+		</children>
+	</group>
+	
+	<group id="BANKMGMTEraseGroup">
+		<name>Flash Nonmain BANKMGMT</name>
+		<children>
+			<child>FlashNonMainBANKMGMTText</child>
+			<child>FlashNonMainBankModeBANKMGMT</child>
+			<child>FlashImageOperation</child>
+			<child>FlashSwapOperation</child>
+			<child>FlashBANKMGMTButton</child>
+		</children>
+	</group>
+
+	<group id="FlashDownloadSettingGroup">
+		<name>Download Settings</name>
+		<children>
+			<child>FlashResetOnOperation</child>
+			<child>FlashRAMOPENCheck</child>
+			<child>FlashDownloadSetting</child>
+			<child>FlashAutoECCSetting</child>
+			<child>FlashProgramProtection1</child>
+			<child>FlashProgramProtection2</child>
+			<child>FlashProgramProtection3</child>
+			<child>FlashProgramProtection4</child>
+			<child>FlashProgramProtection9</child>
+			<child>FlashProgramProtectionText</child>
+		</children>
+	</group>
+	
+	<group id="FlashRangeGroup">
+		<name>Range Avoidance Settings</name>
+		<children>
+			<child>FlashRangeText</child>
+			<child>FlashRangeToggle</child>
+			<child>FlashRangeAddr</child>
+		</children>
+	</group>
+	
+	<group id="FlashPerformanceGroup">
+		<name>Performance Settings</name>
+		<children>
+			<child>FlashCombineText</child>
+			<child>FlashAlignCombineToggle</child>
+			<child>FlashAlignmentSize</child>
+		</children>
+	</group>
+	
+	<group id="FlashEraseGroup">
+		<name>Erase Settings</name>
+		<children>
+			<!--Flash Erase Section-->
+			<child>FlashEraseSelection</child>
+			<child>FlashC29EraseProtection1</child>
+			<child>FlashC29EraseProtection2</child>
+			<child>FlashC29EraseProtection3</child>
+			<child>FlashC29EraseProtection4</child>
+			<child>FlashC29EraseProtection9</child>
+			<child>FlashM4EraseProtection1</child>
+			<child>FlashM4EraseProtection2</child>
+			<child>FlashM4EraseProtection3</child>
+			<child>FlashM4EraseProtection4</child>
+
+            <!--Interleaved Banks-->
+			<child>FlashC29Bank0</child>
+			<child>FlashC29Bank1</child>
+
+			<!--HSM Flash Banks-->
+			<child>FlashM4Bank0</child>
+			<child>FlashM4Bank1</child>
+
+			<!-- Databank -->
+			<child>FlashC29Bank4</child>
+
+			<child>FlashEraseButton</child>
+		</children>
+	</group>
+
+	<group id="FlashBlankCheckGroup">
+		<name>Blank Check Settings</name>
+		<children>
+			<child>FlashBlankCheckButton</child>
+		</children>
+	</group>
+
+	<group id="FlashNonMainSECCFGGroup">
+		<name>NonMain Erase Settings</name>
+		<children>
+			<!--NonMain Flash Erase Section-->
+			<child>FlashNonMainEraseText</child>
+			<child>FlashNonMainSECCFGEraseToggle</child>
+		</children>
+	</group>
+
+	<group id="FlashChecksumGroup">
+		<name>Checksum</name>
+		<children>
+			<child>FlashCRCMainValue</child>
+			<child>FlashCRCECCValue</child>
+			<child>FlashCRCOTPValue</child>
+			<child>FlashCRCOTPECCValue</child>
+			<child>FlashCalChecksumButton</child>
+		</children>
+	</group>
+
+	<!-- Properties -->
+	<property id="FlashCoreSelection">
+		<target>TMS320C29XX</target>
+		<name>Core Select</name>
+		<valueType>StringList</valueType>
+		<values>
+			<value>CPU1</value>
+		</values>
+		<defaultValue>CPU1</defaultValue>
+		<hidden />
+	</property>
+	
+	<property id="FlashOSCCLK">
+		<target>TMS320C29XX</target>
+		<name>OSCCLK (MHz)(INTOSC2)</name>
+		<valueType>Numeric</valueType>
+		<defaultValue>10</defaultValue>
+		<readOnly>1</readOnly>
+	</property>
+	
+	<property id="FlashCPUCLK">
+		<target>TMS320C29XX</target>
+		<name>CPUCLK (MHz)</name>
+		<valueType>ChoiceList</valueType>
+		<values>
+			<value>200</value>
+			<value>100</value>
+		</values>
+		<defaultValue>200</defaultValue>
+		<readOnly>1</readOnly>
+	</property>
+
+	<property id="FlashClockText">
+		<target>generic</target>
+<name>Only CPU1 on-chip Flash Plugin can configure clock for CPU1 Flash operations.
+      Plugin automatically configures PLL when CPU1 Flash operations are invoked.
+      When this button is used, Flash Plugin will configure the Sysclock of 200MHz for CPU1 using 10MHZ INTOSC as the clock source. 
+	  Plugin will leave PLL config like this and user application should configure the PLL as required by application. 
+      Before doing any flash operations using the flash plugin, 
+      (a) Please select which bank mode will be used for CPU operation - Bank Mode 0, Bank Mode 1.
+      (b) Please select the flash banks that the user would like the flash plugin to erase in the flash plugin GUI.
+      Note: In this version of the flash plugin, CPU1 flash applications are supported only.
+</name>
+		<valueType>Text</valueType>
+	</property>
+
+	<property id="FlashClockButton">
+		<target>TMS320C29XX</target>
+		<name>Configure Clock</name>
+		<valueType>Button</valueType>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+		<action>DPActiveDebugSession.flash.performOperation("ConfigureClock")</action>
+	</property>
+	
+	<property id="FlashBankButton">
+		<target>TMS320C29XX</target>
+		<name>Configure Banks</name>
+		<valueType>Button</valueType>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+		<action>DPActiveDebugSession.flash.performOperation("ConfigureBanks")</action>
+	</property>
+
+	<!-- Flash RAMOPEN Check -->
+	<property id="FlashRAMOPENCheck">
+		<target>TMS320C29XX</target>
+		<target>TMS470REX</target>
+		<name>Allow Flash RAMOPEN</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+	</property>
+
+	<!-- Flash Auto ECC Generation -->
+	<property id="FlashAutoECCSetting">
+		<target>TMS320C29XX</target>
+		<name>Auto ECC Generation</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<hidden />
+	</property>
+	
+	<!-- Flash Bank Program Protections -->
+	<property id="FlashProgramProtection1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1 Program CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashProgramProtection2">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1 Program CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashProgramProtection3">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3 Program CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashProgramProtection4">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3 Program CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashProgramProtection5">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1 Program CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashProgramProtection6">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1 Program CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashProgramProtection7">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3 Program CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashProgramProtection8">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3 Program CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashProgramProtection9">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B4 Program CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashProgramProtectionText">
+		<target>TMS320C29XX</target>
+		<name>CMDWEPROTA - Controls program/erase protection for first 32 sectors. Each bit allows users to enable/disable protection for each sector. 
+Eg: Bit 0 allows protection configuration for Sector 0. A value of 0 disables protection and a value of 1 enables protection from program/erase.
+
+CMDWEPROTB - Controls program/erase protection for sectors 32 to 255. Each bit allows users to enable/disable protection for a group of eight sectors. Note - The first 4 bit fields are reserved (bits 0 - 3) and protections overlap with CMDWEPROTA sections 22-31 (bit 4).
+Eg: Bit 0 allows protection configuration for Sectors 32-255. A value of 0 disables protection and a value of 1 enables protection from program/erase.</name>
+		<valueType>Text</valueType>
+	</property>
+	
+	<property id="FlashRangeText">
+		<target>TMS320C29XX</target>
+		<name>If range option is enabled, the given range(s) will be avoided during Flash programming.
+Note: Please list multiple ranges in ascending order separated by a comma</name>
+		<valueType>Text</valueType>
+	</property>
+	
+	<property id="FlashRangeToggle">
+		<target>TMS320C29XX</target>
+		<name>Enable Range Avoidance</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashRangeAddr">
+		<target>TMS320C29XX</target>
+		<name>Range: </name>
+		<valueType>String</valueType>
+		<defaultValue>0x10000000-0x100FFFFF</defaultValue>
+		<enableIf>
+			<property id="FlashRangeToggle">1</property>
+		</enableIf>
+	</property>
+	
+	<property id="FlashCombineText">
+		<target>TMS320C29XX</target>
+		<name>Note: Any unwritten memory locations between sections will be filled with 1 when sections are combined,
+and ECC will be programmed if AutoEccGeneration is enabled.</name>
+		<valueType>Text</valueType>
+	</property>
+
+	<property id="FlashAlignCombineToggle">
+		<target>TMS320C29XX</target>
+		<name>Combine Sections during Program Load to increase performance</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashAlignmentSize">
+		<target>TMS320C29XX</target>
+		<name>Specify maximum size for combining sections: 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>1000</defaultValue>
+		<disableIf>
+			<property id="FlashCombineSections">0</property>
+		</disableIf>
+		<hidden />
+	</property>
+	
+	<property id="FlashResetOnOperation">
+		<target>generic</target>
+		<name>Reset target before flash programming/operations</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+	</property>
+
+	<property id="FlashXRSnResetOnOperation">
+		<target>generic</target>
+		<name>XRSn Reset target following ProgramBANKMGMT operation</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+	</property>
+	
+	<property id="FlashDownloadSetting">
+		<target>TMS470REX</target>
+		<target>TMS320C29XX</target>
+		<name></name>
+		<valueType>ChoiceList</valueType>
+		<values>
+			<value>Erase and Program</value>
+			<value>Program Only</value>
+			<!--
+			<value>Verify Only</value>
+			-->
+		</values>
+		<defaultValue>Erase and Program</defaultValue>
+	</property>
+	
+	<property id="FlashBlankCheckToggle">
+		<target>generic</target>
+		<name>Perform Blank Check before loading data to Flash memory (SSU Mode 1 Usage Only)</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashVerifySetting">
+		<target>generic</target>
+		<name>Verify Flash after Program (SSU Mode 1 Usage Only)</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<!-- Flash Bank Erase Choices -->
+	<property id="FlashEraseSelection">
+		<target>generic</target>
+		<name></name>
+		<valueType>ChoiceList</valueType>
+		<values>
+			<value>Entire Flash</value>
+			<value>Necessary Banks Only (for Program Load)</value>
+			<value>Selected Banks Only</value>
+		</values>
+		<defaultValue>Necessary Banks Only (for Program Load)</defaultValue>
+	</property>
+
+	<!-- Flash Bank Erase Protections -->
+	<property id="FlashC29EraseProtection1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1 Erase CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashC29EraseProtection2">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1 Erase CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashC29EraseProtection3">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3 Erase CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashC29EraseProtection4">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3 Erase CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashC29EraseProtection5">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1 Erase CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashC29EraseProtection6">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1 Erase CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashC29EraseProtection7">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3 Erase CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashC29EraseProtection8">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3 Erase CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashC29EraseProtection9">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B4 Erase CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashM4EraseProtection1">
+		<target>TMS470REX</target>
+		<name>FLC0.B0 Erase CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashM4EraseProtection2">
+		<target>TMS470REX</target>
+		<name>FLC0.B0 Erase CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashM4EraseProtection3">
+		<target>TMS470REX</target>
+		<name>FLC0.B1 Erase CMDWEPROTA 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashM4EraseProtection4">
+		<target>TMS470REX</target>
+		<name>FLC0.B1 Erase CMDWEPROTB 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<!--Flash Erase Button-->
+	<property id="FlashEraseButton">
+		<target>generic</target>
+		<name>Erase Flash</name>
+		<valueType>Button</valueType>
+		<disableIf>
+			<property id ="FlashEraseSelection">Necessary Banks Only (for Program Load)</property>
+		</disableIf>
+		<action>DPActiveDebugSession.flash.performOperation("Erase")</action>
+	</property>
+
+	<!-- Flash CRC Settings-->
+	<property id="FlashCRCMainValue">
+		<target>TMS470REX</target>
+		<target>TMS320C29XX</target>
+		<name>Flash:</name>
+		<valueType>String</valueType>
+		<defaultValue></defaultValue>
+		<readOnly>1</readOnly>
+	</property>
+
+
+	<property id="FlashCRCECCValue">
+		<target>TMS470REX</target>
+		<target>TMS320C29XX</target>
+		<name>ECC:</name>
+		<valueType>String</valueType>
+		<defaultValue></defaultValue>
+		<readOnly>1</readOnly>
+	</property>
+
+	<property id="FlashCRCOTPValue">
+		<target>TMS320C29XX</target>
+		<name>SECCFG:</name>
+		<valueType>String</valueType>
+		<defaultValue></defaultValue>
+		<readOnly>1</readOnly>
+	</property>
+	<property id="FlashCRCOTPValue">
+		<target>TMS470REX</target>
+		<name>SECCFG:</name>
+		<valueType>String</valueType>
+		<defaultValue></defaultValue>
+		<readOnly>1</readOnly>
+		<hidden />
+	</property>
+
+	<property id="FlashCRCOTPECCValue">
+		<target>TMS320C29XX</target>
+		<name>SECCFG ECC:</name>
+		<valueType>String</valueType>
+		<defaultValue></defaultValue>
+		<readOnly>1</readOnly>
+	</property>
+
+
+	<property id="FlashCRCOTPECCValue">
+		<target>TMS470REX</target>
+		<name></name>
+		<valueType>String</valueType>
+		<defaultValue></defaultValue>
+		<readOnly>1</readOnly>
+		<hidden />
+	</property>
+	
+	<property id="FlashCalChecksumButton">
+		<target>generic</target>
+		<name>Calculate Checksum</name>
+		<valueType>Button</valueType>
+		<action>DPActiveDebugSession.flash.performOperation("CalculateChecksum")</action>
+	</property>
+	
+	<!-- Flash Bank Blank Check -->
+	<property id="FlashBlankCheckButton">
+		<target>generic</target>
+		<name>Blank Check</name>
+		<valueType>Button</valueType>
+		<action>DPActiveDebugSession.flash.performOperation("BlankCheck")</action>
+	</property>
+	
+	<!-- Flash RAM Backup -->
+	<property id="FlashRAMBackup">
+		<target>TMS320C29XX</target>
+		<name>Backup RAM during Flash Programming/Operations</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<hidden />
+	</property>
+	
+	<!-- Flash Reset Connection -->
+	<property id="FlashResetOnConnect">
+		<target>TMS320C29XX</target>
+		<name>Reset on Connect</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<!-- C29 Flash Bank Erase Selection -->
+	<property id="FlashC29Bank0">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<enableIf>
+			<property id="FlashEraseSelection">Selected Banks Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<enableIf>
+			<property id="FlashEraseSelection">Selected Banks Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank2">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<enableIf>
+			<property id="FlashEraseSelection">Selected Banks Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank3">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<enableIf>
+			<property id="FlashEraseSelection">Selected Banks Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank4">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B4</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<enableIf>
+			<property id="FlashEraseSelection">Selected Banks Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashM4Bank0">
+		<target>TMS470REX</target>
+		<name>FLC0.B0</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<enableIf>
+			<property id="FlashEraseSelection">Selected Banks Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashM4Bank1">
+		<target>TMS470REX</target>
+		<name>FLC0.B1</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+		<enableIf>
+			<property id="FlashEraseSelection">Selected Banks Only</property>
+		</enableIf>
+	</property>
+
+	<!--Flash NonMain Erase Text-->
+	<property id="FlashNonMainEraseText">
+		<target>TMS320C29XX</target>
+		<name>!!!!!WARNING!!!!! - The following selection allows Flash SECCFG memory to be erased by the user.
+		      Erasing SECCFG will erase programmable OTP, please proceed with caution (device may get locked). Enable NonMain sector erase if ONLY necessary.
+			  Note: When loading data to SECCFG memory region within your .out file, you can select the option to 'Allow NonMain Flash erase before loading data to Flash memory'.
+		 </name>
+		<valueType>Text</valueType>
+	</property>
+
+	<property id="FlashNonMainEraseText">
+		<target>TMS470REX</target>
+		<name>!!!!!WARNING!!!!! - The following selection allows Flash CERT memory to be erased by the user.
+			  Note: When loading data to CERT memory region within your .out file, you can select the option to 'Allow NonMain Flash erase before loading data to Flash memory'.
+		 </name>
+		<valueType>Text</valueType>
+	</property>
+	<!--Flash NonMain Erase Button-->
+	<property id="FlashNonMainEraseButton">
+		<target>TMS320C29XX</target>
+		<name>Erase NonMain Flash</name>
+		<valueType>Button</valueType>
+		<disableIf>
+			<property id ="FlashNonMainEraseSelection">Necessary Sectors Only (for Program Load)</property>
+		</disableIf>
+		<action>DPActiveDebugSession.flash.performOperation("EraseNonMain")</action>
+	</property>
+
+	<!-- Flash NonMain Sector Erase Choices -->
+	<property id="FlashNonMainEraseSelection">
+		<target>TMS320C29XX</target>
+		<name></name>
+		<valueType>ChoiceList</valueType>
+		<values>
+			<value>Selected Sectors Only</value>
+		</values>
+		<defaultValue>Selected Sectors Only</defaultValue>
+	</property>
+
+<!-- Flash NonMain Sector BANKMGMT Erase Selection -->
+	<property id="FlashC29Bank0NonMainSector0">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1-BANKMGMT</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank1NonMainSector0">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3-BANKMGMT</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank2NonMainSector0">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1-BANKMGMT</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank3NonMainSector0">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3-BANKMGMT</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<!-- Flash NonMain Sector SECCFG Erase Selection -->
+	<property id="FlashC29Bank0NonMainSector1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1-SECCFG</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank1NonMainSector1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3-SECCFG</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank2NonMainSector1">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1-SECCFG</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<property id="FlashC29Bank3NonMainSector1">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3-SECCFG</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashNonMainEraseSelection">Selected Sectors Only</property>
+		</enableIf>
+	</property>
+
+	<!-- NonMain Flash Sector Protections -->
+	<property id="NonMainFlashProgramProtection1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1 Program CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="NonMainFlashProgramProtection2">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3 Program CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="NonMainFlashProgramProtection3">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1 Program CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="NonMainFlashProgramProtection4">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3 Program CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+<!-- Flash NonMain Sector Erase Protections -->
+	<property id="FlashNonMainEraseProtection1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1 Erase CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+	
+	<property id="FlashNonMainEraseProtection2">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3 Erase CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashNonMainEraseProtection3">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1 Erase CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<property id="FlashNonMainEraseProtection4">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3 Erase CMDWEPROTNM 0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<!-- Flash NonMain Sector Erase Toggle -->
+	<property id="FlashNonMainSECCFGEraseToggle">
+		<target>TMS470REX</target>
+		<target>TMS320C29XX</target>
+		<name>Allow NonMain Flash erase before loading data to Flash memory</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<!-- Flash NonMain Sector Erase Toggle -->
+	<property id="FlashNonMainEraseToggle2">
+		<target>TMS320C29XX</target>
+		<name>Allow BANKMGMT Flash Sector override (BANK_UPDATE_CNTR)</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<!-- Flash Bank Program Protections -->
+	<property id="FlashNonMainBankUpdateCntr">
+		<target>TMS320C29XX</target>
+		<name>BANK_UPDATE_CNTR 					0x</name>
+		<valueType>String</valueType>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<!-- Flash Bank Mapping -->
+	<property id="FlashBanktoCPUxProgram">
+		<target>TMS320C29XX</target>
+		<name>Program</name>
+		<valueType>Button</valueType>
+		<action>DPActiveDebugSession.flash.performOperation("FlashBanktoCPUxProgram")</action>
+	</property>
+
+	<!-- Flash Bank Mux Selection -->
+	<property id="FlashMapC29Bank0">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B0/B1</name>
+		<valueType>StringList</valueType>
+		<values>
+			<value>CPU1</value>
+		</values>
+		<defaultValue>CPU1</defaultValue>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+	</property>
+
+	<property id="FlashMapC29Bank1">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B2/B3</name>
+		<valueType>StringList</valueType>
+		<values>
+			<value>CPU1</value>
+		</values>
+		<defaultValue>CPU1</defaultValue>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+	</property>
+
+	<property id="FlashMapC29Bank2">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B0/B1</name>
+		<valueType>StringList</valueType>
+		<values>
+			<value>CPU1</value>
+		</values>
+		<defaultValue>CPU1</defaultValue>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+	</property>
+
+	<property id="FlashMapC29Bank3">
+		<target>TMS320C29XX</target>
+		<name>FLC2.B2/B3</name>
+		<valueType>StringList</valueType>
+		<values>
+			<value>CPU1</value>
+		</values>
+		<defaultValue>CPU1</defaultValue>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+	</property>
+
+	<property id="FlashMapC29Bank4">
+		<target>TMS320C29XX</target>
+		<name>FLC1.B4</name>
+		<valueType>StringList</valueType>
+		<values>
+			<value>CPU1</value>
+		</values>
+		<defaultValue>CPU1</defaultValue>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+	</property>
+
+	<!-- Flash User Config Settings -->
+	<property id="FlashBankModeText">
+		<target>TMS320C29XX</target>
+		<name> Set the Flash Bank Mode Settings before load operations for CPU1.
+Note: Bank Mode Flash Address Mapping
+
+Bank Mode 0
+----------------
+FRI-1(CPU1 program): Address Range (0x10000000 - 0x1007FFFF), Flash Banks (FLC1.B0/B1)
+FRI-1(CPU1 program): Address Range (0x10100000 - 0x1017FFFF), Flash Banks (FLC1.B2/B3)
+FRI-1(CPU1 program): Address Range (0x10200000 - 0x1027FFFF), Flash Banks (FLC2.B0/B1)
+FRI-1(CPU1 program): Address Range (0x10300000 - 0x1037FFFF), Flash Banks (FLC2.B2/B3)
+FRI-4(CPU1 program): Address Range (0x10C00000 - 0x10C1FFFF), Flash Bank  (FLC1.B4)
+
+Bank Mode 1
+----------------
+FRI-1(CPU1 program): Address Range (0x10000000 - 0x1007FFFF), Flash Banks (FLC1.B0/B1)
+FRI-1(CPU1 program): Address Range (0x10100000 - 0x1017FFFF), Flash Banks (FLC2.B0/B1)
+FRI-3(FOTA program): Address Range (0x10600000 - 0x1067FFFF), Flash Banks (FLC1.B2/B3)
+FRI-3(FOTA program): Address Range (0x10700000 - 0x1077FFFF), Flash Banks (FLC2.B2/B3)
+FRI-4(CPU1 program): Address Range (0x10C00000 - 0x10C1FFFF), Flash Bank  (FLC1.B4)
+
+		</name>
+		<valueType>Text</valueType>
+	</property>
+
+<!--Flash BANKMGMT Text-->
+	<property id="FlashNonMainBANKMGMTText">
+		<target>TMS320C29XX</target>
+		<name>The following selection allows Flash BANKMGMT memory to be configured by the user.
+		      Set the bank mode mapping value necessary for BANKMGMT programming (0 for Bank Mode 0, 1 for Bank Mode 1).
+			  Note:
+			  		* For Bank Mode 1 Only: Fota Enable check box should be checked to enable CPU1 bank swap or Bank mode transition.
+			  		* When programming the NonMain BANKMGMT Settings to set the Bank Mode, check that the Flash Bank Mode Select in the User Config Settings matches the set mode before resuming operations.
+		          		After programming the BANKMGMT, the device MUST BE RESET THROUGH XRSn to enable the new configuration.		
+		 </name>
+		<valueType>Text</valueType>
+	</property>
+
+	<property id="FlashNonMainBankModeBANKMGMT">
+		<target>TMS320C29XX</target>
+		<name>BANK MODE</name>
+		<valueType>ChoiceList</valueType>
+		<values>
+			<value>0</value>
+			<value>1</value>
+		</values>
+		<defaultValue>0</defaultValue>
+	</property>
+
+	<!--Flash Erase Button-->
+	<property id="FlashBANKMGMTButton">
+		<target>TMS320C29XX</target>
+		<name>Program BANKMGMT</name>
+		<valueType>Button</valueType>
+		<disableIf>
+			<property id="FlashCoreSelection">CPU2</property>
+		</disableIf>
+		<action>DPActiveDebugSession.flash.performOperation("ProgramBANKMGMT")</action>
+	</property>
+	
+	<property id="FlashImageOperation">
+		<target>TMS320C29XX</target>
+		<name>FOTA enable (Mode 1 and Mode 3 Only, CPU1 BANK SWAP or Bank Mode Switch)</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>1</defaultValue>
+	</property>
+
+	<property id="FlashSwapOperation">
+		<target>TMS320C29XX</target>
+		<name>CPU3 BANK SWAP enable (Mode 3 Only)</name>
+		<valueType>Boolean</valueType>
+		<defaultValue>0</defaultValue>
+		<enableIf>
+			<property id="FlashCoreSelection">CPU1</property>
+		</enableIf>
+		<hidden />
+	</property>
+
+	<!-- fin -->
+</PropertyList>

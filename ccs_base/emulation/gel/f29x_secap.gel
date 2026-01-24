@@ -1,0 +1,665 @@
+menuitem "Initialize Memory Map";
+
+/*---------------------------------------------------------------------*/
+/* OnTargetConnect() is called each time a target is connected. 	   */
+/* Its execution finishes before anything else occurs. 				   */
+/* Customize this function to perform essential target initialization. */
+/*---------------------------------------------------------------------*/
+OnTargetConnect()
+{
+    GEL_TextOut("\n\nExecuting On Target Connect Functions\n\n");
+
+    // On connection scan in zone passwords
+    C29Debug_Enable();
+    Zone1_FullEnable();
+    Zone2_FullEnable();
+    Zone3_FullEnable();
+
+    GEL_TextOut("\n\nSEC-AP Ready\n\n");
+}
+
+OnReset(int nErrorCode)
+{
+      GEL_TextOut("Reset Done\n");
+//    GEL_Run();
+}
+
+/*----------------------------------------------------------------------
+*
+*
+*
+*
+* ---------------------------------------------------------------------*/
+
+menuitem "SSU Zone Enable Functions";
+
+hotmenu C29Debug_Enable()
+{
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x4;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x55555555;
+}
+
+hotmenu Zone1_FullEnable()
+{
+    //Write to PasswordID Register
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x55555555;
+}
+
+hotmenu Zone2_FullEnable()
+{
+    //Write to PasswordID Register
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x2;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x55555555;
+}
+
+hotmenu Zone3_FullEnable()
+{
+    //Write to PasswordID Register
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x3;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x55555555;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x55555555;
+}
+
+hotmenu Zone1_PartialEnable()
+{
+    //Write Zone1 Password
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x12345678;
+}
+
+hotmenu Zone2_PartialEnable()
+{
+    //Write Zone2 Password
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x2;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x12345678;
+}
+
+hotmenu Zone3_PartialEnable()
+{
+    //Write Zone3 Password
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x3;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x12345678;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x12345678;
+}
+
+menuitem "SSU Zone Disable Functions"
+
+hotmenu C29Debug_Disable()
+{
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x4;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x1;
+}
+
+hotmenu Zone1_DebugDisable()
+{
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x1;
+}
+
+hotmenu Zone2_DebugDisable()
+{
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x2;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x1;
+}
+
+hotmenu Zone3_DebugDisable()
+{
+    TRANSMIT_CONTROL = 0x0;
+    TRANSMIT_DATA = 0x3;
+    TRANSMIT_CONTROL = 0x4;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x8;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0xC;
+    TRANSMIT_DATA = 0x1;
+    TRANSMIT_CONTROL = 0x10;
+    TRANSMIT_DATA = 0x1;
+}
+
+menuitem "Save Device Debug Status to File";
+
+hotmenu Save_Device_Status_To_File()
+{
+    unsigned int debugEnableStatus;
+    unsigned int hsmDbgStatus;
+    unsigned int ctlDbgStatus;
+    unsigned int genDbgStatus1;
+    unsigned int genDbgStatus2;
+    unsigned int genDbgStatus3;
+    unsigned int genDbgStickyStatus0;
+    unsigned int genDbgStickyStatus1;
+    unsigned int genDbgStickyStatus2;
+    unsigned int genDbgStickyStatus3;
+
+    GEL_TextOut("Reading debug status bits from SEC-AP registers\n");
+    GEL_EnableFileOutput("C:/temp/f29x_secap_debug_status.txt", 0, 0);
+
+    debugEnableStatus = DEBUG_ENABLE_STATUS;
+    GEL_TextOut("DEBUG_ENABLE_STATUS\t%x\n",,,,, debugEnableStatus);
+    GEL_TextOut("C29DBGEN\t%d\n",,,,, (debugEnableStatus & 0x1));
+    GEL_TextOut("ZONE1_DBGEN\t%d\n",,,,, ((debugEnableStatus & 0x4) >> 2));
+    GEL_TextOut("ZONE2_DBGEN\t%d\n",,,,, ((debugEnableStatus & 0x8) >> 3));
+    GEL_TextOut("ZONE3_DBGEN\t%d\n",,,,, ((debugEnableStatus & 0x10) >> 4));
+    GEL_TextOut("PARTIAL_ZONE1_DBGEN\t%d\n",,,,, ((debugEnableStatus & 0x100) >> 8));
+    GEL_TextOut("PARTIAL_ZONE2_DBGEN\t%d\n",,,,, ((debugEnableStatus & 0x200) >> 9));
+    GEL_TextOut("PARTIAL_ZONE3_DBGEN\t%d\n",,,,, ((debugEnableStatus & 0x400) >> 10));
+
+    // HSM-to-SSU control signals
+    GEL_TextOut("SSU_DBG_STATUS\t%x\n",,,,, SSU_DBG_STATUS);
+
+    // HSM Debug status signals
+    hsmDbgStatus = HSM_DBG_STATUS;
+    GEL_TextOut("HSM_DBG_STATUS\t%x\n",,,,, hsmDbgStatus);
+    GEL_TextOut("HSM SOC ACCESS ERROR\t%d\n",,,,, ((hsmDbgStatus & 0x2) >> 1));
+    GEL_TextOut("DEVICE TYPE\t%d\n",,,,, ((hsmDbgStatus & 0x3C) >> 2));
+    GEL_TextOut("DEVICE SUBTYPE\t%d\n",,,,, ((hsmDbgStatus & 0x3C0) >> 6));
+    GEL_TextOut("SOC DEBUG ENABLE\t%d\n",,,,, ((hsmDbgStatus & 0x800) >> 11));
+    GEL_TextOut("CPU1 HSM RESET\t%d\n",,,,,((hsmDbgStatus & 0x4000)>>14));
+    GEL_TextOut("CPU2 HSM RESET\t%d\n",,,,,((hsmDbgStatus & 0x8000)>>15));
+    GEL_TextOut("CPU3 HSM RESET\t%d\n",,,,, ((hsmDbgStatus & 0x10000)>>16));
+    GEL_TextOut("SOC XRSN RESET\t%d\n",,,,, ((hsmDbgStatus & 0x100000)>>20));
+    GEL_TextOut("HSM ESM HI PRIORITY INTERRUPT\t%d\n",,,,, ((hsmDbgStatus & 0x400000)>>22));
+    GEL_TextOut("HSM ESM LO PRIORITY INTERRUPT\t%d\n",,,,, ((hsmDbgStatus & 0x800000)>>23));
+
+    // CTL Debug status signals
+    ctlDbgStatus = CTL_DBG_STATUS;
+    GEL_TextOut("CTL_DBG_STATUS\t%x\n",,,,, ctlDbgStatus);
+    GEL_TextOut("TLC0 DONE\t%d\n",,,,,(ctlDbgStatus & 0x1));
+    GEL_TextOut("TLC1 DONE\t%d\n",,,,,((ctlDbgStatus & 0x2)>>1));
+    GEL_TextOut("TLC2 DONE\t%d\n",,,,,((ctlDbgStatus & 0x4)>>2));
+    GEL_TextOut("1T_READY HSM\t%d\n",,,,,((ctlDbgStatus & 0x8)>>3));
+    GEL_TextOut("1T_READY HSM\t%d\n",,,,,((ctlDbgStatus & 0x10)>>4));
+    GEL_TextOut("1T_READY FLASH\t%d\n",,,,,((ctlDbgStatus & 0x20)>>5));
+    GEL_TextOut("2T_READY FLASH\t%d\n",,,,,((ctlDbgStatus & 0x40)>>6));
+    GEL_TextOut("PMM.TRIM_ADJUST_OVER\t%d\n",,,,,((ctlDbgStatus & 0x80)>>7));
+    GEL_TextOut("CTL_RST_SRC\t%d\n",,,,,((ctlDbgStatus & 0x100)>>8));
+    GEL_TextOut("CTL TIMEOUT ERROR\t%d\n",,,,,((ctlDbgStatus & 0x200)>>9));
+    GEL_TextOut("TLC0 CHAIN ERROR\t%d\n",,,,, ((ctlDbgStatus & 0x400)>>10));
+    GEL_TextOut("TLC1 CHAIN ERROR\t%d\n",,,,, ((ctlDbgStatus & 0x800)>>11));
+    GEL_TextOut("TLC2 CHAIN ERROR\t%d\n",,,,, ((ctlDbgStatus & 0x1000)>>12));
+    GEL_TextOut("TLC0 INVALID KEY ERROR\t%d\n",,,,,((ctlDbgStatus & 0x2000)>>13));
+    GEL_TextOut("TLC1 INVALID KEY ERROR\t%d\n",,,,, ((ctlDbgStatus & 0x4000)>>14));
+    GEL_TextOut("TLC2 INVALID KEY ERROR\t%d\n",,,,, ((ctlDbgStatus & 0x8000)>>15));
+    GEL_TextOut("CTL RSTATUS ERR 0\t%d\n",,,,, ((ctlDbgStatus & 0x10000)>>16));
+    GEL_TextOut("CTL RSTATUS ERR 1\t%d\n",,,,, ((ctlDbgStatus & 0x20000)>>17));
+    GEL_TextOut("CTL RSTATUS ERR 2\t%d\n",,,,, ((ctlDbgStatus & 0x40000)>>18));
+    GEL_TextOut("SOC CTL DONE\t%d\n",,,,, ((ctlDbgStatus & 0x80000)>>19));
+
+    // DCON status signals
+    GEL_TextOut("GEN_DBG_STATUS0\t%x\n",,,,, GEN_DBG_STATUS0);
+
+    // LCM/ESM/EMIF status signals
+    genDbgStatus1 = GEN_DBG_STATUS1;
+    GEL_TextOut("GEN_DBG_STATUS1\t%x\n",,,,, genDbgStatus1);
+    GEL_TextOut("LCM1 ERROR(CPU1-2)\t%d\n",,,,,((genDbgStatus1 & 0x20)>>9));
+    GEL_TextOut("LCM2 ERROR(CPU3)\t%d\n",,,,,((genDbgStatus1 & 0x40)>>10));
+    GEL_TextOut("LCM3 ERROR(RTDMA)\t%d\n",,,,,((genDbgStatus1 & 0x80)>>11));
+    GEL_TextOut("EMIF_FIFO_full - CPU1\t%d\n",,,,,((genDbgStatus1 & 0x200)>>13));
+    GEL_TextOut("EMIF_FIFO_empty - CPU1\t%d\n",,,,,((genDbgStatus1 & 0x400)>>14));
+    GEL_TextOut("EMIF_FIFO_full - CPU2\t%d\n",,,,,((genDbgStatus1 & 0x800)>>15));
+    GEL_TextOut("EMIF_FIFO_empty - CPU2\t%d\n",,,,,((genDbgStatus1 & 0x1000)>>16));
+    GEL_TextOut("EMIF_FIFO_full - CPU3\t%d\n",,,,,((genDbgStatus1 & 0x2000)>>17));
+    GEL_TextOut("EMIF_FIFO_empty - CPU3\t%d\n",,,,,((genDbgStatus1 & 0x4000)>>18));
+
+    // Reset/Clock/LPM Wakeup Status Bits
+    genDbgStatus2 = GEN_DBG_STATUS2;
+    GEL_TextOut("GEN_DBG_STATUS2\t%x\n",,,,, genDbgStatus2);
+    GEL_TextOut("CPU1 SYSRSN\t%d\n",,,,,(genDbgStatus2 & 0x1));
+    GEL_TextOut("CPU1 SYSRSN ISO\t%d\n",,,,,((genDbgStatus2 & 0x2)>>1));
+    GEL_TextOut("CPU2 SYSRSN\t%d\n",,,,,((genDbgStatus2 & 0x4)>>2));
+    GEL_TextOut("CPU1 SYSRSN ISO\t%d\n",,,,,((genDbgStatus2 & 0x8)>>3));
+    GEL_TextOut("CPU3 SYSRSN\t%d\n",,,,,((genDbgStatus2 & 0x10)>>4));
+    GEL_TextOut("CPU1 SYSRSN ISO\t%d\n",,,,,((genDbgStatus2 & 0x20)>>5));
+    GEL_TextOut("HSM RESET\t%d\n",,,,, ((genDbgStatus2 & 0x1000)>>12));
+    GEL_TextOut("HSM ISO\t%d\n",,,,,((genDbgStatus2 & 0x2000)>>13));
+    GEL_TextOut("XRSN\t%d\n",,,,, ((genDbgStatus2 & 0x4000)>>14));
+    GEL_TextOut("PMM RESET\t%d\n",,,,, ((genDbgStatus2 & 0x10000)>>16));
+    GEL_TextOut("IORSN\t%d\n",,,,, ((genDbgStatus2 & 0x20000)>>17));
+    GEL_TextOut("CPU1 WAKEUP INT\t%d\n",,,,, ((genDbgStatus2 & 0x40000)>>18));
+    GEL_TextOut("CPU2 WAKEUP INT\t%d\n",,,,, ((genDbgStatus2 & 0x80000)>>19));
+    GEL_TextOut("CPU3 WAKEUP INT\t%d\n",,,,, ((genDbgStatus2 & 0x100000)>>20));
+    GEL_TextOut("CPU1 SYSCLK EN\t%d\n",,,,, ((genDbgStatus2 & 0x1000000)>>24));
+    GEL_TextOut("CPU2 SYSCLK EN\t%d\n",,,,, ((genDbgStatus2 & 0x2000000)>>25));
+    GEL_TextOut("CPU3 SYSCLK EN\t%d\n",,,,, ((genDbgStatus2 & 0x4000000)>>26));
+    GEL_TextOut("PLL LOCK\t%d\n",,,,, ((genDbgStatus2 & 0x80000000)>>31));
+
+    // Lockstep and LPM standby status
+    genDbgStatus3 = GEN_DBG_STATUS3;
+    GEL_TextOut("GEN_DBG_STATUS3\t%x\n",,,,, genDbgStatus3);
+    GEL_TextOut("CPU1 STANBYEN\t%d\n",,,,,((genDbgStatus3 & 0x8)>>3));
+    GEL_TextOut("CPU2 STANBYEN\t%d\n",,,,,((genDbgStatus3 & 0x10)>>4));
+    GEL_TextOut("CPU3 STANBYEN\t%d\n",,,,,((genDbgStatus3 & 0x20)>>5));
+    GEL_TextOut("CPU1 & CPU2 LSEN\t%d\n",,,,,(genDbgStatus3 & 0x1));
+    GEL_TextOut("CPU3 & CPU4 LSEN\t%d\n",,,,,((genDbgStatus3 & 0x2)>>1));
+    GEL_TextOut("CPU5 & CPU6 LSEN\t%d\n",,,,,((genDbgStatus3 & 0x4)>>2));
+
+    // Sticky0: Clock Status and CPU fault signals
+    genDbgStickyStatus0 = GEN_DBG_STICKY_STATUS0;
+    GEL_TextOut("GEN_DBG_STICKY_STATUS0\t%x\n",,,,, genDbgStickyStatus0);
+    GEL_TextOut("SYSCTL CPU1 SYSCLK\t%d\n",,,,,((genDbgStickyStatus0 & 0x1)>>0));
+    GEL_TextOut("SYSCTL CPU2 SYSCLK\t%d\n",,,,,((genDbgStickyStatus0 & 0x2)>>1));
+    GEL_TextOut("SYSCTL CPU3 SYSCLK\t%d\n",,,,,((genDbgStickyStatus0 & 0x4)>>2));
+    GEL_TextOut("SYSCTL HSM CLOCK\t%d\n",,,,,((genDbgStickyStatus0 & 0x40)>>6));
+    GEL_TextOut("SYSCTL UNGATED CLOCK\t%d\n",,,,,((genDbgStickyStatus0 & 0x80)>>7));
+    GEL_TextOut("SYSCTL INTOSC1\t%d\n",,,,,((genDbgStickyStatus0 & 0x100)>>8));
+    GEL_TextOut("SYSCTL INTOSC2-->  %d\n",,,,,((genDbgStickyStatus0 & 0x200)>>9));
+    GEL_TextOut("SYSCTL CRUDE OSC\t%d\n",,,,,((genDbgStickyStatus0 & 0x400)>>10));
+    GEL_TextOut("CPU1 FAULT_STATE\t%d\n",,,,,((genDbgStickyStatus0 & 0x20000)>>16));
+    GEL_TextOut("CPU2 FAULT_STATE\t%d\n",,,,,((genDbgStickyStatus0 & 0x40000)>>17));
+    GEL_TextOut("CPU3 FAULT_STATE\t%d\n",,,,,((genDbgStickyStatus0 & 0x80000)>>18));
+
+    // Sticky1: C29 ESM Interrupt Signals
+    genDbgStickyStatus1 = GEN_DBG_STICKY_STATUS1;
+    GEL_TextOut("GEN_DBG_STICKY_STATUS1\t%x\n",,,,, genDbgStickyStatus1);
+    GEL_TextOut("ESM HI_PRI0_PLS_INTR\t%d\n",,,,,((genDbgStickyStatus1 & 0x1)>>0));
+    GEL_TextOut("ESM CRIT_PRI0_PLS_INTR\t%d\n",,,,,((genDbgStickyStatus1 & 0x2)>>1));
+    GEL_TextOut("ESM HI_PRI1_PLS_INTR\t%d\n",,,,,((genDbgStickyStatus1 & 0x4)>>2));
+    GEL_TextOut("ESM CRIT_PRI1_PLS_INTR\t%d\n",,,,,((genDbgStickyStatus1 & 0x8)>>3));
+    GEL_TextOut("ESM HI_PRI2_PLS_INTR\t%d\n",,,,,((genDbgStickyStatus1 & 0x10)>>4));
+    GEL_TextOut("ESM CRIT_PRI2_PLS_INTR\t%d\n",,,,,((genDbgStickyStatus1 & 0x20)>>5));
+    GEL_TextOut("ESM HI_PRI_WD0_PLS_INTR\t%d\n",,,,, ((genDbgStickyStatus1 & 0x1000)>>12));
+    GEL_TextOut("ESM HI_PRI_WD1_PLS_INTR\t%d\n",,,,,((genDbgStickyStatus1 & 0x2000)>>13));
+    GEL_TextOut("ESM HI_PRI_WD2_PLS_INTR\t%d\n",,,,, ((genDbgStickyStatus1 & 0x4000)>>14));
+
+    // Sticky2: SSU Security violation status signals
+    genDbgStickyStatus2 = GEN_DBG_STICKY_STATUS2;
+    GEL_TextOut("GEN_DBG_STICKY_STATUS2\t%x\n",,,,, genDbgStickyStatus2);
+    GEL_TextOut("CPU1 PR ERROR\t%d\n",,,,,(genDbgStickyStatus2 & 0x1));
+    GEL_TextOut("CPU1 DR1 ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x2)>>1));
+    GEL_TextOut("CPU1 DR2 ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x4)>>2));
+    GEL_TextOut("CPU1 DR1 DW ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x8)>>3));
+    GEL_TextOut("CPU1 DBG DR ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x10)>>4));
+    GEL_TextOut("CPU1 DBG DW ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x20)>>5));
+    GEL_TextOut("CPU2 PR ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x40)>>6));
+    GEL_TextOut("CPU2 DR1 ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x80)>>7));
+    GEL_TextOut("CPU2 DR2 ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x100)>>8));
+    GEL_TextOut("CPU2 DR1 DW ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x200)>>9));
+    GEL_TextOut("CPU2 DBG DR ERROR\t%d\n",,,,, ((genDbgStickyStatus2 & 0x400)>>10));
+    GEL_TextOut("CPU2 DBG DW ERROR\t%d\n",,,,, ((genDbgStickyStatus2 & 0x800)>>11));
+    GEL_TextOut("CPU3 PR ERROR\t%d\n",,,,, ((genDbgStickyStatus2 & 0x1000)>>12));
+    GEL_TextOut("CPU3 DR1 ERROR\t%d\n",,,,,((genDbgStickyStatus2 & 0x2000)>>13));
+    GEL_TextOut("CPU3 DR2 ERROR\t%d\n",,,,, ((genDbgStickyStatus2 & 0x4000)>>14));
+    GEL_TextOut("CPU3 DR1 DW ERROR\t%d\n",,,,, ((genDbgStickyStatus2 & 0x8000)>>15));
+    GEL_TextOut("CPU3 DBG DR ERROR\t%d\n",,,,, ((genDbgStickyStatus2 & 0x10000)>>16));
+    GEL_TextOut("CPU3 DBG DW ERROR\t%d\n",,,,, ((genDbgStickyStatus2 & 0x20000)>>17));
+
+    // Sticky3: Error Aggregator status signals
+    genDbgStickyStatus3 = GEN_DBG_STICKY_STATUS3;
+    GEL_TextOut("GEN_DBG_STICKY_STATUS3\t%x\n",,,,, genDbgStickyStatus3);
+    GEL_TextOut("CPU1 HP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x10)>>4));
+    GEL_TextOut("CPU2 HP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x20)>>5));
+    GEL_TextOut("CPU3 HP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x40)>>6));
+    GEL_TextOut("CPU1 LP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x400)>>10));
+    GEL_TextOut("CPU2 LP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x800)>>11));
+    GEL_TextOut("CPU3 LP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x1000)>>12));
+    GEL_TextOut("CPU1 INT HP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x10000)>>16));
+    GEL_TextOut("CPU2 INT HP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x20000)>>17));
+    GEL_TextOut("CPU3 INT HP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x40000)>>18));
+    GEL_TextOut("ECAT HP Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x200000)>>21));
+    GEL_TextOut("CPU1 INT LP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x400000)>>22));
+    GEL_TextOut("CPU2 INT LP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x800000)>>23));
+    GEL_TextOut("CPU3 INT LP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x1000000)>>24));
+    GEL_TextOut("SSU Error\t%d\n",,,,,((genDbgStickyStatus3 & 0x2000000)>>25));
+    GEL_TextOut("HSM LP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x4000000)>>26));
+    GEL_TextOut("HSM HP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x8000000)>>27));
+    GEL_TextOut("RTDMA1 HP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x10000000)>>28));
+    GEL_TextOut("RTDMA2 HP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x20000000)>>29));
+    GEL_TextOut("RTDMA1 LP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x40000000)>>30));
+    GEL_TextOut("RTDMA2 LP Error\t%d\n",,,,, ((genDbgStickyStatus3 & 0x80000000)>>31));
+
+    GEL_DisableFileOutput();
+    GEL_TextOut("Wrote debug status info to C:\\temp\\f29x_secap_debug_status.txt\n");
+
+}
+
+menuitem "SEC-AP Debug Status Signals (1)";
+
+hotmenu SSU_Debug_ZONE_Status()
+{
+    unsigned int debugEnableStatus = DEBUG_ENABLE_STATUS;
+
+    GEL_TextOut("\n\nReceived status is\t %x\n",,,,, debugEnableStatus);
+    GEL_TextOut("Following are the status of different bits:\n\n");
+
+    GEL_TextOut("C29DBGEN -->  %d\n",,,,, (debugEnableStatus & 0x1));
+    GEL_TextOut("ZONE1_DBGEN -->  %d\n",,,,, ((debugEnableStatus & 0x4) >> 2));
+    GEL_TextOut("ZONE2_DBGEN -->  %d\n",,,,, ((debugEnableStatus & 0x8) >> 3));
+    GEL_TextOut("ZONE3_DBGEN -->  %d\n",,,,, ((debugEnableStatus & 0x10) >> 4));
+    GEL_TextOut("PARTIAL_ZONE1_DBGEN -->  %d\n",,,,, ((debugEnableStatus & 0x100) >> 8));
+    GEL_TextOut("PARTIAL_ZONE2_DBGEN -->  %d\n",,,,, ((debugEnableStatus & 0x200) >> 9));
+    GEL_TextOut("PARTIAL_ZONE3_DBGEN -->  %d\n",,,,, ((debugEnableStatus & 0x400) >> 10));
+
+}
+
+hotmenu HSM_Debug_Status()
+{
+    unsigned int hsmDbgStatus = HSM_DBG_STATUS;
+
+    GEL_TextOut("\n\nReceived Status is\t %x \n",,,,,hsmDbgStatus);
+    GEL_TextOut("Following are the status of different bits:\n\n");
+
+    GEL_TextOut("HSM SOC ACCESS ERROR -->  %d\n",,,,,((hsmDbgStatus & 0x2)>>1));
+    GEL_TextOut("DEVICE TYPE -->  %x\n",,,,,((hsmDbgStatus & 0x3C)>>2));
+    GEL_TextOut("DEVICE SUB TYPE -->  %x\n",,,,,((hsmDbgStatus & 0x3C0)>>6));
+    GEL_TextOut("SOC DEBUG ENABLE -->  %d\n",,,,,((hsmDbgStatus & 0x800)>>11));
+    GEL_TextOut("CPU1 HSM RESET  -->  %d\n",,,,,((hsmDbgStatus & 0x4000)>>14));
+    GEL_TextOut("CPU2 HSM RESET  -->  %d\n",,,,,((hsmDbgStatus & 0x8000)>>15));
+    GEL_TextOut("CPU3 HSM RESET  -->  %d\n",,,,, ((hsmDbgStatus & 0x10000)>>16));
+    GEL_TextOut("SOC XRSN RESET -->  %d\n",,,,, ((hsmDbgStatus & 0x100000)>>20));
+    GEL_TextOut("ESM_HSM_HI_INTR -->  %d\n",,,,, ((hsmDbgStatus & 0x400000)>>22));
+    GEL_TextOut("ESM_HSM_LO_INTR -->  %d\n",,,,, ((hsmDbgStatus & 0x800000)>>23));
+}
+
+hotmenu CTL_Debug_Status()
+{
+    unsigned int ctlDbgStatus = CTL_DBG_STATUS;
+
+    GEL_TextOut("\n\nReceived Status is\t %x \n",,,,,ctlDbgStatus);
+    GEL_TextOut("Following are the status of different bits:\n\n");
+
+    GEL_TextOut("TLC0 DONE -->  %d\n",,,,,(ctlDbgStatus & 0x1));
+    GEL_TextOut("TLC1 DONE -->  %d\n",,,,,((ctlDbgStatus & 0x2)>>1));
+    GEL_TextOut("TLC2 DONE -->  %d\n",,,,,((ctlDbgStatus & 0x4)>>2));
+    GEL_TextOut("1T_READY HSM -->  %d\n",,,,,((ctlDbgStatus & 0x8)>>3));
+    GEL_TextOut("1T_READY HSM -->  %d\n",,,,,((ctlDbgStatus & 0x10)>>4));
+    GEL_TextOut("1T_READY FLASH -->  %d\n",,,,,((ctlDbgStatus & 0x20)>>5));
+    GEL_TextOut("2T_READY FLASH -->  %d\n",,,,,((ctlDbgStatus & 0x40)>>6));
+    GEL_TextOut("PMM.TRIM_ADJUST_OVER -->  %d\n",,,,,((ctlDbgStatus & 0x80)>>7));
+    GEL_TextOut("CTL_RST_SRC -->  %d\n",,,,,((ctlDbgStatus & 0x100)>>8));
+    GEL_TextOut("CTL TIMEOUT ERROR -->  %d\n",,,,,((ctlDbgStatus & 0x200)>>9));
+    GEL_TextOut("TLC0 CHAIN ERROR -->  %d\n",,,,, ((ctlDbgStatus & 0x400)>>10));
+    GEL_TextOut("TLC1 CHAIN ERROR -->  %d\n",,,,, ((ctlDbgStatus & 0x800)>>11));
+    GEL_TextOut("TLC2 CHAIN ERROR -->  %d\n",,,,, ((ctlDbgStatus & 0x1000)>>12));
+    GEL_TextOut("TLC0 INVALID KEY ERROR -->  %d\n",,,,,((ctlDbgStatus & 0x2000)>>13));
+    GEL_TextOut("TLC1 INVALID KEY ERROR -->  %d\n",,,,, ((ctlDbgStatus & 0x4000)>>14));
+    GEL_TextOut("TLC2 INVALID KEY ERROR -->  %d\n",,,,, ((ctlDbgStatus & 0x8000)>>15));
+    GEL_TextOut("CTL RSTATUS ERR 0 -->  %d\n",,,,, ((ctlDbgStatus & 0x10000)>>16));
+    GEL_TextOut("CTL RSTATUS ERR 1 -->  %d\n",,,,, ((ctlDbgStatus & 0x20000)>>17));
+    GEL_TextOut("CTL RSTATUS ERR 2 -->  %d\n",,,,, ((ctlDbgStatus & 0x40000)>>18));
+    GEL_TextOut("SOC CTL DONE -->  %d\n",,,,, ((ctlDbgStatus & 0x80000)>>19));
+}
+
+hotmenu LCM_EMIF_Status()
+{
+    unsigned int genDbgStatus1;
+    unsigned int genDbgStatus3;
+
+    genDbgStatus1 = GEN_DBG_STATUS1;
+    GEL_TextOut("\n\nReceived Status is\t %x \n",,,,,genDbgStatus1);
+    GEL_TextOut("Following are the status of different bits:\n\n");
+
+    GEL_TextOut("LCM1 ERROR(CPU1-2) -->  %d\n",,,,,((genDbgStatus1 & 0x20)>>9));
+    GEL_TextOut("LCM2 ERROR(CPU3) -->  %d\n",,,,,((genDbgStatus1 & 0x40)>>10));
+    GEL_TextOut("LCM3 ERROR(RTDMA) -->  %d\n",,,,,((genDbgStatus1 & 0x80)>>11));
+    GEL_TextOut("EMIF_FIFO_full - CPU1 -->  %d\n",,,,,((genDbgStatus1 & 0x200)>>13));
+    GEL_TextOut("EMIF_FIFO_empty - CPU1 -->  %d\n",,,,,((genDbgStatus1 & 0x400)>>14));
+    GEL_TextOut("EMIF_FIFO_full - CPU2 -->  %d\n",,,,,((genDbgStatus1 & 0x800)>>15));
+    GEL_TextOut("EMIF_FIFO_empty - CPU2 -->  %d\n",,,,,((genDbgStatus1 & 0x1000)>>16));
+    GEL_TextOut("EMIF_FIFO_full - CPU3 -->  %d\n",,,,,((genDbgStatus1 & 0x2000)>>17));
+    GEL_TextOut("EMIF_FIFO_empty - CPU3 -->  %d\n",,,,,((genDbgStatus1 & 0x4000)>>18));
+
+    genDbgStatus3 = GEN_DBG_STATUS3;
+    GEL_TextOut("CPU1 & CPU2 LSEN -->  %d\n",,,,,(genDbgStatus3 & 0x1));
+    GEL_TextOut("CPU3 & CPU4 LSEN -->  %d\n",,,,,((genDbgStatus3 & 0x2)>>1));
+    GEL_TextOut("CPU5 & CPU6 LSEN -->  %d\n",,,,,((genDbgStatus3 & 0x4)>>2));
+}
+
+hotmenu Device_Reset_Status()
+{
+    unsigned int genDbgStatus2 = GEN_DBG_STATUS2;
+
+    GEL_TextOut("\n\nReceived Status is\t %x \n",,,,,genDbgStatus2);
+    GEL_TextOut("Following are the status of different bits:\n\n");
+
+    GEL_TextOut("CPU1 SYSRSN -->  %d\n",,,,,(genDbgStatus2 & 0x1));
+    GEL_TextOut("CPU1 SYSRSN ISO -->  %d\n",,,,,((genDbgStatus2 & 0x2)>>1));
+    GEL_TextOut("CPU2 SYSRSN -->  %d\n",,,,,((genDbgStatus2 & 0x4)>>2));
+    GEL_TextOut("CPU1 SYSRSN ISO -->  %d\n",,,,,((genDbgStatus2 & 0x8)>>3));
+    GEL_TextOut("CPU3 SYSRSN -->  %d\n",,,,,((genDbgStatus2 & 0x10)>>4));
+    GEL_TextOut("CPU1 SYSRSN ISO -->  %d\n",,,,,((genDbgStatus2 & 0x20)>>5));
+    GEL_TextOut("HSM RESET -->  %d\n",,,,, ((genDbgStatus2 & 0x1000)>>12));
+    GEL_TextOut("HSM ISO -->  %d\n",,,,,((genDbgStatus2 & 0x2000)>>13));
+    GEL_TextOut("XRSN -->  %d\n",,,,, ((genDbgStatus2 & 0x4000)>>14));
+    GEL_TextOut("PMM RESET -->  %d\n",,,,, ((genDbgStatus2 & 0x10000)>>16));
+    GEL_TextOut("IORSN -->  %d\n",,,,, ((genDbgStatus2 & 0x20000)>>17));
+}
+
+hotmenu LPM_Status()
+{
+    unsigned int genDbgStatus2;
+    unsigned int genDbgStatus3;
+
+    GEL_TextOut("Following are the status of different bits:\n\n");
+    
+    genDbgStatus2 = GEN_DBG_STATUS2;
+    GEL_TextOut("CPU1 WAKEUP INT -->  %d\n",,,,, ((genDbgStatus2 & 0x40000)>>18));
+    GEL_TextOut("CPU2 WAKEUP INT -->  %d\n",,,,, ((genDbgStatus2 & 0x80000)>>19));
+    GEL_TextOut("CPU3 WAKEUP INT -->  %d\n",,,,, ((genDbgStatus2 & 0x100000)>>20));
+
+    genDbgStatus3 = GEN_DBG_STATUS3;
+    GEL_TextOut("CPU1 STANBYEN -->  %d\n",,,,,((genDbgStatus3 & 0x8)>>3));
+    GEL_TextOut("CPU2 STANBYEN -->  %d\n",,,,,((genDbgStatus3 & 0x10)>>4));
+    GEL_TextOut("CPU3 STANBYEN -->  %d\n",,,,,((genDbgStatus3 & 0x20)>>5));
+}
+
+menuitem "SEC-AP Debug Status Signals (2)"
+
+hotmenu Clock_Status()
+{
+    unsigned int genDbgStatus2;
+    unsigned int genDbgStickyStatus0;
+
+    GEL_TextOut("Following are the status of different bits:\n\n");
+
+    genDbgStatus2 = GEN_DBG_STATUS2;
+    GEL_TextOut("CPU1 SYSCLK EN -->  %d\n",,,,, ((genDbgStatus2 & 0x1000000)>>24));
+    GEL_TextOut("CPU2 SYSCLK EN -->  %d\n",,,,, ((genDbgStatus2 & 0x2000000)>>25));
+    GEL_TextOut("CPU3 SYSCLK EN -->  %d\n",,,,, ((genDbgStatus2 & 0x4000000)>>26));
+    GEL_TextOut("PLL LOCK -->  %d\n",,,,, ((genDbgStatus2 & 0x80000000)>>31));
+
+    genDbgStickyStatus0 = GEN_DBG_STICKY_STATUS0;
+    GEL_TextOut("Sticky Status Bits:\n");
+    GEL_TextOut("SYSCTL CPU1 SYSCLK -->  %d\n",,,,,((genDbgStickyStatus0 & 0x1)>>0));
+    GEL_TextOut("SYSCTL CPU2 SYSCLK -->  %d\n",,,,,((genDbgStickyStatus0 & 0x2)>>1));
+    GEL_TextOut("SYSCTL CPU3 SYSCLK -->  %d\n",,,,,((genDbgStickyStatus0 & 0x4)>>2));
+    GEL_TextOut("SYSCTL HSM CLOCK -->  %d\n",,,,,((genDbgStickyStatus0 & 0x40)>>6));
+    GEL_TextOut("SYSCTL UNGATED CLOCK -->  %d\n",,,,,((genDbgStickyStatus0 & 0x80)>>7));
+    GEL_TextOut("SYSCTL INTOSC1 -->  %d\n",,,,,((genDbgStickyStatus0 & 0x100)>>8));
+    GEL_TextOut("SYSCTL INTOSC2-->  %d\n",,,,,((genDbgStickyStatus0 & 0x200)>>9));
+    GEL_TextOut("SYSCTL CRUDE OSC -->  %d\n",,,,,((genDbgStickyStatus0 & 0x400)>>10));
+}
+
+hotmenu Clear_Clock_Status()
+{
+    TRANSMIT_CONTROL = 0x220;
+    TRANSMIT_DATA = 0xFFF;
+}
+
+hotmenu CPU_Fault_Status()
+{
+    unsigned int genDbgStickyStatus0 = GEN_DBG_STICKY_STATUS0;
+
+    GEL_TextOut("CPU Fault Status (sticky bits):\n\n");
+
+    GEL_TextOut("CPU1 FAULT_STATE -->  %d\n",,,,,((genDbgStickyStatus0 & 0x20000)>>16));
+    GEL_TextOut("CPU2 FAULT_STATE -->  %d\n",,,,,((genDbgStickyStatus0 & 0x40000)>>17));
+    GEL_TextOut("CPU3 FAULT_STATE -->  %d\n",,,,,((genDbgStickyStatus0 & 0x80000)>>18));
+}
+
+hotmenu Clear_CPU_Fault_Status()
+{
+    TRANSMIT_CONTROL = 0x220;
+    TRANSMIT_DATA = 0xF0000;
+}
+
+hotmenu ESM_Status()
+{
+    unsigned int genDbgStickyStatus1;
+
+    GEL_TextOut("ESM Status (sticky bits):\n\n");
+    GEL_TextOut("ESM ERROR_O(ErrorPin) -->  %x\n",,,,,((GEN_DBG_STATUS1 & 0x1000)>>12));
+
+    genDbgStickyStatus1 = GEN_DBG_STICKY_STATUS1;
+    GEL_TextOut("ESM HI_PRI0_PLS_INTR -->  %d\n",,,,,((genDbgStickyStatus1 & 0x1)>>0));
+    GEL_TextOut("ESM CRIT_PRI0_PLS_INTR -->  %d\n",,,,,((genDbgStickyStatus1 & 0x2)>>1));
+    GEL_TextOut("ESM HI_PRI1_PLS_INTR -->  %d\n",,,,,((genDbgStickyStatus1 & 0x4)>>2));
+    GEL_TextOut("ESM CRIT_PRI1_PLS_INTR -->  %d\n",,,,,((genDbgStickyStatus1 & 0x8)>>3));
+    GEL_TextOut("ESM HI_PRI2_PLS_INTR -->  %d\n",,,,,((genDbgStickyStatus1 & 0x10)>>4));
+    GEL_TextOut("ESM CRIT_PRI2_PLS_INTR -->  %d\n",,,,,((genDbgStickyStatus1 & 0x20)>>5));
+    GEL_TextOut("ESM HI_PRI_WD0_PLS_INTR -->  %d\n",,,,, ((genDbgStickyStatus1 & 0x1000)>>12));
+    GEL_TextOut("ESM HI_PRI_WD1_PLS_INTR -->  %d\n",,,,,((genDbgStickyStatus1 & 0x2000)>>13));
+    GEL_TextOut("ESM HI_PRI_WD2_PLS_INTR -->  %d\n",,,,, ((genDbgStickyStatus1 & 0x4000)>>14));
+}
+
+hotmenu Clear_ESM_Status()
+{
+    TRANSMIT_CONTROL = 0x224;
+    TRANSMIT_DATA = 0xFFFF;
+}
+
+hotmenu Error_Aggregator_Status()
+{
+     unsigned int genDbgStickyStatus3 = GEN_DBG_STICKY_STATUS3;
+
+    GEL_TextOut("\n\nReceived Status is\t %x \n",,,,,genDbgStickyStatus3);
+    GEL_TextOut("Following are the status of different bits:\n\n");
+    
+    GEL_TextOut("CPU1 HP Error  -->  %d\n",,,,,((genDbgStickyStatus3 & 0x10)>>4));
+    GEL_TextOut("CPU2 HP Error  -->  %d\n",,,,,((genDbgStickyStatus3 & 0x20)>>5));
+    GEL_TextOut("CPU3 HP Error  -->  %d\n",,,,,((genDbgStickyStatus3 & 0x40)>>6));
+    GEL_TextOut("CPU1 LP Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x400)>>10));
+    GEL_TextOut("CPU2 LP Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x800)>>11));
+    GEL_TextOut("CPU3 LP Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x1000)>>12));
+    GEL_TextOut("CPU1 INT HP Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x10000)>>16));
+    GEL_TextOut("CPU2 INT HP Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x20000)>>17));
+    GEL_TextOut("CPU3 INT HP Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x40000)>>18));
+    GEL_TextOut("ECAT HP Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x200000)>>21));
+    GEL_TextOut("CPU1 INT LP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x400000)>>22));
+    GEL_TextOut("CPU2 INT LP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x800000)>>23));
+    GEL_TextOut("CPU3 INT LP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x1000000)>>24));
+    GEL_TextOut("SSU Error -->  %d\n",,,,,((genDbgStickyStatus3 & 0x2000000)>>25));
+    GEL_TextOut("HSM LP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x4000000)>>26));
+    GEL_TextOut("HSM HP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x8000000)>>27));
+    GEL_TextOut("RTDMA1 HP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x10000000)>>28));
+    GEL_TextOut("RTDMA2 HP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x20000000)>>29));
+    GEL_TextOut("RTDMA1 LP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x40000000)>>30));
+    GEL_TextOut("RTDMA2 LP Error -->  %d\n",,,,, ((genDbgStickyStatus3 & 0x80000000)>>31));
+}
+
+hotmenu Clear_Error_Aggregator_Status()
+{
+    TRANSMIT_CONTROL = 0x22C;
+    TRANSMIT_DATA = 0xFFFFFFFF;
+}
+
+hotmenu SSU_CPU_Violations_Status()
+{
+    unsigned int genDbgStickyStatus2 = GEN_DBG_STICKY_STATUS2;
+    
+    GEL_TextOut("\n\nReceived Status is\t %x \n",,,,,genDbgStickyStatus2);
+    GEL_TextOut("Following are the status of different bits:\n\n");
+
+    GEL_TextOut("CPU1 PR ERROR -->  %d\n",,,,,(genDbgStickyStatus2 & 0x1));
+    GEL_TextOut("CPU1 DR1 ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x2)>>1));
+    GEL_TextOut("CPU1 DR2 ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x4)>>2));
+    GEL_TextOut("CPU1 DR1 DW ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x8)>>3));
+    GEL_TextOut("CPU1 DBG DR ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x10)>>4));
+    GEL_TextOut("CPU1 DBG DW ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x20)>>5));
+    GEL_TextOut("CPU2 PR ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x40)>>6));
+    GEL_TextOut("CPU2 DR1 ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x80)>>7));
+    GEL_TextOut("CPU2 DR2 ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x100)>>8));
+    GEL_TextOut("CPU2 DR1 DW ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x200)>>9));
+    GEL_TextOut("CPU2 DBG DR ERROR -->  %d\n",,,,, ((genDbgStickyStatus2 & 0x400)>>10));
+    GEL_TextOut("CPU2 DBG DW ERROR -->  %d\n",,,,, ((genDbgStickyStatus2 & 0x800)>>11));
+    GEL_TextOut("CPU3 PR ERROR -->  %d\n",,,,, ((genDbgStickyStatus2 & 0x1000)>>12));
+    GEL_TextOut("CPU3 DR1 ERROR -->  %d\n",,,,,((genDbgStickyStatus2 & 0x2000)>>13));
+    GEL_TextOut("CPU3 DR2 ERROR -->  %d\n",,,,, ((genDbgStickyStatus2 & 0x4000)>>14));
+    GEL_TextOut("CPU3 DR1 DW ERROR -->  %d\n",,,,, ((genDbgStickyStatus2 & 0x8000)>>15));
+    GEL_TextOut("CPU3 DBG DR ERROR -->  %d\n",,,,, ((genDbgStickyStatus2 & 0x10000)>>16));
+    GEL_TextOut("CPU3 DBG DW ERROR -->  %d\n",,,,, ((genDbgStickyStatus2 & 0x20000)>>17));
+}
+
+hotmenu Clear_SSU_CPU_Violations_Status()
+{
+    TRANSMIT_CONTROL = 0x228;
+    TRANSMIT_DATA = 0xFFFFFFFF;
+}

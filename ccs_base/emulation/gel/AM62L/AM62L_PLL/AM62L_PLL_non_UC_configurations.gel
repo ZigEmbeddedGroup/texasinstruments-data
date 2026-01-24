@@ -1,0 +1,318 @@
+/**
+ * \file  AM62L_PLL_non_UC_configurations.gel
+ *
+ * \brief GEL File to configure the clocking infrastructure on AM62L
+ */
+
+/* Copyright (c) 2024, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*****************************************************************************/
+/* PLL functions. */
+
+menuitem "PLL Configuration/non-UC/ARM_PLL";
+
+hotmenu MAIN_PLL8_HSDIV0_CLKOUT_200MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main SoC ARM PLL
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_200MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_200MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+}
+
+hotmenu MAIN_PLL8_HSDIV0_CLKOUT_400MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main SoC ARM PLL
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_400MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_400MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+}
+
+hotmenu MAIN_PLL8_HSDIV0_CLKOUT_600MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main SoC ARM PLL
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_600MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_600MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+}
+
+hotmenu MAIN_PLL8_HSDIV0_CLKOUT_800MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main SoC ARM PLL
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_800MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_800MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+}
+
+hotmenu MAIN_PLL8_HSDIV0_CLKOUT_1000MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main SoC ARM PLL
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1000MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1000MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+}
+
+hotmenu MAIN_PLL8_HSDIV0_CLKOUT_1250MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main SoC ARM PLL
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1250MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1250MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+}
+
+hotmenu MAIN_PLL8_HSDIV0_CLKOUT_1400MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;
+    address_offset = 0x80000000;
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    //Main SoC ARM PLL
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1400MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1400MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+}
+
+hotmenu Sweep_MAIN_PLL8_HSDIV0_CLKOUT_100MHz_1400MHz(){
+    int debug_info = DEBUG;
+    int gel_trace_on  = GEL_TRACE;  
+    int j=0; 
+    
+    address_offset = 0x80000000;
+    
+    //for debugging only: 
+    if(debug_info){
+        GEL_TextOut("Debugging enabled\n");
+    }
+    if(gel_trace_on){
+        GEL_Trace(1);
+        GEL_TextOut("GEL_trace enabled\n");
+    }
+    else{
+        GEL_Trace(0);
+    }
+    
+    GEL_TextOut("Sweeping MAIN_PLL8_HSDIV0_CLKOUT_100MHz to 1400MHz\n");
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_100MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_100MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_200MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_200MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_300MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_300MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+        
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_400MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_400MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n"); 
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_500MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_500MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+        
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_600MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_600MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+            
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_700MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_700MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_800MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_800MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_900MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_900MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+        
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1000MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1000MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+            
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1100MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1100MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+                
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1200MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1200MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1300MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1300MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+    
+    //add delay
+    j=0;
+    for(j=0; j<50000; j++);
+    
+    GEL_TextOut("Setting MAIN_PLL8_HSDIV0_CLKOUT_1400MHz\n");
+    Program_PLL(CSL_MAIN_PLL0_CFG_BASE, address_offset, ARM0_PLL_INDEX, OFC1, ARM0_1400MHz);
+    GEL_TextOut("MAIN_PLL8_HSDIV0_CLKOUT set.\n");
+            
+}

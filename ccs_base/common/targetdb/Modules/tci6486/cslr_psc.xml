@@ -1,0 +1,1785 @@
+<?xml version="1.0" encoding="UTF-8"?><module id="PSC" HW_revision="" XML_version="1" description="Power and Sleep Controller">
+     <register id="PID" acronym="PID" offset="0x000" width="32" description="Peripheral ID Register">
+<bitfield id="SCHEME" width="2" begin="31" end="30" resetval="1" description="Used to distinguish between old scheme and current" range="" rwaccess="R"/>
+<bitfield id="_RESV_2" width="2" begin="29" end="28" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="FUNC" width="12" begin="27" end="16" resetval="520" description="Indicating a software compatible module family" range="" rwaccess="R">
+<bitenum id="PSC2.0" value="1" token="PSC2.0" description="Start with 1 for PSC 2.0"/>
+</bitfield>
+<bitfield id="RTL" width="5" begin="15" end="11" resetval="0" description="RTL Version" range="" rwaccess="R">
+<bitenum id="PSC1.0" value="0" token="PSC1.0" description="Start with 0 for PSC 1.0"/>
+</bitfield>
+<bitfield id="MAJOR_REVISION" width="3" begin="10" end="8" resetval="0" description="Major Revision. " range="" rwaccess="R"/>
+<bitfield id="CUSTOM" width="2" begin="7" end="6" resetval="0" description="Indicating a Special Version for a particular device" range="" rwaccess="R"/>
+<bitfield id="MINOR_REVISION" width="6" begin="5" end="0" resetval="0" description="Minor Revision. " range="" rwaccess="R"/>
+</register>
+     <register id="GBLCTL" acronym="GBLCTL" offset="0x010" width="32" description="Global Control Register">
+<bitfield id="_RESV_1" width="31" begin="31" end="1" resetval="0" description="Reserved for future expansion" range="" rwaccess="N">
+<bitenum id="NoForce" value="0" token="NoForce" description="No Force"/>
+</bitfield>
+<bitfield id="FORCE" width="1" begin="0" end="0" resetval="0" description="Force Bit" range="" rwaccess="RW"/>
+</register>
+     <register id="INTEVAL" acronym="INTEVAL" offset="0x018" width="32" description="Interrupt Evaluation Register">
+<bitfield id="_RESV_1" width="13" begin="31" end="19" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EPCET" width="1" begin="18" end="18" resetval="0" description="External Power Control Interrupt Set" range="" rwaccess="W">
+<bitenum id="Noeffect" value="0" token="Noeffect" description="Write of 0 has No effect"/>
+<bitenum id="causesthePSC_EPCINTtobepulsed" value="1" token="causesthePSC_EPCINTtobepulsed" description="Write of 1 causes the PSC_EPCINT to be pulsed"/>
+</bitfield>
+<bitfield id="ERRSET" width="1" begin="17" end="17" resetval="0" description="Error Interrupt Set" range="" rwaccess="W">
+<bitenum id="Noeffect" value="0" token="Noeffect" description="Write of 0 has No effect"/>
+<bitenum id="causesthePSC_ERRINTtobepulsed" value="1" token="causesthePSC_ERRINTtobepulsed" description="Write of 1 causes the PSC_ERRINT to be pulsed"/>
+</bitfield>
+<bitfield id="ALLSET" width="1" begin="16" end="16" resetval="0" description="Combined Interrupt Set" range="" rwaccess="W">
+<bitenum id="Noeffect" value="0" token="Noeffect" description="Write of 0 has No effect"/>
+<bitenum id="causesthePSC_ALLINTtobepulsed" value="1" token="causesthePSC_ALLINTtobepulsed" description="Write of 1 causes the PSC_ALLINT to be pulsed"/>
+</bitfield>
+<bitfield id="_RESV_5" width="13" begin="15" end="3" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EPCEV" width="1" begin="2" end="2" resetval="0" description="External Power Control Interrupt" range="" rwaccess="W">
+<bitenum id="Noeffect" value="0" token="Noeffect" description="Write of 0 has No effect"/>
+<bitenum id="Re-evaluateexternalpowercontrolinterruptPSC_EPCINT" value="1" token="Re-evaluateexternalpowercontrolinterruptPSC_EPCINT" description="Write of 1 re-evaluate external power control interrupt PSC_EPCINT"/>
+</bitfield>
+<bitfield id="ERREV" width="1" begin="1" end="1" resetval="0" description="Re-Evaluate Error Interrupt" range="" rwaccess="W">
+<bitenum id="NoEffect" value="0" token="NoEffect" description="Write of 0 has no effect"/>
+<bitenum id="Re-evaluateerrorinterruptPSC_ERRINT" value="1" token="Re-evaluateerrorinterruptPSC_ERRINT" description="Write of 1 Re-evaluate error interrupt PSC_ERRINT"/>
+</bitfield>
+<bitfield id="ALLEV" width="1" begin="0" end="0" resetval="0" description="Re-Evaluate Combined PSC Interrupt" range="" rwaccess="W">
+<bitenum id="Noeffect" value="0" token="Noeffect" description="Write of 0 has No effect"/>
+<bitenum id="Re-evaluatethecombinedPSCinterruptPSC_ALLINT" value="1" token="Re-evaluatethecombinedPSCinterruptPSC_ALLINT" description="Write of 1 re-evaluate the Combined PSC interrupt PSC_ALLINT"/>
+</bitfield>
+</register>
+     <register id="MERRPR0" acronym="MERRPR0" offset="0x40" width="32" description="Module Error Pending Register">
+<bitfield id="MEPR" width="32" begin="31" end="0" resetval="0" description="Module n Error Condition" range="" rwaccess="R">
+<bitenum id="Noerror" value="0" token="Noerror" description="Write of 0 ;Module n has No error condition"/>
+<bitenum id="Error" value="1" token="Error" description="Write of 1;Module n has error condition"/>
+</bitfield>
+</register>
+     <register id="MERRCR0" acronym="MERRCR0" offset="0x50" width="32" description="Module Error Clear Register">
+<bitfield id="MECR" width="32" begin="31" end="0" resetval="0" description="Module n Error Condition" range="" rwaccess="R">
+<bitenum id="Noerror" value="0" token="Noerror" description="Write of 0 has No effect"/>
+<bitenum id="causestheMERRPRbitntobecleared" value="1" token="causestheMERRPRbitntobecleared" description="Write of 1 to bit n causes the MERRPR bit n to be cleared"/>
+</bitfield>
+</register>
+     <register id="PERRPR" acronym="PERRPR" offset="0x60" width="32" description="Power Error Pending Register">
+<bitfield id="PEPR" width="32" begin="31" end="0" resetval="0" description="Power Domain m Error Condition" range="" rwaccess="R">
+<bitenum id="Noerror" value="0" token="Noerror" description="Power Domain m does not Error Condition"/>
+<bitenum id="Error" value="1" token="Error" description="Power Domain m has Error Condition"/>
+</bitfield>
+</register>
+     <register id="MERRCR" acronym="MERRCR" offset="0x68" width="32" description="Power Error Clear Register">
+<bitfield id="PECR" width="32" begin="31" end="0" resetval="0" description="Power Domain m Clear Condition" range="" rwaccess="W">
+<bitenum id="Noerror" value="0" token="Noerror" description="Write of 0 has No effect"/>
+<bitenum id="causesthePERRPRbitntobecleared" value="1" token="causesthePERRPRbitntobecleared" description="Write of 1 to bit n causes the PERRPR bit n to be cleared"/>
+</bitfield>
+</register>
+     <register id="EPCPR" acronym="EPCPR" offset="0x70" width="32" description="External Power Control Pending Register">
+<bitfield id="EPCPR" width="32" begin="31" end="0" resetval="0" description="External Power Control Intervention Request for Power Domain n" range="" rwaccess="R">
+<bitenum id="NoNeedExternalPower" value="0" token="NoNeedExternalPower" description="No need for external power control to turn on/off power for power domain n"/>
+<bitenum id="ExternalPowerNeeded" value="1" token="ExternalPowerNeeded" description="External power control should turn on/off power for power domain n"/>
+</bitfield>
+</register>
+     <register id="EPCCR" acronym="EPCCR" offset="0x78" width="32" description="External Power Control Clear Register">
+<bitfield id="EPCCR" width="32" begin="31" end="0" resetval="0" description="External Power Control Clear Register" range="" rwaccess="W">
+<bitenum id="Noeffect" value="0" token="Noeffect" description="Write of 0 has No effect"/>
+<bitenum id="causesEPCPRbitntobecleared" value="1" token="causesEPCPRbitntobecleared" description="Write of 1 to bit n causes the EPCPR bit n to be cleared"/>
+</bitfield>
+</register>
+     <register id="RAILSTAT" acronym="RAILSTAT" offset="0x100" width="32" description="Power Rail Status Register">
+<bitfield id="_RESV_1" width="3" begin="31" end="29" resetval="0" description="Reserved for Rail Num expansion" range="" rwaccess="N"/>
+<bitfield id="RAILNUM" width="5" begin="28" end="24" resetval="0" description="Indicates the current rail Requestor begin processed by GPSC" range="" rwaccess="R">
+<bitenum id="AlwaysON" value="0" token="AlwaysON" description="Defaults to 0 indicating Always ON domain that has no rail request/grant associated with it"/>
+</bitfield>
+<bitfield id="_RESV_3" width="16" begin="23" end="8" resetval="0" description="Reserved for Rail count expansion" range="" rwaccess="N"/>
+<bitfield id="RAILCNT" width="8" begin="7" end="0" resetval="0" description="Indicates the current rail counter value" range="" rwaccess="R"/>
+</register>
+     <register id="RAILCTL" acronym="RAILCTL" offset="0x104" width="32" description="Power Rail Counter Control Register">
+<bitfield id="_RESV_1" width="16" begin="31" end="16" resetval="0" description="Reserved for more Railctr Values" range="" rwaccess="N"/>
+<bitfield id="RAILCTR1" width="8" begin="15" end="8" resetval="255" description="Rail Counter Value 1" range="" rwaccess="RW"/>
+<bitfield id="RAILCTR0" width="8" begin="7" end="0" resetval="64" description="Rail Counter Value 0" range="" rwaccess="RW"/>
+</register>
+     <register id="RAILSEL" acronym="RAILSEL" offset="0x108" width="32" description="Power Rail Counter Select">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved as only 9 domains are used" range="" rwaccess="N"/>
+<bitfield id="P" width="10" begin="9" end="0" resetval="1023" description="Rail Counter Select for Power Domain n" range="" rwaccess="RW">
+<bitenum id="UseRAILCTL.RailCtr0countvalueforpowerdomainn" value="0" token="UseRAILCTL.RailCtr0countvalueforpowerdomainn" description="0:Use RAILCTL.RailCtr0 count value for power domain n"/>
+</bitfield>
+</register>
+     <register id="PTCMD" acronym="PTCMD" offset="0x120" width="32" description="Power Transtion Command Register ">
+<bitfield id="G0" width="32" begin="31" end="0" resetval="0" description="Power Domain n GO Transition" range="" rwaccess="W">
+<bitenum id="Noeffect" value="0" token="Noeffect" description="Writes of 0 have no effect"/>
+<bitenum id="SetscorrespondingPTSTAT.GOSTATfiled" value="1" token="SetscorrespondingPTSTAT.GOSTATfiled" description="Writes of 1 sets corresponding PTSTAT.GOSTAT filed, which causes PSC hardware to evaluate PDCTL.NEXT and MDCTL.NEXT"/>
+</bitfield>
+</register>
+     <register id="PTSTAT" acronym="PTSTAT" offset="0x128" width="32" description="Power Domain Transition Status">
+<bitfield id="GOSTAT" width="29" begin="31" end="3" resetval="0" description="Power Domain n Transition Command Status" range="" rwaccess="R">
+<bitenum id="Notransitionsinprogressinpowerdomainn" value="0" token="Notransitionsinprogressinpowerdomainn" description="0:No transitions in progress in power domain n"/>
+<bitenum id="PowerDomainntransisitoninprogress" value="1" token="PowerDomainntransisitoninprogress" description="1:Power Domainn n transisiton in progress"/>
+</bitfield>
+<bitfield id="GOSTAT2" width="1" begin="2" end="2" resetval="0" description="Power Domain 1 Transition Command Status" range="" rwaccess="R">
+<bitenum id="Notransitionsinprogressinpowerdomain2" value="0" token="Notransitionsinprogressinpowerdomain2" description="0:No transitions in progress in power domain 2"/>
+<bitenum id="PowerDomain2transisitoninprogress" value="1" token="PowerDomain2transisitoninprogress" description="1:Power Domain n transisiton in progress"/>
+</bitfield>
+<bitfield id="GOSTAT1" width="1" begin="1" end="1" resetval="0" description="Power Domain 1 Transition Command Status" range="" rwaccess="R">
+<bitenum id="Notransitionsinprogressinpowerdomain1" value="0" token="Notransitionsinprogressinpowerdomain1" description="0:No transitions in progress in power domain 1"/>
+<bitenum id="PowerDomain1transisitoninprogress" value="1" token="PowerDomain1transisitoninprogress" description="1:Power Domain 1 transisiton in progress"/>
+</bitfield>
+<bitfield id="GOSTAT0" width="1" begin="0" end="0" resetval="0" description="Power Domain 0 Transition command status" range="" rwaccess="R">
+<bitenum id="Notransitionsinprogressinpowerdomain0" value="0" token="Notransitionsinprogressinpowerdomain0" description="0:No transitions in progress in power domain 0"/>
+<bitenum id="PowerDomain0transisitoninprogress" value="1" token="PowerDomain0transisitoninprogress" description="1:Power Domain 0 transisiton in progress"/>
+</bitfield>
+</register>
+     <register id="PDSTAT0" acronym="PDSTAT0" offset="0x200" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT1" acronym="PDSTAT1" offset="0x204" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT2" acronym="PDSTAT2" offset="0x208" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT3" acronym="PDSTAT3" offset="0x20C" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT4" acronym="PDSTAT4" offset="0x210" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT5" acronym="PDSTAT5" offset="0x214" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT6" acronym="PDSTAT6" offset="0x218" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT7" acronym="PDSTAT7" offset="0x21C" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT8" acronym="PDSTAT8" offset="0x220" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDSTAT9" acronym="PDSTAT9" offset="0x224" width="32" description="Power Domain Status Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved " range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="R">
+<bitenum id="Noemulationalteringuserdesiredpoerdomainstate" value="0" token="Noemulationalteringuserdesiredpoerdomainstate" description=""/>
+<bitenum id="Emulationaltersuser-desiredpowerstate" value="1" token="Emulationaltersuser-desiredpowerstate" description=""/>
+</bitfield>
+<bitfield id="PWRBAD" width="1" begin="8" end="8" resetval="0" description="Power Bad Error" range="" rwaccess="R">
+<bitenum id="NoError" value="0" token="NoError" description=""/>
+<bitenum id="ErrorDetected" value="1" token="ErrorDetected" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="3" begin="7" end="5" resetval="0" description="Reserved for possible State filed expansion" range="" rwaccess="N"/>
+<bitfield id="State" width="5" begin="4" end="0" resetval="0" description="Current Power Domain State" range="" rwaccess="R">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+<bitenum id="OnArb" value="65536" token="OnArb" description=""/>
+<bitenum id="SwitchOn" value="65537" token="SwitchOn" description=""/>
+<bitenum id="OnRailCnt" value="65552" token="OnRailCnt" description=""/>
+<bitenum id="WaitAllSyncRst" value="65553" token="WaitAllSyncRst" description=""/>
+<bitenum id="StretchPOR" value="65792" token="StretchPOR" description=""/>
+<bitenum id="WaitPORDone" value="65793" token="WaitPORDone" description=""/>
+<bitenum id="Count16" value="65808" token="Count16" description=""/>
+<bitenum id="WaitAllSwtRstDisable" value="65809" token="WaitAllSwtRstDisable" description=""/>
+<bitenum id="OffArb" value="69632" token="OffArb" description=""/>
+<bitenum id="SwitchOff" value="69633" token="SwitchOff" description=""/>
+<bitenum id="OffRailCnt" value="69648" token="OffRailCnt" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL0" acronym="PDCTL0" offset="0x300" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL1" acronym="PDCTL1" offset="0x304" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL2" acronym="PDCTL2" offset="0x308" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL3" acronym="PDCTL3" offset="0x30C" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL4" acronym="PDCTL4" offset="0x310" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL5" acronym="PDCTL5" offset="0x314" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL6" acronym="PDCTL6" offset="0x318" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL7" acronym="PDCTL7" offset="0x31C" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="PDCTL8" acronym="PDCTL8" offset="0x320" width="32" description="Power Domain Control Register">
+<bitfield id="_RESV_1" width="22" begin="31" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Domain State" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EPCGOOD" width="1" begin="8" end="8" resetval="1" description="External Power Control Power Good Indication" range="" rwaccess="RW">
+<bitenum id="ExternalPowerControlhasturnedoffpowertothisdomain" value="0" token="ExternalPowerControlhasturnedoffpowertothisdomain" description=""/>
+<bitenum id="ExternalPowerControlhasturnedonpowertothisdomain" value="1" token="ExternalPowerControlhasturnedonpowertothisdomain" description=""/>
+</bitfield>
+<bitfield id="_RESV_4" width="7" begin="7" end="1" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="Next" width="1" begin="0" end="0" resetval="1" description="User-Desired Next Power Domain State" range="" rwaccess="RW">
+<bitenum id="Off" value="0" token="Off" description=""/>
+<bitenum id="On" value="1" token="On" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG0" acronym="MDCFG0" offset="0x600" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="1" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="2" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG1" acronym="MDCFG1" offset="0x604" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="1" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="2" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG2" acronym="MDCFG2" offset="0x608" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="1" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="2" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG3" acronym="MDCFG3" offset="0x60C" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="1" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="2" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG4" acronym="MDCFG4" offset="0x610" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="1" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="2" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG5" acronym="MDCFG5" offset="0x614" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="1" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="2" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG6" acronym="MDCFG6" offset="0x618" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="1" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG7" acronym="MDCFG7" offset="0x61C" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="0" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG8" acronym="MDCFG8" offset="0x620" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="0" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG9" acronym="MDCFG9" offset="0x624" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="0" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG10" acronym="MDCFG10" offset="0x628" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="0" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG11" acronym="MDCFG11" offset="0x62C" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="0" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG12" acronym="MDCFG12" offset="0x630" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="0" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDCFG13" acronym="MDCFG13" offset="0x634" width="32" description="Module Configuration Register">
+<bitfield id="_RESV_1" width="11" begin="31" end="21" resetval="0" description="Reserved for PWRDOM" range="" rwaccess="N"/>
+<bitfield id="PWRDOM" width="5" begin="20" end="16" resetval="0" description="Power Domain" range="" rwaccess="R"/>
+<bitfield id="_RESV_3" width="6" begin="15" end="10" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="ICEPICK" width="1" begin="9" end="9" resetval="0" description="IcePick support" range="" rwaccess="">
+<bitenum id="noicepicksuuport" value="0" token="noicepicksuuport" description=""/>
+<bitenum id="supportsicepick" value="1" token="supportsicepick" description=""/>
+</bitfield>
+<bitfield id="PERMDIS" width="1" begin="8" end="8" resetval="0" description="Permanently Disable" range="" rwaccess="R">
+<bitenum id="Notpermanentlydisablemodule" value="0" token="Notpermanentlydisablemodule" description=""/>
+<bitenum id="Permanentlydisablemodule" value="1" token="Permanentlydisablemodule" description=""/>
+</bitfield>
+<bitfield id="CKRST" width="1" begin="7" end="7" resetval="1" description="Modclk during MSM reset source assert" range="" rwaccess="R">
+<bitenum id="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" value="0" token="LPSCdoesnotgivemodclkwhenitsMSMresetsourceisasserted" description=""/>
+<bitenum id="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" value="1" token="LPSCgivesmodclkevenwhentheMSMresetsourceisasserted" description=""/>
+</bitfield>
+<bitfield id="PLLCKGT" width="1" begin="6" end="6" resetval="0" description="PLL Clock Gate" range="" rwaccess="R">
+<bitenum id="LPSCgatesmodclkdirectly" value="0" token="LPSCgatesmodclkdirectly" description=""/>
+<bitenum id="LPSCdoesnotgatemodclkdirectly" value="1" token="LPSCdoesnotgatemodclkdirectly" description=""/>
+</bitfield>
+<bitfield id="LSRSTBLK" width="1" begin="5" end="5" resetval="0" description="LRST Soft Reset Block" range="" rwaccess="R"/>
+<bitfield id="SRSTBLK" width="1" begin="4" end="4" resetval="0" description="Soft Reset Block" range="" rwaccess="R">
+<bitenum id="Softresetsarenotblocked" value="0" token="Softresetsarenotblocked" description=""/>
+<bitenum id="Softresetsareblocked" value="1" token="Softresetsareblocked" description=""/>
+</bitfield>
+<bitfield id="_RESV_10" width="2" begin="3" end="2" resetval="0" description="Reserved for NUMCLK expansion" range="" rwaccess="N"/>
+<bitfield id="NUMCLK" width="2" begin="1" end="0" resetval="0" description="Number of modclks supported on LPSC" range="" rwaccess="R">
+<bitenum id="1modclk" value="0" token="1modclk" description=""/>
+<bitenum id="2modclks" value="1" token="2modclks" description=""/>
+<bitenum id="3modclks" value="2" token="3modclks" description=""/>
+<bitenum id="4modclks" value="3" token="4modclks" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT0" acronym="MDSTAT0" offset="0x800" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT1" acronym="MDSTAT1" offset="0x804" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT2" acronym="MDSTAT2" offset="0x808" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT3" acronym="MDSTAT3" offset="0x80C" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT4" acronym="MDSTAT4" offset="0x810" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT5" acronym="MDSTAT5" offset="0x814" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT6" acronym="MDSTAT6" offset="0x818" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT7" acronym="MDSTAT7" offset="0x81C" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT8" acronym="MDSTAT8" offset="0x820" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT9" acronym="MDSTAT9" offset="0x824" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT10" acronym="MDSTAT10" offset="0x828" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT11" acronym="MDSTAT11" offset="0x82C" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT12" acronym="MDSTAT12" offset="0x830" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDSTAT13" acronym="MDSTAT13" offset="0x834" width="32" description="Module Status Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHB" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationaltersuser-desiredmodulestate" value="1" token="Emulationaltersuser-desiredmodulestate" description=""/>
+</bitfield>
+<bitfield id="EMURST" width="1" begin="9" end="9" resetval="0" description="Emulation Alters Reset to Module" range="" rwaccess="R">
+<bitenum id="Noemulation" value="0" token="Noemulation" description=""/>
+<bitenum id="Emulationhasalteredmodulereset" value="1" token="Emulationhasalteredmodulereset" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module Local Reset Actual Status" range="" rwaccess="R">
+<bitenum id="LocalResetAsserted" value="0" token="LocalResetAsserted" description=""/>
+<bitenum id="LocalResetDe-asserted" value="1" token="LocalResetDe-asserted" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="2" begin="7" end="6" resetval="0" description="Reserved" range="" rwaccess="N"/>
+<bitfield id="STATE" width="6" begin="5" end="0" resetval="0" description="These bits indicate the current module state" range="" rwaccess="R">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+<bitenum id="Sleep" value="256" token="Sleep" description=""/>
+<bitenum id="Twk" value="257" token="Twk" description=""/>
+<bitenum id="DisableIn-Prog" value="1048576" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048577" token="DisableIn-Prog" description=""/>
+<bitenum id="DisableIn-Prog" value="1048592" token="DisableIn-Prog" description=""/>
+<bitenum id="ClkOff" value="1048593" token="ClkOff" description=""/>
+<bitenum id="EnableIn-Prog" value="1048832" token="EnableIn-Prog" description=""/>
+<bitenum id="DisableClkOn" value="1048833" token="DisableClkOn" description=""/>
+<bitenum id="ClkOn(fromDisabletoDisableClkOn)" value="1048848" token="ClkOn(fromDisabletoDisableClkOn)" description=""/>
+<bitenum id="ClkOn(fromSwRstDisabletoSyncRst)" value="1048849" token="ClkOn(fromSwRstDisabletoSyncRst)" description=""/>
+<bitenum id="ClkOff(fromSyncRsttoSwRstDisable)" value="1052672" token="ClkOff(fromSyncRsttoSwRstDisable)" description=""/>
+<bitenum id="ResetDeassert(fromSyncRsttoDisableClkOn)" value="1052673" token="ResetDeassert(fromSyncRsttoDisableClkOn)" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL0" acronym="MDCTL0" offset="0xA00" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="1" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL1" acronym="MDCTL1" offset="0xA04" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="1" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL2" acronym="MDCTL2" offset="0xA08" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="1" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL3" acronym="MDCTL3" offset="0xA0C" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="1" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL4" acronym="MDCTL4" offset="0xA10" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="1" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL5" acronym="MDCTL5" offset="0xA14" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="1" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL6" acronym="MDCTL6" offset="0xA18" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="0" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL7" acronym="MDCTL7" offset="0xA1C" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="0" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL8" acronym="MDCTL8" offset="0xA20" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="0" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL9" acronym="MDCTL9" offset="0xA24" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="0" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL10" acronym="MDCTL10" offset="0xA28" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="0" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL11" acronym="MDCTL11" offset="0xA2C" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="0" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL12" acronym="MDCTL12" offset="0xA30" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="1" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+     <register id="MDCTL13" acronym="MDCTL13" offset="0xA34" width="32" description="Module Control Register">
+<bitfield id="_RESV_1" width="21" begin="31" end="11" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="EMUIHBIE" width="1" begin="10" end="10" resetval="0" description="Emulation Alters Module State" range="" rwaccess="RW">
+<bitenum id="notenable" value="0" token="notenable" description=""/>
+<bitenum id="interruptenabled" value="1" token="interruptenabled" description=""/>
+</bitfield>
+<bitfield id="EMURSTIE" width="1" begin="9" end="9" resetval="0" description="Emulation Alter Reset Interrupt Enable" range="" rwaccess="RW">
+<bitenum id="notenabled" value="0" token="notenabled" description=""/>
+<bitenum id="interruptenable" value="1" token="interruptenable" description=""/>
+</bitfield>
+<bitfield id="LRSTz" width="1" begin="8" end="8" resetval="0" description="Module local reset control" range="" rwaccess="RW">
+<bitenum id="assertlocalreset" value="0" token="assertlocalreset" description=""/>
+<bitenum id="de-assertlocalreset" value="1" token="de-assertlocalreset" description=""/>
+</bitfield>
+<bitfield id="_RESV_5" width="3" begin="7" end="5" resetval="0" description="Reserved for future expansion" range="" rwaccess="N"/>
+<bitfield id="NEXT" width="5" begin="4" end="0" resetval="0" description="Module Next State" range="" rwaccess="RW">
+<bitenum id="SwRstDisable" value="0" token="SwRstDisable" description=""/>
+<bitenum id="SyncRst" value="1" token="SyncRst" description=""/>
+<bitenum id="Disable" value="16" token="Disable" description=""/>
+<bitenum id="Enable" value="17" token="Enable" description=""/>
+</bitfield>
+</register>
+</module>

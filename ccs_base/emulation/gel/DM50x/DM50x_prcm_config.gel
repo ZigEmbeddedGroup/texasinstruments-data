@@ -1,0 +1,1813 @@
+/********************************************************************************************************/
+/* This GEL file is loaded on the command line of Code Composer                                         */
+/* The StartUp() function is called every time you start                                                */
+/* Code Composer.  You can customize this function to                                                   */
+/* initialize wait states or to perform other initialization.                                           */
+/*                                                                                                      */
+/* File       :DM50x_prcm_Config.gel                                                                   */
+/* Description:DM50x PLL configurations and PRCM related functions                                     */
+/* Revision history                                                                                     */
+/* ==================================================================================================== */
+/* Version   Date      Change from previous version                                                     */
+/* ==================================================================================================== */
+/* 0.1       31-July   First draft for DM50x wakeup                                                    */
+/* 0.2       04-Sept   First customer release version                                                   */
+/* 0.3       08-Oct    Changed the DDR DLL freq for 333MHz to be same as data macro speed.              */
+/*                     PHY_HALF_DELAYmode bit must be set to 0                                          */
+/*                     Changed DIV_H13_DPLL_PER value to 0x8 from 0xC to change QSPI speed to 64MHz     */
+/*                     Changed QSPI PRCM CLKSEL and DIV bit field values to change QSPI speed to 64MHz  */
+/*                     Added functions for enabling CLKOUT0 and CLKOUT1                                 */
+/*                     Added Generic clock configuration for 12x12 (EVE/DSP at 355MHz instead of 500MHz)*/
+/*                     Renamed function DM50x_PRCM_Clock_Config_OPPNOM_DM50x as                       */
+/*                     DM50x_PRCM_Clock_Config_OPPNOM_DM50x_15x15 for generic 15x15 device            */
+/*                     Added DM50x_PRCM_Clock_Config_OPPNOM_DM50x_12x12 for generic 12x12 device      */
+/* 0.4       21-Feb-16 Adding OPP support for 15x15. In case of 12x12 only OPPNOM is supported.         */
+/*                     This file includes 12x12 OPPHIGH/OPPOD code - but this is work in progress.      */
+/*                     The code is disabled and enabling it might cause device failures.                */
+/*                     TDA3x can support higher clocks for DSP/EVE/etc by disabling modules like GMAC.  */
+/*                     This modes are enabled by changing value of DM50X_DPLL_SUPPORT macro.           */
+/* ==================================================================================================== */
+/********************************************************************************************************/
+
+#define uint32_t unsigned int
+
+#define WR_MEM_32(addr, data)   *(uint32_t* )(addr) =(uint32_t)(data)
+
+#define RD_MEM_32(addr)         *(uint32_t* )(addr)
+
+#define DEBUG_PRINT         (0)
+
+
+/*
+ * DSP/EVE can be run faster by disabling some modules.
+ * Set the value of DM50X_DPLL_SUPPORT as needed - default setting is
+ * DM50X_DPLL_SUPPORT_FULL
+ */
+#define DM50X_DPLL_SUPPORT_FULL                (0x0)
+#define DM50X_DPLL_SUPPORT_NO_GMAC             (0x1)
+#define DM50X_DPLL_SUPPORT                     (DM50X_DPLL_SUPPORT_FULL)
+
+/* OPP definitions */
+#define     OPP_NOM         (0x0)
+#define     OPP_OD          (0x1)
+#define     OPP_HIGH        (0x2)
+
+#define     SYS_CLK1        (20)
+/* DEVICE_TYPE definitions - current support is derived from TDA3x DM */
+/* Will be updated to DM50x DM at a later point */
+#define     DEVICE_DM50X_15x15         (0x0) // Generic 15x15
+#define     DEVICE_DM50X_12x12         (0x1) // Generic 12x12
+
+#define BITS_32(in_NbBits)                          ( ( ( (uint32_t)1 << in_NbBits ) - 1 ) | ( (uint32_t)1 << in_NbBits ) )
+#define BITFIELD_32(in_UpBit, in_LowBit)            ( BITS_32(in_UpBit) & ~((BITS_32(in_LowBit)) >> 1 ))
+#define WR_MEM_FIELD_32(ADDR, UpBit, LowBit, VALUE) WR_MEM_32(ADDR, ( ( RD_MEM_32(ADDR) & ~(BITFIELD_32(UpBit, LowBit)) ) | ( (VALUE << LowBit) & BITFIELD_32(UpBit, LowBit) ) ) )
+
+
+
+/* Instance Base Addresses */
+#define CTRL_MODULE_CORE     0x4a002000
+
+#define CKGEN_CM_CORE_AON    0x4a005100
+#define DSP1_CM_CORE_AON     0x4a005400
+#define IPU_CM_CORE_AON      0x4a005500
+#define DSP2_CM_CORE_AON     0x4a005600
+#define EVE1_CM_CORE_AON     0x4a005640
+#define ISS_CM_CORE_AON      0x4a005760
+
+#define CKGEN_CM_CORE        0x4a008100
+#define COREAON_CM_CORE      0x4a008600
+#define CORE_CM_CORE         0x4a008700
+#define CAM_CM_CORE          0x4a009000
+#define DSS_CM_CORE          0x4a009100
+#define L3INIT_CM_CORE       0x4a009300
+#define L4PER_CM_CORE        0x4a009700
+
+#define CKGEN_PRM            0x4ae06100
+#define WKUPAON_CM           0x4ae07800
+#define EMU_CM               0x4ae07a00
+
+#define CM_CLKSEL_EVE_CLK    0x4AE06180
+#define CM_CAM_VIP1_CLKCTRL  0x4A009020
+#define CM_IPU1_IPU1_CLKCTRL 0x4A005520
+
+#define L4_CFG_TARG          0x4A000000
+#define CTRL_MODULE_CORE     (L4_CFG_TARG + 0x2000)
+
+
+/* Various register address definitions */
+#define CM_CLKSEL_CORE                 (CKGEN_CM_CORE_AON + 0x000)
+#define CM_CLKSEL_ABE                  (CKGEN_CM_CORE_AON + 0x008)
+#define CM_DLL_CTRL                    (CKGEN_CM_CORE_AON + 0x010)
+#define CM_CLKMODE_DPLL_CORE           (CKGEN_CM_CORE_AON + 0x020)
+#define CM_CLKSEL_DPLL_CORE            (CKGEN_CM_CORE_AON + 0x02C)
+#define CM_CLKMODE_DPLL_DDR            (CKGEN_CM_CORE_AON + 0x110)
+#define CM_CLKMODE_DPLL_EVE_VID_DSP    (CKGEN_CM_CORE_AON + 0x134)
+#define CM_CLKMODE_DPLL_DSP_GMAC       (CKGEN_CM_CORE_AON + 0x1A8)
+#define CM_CLKMODE_DPLL_PER            (CKGEN_CM_CORE     + 0x040)
+#define CM_SYS_CLKSEL                  (CKGEN_PRM         + 0x010)
+
+#define CTRL_CORE_PRCM_CLKSEL_CONTROL  (CTRL_MODULE_CORE + 0x1C5C)
+#define CTRL_CORE_PRCM_CLKDIV_CONTROL1 (CTRL_MODULE_CORE + 0x1C60)
+#define CTRL_CORE_PRCM_CLKDIV_CONTROL2 (CTRL_MODULE_CORE + 0x1C64)
+
+#define CTRL_CORE_CONTROL_IO_2         (CTRL_MODULE_CORE  + 0x558)
+
+/* DPLL Definitions */
+#define DPLL_TIMEOUT                                5 // DPLL lock/unlock timeout (was 5000)
+#define CM_CLKMODE_DPLL(DPLL_BASE_ADDRESS)          RD_MEM_32(DPLL_BASE_ADDRESS)
+#define CM_IDLEST_DPLL(DPLL_BASE_ADDRESS)           RD_MEM_32(DPLL_BASE_ADDRESS + 0x04)
+#define CM_AUTOIDLE_DPLL(DPLL_BASE_ADDRESS)         RD_MEM_32(DPLL_BASE_ADDRESS + 0x08)
+#define CM_CLKSEL_DPLL(DPLL_BASE_ADDRESS)           RD_MEM_32(DPLL_BASE_ADDRESS + 0x0C)
+#define CM_DIV_M2_DPLL(DPLL_BASE_ADDRESS)           RD_MEM_32(DPLL_BASE_ADDRESS + 0x10)
+#define CM_DIV_M3_DPLL(DPLL_BASE_ADDRESS)           RD_MEM_32(DPLL_BASE_ADDRESS + 0x14)
+//#define CM_DIV_H11_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x18)
+//#define CM_DIV_H12_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x1C)
+//#define CM_DIV_H13_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x20)
+//#define CM_DIV_H14_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x24)
+//#define CM_DIV_H21_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x30)
+//#define CM_DIV_H22_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x34)
+//#define CM_DIV_H23_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x38)
+//#define CM_DIV_H24_DPLL(DPLL_BASE_ADDRESS)        RD_MEM_32(DPLL_BASE_ADDRESS + 0x3C)
+
+#define WR_CM_CLKMODE_DPLL_CORE(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x00, VALUE)
+#define WR_CM_IDLEST_DPLL_CORE(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x04, VALUE)
+#define WR_CM_AUTOIDLE_DPLL_CORE(VALUE)             WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x08, VALUE)
+#define WR_CM_CLKSEL_DPLL_CORE(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x0C, VALUE)
+#define WR_CM_DIV_M2_DPLL_CORE(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x10, VALUE)
+#define WR_CM_DIV_M3_DPLL_CORE(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x14, VALUE) //This register is re-purposed in Adas-Low
+#define WR_CM_DIV_H11_DPLL_CORE(VALUE)              WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 5, 0, (VALUE-1)); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 13, 12, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 6, 6, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 6, 6, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 6, 6, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 13, 12, 0)
+#define WR_CM_DIV_H12_DPLL_CORE(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x1C, VALUE)
+#define WR_CM_DIV_H13_DPLL_CORE(VALUE)              WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 5, 0, (VALUE-1)); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 13, 12, 2); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 6, 6, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 6, 6, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 6, 6, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 13, 12, 0)
+#define WR_CM_DIV_H14_DPLL_CORE(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x24, VALUE)
+#define WR_CM_DIV_H21_DPLL_CORE(VALUE)              WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 21, 16, (VALUE-1)); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 23, 23, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 22, 22, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 22, 22, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 22, 22, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 23, 23, 0)
+#define WR_CM_DIV_H22_DPLL_CORE(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x34, VALUE)
+#define WR_CM_DIV_H23_DPLL_CORE(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x38, VALUE)
+#define WR_CM_DIV_H24_DPLL_CORE(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_CORE + 0x3C, VALUE)
+
+#define WR_CM_CLKMODE_DPLL_PER(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x00, VALUE)
+#define WR_CM_IDLEST_DPLL_PER(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x04, VALUE)
+#define WR_CM_AUTOIDLE_DPLL_PER(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x08, VALUE)
+#define WR_CM_CLKSEL_DPLL_PER(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x0C, VALUE)
+#define WR_CM_DIV_M2_DPLL_PER(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x10, VALUE)
+#define WR_CM_DIV_M3_DPLL_PER(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x14, VALUE)
+#define WR_CM_DIV_H11_DPLL_PER(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x18, VALUE)
+#define WR_CM_DIV_H12_DPLL_PER(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x1C, VALUE)
+#define WR_CM_DIV_H13_DPLL_PER(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_PER + 0x20, VALUE)
+#define WR_CM_DIV_H14_DPLL_PER(VALUE)               WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 13, 8, (VALUE-1)); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 15, 15, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 14, 14, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 14, 14, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 14, 14, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL1, 15, 15, 0)
+
+#define WR_CM_CLKMODE_DPLL_DSP_GMAC(VALUE)          WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x00, VALUE)
+#define WR_CM_IDLEST_DPLL_DSP_GMAC(VALUE)           WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x04, VALUE)
+#define WR_CM_AUTOIDLE_DPLL_DSP_GMAC(VALUE)         WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x08, VALUE)
+#define WR_CM_CLKSEL_DPLL_DSP_GMAC(VALUE)           WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x0C, VALUE)
+#define WR_CM_DIV_M2_DPLL_DSP_GMAC(VALUE)           WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x10, VALUE)
+#define WR_CM_DIV_M3_DPLL_DSP_GMAC(VALUE)           WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x14, VALUE)
+#define WR_CM_DIV_H11_DPLL_DSP_GMAC(VALUE)          WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x18, VALUE)
+#define WR_CM_DIV_H12_DPLL_DSP_GMAC(VALUE)          WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x1C, VALUE)
+#define WR_CM_DIV_H13_DPLL_DSP_GMAC(VALUE)          WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x20, VALUE)
+#define WR_CM_DIV_H14_DPLL_DSP_GMAC(VALUE)          WR_MEM_32(CM_CLKMODE_DPLL_DSP_GMAC + 0x24, VALUE)
+
+#define WR_CM_CLKMODE_DPLL_DDR(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x00, VALUE)
+#define WR_CM_IDLEST_DPLL_DDR(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x04, VALUE)
+#define WR_CM_AUTOIDLE_DPLL_DDR(VALUE)              WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x08, VALUE)
+#define WR_CM_CLKSEL_DPLL_DDR(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x0C, VALUE)
+#define WR_CM_DIV_M2_DPLL_DDR(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x10, VALUE)
+#define WR_CM_DIV_M3_DPLL_DDR(VALUE)                WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x14, VALUE)
+#define WR_CM_DIV_H11_DPLL_DDR(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x18, VALUE)
+#define WR_CM_DIV_H12_DPLL_DDR(VALUE)               WR_MEM_32(0x4A0051F0, VALUE)
+#define WR_CM_DIV_H13_DPLL_DDR(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x20, VALUE)
+#define WR_CM_DIV_H14_DPLL_DDR(VALUE)               WR_MEM_32(CM_CLKMODE_DPLL_DDR + 0x24, VALUE)
+
+#define WR_CM_CLKMODE_DPLL_EVE_VID_DSP(VALUE)       WR_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x00, VALUE)
+#define WR_CM_IDLEST_DPLL_EVE_VID_DSP(VALUE)        WR_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x04, VALUE)
+#define WR_CM_AUTOIDLE_DPLL_EVE_VID_DSP(VALUE)      WR_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x08, VALUE)
+#define WR_CM_CLKSEL_DPLL_EVE_VID_DSP(VALUE)        WR_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x0C, VALUE)
+#define WR_CM_DIV_M2_DPLL_EVE_VID_DSP(VALUE)        WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 20, 16, (VALUE)); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 28, 28, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 22, 22, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 22, 22, 1); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 22, 22, 0); \
+    WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 28, 28, 0)
+#define WR_CM_DIV_M3_DPLL_EVE_VID_DSP(VALUE)        WR_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x10, VALUE)
+
+/* CLKSTCTRL offsets */
+#define CORE_CM_CORE__CM_L3MAIN1_CLKSTCTRL          0x000ul
+//#define CORE_CM_CORE__CM_DMA_CLKSTCTRL            0x300ul
+#define CORE_CM_CORE__CM_EMIF_CLKSTCTRL             0x400ul
+#define CORE_CM_CORE__CM_L4CFG_CLKSTCTRL            0x600ul
+#define COREAON_CM_CORE__CM_COREAON_CLKSTCTRL       0x00ul
+#define DSP1_CM_CORE_AON__CM_DSP1_CLKSTCTRL         0x00ul
+#define DSP2_CM_CORE_AON__CM_DSP2_CLKSTCTRL         0x00ul
+#define DSS_CM_CORE__CM_DSS_CLKSTCTRL               0x00ul
+#define EVE1_CM_CORE_AON__CM_EVE1_CLKSTCTRL         0x00ul
+#define IPU_CM_CORE_AON__CM_IPU1_CLKSTCTRL          0x00ul
+#define IPU_CM_CORE_AON__CM_IPU_CLKSTCTRL           0x40ul
+#define CAM_CM_CORE__CM_CAM_CLKSTCTRL               0x00ul
+#define L3INIT_CM_CORE__CM_L3INIT_CLKSTCTRL         0x00ul
+#define L3INIT_CM_CORE__CM_PCIE_CLKSTCTRL           0xA0ul
+#define L3INIT_CM_CORE__CM_GMAC_CLKSTCTRL           0xC0ul
+#define L4PER_CM_CORE__CM_L4PER_CLKSTCTRL           0x000ul
+#define L4PER_CM_CORE__CM_L4PER2_CLKSTCTRL          0x1FCul
+#define L4PER_CM_CORE__CM_L4PER3_CLKSTCTRL          0x210ul
+#define ISS_CM_CORE_AON__CM_ISS_CLKSTCTRL           0x00ul
+#define WKUPAON_CM__CM_WKUPAON_CLKSTCTRL            0x00ul
+
+/* CLKSTCTRL modes */
+#define SW_SLEEP        (0x1)
+#define SW_WKUP         (0x2)
+#define HW_AUTO         (0x3)
+
+#define CLKSTCTRL_TIMEOUOT  (300)
+
+/* CLKCTRL Offsets */
+#define CAM_CM_CORE__CM_CAM_VIP1_CLKCTRL                            0x020ul
+#define CORE_CM_CORE__CM_L3MAIN1_L3_MAIN_1_CLKCTRL                  0x020ul
+#define CORE_CM_CORE__CM_L3MAIN1_GPMC_CLKCTRL                       0x028ul
+//#define CORE_CM_CORE__CM_L3MAIN1_MMU_EDMA_CLKCTRL                 0x030ul
+#define CORE_CM_CORE__CM_L3MAIN1_TESOC_CLKCTRL                      0x058ul  // was OCMCRAM2 in Vayu
+#define CORE_CM_CORE__CM_L3MAIN1_TPCC_CLKCTRL                       0x070ul
+#define CORE_CM_CORE__CM_L3MAIN1_TPTC1_CLKCTRL                      0x078ul
+#define CORE_CM_CORE__CM_L3MAIN1_TPTC2_CLKCTRL                      0x080ul
+//#define CORE_CM_CORE__CM_EMIF_DMM_CLKCTRL                         0x420ul
+#define CORE_CM_CORE__CM_EMIF_EMIF_OCP_FW_CLKCTRL                   0x428ul
+#define CORE_CM_CORE__CM_EMIF_EMIF1_CLKCTRL                         0x430ul
+#define CORE_CM_CORE__CM_L4CFG_L4_CFG_CLKCTRL                       0x620ul
+#define CORE_CM_CORE__CM_L4CFG_SPINLOCK_CLKCTRL                     0x628ul
+#define CORE_CM_CORE__CM_L4CFG_MAILBOX1_CLKCTRL                     0x630ul
+#define CORE_CM_CORE__CM_L4CFG_MAILBOX2_CLKCTRL                     0x648ul
+#define CORE_CM_CORE__CM_L3INSTR_L3_MAIN_2_CLKCTRL                  0x720ul
+#define DSS_CM_CORE__CM_DSS_DSS_CLKCTRL                             0x020ul
+#define EMU_CM__CM_EMU_MPU_EMU_DBG_CLKCTRL                          0x00Cul
+#define IPU_CM_CORE_AON__CM_IPU1_IPU1_CLKCTRL                       0x020ul
+#define IPU_CM_CORE_AON__CM_IPU_MCASP1_CLKCTRL                      0x050ul
+#define IPU_CM_CORE_AON__CM_IPU_TIMER5_CLKCTRL                      0x058ul
+#define IPU_CM_CORE_AON__CM_IPU_TIMER6_CLKCTRL                      0x060ul
+#define IPU_CM_CORE_AON__CM_IPU_TIMER7_CLKCTRL                      0x068ul
+#define IPU_CM_CORE_AON__CM_IPU_TIMER8_CLKCTRL                      0x070ul
+#define L3INIT_CM_CORE__CM_L3INIT_IEEE1500_2_OCP_CLKCTRL            0x078ul
+#define L3INIT_CM_CORE__CM_GMAC_GMAC_CLKCTRL                        0x0D0ul
+#define L3INIT_CM_CORE__CM_L3INIT_OCP2SCP1_CLKCTRL                  0x0E0ul
+#define L3INIT_CM_CORE__CM_L3INIT_OCP2SCP3_CLKCTRL                  0x0E8ul
+#define L4PER_CM_CORE__CM_L4PER2_L4_PER2_CLKCTRL                    0x00Cul
+#define L4PER_CM_CORE__CM_L4PER3_L4_PER3_CLKCTRL                    0x014ul
+#define L4PER_CM_CORE__CM_L4PER_DCC6_CLKCTRL                        0x028ul //was timer10 in vayu
+#define L4PER_CM_CORE__CM_L4PER_DCC7_CLKCTRL                        0x030ul //was timer11 in vayu
+#define L4PER_CM_CORE__CM_L4PER_TIMER2_CLKCTRL                      0x038ul
+#define L4PER_CM_CORE__CM_L4PER_TIMER3_CLKCTRL                      0x040ul
+#define L4PER_CM_CORE__CM_L4PER_TIMER4_CLKCTRL                      0x048ul
+#define L4PER_CM_CORE__CM_L4PER_DCC5_CLKCTRL                        0x050ul //was timer 9 in Vayu
+#define L4PER_CM_CORE__CM_L4PER_GPIO2_CLKCTRL                       0x060ul
+#define L4PER_CM_CORE__CM_L4PER_GPIO3_CLKCTRL                       0x068ul
+#define L4PER_CM_CORE__CM_L4PER_GPIO4_CLKCTRL                       0x070ul
+#define L4PER_CM_CORE__CM_L4PER_I2C1_CLKCTRL                        0x0A0ul
+#define L4PER_CM_CORE__CM_L4PER_I2C2_CLKCTRL                        0x0A8ul
+#define L4PER_CM_CORE__CM_L4PER_L4_PER1_CLKCTRL                     0x0C0ul
+#define L4PER_CM_CORE__CM_L4PER3_DCC1_CLKCTRL                       0x0C8ul  //Timer13 in vayu
+#define L4PER_CM_CORE__CM_L4PER3_DCC2_CLKCTRL                       0x0D0ul  //Timer14 in vayu
+#define L4PER_CM_CORE__CM_L4PER3_DCC3_CLKCTRL                       0x0D8ul  //Timer15 in vayu
+#define L4PER_CM_CORE__CM_L4PER_MCSPI1_CLKCTRL                      0x0F0ul
+#define L4PER_CM_CORE__CM_L4PER_MCSPI3_CLKCTRL                      0x100ul
+#define L4PER_CM_CORE__CM_L4PER_MMC_CLKCTRL                         0x128ul
+#define L4PER_CM_CORE__CM_L4PER3_DCC4_CLKCTRL                       0x130ul //Timer16 in vayu
+#define L4PER_CM_CORE__CM_L4PER2_QSPI_CLKCTRL                       0x138ul
+#define L4PER_CM_CORE__CM_L4PER_UART1_CLKCTRL                       0x140ul
+#define L4PER_CM_CORE__CM_L4PER_UART2_CLKCTRL                       0x148ul
+#define L4PER_CM_CORE__CM_L4PER_UART3_CLKCTRL                       0x150ul
+#define L4PER_CM_CORE__CM_L4PER2_MCASP2_CLKCTRL                     0x160ul
+#define L4PER_CM_CORE__CM_L4PER2_MCASP3_CLKCTRL                     0x168ul
+#define ISS_CM_CORE_AON__CM_ISS_ISS_CLKCTRL                         0x004ul //was VPE in vayu
+#define WKUPAON_CM__CM_WKUPAON_WD_TIMER1_CLKCTRL                    0x028ul
+#define WKUPAON_CM__CM_WKUPAON_WD_TIMER2_CLKCTRL                    0x030ul
+#define WKUPAON_CM__CM_WKUPAON_GPIO1_CLKCTRL                        0x038ul
+#define WKUPAON_CM__CM_WKUPAON_TIMER1_CLKCTRL                       0x040ul
+#define WKUPAON_CM__CM_WKUPAON_TIMER12_CLKCTRL                      0x048ul
+#define WKUPAON_CM__CM_WKUPAON_UART10_CLKCTRL                       0x080ul //???????
+
+/* CLKCTRL modes */
+#define MODE_DISABLED   (0x0)
+#define MODE_AUTO       (0x1)
+#define MODE_ENABLED    (0x2)
+
+#define CLKCTRL_TIMEOUOT  (300)
+
+/**********************************************************************
+*
+*  FUNCTIONS
+*
+**********************************************************************/
+
+menuitem "DM50x PRCM MODULE Configuration"
+hotmenu DM50x_PRCM_Module_AllEnable_Config()
+{
+    GEL_TextOut("--->>> PRCM Configuration for all modules in progress... <<<---\n");
+
+    /* PRCM clock domain state setting functions */
+    prcm_set_clkdomain_state(CAM_CM_CORE,       CAM_CM_CORE__CM_CAM_CLKSTCTRL,          SW_WKUP );
+    prcm_set_clkdomain_state(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_CLKSTCTRL,      SW_WKUP );
+    prcm_set_clkdomain_state(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER2_CLKSTCTRL,     SW_WKUP );
+    prcm_set_clkdomain_state(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER3_CLKSTCTRL,     SW_WKUP );
+    prcm_set_clkdomain_state(L3INIT_CM_CORE,    L3INIT_CM_CORE__CM_L3INIT_CLKSTCTRL,    SW_WKUP );
+    prcm_set_clkdomain_state(L3INIT_CM_CORE,    L3INIT_CM_CORE__CM_GMAC_CLKSTCTRL,      SW_WKUP );
+    prcm_set_clkdomain_state(CORE_CM_CORE,      CORE_CM_CORE__CM_EMIF_CLKSTCTRL,        SW_WKUP );
+    prcm_set_clkdomain_state(CORE_CM_CORE,      CORE_CM_CORE__CM_L4CFG_CLKSTCTRL,       SW_WKUP );
+    //  prcm_set_clkdomain_state(CORE_CM_CORE,      CORE_CM_CORE__CM_DMA_CLKSTCTRL,         SW_WKUP );
+    prcm_set_clkdomain_state(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_CLKSTCTRL,     SW_WKUP );
+    prcm_set_clkdomain_state(COREAON_CM_CORE,   COREAON_CM_CORE__CM_COREAON_CLKSTCTRL,  SW_WKUP );
+    prcm_set_clkdomain_state(DSS_CM_CORE,       DSS_CM_CORE__CM_DSS_CLKSTCTRL,          SW_WKUP );
+    prcm_set_clkdomain_state(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU1_CLKSTCTRL,     SW_WKUP );
+    prcm_set_clkdomain_state(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU_CLKSTCTRL,      SW_WKUP );
+    prcm_set_clkdomain_state(ISS_CM_CORE_AON,   ISS_CM_CORE_AON__CM_ISS_CLKSTCTRL,      SW_WKUP );
+    prcm_set_clkdomain_state(WKUPAON_CM,        WKUPAON_CM__CM_WKUPAON_CLKSTCTRL,       SW_WKUP );
+    prcm_set_clkdomain_state(DSP1_CM_CORE_AON,  DSP1_CM_CORE_AON__CM_DSP1_CLKSTCTRL,    SW_WKUP );
+    prcm_set_clkdomain_state(DSP2_CM_CORE_AON,  DSP2_CM_CORE_AON__CM_DSP2_CLKSTCTRL,    SW_WKUP );
+    prcm_set_clkdomain_state(EVE1_CM_CORE_AON,  EVE1_CM_CORE_AON__CM_EVE1_CLKSTCTRL,    SW_WKUP );
+
+    /* PRCM Generic module mode setting functions */
+    prcm_set_module_mode(CAM_CM_CORE,       CAM_CM_CORE__CM_CAM_VIP1_CLKCTRL,               MODE_AUTO,      0x00000000, 0x00000000  );
+    //prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_EMIF_DMM_CLKCTRL,              MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_EMIF_EMIF1_CLKCTRL,            MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_EMIF_EMIF_OCP_FW_CLKCTRL,      MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3INSTR_L3_MAIN_2_CLKCTRL,     MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_GPMC_CLKCTRL,          MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_L3_MAIN_1_CLKCTRL,     MODE_AUTO,      0x00000000, 0x00000000  );
+    //prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_MMU_EDMA_CLKCTRL,      MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_TESOC_CLKCTRL,         MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_TPCC_CLKCTRL,          MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_TPTC1_CLKCTRL,         MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L3MAIN1_TPTC2_CLKCTRL,         MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L4CFG_L4_CFG_CLKCTRL,          MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L4CFG_MAILBOX1_CLKCTRL,        MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L4CFG_MAILBOX2_CLKCTRL,        MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(CORE_CM_CORE,      CORE_CM_CORE__CM_L4CFG_SPINLOCK_CLKCTRL,        MODE_AUTO,      0x00000000, 0x00000000  );
+    /* FIXME:
+    prcm_set_module_mode(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU_MCASP1_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    */
+    prcm_set_module_mode(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU_TIMER5_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU_TIMER6_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU_TIMER7_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU_TIMER8_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L3INIT_CM_CORE,    L3INIT_CM_CORE__CM_GMAC_GMAC_CLKCTRL,           MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER2_L4_PER2_CLKCTRL,       MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER3_L4_PER3_CLKCTRL,       MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER3_DCC1_CLKCTRL,          MODE_ENABLED,   0x02000000, 0x0F000000  );  // was timer13 in vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER3_DCC2_CLKCTRL,          MODE_ENABLED,   0x02000000, 0x0F000000  );  // was timer14 in vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER3_DCC3_CLKCTRL,          MODE_ENABLED,   0x02000000, 0x0F000000  );  // was timer15 in vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER3_DCC4_CLKCTRL,          MODE_ENABLED,   0x02000000, 0x0F000000  );  // was timer16 in vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_GPIO2_CLKCTRL,          MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_GPIO3_CLKCTRL,          MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_GPIO4_CLKCTRL,          MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_I2C1_CLKCTRL,           MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_I2C2_CLKCTRL,           MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_L4_PER1_CLKCTRL,        MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_MCSPI1_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_MCSPI3_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_MMC_CLKCTRL,            MODE_ENABLED,   0x00000000, 0x00000000  );  // was MMC4 in Vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_DCC6_CLKCTRL,           MODE_ENABLED,   0x00000000, 0x00000000  );  // was timer10 in vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_DCC7_CLKCTRL,           MODE_ENABLED,   0x00000000, 0x00000000  );  // was timer11 in vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_TIMER2_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_TIMER3_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_TIMER4_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_DCC5_CLKCTRL,           MODE_ENABLED,   0x00000000, 0x00000000  );  // was timer9 in vayu
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER2_QSPI_CLKCTRL,          MODE_ENABLED,   0x02000000, 0x07000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_UART1_CLKCTRL,          MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_UART2_CLKCTRL,          MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER_UART3_CLKCTRL,          MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER2_MCASP2_CLKCTRL,        MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(L4PER_CM_CORE,     L4PER_CM_CORE__CM_L4PER2_MCASP3_CLKCTRL,        MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(ISS_CM_CORE_AON,   ISS_CM_CORE_AON__CM_ISS_ISS_CLKCTRL,            MODE_AUTO,      0x00000000, 0x00000000  );  // VPE in Vayu
+    prcm_set_module_mode(WKUPAON_CM,        WKUPAON_CM__CM_WKUPAON_GPIO1_CLKCTRL,           MODE_AUTO,      0x00000000, 0x00000000  );
+    prcm_set_module_mode(WKUPAON_CM,        WKUPAON_CM__CM_WKUPAON_TIMER1_CLKCTRL,          MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(WKUPAON_CM,        WKUPAON_CM__CM_WKUPAON_TIMER12_CLKCTRL,         MODE_ENABLED,   0x00000000, 0x00000000  );
+    prcm_set_module_mode(WKUPAON_CM,        WKUPAON_CM__CM_WKUPAON_WD_TIMER1_CLKCTRL,       MODE_ENABLED,   0x00000000, 0x00000000  ); // existing?
+    prcm_set_module_mode(WKUPAON_CM,        WKUPAON_CM__CM_WKUPAON_WD_TIMER2_CLKCTRL,       MODE_ENABLED,   0x00000000, 0x00000000  ); // existing?
+
+    prcm_set_dss_mode(DSS_CM_CORE,DSS_CM_CORE__CM_DSS_DSS_CLKCTRL,MODE_ENABLED);
+    GEL_TextOut("--->>> PRCM Configuration for all modules is DONE! <<<---\n");
+
+    //CRC
+    //RTI
+    //ESM
+    //ADC
+    //SDDAC - DSS control this.
+    //PWMSS
+    //DCAN
+    //McSPI(2-4) --req from SW team
+    //MMC
+    //QSPI -- req from SW to enable
+
+}
+
+prcm_set_module_mode(uint32_t module_base, uint32_t module_offset, uint32_t mode, uint32_t extrabits, uint32_t extrabitsMask)
+{
+    uint32_t reg_val;
+    uint32_t timeout = CLKCTRL_TIMEOUOT;
+
+    if (DEBUG_PRINT)
+    {
+        GEL_TextOut("module_base:   %x\n",,,,, module_base);
+        GEL_TextOut("module_offset: %x\n",,,,, module_offset);
+    }
+
+    reg_val = RD_MEM_32(module_base + module_offset) & ~(extrabitsMask | 0x00000003);
+    WR_MEM_32(module_base+module_offset, (reg_val | (extrabits & extrabitsMask) | (mode & 0x3)));
+
+    if (DEBUG_PRINT)
+    {
+        GEL_TextOut("\tWaiting for module IDLE status....\n");
+    }
+    while(((RD_MEM_32(module_base + module_offset) & 0x00030000) != 0) && (timeout>0))
+    {
+        timeout--;
+    }
+
+    if (timeout==0)
+    {
+        GEL_TextOut("module_base:   %x\n",,,,, module_base);
+        GEL_TextOut("module_offset: %x\n",,,,, module_offset);
+        GEL_TextOut("\tTIMEOUT\n");
+    }
+    else
+    {
+        if (DEBUG_PRINT)
+        {
+            GEL_TextOut("\tDONE\n");
+        }
+    }
+}
+
+prcm_set_dss_mode(uint32_t module_base, uint32_t module_offset, uint32_t mode)
+{
+    uint32_t reg_val;
+    uint32_t timeout = CLKCTRL_TIMEOUOT;
+
+    if (DEBUG_PRINT)
+    {
+        GEL_TextOut("module_base:   %x\n",,,,, module_base);
+        GEL_TextOut("module_offset: %x\n",,,,, module_offset);
+    }
+
+    /* DESHDCP Clock ENABLE for DSS */
+    WR_MEM_32(CTRL_CORE_CONTROL_IO_2, RD_MEM_32(CTRL_CORE_CONTROL_IO_2) | 0x1);
+
+    reg_val = RD_MEM_32(module_base + module_offset);
+    reg_val = (reg_val & ~0x3) | 0x00003F00 | mode;
+    WR_MEM_32(module_base + module_offset, reg_val);
+
+    if (DEBUG_PRINT)
+    {
+        GEL_TextOut("\tWaiting for DSS module IDLE status....\n");
+    }
+    while(((RD_MEM_32(module_base + module_offset) & 0x00030000) != 0) && (timeout>0))
+    {
+        timeout--;
+    }
+    if (DEBUG_PRINT)
+    {
+        if (timeout==0)
+        {
+            GEL_TextOut("module_base:   %x\n",,,,, module_base);
+            GEL_TextOut("module_offset: %x\n",,,,, module_offset);
+            GEL_TextOut("\tTIMEOUT\n");
+        }
+        else
+        {
+            GEL_TextOut("\tDONE\n");
+        }
+    }
+}
+
+prcm_set_clkdomain_state(uint32_t module_base, uint32_t module_offset, uint32_t state)
+{
+    uint32_t reg_val;
+    uint32_t timeout = CLKSTCTRL_TIMEOUOT;
+
+    if (DEBUG_PRINT)
+    {
+        GEL_TextOut("module_base:   %x\n",,,,, module_base);
+        GEL_TextOut("module_offset: %x\n",,,,, module_offset);
+    }
+
+    reg_val = RD_MEM_32(module_base+module_offset);
+    WR_MEM_32(module_base+module_offset, ((reg_val & ~(0x3)) | (state & 0x3)));
+
+    /*if (DEBUG_PRINT)
+    {
+        GEL_TextOut("\tWaiting for clock active....\n");
+    }
+    while( ((RD_MEM_32(module_base + module_offset) & 0x100) != 0x100) && (timeout>0) )
+    {
+        timeout--;
+    }
+
+    if (timeout==0)
+    {
+        GEL_TextOut("\tTIMEOUT\n");
+    }
+    else
+    {
+        if (DEBUG_PRINT)
+        {
+            GEL_TextOut("\tDONE\n");
+        }
+    }
+    */
+}
+
+menuitem "DM50x PRCM CLOCK Configuration - DM50x - 15x15"
+hotmenu DM50x_PRCM_Clock_Config_OPPNOM_DM50x_15x15()
+{
+    DM50x_PRCM_Clock_Config_API(OPP_NOM, DEVICE_DM50X_15x15);
+}
+
+hotmenu DM50x_PRCM_Clock_Config_OPPOD_DM50x_15x15()
+{
+    DM50x_PRCM_Clock_Config_API(OPP_OD, DEVICE_DM50X_15x15);
+}
+
+hotmenu DM50x_PRCM_Clock_Config_OPPHIGH_DM50x_15x15()
+{
+    DM50x_PRCM_Clock_Config_API(OPP_HIGH, DEVICE_DM50X_15x15);
+}
+
+menuitem "DM50x PRCM CLOCK Configuration - DM50x - 12x12"
+hotmenu DM50x_PRCM_Clock_Config_OPPNOM_DM50x_12x12()
+{
+    DM50x_PRCM_Clock_Config_API(OPP_NOM, DEVICE_DM50X_12x12);
+}
+
+hotmenu DM50x_PRCM_Clock_Config_OPPOD_DM50x_12x12()
+{
+    GEL_TextOut("--->>> !!!! Function is disabled !!!!... <<<---\n");
+    GEL_TextOut("--->>> !!!! Enabling it might cause device failure !!!!... <<<---\n");
+    GEL_TextOut("--->>> !!!! Read comments at the top of the file. !!!!... <<<---\n");
+    /* DM50x_PRCM_Clock_Config_API(OPP_OD, DEVICE_DM50X_12x12); */
+}
+
+hotmenu DM50x_PRCM_Clock_Config_OPPHIGH_DM50x_12x12()
+{
+    GEL_TextOut("--->>> !!!! Function is disabled !!!!... <<<---\n");
+    GEL_TextOut("--->>> !!!! Enabling it might cause device failure !!!!... <<<---\n");
+    GEL_TextOut("--->>> !!!! Read comments at the top of the file. !!!!... <<<---\n");
+    /* DM50x_PRCM_Clock_Config_API(OPP_HIGH, DEVICE_DM50X_12x12); */
+}
+
+DM50x_PRCM_Clock_Config_API(uint32_t OPP, uint32_t DEVICE_TYPE)
+{
+    if( (DEVICE_TYPE==DEVICE_DM50X_12x12) && (OPP_NOM!=OPP) )
+    {
+        GEL_TextOut("--->>> !!!! Function is disabled !!!!... <<<---\n");
+        GEL_TextOut("--->>> !!!! Enabling it might cause device failure !!!!... <<<---\n");
+        GEL_TextOut("--->>> !!!! Read comments at the top of the file. !!!!... <<<---\n");
+    }
+    else
+    {
+        GEL_TextOut("--->>> PRCM Clock Configuration for OPPNOM in progress... <<<---\n");
+        if(OPP_NOM != OPP)
+        {
+            GEL_TextOut("\t!!!Only DPLL configuration is done!!!\n\t!!!Voltage changes for non-NOMinal OPP needs to be done externally!!!\n",,,,, OPP);
+        }
+
+        /* DDR DPLL programming is NOT done here, but is called from the DDR config commands */
+
+        // CORE DPLL programming
+        dpll_core_config(OPP, DEVICE_TYPE);
+
+        // PER DPLL programming
+        dpll_per_config(OPP, DEVICE_TYPE);
+
+        //Configure the DSP/EVE clock mux
+        dsp_eve_clock_mux_sel(OPP,DEVICE_TYPE);
+
+        // DSP_GMAC DPLL programming
+        dpll_dsp_gmac_config(OPP, DEVICE_TYPE);
+
+        // DSP DPLL programming
+        dpll_eve_vid_dsp_config(OPP, DEVICE_TYPE);
+
+        //VIP clock selection
+        WR_MEM_FIELD_32(CM_CAM_VIP1_CLKCTRL,24,24,0);                  // 0 selects L3, 1 selects ISS main clock
+
+        //WR_MEM_FIELD_32(CM_IPU1_IPU1_CLKCTRL,24,24,1);                // 0x0: Selects SYSCLK1 0x1: Selects DPLL CORE H22
+
+        GEL_TextOut("--->>> PRCM Clock Configuration for OPP %d is DONE! <<<---\n",,,,,OPP_NOM);
+    }
+}
+
+dsp_eve_clock_mux_sel(uint32_t OPP, uint32_t DEVICE_TYPE)
+{
+    if(OPP_NOM==OPP)
+    {
+        // DSP Clock mux selection
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 2);  //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 1);  //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+            }
+        }
+        else // generic 12x12
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 0);  //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+        }
+
+        // EVE Clock mux selection
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 28, 28, 0); //"0=> EVE1_GCLK (DSP_GMAC_EVE_H13); 1=> EVE2_GCLK(CORE_M3)"
+            WR_MEM_FIELD_32(CM_CLKSEL_EVE_CLK,0,0,1);                  //"0=> EVE_GFCLK1(EVE_VID_DSP_M2X2); 1=> EVE_GCLK(Output of above MUX)"
+        }
+        else // generic 12x12
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 28, 28, 1); //"0=> EVE1_GCLK (DSP_GMAC_EVE_H13); 1=> EVE2_GCLK(CORE_M3)"
+            WR_MEM_FIELD_32(CM_CLKSEL_EVE_CLK,0,0,1);                  //"0=> EVE_GFCLK1(EVE_VID_DSP_M2X2); 1=> EVE_GCLK(Output of above MUX)"
+        }
+    }
+    else if(OPP_OD==OPP)
+    {
+        // DSP Clock mux selection
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 0);  //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 2);  //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+            }
+        }
+        else // generic 12x12
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 0); //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+        }
+        // EVE Clock mux selection
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 28, 28, 0); //"0=> EVE1_GCLK (DSP_GMAC_EVE_H13); 1=> EVE2_GCLK(CORE_M3)"
+            WR_MEM_FIELD_32(CM_CLKSEL_EVE_CLK,0,0,1);                  //"0=> EVE_GFCLK1(EVE_VID_DSP_M2X2); 1=> EVE_GCLK(Output of above MUX)"
+        }
+        else // generic 12x12
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 28, 28, 1); //"0=> EVE1_GCLK (DSP_GMAC_EVE_H13); 1=> EVE2_GCLK(CORE_M3)"
+            WR_MEM_FIELD_32(CM_CLKSEL_EVE_CLK,0,0,1);                  //"0=> EVE_GFCLK1(EVE_VID_DSP_M2X2); 1=> EVE_GCLK(Output of above MUX)"
+        }
+    }
+    else if(OPP_HIGH==OPP)
+    {
+
+        // DSP Clock mux selection
+
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 1); //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+        }
+        else // generic 12x12
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 25, 24, 0); //"00=>DSP2_CLK (Core H14); 01=>DSP1_CLK(EVE_VID_DSP_M3); 10=>DSP0_CLK(DSP_GMAC_EVE_M3); 11=>"Reserved
+        }
+        // EVE Clock mux selection
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 28, 28, 0); //"0=> EVE1_GCLK (DSP_GMAC_EVE_H13); 1=> EVE2_GCLK(CORE_M3)"
+            WR_MEM_FIELD_32(CM_CLKSEL_EVE_CLK,0,0,1);                  //"0=> EVE_GFCLK1(EVE_VID_DSP_M2X2); 1=> EVE_GCLK(Output of above MUX)"
+        }
+        else // generic 12x12
+        {
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKSEL_CONTROL, 28, 28, 1); //"0=> EVE1_GCLK (DSP_GMAC_EVE_H13); 1=> EVE2_GCLK(CORE_M3)"
+            WR_MEM_FIELD_32(CM_CLKSEL_EVE_CLK,0,0,1);                  //"0=> EVE_GFCLK1(EVE_VID_DSP_M2X2); 1=> EVE_GCLK(Output of above MUX)"
+        }
+    }
+}
+
+/******************************************************************************
+* dpll_core_config() : CORE DPLL OPP configurations
+*****************************************************************************/
+dpll_core_config(uint32_t OPP, uint32_t DEVICE_TYPE)
+{
+    uint32_t regVal;
+    GEL_TextOut("--->>> CORE DPLL OPP %d clock config is in progress...\n",,,,, OPP);
+
+    if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_CORE)&0x1)
+    {
+        GEL_TextOut("--->>> CORE DPLL OPP  already locked, now unlocking....  \n");
+        dpll_unlock_sequence(CM_CLKMODE_DPLL_CORE);
+    }
+
+    if(OPP_NOM==OPP)
+    {
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+
+            // Program L3 & L4 dividers from CORE DPLL
+            /* L3 clock = CORE CLK /2; L4 clock = L3 clock /2; CORE_CLK=CORE_X2_CLK/2 */
+            WR_MEM_32(CM_CLKSEL_CORE, 0x110);
+
+            /* Lock and code outputs ARE overriden - DDR PHY */
+            WR_MEM_32(CM_DLL_CTRL, 0x00000000);
+
+            /******************************************************************************************\
+        Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+        from the DM50X PLL configuration spread sheet as shown below.
+        \******************************************************************************************/
+
+            /* REGM = 0x10A(266), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_CORE(0x10A04);    //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M2_DPLL_CORE(0x2);        //M2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M3_DPLL_CORE(0x4);        //M3 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H11_DPLL_CORE(0x8);       //HSDIV_CORE_1_DIV1 +1 ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H12_DPLL_CORE(0x4);       //HSDIV_CORE_1_DIV2+1  ; HSDIV_CORE_1_DIV2 from the DM50X PLL configuration spread sheet
+
+            /*TeSOC clock div control -TESOC_EXT_CLK_DIV */
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 10, 9, 0);
+
+            WR_CM_DIV_H13_DPLL_CORE(0x2C);      //HSDIV_CORE_1_DIV3+1  ; HSDIV_CORE_1_DIV3 from the DM50X PLL configuration spread sheet
+
+            /* TESOC_EXT_CLK_HSDIV_EN -Clock enable to HSDIVIDER bit 7*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 7, 7, 1);
+
+            WR_CM_DIV_H14_DPLL_CORE(0x4);       //HSDIV_CORE_1_DIV4+1  ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H21_DPLL_CORE(0xB);       //HSDIV_CORE_2_DIV1+1  ; HSDIV_CORE_2_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H22_DPLL_CORE(0x5);       //HSDIV_CORE_2_DIV2+1  ; HSDIV_CORE_2_DIV2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H23_DPLL_CORE(0xA);       //HSDIV_CORE_2_DIV3+1  ; HSDIV_CORE_2_DIV3 from the DM50X PLL configuration spread sheet
+
+            //Not Used WR_CM_DIV_H24_DPLL_CORE();
+
+        }
+        else //Generic 12x12 Device
+        {
+            // Program L3 & L4 dividers from CORE DPLL
+            /* L3 clock = CORE CLK /2; L4 clock = L3 clock /2; CORE_CLK=CORE_X2_CLK/2 */
+            WR_MEM_32(CM_CLKSEL_CORE, 0x110);
+
+            /* Lock and code outputs ARE overriden - DDR PHY */
+            WR_MEM_32(CM_DLL_CTRL, 0x00000000);
+
+            /******************************************************************************************\
+        Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+        from the DM50X PLL configuration spread sheet as shown below.
+        \******************************************************************************************/
+
+            /* REGM = 0x10A(266), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_CORE(0x10A04);    //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M2_DPLL_CORE(0x2);        //M2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M3_DPLL_CORE(0x6);        //M3 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H11_DPLL_CORE(0x8);       //HSDIV_CORE_1_DIV1 +1 ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H12_DPLL_CORE(0x4);       //HSDIV_CORE_1_DIV2+1  ; HSDIV_CORE_1_DIV2 from the DM50X PLL configuration spread sheet
+
+            /*TeSOC clock div control -TESOC_EXT_CLK_DIV */
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 10, 9, 0);
+
+            WR_CM_DIV_H13_DPLL_CORE(0x2C);      //HSDIV_CORE_1_DIV3+1  ; HSDIV_CORE_1_DIV3 from the DM50X PLL configuration spread sheet
+
+            /* TESOC_EXT_CLK_HSDIV_EN -Clock enable to HSDIVIDER bit 7*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 7, 7, 1);
+
+            WR_CM_DIV_H14_DPLL_CORE(0x6);       //HSDIV_CORE_1_DIV4+1  ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H21_DPLL_CORE(0xB);       //HSDIV_CORE_2_DIV1+1  ; HSDIV_CORE_2_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H22_DPLL_CORE(0x5);       //HSDIV_CORE_2_DIV2+1  ; HSDIV_CORE_2_DIV2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H23_DPLL_CORE(0xA);       //HSDIV_CORE_2_DIV3+1  ; HSDIV_CORE_2_DIV3 from the DM50X PLL configuration spread sheet
+
+            //Not Used WR_CM_DIV_H24_DPLL_CORE();
+        }
+    }
+    else if(OPP_OD==OPP)
+    {
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+
+            // Program L3 & L4 dividers from CORE DPLL
+            /* L3 clock = CORE CLK /2; L4 clock = L3 clock /2; CORE_CLK=CORE_X2_CLK/2 */
+            WR_MEM_32(CM_CLKSEL_CORE, 0x110);
+
+            /* Lock and code outputs ARE overridden - DDR PHY */
+            WR_MEM_32(CM_DLL_CTRL, 0x00000000);
+
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            /* REGM = 0x10A(266), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_CORE(0x10A04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M2_DPLL_CORE(0x2);        //M2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M3_DPLL_CORE(0x4);        //M3 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H11_DPLL_CORE(0x8);         //HSDIV_CORE_1_DIV1 +1 ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H12_DPLL_CORE(0x4);        //HSDIV_CORE_1_DIV2+1  ; HSDIV_CORE_1_DIV2 from the DM50X PLL configuration spread sheet
+
+            /*TeSOC clock div control -TESOC_EXT_CLK_DIV */
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 10, 9, 0);
+
+            WR_CM_DIV_H13_DPLL_CORE(0x2C);        //HSDIV_CORE_1_DIV3+1  ; HSDIV_CORE_1_DIV3 from the DM50X PLL configuration spread sheet
+
+            /* TESOC_EXT_CLK_HSDIV_EN -Clock enable to HSDIVIDER bit 7*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 7, 7, 1);
+
+            WR_CM_DIV_H14_DPLL_CORE(0x3);        //HSDIV_CORE_1_DIV4+1  ; HSDIV_CORE_1_DIV4 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H21_DPLL_CORE(0xB);        //HSDIV_CORE_2_DIV1+1  ; HSDIV_CORE_2_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H22_DPLL_CORE(0x5);        //HSDIV_CORE_2_DIV2+1  ; HSDIV_CORE_2_DIV2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H23_DPLL_CORE(0xA);        //HSDIV_CORE_2_DIV3+1  ; HSDIV_CORE_2_DIV3 from the DM50X PLL configuration spread sheet
+
+            //Not Used WR_CM_DIV_H24_DPLL_CORE();
+
+        }
+        else //Generic 12x12 Device
+        {
+            // Program L3 & L4 dividers from CORE DPLL
+            /* L3 clock = CORE CLK /2; L4 clock = L3 clock /2; CORE_CLK=CORE_X2_CLK/2 */
+            WR_MEM_32(CM_CLKSEL_CORE, 0x110);
+
+            /* Lock and code outputs ARE overriden - DDR PHY */
+            WR_MEM_32(CM_DLL_CTRL, 0x00000000);
+
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            /* REGM = 0x10A(266), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_CORE(0x10A04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M2_DPLL_CORE(0x2);        //M2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M3_DPLL_CORE(0x6);        //M3 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H11_DPLL_CORE(0x8);         //HSDIV_CORE_1_DIV1 +1 ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H12_DPLL_CORE(0x4);        //HSDIV_CORE_1_DIV2+1  ; HSDIV_CORE_1_DIV2 from the DM50X PLL configuration spread sheet
+
+            /*TeSOC clock div control -TESOC_EXT_CLK_DIV */
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 10, 9, 0);
+
+            WR_CM_DIV_H13_DPLL_CORE(0x2C);        //HSDIV_CORE_1_DIV3+1  ; HSDIV_CORE_1_DIV3 from the DM50X PLL configuration spread sheet
+
+            /* TESOC_EXT_CLK_HSDIV_EN -Clock enable to HSDIVIDER bit 7*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 7, 7, 1);
+
+            WR_CM_DIV_H14_DPLL_CORE(0x6);        //HSDIV_CORE_1_DIV4+1  ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H21_DPLL_CORE(0xB);        //HSDIV_CORE_2_DIV1+1  ; HSDIV_CORE_2_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H22_DPLL_CORE(0x5);        //HSDIV_CORE_2_DIV2+1  ; HSDIV_CORE_2_DIV2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H23_DPLL_CORE(0xA);        //HSDIV_CORE_2_DIV3+1  ; HSDIV_CORE_2_DIV3 from the DM50X PLL configuration spread sheet
+
+            //Not Used WR_CM_DIV_H24_DPLL_CORE();
+        }
+    }
+    else if(OPP_HIGH==OPP)
+    {
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+
+            // Program L3 & L4 dividers from CORE DPLL
+            /* L3 clock = CORE CLK /2; L4 clock = L3 clock /2; CORE_CLK=CORE_X2_CLK/2 */
+            WR_MEM_32(CM_CLKSEL_CORE, 0x110);
+
+            /* Lock and code outputs ARE overriden - DDR PHY */
+            WR_MEM_32(CM_DLL_CTRL, 0x00000000);
+
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            /* REGM = 0x10A(266), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_CORE(0x10A04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M2_DPLL_CORE(0x2);        //M2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M3_DPLL_CORE(0x4);        //M3 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H11_DPLL_CORE(0x8);         //HSDIV_CORE_1_DIV1 +1 ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H12_DPLL_CORE(0x4);        //HSDIV_CORE_1_DIV2+1  ; HSDIV_CORE_1_DIV2 from the DM50X PLL configuration spread sheet
+
+            /*TeSOC clock div control -TESOC_EXT_CLK_DIV */
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 10, 9, 0);
+
+            WR_CM_DIV_H13_DPLL_CORE(0x2C);        //HSDIV_CORE_1_DIV3+1  ; HSDIV_CORE_1_DIV3 from the DM50X PLL configuration spread sheet
+
+            /* TESOC_EXT_CLK_HSDIV_EN -Clock enable to HSDIVIDER bit 7*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 7, 7, 1);
+
+            WR_CM_DIV_H14_DPLL_CORE(0x3);        //HSDIV_CORE_1_DIV4+1  ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H21_DPLL_CORE(0xB);        //HSDIV_CORE_2_DIV1+1  ; HSDIV_CORE_2_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H22_DPLL_CORE(0x5);        //HSDIV_CORE_2_DIV2+1  ; HSDIV_CORE_2_DIV2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H23_DPLL_CORE(0xA);        //HSDIV_CORE_2_DIV3+1  ; HSDIV_CORE_2_DIV3 from the DM50X PLL configuration spread sheet
+
+            //Not Used WR_CM_DIV_H24_DPLL_CORE();
+
+        }
+        else //Generic 12x12 Device
+        {
+            // Program L3 & L4 dividers from CORE DPLL
+            /* L3 clock = CORE CLK /2; L4 clock = L3 clock /2; CORE_CLK=CORE_X2_CLK/2 */
+            WR_MEM_32(CM_CLKSEL_CORE, 0x110);
+
+            /* Lock and code outputs ARE overriden - DDR PHY */
+            WR_MEM_32(CM_DLL_CTRL, 0x00000000);
+
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            /* REGM = 0x10A(266), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_CORE(0x10A04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M2_DPLL_CORE(0x2);        //M2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_M3_DPLL_CORE(0x6);        //M3 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H11_DPLL_CORE(0x8);         //HSDIV_CORE_1_DIV1 +1 ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H12_DPLL_CORE(0x4);        //HSDIV_CORE_1_DIV2+1  ; HSDIV_CORE_1_DIV2 from the DM50X PLL configuration spread sheet
+
+            /*TeSOC clock div control -TESOC_EXT_CLK_DIV */
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 10, 9, 0);
+
+            WR_CM_DIV_H13_DPLL_CORE(0x2C);        //HSDIV_CORE_1_DIV3+1  ; HSDIV_CORE_1_DIV3 from the DM50X PLL configuration spread sheet
+
+            /* TESOC_EXT_CLK_HSDIV_EN -Clock enable to HSDIVIDER bit 7*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 7, 7, 1);
+
+            WR_CM_DIV_H14_DPLL_CORE(0x6);        //HSDIV_CORE_1_DIV4+1  ; HSDIV_CORE_1_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H21_DPLL_CORE(0xB);        //HSDIV_CORE_2_DIV1+1  ; HSDIV_CORE_2_DIV1 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H22_DPLL_CORE(0x5);        //HSDIV_CORE_2_DIV2+1  ; HSDIV_CORE_2_DIV2 from the DM50X PLL configuration spread sheet
+
+            WR_CM_DIV_H23_DPLL_CORE(0xA);        //HSDIV_CORE_2_DIV3+1  ; HSDIV_CORE_2_DIV3 from the DM50X PLL configuration spread sheet
+
+            //Not Used WR_CM_DIV_H24_DPLL_CORE();
+        }
+    }
+
+    dpll_lock_sequence(CM_CLKMODE_DPLL_CORE);
+
+    GEL_TextOut("--->>> CORE DPLL OPP %d is DONE!\n",,,,, OPP);
+}
+
+
+
+/******************************************************************************
+* dpll_per_config() : PER DPLL OPP configurations
+*****************************************************************************/
+dpll_per_config(uint32_t OPP, uint32_t DEVICE_TYPE)
+{
+    uint32_t regVal;
+
+    GEL_TextOut("--->>> PER DPLL OPP %d clock config in progress...\n",,,,, OPP);
+
+    //GEL_TextOut("--->>>  MMR unlock needed. Done Globally!!!!  \n");
+
+    if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_PER)&0x1)
+    {
+        GEL_TextOut("--->>> PER DPLL already locked, now unlocking  \n");
+        dpll_unlock_sequence(CM_CLKMODE_DPLL_PER);
+    }
+
+    /******************************************************************************************\
+    Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+    from the DM50X PLL configuration spread sheet as shown below.
+    \******************************************************************************************/
+
+    /* REGM = 0xC0(192), REGN = 0x4 */
+    WR_CM_CLKSEL_DPLL_PER(0xC004);        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+    WR_CM_DIV_M2_DPLL_PER(0x8);           //M2 from the DM50X PLL configuration spread sheet
+
+    WR_CM_DIV_H11_DPLL_PER(0x6);          //HSDIV_PER_DIV1 +1 ; HSDIV_PER_DIV1 from the DM50X PLL configuration spread sheet
+
+    WR_CM_DIV_H12_DPLL_PER(0x8);          //HSDIV_PER_DIV2 +1 ; HSDIV_PER_DIV2 from the DM50X PLL configuration spread sheet
+
+    WR_CM_DIV_H13_DPLL_PER(0x8);          //HSDIV_PER_DIV3 +1 ; HSDIV_PER_DIV3 from the DM50X PLL configuration spread sheet
+
+    WR_CM_DIV_H14_DPLL_PER(0x4);          //HSDIV_PER_DIV4 +1 ; HSDIV_PER_DIV4 from the DM50X PLL configuration spread sheet
+
+    dpll_lock_sequence(CM_CLKMODE_DPLL_PER);
+
+    GEL_TextOut("--->>> PER DPLL OPP %d is DONE!\n",,,,, OPP);
+}
+
+/******************************************************************************
+* dpll_dsp_gmac_config() : DSP_GMAC DPLL configuration
+*****************************************************************************/
+dpll_dsp_gmac_config(uint32_t OPP, uint32_t DEVICE_TYPE)
+{
+    GEL_TextOut("--->>> DSP_GMAC DPLL OPP %d clock config is in progress...\n",,,,, OPP);
+
+    if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_DSP_GMAC)&0x1)
+    {
+        GEL_TextOut("--->>> DSP_GMAC DPLL already locked, now unlocking....\n");
+        dpll_unlock_sequence(CM_CLKMODE_DPLL_DSP_GMAC);
+    }
+    if(OPP_NOM==OPP)
+    {
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                /* REGM = 0xFA(250), REGN = 0x4 */
+                WR_CM_CLKSEL_DPLL_DSP_GMAC(0xFA04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                /* REGM = 0xE1(225), REGN = 0x4 */
+                WR_CM_CLKSEL_DPLL_DSP_GMAC(0xE104);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            }
+            WR_CM_DIV_M2_DPLL_DSP_GMAC(0x4);        //M2 from the DM50X PLL configuration spread sheet
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                WR_CM_DIV_M3_DPLL_DSP_GMAC(0x4);        //M3 from the DM50X PLL configuration spread sheet
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                WR_CM_DIV_M3_DPLL_DSP_GMAC(0x3);        //M3 from the DM50X PLL configuration spread sheet
+            }
+            WR_CM_DIV_H11_DPLL_DSP_GMAC(0x28);      //HSDIV_DSP_GMAC_DIV1 +1 ; HSDIV_DSP_GMAC_DIV1 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H12_DPLL_DSP_GMAC(0x8);       //HSDIV_DSP_GMAC_DIV2 +1 ; HSDIV_DSP_GMAC_DIV2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H13_DPLL_DSP_GMAC(0x4);       //HSDIV_DSP_GMAC_DIV3 +1 ; HSDIV_DSP_GMAC_DIV3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H14_DPLL_DSP_GMAC(0x19);
+        }
+        else //generic 12x12 device
+        {
+            /******************************************************************************************\
+        Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+        from the DM50X PLL configuration spread sheet as shown below.
+        \******************************************************************************************/
+
+            /* REGM = 0xFA(250), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_DSP_GMAC(0xFA04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M2_DPLL_DSP_GMAC(0x4);        //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_DSP_GMAC(0x6);        //M3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H11_DPLL_DSP_GMAC(0x28);      //HSDIV_DSP_GMAC_DIV1 +1 ; HSDIV_DSP_GMAC_DIV1 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H12_DPLL_DSP_GMAC(0x8);       //HSDIV_DSP_GMAC_DIV2 +1 ; HSDIV_DSP_GMAC_DIV2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H13_DPLL_DSP_GMAC(0x6);       //HSDIV_DSP_GMAC_DIV3 +1 ; HSDIV_DSP_GMAC_DIV3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H14_DPLL_DSP_GMAC(0x19);
+        }
+    }
+    else if(OPP_OD==OPP)
+    {
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                /* REGM = 0xFA(250), REGN = 0x4 */
+                WR_CM_CLKSEL_DPLL_DSP_GMAC(0xFA04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                /* REGM = 0x124(292), REGN = 0x5 */
+                WR_CM_CLKSEL_DPLL_DSP_GMAC(0x12405);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            }
+            WR_CM_DIV_M2_DPLL_DSP_GMAC(0x4);        //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_DSP_GMAC(0x3);        //M3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H11_DPLL_DSP_GMAC(0x28);        //HSDIV_DSP_GMAC_DIV1 +1 ; HSDIV_DSP_GMAC_DIV1 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H12_DPLL_DSP_GMAC(0x8);        //HSDIV_DSP_GMAC_DIV2 +1 ; HSDIV_DSP_GMAC_DIV2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H13_DPLL_DSP_GMAC(0x3);        //HSDIV_DSP_GMAC_DIV3 +1 ; HSDIV_DSP_GMAC_DIV3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H14_DPLL_DSP_GMAC(0x19);
+        }
+        else //generic 12x12 device
+        {
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            /* REGM = 0xFA(250), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_DSP_GMAC(0xFA04);        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M2_DPLL_DSP_GMAC(0x4);        //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_DSP_GMAC(0x6);        //M3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H11_DPLL_DSP_GMAC(0x28);        //HSDIV_DSP_GMAC_DIV1 +1 ; HSDIV_DSP_GMAC_DIV1 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H12_DPLL_DSP_GMAC(0x8);        //HSDIV_DSP_GMAC_DIV2 +1 ; HSDIV_DSP_GMAC_DIV2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H13_DPLL_DSP_GMAC(0x6);        //HSDIV_DSP_GMAC_DIV3 +1 ; HSDIV_DSP_GMAC_DIV3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H14_DPLL_DSP_GMAC(0x19);
+        }
+    }
+    else if(OPP_HIGH==OPP)
+    {
+        if(DEVICE_TYPE==DEVICE_DM50X_15x15) //Generic 15x15
+        {
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                /* REGM = 0xFA(250), REGN = 0x4 */
+                WR_CM_CLKSEL_DPLL_DSP_GMAC(0xFA04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                /* REGM = 0x124(292), REGN = 0x5 */
+                WR_CM_CLKSEL_DPLL_DSP_GMAC(0x12405);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            }
+            WR_CM_DIV_M2_DPLL_DSP_GMAC(0x4);        //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_DSP_GMAC(0x3);        //M3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H11_DPLL_DSP_GMAC(0x28);        //HSDIV_DSP_GMAC_DIV1 +1 ; HSDIV_DSP_GMAC_DIV1 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H12_DPLL_DSP_GMAC(0x8);        //HSDIV_DSP_GMAC_DIV2 +1 ; HSDIV_DSP_GMAC_DIV2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H13_DPLL_DSP_GMAC(0x3);        //HSDIV_DSP_GMAC_DIV3 +1 ; HSDIV_DSP_GMAC_DIV3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H14_DPLL_DSP_GMAC(0x19);
+        }
+        else //generic 12x12 device
+        {
+            /******************************************************************************************\
+            Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+            from the DM50X PLL configuration spread sheet as shown below.
+            \******************************************************************************************/
+
+            /* REGM = 0xFA(250), REGN = 0x4 */
+            WR_CM_CLKSEL_DPLL_DSP_GMAC(0xFA04);        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M2_DPLL_DSP_GMAC(0x4);        //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_DSP_GMAC(0x6);        //M3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H11_DPLL_DSP_GMAC(0x28);        //HSDIV_DSP_GMAC_DIV1 +1 ; HSDIV_DSP_GMAC_DIV1 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H12_DPLL_DSP_GMAC(0x8);        //HSDIV_DSP_GMAC_DIV2 +1 ; HSDIV_DSP_GMAC_DIV2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H13_DPLL_DSP_GMAC(0x6);        //HSDIV_DSP_GMAC_DIV3 +1 ; HSDIV_DSP_GMAC_DIV3 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_H14_DPLL_DSP_GMAC(0x19);
+        }
+    }
+    dpll_lock_sequence(CM_CLKMODE_DPLL_DSP_GMAC);
+
+    GEL_TextOut("--->>> DSP_GMAC DPLL OPP %d is DONE!\n",,,,, OPP);
+}
+
+menuitem "DM50x PRCM CLOCK Configuration - Common"
+/******************************************************************************
+* dpll_ddr_config() : DDR DPLL OPP configurations
+*****************************************************************************/
+hotmenu dpll_ddr_config_532()
+{
+    dpll_ddr_config(532);
+}
+
+hotmenu dpll_ddr_config_400()
+{
+    dpll_ddr_config(400);
+}
+
+hotmenu dpll_ddr_config_333()
+{
+    dpll_ddr_config(333);
+}
+
+hotmenu dpll_ddr_config_266()
+{
+    dpll_ddr_config(266);
+}
+
+dpll_ddr_config(uint32_t DDR_FREQ)
+{
+    if (532 == DDR_FREQ)
+    {
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in progress...\n",,,,, DDR_FREQ);
+
+        if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_DDR)&0x1)
+        {
+            GEL_TextOut("--->>> DDR DPLL already locked, now unlocking....\n");
+            dpll_unlock_sequence(CM_CLKMODE_DPLL_DDR);
+        }
+
+        /******************************************************************************************\
+    Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+    from the DM50X PLL configuration spread sheet as shown below.
+    \******************************************************************************************/
+
+        /* REGM = 0x10A(266), REGN = 0x4 */
+        WR_CM_CLKSEL_DPLL_DDR(0x10A04);     //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_M2_DPLL_DDR(0x2);         //M2 from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_H11_DPLL_DDR(0x8);        //HSDIV_DDR_DIV1 +1 ; HSDIV_DDR_DIV1 from the DM50X PLL configuration spread sheet
+        //EMIF=532, DLL =2128/8=266Mhz Use Half_delay=1.
+
+        dpll_lock_sequence(CM_CLKMODE_DPLL_DDR);
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in DONE!\n",,,,, DDR_FREQ);
+    }
+    else if (400 == DDR_FREQ)
+    {
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in progress...\n",,,,, DDR_FREQ);
+
+        if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_DDR)&0x1)
+        {
+            GEL_TextOut("--->>> DDR DPLL already locked, now unlocking....\n");
+            dpll_unlock_sequence(CM_CLKMODE_DPLL_DDR);
+        }
+
+        /* REGM = 0xC8(200), REGN = 0x4 */
+        WR_CM_CLKSEL_DPLL_DDR(0xC804);      //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_M2_DPLL_DDR(0x2);         //M2 from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_H11_DPLL_DDR(0x4);        //HSDIV_DDR_DIV1 +1 ; HSDIV_DDR_DIV1 from the DM50X PLL configuration spread sheet
+        //EMIF=400, DLL =1600/4=400Mhz Use Half_delay=0.
+
+        dpll_lock_sequence(CM_CLKMODE_DPLL_DDR);
+
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in DONE!\n",,,,, DDR_FREQ);
+    }
+    else if (333 == DDR_FREQ)
+    {
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in progress...\n",,,,, DDR_FREQ);
+
+        if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_DDR)&0x1)
+        {
+            GEL_TextOut("--->>> DDR DPLL already locked, now unlocking....\n");
+            dpll_unlock_sequence(CM_CLKMODE_DPLL_DDR);
+        }
+
+        /* REGM = 0xA6(166), REGN = 0x4 */
+        WR_CM_CLKSEL_DPLL_DDR(0xA604);      //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_M2_DPLL_DDR(0x2);         //M2 from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_H11_DPLL_DDR(0x4);        //HSDIV_DDR_DIV1 +1 ; HSDIV_DDR_DIV1 from the DM50X PLL configuration spread sheet
+        //EMIF=333, DLL =1332/4=333Mhz Use Half_delay=0.
+
+        dpll_lock_sequence(CM_CLKMODE_DPLL_DDR);
+
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in DONE!\n",,,,, DDR_FREQ);
+    }
+    else if (266 == DDR_FREQ)
+    {
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in progress...\n",,,,, DDR_FREQ);
+
+        if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_DDR)&0x1)
+        {
+            GEL_TextOut("--->>> DDR DPLL already locked, now unlocking....\n");
+            dpll_unlock_sequence(CM_CLKMODE_DPLL_DDR);
+        }
+
+        /* REGM = 0x85(133), REGN = 0x4 */
+        WR_CM_CLKSEL_DPLL_DDR(0x8504);      //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_M2_DPLL_DDR(0x2);         //M2 from the DM50X PLL configuration spread sheet
+
+        WR_CM_DIV_H11_DPLL_DDR(0x4);        //HSDIV_DDR_DIV1 +1 ; HSDIV_DDR_DIV1 from the DM50X PLL configuration spread sheet
+        //EMIF=266MHz, DLL=1064/4=266MHz, half_delay=0
+
+        dpll_lock_sequence(CM_CLKMODE_DPLL_DDR);
+
+        GEL_TextOut("--->>> DDR DPLL clock config for %dMHz is in DONE!\n",,,,, DDR_FREQ);
+    }
+    else
+    {
+        GEL_TextOut("--->>> DDR DPLL frequency %dMHz not supported, nothing done.\n",,,,, DDR_FREQ);
+    }
+}
+
+/******************************************************************************
+* dpll_eve_vid_dsp_config() : EVE_VID_DSP DPLL OPP configurations
+*****************************************************************************/
+dpll_eve_vid_dsp_config(uint32_t OPP, uint32_t DEVICE_TYPE)
+{
+    uint32_t dpll_m, dpll_n, divm2, divm3, regVal;
+
+    GEL_TextOut("--->>> EVE_VID_DSP DPLL OPP %d clock config is in progress...\n",,,,, OPP);
+
+    /******************************************************************************************\
+    Input the M,N,M2,M3 for DPLL and DIV1,DIV2,DIV3 and DIV4 for the corresponding HS dividers
+    from the DM50X PLL configuration spread sheet as shown below.
+    \******************************************************************************************/
+
+    if (CM_IDLEST_DPLL(CM_CLKMODE_DPLL_EVE_VID_DSP)&0x1)
+    {
+        GEL_TextOut("--->>> DSP DPLL already locked, now unlocking....\n");
+        dpll_unlock_sequence(CM_CLKMODE_DPLL_EVE_VID_DSP);
+    }
+
+    if(OPP_NOM==OPP)
+    {
+        if(DEVICE_DM50X_15x15 == DEVICE_TYPE)
+        {
+            dpll_m = 238;
+            dpll_n = 7;
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                divm2  = 1;
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                divm2  = 2;
+            }
+            divm3  = 2;
+
+            WR_CM_CLKSEL_DPLL_EVE_VID_DSP(((dpll_m << 8) | dpll_n));        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet as shown below.
+            /*Clock enable to DPLL -VID_PIX_CLK_HSDIV_EN bit 23*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 23, 23, 1);
+            WR_CM_DIV_M2_DPLL_EVE_VID_DSP(divm2);                            //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_EVE_VID_DSP(divm3);                            //M3 from the DM50X PLL configuration spread sheet
+            /*VID_PIX_EXT_CLK_DIV Config*/
+            if(DM50X_DPLL_SUPPORT_FULL == DM50X_DPLL_SUPPORT)
+            {
+                WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 26, 25, 2);     //Default to get 148.5Mhz
+            }
+            else if(DM50X_DPLL_SUPPORT_NO_GMAC == DM50X_DPLL_SUPPORT)
+            {
+                WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 26, 25, 1);     //Default to get 148.5Mhz
+            }
+        }
+        else //Generic 12x12 device
+        {
+            //296MHz MHz CLKOUT at 20MHz sys_clk, used to generate 74.33MHz DSS VID_PIX clock
+            dpll_m = 223;
+            dpll_n = 4;
+            divm2  = 3;
+            divm3  = 2;
+
+            WR_CM_CLKSEL_DPLL_EVE_VID_DSP(((dpll_m << 8) | dpll_n));        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet as shown below.
+            /*Clock enable to DPLL -VID_PIX_CLK_HSDIV_EN bit 23*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 23, 23, 1);
+            WR_CM_DIV_M2_DPLL_EVE_VID_DSP(divm2);                            //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_EVE_VID_DSP(divm3);                            //M3 from the DM50X PLL configuration spread sheet
+            /*VID_PIX_EXT_CLK_DIV Config*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 26, 25, 2);        //Default to get 148.5Mhz
+        }
+    }
+    else if (OPP_OD==OPP)
+    {
+        if(DEVICE_DM50X_15x15 == DEVICE_TYPE)
+        {
+            dpll_m = 238;
+            dpll_n = 7;
+            divm2  = 2;
+            divm3  = 2;
+
+            WR_CM_CLKSEL_DPLL_EVE_VID_DSP(((dpll_m << 8) | dpll_n));        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet as shown below.
+            /*Clock enable to DPLL -VID_PIX_CLK_HSDIV_EN bit 23*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 23, 23, 1);
+            WR_CM_DIV_M2_DPLL_EVE_VID_DSP(divm2);                            //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_EVE_VID_DSP(divm3);                            //M3 from the DM50X PLL configuration spread sheet
+            /*VID_PIX_EXT_CLK_DIV Config*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 26, 25, 1);        //Default to get 148.5Mhz
+        }
+        else //Generic 12x12 device
+        {
+            dpll_m = 238;
+            dpll_n = 7;
+            divm2  = 2;
+            divm3  = 2;
+
+            WR_CM_CLKSEL_DPLL_EVE_VID_DSP(((dpll_m << 8) | dpll_n));        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet as shown below.
+            /*Clock enable to DPLL -VID_PIX_CLK_HSDIV_EN bit 23*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 23, 23, 1);
+            WR_CM_DIV_M2_DPLL_EVE_VID_DSP(divm2);                            //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_EVE_VID_DSP(divm3);                            //M3 from the DM50X PLL configuration spread sheet
+            /*VID_PIX_EXT_CLK_DIV Config*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 26, 25, 2);        //Default to get 148.5Mhz
+        }
+    }
+    else if (OPP_HIGH==OPP)
+    {
+        if(DEVICE_DM50X_15x15 == DEVICE_TYPE)
+        {
+            dpll_m = 149;
+            dpll_n = 3;
+            divm2  = 5;
+            divm3  = 2;
+
+            WR_CM_CLKSEL_DPLL_EVE_VID_DSP(((dpll_m << 8) | dpll_n));        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet as shown below.
+            /*Clock enable to DPLL -VID_PIX_CLK_HSDIV_EN bit 23*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 23, 23, 1);
+            WR_CM_DIV_M2_DPLL_EVE_VID_DSP(divm2);                            //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_EVE_VID_DSP(divm3);                            //M3 from the DM50X PLL configuration spread sheet
+            /*VID_PIX_EXT_CLK_DIV Config*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 26, 25, 0);        //Default to get 148.5Mhz
+        }
+        else //Generic 12x12 device
+        {
+            dpll_m = 223;
+            dpll_n = 4;
+            divm2  = 3;
+            divm3  = 2;
+
+            WR_CM_CLKSEL_DPLL_EVE_VID_DSP(((dpll_m << 8) | dpll_n));        //M<<8|N ; M and N from from the DM50X PLL configuration spread sheet as shown below.
+            /*Clock enable to DPLL -VID_PIX_CLK_HSDIV_EN bit 23*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 23, 23, 1);
+            WR_CM_DIV_M2_DPLL_EVE_VID_DSP(divm2);                            //M2 from the DM50X PLL configuration spread sheet
+            WR_CM_DIV_M3_DPLL_EVE_VID_DSP(divm3);                            //M3 from the DM50X PLL configuration spread sheet
+            /*VID_PIX_EXT_CLK_DIV Config*/
+            WR_MEM_FIELD_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2, 26, 25, 2);        //Default to get 148.5Mhz
+        }
+    }
+
+    dpll_lock_sequence(CM_CLKMODE_DPLL_EVE_VID_DSP);
+
+    GEL_TextOut("--->>> EVE_VID_DSP_DPLL OPP %d is DONE!\n",,,,, OPP);
+}
+
+/******************************************************************************
+* dpll_bypass() : Put DPLL in bypass mode
+*****************************************************************************/
+dpll_bypass(uint32_t base_address)
+{
+    uint32_t timer = DPLL_TIMEOUT;
+    uint32_t clken_pll_value;
+
+    // Put DPLL into bypass mode
+    clken_pll_value = CM_CLKMODE_DPLL(base_address);
+    clken_pll_value &= ~(7 << 0);
+    clken_pll_value |= (4 << 0);
+    CM_CLKMODE_DPLL(base_address) = clken_pll_value;
+
+    // Wait for DPLL to be unlocked
+    while ( ((CM_IDLEST_DPLL(base_address) & 0x1) == 0x1) && (timer--) );
+
+    if (timer > 0)
+    {
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+
+/******************************************************************************
+* dpll_lock_sequence() : DPLL lock sequence
+*****************************************************************************/
+dpll_lock_sequence(uint32_t base_address)
+{
+    uint32_t timer = DPLL_TIMEOUT;
+
+    // Put DPLL into lock mode
+    CM_CLKMODE_DPLL(base_address) = 7;
+
+    // Wait for DPLL to be locked
+    while( ((CM_IDLEST_DPLL(base_address) & 0x1) != 0x1) && (timer--) );
+
+    if (timer <= 0)
+    {
+        GEL_TextOut("\tERROR: timeout while locking DPLL \n");
+    }
+}
+
+/******************************************************************************
+* dpll_unlock_sequence() : DPLL unlock sequence
+*****************************************************************************/
+dpll_unlock_sequence(uint32_t base_address)
+{
+    // Take DPLL out of lock mode
+    CM_CLKMODE_DPLL(base_address) &= ~0x1;
+}
+
+
+#define GENERIC_DPLL_FDPLL           0x1000
+#define GENERIC_DPLL_CLKOUT_M2       0x1001
+#define GENERIC_DPLL_CLKOUTX2_M2     0x1002
+#define GENERIC_DPLL_CLKOUTX2_M3     0x1003
+
+hotmenu DM50x_PRCM_Clock_GetConfig ()
+{
+    uint32_t temp, ipu_clksel, divhs, clkst, core_fdpll, ipu1_clk;
+    uint32_t gpu_core_clk, gpu_hyd_clk;
+
+    GEL_TextOut("--->>> Reading DPLL configurations...<<<---\n");
+    GEL_TextOut("       Frequency values are as per M/N/etc...\n");
+
+    GEL_TextOut("--->>> CORE DPLL:\n");
+    core_fdpll = dpll_get_clkout_speed(CM_CLKMODE_DPLL_CORE, GENERIC_DPLL_FDPLL, 1);
+
+    GEL_TextOut("--->>> DDR DPLL:\n");
+    dpll_get_clkout_speed(CM_CLKMODE_DPLL_DDR, GENERIC_DPLL_FDPLL, 1);
+
+    GEL_TextOut("--->>> EVE_VID_DSP DPLL:\n");
+    dpll_get_clkout_speed(CM_CLKMODE_DPLL_EVE_VID_DSP, GENERIC_DPLL_FDPLL, 1);
+
+    GEL_TextOut("--->>> DSP_GMAC DPLL:\n");
+    dpll_get_clkout_speed(CM_CLKMODE_DPLL_DSP_GMAC, GENERIC_DPLL_FDPLL, 1);
+
+    GEL_TextOut("--->>> PER DPLL:\n");
+    dpll_get_clkout_speed(CM_CLKMODE_DPLL_PER, GENERIC_DPLL_FDPLL, 1);
+
+    GEL_TextOut("--->>> Reading DPLL configurations...done<<<---\n");
+}
+
+
+dpll_get_clkout_speed(uint32_t base_address, uint32_t return_clk, uint32_t print_enable)
+{
+    uint32_t temp, dpll_div_n, dpll_div_m, dpll_div_m2, f_dpll;
+    uint32_t clkst_clkout_M2, clkst_clkoutX2_M2, clkout_M2, clkoutX2_M2;
+    uint32_t dpll_div_m3, clkst_clkoutX2_M3, clkoutX2_M3;
+
+    GEL_TextOut("\t to do --This function need to be reworked..!!!!\n");
+
+
+    temp = CM_CLKSEL_DPLL(base_address);
+    dpll_div_n = temp & 0x7F;
+    dpll_div_m = (temp >> 8) & 0x7FF;
+    f_dpll = (SYS_CLK1*dpll_div_m)/(dpll_div_n+1);
+
+    if(CM_CLKMODE_DPLL_EVE_VID_DSP==base_address)
+    {
+        temp=RD_MEM_32(CTRL_CORE_PRCM_CLKDIV_CONTROL2);
+        temp &=0x003F0000;
+        temp = temp>>16;
+    }
+    else
+    {
+        temp = CM_DIV_M2_DPLL(base_address);
+    }
+    dpll_div_m2 = temp & 0x1F;
+    clkst_clkout_M2 = (temp >> 9) & 0x1;
+    clkst_clkoutX2_M2 = (temp >> 11) & 0x1;
+
+    if(CM_CLKMODE_DPLL_CORE==base_address)
+    {
+        temp=RD_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x14);
+    }
+    else if(CM_CLKMODE_DPLL_EVE_VID_DSP==base_address)
+    {
+        temp=RD_MEM_32(CM_CLKMODE_DPLL_EVE_VID_DSP + 0x10);
+    }
+    else
+    {
+        temp = CM_DIV_M3_DPLL(base_address);
+    }
+    dpll_div_m3 = temp & 0x1F;
+    clkst_clkoutX2_M3 = (temp >> 9) & 0x1;
+
+    f_dpll = (2*SYS_CLK1*dpll_div_m)/(dpll_div_n+1);
+
+    clkout_M2 = f_dpll/(dpll_div_m2*2);
+
+    clkoutX2_M2 = f_dpll/dpll_div_m2;
+
+    if(0 == dpll_div_m3)
+    {
+        clkoutX2_M3 = 0;
+    }
+    else
+    {
+        clkoutX2_M3 = f_dpll/dpll_div_m3;
+    }
+
+    temp = CM_CLKMODE_DPLL(base_address);
+    temp = temp & 0x7;
+    if(print_enable)
+    {
+        if (0x5 == temp)
+        {
+            GEL_TextOut("--->>> DPLL in IDLE_BYPASS_LOW_POWER mode\n",,,,,);
+        }
+        if (0x6 == temp)
+        {
+            GEL_TextOut("--->>> DPLL in IDLE_BYPASS_FAST_RELOCK mode\n",,,,,);
+        }
+        if (0x7 == temp)
+        {
+            GEL_TextOut("--->>> DPLL in LOCK_MODE mode\n",,,,,);
+        }
+    }
+
+    if(print_enable)
+    {
+        GEL_TextOut("--->>> DPLL CLKOUT_M2 speed is %d MHz\n",,,,, clkout_M2);
+        if(0 == clkst_clkout_M2)
+        {
+            GEL_TextOut("--->>> DPLL CLKOUT_M2 is GATED\n\n",,,,,);
+            clkout_M2 = 0;
+        }
+        else
+        {
+            GEL_TextOut("--->>> DPLL CLKOUT_M2 is ACTIVE\n\n",,,,,);
+        }
+
+
+        //GEL_TextOut("--->>> DPLL CLKOUTX2_M2 speed is %d MHz\n",,,,, clkoutX2_M2);
+        if(0 == clkst_clkoutX2_M2)
+        {
+            //GEL_TextOut("--->>> DPLL CLKOUTX2_M2 is GATED\n\n",,,,,);
+            clkoutX2_M2 = 0;
+        }
+        else
+        {
+            //GEL_TextOut("--->>> DPLL CLKOUTX2_M2 is ACTIVE\n\n",,,,,);
+        }
+
+        //GEL_TextOut("--->>> DPLL CLKOUTX2_M3 speed is %d MHz\n",,,,, clkoutX2_M3);
+        if(0 == clkst_clkoutX2_M3)
+        {
+            //GEL_TextOut("--->>> DPLL CLKOUTX2_M3 is GATED\n\n",,,,,);
+            clkoutX2_M3 = 0;
+        }
+        else
+        {
+            //GEL_TextOut("\t\tDPLL CLKOUTX2_M3 is ACTIVE\n\n",,,,,);
+        }
+    }
+
+    if(GENERIC_DPLL_CLKOUTX2_M3 == return_clk)
+    {
+        return clkoutX2_M3;
+    }
+    else if(GENERIC_DPLL_CLKOUTX2_M2 == return_clk)
+    {
+        return clkoutX2_M2;
+    }
+    else if(GENERIC_DPLL_CLKOUT_M2 == return_clk)
+    {
+        return clkout_M2;
+    }
+    else
+    {
+        return f_dpll;
+    }
+}
+
+dpll_get_clkout_speed_hsdiv(uint32_t base_address, uint32_t divider_val)
+{
+    if(0)
+    {
+        uint32_t divhs, clkst, f_dpll, f_divhs;
+        f_dpll = dpll_get_clkout_speed(base_address, GENERIC_DPLL_FDPLL, 0);
+        divhs = divider_val & 0x3F;
+        clkst = (divider_val >> 9) & 0x1;
+        if(clkst)
+        {
+            f_divhs = f_dpll/(divhs);
+        }
+        else
+        {
+            f_divhs = 0;
+        }
+        return f_divhs;
+    }
+}
+menuitem "CLOCK OUT Enable"
+
+hotmenu CLKOUT0_on_XREF_pin_ENABLE()
+{
+    unsigned int clkout_sel=0;
+    //any of Timer5-8 clock should be be selectedto clkoutmux_clk to Ungate the CLKOUT0
+    prcm_set_module_mode(IPU_CM_CORE_AON,   IPU_CM_CORE_AON__CM_IPU_TIMER5_CLKCTRL,         MODE_ENABLED,   0x0B000000, 0x0F000000  );
+    GEL_TextOut("--->>> TIMER5 Clock changed to CLKOUTMUX_CLK <<<---\n");
+
+    WR_MEM_32(0x4A00358C,1); //PAD config Xref pin function 1. Test Point on EVM
+    GEL_TextOut("--->>> XREF pad configured for CLKOUT0 output <<<---\n");
+
+    //    WR_MEM_32(0x4a0086a0 ,0x00000100); //Enabling dummy module for clkoutmux1
+
+    //CLKOUT0 selection
+    //0x00  : SYSCLK1
+    //0x01  : DPLL_EVE_VID_DSP_CLKOUT
+    //0x02  : SYSCLK1
+    //0x03  : Don't use
+    //0x04  : DPLL_DSP_GMAC CLKOUTHIF
+    //0x05  : No clock
+    //0x06  : No clock
+    //0x07  : CORE_DPLL_OUT
+    //0x08  : EMIF PHY GCLK
+    //0x09  : GMAC250MHz
+    //0x0A  : SYSCLK1
+    //0x0B  : SYSCLK1
+    //0x0C  : SYSCLK1
+    //0x0D  : FUN_96M_AON_CLK
+    //0x0E  : No clock
+    //0x0F  : SYSCLK1
+    //0x10  : SYSCLK1
+    //0x11  : No clock
+    //0x12  : No Clock
+    //0x13  : EMU_GCLK
+    //0x14  : 32KHz internal RC Oscillator (May not be accurate clock)
+    //0x15  :0x1F : Don't care
+
+    clkout_sel=0x01; // change this value as per the above table.
+
+    WR_MEM_32(0x4AE06158,clkout_sel);
+
+    GEL_TextOut("--->>> CLOCKOUT0 Enabled on XREF Pin <<<---\n");
+}
+hotmenu CLKOUT1_ENABLE()
+{
+    unsigned int clkout_sel=0x01;
+
+    //    WR_MEM_32(0x4A00340C,5); //PAD config gpmc_advn_ale pin function 5
+    WR_MEM_32(0x4A0034DC,4); //PAD config vout1_de. Test point on EVM
+    WR_MEM_32(0x4a0086a0 ,0x00000100); //Enabling dummy module for clkoutmux1
+
+    //CLKOUT0 selection
+    //0x00  : SYSCLK1
+    //0x01  : SYSCLK2
+    //0x02  : SYSCLK1
+    //0x03  : Don't use
+    //0x04  : DPLL_DSP_GMAC CLKOUTHIF
+    //0x05  : No clock
+    //0x06  : No clock
+    //0x07  : CORE_DPLL_OUT
+    //0x08  : EMIF PHY GCLK
+    //0x09  : GMAC250MHz
+    //0x0A  : SYSCLK1
+    //0x0B  : SYSCLK1
+    //0x0C  : SYSCLK1
+    //0x0D  : FUN_96M_AON_CLK
+    //0x0E  : No clock
+    //0x0F  : SYSCLK1
+    //0x10  : SYSCLK1
+    //0x11  : No clock
+    //0x12  : No Clock
+    //0x13  : EMU_GCLK
+    //0x14 : 32KHz internal RC Oscillator (May not be accurate clock)
+    //0x15  : DPLL_EVE_VID_DSP_CLKOUT
+    //0x16:0x1F : Don't care
+
+    clkout_sel=0; // change this value as per the above table.
+
+    WR_MEM_32(0x4AE0615C,clkout_sel);
+
+    GEL_TextOut("--->>> CLOCKOUT1 Enabled on gpmc_advn_ale Pin <<<---\n");
+}
+
+convertTemp(float device_temp)
+{
+    float temperature = 0.0;
+    int temp = 0;
+    if (device_temp - 833 > 0)
+    {
+        temperature = 0.40470 * (device_temp - 833) + 80.6;
+    }
+    else if (device_temp - 735.721 > 0)
+    {
+        temperature = 0.41196 * (device_temp - 735.721) + 40.6;
+    }
+    else if (device_temp - 639.875 > 0)
+    {
+        temperature = 0.41820 * (device_temp - 639.875) + 0.6;
+    }
+    else
+    {
+        temperature = 0.42240 * (device_temp - 544.177) - 39.8;
+    }
+
+    return temperature;
+}
+
+menuitem "Temperature Sensor Readings"
+hotmenu Readout_Temperatures()
+{
+    float device_temp;
+    float temperature;
+    float factor=10;
+
+    device_temp = (RD_MEM_32(0x4A002334) & 0x03FF);
+    temperature = convertTemp(device_temp);
+    GEL_TextOut("CORE Temperature:   %f degC\n",,,,,temperature);
+}

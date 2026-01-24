@@ -1,0 +1,1 @@
+Note: These GELs are an adaptation of the internal GEL framework, modified for use/distribution to customers via the CSP. 
